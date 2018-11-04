@@ -8,7 +8,7 @@
 /**
  * Tests for WP_REST_Blocks_Controller.
  */
-class REST_Blocks_Controller_Test extends WP_Test_REST_Controller_Testcase {
+class REST_Blocks_Controller_Test extends WP_UnitTestCase {
 
 	/**
 	 * Our fake block's post ID.
@@ -56,151 +56,124 @@ class REST_Blocks_Controller_Test extends WP_Test_REST_Controller_Testcase {
 	}
 
 	/**
-	 * Check that our routes get set up properly.
+	 * Test cases for test_capabilities().
 	 */
-	public function test_register_routes() {
-		$routes = $this->server->get_routes();
+	public function data_capabilities() {
+		return array(
+			array( 'create', 'editor', 201 ),
+			array( 'create', 'author', 201 ),
+			array( 'create', 'contributor', 403 ),
+			array( 'create', null, 401 ),
 
-		$this->assertArrayHasKey( '/wp/v2/blocks', $routes );
-		$this->assertCount( 2, $routes['/wp/v2/blocks'] );
-		$this->assertArrayHasKey( '/wp/v2/blocks/(?P<id>[\d]+)', $routes );
-		$this->assertCount( 3, $routes['/wp/v2/blocks/(?P<id>[\d]+)'] );
-	}
+			array( 'read', 'editor', 200 ),
+			array( 'read', 'author', 200 ),
+			array( 'read', 'contributor', 200 ),
+			array( 'read', null, 401 ),
 
-	/**
-	 * Check that we can GET a collection of blocks.
-	 */
-	public function test_get_items() {
-		wp_set_current_user( self::$user_id );
+			array( 'update_delete_own', 'editor', 200 ),
+			array( 'update_delete_own', 'author', 200 ),
+			array( 'update_delete_own', 'contributor', 403 ),
 
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/blocks' );
-		$response = $this->server->dispatch( $request );
-
-		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals(
-			array(
-				array(
-					'id'      => self::$post_id,
-					'title'   => 'My cool block',
-					'content' => '<!-- wp:core/paragraph --><p>Hello!</p><!-- /wp:core/paragraph -->',
-				),
-			), $response->get_data()
+			array( 'update_delete_others', 'editor', 200 ),
+			array( 'update_delete_others', 'author', 403 ),
+			array( 'update_delete_others', 'contributor', 403 ),
+			array( 'update_delete_others', null, 401 ),
 		);
 	}
 
 	/**
-	 * Check that we can GET a single block.
+	 * Exhaustively check that each role either can or cannot create, edit,
+	 * update, and delete reusable blocks.
+	 *
+	 * @dataProvider data_capabilities
 	 */
-	public function test_get_item() {
-		wp_set_current_user( self::$user_id );
+	public function test_capabilities( $action, $role, $expected_status ) {
+		if ( $role ) {
+			$user_id = $this->factory->user->create( array( 'role' => $role ) );
+			wp_set_current_user( $user_id );
+		} else {
+			wp_set_current_user( 0 );
+		}
 
-		$request  = new WP_REST_Request( 'GET', '/wp/v2/blocks/' . self::$post_id );
-		$response = $this->server->dispatch( $request );
+		switch ( $action ) {
+			case 'create':
+				$request = new WP_REST_Request( 'POST', '/wp/v2/blocks' );
+				$request->set_body_params(
+					array(
+						'title'   => 'Test',
+						'content' => '<!-- wp:core/paragraph --><p>Test</p><!-- /wp:core/paragraph -->',
+					)
+				);
 
-		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals(
-			array(
-				'id'      => self::$post_id,
-				'title'   => 'My cool block',
-				'content' => '<!-- wp:core/paragraph --><p>Hello!</p><!-- /wp:core/paragraph -->',
-			), $response->get_data()
-		);
-	}
+				$response = rest_get_server()->dispatch( $request );
+				$this->assertEquals( $expected_status, $response->get_status() );
 
-	/**
-	 * Check that we can POST to create a new block.
-	 */
-	public function test_create_item() {
-		wp_set_current_user( self::$user_id );
+				break;
 
-		$request = new WP_REST_Request( 'POST', '/wp/v2/blocks/' . self::$post_id );
-		$request->set_body_params(
-			array(
-				'title'   => 'New cool block',
-				'content' => '<!-- wp:core/paragraph --><p>Wow!</p><!-- /wp:core/paragraph -->',
-			)
-		);
+			case 'read':
+				$request = new WP_REST_Request( 'GET', '/wp/v2/blocks/' . self::$post_id );
 
-		$response = $this->server->dispatch( $request );
+				$response = rest_get_server()->dispatch( $request );
+				$this->assertEquals( $expected_status, $response->get_status() );
 
-		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals(
-			array(
-				'id'      => self::$post_id,
-				'title'   => 'New cool block',
-				'content' => '<!-- wp:core/paragraph --><p>Wow!</p><!-- /wp:core/paragraph -->',
-			), $response->get_data()
-		);
-	}
+				break;
 
-	/**
-	 * Check that we can PUT to update a block.
-	 */
-	public function test_update_item() {
-		wp_set_current_user( self::$user_id );
+			case 'update_delete_own':
+				$post_id = wp_insert_post(
+					array(
+						'post_type'    => 'wp_block',
+						'post_status'  => 'publish',
+						'post_title'   => 'My cool block',
+						'post_content' => '<!-- wp:core/paragraph --><p>Hello!</p><!-- /wp:core/paragraph -->',
+						'post_author'  => $user_id,
+					)
+				);
 
-		$request = new WP_REST_Request( 'PUT', '/wp/v2/blocks/' . self::$post_id );
-		$request->set_body_params(
-			array(
-				'title'   => 'Updated cool block',
-				'content' => '<!-- wp:core/paragraph --><p>Nice!</p><!-- /wp:core/paragraph -->',
-			)
-		);
+				$request = new WP_REST_Request( 'PUT', '/wp/v2/blocks/' . $post_id );
+				$request->set_body_params(
+					array(
+						'title'   => 'Test',
+						'content' => '<!-- wp:core/paragraph --><p>Test</p><!-- /wp:core/paragraph -->',
+					)
+				);
 
-		$response = $this->server->dispatch( $request );
+				$response = rest_get_server()->dispatch( $request );
+				$this->assertEquals( $expected_status, $response->get_status() );
 
-		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals(
-			array(
-				'id'      => self::$post_id,
-				'title'   => 'Updated cool block',
-				'content' => '<!-- wp:core/paragraph --><p>Nice!</p><!-- /wp:core/paragraph -->',
-			), $response->get_data()
-		);
-	}
+				$request = new WP_REST_Request( 'DELETE', '/wp/v2/blocks/' . $post_id );
 
-	/**
-	 * Check that we can DELETE a block.
-	 */
-	public function test_delete_item() {
-		wp_set_current_user( self::$user_id );
+				$response = rest_get_server()->dispatch( $request );
+				$this->assertEquals( $expected_status, $response->get_status() );
 
-		$request = new WP_REST_Request( 'DELETE', '/wp/v2/blocks/' . self::$post_id );
+				wp_delete_post( $post_id );
 
-		$response = $this->server->dispatch( $request );
+				break;
 
-		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals(
-			array(
-				'deleted'  => true,
-				'previous' => array(
-					'id'      => self::$post_id,
-					'title'   => 'My cool block',
-					'content' => '<!-- wp:core/paragraph --><p>Hello!</p><!-- /wp:core/paragraph -->',
-				),
-			), $response->get_data()
-		);
-	}
+			case 'update_delete_others':
+				$request = new WP_REST_Request( 'PUT', '/wp/v2/blocks/' . self::$post_id );
+				$request->set_body_params(
+					array(
+						'title'   => 'Test',
+						'content' => '<!-- wp:core/paragraph --><p>Test</p><!-- /wp:core/paragraph -->',
+					)
+				);
 
-	/**
-	 * Check that we have defined a JSON schema.
-	 */
-	public function test_get_item_schema() {
-		$request    = new WP_REST_Request( 'OPTIONS', '/wp/v2/blocks' );
-		$response   = $this->server->dispatch( $request );
-		$data       = $response->get_data();
-		$properties = $data['schema']['properties'];
+				$response = rest_get_server()->dispatch( $request );
+				$this->assertEquals( $expected_status, $response->get_status() );
 
-		$this->assertEquals( 3, count( $properties ) );
-		$this->assertArrayHasKey( 'id', $properties );
-		$this->assertArrayHasKey( 'title', $properties );
-		$this->assertArrayHasKey( 'content', $properties );
-	}
+				$request = new WP_REST_Request( 'DELETE', '/wp/v2/blocks/' . self::$post_id );
 
-	public function test_context_param() {
-		$this->markTestSkipped( 'Controller doesn\'t implement get_context_param().' );
-	}
-	public function test_prepare_item() {
-		$this->markTestSkipped( 'Controller doesn\'t implement prepare_item().' );
+				$response = rest_get_server()->dispatch( $request );
+				$this->assertEquals( $expected_status, $response->get_status() );
+
+				break;
+
+			default:
+				$this->fail( "'$action' is not a valid action." );
+		}
+
+		if ( isset( $user_id ) ) {
+			self::delete_user( $user_id );
+		}
 	}
 }

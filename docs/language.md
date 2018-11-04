@@ -22,7 +22,7 @@ Additionally, how do we even know this came from our editor? Maybe someone snuck
 
 A Gutenberg post is the proper block-aware representation of a post, a collection of semantically consistent descriptions of what each block is and what its essential data is. This representation only ever exists in memory. It is the [chase](https://en.wikipedia.org/wiki/Chase_(printing)) in the typesetter's workshop, ever-shifting as sorts are attached and repositioned.
 
-A Gutenberg post is not the artefact it produces, namely the `post_content`. The latter is the printed page, optimized for the reader, but retaining its invisible markings for later editing.
+A Gutenberg post is not the artifact it produces, namely the `post_content`. The latter is the printed page, optimized for the reader, but retaining its invisible markings for later editing.
 
 Later sections of this document will refer to _Gutenberg post_ and to _blocks_. These are to be assumed to not be the `post_content` or the invisible markings.
 
@@ -79,7 +79,7 @@ After running this through the parser we're left with a simple object we can man
 
 This has dramatic implications for how simple and performant we can make our parser. These explicit boundaries also protect damage in a single block from bleeding into other blocks or tarnishing the entire document. It also allows the system to identify unrecognized blocks before rendering them.
 
-_N.B.:_ The defining aspect of blocks are their semantics and the isolation mechanism they provide; in other words, their identity. On the other hand, where their data is stored is a more liberal aspect. Blocks support more than just static local data (via JSON literals inside the HTML comment or within the block's HTML), and more mechanisms (_e.g._, global blocks or otherwise resorting to storage in complementary `WP_Post` objects) are expected. See [attributes](../block-api/attributes) for details.
+_N.B.:_ The defining aspect of blocks are their semantics and the isolation mechanism they provide; in other words, their identity. On the other hand, where their data is stored is a more liberal aspect. Blocks support more than just static local data (via JSON literals inside the HTML comment or within the block's HTML), and more mechanisms (_e.g._, global blocks or otherwise resorting to storage in complementary `WP_Post` objects) are expected. See [attributes](../docs/block-api/attributes.md) for details.
 
 ## The Anatomy of a Serialized Block
 

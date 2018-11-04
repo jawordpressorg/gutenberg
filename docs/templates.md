@@ -42,9 +42,13 @@ Planned additions:
 
 ## API
 
+<<<<<<< HEAD
 <!--
 
 Tempates can be declared in JS or in PHP as an array of blockTypes (block name and optional attributes).
+=======
+Templates can be declared in JS or in PHP as an array of blockTypes (block name and optional attributes).
+>>>>>>> upstream/master
 
 -->
 
@@ -74,7 +78,7 @@ A custom post type can register its own template during registration:
 カスタム投稿タイプ登録時に独自のテンプレートを登録できます。
 
 ```php
-function register_post_type() {
+function myplugin_register_book_post_type() {
 	$args = array(
 		'public' => true,
 		'label'  => 'Books',
@@ -93,7 +97,7 @@ function register_post_type() {
 	);
 	register_post_type( 'book', $args );
 }
-add_action( 'init', 'register_post_type' );
+add_action( 'init', 'myplugin_register_book_post_type' );
 ```
 <!--
 
@@ -115,8 +119,8 @@ Sometimes the intention might be to lock the template on the UI so that the bloc
 
 *Options:*
 
-- `all` — prevents all operations.
-- `insert` — prevents inserting new blocks, but allows moving existing ones.
+- `all` — prevents all operations. It is not possible to insert new blocks, move existing blocks, or delete blocks.
+- `insert` — prevents inserting or removing blocks, but allows moving existing blocks.
 
 -->
 
@@ -148,4 +152,26 @@ function my_add_template_to_posts() {
 	$post_type_object->template_lock = 'all';
 }
 add_action( 'init', 'my_add_template_to_posts' );
+```
+
+## Nested Templates
+
+Container blocks like the columns blocks also support templates. This is achieved by assigned a nested template to the block.
+
+```php
+$template = array(
+	array( 'core/paragraph', array(
+		'placeholder' => 'Add a root-level paragraph',
+	) ),
+	array( 'core/columns', array(), array(
+		array( 'core/column', array(), array(
+			array( 'core/image', array() ),
+		) ),
+		array( 'core/column', array(), array(
+			array( 'core/paragraph', array(
+				'placeholder' => 'Add a inner paragraph'
+			) ),
+		) ),
+	) )
+);
 ```

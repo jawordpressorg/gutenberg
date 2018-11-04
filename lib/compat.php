@@ -70,56 +70,22 @@ function _gutenberg_utf8_split( $str ) {
 }
 
 /**
- * Shims wp-api-request for WordPress installations not running 4.9-alpha or
- * newer.
- *
- * @see https://core.trac.wordpress.org/ticket/40919
- *
- * @since 0.10.0
- */
-function gutenberg_ensure_wp_api_request() {
-	if ( wp_script_is( 'wp-api-request', 'registered' ) ||
-			! wp_script_is( 'wp-api-request-shim', 'registered' ) ) {
-		return;
-	}
-
-	global $wp_scripts;
-
-	// Define script using existing shim. We do this because we must define the
-	// vendor script in client-assets.php, but want to use consistent handle.
-	$shim = $wp_scripts->registered['wp-api-request-shim'];
-	wp_register_script(
-		'wp-api-request',
-		$shim->src,
-		$shim->deps,
-		$shim->ver
-	);
-
-	// Localize wp-api-request using wp-api handle data (swapped in 4.9-alpha).
-	$wp_api_localized_data = $wp_scripts->get_data( 'wp-api', 'data' );
-	if ( false !== $wp_api_localized_data ) {
-		wp_add_inline_script( 'wp-api-request', $wp_api_localized_data, 'before' );
-	}
-}
-add_action( 'wp_enqueue_scripts', 'gutenberg_ensure_wp_api_request', 20 );
-add_action( 'admin_enqueue_scripts', 'gutenberg_ensure_wp_api_request', 20 );
-
-/**
  * Disables wpautop behavior in classic editor when post contains blocks, to
  * prevent removep from invalidating paragraph blocks.
  *
- * @param  array $settings Original editor settings.
- * @return array           Filtered settings.
+ * @param  array  $settings  Original editor settings.
+ * @param  string $editor_id ID for the editor instance.
+ * @return array             Filtered settings.
  */
-function gutenberg_disable_editor_settings_wpautop( $settings ) {
+function gutenberg_disable_editor_settings_wpautop( $settings, $editor_id ) {
 	$post = get_post();
-	if ( is_object( $post ) && gutenberg_post_has_blocks( $post ) ) {
+	if ( 'content' === $editor_id && is_object( $post ) && has_blocks( $post ) ) {
 		$settings['wpautop'] = false;
 	}
 
 	return $settings;
 }
-add_filter( 'wp_editor_settings', 'gutenberg_disable_editor_settings_wpautop' );
+add_filter( 'wp_editor_settings', 'gutenberg_disable_editor_settings_wpautop', 10, 2 );
 
 /**
  * Add rest nonce to the heartbeat response.
@@ -131,30 +97,7 @@ function gutenberg_add_rest_nonce_to_heartbeat_response_headers( $response ) {
 	$response['rest-nonce'] = wp_create_nonce( 'wp_rest' );
 	return $response;
 }
-
 add_filter( 'wp_refresh_nonces', 'gutenberg_add_rest_nonce_to_heartbeat_response_headers' );
-
-/**
- * Ensure that the wp-json index contains the `permalink_structure` setting as
- * part of its site info elements.
- *
- * @see https://core.trac.wordpress.org/ticket/42465
- *
- * @param WP_REST_Response $response WP REST API response of the wp-json index.
- * @return WP_REST_Response Response that contains the permalink structure.
- */
-function gutenberg_ensure_wp_json_has_permalink_structure( $response ) {
-	$site_info = $response->get_data();
-
-	if ( ! array_key_exists( 'permalink_structure', $site_info ) ) {
-		$site_info['permalink_structure'] = get_option( 'permalink_structure' );
-	}
-
-	$response->set_data( $site_info );
-
-	return $response;
-}
-add_filter( 'rest_index', 'gutenberg_ensure_wp_json_has_permalink_structure' );
 
 /**
  * As a substitute for the default content `wpautop` filter, applies autop
@@ -164,71 +107,200 @@ add_filter( 'rest_index', 'gutenberg_ensure_wp_json_has_permalink_structure' );
  * @return string          Paragraph-converted text if non-block content.
  */
 function gutenberg_wpautop( $content ) {
-	if ( gutenberg_content_has_blocks( $content ) ) {
+	if ( has_blocks( $content ) ) {
 		return $content;
 	}
 
 	return wpautop( $content );
 }
 remove_filter( 'the_content', 'wpautop' );
-add_filter( 'the_content', 'gutenberg_wpautop', 8 );
+add_filter( 'the_content', 'gutenberg_wpautop', 6 );
+
 
 /**
- * Includes the value for the custom field `post_type_capabities` inside the REST API response of user.
+ * Check if we need to load the block warning in the Classic Editor.
  *
- * TODO: This is a temporary solution. Next step would be to edit the WP_REST_Users_Controller,
- * once merged into Core.
- *
- * @since ?
- *
- * @param array           $user An array containing user properties.
- * @param string          $name The name of the custom field.
- * @param WP_REST_Request $request Full details about the REST API request.
- * @return object The Post Type capabilities.
+ * @since 3.4.0
  */
-function gutenberg_get_post_type_capabilities( $user, $name, $request ) {
-	$post_type = $request->get_param( 'post_type' );
-	$value     = new stdClass;
+function gutenberg_check_if_classic_needs_warning_about_blocks() {
+	global $pagenow;
 
-	if ( ! empty( $user['id'] ) && $post_type && post_type_exists( $post_type ) ) {
-		// The Post Type object contains the Post Type's specific caps.
-		$post_type_object = get_post_type_object( $post_type );
-
-		// Loop in the Post Type's caps to validate the User's caps for it.
-		foreach ( $post_type_object->cap as $post_cap => $post_type_cap ) {
-			// Ignore caps requiring a post ID.
-			if ( in_array( $post_cap, array( 'edit_post', 'read_post', 'delete_post' ) ) ) {
-				continue;
-			}
-
-			// Set the User's post type capability.
-			$value->{$post_cap} = user_can( $user['id'], $post_type_cap );
-		}
+	if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ), true ) || ! isset( $_REQUEST['classic-editor'] ) ) {
+		return;
 	}
 
-	return $value;
+	$post = get_post();
+	if ( ! $post ) {
+		return;
+	}
+
+	if ( ! has_blocks( $post ) ) {
+		return;
+	}
+
+	// Enqueue the JS we're going to need in the dialog.
+	wp_enqueue_script( 'wp-a11y' );
+	wp_enqueue_script( 'wp-sanitize' );
+
+	add_action( 'admin_footer', 'gutenberg_warn_classic_about_blocks' );
 }
+add_action( 'admin_enqueue_scripts', 'gutenberg_check_if_classic_needs_warning_about_blocks' );
 
 /**
- * Adds the custom field `post_type_capabities` to the REST API response of user.
+ * Adds a warning to the Classic Editor when trying to edit a post containing blocks.
  *
- * TODO: This is a temporary solution. Next step would be to edit the WP_REST_Users_Controller,
- * once merged into Core.
- *
- * @since ?
+ * @since 3.4.0
  */
-function gutenberg_register_rest_api_post_type_capabilities() {
-	register_rest_field( 'user',
-		'post_type_capabilities',
+function gutenberg_warn_classic_about_blocks() {
+	$post = get_post();
+
+	$gutenberg_edit_link = get_edit_post_link( $post->ID, 'raw' );
+
+	$classic_edit_link = $gutenberg_edit_link;
+	$classic_edit_link = add_query_arg(
 		array(
-			'get_callback' => 'gutenberg_get_post_type_capabilities',
-			'schema'       => array(
-				'description' => __( 'Post Type capabilities for the user.', 'gutenberg' ),
-				'type'        => 'object',
-				'context'     => array( 'edit' ),
-				'readonly'    => true,
-			),
-		)
+			'classic-editor'     => '',
+			'hide-block-warning' => '',
+		),
+		$classic_edit_link
 	);
+
+	$revisions_link = '';
+	if ( wp_revisions_enabled( $post ) ) {
+		$revisions = wp_get_post_revisions( $post );
+
+		// If there's only one revision, that won't help.
+		if ( count( $revisions ) > 1 ) {
+			reset( $revisions ); // Reset pointer for key().
+			$revisions_link = get_edit_post_link( key( $revisions ) );
+		}
+	}
+	?>
+		<style type="text/css">
+			#blocks-in-post-dialog .notification-dialog {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				width: 500px;
+				box-sizing: border-box;
+				transform: translate(-50%, -50%);
+				margin: 0;
+				padding: 25px;
+				max-height: 90%;
+				background: #fff;
+				box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+				line-height: 1.5;
+				z-index: 1000005;
+				overflow-y: auto;
+			}
+
+			@media only screen and (max-height: 480px), screen and (max-width: 450px) {
+				#blocks-in-post-dialog .notification-dialog {
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					transform: none;
+					max-height: 100%;
+				}
+			}
+		</style>
+
+		<div id="blocks-in-post-dialog" class="notification-dialog-wrap">
+			<div class="notification-dialog-background"></div>
+			<div class="notification-dialog">
+				<div class="blocks-in-post-message">
+					<p><?php _e( 'This post was previously edited in Gutenberg. You can continue in the Classic Editor, but you may lose data and formatting.', 'gutenberg' ); ?></p>
+					<?php
+					if ( $revisions_link ) {
+						?>
+							<p>
+							<?php
+								/* translators: link to the post revisions page */
+								printf( __( 'You can also <a href="%s">browse previous revisions</a> and restore a version of the post before it was edited in Gutenberg.', 'gutenberg' ), esc_url( $revisions_link ) );
+							?>
+							</p>
+						<?php
+					} else {
+						?>
+							<p><strong><?php _e( 'Because this post does not have revisions, you will not be able to revert any changes you make in the Classic Editor.', 'gutenberg' ); ?></strong></p>
+						<?php
+					}
+					?>
+				</div>
+				<p>
+					<a class="button button-primary blocks-in-post-gutenberg-button" href="<?php echo esc_url( $gutenberg_edit_link ); ?>"><?php _e( 'Edit in Gutenberg', 'gutenberg' ); ?></a>
+					<button type="button" class="button blocks-in-post-classic-button"><?php _e( 'Continue to Classic Editor', 'gutenberg' ); ?></button>
+				</p>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			/* <![CDATA[ */
+			( function( $ ) {
+				var dialog = {};
+
+				dialog.init = function() {
+					// The modal
+					dialog.warning = $( '#blocks-in-post-dialog' );
+					// Get the links and buttons within the modal.
+					dialog.warningTabbables = dialog.warning.find( 'a, button' );
+
+					// Get the text within the modal.
+					dialog.rawMessage = dialog.warning.find( '.blocks-in-post-message' ).text();
+
+					// Hide all the #wpwrap content from assistive technologies.
+					$( '#wpwrap' ).attr( 'aria-hidden', 'true' );
+
+					// Detach the warning modal from its position and append it to the body.
+					$( document.body )
+						.addClass( 'modal-open' )
+						.append( dialog.warning.detach() );
+
+					// Reveal the modal and set focus on the Gutenberg button.
+					dialog.warning
+						.removeClass( 'hidden' )
+						.find( '.blocks-in-post-gutenberg-button' ).focus();
+
+					// Attach event handlers.
+					dialog.warningTabbables.on( 'keydown', dialog.constrainTabbing );
+					dialog.warning.on( 'click', '.blocks-in-post-classic-button', dialog.dismissWarning );
+
+					// Make screen readers announce the warning message after a short delay (necessary for some screen readers).
+					setTimeout( function() {
+						wp.a11y.speak( wp.sanitize.stripTags( dialog.rawMessage.replace( /\s+/g, ' ' ) ), 'assertive' );
+					}, 1000 );
+				};
+
+				dialog.constrainTabbing = function( event ) {
+					var firstTabbable, lastTabbable;
+
+					if ( 9 !== event.which ) {
+						return;
+					}
+
+					firstTabbable = dialog.warningTabbables.first()[0];
+					lastTabbable = dialog.warningTabbables.last()[0];
+
+					if ( lastTabbable === event.target && ! event.shiftKey ) {
+						firstTabbable.focus();
+						event.preventDefault();
+					} else if ( firstTabbable === event.target && event.shiftKey ) {
+						lastTabbable.focus();
+						event.preventDefault();
+					}
+				};
+
+				dialog.dismissWarning = function() {
+					// Hide modal.
+					dialog.warning.remove();
+					$( '#wpwrap' ).removeAttr( 'aria-hidden' );
+					$( 'body' ).removeClass( 'modal-open' );
+				};
+
+				$( document ).ready( dialog.init );
+			} )( jQuery );
+			/* ]]> */
+		</script>
+	<?php
 }
-add_action( 'rest_api_init', 'gutenberg_register_rest_api_post_type_capabilities' );

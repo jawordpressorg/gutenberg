@@ -1,8 +1,12 @@
 <!--
 # Extensibility
 
+<<<<<<< HEAD
 Extensibility is key for WordPress and like the rest of WordPress components, Gutenberg is highly extensible.
 -->
+=======
+Extensibility is key for WordPress and, like the rest of WordPress components, Gutenberg is highly extensible.
+>>>>>>> upstream/master
 
 # 拡張性
 
@@ -11,7 +15,7 @@ Extensibility is key for WordPress and like the rest of WordPress components, Gu
 <!--
 ## Creating Blocks
 
-Gutenberg is about blocks and the main extensibility API of Gutenberg is the Block API. It allows you to create static blocks, dynamic blocks rendering on the server and also blocks saving data to Post Meta for more structured content.
+Gutenberg is about blocks, and the main extensibility API of Gutenberg is the Block API. It allows you to create your own static blocks, dynamic blocks rendered on the server and also blocks capable of saving data to Post Meta for more structured content.
 
 Here is a small example of a static custom block type (you can try it in your browser's console):
 -->
@@ -20,6 +24,8 @@ Here is a small example of a static custom block type (you can try it in your br
 
 Gutenbergはブロックに関するものであり、Gutenbergの拡張APIの中心はブロックAPIです。静的ブロックや、サーバサイドで描画される動的ブロックをはじめ、より構造化されたコンテンツのためにポストメタにデータを保存するようなブロックの作成も可能です。ここでは、静的なカスタムブロックタイプの、小さなサンプルコードを紹介します（ブラウザのコンソールでも試すことができます）:
 
+{% codetabs %}
+{% ES5 %}
 ```js
 var el = wp.element.createElement;
 
@@ -35,6 +41,7 @@ wp.blocks.registerBlockType( 'mytheme/red-block', {
 	}
 } );
 ```
+<<<<<<< HEAD
 
 <!--
 If you want to learn more about block creation, The [Blocks Tutorial](./blocks) is the best place to start.
@@ -110,9 +117,32 @@ wp.blocks.getBlockTypes().forEach( function( blockType ) {
 ```
 <!--
 ## Hiding blocks from the inserter
+=======
+{% ESNext %}
+```js
+const { registerBlockType } = wp.blocks;
+const blockStyle = { backgroundColor: '#900', color: '#fff', padding: '20px' };
 
-On the server, you can filter the list of blocks shown in the inserter using the `allowed_block_types` filter. you can return either true (all block types supported), false (no block types supported), or an array of block type names to allow.
+registerBlockType( 'mytheme/red-block', {
+	title: 'Red Block',
+	icon: 'universal-access-alt',
+	category: 'layout',
+	edit: function() {
+		return <div style={ blockStyle }>I am a red block</div>
+	},
+	save: function() {
+		return <div style={ blockStyle }>I am a red block</div>
+	}
+} );
+```
+{% end %}
 
+If you want to learn more about block creation, the [Blocks Tutorial](../docs/blocks.md) is the best place to start.
+>>>>>>> upstream/master
+
+## Extending Blocks
+
+<<<<<<< HEAD
 todo: you can return => You can return
 -->
 
@@ -128,19 +158,27 @@ add_filter( 'allowed_block_types', function() {
 
 <!--
 ## Modifying Blocks (Experimental)
+=======
+It is also possible to modify the behavior of existing blocks or even remove them completely using filters.
 
-To modify the behaviour of existing blocks, Gutenberg exposes a list of filters:
+Learn more in the [Extending Blocks](../docs/extensibility/extending-blocks.md) section.
 
-- `blocks.registerBlockType`: Used to filter the block settings. It receives the block settings and the name of the block the registered block as arguments.
+## Extending the Editor UI
+>>>>>>> upstream/master
 
-- `blocks.getSaveElement`: A filter that applies to the result of a block's `save` function. This filter is used to replace or extend the element, for example using `wp.element.cloneElement` to modify the element's props or replace its children, or returning an entirely new element.
+Extending the editor UI can be accomplished with the `registerPlugin` API, allowing you to define all your plugin's UI elements in one place.
 
-- `blocks.getSaveContent.extraProps`: A filter that applies to all blocks returning a WP Element in the `save` function. This filter is used to add extra props to the root element of the `save` function. For example: to add a className, an id, or any valid prop for this element. It receives the current props of the `save` element, the block Type and the block attributes as arguments.
+Refer to the [Plugins](https://github.com/WordPress/gutenberg/blob/master/packages/plugins/README.md) and [Edit Post](https://github.com/WordPress/gutenberg/blob/master/packages/edit-post/README.md) section for more information.
 
-- `blocks.BlockEdit`: Used to modify the block's `edit` component. It receives the original block `edit` component and returns a new wrapped component.
+## Meta Boxes
 
-**Example**
+**Porting PHP meta boxes to blocks is highly encouraged!**
 
+Discover how [Meta Box](../docs/extensibility/meta-box.md) support works in Gutenberg.
+
+## Theme Support
+
+<<<<<<< HEAD
 Adding a background by default to all blocks.
 -->
 
@@ -176,9 +214,21 @@ wp.hooks.addFilter(
 ```
 <!--
 _Note:_ This filter must always be run on every page load, and not in your browser's developer tools console. Otherwise, a [block validation](https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/#validation) error will occur the next time the post is edited. This is due to the fact that block validation occurs by verifying that the saved output matches what is stored in the post's content during editor initialization. So, if this filter does not exist when the editor loads, the block will be marked as invalid.
+=======
+By default, blocks provide their styles to enable basic support for blocks in themes without any change. Themes can add/override these styles, or rely on defaults.
 
-## Extending the editor's UI (Slot and Fill)
+There are some advanced block features which require opt-in support in the theme. See [theme support](../docs/extensibility/theme-support.md).
 
+## Autocomplete
+
+Autocompleters within blocks may be extended and overridden. See [autocomplete](../docs/extensibility/autocomplete.md).
+
+## Block Parsing and Serialization
+>>>>>>> upstream/master
+
+Posts in the editor move through a couple of different stages between being stored in `post_content` and appearing in the editor. Since the blocks themselves are data structures that live in memory it takes a parsing and serialization step to transform out from and into the stored format in the database.
+
+<<<<<<< HEAD
 Coming soon.
 -->
 
@@ -187,3 +237,6 @@ _注意:_ このフィルターは全てのページ読み込みに際して実�
 ## エディターUIの拡張（スロットとフィル）
 
 Coming soon.
+=======
+Customizing the parser is an advanced topic that you can learn more about in the [Extending the Parser](../docs/extensibility/parser.md) section.
+>>>>>>> upstream/master

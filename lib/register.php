@@ -10,44 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Set up global variables so that plugins will add meta boxes as if we were
- * using the main editor.
- *
- * @since 1.5.0
- */
-function gutenberg_trick_plugins_into_registering_meta_boxes() {
-	global $pagenow;
-
-	if ( in_array( $pagenow, array( 'post.php', 'post-new.php' ), true ) && ! isset( $_REQUEST['classic-editor'] ) ) {
-		// As early as possible, but after any plugins ( ACF ) that adds meta boxes.
-		add_action( 'admin_head', 'gutenberg_collect_meta_box_data', 99 );
-	}
-}
-// As late as possible, but before any logic that adds meta boxes.
-add_action(
-	'plugins_loaded',
-	'gutenberg_trick_plugins_into_registering_meta_boxes'
-);
-
-/**
  * Collect information about meta_boxes registered for the current post.
  *
- * This is used to tell React and Redux whether the meta box location has
- * meta boxes.
+ * Redirects to classic editor if a meta box is incompatible.
  *
  * @since 1.5.0
  */
 function gutenberg_collect_meta_box_data() {
-	global $_gutenberg_restore_globals_after_meta_boxes, $current_screen, $wp_meta_boxes, $post, $typenow;
-
-	// Depending on whether we are creating a post or editing one this may need to be different.
-	$potential_hookname = 'post';
-
-	// Set original screen to return to.
-	$GLOBALS['_gutenberg_restore_globals_after_meta_boxes']['current_screen'] = $current_screen;
-
-	// Override screen as though we are on post.php We have access to WP_Screen etc. by this point.
-	WP_Screen::get( $potential_hookname )->set_current_screen();
+	global $current_screen, $wp_meta_boxes, $post, $typenow;
 
 	$screen = $current_screen;
 
@@ -55,11 +25,22 @@ function gutenberg_collect_meta_box_data() {
 	if ( isset( $_REQUEST['post'] ) ) {
 		$post    = get_post( absint( $_REQUEST['post'] ) );
 		$typenow = $post->post_type;
+
+		if ( ! gutenberg_can_edit_post( $post->ID ) ) {
+			return;
+		}
 	} else {
 		// Eventually add handling for creating new posts of different types in Gutenberg.
 	}
 	$post_type        = $post->post_type;
 	$post_type_object = get_post_type_object( $post_type );
+
+	if ( ! gutenberg_can_edit_post_type( $post_type ) ) {
+		return;
+	}
+
+	// Disable hidden metaboxes because there's no UI to toggle visibility.
+	add_filter( 'hidden_meta_boxes', '__return_empty_array' );
 
 	$thumbnail_support = current_theme_supports( 'post-thumbnails', $post_type ) && post_type_supports( $post_type, 'thumbnail' );
 	if ( ! $thumbnail_support && 'attachment' === $post_type && $post->post_mime_type ) {
@@ -79,8 +60,6 @@ function gutenberg_collect_meta_box_data() {
 	 * do_meta_boxes( null, 'normal', $post );
 	 * do_meta_boxes( null, 'advanced', $post );
 	 */
-	$meta_boxes_output = array();
-
 	$publish_callback_args = null;
 	if ( post_type_supports( $post_type, 'revisions' ) && 'auto-draft' !== $post->post_status ) {
 		$revisions = wp_get_post_revisions( $post->ID );
@@ -217,63 +196,35 @@ function gutenberg_collect_meta_box_data() {
 	 */
 	$_meta_boxes_copy = apply_filters( 'filter_gutenberg_meta_boxes', $_meta_boxes_copy );
 
-	$meta_box_data = array();
-
-	// If the meta box should be empty set to false.
+	// Redirect to classic editor if a meta box is incompatible.
 	foreach ( $locations as $location ) {
-		if ( gutenberg_is_meta_box_empty( $_meta_boxes_copy, $location, $post->post_type ) ) {
-			$meta_box_data[ $location ] = false;
-		} else {
-			$meta_box_data[ $location ] = true;
-			$incompatible_meta_box      = false;
-			// Check if we have a meta box that has declared itself incompatible with the block editor.
-			foreach ( $_meta_boxes_copy[ $post->post_type ][ $location ] as $boxes ) {
-				foreach ( $boxes as $box ) {
-					/*
-					 * If __block_editor_compatible_meta_box is declared as a false-y value,
-					 * the meta box is not compatible with the block editor.
-					 */
-					if ( is_array( $box['args'] )
-						&& isset( $box['args']['__block_editor_compatible_meta_box'] )
-						&& ! $box['args']['__block_editor_compatible_meta_box'] ) {
-							$incompatible_meta_box = true;
-							break 2;
-					}
+		if ( ! isset( $_meta_boxes_copy[ $post->post_type ][ $location ] ) ) {
+			continue;
+		}
+		// Check if we have a meta box that has declared itself incompatible with the block editor.
+		foreach ( $_meta_boxes_copy[ $post->post_type ][ $location ] as $boxes ) {
+			foreach ( $boxes as $box ) {
+				/*
+				 * If __block_editor_compatible_meta_box is declared as a false-y value,
+				 * the meta box is not compatible with the block editor.
+				 */
+				if ( is_array( $box['args'] )
+					&& isset( $box['args']['__block_editor_compatible_meta_box'] )
+					&& ! $box['args']['__block_editor_compatible_meta_box'] ) {
+						$incompatible_meta_box = true;
+					?>
+						<script type="text/javascript">
+							var joiner = '?';
+							if ( window.location.search ) {
+								joiner = '&';
+							}
+							window.location.href += joiner + 'classic-editor';
+						</script>
+						<?php
+						exit;
 				}
 			}
-
-			// Incompatible meta boxes require an immediate redirect to the classic editor.
-			if ( $incompatible_meta_box ) {
-				?>
-				<script type="text/javascript">
-					var joiner = '?';
-					if ( window.location.search ) {
-						joiner = '&';
-					}
-					window.location.href += joiner + 'classic-editor';
-				</script>
-				<?php
-				exit;
-			}
 		}
-	}
-
-	/**
-	 * Sadly we probably can not add this data directly into editor settings.
-	 *
-	 * ACF and other meta boxes need admin_head to fire for meta box registry.
-	 * admin_head fires after admin_enqueue_scripts which is where we create our
-	 * editor instance. If a cleaner solution can be imagined, please change
-	 * this, and try to get this data to load directly into the editor settings.
-	 */
-	wp_add_inline_script(
-		'wp-edit-post',
-		'window._wpLoadGutenbergEditor.then( function( editor ) { editor.initializeMetaBoxes( ' . wp_json_encode( $meta_box_data ) . ' ) } );'
-	);
-
-	// Restore any global variables that we temporarily modified above.
-	foreach ( $_gutenberg_restore_globals_after_meta_boxes as $name => $value ) {
-		$GLOBALS[ $name ] = $value;
 	}
 }
 
@@ -282,24 +233,44 @@ function gutenberg_collect_meta_box_data() {
  *
  * @since 0.5.0
  *
- * @param int|WP_Post $post_id Post.
+ * @param int|WP_Post $post Post ID or WP_Post object.
  * @return bool Whether the post can be edited with Gutenberg.
  */
-function gutenberg_can_edit_post( $post_id ) {
-	$post = get_post( $post_id );
+function gutenberg_can_edit_post( $post ) {
+	$post     = get_post( $post );
+	$can_edit = true;
+
 	if ( ! $post ) {
-		return false;
+		$can_edit = false;
 	}
 
-	if ( 'trash' === $post->post_status ) {
-		return false;
+	if ( $can_edit && 'trash' === $post->post_status ) {
+		$can_edit = false;
 	}
 
-	if ( ! gutenberg_can_edit_post_type( $post->post_type ) ) {
-		return false;
+	if ( $can_edit && ! gutenberg_can_edit_post_type( $post->post_type ) ) {
+		$can_edit = false;
 	}
 
-	return current_user_can( 'edit_post', $post_id );
+	if ( $can_edit && ! current_user_can( 'edit_post', $post->ID ) ) {
+		$can_edit = false;
+	}
+
+	// Disable the editor if on the blog page and there is no content.
+	if ( $can_edit && absint( get_option( 'page_for_posts' ) ) === $post->ID && empty( $post->post_content ) ) {
+		$can_edit = false;
+	}
+
+	/**
+	 * Filter to allow plugins to enable/disable Gutenberg for particular post.
+	 *
+	 * @since 3.5
+	 *
+	 * @param bool $can_edit Whether the post can be edited or not.
+	 * @param WP_Post $post The post being checked.
+	 */
+	return apply_filters( 'gutenberg_can_edit_post', $can_edit, $post );
+
 }
 
 /**
@@ -311,7 +282,7 @@ function gutenberg_can_edit_post( $post_id ) {
  * @since 1.5.2
  *
  * @param string $post_type The post type.
- * @return bool Wehther the post type can be edited with Gutenberg.
+ * @return bool Whether the post type can be edited with Gutenberg.
  */
 function gutenberg_can_edit_post_type( $post_type ) {
 	$can_edit = true;
@@ -339,6 +310,32 @@ function gutenberg_can_edit_post_type( $post_type ) {
 	return apply_filters( 'gutenberg_can_edit_post_type', $can_edit, $post_type );
 }
 
+if ( ! function_exists( 'has_blocks' ) ) {
+	/**
+	 * Determine whether a post or content string has blocks.
+	 *
+	 * This test optimizes for performance rather than strict accuracy, detecting
+	 * the pattern of a block but not validating its structure. For strict accuracy
+	 * you should use the block parser on post content.
+	 *
+	 * @since 3.6.0
+	 * @see gutenberg_parse_blocks()
+	 *
+	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.
+	 * @return bool Whether the post has blocks.
+	 */
+	function has_blocks( $post = null ) {
+		if ( ! is_string( $post ) ) {
+			$wp_post = get_post( $post );
+			if ( $wp_post instanceof WP_Post ) {
+				$post = $wp_post->post_content;
+			}
+		}
+
+		return false !== strpos( (string) $post, '<!-- wp:' );
+	}
+}
+
 /**
  * Determine whether a post has blocks. This test optimizes for performance
  * rather than strict accuracy, detecting the pattern of a block but not
@@ -348,13 +345,14 @@ function gutenberg_can_edit_post_type( $post_type ) {
  * @see gutenberg_parse_blocks()
  *
  * @since 0.5.0
+ * @deprecated 3.6.0 Use has_blocks()
  *
  * @param object $post Post.
  * @return bool  Whether the post has blocks.
  */
 function gutenberg_post_has_blocks( $post ) {
-	$post = get_post( $post );
-	return $post && gutenberg_content_has_blocks( $post->post_content );
+	_deprecated_function( __FUNCTION__, '3.6.0', 'has_blocks()' );
+	return has_blocks( $post );
 }
 
 /**
@@ -363,14 +361,61 @@ function gutenberg_post_has_blocks( $post ) {
  * but not validating its structure. For strict accuracy, you should use the
  * block parser on post content.
  *
- * @since 1.6.0
  * @see gutenberg_parse_blocks()
+ *
+ * @since 1.6.0
+ * @deprecated 3.6.0 Use has_blocks()
  *
  * @param string $content Content to test.
  * @return bool Whether the content contains blocks.
  */
 function gutenberg_content_has_blocks( $content ) {
-	return false !== strpos( $content, '<!-- wp:' );
+	_deprecated_function( __FUNCTION__, '3.6.0', 'has_blocks()' );
+	return has_blocks( $content );
+}
+
+if ( ! function_exists( 'has_block' ) ) {
+	/**
+	 * Determine whether a $post or a string contains a specific block type.
+	 * This test optimizes for performance rather than strict accuracy, detecting
+	 * the block type exists but not validating its structure.
+	 * For strict accuracy, you should use the block parser on post content.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param string                  $block_type Full Block type to look for.
+	 * @param int|string|WP_Post|null $post Optional. Post content, post ID, or post object. Defaults to global $post.
+	 * @return bool Whether the post content contains the specified block.
+	 */
+	function has_block( $block_type, $post = null ) {
+		if ( ! has_blocks( $post ) ) {
+			return false;
+		}
+
+		if ( ! is_string( $post ) ) {
+			$wp_post = get_post( $post );
+			if ( $wp_post instanceof WP_Post ) {
+				$post = $wp_post->post_content;
+			}
+		}
+
+		return false !== strpos( $post, '<!-- wp:' . $block_type . ' ' );
+	}
+}
+
+/**
+ * Returns the current version of the block format that the content string is using.
+ *
+ * If the string doesn't contain blocks, it returns 0.
+ *
+ * @since 2.8.0
+ * @see gutenberg_content_has_blocks()
+ *
+ * @param string $content Content to test.
+ * @return int The block format version.
+ */
+function gutenberg_content_block_version( $content ) {
+	return has_blocks( $content ) ? 1 : 0;
 }
 
 /**
@@ -381,7 +426,7 @@ function gutenberg_content_has_blocks( $content ) {
  * @return array                A filtered array of post display states.
  */
 function gutenberg_add_gutenberg_post_state( $post_states, $post ) {
-	if ( gutenberg_post_has_blocks( $post ) ) {
+	if ( has_blocks( $post ) ) {
 		$post_states[] = 'Gutenberg';
 	}
 
@@ -395,59 +440,128 @@ add_filter( 'display_post_states', 'gutenberg_add_gutenberg_post_state', 10, 2 )
  * @since 0.10.0
  */
 function gutenberg_register_post_types() {
-	register_post_type( 'wp_block', array(
-		'labels'                => array(
-			'name'          => 'Blocks',
-			'singular_name' => 'Block',
+	register_post_type(
+		'wp_block',
+		array(
+			'labels'                => array(
+				'name'                     => _x( 'Blocks', 'post type general name', 'gutenberg' ),
+				'singular_name'            => _x( 'Block', 'post type singular name', 'gutenberg' ),
+				'menu_name'                => _x( 'Blocks', 'admin menu', 'gutenberg' ),
+				'name_admin_bar'           => _x( 'Block', 'add new on admin bar', 'gutenberg' ),
+				'add_new'                  => _x( 'Add New', 'Block', 'gutenberg' ),
+				'add_new_item'             => __( 'Add New Block', 'gutenberg' ),
+				'new_item'                 => __( 'New Block', 'gutenberg' ),
+				'edit_item'                => __( 'Edit Block', 'gutenberg' ),
+				'view_item'                => __( 'View Block', 'gutenberg' ),
+				'all_items'                => __( 'All Blocks', 'gutenberg' ),
+				'search_items'             => __( 'Search Blocks', 'gutenberg' ),
+				'not_found'                => __( 'No blocks found.', 'gutenberg' ),
+				'not_found_in_trash'       => __( 'No blocks found in Trash.', 'gutenberg' ),
+				'filter_items_list'        => __( 'Filter blocks list', 'gutenberg' ),
+				'items_list_navigation'    => __( 'Blocks list navigation', 'gutenberg' ),
+				'items_list'               => __( 'Blocks list', 'gutenberg' ),
+				'item_published'           => __( 'Block published.', 'gutenberg' ),
+				'item_published_privately' => __( 'Block published privately.', 'gutenberg' ),
+				'item_reverted_to_draft'   => __( 'Block reverted to draft.', 'gutenberg' ),
+				'item_scheduled'           => __( 'Block scheduled.', 'gutenberg' ),
+				'item_updated'             => __( 'Block updated.', 'gutenberg' ),
+			),
+			'public'                => false,
+			'show_ui'               => true,
+			'show_in_menu'          => false,
+			'rewrite'               => false,
+			'show_in_rest'          => true,
+			'rest_base'             => 'blocks',
+			'rest_controller_class' => 'WP_REST_Blocks_Controller',
+			'capability_type'       => 'block',
+			'capabilities'          => array(
+				'read'         => 'read_blocks',
+				'create_posts' => 'create_blocks',
+			),
+			'map_meta_cap'          => true,
+			'supports'              => array(
+				'title',
+				'editor',
+			),
+		)
+	);
+
+	$editor_caps = array(
+		'edit_blocks',
+		'edit_others_blocks',
+		'publish_blocks',
+		'read_private_blocks',
+		'read_blocks',
+		'delete_blocks',
+		'delete_private_blocks',
+		'delete_published_blocks',
+		'delete_others_blocks',
+		'edit_private_blocks',
+		'edit_published_blocks',
+		'create_blocks',
+	);
+
+	$caps_map = array(
+		'administrator' => $editor_caps,
+		'editor'        => $editor_caps,
+		'author'        => array(
+			'edit_blocks',
+			'publish_blocks',
+			'read_blocks',
+			'delete_blocks',
+			'delete_published_blocks',
+			'edit_published_blocks',
+			'create_blocks',
 		),
-		'public'                => false,
-		'capability_type'       => 'post',
-		'show_in_rest'          => true,
-		'rest_base'             => 'blocks',
-		'rest_controller_class' => 'WP_REST_Blocks_Controller',
-	) );
+		'contributor'   => array(
+			'read_blocks',
+		),
+	);
+
+	foreach ( $caps_map as $role_name => $caps ) {
+		$role = get_role( $role_name );
+
+		if ( empty( $role ) ) {
+			continue;
+		}
+
+		foreach ( $caps as $cap ) {
+			if ( ! $role->has_cap( $cap ) ) {
+				$role->add_cap( $cap );
+			}
+		}
+	}
 }
 add_action( 'init', 'gutenberg_register_post_types' );
 
 /**
- * Gets revisions details for the selected post.
+ * Apply the correct labels for Reusable Blocks in the bulk action updated messages.
  *
- * @since 1.6.0
+ * @since 4.3.0
  *
- * @param array $post The post object from the response.
- * @return array|null Revisions details or null when no revisions present.
+ * @param array $messages    Arrays of messages, each keyed by the corresponding post type.
+ * @param array $bulk_counts Array of item counts for each message, used to build internationalized strings.
+ *
+ * @return array
  */
-function gutenberg_get_post_revisions( $post ) {
-	$revisions       = wp_get_post_revisions( $post['id'] );
-	$revisions_count = count( $revisions );
-	if ( 0 === $revisions_count ) {
-		return null;
-	}
-
-	$last_revision = array_shift( $revisions );
-
-	return array(
-		'count'   => $revisions_count,
-		'last_id' => $last_revision->ID,
+function gutenberg_bulk_post_updated_messages( $messages, $bulk_counts ) {
+	$messages['wp_block'] = array(
+		// translators: Number of blocks updated.
+		'updated'   => _n( '%s block updated.', '%s blocks updated.', $bulk_counts['updated'], 'gutenberg' ),
+		// translators: Blocks not updated because they're locked.
+		'locked'    => ( 1 == $bulk_counts['locked'] ) ? __( '1 block not updated, somebody is editing it.', 'gutenberg' ) : _n( '%s block not updated, somebody is editing it.', '%s blocks not updated, somebody is editing them.', $bulk_counts['locked'], 'gutenberg' ),
+		// translators: Number of blocks deleted.
+		'deleted'   => _n( '%s block permanently deleted.', '%s blocks permanently deleted.', $bulk_counts['deleted'], 'gutenberg' ),
+		// translators: Number of blocks trashed.
+		'trashed'   => _n( '%s block moved to the Trash.', '%s blocks moved to the Trash.', $bulk_counts['trashed'], 'gutenberg' ),
+		// translators: Number of blocks untrashed.
+		'untrashed' => _n( '%s block restored from the Trash.', '%s blocks restored from the Trash.', $bulk_counts['untrashed'], 'gutenberg' ),
 	);
+
+	return $messages;
 }
 
-/**
- * Adds the custom field `revisions` to the REST API response of post.
- *
- * TODO: This is a temporary solution. Next step would be to find a solution that is limited to the editor.
- *
- * @since 1.6.0
- */
-function gutenberg_register_rest_api_post_revisions() {
-	register_rest_field( get_post_types( '', 'names' ),
-		'revisions',
-		array(
-			'get_callback' => 'gutenberg_get_post_revisions',
-		)
-	);
-}
-add_action( 'rest_api_init', 'gutenberg_register_rest_api_post_revisions' );
+add_filter( 'bulk_post_updated_messages', 'gutenberg_bulk_post_updated_messages', 10, 2 );
 
 /**
  * Injects a hidden input in the edit form to propagate the information that classic editor is selected.
