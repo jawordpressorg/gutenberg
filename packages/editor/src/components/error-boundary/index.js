@@ -5,11 +5,7 @@ import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Button, ClipboardButton } from '@wordpress/components';
 import { select } from '@wordpress/data';
-
-/**
- * Internal dependencies
- */
-import { Warning } from '../';
+import { Warning } from '@wordpress/block-editor';
 
 class ErrorBoundary extends Component {
 	constructor() {
@@ -53,13 +49,21 @@ class ErrorBoundary extends Component {
 			<Warning
 				className="editor-error-boundary"
 				actions={ [
-					<Button key="recovery" onClick={ this.reboot } isLarge>
+					<Button key="recovery" onClick={ this.reboot } isSecondary>
 						{ __( 'Attempt Recovery' ) }
 					</Button>,
-					<ClipboardButton key="copy-post" text={ this.getContent } isLarge>
+					<ClipboardButton
+						key="copy-post"
+						text={ this.getContent }
+						isSecondary
+					>
 						{ __( 'Copy Post Text' ) }
 					</ClipboardButton>,
-					<ClipboardButton key="copy-error" text={ error.stack } isLarge>
+					<ClipboardButton
+						key="copy-error"
+						text={ error.stack }
+						isSecondary
+					>
 						{ __( 'Copy Error' ) }
 					</ClipboardButton>,
 				] }

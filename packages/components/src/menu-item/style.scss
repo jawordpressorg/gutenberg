@@ -1,28 +1,19 @@
 .components-menu-item__button,
-.components-menu-item__button.components-icon-button {
+.components-menu-item__button.components-button {
 	width: 100%;
-	padding: 8px;
-	text-align: left;
-	color: $dark-gray-600;
 
 	// Target plugin icons that can have arbitrary classes by using an aggressive selector.
+	// @todo: is this still necessary?
 	.dashicon,
 	.components-menu-items__item-icon,
+	svg.components-menu-items__item-icon,
 	> span > svg {
-		margin-right: 4px;
+		margin-right: $grid-unit-10;
 	}
 
 	.components-menu-items__item-icon {
 		display: inline-block;
 		flex: 0 0 auto;
-	}
-
-	&:hover:not(:disabled):not([aria-disabled="true"]) {
-		@include menu-style__hover;
-	}
-
-	&:focus:not(:disabled):not([aria-disabled="true"]) {
-		@include menu-style__focus;
 	}
 }
 
@@ -32,17 +23,17 @@
 }
 
 .components-menu-item__info {
-	margin-top: $grid-size-small;
+	margin-top: $grid-unit-05;
 	font-size: $default-font-size - 1px;
-	opacity: 0.82;
+	color: $medium-gray-text;
 }
 
 .components-menu-item__shortcut {
 	align-self: center;
-	opacity: 0.5;
 	margin-right: 0;
 	margin-left: auto;
-	padding-left: 8px;
+	padding-left: $grid-unit-15;
+	color: currentColor;
 
 	// Hide the keyboard shortcuts on mobile, because they aren't super-useful
 	// for most mobile users and it frees up screen space for any item

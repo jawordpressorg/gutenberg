@@ -1,37 +1,57 @@
 /**
  * External dependencies
  */
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Hr from 'react-native-hr';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
+import { withPreferredColorScheme } from '@wordpress/compose';
 
 /**
  * Internal dependencies
  */
-import { PlainText } from '@wordpress/editor';
 import styles from './editor.scss';
 
-export default function MoreEdit( { attributes, setAttributes } ) {
-	const { customText } = attributes;
-	const defaultText = __( 'Read more' );
-	const value = customText !== undefined ? customText : defaultText;
+export class MoreEdit extends Component {
+	constructor() {
+		super( ...arguments );
 
-	return (
-		<View className={ styles[ 'block-library-more__container' ] }>
-			<View className={ styles[ 'block-library-more__sub-container' ] }>
-				<Text className={ styles[ 'block-library-more__left-marker' ] }>&lt;!--</Text>
-				<PlainText
-					className={ styles[ 'block-library-more__plain-text' ] }
-					value={ value }
-					multiline={ true }
-					underlineColorAndroid="transparent"
-					onChange={ ( newValue ) => setAttributes( { customText: newValue } ) }
-					placeholder={ defaultText }
+		this.state = {
+			defaultText: __( 'Read more' ),
+		};
+	}
+
+	render() {
+		const { attributes, getStylesFromColorScheme } = this.props;
+		const { customText } = attributes;
+		const { defaultText } = this.state;
+
+		const content = customText || defaultText;
+		const textStyle = getStylesFromColorScheme(
+			styles.moreText,
+			styles.moreTextDark
+		);
+		const lineStyle = getStylesFromColorScheme(
+			styles.moreLine,
+			styles.moreLineDark
+		);
+
+		return (
+			<View>
+				<Hr
+					text={ content }
+					marginLeft={ 0 }
+					marginRight={ 0 }
+					textStyle={ textStyle }
+					lineStyle={ lineStyle }
 				/>
-				<Text className={ styles[ 'block-library-more__right-marker' ] }>--&gt;</Text>
 			</View>
-		</View> );
+		);
+	}
 }
+
+export default withPreferredColorScheme( MoreEdit );

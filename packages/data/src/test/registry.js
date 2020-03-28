@@ -7,6 +7,7 @@ import { castArray, mapValues } from 'lodash';
  * Internal dependencies
  */
 import { createRegistry } from '../registry';
+import { createRegistrySelector } from '../factory';
 
 describe( 'createRegistry', () => {
 	let registry;
@@ -52,9 +53,21 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'should throw if not all required config elements are present', () => {
-			expect( () => registry.registerGenericStore( 'grocer', {} ) ).toThrow();
-			expect( () => registry.registerGenericStore( 'grocer', { getSelectors, getActions } ) ).toThrow();
-			expect( () => registry.registerGenericStore( 'grocer', { getActions, subscribe } ) ).toThrow();
+			expect( () =>
+				registry.registerGenericStore( 'grocer', {} )
+			).toThrow();
+			expect( () =>
+				registry.registerGenericStore( 'grocer', {
+					getSelectors,
+					getActions,
+				} )
+			).toThrow();
+			expect( () =>
+				registry.registerGenericStore( 'grocer', {
+					getActions,
+					subscribe,
+				} )
+			).toThrow();
 		} );
 
 		describe( 'getSelectors', () => {
@@ -76,10 +89,18 @@ describe( 'createRegistry', () => {
 
 				getSelectors = () => ( { getPrice, getQuantity } );
 
-				registry.registerGenericStore( 'grocer', { getSelectors, getActions, subscribe } );
+				registry.registerGenericStore( 'grocer', {
+					getSelectors,
+					getActions,
+					subscribe,
+				} );
 
-				expect( registry.select( 'grocer' ).getPrice ).toEqual( getPrice );
-				expect( registry.select( 'grocer' ).getQuantity ).toEqual( getQuantity );
+				expect( registry.select( 'grocer' ).getPrice ).toEqual(
+					getPrice
+				);
+				expect( registry.select( 'grocer' ).getQuantity ).toEqual(
+					getQuantity
+				);
 			} );
 		} );
 
@@ -97,26 +118,36 @@ describe( 'createRegistry', () => {
 
 				getActions = () => {
 					return {
-						setPrice: ( ...args ) => dispatch( setPrice( ...args ) ),
-						setQuantity: ( ...args ) => dispatch( setQuantity( ...args ) ),
+						setPrice: ( ...args ) =>
+							dispatch( setPrice( ...args ) ),
+						setQuantity: ( ...args ) =>
+							dispatch( setQuantity( ...args ) ),
 					};
 				};
 
-				registry.registerGenericStore( 'grocer', { getSelectors, getActions, subscribe } );
+				registry.registerGenericStore( 'grocer', {
+					getSelectors,
+					getActions,
+					subscribe,
+				} );
 
 				expect( dispatch ).not.toHaveBeenCalled();
 
 				registry.dispatch( 'grocer' ).setPrice( 'broccoli', 3 );
 				expect( dispatch ).toHaveBeenCalledTimes( 1 );
-				expect( dispatch ).toHaveBeenCalledWith(
-					{ type: 'SET_PRICE', itemName: 'broccoli', price: 3 }
-				);
+				expect( dispatch ).toHaveBeenCalledWith( {
+					type: 'SET_PRICE',
+					itemName: 'broccoli',
+					price: 3,
+				} );
 
 				registry.dispatch( 'grocer' ).setQuantity( 'lettuce', 8 );
 				expect( dispatch ).toHaveBeenCalledTimes( 2 );
-				expect( dispatch ).toHaveBeenCalledWith(
-					{ type: 'SET_QUANTITY', itemName: 'lettuce', quantity: 8 }
-				);
+				expect( dispatch ).toHaveBeenCalledWith( {
+					type: 'SET_QUANTITY',
+					itemName: 'lettuce',
+					quantity: 8,
+				} );
 			} );
 		} );
 
@@ -133,7 +164,11 @@ describe( 'createRegistry', () => {
 				};
 
 				const unsubscribe = registry.subscribe( registryListener );
-				registry.registerGenericStore( 'grocer', { getSelectors, getActions, subscribe } );
+				registry.registerGenericStore( 'grocer', {
+					getSelectors,
+					getActions,
+					subscribe,
+				} );
 
 				expect( registryListener ).not.toHaveBeenCalled();
 				storeChanged();
@@ -150,7 +185,7 @@ describe( 'createRegistry', () => {
 	describe( 'registerStore', () => {
 		it( 'should be shorthand for reducer, actions, selectors registration', () => {
 			const store = registry.registerStore( 'butcher', {
-				reducer( state = { ribs: 6, chicken: 4 }, action ) {
+				reducer( state = {}, action ) {
 					switch ( action.type ) {
 						case 'sale':
 							return {
@@ -161,6 +196,7 @@ describe( 'createRegistry', () => {
 
 					return state;
 				},
+				initialState: { ribs: 6, chicken: 4 },
 				selectors: {
 					getPrice: ( state, meat ) => state[ meat ],
 				},
@@ -170,57 +206,58 @@ describe( 'createRegistry', () => {
 			} );
 
 			expect( store.getState() ).toEqual( { ribs: 6, chicken: 4 } );
-			expect( registry.dispatch( 'butcher' ) ).toHaveProperty( 'startSale' );
+			expect( registry.dispatch( 'butcher' ) ).toHaveProperty(
+				'startSale'
+			);
 			expect( registry.select( 'butcher' ) ).toHaveProperty( 'getPrice' );
-			expect( registry.select( 'butcher' ).getPrice( 'chicken' ) ).toBe( 4 );
+			expect( registry.select( 'butcher' ).getPrice( 'chicken' ) ).toBe(
+				4
+			);
 			expect( registry.select( 'butcher' ).getPrice( 'ribs' ) ).toBe( 6 );
 			registry.dispatch( 'butcher' ).startSale( 'chicken' );
-			expect( registry.select( 'butcher' ).getPrice( 'chicken' ) ).toBe( 2 );
+			expect( registry.select( 'butcher' ).getPrice( 'chicken' ) ).toBe(
+				2
+			);
 			expect( registry.select( 'butcher' ).getPrice( 'ribs' ) ).toBe( 6 );
 		} );
-	} );
 
-	// TODO: Refactor this into registerStore tests after this function is removed.
-	describe( 'registerReducer', () => {
 		it( 'Should append reducers to the state', () => {
 			const reducer1 = () => 'chicken';
 			const reducer2 = () => 'ribs';
 
-			const store = registry.registerReducer( 'red1', reducer1 );
+			const store = registry.registerStore( 'red1', {
+				reducer: reducer1,
+			} );
 			expect( store.getState() ).toEqual( 'chicken' );
 
-			const store2 = registry.registerReducer( 'red2', reducer2 );
-			expect( store2.getState() ).toEqual( 'ribs' );
-
-			// This uses deprecated functions and will produce a warning.
-			expect( console ).toHaveWarned();
-		} );
-	} );
-
-	// TODO: Refactor this into registerStore tests after this function is removed.
-	describe( 'registerResolvers', () => {
-		it( 'should not do anything for selectors which do not have resolvers', () => {
-			registry.registerReducer( 'demo', ( state = 'OK' ) => state );
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
+			const store2 = registry.registerStore( 'red2', {
+				reducer: reducer2,
 			} );
-			registry.registerResolvers( 'demo', {} );
+			expect( store2.getState() ).toEqual( 'ribs' );
+		} );
+
+		it( 'should not do anything for selectors which do not have resolvers', () => {
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'OK' ) => state,
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {},
+			} );
 
 			expect( registry.select( 'demo' ).getValue() ).toBe( 'OK' );
-
-			// This uses deprecated functions and will produce a warning.
-			expect( console ).toHaveWarned();
 		} );
 
 		it( 'should behave as a side effect for the given selector, with arguments', () => {
 			const resolver = jest.fn();
-
-			registry.registerReducer( 'demo', ( state = 'OK' ) => state );
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
-			} );
-			registry.registerResolvers( 'demo', {
-				getValue: resolver,
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'OK' ) => state,
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {
+					getValue: resolver,
+				},
 			} );
 
 			const value = registry.select( 'demo' ).getValue( 'arg1', 'arg2' );
@@ -234,13 +271,14 @@ describe( 'createRegistry', () => {
 
 		it( 'should support the object resolver definition', () => {
 			const resolver = jest.fn();
-
-			registry.registerReducer( 'demo', ( state = 'OK' ) => state );
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
-			} );
-			registry.registerResolvers( 'demo', {
-				getValue: { fulfill: resolver },
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'OK' ) => state,
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {
+					getValue: { fulfill: resolver },
+				},
 			} );
 
 			const value = registry.select( 'demo' ).getValue( 'arg1', 'arg2' );
@@ -252,32 +290,32 @@ describe( 'createRegistry', () => {
 				return { type: 'SET_PAGE', page, result: [] };
 			} );
 
-			const store = registry.registerReducer( 'demo', ( state = {}, action ) => {
-				switch ( action.type ) {
-					case 'SET_PAGE':
-						return {
-							...state,
-							[ action.page ]: action.result,
-						};
-				}
+			const store = registry.registerStore( 'demo', {
+				reducer: ( state = {}, action ) => {
+					switch ( action.type ) {
+						case 'SET_PAGE':
+							return {
+								...state,
+								[ action.page ]: action.result,
+							};
+					}
 
-				return state;
-			} );
-
-			store.dispatch( { type: 'SET_PAGE', page: 4, result: [] } );
-
-			registry.registerSelectors( 'demo', {
-				getPage: ( state, page ) => state[ page ],
-			} );
-			registry.registerResolvers( 'demo', {
-				getPage: {
-					fulfill,
-					isFulfilled( state, page ) {
-						return state.hasOwnProperty( page );
+					return state;
+				},
+				selectors: {
+					getPage: ( state, page ) => state[ page ],
+				},
+				resolvers: {
+					getPage: {
+						fulfill,
+						isFulfilled( state, page ) {
+							return state.hasOwnProperty( page );
+						},
 					},
 				},
 			} );
 
+			store.dispatch( { type: 'SET_PAGE', page: 4, result: [] } );
 			registry.select( 'demo' ).getPage( 1 );
 			registry.select( 'demo' ).getPage( 2 );
 
@@ -307,19 +345,24 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'should resolve action to dispatch', () => {
-			registry.registerReducer( 'demo', ( state = 'NOTOK', action ) => {
-				return action.type === 'SET_OK' ? 'OK' : state;
-			} );
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
-			} );
-			registry.registerResolvers( 'demo', {
-				getValue: () => ( { type: 'SET_OK' } ),
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'NOTOK', action ) => {
+					return action.type === 'SET_OK' ? 'OK' : state;
+				},
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {
+					getValue: () => ( { type: 'SET_OK' } ),
+				},
 			} );
 
 			const promise = subscribeUntil( [
 				() => registry.select( 'demo' ).getValue() === 'OK',
-				() => registry.select( 'core/data' ).hasFinishedResolution( 'demo', 'getValue' ),
+				() =>
+					registry
+						.select( 'core/data' )
+						.hasFinishedResolution( 'demo', 'getValue' ),
 			] );
 
 			registry.select( 'demo' ).getValue();
@@ -328,19 +371,24 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'should resolve promise action to dispatch', () => {
-			registry.registerReducer( 'demo', ( state = 'NOTOK', action ) => {
-				return action.type === 'SET_OK' ? 'OK' : state;
-			} );
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
-			} );
-			registry.registerResolvers( 'demo', {
-				getValue: () => Promise.resolve( { type: 'SET_OK' } ),
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'NOTOK', action ) => {
+					return action.type === 'SET_OK' ? 'OK' : state;
+				},
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {
+					getValue: () => Promise.resolve( { type: 'SET_OK' } ),
+				},
 			} );
 
 			const promise = subscribeUntil( [
 				() => registry.select( 'demo' ).getValue() === 'OK',
-				() => registry.select( 'core/data' ).hasFinishedResolution( 'demo', 'getValue' ),
+				() =>
+					registry
+						.select( 'core/data' )
+						.hasFinishedResolution( 'demo', 'getValue' ),
 			] );
 
 			registry.select( 'demo' ).getValue();
@@ -350,20 +398,22 @@ describe( 'createRegistry', () => {
 
 		it( 'should resolve promise non-action to dispatch', ( done ) => {
 			let shouldThrow = false;
-			registry.registerReducer( 'demo', ( state = 'OK' ) => {
-				if ( shouldThrow ) {
-					throw 'Should not have dispatched';
-				}
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'OK' ) => {
+					if ( shouldThrow ) {
+						throw 'Should not have dispatched';
+					}
 
-				return state;
+					return state;
+				},
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {
+					getValue: () => Promise.resolve(),
+				},
 			} );
 			shouldThrow = true;
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
-			} );
-			registry.registerResolvers( 'demo', {
-				getValue: () => Promise.resolve(),
-			} );
 
 			registry.select( 'demo' ).getValue();
 
@@ -373,17 +423,23 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'should not dispatch resolved promise action on subsequent selector calls', () => {
-			registry.registerReducer( 'demo', ( state = 'NOTOK', action ) => {
-				return action.type === 'SET_OK' && state === 'NOTOK' ? 'OK' : 'NOTOK';
-			} );
-			registry.registerSelectors( 'demo', {
-				getValue: ( state ) => state,
-			} );
-			registry.registerResolvers( 'demo', {
-				getValue: () => Promise.resolve( { type: 'SET_OK' } ),
+			registry.registerStore( 'demo', {
+				reducer: ( state = 'NOTOK', action ) => {
+					return action.type === 'SET_OK' && state === 'NOTOK'
+						? 'OK'
+						: 'NOTOK';
+				},
+				selectors: {
+					getValue: ( state ) => state,
+				},
+				resolvers: {
+					getValue: () => Promise.resolve( { type: 'SET_OK' } ),
+				},
 			} );
 
-			const promise = subscribeUntil( () => registry.select( 'demo' ).getValue() === 'OK' );
+			const promise = subscribeUntil(
+				() => registry.select( 'demo' ).getValue() === 'OK'
+			);
 
 			registry.select( 'demo' ).getValue();
 			registry.select( 'demo' ).getValue();
@@ -391,10 +447,12 @@ describe( 'createRegistry', () => {
 			return promise;
 		} );
 
-		it( 'should invalidate the resolver\'s resolution cache', async () => {
+		it( "should invalidate the resolver's resolution cache", async () => {
 			registry.registerStore( 'demo', {
 				reducer: ( state = 'NOTOK', action ) => {
-					return action.type === 'SET_OK' && state === 'NOTOK' ? 'OK' : 'NOTOK';
+					return action.type === 'SET_OK' && state === 'NOTOK'
+						? 'OK'
+						: 'NOTOK';
 				},
 				selectors: {
 					getValue: ( state ) => state,
@@ -402,7 +460,8 @@ describe( 'createRegistry', () => {
 				resolvers: {
 					getValue: {
 						fulfill: () => Promise.resolve( { type: 'SET_OK' } ),
-						shouldInvalidate: ( action ) => action.type === 'INVALIDATE',
+						shouldInvalidate: ( action ) =>
+							action.type === 'INVALIDATE',
 					},
 				},
 				actions: {
@@ -410,14 +469,18 @@ describe( 'createRegistry', () => {
 				},
 			} );
 
-			let promise = subscribeUntil( () => registry.select( 'demo' ).getValue() === 'OK' );
+			let promise = subscribeUntil(
+				() => registry.select( 'demo' ).getValue() === 'OK'
+			);
 			registry.select( 'demo' ).getValue(); // Triggers resolver switches to OK
 			await promise;
 
 			// Invalidate the cache
 			registry.dispatch( 'demo' ).invalidate();
 
-			promise = subscribeUntil( () => registry.select( 'demo' ).getValue() === 'NOTOK' );
+			promise = subscribeUntil(
+				() => registry.select( 'demo' ).getValue() === 'NOTOK'
+			);
 			registry.select( 'demo' ).getValue(); // Triggers the resolver again and switch to NOTOK
 			await promise;
 		} );
@@ -425,32 +488,100 @@ describe( 'createRegistry', () => {
 
 	describe( 'select', () => {
 		it( 'registers multiple selectors to the public API', () => {
-			const store = registry.registerReducer( 'reducer1', () => 'state1' );
 			const selector1 = jest.fn( () => 'result1' );
 			const selector2 = jest.fn( () => 'result2' );
-
-			registry.registerSelectors( 'reducer1', {
-				selector1,
-				selector2,
+			const store = registry.registerStore( 'reducer1', {
+				reducer: () => 'state1',
+				selectors: {
+					selector1,
+					selector2,
+				},
 			} );
 
-			expect( registry.select( 'reducer1' ).selector1() ).toEqual( 'result1' );
-			expect( selector1 ).toBeCalledWith( store.getState() );
+			expect( registry.select( 'reducer1' ).selector1() ).toEqual(
+				'result1'
+			);
+			expect( selector1 ).toHaveBeenCalledWith( store.getState() );
 
-			expect( registry.select( 'reducer1' ).selector2() ).toEqual( 'result2' );
-			expect( selector2 ).toBeCalledWith( store.getState() );
+			expect( registry.select( 'reducer1' ).selector2() ).toEqual(
+				'result2'
+			);
+			expect( selector2 ).toHaveBeenCalledWith( store.getState() );
+		} );
+
+		it( 'should run the registry selectors properly', () => {
+			const selector1 = () => 'result1';
+			const selector2 = createRegistrySelector( ( select ) => () =>
+				select( 'reducer1' ).selector1()
+			);
+			registry.registerStore( 'reducer1', {
+				reducer: () => 'state1',
+				selectors: {
+					selector1,
+				},
+			} );
+			registry.registerStore( 'reducer2', {
+				reducer: () => 'state1',
+				selectors: {
+					selector2,
+				},
+			} );
+
+			expect( registry.select( 'reducer2' ).selector2() ).toEqual(
+				'result1'
+			);
+		} );
+
+		it( 'should run the registry selector from a non-registry selector', () => {
+			const selector1 = () => 'result1';
+			const selector2 = createRegistrySelector( ( select ) => () =>
+				select( 'reducer1' ).selector1()
+			);
+			const selector3 = () => selector2();
+			registry.registerStore( 'reducer1', {
+				reducer: () => 'state1',
+				selectors: {
+					selector1,
+				},
+			} );
+			registry.registerStore( 'reducer2', {
+				reducer: () => 'state1',
+				selectors: {
+					selector2,
+					selector3,
+				},
+			} );
+
+			expect( registry.select( 'reducer2' ).selector3() ).toEqual(
+				'result1'
+			);
+		} );
+
+		it( 'gracefully stubs select on selector calls', () => {
+			const selector = createRegistrySelector( ( select ) => () =>
+				select
+			);
+
+			const maybeSelect = selector();
+
+			expect( maybeSelect ).toEqual( expect.any( Function ) );
+			expect( maybeSelect() ).toEqual( expect.any( Object ) );
 		} );
 	} );
 
 	describe( 'subscribe', () => {
 		it( 'registers multiple selectors to the public API', () => {
 			let incrementedValue = null;
-			const store = registry.registerReducer( 'myAwesomeReducer', ( state = 0 ) => state + 1 );
-			registry.registerSelectors( 'myAwesomeReducer', {
-				globalSelector: ( state ) => state,
+			const store = registry.registerStore( 'myAwesomeReducer', {
+				reducer: ( state = 0 ) => state + 1,
+				selectors: {
+					globalSelector: ( state ) => state,
+				},
 			} );
 			const unsubscribe = registry.subscribe( () => {
-				incrementedValue = registry.select( 'myAwesomeReducer' ).globalSelector();
+				incrementedValue = registry
+					.select( 'myAwesomeReducer' )
+					.globalSelector();
 			} );
 			const action = { type: 'dummy' };
 
@@ -469,7 +600,9 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'snapshots listeners on change, avoiding a later listener if subscribed during earlier callback', () => {
-			const store = registry.registerReducer( 'myAwesomeReducer', ( state = 0 ) => state + 1 );
+			const store = registry.registerStore( 'myAwesomeReducer', {
+				reducer: ( state = 0 ) => state + 1,
+			} );
 			const secondListener = jest.fn();
 			const firstListener = jest.fn( () => {
 				subscribeWithUnsubscribe( secondListener );
@@ -483,14 +616,18 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'snapshots listeners on change, calling a later listener even if unsubscribed during earlier callback', () => {
-			const store = registry.registerReducer( 'myAwesomeReducer', ( state = 0 ) => state + 1 );
+			const store = registry.registerStore( 'myAwesomeReducer', {
+				reducer: ( state = 0 ) => state + 1,
+			} );
 			const firstListener = jest.fn( () => {
 				secondUnsubscribe();
 			} );
 			const secondListener = jest.fn();
 
 			subscribeWithUnsubscribe( firstListener );
-			const secondUnsubscribe = subscribeWithUnsubscribe( secondListener );
+			const secondUnsubscribe = subscribeWithUnsubscribe(
+				secondListener
+			);
 
 			store.dispatch( { type: 'dummy' } );
 
@@ -498,7 +635,9 @@ describe( 'createRegistry', () => {
 		} );
 
 		it( 'does not call listeners if state has not changed', () => {
-			const store = registry.registerReducer( 'unchanging', ( state = {} ) => state );
+			const store = registry.registerStore( 'unchanging', {
+				reducer: ( state = {} ) => state,
+			} );
 			const listener = jest.fn();
 			subscribeWithUnsubscribe( listener );
 
@@ -509,24 +648,29 @@ describe( 'createRegistry', () => {
 	} );
 
 	describe( 'dispatch', () => {
-		it( 'registers actions to the public API', () => {
-			const store = registry.registerReducer( 'counter', ( state = 0, action ) => {
-				if ( action.type === 'increment' ) {
-					return state + action.count;
-				}
-				return state;
-			} );
+		it( 'registers actions to the public API', async () => {
 			const increment = ( count = 1 ) => ( { type: 'increment', count } );
-			registry.registerActions( 'counter', {
-				increment,
+			const store = registry.registerStore( 'counter', {
+				reducer: ( state = 0, action ) => {
+					if ( action.type === 'increment' ) {
+						return state + action.count;
+					}
+					return state;
+				},
+				actions: {
+					increment,
+				},
 			} );
-
-			registry.dispatch( 'counter' ).increment(); // state = 1
+			// state = 1
+			const dispatchResult = await registry
+				.dispatch( 'counter' )
+				.increment();
+			await expect( dispatchResult ).toEqual( {
+				type: 'increment',
+				count: 1,
+			} );
 			registry.dispatch( 'counter' ).increment( 4 ); // state = 5
 			expect( store.getState() ).toBe( 5 );
-
-			// This uses deprecated functions and will produce a warning.
-			expect( console ).toHaveWarned();
 		} );
 	} );
 
@@ -571,6 +715,62 @@ describe( 'createRegistry', () => {
 			registry.use( plugin, { value: 10 } );
 
 			expect( registry.select() ).toBe( 10 );
+		} );
+	} );
+
+	describe( 'parent registry', () => {
+		it( 'should call parent registry selectors/actions if defined', () => {
+			const mySelector = jest.fn();
+			const myAction = jest.fn();
+			const getSelectors = () => ( { mySelector } );
+			const getActions = () => ( { myAction } );
+			const subscribe = () => {};
+			registry.registerGenericStore( 'store', {
+				getSelectors,
+				getActions,
+				subscribe,
+			} );
+			const subRegistry = createRegistry( {}, registry );
+
+			subRegistry.select( 'store' ).mySelector();
+			subRegistry.dispatch( 'store' ).myAction();
+
+			expect( mySelector ).toHaveBeenCalled();
+			expect( myAction ).toHaveBeenCalled();
+		} );
+
+		it( 'should override existing store in parent registry', () => {
+			const mySelector = jest.fn();
+			const myAction = jest.fn();
+			const getSelectors = () => ( { mySelector } );
+			const getActions = () => ( { myAction } );
+			const subscribe = () => {};
+			registry.registerGenericStore( 'store', {
+				getSelectors,
+				getActions,
+				subscribe,
+			} );
+
+			const subRegistry = createRegistry( {}, registry );
+			const mySelector2 = jest.fn();
+			const myAction2 = jest.fn();
+			const getSelectors2 = () => ( { mySelector: mySelector2 } );
+			const getActions2 = () => ( { myAction: myAction2 } );
+			const subscribe2 = () => {};
+			subRegistry.registerGenericStore( 'store', {
+				getSelectors: getSelectors2,
+				getActions: getActions2,
+				subscribe: subscribe2,
+			} );
+
+			subRegistry.select( 'store' ).mySelector();
+			subRegistry.dispatch( 'store' ).myAction();
+
+			expect( mySelector ).not.toHaveBeenCalled();
+			expect( myAction ).not.toHaveBeenCalled();
+
+			expect( mySelector2 ).toHaveBeenCalled();
+			expect( myAction2 ).toHaveBeenCalled();
 		} );
 	} );
 } );

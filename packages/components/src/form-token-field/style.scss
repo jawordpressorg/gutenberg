@@ -3,8 +3,8 @@
 	flex-wrap: wrap;
 	align-items: flex-start;
 	width: 100%;
-	margin: 0;
-	padding: $grid-size-small;
+	margin: 0 0 $grid-unit-10 0;
+	padding: $grid-unit-05;
 	background-color: $white;
 	border: $border-width solid $light-gray-700;
 	color: $dark-gray-700;
@@ -31,7 +31,6 @@
 		min-height: 24px;
 		background: inherit;
 		border: 0;
-		font-size: $default-font-size;
 		color: $dark-gray-800;
 		box-shadow: none;
 
@@ -48,7 +47,11 @@
 
 .components-form-token-field__label {
 	display: inline-block;
-	margin-bottom: $grid-size-small;
+	margin-bottom: $grid-unit-05;
+}
+
+.components-form-token-field__help {
+	font-style: italic;
 }
 
 // Tokens
@@ -126,11 +129,13 @@
 }
 
 .components-form-token-field__token-text,
-.components-form-token-field__remove-token.components-icon-button {
+.components-form-token-field__remove-token.components-button {
 	display: inline-block;
 	line-height: 24px;
+	height: auto;
 	background: $light-gray-500;
 	transition: all 0.2s cubic-bezier(0.4, 1, 0.4, 1);
+	@include reduce-motion;
 }
 
 .components-form-token-field__token-text {
@@ -141,7 +146,7 @@
 	text-overflow: ellipsis;
 }
 
-.components-form-token-field__remove-token.components-icon-button {
+.components-form-token-field__remove-token.components-button {
 	cursor: pointer;
 	border-radius: 0 12px 12px 0;
 	padding: 0 2px;
@@ -161,9 +166,10 @@
 	max-height: 9em;
 	overflow-y: scroll;
 	transition: all 0.15s ease-in-out;
+	@include reduce-motion("transition");
 	list-style: none;
 	border-top: $border-width solid $dark-gray-300;
-	margin: $grid-size-small (-$grid-size-small) (-$grid-size-small);
+	margin: $grid-unit-05 (-$grid-unit-05) (-$grid-unit-05);
 	padding-top: 3px;
 }
 

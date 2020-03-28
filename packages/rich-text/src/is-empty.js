@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import { LINE_SEPARATOR } from './special-characters';
 
 /**
@@ -37,5 +40,8 @@ export function isEmptyLine( { text, start, end } ) {
 		return true;
 	}
 
-	return text.slice( start - 1, end + 1 ) === `${ LINE_SEPARATOR }${ LINE_SEPARATOR }`;
+	return (
+		text.slice( start - 1, end + 1 ) ===
+		`${ LINE_SEPARATOR }${ LINE_SEPARATOR }`
+	);
 }

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * External dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deepFreeze from 'deep-freeze';
 
 /**
  * Internal dependencies
@@ -21,15 +21,10 @@ import {
 	getActiveMetaBoxLocations,
 	isMetaBoxLocationActive,
 	isEditorPanelEnabled,
+	isEditorPanelRemoved,
 } from '../selectors';
 
-jest.mock( '@wordpress/deprecated', () => jest.fn() );
-
 describe( 'selectors', () => {
-	beforeEach( () => {
-		deprecated.mockClear();
-	} );
-
 	describe( 'getEditorMode', () => {
 		it( 'should return the selected editor mode', () => {
 			const state = {
@@ -70,7 +65,9 @@ describe( 'selectors', () => {
 				preferences: {},
 			};
 
-			expect( getPreference( state, 'ribs', 'chicken' ) ).toEqual( 'chicken' );
+			expect( getPreference( state, 'ribs', 'chicken' ) ).toEqual(
+				'chicken'
+			);
 		} );
 	} );
 
@@ -176,7 +173,9 @@ describe( 'selectors', () => {
 				activeGeneralSidebar: 'edit-post/block',
 			};
 
-			expect( getActiveGeneralSidebarName( state ) ).toBe( 'edit-post/block' );
+			expect( getActiveGeneralSidebarName( state ) ).toBe(
+				'edit-post/block'
+			);
 		} );
 	} );
 
@@ -203,6 +202,26 @@ describe( 'selectors', () => {
 			};
 
 			expect( isModalActive( state, 'test-modal' ) ).toBe( false );
+		} );
+	} );
+
+	describe( 'isEditorPanelRemoved', () => {
+		it( 'should return false by default', () => {
+			const state = deepFreeze( {
+				removedPanels: [],
+			} );
+
+			expect( isEditorPanelRemoved( state, 'post-status' ) ).toBe(
+				false
+			);
+		} );
+
+		it( 'should return true when panel was removed', () => {
+			const state = deepFreeze( {
+				removedPanels: [ 'post-status' ],
+			} );
+
+			expect( isEditorPanelRemoved( state, 'post-status' ) ).toBe( true );
 		} );
 	} );
 
@@ -238,11 +257,39 @@ describe( 'selectors', () => {
 				},
 			};
 
-			expect( isEditorPanelEnabled( state, 'post-status' ) ).toBe( false );
+			expect( isEditorPanelEnabled( state, 'post-status' ) ).toBe(
+				false
+			);
+		} );
+
+		it( 'should return false when a panel is enabled but removed', () => {
+			const state = deepFreeze( {
+				preferences: {
+					panels: {
+						'post-status': {
+							enabled: true,
+						},
+					},
+				},
+				removedPanels: [ 'post-status' ],
+			} );
+
+			expect( isEditorPanelEnabled( state, 'post-status' ) ).toBe(
+				false
+			);
 		} );
 	} );
 
 	describe( 'isEditorPanelOpened', () => {
+		it( 'is tolerant to an undefined panels preference', () => {
+			// See: https://github.com/WordPress/gutenberg/issues/14580
+			const state = {
+				preferences: {},
+			};
+
+			expect( isEditorPanelOpened( state, 'post-status' ) ).toBe( false );
+		} );
+
 		it( 'should return false by default', () => {
 			const state = {
 				preferences: {
@@ -303,6 +350,15 @@ describe( 'selectors', () => {
 	} );
 
 	describe( 'isFeatureActive', () => {
+		it( 'is tolerant to an undefined features preference', () => {
+			// See: https://github.com/WordPress/gutenberg/issues/14580
+			const state = {
+				preferences: {},
+			};
+
+			expect( isFeatureActive( state, 'chicken' ) ).toBe( false );
+		} );
+
 		it( 'should return true if feature is active', () => {
 			const state = {
 				preferences: {
@@ -330,8 +386,7 @@ describe( 'selectors', () => {
 		it( 'should return false if feature is not referred', () => {
 			const state = {
 				preferences: {
-					features: {
-					},
+					features: {},
 				},
 			};
 

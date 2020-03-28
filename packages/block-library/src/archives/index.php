@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/archives` block.
  *
- * @package gutenberg
+ * @package WordPress
  */
 
 /**
@@ -32,7 +32,7 @@ function render_block_core_archives( $attributes ) {
 		$class .= ' wp-block-archives-dropdown';
 
 		$dropdown_id = esc_attr( uniqid( 'wp-block-archives-' ) );
-		$title       = __( 'Archives', 'gutenberg' );
+		$title       = __( 'Archives' );
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
 		$dropdown_args = apply_filters(
@@ -50,19 +50,19 @@ function render_block_core_archives( $attributes ) {
 
 		switch ( $dropdown_args['type'] ) {
 			case 'yearly':
-				$label = __( 'Select Year', 'gutenberg' );
+				$label = __( 'Select Year' );
 				break;
 			case 'monthly':
-				$label = __( 'Select Month', 'gutenberg' );
+				$label = __( 'Select Month' );
 				break;
 			case 'daily':
-				$label = __( 'Select Day', 'gutenberg' );
+				$label = __( 'Select Day' );
 				break;
 			case 'weekly':
-				$label = __( 'Select Week', 'gutenberg' );
+				$label = __( 'Select Week' );
 				break;
 			default:
-				$label = __( 'Select Post', 'gutenberg' );
+				$label = __( 'Select Post' );
 				break;
 		}
 
@@ -72,48 +72,44 @@ function render_block_core_archives( $attributes ) {
 	<select id="' . $dropdown_id . '" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
 	<option value="">' . $label . '</option>' . $archives . '</select>';
 
-		$block_content = sprintf(
+		return sprintf(
 			'<div class="%1$s">%2$s</div>',
 			esc_attr( $class ),
 			$block_content
 		);
-	} else {
-
-		$class .= ' wp-block-archives-list';
-
-		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
-		$archives_args = apply_filters(
-			'widget_archives_args',
-			array(
-				'type'            => 'monthly',
-				'show_post_count' => $show_post_count,
-			)
-		);
-
-		$archives_args['echo'] = 0;
-
-		$archives = wp_get_archives( $archives_args );
-
-		$classnames = esc_attr( $class );
-
-		if ( empty( $archives ) ) {
-
-			$block_content = sprintf(
-				'<div class="%1$s">%2$s</div>',
-				$classnames,
-				__( 'No archives to show.', 'gutenberg' )
-			);
-		} else {
-
-			$block_content = sprintf(
-				'<ul class="%1$s">%2$s</ul>',
-				$classnames,
-				$archives
-			);
-		}
 	}
 
-	return $block_content;
+	$class .= ' wp-block-archives-list';
+
+	/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
+	$archives_args = apply_filters(
+		'widget_archives_args',
+		array(
+			'type'            => 'monthly',
+			'show_post_count' => $show_post_count,
+		)
+	);
+
+	$archives_args['echo'] = 0;
+
+	$archives = wp_get_archives( $archives_args );
+
+	$classnames = esc_attr( $class );
+
+	if ( empty( $archives ) ) {
+
+		return sprintf(
+			'<div class="%1$s">%2$s</div>',
+			$classnames,
+			__( 'No archives to show.' )
+		);
+	}
+
+	return sprintf(
+		'<ul class="%1$s">%2$s</ul>',
+		$classnames,
+		$archives
+	);
 }
 
 /**
@@ -126,6 +122,7 @@ function register_block_core_archives() {
 			'attributes'      => array(
 				'align'             => array(
 					'type' => 'string',
+					'enum' => array( 'left', 'center', 'right', 'wide', 'full' ),
 				),
 				'className'         => array(
 					'type' => 'string',
@@ -143,5 +140,4 @@ function register_block_core_archives() {
 		)
 	);
 }
-
 add_action( 'init', 'register_block_core_archives' );

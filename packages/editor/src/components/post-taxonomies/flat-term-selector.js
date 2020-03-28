@@ -1,7 +1,17 @@
 /**
  * External dependencies
  */
-import { isEmpty, get, unescape as unescapeString, find, throttle, uniqBy, invoke } from 'lodash';
+import {
+	escape as escapeString,
+	find,
+	get,
+	invoke,
+	isEmpty,
+	map,
+	throttle,
+	unescape as unescapeString,
+	uniqBy,
+} from 'lodash';
 
 /**
  * WordPress dependencies
@@ -24,7 +34,35 @@ const DEFAULT_QUERY = {
 	_fields: 'id,name',
 };
 const MAX_TERMS_SUGGESTIONS = 20;
-const isSameTermName = ( termA, termB ) => termA.toLowerCase() === termB.toLowerCase();
+const isSameTermName = ( termA, termB ) =>
+	termA.toLowerCase() === termB.toLowerCase();
+
+/**
+ * Returns a term object with name unescaped.
+ * The unescape of the name property is done using lodash unescape function.
+ *
+ * @param {Object} term The term object to unescape.
+ *
+ * @return {Object} Term object with name property unescaped.
+ */
+const unescapeTerm = ( term ) => {
+	return {
+		...term,
+		name: unescapeString( term.name ),
+	};
+};
+
+/**
+ * Returns an array of term objects with names unescaped.
+ * The unescape of each term is performed using the unescapeTerm function.
+ *
+ * @param {Object[]} terms Array of term objects to unescape.
+ *
+ * @return {Object[]} Array of term objects unescaped.
+ */
+const unescapeTerms = ( terms ) => {
+	return map( terms, unescapeTerm );
+};
 
 class FlatTermSelector extends Component {
 	constructor() {
@@ -33,7 +71,7 @@ class FlatTermSelector extends Component {
 		this.searchTerms = throttle( this.searchTerms.bind( this ), 500 );
 		this.findOrCreateTerm = this.findOrCreateTerm.bind( this );
 		this.state = {
-			loading: false,
+			loading: ! isEmpty( this.props.terms ),
 			availableTerms: [],
 			selectedTerms: [],
 		};
@@ -41,10 +79,9 @@ class FlatTermSelector extends Component {
 
 	componentDidMount() {
 		if ( ! isEmpty( this.props.terms ) ) {
-			this.setState( { loading: false } );
 			this.initRequest = this.fetchTerms( {
 				include: this.props.terms.join( ',' ),
-				per_page: 100,
+				per_page: -1,
 			} );
 			this.initRequest.then(
 				() => {
@@ -79,10 +116,17 @@ class FlatTermSelector extends Component {
 		const request = apiFetch( {
 			path: addQueryArgs( `/wp/v2/${ taxonomy.rest_base }`, query ),
 		} );
-		request.then( ( terms ) => {
+		request.then( unescapeTerms ).then( ( terms ) => {
 			this.setState( ( state ) => ( {
 				availableTerms: state.availableTerms.concat(
-					terms.filter( ( term ) => ! find( state.availableTerms, ( availableTerm ) => availableTerm.id === term.id ) )
+					terms.filter(
+						( term ) =>
+							! find(
+								state.availableTerms,
+								( availableTerm ) =>
+									availableTerm.id === term.id
+							)
+					)
 				),
 			} ) );
 			this.updateSelectedTerms( this.props.terms );
@@ -92,13 +136,16 @@ class FlatTermSelector extends Component {
 	}
 
 	updateSelectedTerms( terms = [] ) {
-		const selectedTerms = terms.reduce( ( result, termId ) => {
-			const termObject = find( this.state.availableTerms, ( term ) => term.id === termId );
+		const selectedTerms = terms.reduce( ( accumulator, termId ) => {
+			const termObject = find(
+				this.state.availableTerms,
+				( term ) => term.id === termId
+			);
 			if ( termObject ) {
-				result.push( termObject.name );
+				accumulator.push( termObject.name );
 			}
 
-			return result;
+			return accumulator;
 		}, [] );
 		this.setState( {
 			selectedTerms,
@@ -107,37 +154,50 @@ class FlatTermSelector extends Component {
 
 	findOrCreateTerm( termName ) {
 		const { taxonomy } = this.props;
+		const termNameEscaped = escapeString( termName );
 		// Tries to create a term or fetch it if it already exists.
 		return apiFetch( {
 			path: `/wp/v2/${ taxonomy.rest_base }`,
 			method: 'POST',
-			data: { name: termName },
-		} ).catch( ( error ) => {
-			const errorCode = error.code;
-			if ( errorCode === 'term_exists' ) {
-				// If the terms exist, fetch it instead of creating a new one.
-				this.addRequest = apiFetch( {
-					path: addQueryArgs( `/wp/v2/${ taxonomy.rest_base }`, { ...DEFAULT_QUERY, search: termName } ),
-				} );
-				return this.addRequest.then( ( searchResult ) => {
-					return find( searchResult, ( result ) => isSameTermName( result.name, termName ) );
-				} );
-			}
-			return Promise.reject( error );
-		} );
+			data: { name: termNameEscaped },
+		} )
+			.catch( ( error ) => {
+				const errorCode = error.code;
+				if ( errorCode === 'term_exists' ) {
+					// If the terms exist, fetch it instead of creating a new one.
+					this.addRequest = apiFetch( {
+						path: addQueryArgs( `/wp/v2/${ taxonomy.rest_base }`, {
+							...DEFAULT_QUERY,
+							search: termNameEscaped,
+						} ),
+					} ).then( unescapeTerms );
+					return this.addRequest.then( ( searchResult ) => {
+						return find( searchResult, ( result ) =>
+							isSameTermName( result.name, termName )
+						);
+					} );
+				}
+				return Promise.reject( error );
+			} )
+			.then( unescapeTerm );
 	}
 
 	onChange( termNames ) {
 		const uniqueTerms = uniqBy( termNames, ( term ) => term.toLowerCase() );
 		this.setState( { selectedTerms: uniqueTerms } );
-		const newTermNames = uniqueTerms.filter( ( termName ) =>
-			! find( this.state.availableTerms, ( term ) => isSameTermName( term.name, termName ) )
+		const newTermNames = uniqueTerms.filter(
+			( termName ) =>
+				! find( this.state.availableTerms, ( term ) =>
+					isSameTermName( term.name, termName )
+				)
 		);
 		const termNamesToIds = ( names, availableTerms ) => {
-			return names
-				.map( ( termName ) =>
-					find( availableTerms, ( term ) => isSameTermName( term.name, termName ) ).id
-				);
+			return names.map(
+				( termName ) =>
+					find( availableTerms, ( term ) =>
+						isSameTermName( term.name, termName )
+					).id
+			);
 		};
 
 		if ( newTermNames.length === 0 ) {
@@ -146,16 +206,18 @@ class FlatTermSelector extends Component {
 				this.props.taxonomy.rest_base
 			);
 		}
-		Promise
-			.all( newTermNames.map( this.findOrCreateTerm ) )
-			.then( ( newTerms ) => {
-				const newAvailableTerms = this.state.availableTerms.concat( newTerms );
+		Promise.all( newTermNames.map( this.findOrCreateTerm ) ).then(
+			( newTerms ) => {
+				const newAvailableTerms = this.state.availableTerms.concat(
+					newTerms
+				);
 				this.setState( { availableTerms: newAvailableTerms } );
 				return this.props.onUpdateTerms(
 					termNamesToIds( uniqueTerms, newAvailableTerms ),
 					this.props.taxonomy.rest_base
 				);
-			} );
+			}
+		);
 	}
 
 	searchTerms( search = '' ) {
@@ -175,21 +237,29 @@ class FlatTermSelector extends Component {
 		const newTermLabel = get(
 			taxonomy,
 			[ 'labels', 'add_new_item' ],
-			slug === 'post_tag' ? __( 'Add New Tag' ) : __( 'Add New Term' )
+			slug === 'post_tag' ? __( 'Add new tag' ) : __( 'Add new Term' )
 		);
 		const singularName = get(
 			taxonomy,
 			[ 'labels', 'singular_name' ],
 			slug === 'post_tag' ? __( 'Tag' ) : __( 'Term' )
 		);
-		const termAddedLabel = sprintf( _x( '%s added', 'term' ), singularName );
-		const termRemovedLabel = sprintf( _x( '%s removed', 'term' ), singularName );
-		const removeTermLabel = sprintf( _x( 'Remove %s', 'term' ), singularName );
+		const termAddedLabel = sprintf(
+			_x( '%s added', 'term' ),
+			singularName
+		);
+		const termRemovedLabel = sprintf(
+			_x( '%s removed', 'term' ),
+			singularName
+		);
+		const removeTermLabel = sprintf(
+			_x( 'Remove %s', 'term' ),
+			singularName
+		);
 
 		return (
 			<FormTokenField
 				value={ selectedTerms }
-				displayTransform={ unescapeString }
 				suggestions={ termNames }
 				onChange={ this.onChange }
 				onInputChange={ this.searchTerms }
@@ -212,9 +282,25 @@ export default compose(
 		const { getTaxonomy } = select( 'core' );
 		const taxonomy = getTaxonomy( slug );
 		return {
-			hasCreateAction: taxonomy ? get( getCurrentPost(), [ '_links', 'wp:action-create-' + taxonomy.rest_base ], false ) : false,
-			hasAssignAction: taxonomy ? get( getCurrentPost(), [ '_links', 'wp:action-assign-' + taxonomy.rest_base ], false ) : false,
-			terms: taxonomy ? select( 'core/editor' ).getEditedPostAttribute( taxonomy.rest_base ) : [],
+			hasCreateAction: taxonomy
+				? get(
+						getCurrentPost(),
+						[ '_links', 'wp:action-create-' + taxonomy.rest_base ],
+						false
+				  )
+				: false,
+			hasAssignAction: taxonomy
+				? get(
+						getCurrentPost(),
+						[ '_links', 'wp:action-assign-' + taxonomy.rest_base ],
+						false
+				  )
+				: false,
+			terms: taxonomy
+				? select( 'core/editor' ).getEditedPostAttribute(
+						taxonomy.rest_base
+				  )
+				: [],
 			taxonomy,
 		};
 	} ),
@@ -225,5 +311,5 @@ export default compose(
 			},
 		};
 	} ),
-	withFilters( 'editor.PostTaxonomyType' ),
+	withFilters( 'editor.PostTaxonomyType' )
 )( FlatTermSelector );

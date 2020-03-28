@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import domReady from '../';
 
 describe( 'domReady', () => {
@@ -37,7 +40,10 @@ describe( 'domReady', () => {
 			const callback = jest.fn( () => {} );
 			domReady( callback );
 			expect( callback ).not.toHaveBeenCalled();
-			expect( addEventListener ).toHaveBeenCalledWith( 'DOMContentLoaded', callback );
+			expect( addEventListener ).toHaveBeenCalledWith(
+				'DOMContentLoaded',
+				callback
+			);
 		} );
 	} );
 } );

@@ -1,6 +1,6 @@
 {
 	"name": "@wordpress/keycodes",
-	"version": "2.0.3",
+	"version": "2.9.0",
 	"description": "Keycodes utilities for WordPress. Used to check for keyboard events across browsers/operating systems.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
@@ -11,7 +11,8 @@
 	"homepage": "https://github.com/WordPress/gutenberg/tree/master/packages/keycodes/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git"
+		"url": "https://github.com/WordPress/gutenberg.git",
+		"directory": "packages/keycodes"
 	},
 	"bugs": {
 		"url": "https://github.com/WordPress/gutenberg/issues"
@@ -19,9 +20,11 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"react-native": "src/index",
+	"sideEffects": false,
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
-		"lodash": "^4.17.10"
+		"@babel/runtime": "^7.8.3",
+		"@wordpress/i18n": "file:../i18n",
+		"lodash": "^4.17.15"
 	},
 	"publishConfig": {
 		"access": "public"

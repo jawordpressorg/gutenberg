@@ -43,15 +43,17 @@ describe( 'PostTaxonomies', () => {
 		};
 
 		const wrapperOne = shallow(
-			<PostTaxonomies postType="book"
+			<PostTaxonomies
+				postType="book"
 				taxonomies={ [ genresTaxonomy, categoriesTaxonomy ] }
 			/>
 		);
 
-		expect( wrapperOne.at( 0 ) ).toHaveLength( 1 );
+		expect( wrapperOne ).toHaveLength( 1 );
 
 		const wrapperTwo = shallow(
-			<PostTaxonomies postType="book"
+			<PostTaxonomies
+				postType="book"
 				taxonomies={ [
 					genresTaxonomy,
 					{
@@ -62,7 +64,7 @@ describe( 'PostTaxonomies', () => {
 			/>
 		);
 
-		expect( wrapperTwo.at( 0 ) ).toHaveLength( 2 );
+		expect( wrapperTwo ).toHaveLength( 2 );
 	} );
 
 	it( 'should not render taxonomy components that hide their ui', () => {
@@ -78,15 +80,14 @@ describe( 'PostTaxonomies', () => {
 		};
 
 		const wrapperOne = shallow(
-			<PostTaxonomies postType="book"
-				taxonomies={ [ genresTaxonomy ] }
-			/>
+			<PostTaxonomies postType="book" taxonomies={ [ genresTaxonomy ] } />
 		);
 
 		expect( wrapperOne.at( 0 ) ).toHaveLength( 1 );
 
 		const wrapperTwo = shallow(
-			<PostTaxonomies postType="book"
+			<PostTaxonomies
+				postType="book"
 				taxonomies={ [
 					{
 						...genresTaxonomy,

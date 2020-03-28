@@ -6,30 +6,22 @@ exports[`DocumentOutline header blocks present should match snapshot 1`] = `
 >
   <ul>
     <TableOfContentsItem
+      href="#block-clientId_0"
       isValid={true}
       key="0"
       level="H2"
-      onClick={[Function]}
       path={Array []}
     >
-      <Component
-        format="string"
-        tagName="span"
-        value="Heading parent"
-      />
+      Heading parent
     </TableOfContentsItem>
     <TableOfContentsItem
+      href="#block-clientId_1"
       isValid={true}
       key="1"
       level="H3"
-      onClick={[Function]}
       path={Array []}
     >
-      <Component
-        format="string"
-        tagName="span"
-        value="Heading child"
-      />
+      Heading child
     </TableOfContentsItem>
   </ul>
 </div>
@@ -41,17 +33,13 @@ exports[`DocumentOutline header blocks present should render warnings for multip
 >
   <ul>
     <TableOfContentsItem
+      href="#block-clientId_0"
       isValid={false}
       key="0"
       level="H1"
-      onClick={[Function]}
       path={Array []}
     >
-      <Component
-        format="string"
-        tagName="span"
-        value="Heading 1"
-      />
+      Heading 1
       <br
         key="incorrect-break-multiple-h1"
       />
@@ -62,17 +50,13 @@ exports[`DocumentOutline header blocks present should render warnings for multip
       </em>
     </TableOfContentsItem>
     <TableOfContentsItem
+      href="#block-clientId_2"
       isValid={false}
       key="1"
       level="H1"
-      onClick={[Function]}
       path={Array []}
     >
-      <Component
-        format="string"
-        tagName="span"
-        value="Heading 1"
-      />
+      Heading 1
       <br
         key="incorrect-break-multiple-h1"
       />

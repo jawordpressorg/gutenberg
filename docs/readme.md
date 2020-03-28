@@ -1,11 +1,13 @@
-# Introduction
+# Block Editor Handbook
 
-Gutenberg began as a transformation of the WordPress editor — a new interface for adding, editing, and manipulating content. It seeks to make it easy for anyone to create rich, flexible content layouts with a block-based UI. All types of page components are represented as modular blocks, which means they can be accessed from a unified block menu, dropped anywhere on a page, and directly edited to create the custom presentation the user wants.
+The Gutenberg project is transforming the way content is created on WordPress. A block editor was the first product launched creating a new methodology for working with content. 
 
-It is a fundamental modernization and transformation of how the WordPress experience works, creating new opportunities for both users and developers. Gutenberg introduces new frameworks, interaction patterns, functionality, and user experiences for WordPress. And similar to a new macOS version, we will talk about “Gutenberg”, and all the new possibilities it enables, until eventually the idea of Gutenberg as a separate entity will fade and it will simply be WordPress.
+The Block Editor handbook provides documentation for designers and developers on how to extend the editor, and also how you can start contributing to the project. For authors, writers, and users of the block editor see the [block editor support documentation](https://wordpress.org/support/article/wordpress-editor/).
 
 ![Gutenberg Demo](https://cldup.com/kZXGDcGPMU.gif)
 
-Gutenberg brings many changes to WordPress, but the biggest impact comes from the way it can enable a much clearer product architecture — one which enables modularity, consistency, and interoperability — and the positive impact that can have on the end user experience of WordPress. This handbook will describe the scope of those architectural and user experience (UX) changes, including the central “block as the interface” principle — the most crucial conceptual change to understand about Gutenberg.
+Using a system of Blocks to compose and format content, the new block-based editor is designed to create rich, flexible layouts for websites and digital products. Content is created in the unit of blocks instead of freeform text with inserted media, embeds and Shortcodes (there's a Shortcode block though).
 
-Here you can also find design guidelines, API documentation, and tutorials about getting started with Gutenberg development.
+Blocks treat Paragraphs, Headings, Media, and Embeds all as components that, when strung together, make up the content stored in the WordPress database, replacing the traditional concept of freeform text with embedded media and shortcodes. The new editor is designed with progressive enhancement, meaning that it is back-compatible with all legacy content, and it also offers a process to try to convert and split a Classic block into equivalent blocks using client-side parsing. Finally, the blocks offer enhanced editing and format controls.
+
+The Editor offers rich new value to users with visual, drag-and-drop creation tools and powerful developer enhancements with modern vendor packages, reusable components, rich APIs and hooks to modify and extend the editor through Custom Blocks, Custom Block Styles and Plugins.

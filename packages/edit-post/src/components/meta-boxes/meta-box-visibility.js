@@ -17,9 +17,16 @@ class MetaBoxVisibility extends Component {
 
 	updateDOM() {
 		const { id, isVisible } = this.props;
+
 		const element = document.getElementById( id );
-		if ( element ) {
-			element.style.display = isVisible ? '' : 'none';
+		if ( ! element ) {
+			return;
+		}
+
+		if ( isVisible ) {
+			element.classList.remove( 'is-hidden' );
+		} else {
+			element.classList.add( 'is-hidden' );
 		}
 	}
 
@@ -29,5 +36,7 @@ class MetaBoxVisibility extends Component {
 }
 
 export default withSelect( ( select, { id } ) => ( {
-	isVisible: select( 'core/edit-post' ).isEditorPanelEnabled( `meta-box-${ id }` ),
+	isVisible: select( 'core/edit-post' ).isEditorPanelEnabled(
+		`meta-box-${ id }`
+	),
 } ) )( MetaBoxVisibility );

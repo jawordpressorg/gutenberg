@@ -1,37 +1,46 @@
 /**
- * External Dependencies
+ * External dependencies
  */
-import { filter, pick } from 'lodash';
+import {
+	every,
+	filter,
+	find,
+	forEach,
+	get,
+	isEmpty,
+	map,
+	reduce,
+	some,
+	toString,
+} from 'lodash';
 
 /**
  * WordPress dependencies
  */
-import { Component, Fragment } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { compose } from '@wordpress/compose';
 import {
-	IconButton,
-	DropZone,
-	FormFileUpload,
 	PanelBody,
 	RangeControl,
 	SelectControl,
+	StepperControl,
 	ToggleControl,
-	Toolbar,
 	withNotices,
 } from '@wordpress/components';
-import {
-	BlockControls,
-	MediaUpload,
-	MediaPlaceholder,
-	InspectorControls,
-	mediaUpload,
-} from '@wordpress/editor';
+import { MediaPlaceholder, InspectorControls } from '@wordpress/block-editor';
+import { Component, Platform } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import { getBlobByURL, isBlobURL, revokeBlobURL } from '@wordpress/blob';
+import { withSelect } from '@wordpress/data';
+import { withViewportMatch } from '@wordpress/viewport';
 
 /**
  * Internal dependencies
  */
-import GalleryImage from './gallery-image';
+import { sharedIcon } from './shared-icon';
+import { defaultColumnsNumber, pickRelevantMediaFiles } from './shared';
+import Gallery from './gallery';
 
+const ColumnsControl = Platform.OS === 'web' ? RangeControl : StepperControl;
 const MAX_COLUMNS = 8;
 const linkOptions = [
 	{ value: 'attachment', label: __( 'Attachment Page' ) },
@@ -40,13 +49,23 @@ const linkOptions = [
 ];
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 
-export function defaultColumnsNumber( attributes ) {
-	return Math.min( 3, attributes.images.length );
-}
+const PLACEHOLDER_TEXT = Platform.select( {
+	web: __(
+		'Drag images, upload new ones or select files from your library.'
+	),
+	native: __( 'ADD MEDIA' ),
+} );
 
-export const pickRelevantMediaFiles = ( image ) => {
-	return pick( image, [ 'alt', 'id', 'link', 'url', 'caption' ] );
-};
+// currently this is needed for consistent controls UI on mobile
+// this can be removed after control components settle on consistent defaults
+const MOBILE_CONTROL_PROPS = Platform.select( {
+	web: {},
+	native: { separatorType: 'fullWidth' },
+} );
+const MOBILE_CONTROL_PROPS_SEPARATOR_NONE = Platform.select( {
+	web: {},
+	native: { separatorType: 'none' },
+} );
 
 class GalleryEdit extends Component {
 	constructor() {
@@ -54,17 +73,44 @@ class GalleryEdit extends Component {
 
 		this.onSelectImage = this.onSelectImage.bind( this );
 		this.onSelectImages = this.onSelectImages.bind( this );
+		this.onDeselectImage = this.onDeselectImage.bind( this );
 		this.setLinkTo = this.setLinkTo.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
 		this.toggleImageCrop = this.toggleImageCrop.bind( this );
+		this.onMove = this.onMove.bind( this );
+		this.onMoveForward = this.onMoveForward.bind( this );
+		this.onMoveBackward = this.onMoveBackward.bind( this );
 		this.onRemoveImage = this.onRemoveImage.bind( this );
+		this.onUploadError = this.onUploadError.bind( this );
 		this.setImageAttributes = this.setImageAttributes.bind( this );
-		this.addFiles = this.addFiles.bind( this );
-		this.uploadFromFiles = this.uploadFromFiles.bind( this );
+		this.setAttributes = this.setAttributes.bind( this );
+		this.onFocusGalleryCaption = this.onFocusGalleryCaption.bind( this );
+		this.getImagesSizeOptions = this.getImagesSizeOptions.bind( this );
+		this.updateImagesSize = this.updateImagesSize.bind( this );
 
 		this.state = {
 			selectedImage: null,
+			attachmentCaptions: null,
 		};
+	}
+
+	setAttributes( attributes ) {
+		if ( attributes.ids ) {
+			throw new Error(
+				'The "ids" attribute should not be changed directly. It is managed automatically when "images" attribute changes'
+			);
+		}
+
+		if ( attributes.images ) {
+			attributes = {
+				...attributes,
+				// Unlike images[ n ].id which is a string, always ensure the
+				// ids array contains numbers as per its attribute type.
+				ids: map( attributes.images, ( { id } ) => parseInt( id, 10 ) ),
+			};
+		}
+
+		this.props.setAttributes( attributes );
 	}
 
 	onSelectImage( index ) {
@@ -77,42 +123,147 @@ class GalleryEdit extends Component {
 		};
 	}
 
+	onDeselectImage( index ) {
+		return () => {
+			if ( this.state.selectedImage === index ) {
+				this.setState( {
+					selectedImage: null,
+				} );
+			}
+		};
+	}
+
+	onMove( oldIndex, newIndex ) {
+		const images = [ ...this.props.attributes.images ];
+		images.splice( newIndex, 1, this.props.attributes.images[ oldIndex ] );
+		images.splice( oldIndex, 1, this.props.attributes.images[ newIndex ] );
+		this.setState( { selectedImage: newIndex } );
+		this.setAttributes( { images } );
+	}
+
+	onMoveForward( oldIndex ) {
+		return () => {
+			if ( oldIndex === this.props.attributes.images.length - 1 ) {
+				return;
+			}
+			this.onMove( oldIndex, oldIndex + 1 );
+		};
+	}
+
+	onMoveBackward( oldIndex ) {
+		return () => {
+			if ( oldIndex === 0 ) {
+				return;
+			}
+			this.onMove( oldIndex, oldIndex - 1 );
+		};
+	}
+
 	onRemoveImage( index ) {
 		return () => {
-			const images = filter( this.props.attributes.images, ( img, i ) => index !== i );
+			const images = filter(
+				this.props.attributes.images,
+				( img, i ) => index !== i
+			);
 			const { columns } = this.props.attributes;
 			this.setState( { selectedImage: null } );
-			this.props.setAttributes( {
+			this.setAttributes( {
 				images,
 				columns: columns ? Math.min( images.length, columns ) : columns,
 			} );
 		};
 	}
 
-	onSelectImages( images ) {
-		this.props.setAttributes( {
-			images: images.map( ( image ) => pickRelevantMediaFiles( image ) ),
+	selectCaption( newImage, images, attachmentCaptions ) {
+		// The image id in both the images and attachmentCaptions arrays is a
+		// string, so ensure comparison works correctly by converting the
+		// newImage.id to a string.
+		const newImageId = toString( newImage.id );
+		const currentImage = find( images, { id: newImageId } );
+
+		const currentImageCaption = currentImage
+			? currentImage.caption
+			: newImage.caption;
+
+		if ( ! attachmentCaptions ) {
+			return currentImageCaption;
+		}
+
+		const attachment = find( attachmentCaptions, {
+			id: newImageId,
+		} );
+
+		// if the attachment caption is updated
+		if ( attachment && attachment.caption !== newImage.caption ) {
+			return newImage.caption;
+		}
+
+		return currentImageCaption;
+	}
+
+	onSelectImages( newImages ) {
+		const { columns, images, sizeSlug } = this.props.attributes;
+		const { attachmentCaptions } = this.state;
+		this.setState( {
+			attachmentCaptions: newImages.map( ( newImage ) => ( {
+				// Store the attachmentCaption id as a string for consistency
+				// with the type of the id in the images attribute.
+				id: toString( newImage.id ),
+				caption: newImage.caption,
+			} ) ),
+		} );
+		this.setAttributes( {
+			images: newImages.map( ( newImage ) => ( {
+				...pickRelevantMediaFiles( newImage, sizeSlug ),
+				caption: this.selectCaption(
+					newImage,
+					images,
+					attachmentCaptions
+				),
+				// The id value is stored in a data attribute, so when the
+				// block is parsed it's converted to a string. Converting
+				// to a string here ensures it's type is consistent.
+				id: toString( newImage.id ),
+			} ) ),
+			columns: columns ? Math.min( newImages.length, columns ) : columns,
 		} );
 	}
 
+	onUploadError( message ) {
+		const { noticeOperations } = this.props;
+		noticeOperations.removeAllNotices();
+		noticeOperations.createErrorNotice( message );
+	}
+
 	setLinkTo( value ) {
-		this.props.setAttributes( { linkTo: value } );
+		this.setAttributes( { linkTo: value } );
 	}
 
 	setColumnsNumber( value ) {
-		this.props.setAttributes( { columns: value } );
+		this.setAttributes( { columns: value } );
 	}
 
 	toggleImageCrop() {
-		this.props.setAttributes( { imageCrop: ! this.props.attributes.imageCrop } );
+		this.setAttributes( { imageCrop: ! this.props.attributes.imageCrop } );
 	}
 
 	getImageCropHelp( checked ) {
-		return checked ? __( 'Thumbnails are cropped to align.' ) : __( 'Thumbnails are not cropped.' );
+		return checked
+			? __( 'Thumbnails are cropped to align.' )
+			: __( 'Thumbnails are not cropped.' );
+	}
+
+	onFocusGalleryCaption() {
+		this.setState( {
+			selectedImage: null,
+		} );
 	}
 
 	setImageAttributes( index, attributes ) {
-		const { attributes: { images }, setAttributes } = this.props;
+		const {
+			attributes: { images },
+		} = this.props;
+		const { setAttributes } = this;
 		if ( ! images[ index ] ) {
 			return;
 		}
@@ -128,24 +279,56 @@ class GalleryEdit extends Component {
 		} );
 	}
 
-	uploadFromFiles( event ) {
-		this.addFiles( event.target.files );
+	getImagesSizeOptions() {
+		const { imageSizes, resizedImages } = this.props;
+		return map(
+			filter( imageSizes, ( { slug } ) =>
+				some( resizedImages, ( sizes ) => sizes[ slug ] )
+			),
+			( { name, slug } ) => ( { value: slug, label: name } )
+		);
 	}
 
-	addFiles( files ) {
-		const currentImages = this.props.attributes.images || [];
-		const { noticeOperations, setAttributes } = this.props;
-		mediaUpload( {
-			allowedTypes: ALLOWED_MEDIA_TYPES,
-			filesList: files,
-			onFileChange: ( images ) => {
-				const imagesNormalized = images.map( ( image ) => pickRelevantMediaFiles( image ) );
-				setAttributes( {
-					images: currentImages.concat( imagesNormalized ),
-				} );
-			},
-			onError: noticeOperations.createErrorNotice,
+	updateImagesSize( sizeSlug ) {
+		const {
+			attributes: { images },
+			resizedImages,
+		} = this.props;
+
+		const updatedImages = map( images, ( image ) => {
+			if ( ! image.id ) {
+				return image;
+			}
+			const url = get( resizedImages, [
+				parseInt( image.id, 10 ),
+				sizeSlug,
+			] );
+			return {
+				...image,
+				...( url && { url } ),
+			};
 		} );
+
+		this.setAttributes( { images: updatedImages, sizeSlug } );
+	}
+
+	componentDidMount() {
+		const { attributes, mediaUpload } = this.props;
+		const { images } = attributes;
+		if (
+			Platform.OS === 'web' &&
+			images &&
+			images.length > 0 &&
+			every( images, ( { url } ) => isBlobURL( url ) )
+		) {
+			const filesList = map( images, ( { url } ) => getBlobByURL( url ) );
+			forEach( images, ( { url } ) => revokeBlobURL( url ) );
+			mediaUpload( {
+				filesList,
+				onFileChange: this.onSelectImages,
+				allowedTypes: [ 'image' ],
+			} );
+		}
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -159,122 +342,162 @@ class GalleryEdit extends Component {
 	}
 
 	render() {
-		const { attributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-		const { images, columns = defaultColumnsNumber( attributes ), align, imageCrop, linkTo } = attributes;
+		const { attributes, className, isSelected, noticeUI } = this.props;
+		const {
+			columns = defaultColumnsNumber( attributes ),
+			imageCrop,
+			images,
+			linkTo,
+			sizeSlug,
+		} = attributes;
 
-		const dropZone = (
-			<DropZone
-				onFilesDrop={ this.addFiles }
+		const hasImages = !! images.length;
+		const hasImagesWithId = hasImages && some( images, ( { id } ) => id );
+
+		const mediaPlaceholder = (
+			<MediaPlaceholder
+				addToGallery={ hasImagesWithId }
+				isAppender={ hasImages }
+				className={ className }
+				disableMediaButtons={ hasImages && ! isSelected }
+				icon={ ! hasImages && sharedIcon }
+				labels={ {
+					title: ! hasImages && __( 'Gallery' ),
+					instructions: ! hasImages && PLACEHOLDER_TEXT,
+				} }
+				onSelect={ this.onSelectImages }
+				accept="image/*"
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				multiple
+				value={ hasImagesWithId ? images : undefined }
+				onError={ this.onUploadError }
+				notices={ hasImages ? undefined : noticeUI }
+				onFocus={ this.props.onFocus }
 			/>
 		);
 
-		const controls = (
-			<BlockControls>
-				{ !! images.length && (
-					<Toolbar>
-						<MediaUpload
-							onSelect={ this.onSelectImages }
-							allowedTypes={ ALLOWED_MEDIA_TYPES }
-							multiple
-							gallery
-							value={ images.map( ( img ) => img.id ) }
-							render={ ( { open } ) => (
-								<IconButton
-									className="components-toolbar__control"
-									label={ __( 'Edit Gallery' ) }
-									icon="edit"
-									onClick={ open }
-								/>
-							) }
-						/>
-					</Toolbar>
-				) }
-			</BlockControls>
-		);
-
-		if ( images.length === 0 ) {
-			return (
-				<Fragment>
-					{ controls }
-					<MediaPlaceholder
-						icon="format-gallery"
-						className={ className }
-						labels={ {
-							title: __( 'Gallery' ),
-							instructions: __( 'Drag images, upload new ones or select files from your library.' ),
-						} }
-						onSelect={ this.onSelectImages }
-						accept="image/*"
-						allowedTypes={ ALLOWED_MEDIA_TYPES }
-						multiple
-						notices={ noticeUI }
-						onError={ noticeOperations.createErrorNotice }
-					/>
-				</Fragment>
-			);
+		if ( ! hasImages ) {
+			return mediaPlaceholder;
 		}
 
+		const imageSizeOptions = this.getImagesSizeOptions();
+		const shouldShowSizeOptions =
+			hasImages && ! isEmpty( imageSizeOptions );
+		// This is needed to fix a separator fence-post issue on mobile.
+		const mobileLinkToProps = shouldShowSizeOptions
+			? MOBILE_CONTROL_PROPS
+			: MOBILE_CONTROL_PROPS_SEPARATOR_NONE;
+
 		return (
-			<Fragment>
-				{ controls }
+			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Gallery Settings' ) }>
-						{ images.length > 1 && <RangeControl
-							label={ __( 'Columns' ) }
-							value={ columns }
-							onChange={ this.setColumnsNumber }
-							min={ 1 }
-							max={ Math.min( MAX_COLUMNS, images.length ) }
-						/> }
+					<PanelBody title={ __( 'Gallery settings' ) }>
+						{ images.length > 1 && (
+							<ColumnsControl
+								label={ __( 'Columns' ) }
+								{ ...MOBILE_CONTROL_PROPS }
+								value={ columns }
+								onChange={ this.setColumnsNumber }
+								min={ 1 }
+								max={ Math.min( MAX_COLUMNS, images.length ) }
+								required
+							/>
+						) }
+
 						<ToggleControl
-							label={ __( 'Crop Images' ) }
+							label={ __( 'Crop images' ) }
+							{ ...MOBILE_CONTROL_PROPS }
 							checked={ !! imageCrop }
 							onChange={ this.toggleImageCrop }
 							help={ this.getImageCropHelp }
 						/>
 						<SelectControl
-							label={ __( 'Link To' ) }
+							label={ __( 'Link to' ) }
+							{ ...mobileLinkToProps }
 							value={ linkTo }
 							onChange={ this.setLinkTo }
 							options={ linkOptions }
 						/>
+						{ shouldShowSizeOptions && (
+							<SelectControl
+								label={ __( 'Images size' ) }
+								{ ...MOBILE_CONTROL_PROPS_SEPARATOR_NONE }
+								value={ sizeSlug }
+								options={ imageSizeOptions }
+								onChange={ this.updateImagesSize }
+							/>
+						) }
 					</PanelBody>
 				</InspectorControls>
 				{ noticeUI }
-				<ul className={ `${ className } align${ align } columns-${ columns } ${ imageCrop ? 'is-cropped' : '' }` }>
-					{ dropZone }
-					{ images.map( ( img, index ) => (
-						<li className="blocks-gallery-item" key={ img.id || img.url }>
-							<GalleryImage
-								url={ img.url }
-								alt={ img.alt }
-								id={ img.id }
-								isSelected={ isSelected && this.state.selectedImage === index }
-								onRemove={ this.onRemoveImage( index ) }
-								onSelect={ this.onSelectImage( index ) }
-								setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
-								caption={ img.caption }
-							/>
-						</li>
-					) ) }
-					{ isSelected &&
-						<li className="blocks-gallery-item has-add-item-button">
-							<FormFileUpload
-								multiple
-								isLarge
-								className="block-library-gallery-add-item-button"
-								onChange={ this.uploadFromFiles }
-								accept="image/*"
-								icon="insert"
-							>
-								{ __( 'Upload an image' ) }
-							</FormFileUpload>
-						</li>
-					}
-				</ul>
-			</Fragment>
+				<Gallery
+					{ ...this.props }
+					selectedImage={ this.state.selectedImage }
+					mediaPlaceholder={ mediaPlaceholder }
+					onMoveBackward={ this.onMoveBackward }
+					onMoveForward={ this.onMoveForward }
+					onRemoveImage={ this.onRemoveImage }
+					onSelectImage={ this.onSelectImage }
+					onDeselectImage={ this.onDeselectImage }
+					onSetImageAttributes={ this.setImageAttributes }
+					onFocusGalleryCaption={ this.onFocusGalleryCaption }
+				/>
+			</>
 		);
 	}
 }
+export default compose( [
+	withSelect( ( select, { attributes: { ids }, isSelected } ) => {
+		const { getMedia } = select( 'core' );
+		const { getSettings } = select( 'core/block-editor' );
+		const { imageSizes, mediaUpload } = getSettings();
 
-export default withNotices( GalleryEdit );
+		let resizedImages = {};
+
+		if ( isSelected ) {
+			resizedImages = reduce(
+				ids,
+				( currentResizedImages, id ) => {
+					if ( ! id ) {
+						return currentResizedImages;
+					}
+					const image = getMedia( id );
+					const sizes = reduce(
+						imageSizes,
+						( currentSizes, size ) => {
+							const defaultUrl = get( image, [
+								'sizes',
+								size.slug,
+								'url',
+							] );
+							const mediaDetailsUrl = get( image, [
+								'media_details',
+								'sizes',
+								size.slug,
+								'source_url',
+							] );
+							return {
+								...currentSizes,
+								[ size.slug ]: defaultUrl || mediaDetailsUrl,
+							};
+						},
+						{}
+					);
+					return {
+						...currentResizedImages,
+						[ parseInt( id, 10 ) ]: sizes,
+					};
+				},
+				{}
+			);
+		}
+
+		return {
+			imageSizes,
+			mediaUpload,
+			resizedImages,
+		};
+	} ),
+	withNotices,
+	withViewportMatch( { isNarrow: '< small' } ),
+] )( GalleryEdit );

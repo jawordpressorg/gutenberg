@@ -1,35 +1,59 @@
 /**
  * WordPress dependencies
  */
-import { cloneElement, createElement, Component, isValidElement } from '@wordpress/element';
-import { Dashicon, SVG } from '../';
+import {
+	cloneElement,
+	createElement,
+	Component,
+	isValidElement,
+} from '@wordpress/element';
+import { SVG } from '@wordpress/primitives';
 
-function Icon( { icon = null, size, className } ) {
-	let iconSize;
+/**
+ * Internal dependencies
+ */
+import Dashicon from '../dashicon';
+
+function Icon( { icon = null, size, ...additionalProps } ) {
+	// Dashicons should be 20x20 by default.
+	const dashiconSize = size || 20;
 
 	if ( 'string' === typeof icon ) {
-		// Dashicons should be 20x20 by default
-		iconSize = size || 20;
-		return <Dashicon icon={ icon } size={ iconSize } className={ className } />;
+		return (
+			<Dashicon
+				icon={ icon }
+				size={ dashiconSize }
+				{ ...additionalProps }
+			/>
+		);
 	}
 
-	// Any other icons should be 24x24 by default
-	iconSize = size || 24;
+	if ( icon && Dashicon === icon.type ) {
+		return cloneElement( icon, {
+			size: dashiconSize,
+			...additionalProps,
+		} );
+	}
 
+	// Icons should be 24x24 by default.
+	const iconSize = size || 24;
 	if ( 'function' === typeof icon ) {
 		if ( icon.prototype instanceof Component ) {
-			return createElement( icon, { className, size: iconSize } );
+			return createElement( icon, {
+				size: iconSize,
+				...additionalProps,
+			} );
 		}
 
-		return icon();
+		return icon( { size: iconSize, ...additionalProps } );
 	}
 
 	if ( icon && ( icon.type === 'svg' || icon.type === SVG ) ) {
 		const appliedProps = {
-			className,
 			width: iconSize,
 			height: iconSize,
 			...icon.props,
+			...additionalProps,
 		};
 
 		return <SVG { ...appliedProps } />;
@@ -37,8 +61,8 @@ function Icon( { icon = null, size, className } ) {
 
 	if ( isValidElement( icon ) ) {
 		return cloneElement( icon, {
-			className,
 			size: iconSize,
+			...additionalProps,
 		} );
 	}
 

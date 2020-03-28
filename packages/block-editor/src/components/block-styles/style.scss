@@ -1,0 +1,58 @@
+.block-editor-block-styles {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.block-editor-block-styles__item {
+	width: calc(50% - #{ $grid-unit-05 });
+	margin: $grid-unit-05 0;
+	flex-shrink: 0;
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: $radius-round-rectangle;
+	padding: $grid-unit-05 * 1.5;
+	display: flex;
+	flex-direction: column;
+
+	&:focus {
+		@include block-style__focus();
+	}
+
+	&:hover {
+		@include block-style__hover;
+
+		.block-editor-block-styles__item-preview {
+			border-color: $theme-color;
+		}
+	}
+
+	&.is-active {
+		.block-editor-block-styles__item-label {
+			font-weight: bold;
+		}
+
+		.block-editor-block-styles__item-preview {
+			border: 2px solid $dark-gray-primary;
+		}
+	}
+}
+
+// Show a little preview thumbnail for style variations.
+.block-editor-block-styles__item-preview {
+	outline: $border-width solid transparent; // Shown in Windows High Contrast mode.
+	padding: 0;
+	border: $border-width solid rgba($dark-gray-primary, 0.2);
+	border-radius: $radius-round-rectangle;
+	display: flex;
+	overflow: hidden;
+	background: $white;
+	align-items: center;
+	flex-grow: 1;
+	min-height: 80px;
+}
+
+.block-editor-block-styles__item-label {
+	text-align: center;
+	padding: 4px 2px;
+}

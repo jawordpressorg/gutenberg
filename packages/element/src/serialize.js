@@ -40,30 +40,29 @@ import {
 /**
  * WordPress dependencies
  */
-import { escapeHTML, escapeAttribute, isValidAttributeName } from '@wordpress/escape-html';
+import {
+	escapeHTML,
+	escapeAttribute,
+	isValidAttributeName,
+} from '@wordpress/escape-html';
 
 /**
  * Internal dependencies
  */
-import {
-	createContext,
-	Fragment,
-	StrictMode,
-} from './react';
+import { createContext, Fragment, StrictMode, forwardRef } from './react';
 import RawHTML from './raw-html';
 
 const { Provider, Consumer } = createContext();
+const ForwardRef = forwardRef( () => {
+	return null;
+} );
 
 /**
  * Valid attribute types.
  *
  * @type {Set}
  */
-const ATTRIBUTES_TYPES = new Set( [
-	'string',
-	'boolean',
-	'number',
-] );
+const ATTRIBUTES_TYPES = new Set( [ 'string', 'boolean', 'number' ] );
 
 /**
  * Element tags which can be self-closing.
@@ -333,8 +332,11 @@ function getNormalStylePropertyName( property ) {
  * @return {*} Normalized property value.
  */
 function getNormalStylePropertyValue( property, value ) {
-	if ( typeof value === 'number' && 0 !== value &&
-			! CSS_PROPERTIES_SUPPORTS_UNITLESS.has( property ) ) {
+	if (
+		typeof value === 'number' &&
+		0 !== value &&
+		! CSS_PROPERTIES_SUPPORTS_UNITLESS.has( property )
+	) {
 		return value + 'px';
 	}
 
@@ -393,11 +395,18 @@ export function renderElement( element, context, legacyContext = {} ) {
 			return renderNativeComponent( type, props, context, legacyContext );
 
 		case 'function':
-			if ( type.prototype && typeof type.prototype.render === 'function' ) {
+			if (
+				type.prototype &&
+				typeof type.prototype.render === 'function'
+			) {
 				return renderComponent( type, props, context, legacyContext );
 			}
 
-			return renderElement( type( props, legacyContext ), context, legacyContext );
+			return renderElement(
+				type( props, legacyContext ),
+				context,
+				legacyContext
+			);
 	}
 
 	switch ( type && type.$$typeof ) {
@@ -405,7 +414,18 @@ export function renderElement( element, context, legacyContext = {} ) {
 			return renderChildren( props.children, props.value, legacyContext );
 
 		case Consumer.$$typeof:
-			return renderElement( props.children( context || type._currentValue ), context, legacyContext );
+			return renderElement(
+				props.children( context || type._currentValue ),
+				context,
+				legacyContext
+			);
+
+		case ForwardRef.$$typeof:
+			return renderElement(
+				type.render( props ),
+				context,
+				legacyContext
+			);
 	}
 
 	return '';
@@ -422,7 +442,12 @@ export function renderElement( element, context, legacyContext = {} ) {
  *
  * @return {string} Serialized element.
  */
-export function renderNativeComponent( type, props, context, legacyContext = {} ) {
+export function renderNativeComponent(
+	type,
+	props,
+	context,
+	legacyContext = {}
+) {
 	let content = '';
 	if ( type === 'textarea' && props.hasOwnProperty( 'value' ) ) {
 		// Textarea children can be assigned as value prop. If it is, render in
@@ -430,8 +455,10 @@ export function renderNativeComponent( type, props, context, legacyContext = {} 
 		// as well.
 		content = renderChildren( props.value, context, legacyContext );
 		props = omit( props, 'value' );
-	} else if ( props.dangerouslySetInnerHTML &&
-			typeof props.dangerouslySetInnerHTML.__html === 'string' ) {
+	} else if (
+		props.dangerouslySetInnerHTML &&
+		typeof props.dangerouslySetInnerHTML.__html === 'string'
+	) {
 		// Dangerous content is left unescaped.
 		content = props.dangerouslySetInnerHTML.__html;
 	} else if ( typeof props.children !== 'undefined' ) {
@@ -461,7 +488,12 @@ export function renderNativeComponent( type, props, context, legacyContext = {} 
  *
  * @return {string} Serialized element
  */
-export function renderComponent( Component, props, context, legacyContext = {} ) {
+export function renderComponent(
+	Component,
+	props,
+	context,
+	legacyContext = {}
+) {
 	const instance = new Component( props, legacyContext );
 
 	if ( typeof instance.getChildContext === 'function' ) {
@@ -531,11 +563,10 @@ export function renderAttributes( props ) {
 			continue;
 		}
 
-		const isMeaningfulAttribute = (
+		const isMeaningfulAttribute =
 			isBooleanAttribute ||
 			hasPrefix( key, [ 'data-', 'aria-' ] ) ||
-			ENUMERATED_ATTRIBUTES.has( attribute )
-		);
+			ENUMERATED_ATTRIBUTES.has( attribute );
 
 		// Only write boolean value as attribute if meaningful.
 		if ( typeof value === 'boolean' && ! isMeaningfulAttribute ) {

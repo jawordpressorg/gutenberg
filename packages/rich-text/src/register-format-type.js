@@ -1,22 +1,30 @@
 /**
- * External dependencies
- */
-import { isFunction } from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import { select, dispatch } from '@wordpress/data';
 
 /**
+ * @typedef {Object} WPFormat
+ *
+ * @property {string}   name        A string identifying the format. Must be
+ *                                  unique across all registered formats.
+ * @property {string}   tagName     The HTML tag this format will wrap the
+ *                                  selection with.
+ * @property {string}   [className] A class to match the format.
+ * @property {string}   title       Name of the format.
+ * @property {Function} edit        Should return a component for the user to
+ *                                  interact with the new registered format.
+ */
+
+/**
  * Registers a new format provided a unique name and an object defining its
  * behavior.
  *
- * @param {string} name     Format name.
- * @param {Object} settings Format settings.
+ * @param {string}   name                 Format name.
+ * @param {WPFormat} settings             Format settings.
  *
- * @return {?WPFormat} The format, if it has been successfully registered;
- *                     otherwise `undefined`.
+ * @return {WPFormat|undefined} The format, if it has been successfully registered;
+ *                              otherwise `undefined`.
  */
 export function registerFormatType( name, settings ) {
 	settings = {
@@ -25,9 +33,7 @@ export function registerFormatType( name, settings ) {
 	};
 
 	if ( typeof settings.name !== 'string' ) {
-		window.console.error(
-			'Format names must be strings.'
-		);
+		window.console.error( 'Format names must be strings.' );
 		return;
 	}
 
@@ -45,11 +51,51 @@ export function registerFormatType( name, settings ) {
 		return;
 	}
 
-	if ( ! settings || ! isFunction( settings.edit ) ) {
+	if ( typeof settings.tagName !== 'string' || settings.tagName === '' ) {
+		window.console.error( 'Format tag names must be a string.' );
+		return;
+	}
+
+	if (
+		( typeof settings.className !== 'string' ||
+			settings.className === '' ) &&
+		settings.className !== null
+	) {
 		window.console.error(
-			'The "edit" property must be specified and must be a valid function.'
+			'Format class names must be a string, or null to handle bare elements.'
 		);
 		return;
+	}
+
+	if ( ! /^[_a-zA-Z]+[a-zA-Z0-9-]*$/.test( settings.className ) ) {
+		window.console.error(
+			'A class name must begin with a letter, followed by any number of hyphens, letters, or numbers.'
+		);
+		return;
+	}
+
+	if ( settings.className === null ) {
+		const formatTypeForBareElement = select(
+			'core/rich-text'
+		).getFormatTypeForBareElement( settings.tagName );
+
+		if ( formatTypeForBareElement ) {
+			window.console.error(
+				`Format "${ formatTypeForBareElement.name }" is already registered to handle bare tag name "${ settings.tagName }".`
+			);
+			return;
+		}
+	} else {
+		const formatTypeForClassName = select(
+			'core/rich-text'
+		).getFormatTypeForClassName( settings.className );
+
+		if ( formatTypeForClassName ) {
+			window.console.error(
+				`Format "${ formatTypeForClassName.name }" is already registered to handle class name "${ settings.className }".`
+			);
+			return;
+		}
 	}
 
 	if ( ! ( 'title' in settings ) || settings.title === '' ) {
@@ -61,15 +107,15 @@ export function registerFormatType( name, settings ) {
 
 	if ( 'keywords' in settings && settings.keywords.length > 3 ) {
 		window.console.error(
-			'The format "' + settings.name + '" can have a maximum of 3 keywords.'
+			'The format "' +
+				settings.name +
+				'" can have a maximum of 3 keywords.'
 		);
 		return;
 	}
 
 	if ( typeof settings.title !== 'string' ) {
-		window.console.error(
-			'Format titles must be strings.'
-		);
+		window.console.error( 'Format titles must be strings.' );
 		return;
 	}
 

@@ -1,64 +1,8 @@
-.edit-post-layout,
-.edit-post-layout__content {
-	height: 100%;
+.edit-post-layout__metaboxes {
+	flex-shrink: 0;
 }
-
-.edit-post-layout {
-	position: relative;
-
-	.components-notice-list {
-		position: sticky;
-		top: $header-height;
-		right: 0;
-		color: $dark-gray-900;
-
-		@include break-small {
-			position: fixed;
-			top: inherit;
-		}
-
-		.components-notice {
-			margin: 0 0 5px;
-			padding: 6px 12px;
-			min-height: $panel-header-height;
-
-			.components-notice__dismiss {
-				margin: 10px 5px;
-			}
-		}
-	}
-
-	// on mobile, toolbars behave differently
-	@include break-small {
-		padding-top: $header-height;
-	}
-
-	&.has-fixed-toolbar {
-		.edit-post-layout__content {
-			padding-top: $block-controls-height;
-		}
-
-		// on mobile, toolbars behave differently
-		@include break-small {
-			padding-top: $header-height + $block-toolbar-height;
-
-			.edit-post-layout__content {
-				padding-top: 0;
-			}
-		}
-
-		@include break-large {
-			padding-top: $header-height;
-		}
-	}
-}
-
-@include editor-left(".components-notice-list");
-@include editor-right(".components-notice-list");
-
 .edit-post-layout__metaboxes:not(:empty) {
 	border-top: $border-width solid $light-gray-500;
-	margin-top: 10px;
 	padding: 10px 0 10px;
 	clear: both;
 
@@ -67,48 +11,15 @@
 	}
 }
 
-.edit-post-layout__content {
-	position: relative;
-	display: flex;
-	min-height: 100%;
-	flex-direction: column;
-
-	// Pad the scroll box so content on the bottom can be scrolled up.
-	padding-bottom: 50vh;
-	@include break-small {
-		padding-bottom: 0;
-	}
-
-	// On mobile the main content area has to scroll otherwise you can invoke
-	// the overscroll bounce on the non-scrolling container, causing
-	// (ノಠ益ಠ)ノ彡┻━┻
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-
-	// This rule ensures that if you've scrolled to the end of a container,
-	// then pause, then keep scrolling downwards, the browser doesn't try to scroll
-	// the parent element, usually invoking a "bounce" effect and then preventing you
-	// from scrolling upwards until you pause again.
-	// This is only necessary beyond the small breakpoint because that's when the scroll container changes.
-	@include break-small() {
-		overscroll-behavior-y: none;
-	}
-
-	.edit-post-visual-editor {
-		flex-grow: 1;
-
-		// In IE11 flex-basis: 100% cause a bug where the metaboxes area overlap with the content area.
-		// But it works as expected without it.
-		// The flex-basis is needed for the other browsers to make sure the content area is full-height.
-		@supports (position: sticky) {
-			flex-basis: 100%;
-		}
-	}
-
-	.edit-post-layout__metaboxes {
-		flex-shrink: 0;
-	}
+// Adjust the position of the notices
+.edit-post-layout .components-editor-notices__snackbar {
+	position: fixed;
+	right: 0;
+	bottom: 20px;
+	padding-left: 16px;
+	padding-right: 16px;
 }
+@include editor-left(".edit-post-layout .components-editor-notices__snackbar");
 
 .edit-post-layout .editor-post-publish-panel {
 	position: fixed;
@@ -119,60 +30,83 @@
 	left: 0;
 	overflow: auto;
 
-	body.is-fullscreen-mode & {
-		top: 0;
-	}
-
 	@include break-medium() {
+		z-index: z-index(".edit-post-layout .edit-post-post-publish-panel-break-medium");
 		top: $admin-bar-height;
 		left: auto;
 		width: $sidebar-width;
 		border-left: $border-width solid $light-gray-500;
-		@include slide_in_right;
+		transform: translateX(+100%);
+		animation: edit-post-post-publish-panel__slide-in-animation 0.1s forwards;
+		@include reduce-motion("animation");
 
 		body.is-fullscreen-mode & {
 			top: 0;
 		}
+
+		// Keep it open on focus to avoid conflict with navigate-regions animation.
+		.is-focusing-regions & {
+			transform: translateX(0%);
+		}
 	}
+}
+
+@keyframes edit-post-post-publish-panel__slide-in-animation {
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+.block-editor-editor-skeleton__sidebar > div {
+	height: 100%;
 }
 
 .edit-post-layout .editor-post-publish-panel__header-publish-button {
-	// Match the size of the Publish... button.
-	.components-button.is-large {
-		height: 33px;
-		line-height: 32px;
-	}
-
-	// Size the spacer flexibly to allow for different button lengths.
-	.editor-post-publish-panel__spacer {
-		display: inline-flex;
-		flex: 0 1 52px; // This number is approximative to keep the publish button at the same position when opening the panel
-	}
+	justify-content: center;
 }
 
-.edit-post-toggle-publish-panel {
-	position: absolute;
-	bottom: 0;
+
+.edit-post-layout__toggle-publish-panel,
+.edit-post-layout__toogle-sidebar-panel {
+	z-index: z-index(".edit-post-layout__toogle-sidebar-panel");
+	position: fixed !important; // Need to override the default relative positionning
+	top: -9999em;
+	bottom: auto;
+	left: auto;
 	right: 0;
-	z-index: z-index(".edit-post-toggle-publish-panel");
 	width: $sidebar-width;
-	height: 0;
-	overflow: hidden;
-	&:focus-within {
-		height: auto;
-		padding: 20px 0 0 0;
-	}
+	background-color: $white;
+	border: 1px dotted $light-gray-500;
+	height: auto !important; // Need to override the default sidebar positionnings
+	padding: $grid-unit-30;
+	display: flex;
+	justify-content: center;
 
-	.edit-post-toggle-publish-panel__button {
-		float: right;
-		width: auto;
-		height: auto;
-		font-size: 14px;
-		font-weight: 600;
-		padding: 15px 23px 14px;
-		line-height: normal;
-		text-decoration: none;
-		outline: none;
-		background: #f1f1f1;
+	.block-editor-editor-skeleton__publish:focus &,
+	.block-editor-editor-skeleton__publish:focus-within &,
+	.block-editor-editor-skeleton__sidebar:focus &,
+	.block-editor-editor-skeleton__sidebar:focus-within & {
+		top: auto;
+		bottom: 0;
 	}
 }
+
+.edit-post-layout__footer {
+	display: none;
+	z-index: z-index(".edit-post-layout__footer");
+
+	// Stretch to mimic outline padding on desktop.
+	@include break-medium() {
+		display: flex;
+		background: $white;
+		height: $footer-height;
+		align-items: center;
+		font-size: $default-font-size;
+		padding: 0 ($grid-unit-15 + 6px);
+	}
+}
+
+.edit-post-layout .block-editor-editor-skeleton__content {
+	background-color: $light-gray-700;
+}
+

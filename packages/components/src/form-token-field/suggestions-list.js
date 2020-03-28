@@ -9,6 +9,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
+import { withSafeTimeout } from '@wordpress/compose';
 
 class SuggestionsList extends Component {
 	constructor() {
@@ -22,11 +23,15 @@ class SuggestionsList extends Component {
 		// when already expanded
 		if ( this.props.selectedIndex > -1 && this.props.scrollIntoView ) {
 			this.scrollingIntoView = true;
-			scrollIntoView( this.list.children[ this.props.selectedIndex ], this.list, {
-				onlyScrollIfNeeded: true,
-			} );
+			scrollIntoView(
+				this.list.children[ this.props.selectedIndex ],
+				this.list,
+				{
+					onlyScrollIfNeeded: true,
+				}
+			);
 
-			setTimeout( () => {
+			this.props.setTimeout( () => {
 				this.scrollingIntoView = false;
 			}, 100 );
 		}
@@ -56,7 +61,9 @@ class SuggestionsList extends Component {
 	}
 
 	computeSuggestionMatch( suggestion ) {
-		const match = this.props.displayTransform( this.props.match || '' ).toLocaleLowerCase();
+		const match = this.props
+			.displayTransform( this.props.match || '' )
+			.toLocaleLowerCase();
 		if ( match.length === 0 ) {
 			return null;
 		}
@@ -66,8 +73,13 @@ class SuggestionsList extends Component {
 
 		return {
 			suggestionBeforeMatch: suggestion.substring( 0, indexOfMatch ),
-			suggestionMatch: suggestion.substring( indexOfMatch, indexOfMatch + match.length ),
-			suggestionAfterMatch: suggestion.substring( indexOfMatch + match.length ),
+			suggestionMatch: suggestion.substring(
+				indexOfMatch,
+				indexOfMatch + match.length
+			),
+			suggestionAfterMatch: suggestion.substring(
+				indexOfMatch + match.length
+			),
 		};
 	}
 
@@ -83,42 +95,46 @@ class SuggestionsList extends Component {
 				id={ `components-form-token-suggestions-${ this.props.instanceId }` }
 				role="listbox"
 			>
-				{
-					map( this.props.suggestions, ( suggestion, index ) => {
-						const match = this.computeSuggestionMatch( suggestion );
-						const classeName = classnames( 'components-form-token-field__suggestion', {
+				{ map( this.props.suggestions, ( suggestion, index ) => {
+					const match = this.computeSuggestionMatch( suggestion );
+					const classeName = classnames(
+						'components-form-token-field__suggestion',
+						{
 							'is-selected': index === this.props.selectedIndex,
-						} );
+						}
+					);
 
-						/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-						return (
-							<li
-								id={ `components-form-token-suggestions-${ this.props.instanceId }-${ index }` }
-								role="option"
-								className={ classeName }
-								key={ suggestion }
-								onMouseDown={ this.handleMouseDown }
-								onClick={ this.handleClick( suggestion ) }
-								onMouseEnter={ this.handleHover( suggestion ) }
-								aria-selected={ index === this.props.selectedIndex }
-							>
-								{ match ?
-									(
-										<span aria-label={ this.props.displayTransform( suggestion ) }>
-											{ match.suggestionBeforeMatch }
-											<strong className="components-form-token-field__suggestion-match">
-												{ match.suggestionMatch }
-											</strong>
-											{ match.suggestionAfterMatch }
-										</span>
-									) :
-									this.props.displayTransform( suggestion )
-								}
-							</li>
-						);
-						/* eslint-enable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-					} )
-				}
+					/* eslint-disable jsx-a11y/click-events-have-key-events */
+					return (
+						<li
+							id={ `components-form-token-suggestions-${ this.props.instanceId }-${ index }` }
+							role="option"
+							className={ classeName }
+							key={ suggestion }
+							onMouseDown={ this.handleMouseDown }
+							onClick={ this.handleClick( suggestion ) }
+							onMouseEnter={ this.handleHover( suggestion ) }
+							aria-selected={ index === this.props.selectedIndex }
+						>
+							{ match ? (
+								<span
+									aria-label={ this.props.displayTransform(
+										suggestion
+									) }
+								>
+									{ match.suggestionBeforeMatch }
+									<strong className="components-form-token-field__suggestion-match">
+										{ match.suggestionMatch }
+									</strong>
+									{ match.suggestionAfterMatch }
+								</span>
+							) : (
+								this.props.displayTransform( suggestion )
+							) }
+						</li>
+					);
+					/* eslint-enable jsx-a11y/click-events-have-key-events */
+				} ) }
 			</ul>
 		);
 	}
@@ -131,4 +147,4 @@ SuggestionsList.defaultProps = {
 	suggestions: Object.freeze( [] ),
 };
 
-export default SuggestionsList;
+export default withSafeTimeout( SuggestionsList );

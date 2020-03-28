@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * External dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import { castArray } from 'lodash';
 
 /**
  * Returns an action object used in signalling that the user opened an editor sidebar.
@@ -108,7 +108,7 @@ export function toggleEditorPanelEnabled( panelName ) {
  * @param {string} panelName A string that identifies the panel to open or close.
  *
  * @return {Object} Action object.
-*/
+ */
 export function toggleEditorPanelOpened( panelName ) {
 	return {
 		type: 'TOGGLE_PANEL_OPENED',
@@ -117,19 +117,17 @@ export function toggleEditorPanelOpened( panelName ) {
 }
 
 /**
- * Returns an action object used to open or close a panel in the editor.
+ * Returns an action object used to remove a panel from the editor.
  *
- * @param {string} panelName A string that identifies the panel to open or close.
+ * @param {string} panelName A string that identifies the panel to remove.
  *
  * @return {Object} Action object.
-*/
-export function toggleGeneralSidebarEditorPanel( panelName ) {
-	deprecated( 'toggleGeneralSidebarEditorPanel', {
-		alternative: 'toggleEditorPanelOpened',
-		plugin: 'Gutenberg',
-		version: '4.3.0',
-	} );
-	return toggleEditorPanelOpened( panelName );
+ */
+export function removeEditorPanel( panelName ) {
+	return {
+		type: 'REMOVE_PANEL',
+		panelName,
+	};
 }
 
 /**
@@ -164,6 +162,66 @@ export function togglePinnedPluginItem( pluginName ) {
 	return {
 		type: 'TOGGLE_PINNED_PLUGIN_ITEM',
 		pluginName,
+	};
+}
+
+/**
+ * Returns an action object used in signalling that block types by the given
+ * name(s) should be hidden.
+ *
+ * @param {string[]} blockNames Names of block types to hide.
+ *
+ * @return {Object} Action object.
+ */
+export function hideBlockTypes( blockNames ) {
+	return {
+		type: 'HIDE_BLOCK_TYPES',
+		blockNames: castArray( blockNames ),
+	};
+}
+
+/**
+ * Returns an action object used in signaling that a style should be auto-applied when a block is created.
+ *
+ * @param {string}  blockName  Name of the block.
+ * @param {?string} blockStyle Name of the style that should be auto applied. If undefined, the "auto apply" setting of the block is removed.
+ *
+ * @return {Object} Action object.
+ */
+export function updatePreferredStyleVariations( blockName, blockStyle ) {
+	return {
+		type: 'UPDATE_PREFERRED_STYLE_VARIATIONS',
+		blockName,
+		blockStyle,
+	};
+}
+
+/**
+ * Returns an action object used in signalling that the editor should attempt
+ * to locally autosave the current post every `interval` seconds.
+ *
+ * @param {number} interval The new interval, in seconds.
+ * @return {Object} Action object.
+ */
+export function __experimentalUpdateLocalAutosaveInterval( interval ) {
+	return {
+		type: 'UPDATE_LOCAL_AUTOSAVE_INTERVAL',
+		interval,
+	};
+}
+
+/**
+ * Returns an action object used in signalling that block types by the given
+ * name(s) should be shown.
+ *
+ * @param {string[]} blockNames Names of block types to show.
+ *
+ * @return {Object} Action object.
+ */
+export function showBlockTypes( blockNames ) {
+	return {
+		type: 'SHOW_BLOCK_TYPES',
+		blockNames: castArray( blockNames ),
 	};
 }
 
@@ -204,3 +262,18 @@ export function metaBoxUpdatesSuccess() {
 	};
 }
 
+/**
+ * Returns an action object used to toggle the width of the editing canvas.
+ * It's marked as experimental because, potentially, we'll need this
+ * in several pages including edit-site.
+ *
+ * @param {string} deviceType
+ *
+ * @return {Object} Action object.
+ */
+export function __experimentalSetPreviewDeviceType( deviceType ) {
+	return {
+		type: 'SET_PREVIEW_DEVICE_TYPE',
+		deviceType,
+	};
+}

@@ -9,12 +9,13 @@ import { find } from 'lodash';
 import { withSelect } from '@wordpress/data';
 
 /**
- * Internal Dependencies
+ * Internal dependencies
  */
 import { visibilityOptions } from './utils';
 
 function PostVisibilityLabel( { visibility } ) {
-	const getVisibilityLabel = () => find( visibilityOptions, { value: visibility } ).label;
+	const getVisibilityLabel = () =>
+		find( visibilityOptions, { value: visibility } ).label;
 
 	return getVisibilityLabel( visibility );
 }

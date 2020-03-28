@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { without, first, last } from 'lodash';
+
+/**
  * Internal dependencies
  */
 import { find as findFocusable } from './focusable';
@@ -29,6 +34,47 @@ function getTabIndex( element ) {
  */
 export function isTabbableIndex( element ) {
 	return getTabIndex( element ) !== -1;
+}
+
+/**
+ * Returns a stateful reducer function which constructs a filtered array of
+ * tabbable elements, where at most one radio input is selected for a given
+ * name, giving priority to checked input, falling back to the first
+ * encountered.
+ *
+ * @return {Function} Radio group collapse reducer.
+ */
+function createStatefulCollapseRadioGroup() {
+	const CHOSEN_RADIO_BY_NAME = {};
+
+	return function collapseRadioGroup( result, element ) {
+		const { nodeName, type, checked, name } = element;
+
+		// For all non-radio tabbables, construct to array by concatenating.
+		if ( nodeName !== 'INPUT' || type !== 'radio' || ! name ) {
+			return result.concat( element );
+		}
+
+		const hasChosen = CHOSEN_RADIO_BY_NAME.hasOwnProperty( name );
+
+		// Omit by skipping concatenation if the radio element is not chosen.
+		const isChosen = checked || ! hasChosen;
+		if ( ! isChosen ) {
+			return result;
+		}
+
+		// At this point, if there had been a chosen element, the current
+		// element is checked and should take priority. Retroactively remove
+		// the element which had previously been considered the chosen one.
+		if ( hasChosen ) {
+			const hadChosenElement = CHOSEN_RADIO_BY_NAME[ name ];
+			result = without( result, hadChosenElement );
+		}
+
+		CHOSEN_RADIO_BY_NAME[ name ] = element;
+
+		return result.concat( element );
+	};
 }
 
 /**
@@ -79,10 +125,56 @@ function compareObjectTabbables( a, b ) {
 	return aTabIndex - bTabIndex;
 }
 
-export function find( context ) {
-	return findFocusable( context )
+/**
+ * Givin focusable elements, filters out tabbable element.
+ *
+ * @param {Array} focusables Focusable elements to filter.
+ *
+ * @return {Array} Tabbable elements.
+ */
+function filterTabbable( focusables ) {
+	return focusables
 		.filter( isTabbableIndex )
 		.map( mapElementToObjectTabbable )
 		.sort( compareObjectTabbables )
-		.map( mapObjectTabbableToElement );
+		.map( mapObjectTabbableToElement )
+		.reduce( createStatefulCollapseRadioGroup(), [] );
+}
+
+export function find( context ) {
+	return filterTabbable( findFocusable( context ) );
+}
+
+/**
+ * Given a focusable element, find the preceding tabbable element.
+ *
+ * @param {Element} element The focusable element before which to look. Defaults
+ *                          to the active element.
+ */
+export function findPrevious( element = document.activeElement ) {
+	const focusables = findFocusable( document.body );
+	const index = focusables.indexOf( element );
+
+	// Remove all focusables after and including `element`.
+	focusables.length = index;
+
+	return last( filterTabbable( focusables ) );
+}
+
+/**
+ * Given a focusable element, find the next tabbable element.
+ *
+ * @param {Element} element The focusable element after which to look. Defaults
+ *                          to the active element.
+ */
+export function findNext( element = document.activeElement ) {
+	const focusables = findFocusable( document.body );
+	const index = focusables.indexOf( element );
+
+	// Remove all focusables before and inside `element`.
+	const remaining = focusables
+		.slice( index + 1 )
+		.filter( ( node ) => ! element.contains( node ) );
+
+	return first( filterTabbable( remaining ) );
 }

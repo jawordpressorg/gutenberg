@@ -7,12 +7,10 @@ import ReactTestRenderer from 'react-test-renderer';
 /**
  * Internal dependencies
  */
-import Slot from '../slot';
-import Fill from '../fill';
-import Provider from '../context';
+import { Slot, Fill, Provider } from '../';
 
 /**
- * WordPress Dependencies
+ * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
 
@@ -26,8 +24,14 @@ class Filler extends Component {
 	}
 	render() {
 		return [
-			<button key="1" type="button" onClick={ () => this.setState( { num: this.state.num + 1 } ) } />,
-			<Fill name={ this.props.name } key="2">{ this.props.text || this.state.num.toString() }</Fill>,
+			<button
+				key="1"
+				type="button"
+				onClick={ () => this.setState( { num: this.state.num + 1 } ) }
+			/>,
+			<Fill name={ this.props.name } key="2">
+				{ this.props.text || this.state.num.toString() }
+			</Fill>,
 		];
 	}
 }
@@ -52,9 +56,7 @@ describe( 'Slot', () => {
 				<div>
 					<Slot name="chicken" />
 				</div>
-				<Fill name="chicken">
-					content
-				</Fill>
+				<Fill name="chicken">content</Fill>
 			</Provider>
 		).toJSON();
 
@@ -117,11 +119,11 @@ describe( 'Slot', () => {
 			<Provider>
 				<div>
 					<Slot name="chicken">
-						{ ( fills ) => ( ! isEmpty( fills ) && (
-							<blockquote>
-								{ fills }
-							</blockquote>
-						) ) }
+						{ ( fills ) =>
+							! isEmpty( fills ) && (
+								<blockquote>{ fills }</blockquote>
+							)
+						}
 					</Slot>
 				</div>
 				<Fill name="chicken" />
@@ -136,16 +138,12 @@ describe( 'Slot', () => {
 			<Provider>
 				<div>
 					<Slot name="chicken">
-						{ ( fills ) => ( fills && (
-							<blockquote>
-								{ fills }
-							</blockquote>
-						) ) }
+						{ ( fills ) =>
+							fills && <blockquote>{ fills }</blockquote>
+						}
 					</Slot>
 				</div>
-				<Fill name="chicken">
-					content
-				</Fill>
+				<Fill name="chicken">content</Fill>
 			</Provider>
 		).toJSON();
 
@@ -209,4 +207,59 @@ describe( 'Slot', () => {
 
 		expect( testRenderer.toJSON() ).toMatchSnapshot();
 	} );
+
+	describe.each( [ false, true ] )(
+		'bubblesVirtually %p',
+		( bubblesVirtually ) => {
+			it( 'should subsume another slot by the same name', () => {
+				const testRenderer = ReactTestRenderer.create(
+					<Provider>
+						<div data-position="first">
+							<Slot
+								name="egg"
+								bubblesVirtually={ bubblesVirtually }
+							/>
+						</div>
+						<div data-position="second"></div>
+						<Fill name="egg">Content</Fill>
+					</Provider>
+				);
+
+				testRenderer.update(
+					<Provider>
+						<div data-position="first">
+							<Slot
+								name="egg"
+								bubblesVirtually={ bubblesVirtually }
+							/>
+						</div>
+						<div data-position="second">
+							<Slot
+								name="egg"
+								bubblesVirtually={ bubblesVirtually }
+							/>
+						</div>
+						<Fill name="egg">Content</Fill>
+					</Provider>
+				);
+
+				expect( testRenderer.toJSON() ).toMatchSnapshot();
+
+				testRenderer.update(
+					<Provider>
+						<div data-position="first"></div>
+						<div data-position="second">
+							<Slot
+								name="egg"
+								bubblesVirtually={ bubblesVirtually }
+							/>
+						</div>
+						<Fill name="egg">Content</Fill>
+					</Provider>
+				);
+
+				expect( testRenderer.toJSON() ).toMatchSnapshot();
+			} );
+		}
+	);
 } );

@@ -1,4 +1,14 @@
+/**
+ * WordPress dependencies
+ */
+import domReady from '@wordpress/dom-ready';
+
+/**
+ * Internal dependencies
+ */
 import { setup, speak } from '../';
+import clear from '../clear';
+import filterMessage from '../filterMessage';
 
 jest.mock( '../clear', () => {
 	return jest.fn();
@@ -13,10 +23,6 @@ jest.mock( '../filterMessage', () => {
 		return message;
 	} );
 } );
-
-import clear from '../clear';
-import domReady from '@wordpress/dom-ready';
-import filterMessage from '../filterMessage';
 
 describe( 'speak', () => {
 	let containerPolite = document.getElementById( 'a11y-speak-polite' );
@@ -47,7 +53,9 @@ describe( 'speak', () => {
 		it( 'should set the textcontent of the assertive aria-live region', () => {
 			speak( 'assertive message', 'assertive' );
 			expect( containerPolite.textContent ).toBe( '' );
-			expect( containerAssertive.textContent ).toBe( 'assertive message' );
+			expect( containerAssertive.textContent ).toBe(
+				'assertive message'
+			);
 		} );
 	} );
 
@@ -66,13 +74,17 @@ describe( 'speak', () => {
 
 		afterEach( () => {
 			setup();
-			containerAssertive = document.getElementById( 'a11y-speak-assertive' );
+			containerAssertive = document.getElementById(
+				'a11y-speak-assertive'
+			);
 		} );
 
 		it( 'should set the textcontent of the polite aria-live region', () => {
 			speak( 'message', 'assertive' );
 			expect( containerPolite.textContent ).toBe( 'message' );
-			expect( document.getElementById( 'a11y-speak-assertive' ) ).toBe( null );
+			expect( document.getElementById( 'a11y-speak-assertive' ) ).toBe(
+				null
+			);
 		} );
 	} );
 
@@ -85,20 +97,29 @@ describe( 'speak', () => {
 		afterEach( () => {
 			setup();
 			containerPolite = document.getElementById( 'a11y-speak-polite' );
-			containerAssertive = document.getElementById( 'a11y-speak-assertive' );
+			containerAssertive = document.getElementById(
+				'a11y-speak-assertive'
+			);
 		} );
 
 		it( 'should set the textcontent of the polite aria-live region', () => {
-			expect( document.getElementById( 'a11y-speak-polite' ) ).toBe( null );
-			expect( document.getElementById( 'a11y-speak-assertive' ) ).toBe( null );
+			expect( document.getElementById( 'a11y-speak-polite' ) ).toBe(
+				null
+			);
+			expect( document.getElementById( 'a11y-speak-assertive' ) ).toBe(
+				null
+			);
 		} );
 	} );
 
 	describe( 'setup when the elements already exist', () => {
 		it( 'should not create the aria live regions again', () => {
-			const before = document.getElementsByClassName( 'a11y-speak-region' ).length;
+			const before = document.getElementsByClassName(
+				'a11y-speak-region'
+			).length;
 			setup();
-			const after = document.getElementsByClassName( 'a11y-speak-region' ).length;
+			const after = document.getElementsByClassName( 'a11y-speak-region' )
+				.length;
 
 			expect( before ).toBe( after );
 		} );

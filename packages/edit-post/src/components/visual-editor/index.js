@@ -2,42 +2,57 @@
  * WordPress dependencies
  */
 import {
+	PostTitle,
+	VisualEditorGlobalKeyboardShortcuts,
+} from '@wordpress/editor';
+import {
+	WritingFlow,
+	Typewriter,
+	ObserveTyping,
 	BlockList,
 	CopyHandler,
-	PostTitle,
-	WritingFlow,
-	ObserveTyping,
-	EditorGlobalKeyboardShortcuts,
 	BlockSelectionClearer,
 	MultiSelectScrollIntoView,
-	_BlockSettingsMenuFirstItem,
-	_BlockSettingsMenuPluginsExtension,
-} from '@wordpress/editor';
+	__experimentalBlockSettingsMenuFirstItem,
+} from '@wordpress/block-editor';
+import { Popover } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import BlockInspectorButton from './block-inspector-button';
-import PluginBlockSettingsMenuGroup from '../block-settings-menu/plugin-block-settings-menu-group';
+import { useResizeCanvas } from '../resize-canvas';
 
 function VisualEditor() {
+	const inlineStyles = useResizeCanvas();
+
 	return (
-		<BlockSelectionClearer className="edit-post-visual-editor editor-styles-wrapper">
-			<EditorGlobalKeyboardShortcuts />
-			<CopyHandler />
+		<BlockSelectionClearer
+			className="edit-post-visual-editor editor-styles-wrapper"
+			style={ inlineStyles }
+		>
+			<VisualEditorGlobalKeyboardShortcuts />
 			<MultiSelectScrollIntoView />
-			<WritingFlow>
-				<ObserveTyping>
-					<PostTitle />
-					<BlockList />
-				</ObserveTyping>
-			</WritingFlow>
-			<_BlockSettingsMenuFirstItem>
-				{ ( { onClose } ) => <BlockInspectorButton onClick={ onClose } /> }
-			</_BlockSettingsMenuFirstItem>
-			<_BlockSettingsMenuPluginsExtension>
-				{ ( { clientIds, onClose } ) => <PluginBlockSettingsMenuGroup.Slot fillProps={ { clientIds, onClose } } /> }
-			</_BlockSettingsMenuPluginsExtension>
+			<Popover.Slot name="block-toolbar" />
+			<Typewriter>
+				<CopyHandler>
+					<WritingFlow>
+						<ObserveTyping>
+							<CopyHandler>
+								<div className="edit-post-visual-editor__post-title-wrapper">
+									<PostTitle />
+								</div>
+								<BlockList />
+							</CopyHandler>
+						</ObserveTyping>
+					</WritingFlow>
+				</CopyHandler>
+			</Typewriter>
+			<__experimentalBlockSettingsMenuFirstItem>
+				{ ( { onClose } ) => (
+					<BlockInspectorButton onClick={ onClose } />
+				) }
+			</__experimentalBlockSettingsMenuFirstItem>
 		</BlockSelectionClearer>
 	);
 }

@@ -1,5 +1,5 @@
 /**
- * WordPress Dependencies
+ * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 
@@ -17,6 +17,8 @@ export const visibilityOptions = [
 	{
 		value: 'password',
 		label: __( 'Password Protected' ),
-		info: __( 'Protected with a password you choose. Only those with the password can view this post.' ),
+		info: __(
+			'Protected with a password you choose. Only those with the password can view this post.'
+		),
 	},
 ];

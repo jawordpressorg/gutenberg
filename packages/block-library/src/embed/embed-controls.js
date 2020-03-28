@@ -2,9 +2,14 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Fragment } from '@wordpress/element';
-import { IconButton, Toolbar, PanelBody, ToggleControl } from '@wordpress/components';
-import { BlockControls, InspectorControls } from '@wordpress/editor';
+import {
+	Button,
+	PanelBody,
+	ToggleControl,
+	ToolbarGroup,
+} from '@wordpress/components';
+import { BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { pencil } from '@wordpress/icons';
 
 const EmbedControls = ( props ) => {
 	const {
@@ -17,22 +22,25 @@ const EmbedControls = ( props ) => {
 		switchBackToURLInput,
 	} = props;
 	return (
-		<Fragment>
+		<>
 			<BlockControls>
-				<Toolbar>
+				<ToolbarGroup>
 					{ showEditButton && (
-						<IconButton
+						<Button
 							className="components-toolbar__control"
 							label={ __( 'Edit URL' ) }
-							icon="edit"
+							icon={ pencil }
 							onClick={ switchBackToURLInput }
 						/>
 					) }
-				</Toolbar>
+				</ToolbarGroup>
 			</BlockControls>
 			{ themeSupportsResponsive && blockSupportsResponsive && (
 				<InspectorControls>
-					<PanelBody title={ __( 'Media Settings' ) } className="blocks-responsive">
+					<PanelBody
+						title={ __( 'Media settings' ) }
+						className="blocks-responsive"
+					>
 						<ToggleControl
 							label={ __( 'Resize for smaller devices' ) }
 							checked={ allowResponsive }
@@ -42,7 +50,7 @@ const EmbedControls = ( props ) => {
 					</PanelBody>
 				</InspectorControls>
 			) }
-		</Fragment>
+		</>
 	);
 };
 

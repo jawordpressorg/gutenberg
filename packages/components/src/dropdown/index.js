@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames';
+
+/**
  * WordPress dependencies
  */
 import { Component, createRef } from '@wordpress/element';
@@ -14,9 +19,9 @@ class Dropdown extends Component {
 
 		this.toggle = this.toggle.bind( this );
 		this.close = this.close.bind( this );
-		this.refresh = this.refresh.bind( this );
+		this.closeIfFocusOutside = this.closeIfFocusOutside.bind( this );
 
-		this.popoverRef = createRef();
+		this.containerRef = createRef();
 
 		this.state = {
 			isOpen: false,
@@ -39,24 +44,32 @@ class Dropdown extends Component {
 		}
 	}
 
-	/**
-	 * When contents change height due to user interaction,
-	 * `refresh` can be called to re-render Popover with correct
-	 * attributes which allow scroll, if need be.
-	 */
-	refresh() {
-		if ( this.popoverRef.current ) {
-			this.popoverRef.current.refresh();
-		}
-	}
-
 	toggle() {
 		this.setState( ( state ) => ( {
 			isOpen: ! state.isOpen,
 		} ) );
 	}
 
+	/**
+	 * Closes the dropdown if a focus leaves the dropdown wrapper. This is
+	 * intentionally distinct from `onClose` since focus loss from the popover
+	 * is expected to occur when using the Dropdown's toggle button, in which
+	 * case the correct behavior is to keep the dropdown closed. The same applies
+	 * in case when focus is moved to the modal dialog.
+	 */
+	closeIfFocusOutside() {
+		if (
+			! this.containerRef.current.contains( document.activeElement ) &&
+			! document.activeElement.closest( '[role="dialog"]' )
+		) {
+			this.close();
+		}
+	}
+
 	close() {
+		if ( this.props.onClose ) {
+			this.props.onClose();
+		}
 		this.setState( { isOpen: false } );
 	}
 
@@ -70,21 +83,32 @@ class Dropdown extends Component {
 			contentClassName,
 			expandOnMobile,
 			headerTitle,
+			focusOnMount,
+			popoverProps,
 		} = this.props;
 
 		const args = { isOpen, onToggle: this.toggle, onClose: this.close };
 
 		return (
-			<div className={ className }>
+			<div
+				className={ classnames( 'components-dropdown', className ) }
+				ref={ this.containerRef }
+			>
 				{ renderToggle( args ) }
 				{ isOpen && (
 					<Popover
-						className={ contentClassName }
-						ref={ this.popoverRef }
 						position={ position }
 						onClose={ this.close }
+						onFocusOutside={ this.closeIfFocusOutside }
 						expandOnMobile={ expandOnMobile }
 						headerTitle={ headerTitle }
+						focusOnMount={ focusOnMount }
+						{ ...popoverProps }
+						className={ classnames(
+							'components-dropdown__content',
+							popoverProps ? popoverProps.className : undefined,
+							contentClassName
+						) }
 					>
 						{ renderContent( args ) }
 					</Popover>

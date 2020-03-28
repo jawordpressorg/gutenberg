@@ -1,0 +1,176 @@
+.block-editor-block-switcher {
+	position: relative;
+}
+
+// Show an indicator triangle.
+.block-editor-block-switcher__no-switcher-icon,
+.block-editor-block-switcher__toggle {
+	position: relative;
+
+	&::after {
+		display: block;
+		content: "";
+		position: absolute;
+		bottom: 1px;
+		right: 0;
+		border-color: transparent;
+		border-style: solid;
+		border-width: 4px;
+		border-right-color: currentColor;
+		border-bottom-color: currentColor;
+	}
+}
+
+
+.components-button.block-editor-block-switcher__toggle,
+.components-button.block-editor-block-switcher__no-switcher-icon {
+	margin: 0;
+	display: block;
+	height: $grid-unit-60;
+
+	.block-editor-block-icon {
+		margin: auto;
+	}
+}
+
+.components-button.block-editor-block-switcher__no-switcher-icon {
+	width: $block-toolbar-height;
+
+	.block-editor-blocks-icon {
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
+
+// Even when the block switcher does not have any transformations, it still serves as a block indicator.
+.components-button.block-editor-block-switcher__no-switcher-icon:disabled {
+	opacity: 1;
+
+	// Since it's not clickable, though, don't show a hover state.
+	&,
+	.block-editor-block-icon.has-colors {
+		color: $dark-gray-primary !important;
+	}
+}
+
+// Style this the same as the block buttons in the library.
+// Needs specificiity to override the icon button.
+.block-editor-block-toolbar .components-toolbar .components-button.block-editor-block-switcher__toggle.has-icon {
+	padding: 0;
+
+	.block-editor-block-icon {
+		height: 100%;
+		position: relative;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+	}
+
+	// Position the focus style correctly.
+	&::before {
+		top: $grid-unit-10;
+		right: $grid-unit-10;
+		bottom: $grid-unit-10;
+		left: $grid-unit-10;
+	}
+}
+
+
+// We double the max-width for it to fit both the preview & content but we keep the min width the same for the border to work.
+.components-popover.block-editor-block-switcher__popover .components-popover__content {
+	min-width: 300px;
+	max-width: calc(340px * 2);
+	display: flex;
+	background: $white;
+	box-shadow: $shadow-popover;
+	padding: 0;
+
+	.components-menu-group {
+		padding: $grid-unit-20 $grid-unit-30;
+	}
+
+	.components-menu-group + .components-menu-group {
+		border-color: $light-gray-secondary;
+	}
+}
+
+.block-editor-block-switcher__popover .components-popover__content {
+	.block-editor-block-switcher__container {
+		min-width: 300px;
+		max-width: 340px;
+		width: 50%;
+	}
+
+	.block-editor-block-switcher__label {
+		margin-bottom: $grid-unit-10;
+		color: $medium-gray-text;
+	}
+
+	@include break-medium {
+		position: relative;
+
+		.block-editor-block-switcher__preview {
+			border-left: $border-width solid $light-gray-500;
+			box-shadow: $shadow-popover;
+			background: $white;
+			width: 300px;
+			height: auto;
+			// Sticky helps us keep the preview at the top when scrolling
+			position: sticky;
+			align-self: stretch;
+			// For sticky to work we need top
+			top: 0;
+			padding: 10px;
+		}
+	}
+
+	// Hide the bottom border on the last panel so it stacks with the popover.
+	.components-panel__body {
+		border: 0;
+
+		// Elevate this so the hover style is visible.
+		position: relative;
+		z-index: 1;
+	}
+
+	.components-panel__body + .components-panel__body {
+		border-top: $border-width solid $light-gray-500;
+	}
+}
+
+.block-editor-block-switcher__popover .block-editor-block-styles {
+	margin: 0 -3px; // Remove the panel body padding while keeping it for the title.
+}
+
+.block-editor-block-switcher__popover .block-editor-block-types-list {
+	margin: $grid-unit-15 0 0 0;
+}
+
+.block-editor-block-switcher__preview-title {
+	margin-bottom: 10px;
+	color: $dark-gray-300;
+}
+
+// The block switcher in the contextual toolbar should be bigger.
+.block-editor-block-contextual-toolbar {
+	.components-button.block-editor-block-switcher__toggle,
+	.components-button.block-editor-block-switcher__no-switcher-icon {
+		height: $grid-unit-60;
+	}
+
+	.components-button.block-editor-block-switcher__no-switcher-icon {
+		width: $grid-unit-60;
+	}
+
+	.components-button.block-editor-block-switcher__toggle {
+		.block-editor-block-icon,
+		.block-editor-block-switcher__transform {
+			width: $block-toolbar-height;
+			height: $block-toolbar-height;
+		}
+
+		.block-editor-block-switcher__transform {
+			padding: $grid-unit-15;
+		}
+	}
+}

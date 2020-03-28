@@ -8,12 +8,19 @@ import { get, omit } from 'lodash';
  */
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
-import { IconButton, Spinner, CheckboxControl } from '@wordpress/components';
+import {
+	Button,
+	Spinner,
+	CheckboxControl,
+	withFocusReturn,
+	withConstrainedTabbing,
+} from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
+import { close } from '@wordpress/icons';
 
 /**
- * Internal Dependencies
+ * Internal dependencies
  */
 import PostPublishButton from '../post-publish-button';
 import PostPublishPanelPrepublish from './prepublish';
@@ -28,14 +35,18 @@ export class PostPublishPanel extends Component {
 	componentDidUpdate( prevProps ) {
 		// Automatically collapse the publish sidebar when a post
 		// is published and the user makes an edit.
-		if ( prevProps.isPublished && ! this.props.isSaving && this.props.isDirty ) {
+		if (
+			prevProps.isPublished &&
+			! this.props.isSaving &&
+			this.props.isDirty
+		) {
 			this.props.onClose();
 		}
 	}
 
 	onSubmit() {
-		const { onClose, hasPublishAction } = this.props;
-		if ( ! hasPublishAction ) {
+		const { onClose, hasPublishAction, isPostTypeViewable } = this.props;
+		if ( ! hasPublishAction || ! isPostTypeViewable ) {
 			onClose();
 		}
 	}
@@ -55,40 +66,52 @@ export class PostPublishPanel extends Component {
 			PrePublishExtension,
 			...additionalProps
 		} = this.props;
-		const isPublishedOrScheduled = isPublished || ( isScheduled && isBeingScheduled );
-		const propsForPanel = omit( additionalProps, [ 'hasPublishAction', 'isDirty' ] );
+		const propsForPanel = omit( additionalProps, [
+			'hasPublishAction',
+			'isDirty',
+			'isPostTypeViewable',
+		] );
+		const isPublishedOrScheduled =
+			isPublished || ( isScheduled && isBeingScheduled );
+		const isPrePublish = ! isPublishedOrScheduled && ! isSaving;
+		const isPostPublish = isPublishedOrScheduled && ! isSaving;
 		return (
 			<div className="editor-post-publish-panel" { ...propsForPanel }>
 				<div className="editor-post-publish-panel__header">
-					{ isPublishedOrScheduled && ! isSaving ? (
+					{ isPostPublish ? (
 						<div className="editor-post-publish-panel__header-published">
-							{ isScheduled ? __( 'Scheduled' ) : __( 'Published' ) }
+							{ isScheduled
+								? __( 'Scheduled' )
+								: __( 'Published' ) }
 						</div>
 					) : (
 						<div className="editor-post-publish-panel__header-publish-button">
-							<PostPublishButton focusOnMount={ true } onSubmit={ this.onSubmit } forceIsDirty={ forceIsDirty } forceIsSaving={ forceIsSaving } />
-							<span className="editor-post-publish-panel__spacer"></span>
+							<PostPublishButton
+								focusOnMount={ true }
+								onSubmit={ this.onSubmit }
+								forceIsDirty={ forceIsDirty }
+								forceIsSaving={ forceIsSaving }
+							/>
 						</div>
 					) }
-					<IconButton
-						aria-expanded={ true }
+					<Button
 						onClick={ onClose }
-						icon="no-alt"
+						icon={ close }
 						label={ __( 'Close panel' ) }
 					/>
 				</div>
 				<div className="editor-post-publish-panel__content">
-					{ ! isSaving && ! isPublishedOrScheduled && (
+					{ isPrePublish && (
 						<PostPublishPanelPrepublish>
 							{ PrePublishExtension && <PrePublishExtension /> }
 						</PostPublishPanelPrepublish>
 					) }
-					{ ! isSaving && isPublishedOrScheduled && (
-						<PostPublishPanelPostpublish>
+					{ isPostPublish && (
+						<PostPublishPanelPostpublish focusOnMount={ true }>
 							{ PostPublishExtension && <PostPublishExtension /> }
 						</PostPublishPanelPostpublish>
 					) }
-					{ isSaving && ( <Spinner /> ) }
+					{ isSaving && <Spinner /> }
 				</div>
 				<div className="editor-post-publish-panel__footer">
 					<CheckboxControl
@@ -104,8 +127,10 @@ export class PostPublishPanel extends Component {
 
 export default compose( [
 	withSelect( ( select ) => {
+		const { getPostType } = select( 'core' );
 		const {
 			getCurrentPost,
+			getEditedPostAttribute,
 			isCurrentPostPublished,
 			isCurrentPostScheduled,
 			isEditedPostBeingScheduled,
@@ -113,8 +138,15 @@ export default compose( [
 			isSavingPost,
 		} = select( 'core/editor' );
 		const { isPublishSidebarEnabled } = select( 'core/editor' );
+		const postType = getPostType( getEditedPostAttribute( 'type' ) );
+
 		return {
-			hasPublishAction: get( getCurrentPost(), [ '_links', 'wp:action-publish' ], false ),
+			hasPublishAction: get(
+				getCurrentPost(),
+				[ '_links', 'wp:action-publish' ],
+				false
+			),
+			isPostTypeViewable: get( postType, [ 'viewable' ], false ),
 			isBeingScheduled: isEditedPostBeingScheduled(),
 			isDirty: isEditedPostDirty(),
 			isPublished: isCurrentPostPublished(),
@@ -124,9 +156,11 @@ export default compose( [
 		};
 	} ),
 	withDispatch( ( dispatch, { isPublishSidebarEnabled } ) => {
-		const { disablePublishSidebar, enablePublishSidebar } = dispatch( 'core/editor' );
+		const { disablePublishSidebar, enablePublishSidebar } = dispatch(
+			'core/editor'
+		);
 		return {
-			onTogglePublishSidebar: ( ) => {
+			onTogglePublishSidebar: () => {
 				if ( isPublishSidebarEnabled ) {
 					disablePublishSidebar();
 				} else {
@@ -135,4 +169,6 @@ export default compose( [
 			},
 		};
 	} ),
+	withFocusReturn,
+	withConstrainedTabbing,
 ] )( PostPublishPanel );

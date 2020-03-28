@@ -2,36 +2,61 @@
  * WordPress dependencies
  */
 import { MenuItem } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
  */
 import CopyContentMenuItem from './copy-content-menu-item';
+import ManageBlocksMenuItem from './manage-blocks-menu-item';
 import KeyboardShortcutsHelpMenuItem from './keyboard-shortcuts-help-menu-item';
 import ToolsMoreMenuGroup from '../components/header/tools-more-menu-group';
+import WelcomeGuideMenuItem from './welcome-guide-menu-item';
+import BlockPatterns from './block-patterns';
+
+registerPlugin( 'edit-post-block-patterns', {
+	render() {
+		return <BlockPatterns />;
+	},
+} );
 
 registerPlugin( 'edit-post', {
 	render() {
 		return (
-			<Fragment>
+			<>
 				<ToolsMoreMenuGroup>
 					{ ( { onClose } ) => (
-						<Fragment>
+						<>
+							<ManageBlocksMenuItem onSelect={ onClose } />
 							<MenuItem
 								role="menuitem"
-								href="edit.php?post_type=wp_block"
+								href={ addQueryArgs( 'edit.php', {
+									post_type: 'wp_block',
+								} ) }
 							>
-								{ __( 'Manage All Reusable Blocks' ) }
+								{ __( 'Manage all reusable blocks' ) }
 							</MenuItem>
-							<KeyboardShortcutsHelpMenuItem onSelect={ onClose } />
+							<KeyboardShortcutsHelpMenuItem
+								onSelect={ onClose }
+							/>
+							<WelcomeGuideMenuItem />
 							<CopyContentMenuItem />
-						</Fragment>
+							<MenuItem
+								role="menuitem"
+								href={ __(
+									'https://wordpress.org/support/article/wordpress-editor/'
+								) }
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{ __( 'Help' ) }
+							</MenuItem>
+						</>
 					) }
 				</ToolsMoreMenuGroup>
-			</Fragment>
+			</>
 		);
 	},
 } );

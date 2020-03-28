@@ -1,20 +1,16 @@
 /**
  * WordPress dependencies
  */
-import { Component, Fragment } from '@wordpress/element';
+import { InspectorControls } from '@wordpress/block-editor';
 import {
 	Disabled,
 	PanelBody,
 	RangeControl,
 	ToggleControl,
 } from '@wordpress/components';
+import ServerSideRender from '@wordpress/server-side-render';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import {
-	InspectorControls,
-	BlockAlignmentToolbar,
-	BlockControls,
-	ServerSideRender,
-} from '@wordpress/editor';
 
 /**
  * Minimum number of comments a user can show using this block.
@@ -33,15 +29,18 @@ class LatestComments extends Component {
 	constructor() {
 		super( ...arguments );
 
-		this.setAlignment = this.setAlignment.bind( this );
 		this.setCommentsToShow = this.setCommentsToShow.bind( this );
 
 		// Create toggles for each attribute; we create them here rather than
 		// passing `this.createToggleAttribute( 'displayAvatar' )` directly to
 		// `onChange` to avoid re-renders.
-		this.toggleDisplayAvatar = this.createToggleAttribute( 'displayAvatar' );
+		this.toggleDisplayAvatar = this.createToggleAttribute(
+			'displayAvatar'
+		);
 		this.toggleDisplayDate = this.createToggleAttribute( 'displayDate' );
-		this.toggleDisplayExcerpt = this.createToggleAttribute( 'displayExcerpt' );
+		this.toggleDisplayExcerpt = this.createToggleAttribute(
+			'displayExcerpt'
+		);
 	}
 
 	createToggleAttribute( propName ) {
@@ -53,17 +52,12 @@ class LatestComments extends Component {
 		};
 	}
 
-	setAlignment( align ) {
-		this.props.setAttributes( { align } );
-	}
-
 	setCommentsToShow( commentsToShow ) {
 		this.props.setAttributes( { commentsToShow } );
 	}
 
 	render() {
 		const {
-			align,
 			commentsToShow,
 			displayAvatar,
 			displayDate,
@@ -71,36 +65,31 @@ class LatestComments extends Component {
 		} = this.props.attributes;
 
 		return (
-			<Fragment>
-				<BlockControls>
-					<BlockAlignmentToolbar
-						value={ align }
-						onChange={ this.setAlignment }
-					/>
-				</BlockControls>
+			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Latest Comments Settings' ) }>
+					<PanelBody title={ __( 'Latest comments settings' ) }>
 						<ToggleControl
-							label={ __( 'Display Avatar' ) }
+							label={ __( 'Display avatar' ) }
 							checked={ displayAvatar }
 							onChange={ this.toggleDisplayAvatar }
 						/>
 						<ToggleControl
-							label={ __( 'Display Date' ) }
+							label={ __( 'Display date' ) }
 							checked={ displayDate }
 							onChange={ this.toggleDisplayDate }
 						/>
 						<ToggleControl
-							label={ __( 'Display Excerpt' ) }
+							label={ __( 'Display excerpt' ) }
 							checked={ displayExcerpt }
 							onChange={ this.toggleDisplayExcerpt }
 						/>
 						<RangeControl
-							label={ __( 'Number of Comments' ) }
+							label={ __( 'Number of comments' ) }
 							value={ commentsToShow }
 							onChange={ this.setCommentsToShow }
 							min={ MIN_COMMENTS }
 							max={ MAX_COMMENTS }
+							required
 						/>
 					</PanelBody>
 				</InspectorControls>
@@ -110,7 +99,7 @@ class LatestComments extends Component {
 						attributes={ this.props.attributes }
 					/>
 				</Disabled>
-			</Fragment>
+			</>
 		);
 	}
 }

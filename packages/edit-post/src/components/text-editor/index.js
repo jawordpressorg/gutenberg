@@ -1,25 +1,34 @@
 /**
  * WordPress dependencies
  */
-import { PostTextEditor, PostTitle } from '@wordpress/editor';
-import { IconButton } from '@wordpress/components';
-import { withDispatch } from '@wordpress/data';
+import {
+	PostTextEditor,
+	PostTitle,
+	TextEditorGlobalKeyboardShortcuts,
+} from '@wordpress/editor';
+import { Button } from '@wordpress/components';
+import { withDispatch, withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { displayShortcut } from '@wordpress/keycodes';
+import { compose } from '@wordpress/compose';
+import { close } from '@wordpress/icons';
 
-function TextEditor( { onExit } ) {
+function TextEditor( { onExit, isRichEditingEnabled } ) {
 	return (
 		<div className="edit-post-text-editor">
-			<div className="edit-post-text-editor__toolbar">
-				<h2>{ __( 'Editing Code' ) }</h2>
-				<IconButton
-					onClick={ onExit }
-					icon="no-alt"
-					shortcut={ displayShortcut.secondary( 'm' ) }
-				>
-					{ __( 'Exit Code Editor' ) }
-				</IconButton>
-			</div>
+			{ isRichEditingEnabled && (
+				<div className="edit-post-text-editor__toolbar">
+					<h2>{ __( 'Editing Code' ) }</h2>
+					<Button
+						onClick={ onExit }
+						icon={ close }
+						shortcut={ displayShortcut.secondary( 'm' ) }
+					>
+						{ __( 'Exit code editor' ) }
+					</Button>
+					<TextEditorGlobalKeyboardShortcuts />
+				</div>
+			) }
 			<div className="edit-post-text-editor__body">
 				<PostTitle />
 				<PostTextEditor />
@@ -28,10 +37,16 @@ function TextEditor( { onExit } ) {
 	);
 }
 
-export default withDispatch( ( dispatch ) => {
-	return {
-		onExit() {
-			dispatch( 'core/edit-post' ).switchEditorMode( 'visual' );
-		},
-	};
-} )( TextEditor );
+export default compose(
+	withSelect( ( select ) => ( {
+		isRichEditingEnabled: select( 'core/editor' ).getEditorSettings()
+			.richEditingEnabled,
+	} ) ),
+	withDispatch( ( dispatch ) => {
+		return {
+			onExit() {
+				dispatch( 'core/edit-post' ).switchEditorMode( 'visual' );
+			},
+		};
+	} )
+)( TextEditor );

@@ -1,14 +1,9 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames';
-import { noop } from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import { Component, createPortal } from '@wordpress/element';
 import { withInstanceId } from '@wordpress/compose';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -24,9 +19,7 @@ let parentElement,
 class Modal extends Component {
 	constructor( props ) {
 		super( props );
-
 		this.prepareDOM();
-		this.stopEventPropagationOutsideModal = this.stopEventPropagationOutsideModal.bind( this );
 	}
 
 	/**
@@ -103,22 +96,12 @@ class Modal extends Component {
 	}
 
 	/**
-	 * Stop all onMouseDown events propagating further - they should only go to the modal
- 	 * @param {string} event Event object
-	 */
-	stopEventPropagationOutsideModal( event ) {
-		event.stopPropagation();
-	}
-
-	/**
 	 * Renders the modal.
 	 *
 	 * @return {WPElement} The modal element.
 	 */
 	render() {
 		const {
-			overlayClassName,
-			className,
 			onRequestClose,
 			title,
 			icon,
@@ -126,48 +109,51 @@ class Modal extends Component {
 			children,
 			aria,
 			instanceId,
-			isDismissable,
+			isDismissible,
+			isDismissable, //Deprecated
+			// Many of the documented props for Modal are passed straight through
+			// to the ModalFrame component and handled there.
 			...otherProps
 		} = this.props;
 
-		const headingId = aria.labelledby || `components-modal-header-${ instanceId }`;
+		const headingId =
+			aria.labelledby || `components-modal-header-${ instanceId }`;
 
+		if ( isDismissable ) {
+			deprecated( 'isDismissable prop of the Modal component', {
+				alternative:
+					'isDismissible prop (renamed) of the Modal component',
+			} );
+		}
 		// Disable reason: this stops mouse events from triggering tooltips and
 		// other elements underneath the modal overlay.
-		/* eslint-disable jsx-a11y/no-static-element-interactions */
 		return createPortal(
-			<div
-				className={ classnames( 'components-modal__screen-overlay', overlayClassName ) }
-				onMouseDown={ this.stopEventPropagationOutsideModal }
+			<ModalFrame
+				onRequestClose={ onRequestClose }
+				aria={ {
+					labelledby: title ? headingId : null,
+					describedby: aria.describedby,
+				} }
+				{ ...otherProps }
 			>
-				<ModalFrame
-					className={ classnames(
-						'components-modal__frame',
-						className
-					) }
-					onRequestClose={ onRequestClose }
-					aria={ {
-						labelledby: title ? headingId : null,
-						describedby: aria.describedby,
-					} }
-					{ ...otherProps }
+				<div
+					className={ 'components-modal__content' }
+					tabIndex="0"
+					role="document"
 				>
-					<div className={ 'components-modal__content' } tabIndex="0">
-						<ModalHeader
-							closeLabel={ closeButtonLabel }
-							headingId={ headingId }
-							icon={ icon }
-							isDismissable={ isDismissable }
-							onClose={ onRequestClose }
-							title={ title }
-						/>
-						{ children }
-					</div>
-				</ModalFrame>
-			</div>,
+					<ModalHeader
+						closeLabel={ closeButtonLabel }
+						headingId={ headingId }
+						icon={ icon }
+						isDismissible={ isDismissible || isDismissable }
+						onClose={ onRequestClose }
+						title={ title }
+					/>
+					{ children }
+				</div>
+			</ModalFrame>,
 			this.node
 		);
-		/* eslint-enable jsx-a11y/no-static-element-interactions */
 	}
 }
 
@@ -175,11 +161,10 @@ Modal.defaultProps = {
 	bodyOpenClassName: 'modal-open',
 	role: 'dialog',
 	title: null,
-	onRequestClose: noop,
 	focusOnMount: true,
 	shouldCloseOnEsc: true,
 	shouldCloseOnClickOutside: true,
-	isDismissable: true,
+	isDismissible: true,
 	/* accessibility */
 	aria: {
 		labelledby: null,

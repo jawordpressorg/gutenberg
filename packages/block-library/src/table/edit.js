@@ -6,39 +6,111 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Fragment, Component } from '@wordpress/element';
-import { InspectorControls, BlockControls, RichText } from '@wordpress/editor';
+import { Component } from '@wordpress/element';
+import {
+	InspectorControls,
+	BlockControls,
+	RichText,
+	PanelColorSettings,
+	createCustomColorsHOC,
+	BlockIcon,
+	AlignmentToolbar,
+} from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import {
-	PanelBody,
-	ToggleControl,
-	TextControl,
 	Button,
-	Toolbar,
 	DropdownMenu,
+	PanelBody,
+	Placeholder,
+	TextControl,
+	ToggleControl,
+	ToolbarGroup,
 } from '@wordpress/components';
+import {
+	alignLeft,
+	alignRight,
+	alignCenter,
+	blockTable as icon,
+	tableColumnAfter,
+	tableColumnBefore,
+	tableColumnDelete,
+	tableRowAfter,
+	tableRowBefore,
+	tableRowDelete,
+	table,
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import {
 	createTable,
-	updateCellContent,
+	updateSelectedCell,
+	getCellAttribute,
 	insertRow,
 	deleteRow,
 	insertColumn,
 	deleteColumn,
+	toggleSection,
+	isEmptyTableSection,
 } from './state';
 
-export default class TableEdit extends Component {
+const BACKGROUND_COLORS = [
+	{
+		color: '#f3f4f5',
+		name: 'Subtle light gray',
+		slug: 'subtle-light-gray',
+	},
+	{
+		color: '#e9fbe5',
+		name: 'Subtle pale green',
+		slug: 'subtle-pale-green',
+	},
+	{
+		color: '#e7f5fe',
+		name: 'Subtle pale blue',
+		slug: 'subtle-pale-blue',
+	},
+	{
+		color: '#fcf0ef',
+		name: 'Subtle pale pink',
+		slug: 'subtle-pale-pink',
+	},
+];
+
+const ALIGNMENT_CONTROLS = [
+	{
+		icon: alignLeft,
+		title: __( 'Align Column Left' ),
+		align: 'left',
+	},
+	{
+		icon: alignCenter,
+		title: __( 'Align Column Center' ),
+		align: 'center',
+	},
+	{
+		icon: alignRight,
+		title: __( 'Align Column Right' ),
+		align: 'right',
+	},
+];
+
+const withCustomBackgroundColors = createCustomColorsHOC( BACKGROUND_COLORS );
+
+export class TableEdit extends Component {
 	constructor() {
 		super( ...arguments );
 
 		this.onCreateTable = this.onCreateTable.bind( this );
 		this.onChangeFixedLayout = this.onChangeFixedLayout.bind( this );
 		this.onChange = this.onChange.bind( this );
-		this.onChangeInitialColumnCount = this.onChangeInitialColumnCount.bind( this );
-		this.onChangeInitialRowCount = this.onChangeInitialRowCount.bind( this );
+		this.onChangeInitialColumnCount = this.onChangeInitialColumnCount.bind(
+			this
+		);
+		this.onChangeInitialRowCount = this.onChangeInitialRowCount.bind(
+			this
+		);
 		this.renderSection = this.renderSection.bind( this );
 		this.getTableControls = this.getTableControls.bind( this );
 		this.onInsertRow = this.onInsertRow.bind( this );
@@ -49,6 +121,12 @@ export default class TableEdit extends Component {
 		this.onInsertColumnBefore = this.onInsertColumnBefore.bind( this );
 		this.onInsertColumnAfter = this.onInsertColumnAfter.bind( this );
 		this.onDeleteColumn = this.onDeleteColumn.bind( this );
+		this.onToggleHeaderSection = this.onToggleHeaderSection.bind( this );
+		this.onToggleFooterSection = this.onToggleFooterSection.bind( this );
+		this.onChangeColumnAlignment = this.onChangeColumnAlignment.bind(
+			this
+		);
+		this.getCellAlignment = this.getCellAlignment.bind( this );
 
 		this.state = {
 			initialRowCount: 2,
@@ -89,10 +167,12 @@ export default class TableEdit extends Component {
 		initialRowCount = parseInt( initialRowCount, 10 ) || 2;
 		initialColumnCount = parseInt( initialColumnCount, 10 ) || 2;
 
-		setAttributes( createTable( {
-			rowCount: initialRowCount,
-			columnCount: initialColumnCount,
-		} ) );
+		setAttributes(
+			createTable( {
+				rowCount: initialRowCount,
+				columnCount: initialColumnCount,
+			} )
+		);
 	}
 
 	/**
@@ -118,14 +198,81 @@ export default class TableEdit extends Component {
 		}
 
 		const { attributes, setAttributes } = this.props;
-		const { section, rowIndex, columnIndex } = selectedCell;
 
-		setAttributes( updateCellContent( attributes, {
-			section,
-			rowIndex,
-			columnIndex,
-			content,
-		} ) );
+		setAttributes(
+			updateSelectedCell(
+				attributes,
+				selectedCell,
+				( cellAttributes ) => ( {
+					...cellAttributes,
+					content,
+				} )
+			)
+		);
+	}
+
+	/**
+	 * Align text within the a column.
+	 *
+	 * @param {string} align The new alignment to apply to the column.
+	 */
+	onChangeColumnAlignment( align ) {
+		const { selectedCell } = this.state;
+
+		if ( ! selectedCell ) {
+			return;
+		}
+
+		// Convert the cell selection to a column selection so that alignment
+		// is applied to the entire column.
+		const columnSelection = {
+			type: 'column',
+			columnIndex: selectedCell.columnIndex,
+		};
+
+		const { attributes, setAttributes } = this.props;
+		const newAttributes = updateSelectedCell(
+			attributes,
+			columnSelection,
+			( cellAttributes ) => ( {
+				...cellAttributes,
+				align,
+			} )
+		);
+		setAttributes( newAttributes );
+	}
+
+	/**
+	 * Get the alignment of the currently selected cell.
+	 *
+	 * @return {string} The new alignment to apply to the column.
+	 */
+	getCellAlignment() {
+		const { selectedCell } = this.state;
+
+		if ( ! selectedCell ) {
+			return;
+		}
+
+		const { attributes } = this.props;
+
+		return getCellAttribute( attributes, selectedCell, 'align' );
+	}
+
+	/**
+	 * Add or remove a `head` table section.
+	 */
+	onToggleHeaderSection() {
+		const { attributes, setAttributes } = this.props;
+		setAttributes( toggleSection( attributes, 'head' ) );
+	}
+
+	/**
+	 * Add or remove a `foot` table section.
+	 */
+	onToggleFooterSection() {
+		const { attributes, setAttributes } = this.props;
+		setAttributes( toggleSection( attributes, 'foot' ) );
 	}
 
 	/**
@@ -141,13 +288,15 @@ export default class TableEdit extends Component {
 		}
 
 		const { attributes, setAttributes } = this.props;
-		const { section, rowIndex } = selectedCell;
+		const { sectionName, rowIndex } = selectedCell;
 
 		this.setState( { selectedCell: null } );
-		setAttributes( insertRow( attributes, {
-			section,
-			rowIndex: rowIndex + delta,
-		} ) );
+		setAttributes(
+			insertRow( attributes, {
+				sectionName,
+				rowIndex: rowIndex + delta,
+			} )
+		);
 	}
 
 	/**
@@ -175,10 +324,10 @@ export default class TableEdit extends Component {
 		}
 
 		const { attributes, setAttributes } = this.props;
-		const { section, rowIndex } = selectedCell;
+		const { sectionName, rowIndex } = selectedCell;
 
 		this.setState( { selectedCell: null } );
-		setAttributes( deleteRow( attributes, { section, rowIndex } ) );
+		setAttributes( deleteRow( attributes, { sectionName, rowIndex } ) );
 	}
 
 	/**
@@ -194,13 +343,14 @@ export default class TableEdit extends Component {
 		}
 
 		const { attributes, setAttributes } = this.props;
-		const { section, columnIndex } = selectedCell;
+		const { columnIndex } = selectedCell;
 
 		this.setState( { selectedCell: null } );
-		setAttributes( insertColumn( attributes, {
-			section,
-			columnIndex: columnIndex + delta,
-		} ) );
+		setAttributes(
+			insertColumn( attributes, {
+				columnIndex: columnIndex + delta,
+			} )
+		);
 	}
 
 	/**
@@ -228,23 +378,30 @@ export default class TableEdit extends Component {
 		}
 
 		const { attributes, setAttributes } = this.props;
-		const { section, columnIndex } = selectedCell;
+		const { sectionName, columnIndex } = selectedCell;
 
 		this.setState( { selectedCell: null } );
-		setAttributes( deleteColumn( attributes, { section, columnIndex } ) );
+		setAttributes(
+			deleteColumn( attributes, { sectionName, columnIndex } )
+		);
 	}
 
 	/**
 	 * Creates an onFocus handler for a specified cell.
 	 *
-	 * @param {Object} selectedCell Object with `section`, `rowIndex`, and
+	 * @param {Object} cellLocation Object with `section`, `rowIndex`, and
 	 *                              `columnIndex` properties.
 	 *
 	 * @return {Function} Function to call on focus.
 	 */
-	createOnFocus( selectedCell ) {
+	createOnFocus( cellLocation ) {
 		return () => {
-			this.setState( { selectedCell } );
+			this.setState( {
+				selectedCell: {
+					...cellLocation,
+					type: 'cell',
+				},
+			} );
 		};
 	}
 
@@ -258,37 +415,37 @@ export default class TableEdit extends Component {
 
 		return [
 			{
-				icon: 'table-row-before',
+				icon: tableRowBefore,
 				title: __( 'Add Row Before' ),
 				isDisabled: ! selectedCell,
 				onClick: this.onInsertRowBefore,
 			},
 			{
-				icon: 'table-row-after',
+				icon: tableRowAfter,
 				title: __( 'Add Row After' ),
 				isDisabled: ! selectedCell,
 				onClick: this.onInsertRowAfter,
 			},
 			{
-				icon: 'table-row-delete',
+				icon: tableRowDelete,
 				title: __( 'Delete Row' ),
 				isDisabled: ! selectedCell,
 				onClick: this.onDeleteRow,
 			},
 			{
-				icon: 'table-col-before',
+				icon: tableColumnBefore,
 				title: __( 'Add Column Before' ),
 				isDisabled: ! selectedCell,
 				onClick: this.onInsertColumnBefore,
 			},
 			{
-				icon: 'table-col-after',
+				icon: tableColumnAfter,
 				title: __( 'Add Column After' ),
 				isDisabled: ! selectedCell,
 				onClick: this.onInsertColumnAfter,
 			},
 			{
-				icon: 'table-col-delete',
+				icon: tableColumnDelete,
 				title: __( 'Delete Column' ),
 				isDisabled: ! selectedCell,
 				onClick: this.onDeleteColumn,
@@ -299,53 +456,68 @@ export default class TableEdit extends Component {
 	/**
 	 * Renders a table section.
 	 *
+	 * @param {Object} options
 	 * @param {string} options.type Section type: head, body, or foot.
 	 * @param {Array}  options.rows The rows to render.
 	 *
 	 * @return {Object} React element for the section.
 	 */
-	renderSection( { type, rows } ) {
-		if ( ! rows.length ) {
+	renderSection( { name, rows } ) {
+		if ( isEmptyTableSection( rows ) ) {
 			return null;
 		}
 
-		const Tag = `t${ type }`;
-		const { selectedCell } = this.state;
+		const Tag = `t${ name }`;
 
 		return (
 			<Tag>
-				{ rows.map( ( { cells }, rowIndex ) =>
+				{ rows.map( ( { cells }, rowIndex ) => (
 					<tr key={ rowIndex }>
-						{ cells.map( ( { content, tag: CellTag }, columnIndex ) => {
-							const isSelected = selectedCell && (
-								type === selectedCell.section &&
-								rowIndex === selectedCell.rowIndex &&
-								columnIndex === selectedCell.columnIndex
-							);
+						{ cells.map(
+							(
+								{ content, tag: CellTag, scope, align },
+								columnIndex
+							) => {
+								const cellLocation = {
+									sectionName: name,
+									rowIndex,
+									columnIndex,
+								};
 
-							const cell = {
-								section: type,
-								rowIndex,
-								columnIndex,
-							};
+								const cellClasses = classnames(
+									{
+										[ `has-text-align-${ align }` ]: align,
+									},
+									'wp-block-table__cell-content'
+								);
 
-							const classes = classnames( {
-								'is-selected': isSelected,
-							} );
+								let placeholder = '';
+								if ( name === 'head' ) {
+									placeholder = __( 'Header label' );
+								} else if ( name === 'foot' ) {
+									placeholder = __( 'Footer label' );
+								}
 
-							return (
-								<CellTag key={ columnIndex } className={ classes }>
+								return (
 									<RichText
-										className="wp-block-table__cell-content"
+										tagName={ CellTag }
+										key={ columnIndex }
+										className={ cellClasses }
+										scope={
+											CellTag === 'th' ? scope : undefined
+										}
 										value={ content }
 										onChange={ this.onChange }
-										unstableOnFocus={ this.createOnFocus( cell ) }
+										unstableOnFocus={ this.createOnFocus(
+											cellLocation
+										) }
+										placeholder={ placeholder }
 									/>
-								</CellTag>
-							);
-						} ) }
+								);
+							}
+						) }
 					</tr>
-				) }
+				) ) }
 			</Tag>
 		);
 	}
@@ -360,64 +532,143 @@ export default class TableEdit extends Component {
 	}
 
 	render() {
-		const { attributes, className } = this.props;
+		const {
+			attributes,
+			className,
+			backgroundColor,
+			setBackgroundColor,
+			setAttributes,
+		} = this.props;
 		const { initialRowCount, initialColumnCount } = this.state;
-		const { hasFixedLayout, head, body, foot } = attributes;
-		const isEmpty = ! head.length && ! body.length && ! foot.length;
+		const { hasFixedLayout, caption, head, body, foot } = attributes;
+		const isEmpty =
+			isEmptyTableSection( head ) &&
+			isEmptyTableSection( body ) &&
+			isEmptyTableSection( foot );
 		const Section = this.renderSection;
 
 		if ( isEmpty ) {
 			return (
-				<form onSubmit={ this.onCreateTable }>
-					<TextControl
-						type="number"
-						label={ __( 'Column Count' ) }
-						value={ initialColumnCount }
-						onChange={ this.onChangeInitialColumnCount }
-						min="1"
-					/>
-					<TextControl
-						type="number"
-						label={ __( 'Row Count' ) }
-						value={ initialRowCount }
-						onChange={ this.onChangeInitialRowCount }
-						min="1"
-					/>
-					<Button isPrimary type="submit">{ __( 'Create' ) }</Button>
-				</form>
+				<Placeholder
+					label={ __( 'Table' ) }
+					icon={ <BlockIcon icon={ icon } showColors /> }
+					instructions={ __( 'Insert a table for sharing data.' ) }
+				>
+					<form
+						className="blocks-table__placeholder-form"
+						onSubmit={ this.onCreateTable }
+					>
+						<TextControl
+							type="number"
+							label={ __( 'Column Count' ) }
+							value={ initialColumnCount }
+							onChange={ this.onChangeInitialColumnCount }
+							min="1"
+							className="blocks-table__placeholder-input"
+						/>
+						<TextControl
+							type="number"
+							label={ __( 'Row Count' ) }
+							value={ initialRowCount }
+							onChange={ this.onChangeInitialRowCount }
+							min="1"
+							className="blocks-table__placeholder-input"
+						/>
+						<Button
+							className="blocks-table__placeholder-button"
+							isPrimary
+							type="submit"
+						>
+							{ __( 'Create Table' ) }
+						</Button>
+					</form>
+				</Placeholder>
 			);
 		}
 
-		const classes = classnames( className, {
+		const tableClasses = classnames( backgroundColor.class, {
 			'has-fixed-layout': hasFixedLayout,
+			'has-background': !! backgroundColor.color,
 		} );
 
 		return (
-			<Fragment>
+			<>
 				<BlockControls>
-					<Toolbar>
+					<ToolbarGroup>
 						<DropdownMenu
-							icon="editor-table"
-							label={ __( 'Edit Table' ) }
+							hasArrowIndicator
+							icon={ table }
+							label={ __( 'Edit table' ) }
 							controls={ this.getTableControls() }
 						/>
-					</Toolbar>
+					</ToolbarGroup>
+					<AlignmentToolbar
+						label={ __( 'Change column alignment' ) }
+						alignmentControls={ ALIGNMENT_CONTROLS }
+						value={ this.getCellAlignment() }
+						onChange={ ( nextAlign ) =>
+							this.onChangeColumnAlignment( nextAlign )
+						}
+						onHover={ this.onHoverAlignment }
+					/>
 				</BlockControls>
 				<InspectorControls>
-					<PanelBody title={ __( 'Table Settings' ) } className="blocks-table-settings">
+					<PanelBody
+						title={ __( 'Table settings' ) }
+						className="blocks-table-settings"
+					>
 						<ToggleControl
 							label={ __( 'Fixed width table cells' ) }
 							checked={ !! hasFixedLayout }
 							onChange={ this.onChangeFixedLayout }
 						/>
+						<ToggleControl
+							label={ __( 'Header section' ) }
+							checked={ !! ( head && head.length ) }
+							onChange={ this.onToggleHeaderSection }
+						/>
+						<ToggleControl
+							label={ __( 'Footer section' ) }
+							checked={ !! ( foot && foot.length ) }
+							onChange={ this.onToggleFooterSection }
+						/>
 					</PanelBody>
+					<PanelColorSettings
+						title={ __( 'Color settings' ) }
+						initialOpen={ false }
+						colorSettings={ [
+							{
+								value: backgroundColor.color,
+								onChange: setBackgroundColor,
+								label: __( 'Background color' ),
+								disableCustomColors: true,
+								colors: BACKGROUND_COLORS,
+							},
+						] }
+					/>
 				</InspectorControls>
-				<table className={ classes }>
-					<Section type="head" rows={ head } />
-					<Section type="body" rows={ body } />
-					<Section type="foot" rows={ foot } />
-				</table>
-			</Fragment>
+				<figure className={ className }>
+					<table className={ tableClasses }>
+						<Section name="head" rows={ head } />
+						<Section name="body" rows={ body } />
+						<Section name="foot" rows={ foot } />
+					</table>
+					<RichText
+						tagName="figcaption"
+						placeholder={ __( 'Write caption…' ) }
+						value={ caption }
+						onChange={ ( value ) =>
+							setAttributes( { caption: value } )
+						}
+						// Deselect the selected table cell when the caption is focused.
+						unstableOnFocus={ () =>
+							this.setState( { selectedCell: null } )
+						}
+					/>
+				</figure>
+			</>
 		);
 	}
 }
+
+export default withCustomBackgroundColors( 'backgroundColor' )( TableEdit );

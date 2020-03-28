@@ -1,8 +1,8 @@
-$blocks-button__line-height: $big-font-size + 6px;
-
-.editor-block-list__block[data-type="core/button"] {
+.block-editor-block-list__block[data-type="core/button"] {
 	&[data-align="center"] {
 		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	&[data-align="right"] {
@@ -12,79 +12,67 @@ $blocks-button__line-height: $big-font-size + 6px;
 }
 
 .wp-block-button {
-	display: inline-block;
-	margin-bottom: 0;
 	position: relative;
 
-	.editor-rich-text__tinymce.mce-content-body {
+	[contenteditable] {
 		cursor: text;
-		line-height: $blocks-button__line-height;
 	}
 
 	// Make placeholder text white unless custom colors or outline versions are chosen.
-	&:not(.has-text-color):not(.is-style-outline) .editor-rich-text__tinymce[data-is-placeholder-visible="true"] + .editor-rich-text__tinymce {
+	&:not(.has-text-color):not(.is-style-outline) [data-rich-text-placeholder]::after {
 		color: $white;
 	}
 
-	// Increase placeholder opacity to meet contrast ratios.
-	.editor-rich-text__tinymce[data-is-placeholder-visible="true"] + .editor-rich-text__tinymce {
-		opacity: 0.8;
+	// Add outline to button on focus to indicate focus-state
+	.block-editor-rich-text__editable:focus {
+		box-shadow: 0 0 0 1px $white, 0 0 0 3px $blue-medium-500;
+
+		// Windows' High Contrast mode will show this outline, but not the box-shadow.
+		outline: 2px solid transparent;
+		outline-offset: -2px;
 	}
 
-	// Don't let the placeholder text wrap in the variation preview.
-	.editor-block-preview__content & {
-		max-width: 100%;
-
-		.wp-block-button__link {
-			max-width: 100%;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-		}
+	// Increase placeholder opacity to meet contrast ratios.
+	[data-rich-text-placeholder]::after {
+		opacity: 0.8;
 	}
 }
 
-.block-library-button__inline-link {
-	background: $white;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	font-family: $default-font;
-	font-size: $default-font-size;
-	line-height: $default-line-height;
+.wp-block-button__inline-link {
+	color: $dark-gray-500;
+	height: 0;
+	overflow: hidden;
+	max-width: 290px;
 
-	// the width of input box plus two icon buttons plus a padding
-	$blocks-button__link-input-width: 300px + 2 * $icon-button-size + 8px;
-	width: $blocks-button__link-input-width;
-
-	.editor-url-input {
-		width: auto;
+	&-input__suggestions {
+		max-width: 290px;
 	}
 
-	.editor-url-input__suggestions {
-		width: $blocks-button__link-input-width - $icon-button-size - $icon-button-size;
-		z-index: z-index(".block-library-button__inline-link .editor-url-input__suggestions");
+	@include break-medium() {
+		max-width: 260px;
+
+		&-input__suggestions {
+			max-width: 260px;
+		}
+
+	}
+	@include break-large() {
+		max-width: 290px;
+
+		&-input__suggestions {
+			max-width: 290px;
+		}
+
 	}
 
-	> .dashicon {
-		width: $icon-button-size;
+	.is-selected & {
+		height: auto;
+		overflow: visible;
+		margin-top: $grid-unit-20;
 	}
+}
 
-	.dashicon {
-		color: $dark-gray-100;
-	}
-
-	.editor-url-input input[type="text"]::placeholder {
-		color: $dark-gray-100;
-	}
-
-	[data-align="center"] & {
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	[data-align="right"] & {
-		margin-left: auto;
-		margin-right: 0;
-	}
+// Display "table" is used because the button container should only wrap the content and not takes the full width.
+div[data-type="core/button"] {
+	display: table;
 }

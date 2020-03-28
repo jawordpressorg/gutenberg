@@ -4,7 +4,7 @@
 import { noop } from 'lodash';
 
 /**
- * WordPress Dependencies
+ * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
 import { withSafeTimeout } from '@wordpress/compose';
@@ -14,20 +14,14 @@ const cloneWrapperClass = 'components-draggable__clone';
 const cloneHeightTransformationBreakpoint = 700;
 const clonePadding = 20;
 
-const isChromeUA = ( ) => /Chrome/i.test( window.navigator.userAgent );
-const documentHasIframes = ( ) => [ ...document.getElementById( 'editor' ).querySelectorAll( 'iframe' ) ].length > 0;
-
 class Draggable extends Component {
 	constructor() {
 		super( ...arguments );
 
 		this.onDragStart = this.onDragStart.bind( this );
 		this.onDragOver = this.onDragOver.bind( this );
-		this.onDrop = this.onDrop.bind( this );
 		this.onDragEnd = this.onDragEnd.bind( this );
 		this.resetDragState = this.resetDragState.bind( this );
-
-		this.isChromeAndHasIframes = false;
 	}
 
 	componentWillUnmount() {
@@ -36,48 +30,50 @@ class Draggable extends Component {
 
 	/**
 	 * Removes the element clone, resets cursor, and removes drag listener.
-	 * @param  {Object} event     The non-custom DragEvent.
+	 *
+	 * @param  {Object} event The non-custom DragEvent.
 	 */
 	onDragEnd( event ) {
 		const { onDragEnd = noop } = this.props;
-		if ( event ) {
-			event.preventDefault();
-		}
+		event.preventDefault();
 
 		this.resetDragState();
 		this.props.setTimeout( onDragEnd );
 	}
 
-	/*
+	/**
 	 * Updates positioning of element clone based on mouse movement during dragging.
-	 * @param  {Object} event     The non-custom DragEvent.
+	 *
+	 * @param  {Object} event The non-custom DragEvent.
 	 */
 	onDragOver( event ) {
-		this.cloneWrapper.style.top =
-			`${ parseInt( this.cloneWrapper.style.top, 10 ) + event.clientY - this.cursorTop }px`;
-		this.cloneWrapper.style.left =
-			`${ parseInt( this.cloneWrapper.style.left, 10 ) + event.clientX - this.cursorLeft }px`;
+		this.cloneWrapper.style.top = `${ parseInt(
+			this.cloneWrapper.style.top,
+			10
+		) +
+			event.clientY -
+			this.cursorTop }px`;
+		this.cloneWrapper.style.left = `${ parseInt(
+			this.cloneWrapper.style.left,
+			10
+		) +
+			event.clientX -
+			this.cursorLeft }px`;
 
 		// Update cursor coordinates.
 		this.cursorLeft = event.clientX;
 		this.cursorTop = event.clientY;
 	}
 
-	onDrop( ) {
-		// As per https://html.spec.whatwg.org/multipage/dnd.html#dndevents
-		// the target node for the dragend is the source node that started the drag operation,
-		// while drop event's target is the current target element.
-		this.onDragEnd( null );
-	}
-
 	/**
-	 *  - Clones the current element and spawns clone over original element.
-	 *  - Adds a fake temporary drag image to avoid browser defaults.
-	 *  - Sets transfer data.
-	 *  - Adds dragover listener.
-	 * @param  {Object} event					The non-custom DragEvent.
-	 * @param  {string} elementId				The HTML id of the element to be dragged.
-	 * @param  {Object} transferData			The data to be set to the event's dataTransfer - to be accessible in any later drop logic.
+	 * This method does a couple of things:
+	 *
+	 * - Clones the current element and spawns clone over original element.
+	 * - Adds a fake temporary drag image to avoid browser defaults.
+	 * - Sets transfer data.
+	 * - Adds dragover listener.
+	 *
+	 * @param  {Object} event The non-custom DragEvent.
 	 */
 	onDragStart( event ) {
 		const { elementId, transferData, onDragStart = noop } = this.props;
@@ -112,7 +108,8 @@ class Draggable extends Component {
 		clone.id = `clone-${ elementId }`;
 		this.cloneWrapper = document.createElement( 'div' );
 		this.cloneWrapper.classList.add( cloneWrapperClass );
-		this.cloneWrapper.style.width = `${ elementRect.width + ( clonePadding * 2 ) }px`;
+		this.cloneWrapper.style.width = `${ elementRect.width +
+			clonePadding * 2 }px`;
 
 		if ( elementRect.height > cloneHeightTransformationBreakpoint ) {
 			// Scale down clone if original element is larger than 700px.
@@ -123,12 +120,16 @@ class Draggable extends Component {
 			this.cloneWrapper.style.left = `${ event.clientX }px`;
 		} else {
 			// Position clone right over the original element (20px padding).
-			this.cloneWrapper.style.top = `${ elementTopOffset - clonePadding }px`;
-			this.cloneWrapper.style.left = `${ elementLeftOffset - clonePadding }px`;
+			this.cloneWrapper.style.top = `${ elementTopOffset -
+				clonePadding }px`;
+			this.cloneWrapper.style.left = `${ elementLeftOffset -
+				clonePadding }px`;
 		}
 
 		// Hack: Remove iFrames as it's causing the embeds drag clone to freeze
-		[ ...clone.querySelectorAll( 'iframe' ) ].forEach( ( child ) => child.parentNode.removeChild( child ) );
+		Array.from( clone.querySelectorAll( 'iframe' ) ).forEach( ( child ) =>
+			child.parentNode.removeChild( child )
+		);
 
 		this.cloneWrapper.appendChild( clone );
 		elementWrapper.appendChild( this.cloneWrapper );
@@ -139,17 +140,6 @@ class Draggable extends Component {
 		// Update cursor to 'grabbing', document wide.
 		document.body.classList.add( 'is-dragging-components-draggable' );
 		document.addEventListener( 'dragover', this.onDragOver );
-
-		// Fixes https://bugs.chromium.org/p/chromium/issues/detail?id=737691#c8
-		// dragend event won't be dispatched in the chrome browser
-		// when iframes are affected by the drag operation. So, in that case,
-		// we use the drop event to wrap up the dragging operation.
-		// This way the hack is contained to a specific use case and the external API
-		// still relies mostly on the dragend event.
-		if ( isChromeUA() && documentHasIframes() ) {
-			this.isChromeAndHasIframes = true;
-			document.addEventListener( 'drop', this.onDrop );
-		}
 
 		this.props.setTimeout( onDragStart );
 	}
@@ -164,11 +154,6 @@ class Draggable extends Component {
 		if ( this.cloneWrapper && this.cloneWrapper.parentNode ) {
 			this.cloneWrapper.parentNode.removeChild( this.cloneWrapper );
 			this.cloneWrapper = null;
-		}
-
-		if ( this.isChromeAndHasIframes ) {
-			this.isChromeAndHasIframes = false;
-			document.removeEventListener( 'drop', this.onDrop );
 		}
 
 		// Reset cursor.

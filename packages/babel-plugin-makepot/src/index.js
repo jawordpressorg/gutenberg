@@ -33,7 +33,16 @@
  */
 
 const { po } = require( 'gettext-parser' );
-const { pick, reduce, uniq, forEach, sortBy, isEqual, merge, isEmpty } = require( 'lodash' );
+const {
+	pick,
+	reduce,
+	uniq,
+	forEach,
+	sortBy,
+	isEqual,
+	merge,
+	isEmpty,
+} = require( 'lodash' );
 const { relative, sep } = require( 'path' );
 const { writeFileSync } = require( 'fs' );
 
@@ -93,10 +102,7 @@ const REGEXP_TRANSLATOR_COMMENT = /^\s*translators:\s*([\s\S]+)/im;
 function getNodeAsString( node ) {
 	switch ( node.type ) {
 		case 'BinaryExpression':
-			return (
-				getNodeAsString( node.left ) +
-				getNodeAsString( node.right )
-			);
+			return getNodeAsString( node.left ) + getNodeAsString( node.right );
 
 		case 'StringLiteral':
 			return node.value;
@@ -107,15 +113,15 @@ function getNodeAsString( node ) {
 }
 
 /**
- * Returns translator comment for a given AST traversal path if one exists.
+ * Returns the extracted comment for a given AST traversal path if one exists.
  *
  * @param {Object} path              Traversal path.
  * @param {number} _originalNodeLine Private: In recursion, line number of
  *                                     the original node passed.
  *
- * @return {?string} Translator comment.
+ * @return {?string} Extracted comment.
  */
-function getTranslatorComment( path, _originalNodeLine ) {
+function getExtractedComment( path, _originalNodeLine ) {
 	const { node, parent, parentPath } = path;
 
 	// Assign original node line so we can keep track in recursion whether a
@@ -134,7 +140,10 @@ function getTranslatorComment( path, _originalNodeLine ) {
 		const match = commentNode.value.match( REGEXP_TRANSLATOR_COMMENT );
 		if ( match ) {
 			// Extract text from matched translator prefix
-			comment = match[ 1 ].split( '\n' ).map( ( text ) => text.trim() ).join( ' ' );
+			comment = match[ 1 ]
+				.split( '\n' )
+				.map( ( text ) => text.trim() )
+				.join( ' ' );
 
 			// False return indicates to Lodash to break iteration
 			return false;
@@ -152,7 +161,7 @@ function getTranslatorComment( path, _originalNodeLine ) {
 	// Only recurse as long as parent node is on the same or previous line
 	const { line } = parent.loc.start;
 	if ( line >= _originalNodeLine - 1 && line <= _originalNodeLine ) {
-		return getTranslatorComment( parentPath, _originalNodeLine );
+		return getExtractedComment( parentPath, _originalNodeLine );
 	}
 }
 
@@ -203,20 +212,24 @@ module.exports = function() {
 				}
 
 				// Skip unhandled functions
-				const functionKeys = ( state.opts.functions || DEFAULT_FUNCTIONS )[ name ];
+				const functionKeys = ( state.opts.functions ||
+					DEFAULT_FUNCTIONS )[ name ];
 				if ( ! functionKeys ) {
 					return;
 				}
 
 				// Assign translation keys by argument position
-				const translation = path.node.arguments.reduce( ( memo, arg, i ) => {
-					const key = functionKeys[ i ];
-					if ( isValidTranslationKey( key ) ) {
-						memo[ key ] = getNodeAsString( arg );
-					}
+				const translation = path.node.arguments.reduce(
+					( memo, arg, i ) => {
+						const key = functionKeys[ i ];
+						if ( isValidTranslationKey( key ) ) {
+							memo[ key ] = getNodeAsString( arg );
+						}
 
-					return memo;
-				}, {} );
+						return memo;
+					},
+					{}
+				);
 
 				// Can only assign translation with usable msgid
 				if ( ! translation.msgid ) {
@@ -240,19 +253,25 @@ module.exports = function() {
 					};
 
 					for ( const key in baseData.headers ) {
-						baseData.translations[ '' ][ '' ].msgstr.push( `${ key }: ${ baseData.headers[ key ] };\n` );
+						baseData.translations[ '' ][ '' ].msgstr.push(
+							`${ key }: ${ baseData.headers[ key ] };\n`
+						);
 					}
 
 					// Attempt to exract nplurals from header
-					const pluralsMatch = ( baseData.headers[ 'plural-forms' ] || '' ).match( /nplurals\s*=\s*(\d+);/ );
+					const pluralsMatch = (
+						baseData.headers[ 'plural-forms' ] || ''
+					).match( /nplurals\s*=\s*(\d+);/ );
 					if ( pluralsMatch ) {
-						nplurals = pluralsMatch[ 1 ];
+						nplurals = parseInt( pluralsMatch[ 1 ], 10 );
 					}
 				}
 
 				// Create empty msgstr or array of empty msgstr by nplurals
 				if ( translation.msgid_plural ) {
-					translation.msgstr = Array.from( Array( nplurals ) ).map( () => '' );
+					translation.msgstr = Array.from( Array( nplurals ) ).map(
+						() => ''
+					);
 				} else {
 					translation.msgstr = '';
 				}
@@ -260,15 +279,17 @@ module.exports = function() {
 				// Assign file reference comment, ensuring consistent pathname
 				// reference between Win32 and POSIX
 				const { filename } = this.file.opts;
-				const pathname = relative( '.', filename ).split( sep ).join( '/' );
+				const pathname = relative( '.', filename )
+					.split( sep )
+					.join( '/' );
 				translation.comments = {
 					reference: pathname + ':' + path.node.loc.start.line,
 				};
 
 				// If exists, also assign translator comment
-				const translator = getTranslatorComment( path );
+				const translator = getExtractedComment( path );
 				if ( translator ) {
-					translation.comments.translator = translator;
+					translation.comments.extracted = translator;
 				}
 
 				// Create context grouping for translation if not yet exists
@@ -294,34 +315,57 @@ module.exports = function() {
 					const files = Object.keys( strings ).sort();
 
 					// Combine translations from each file grouped by context
-					const translations = reduce( files, ( memo, file ) => {
-						for ( const context in strings[ file ] ) {
-							// Within the same file, sort translations by line
-							const sortedTranslations = sortBy(
-								strings[ file ][ context ],
-								'comments.reference'
-							);
+					const translations = reduce(
+						files,
+						( memo, file ) => {
+							for ( const context in strings[ file ] ) {
+								// Within the same file, sort translations by line
+								const sortedTranslations = sortBy(
+									strings[ file ][ context ],
+									'comments.reference'
+								);
 
-							forEach( sortedTranslations, ( translation ) => {
-								const { msgctxt = '', msgid } = translation;
-								if ( ! memo.hasOwnProperty( msgctxt ) ) {
-									memo[ msgctxt ] = {};
-								}
+								forEach(
+									sortedTranslations,
+									( translation ) => {
+										const {
+											msgctxt = '',
+											msgid,
+										} = translation;
+										if (
+											! memo.hasOwnProperty( msgctxt )
+										) {
+											memo[ msgctxt ] = {};
+										}
 
-								// Merge references if translation already exists
-								if ( isSameTranslation( translation, memo[ msgctxt ][ msgid ] ) ) {
-									translation.comments.reference = uniq( [
-										memo[ msgctxt ][ msgid ].comments.reference,
-										translation.comments.reference,
-									].join( '\n' ).split( '\n' ) ).join( '\n' );
-								}
+										// Merge references if translation already exists
+										if (
+											isSameTranslation(
+												translation,
+												memo[ msgctxt ][ msgid ]
+											)
+										) {
+											translation.comments.reference = uniq(
+												[
+													memo[ msgctxt ][ msgid ]
+														.comments.reference,
+													translation.comments
+														.reference,
+												]
+													.join( '\n' )
+													.split( '\n' )
+											).join( '\n' );
+										}
 
-								memo[ msgctxt ][ msgid ] = translation;
-							} );
-						}
+										memo[ msgctxt ][ msgid ] = translation;
+									}
+								);
+							}
 
-						return memo;
-					}, {} );
+							return memo;
+						},
+						{}
+					);
 
 					// Merge translations from individual files into headers
 					const data = merge( {}, baseData, { translations } );
@@ -331,7 +375,10 @@ module.exports = function() {
 					// Babel loader doesn't expose these entry points and async
 					// write may hit file lock (need queue).
 					const compiled = po.compile( data );
-					writeFileSync( state.opts.output || DEFAULT_OUTPUT, compiled );
+					writeFileSync(
+						state.opts.output || DEFAULT_OUTPUT,
+						compiled
+					);
 					this.hasPendingWrite = false;
 				},
 			},
@@ -340,6 +387,6 @@ module.exports = function() {
 };
 
 module.exports.getNodeAsString = getNodeAsString;
-module.exports.getTranslatorComment = getTranslatorComment;
+module.exports.getExtractedComment = getExtractedComment;
 module.exports.isValidTranslationKey = isValidTranslationKey;
 module.exports.isSameTranslation = isSameTranslation;

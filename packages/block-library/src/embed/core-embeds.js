@@ -15,7 +15,8 @@ import {
 	embedFlickrIcon,
 	embedVimeoIcon,
 	embedRedditIcon,
-	embedTumbrIcon,
+	embedTumblrIcon,
+	embedAmazonIcon,
 } from './icons';
 
 /**
@@ -30,7 +31,7 @@ export const common = [
 		settings: {
 			title: 'Twitter',
 			icon: embedTwitterIcon,
-			keywords: [ 'tweet' ],
+			keywords: [ 'tweet', __( 'social' ) ],
 			description: __( 'Embed a tweet.' ),
 		},
 		patterns: [ /^https?:\/\/(www\.)?twitter\.com\/.+/i ],
@@ -43,13 +44,17 @@ export const common = [
 			keywords: [ __( 'music' ), __( 'video' ) ],
 			description: __( 'Embed a YouTube video.' ),
 		},
-		patterns: [ /^https?:\/\/((m|www)\.)?youtube\.com\/.+/i, /^https?:\/\/youtu\.be\/.+/i ],
+		patterns: [
+			/^https?:\/\/((m|www)\.)?youtube\.com\/.+/i,
+			/^https?:\/\/youtu\.be\/.+/i,
+		],
 	},
 	{
 		name: 'core-embed/facebook',
 		settings: {
 			title: 'Facebook',
 			icon: embedFacebookIcon,
+			keywords: [ __( 'social' ) ],
 			description: __( 'Embed a Facebook post.' ),
 		},
 		patterns: [ /^https?:\/\/www\.facebook.com\/.+/i ],
@@ -59,7 +64,7 @@ export const common = [
 		settings: {
 			title: 'Instagram',
 			icon: embedInstagramIcon,
-			keywords: [ __( 'image' ) ],
+			keywords: [ __( 'image' ), __( 'social' ) ],
 			description: __( 'Embed an Instagram post.' ),
 		},
 		patterns: [ /^https?:\/\/(www\.)?instagr(\.am|am\.com)\/.+/i ],
@@ -102,7 +107,10 @@ export const common = [
 			keywords: [ __( 'image' ) ],
 			description: __( 'Embed Flickr content.' ),
 		},
-		patterns: [ /^https?:\/\/(www\.)?flickr\.com\/.+/i, /^https?:\/\/flic\.kr\/.+/i ],
+		patterns: [
+			/^https?:\/\/(www\.)?flickr\.com\/.+/i,
+			/^https?:\/\/flic\.kr\/.+/i,
+		],
 	},
 	{
 		name: 'core-embed/vimeo',
@@ -136,37 +144,59 @@ export const others = [
 		patterns: [ /^https?:\/\/cloudup\.com\/.+/i ],
 	},
 	{
+		// Deprecated since CollegeHumor content is now powered by YouTube
 		name: 'core-embed/collegehumor',
 		settings: {
 			title: 'CollegeHumor',
 			icon: embedVideoIcon,
 			description: __( 'Embed CollegeHumor content.' ),
+			supports: {
+				inserter: false,
+			},
 		},
-		patterns: [ /^https?:\/\/(www\.)?collegehumor\.com\/.+/i ],
+		patterns: [],
+	},
+	{
+		name: 'core-embed/crowdsignal',
+		settings: {
+			title: 'Crowdsignal',
+			icon: embedContentIcon,
+			keywords: [ 'polldaddy', __( 'survey' ) ],
+			transform: [
+				{
+					type: 'block',
+					blocks: [ 'core-embed/polldaddy' ],
+					transform: ( content ) => {
+						return createBlock( 'core-embed/crowdsignal', {
+							content,
+						} );
+					},
+				},
+			],
+			description: __(
+				'Embed Crowdsignal (formerly Polldaddy) content.'
+			),
+		},
+		patterns: [
+			/^https?:\/\/((.+\.)?polldaddy\.com|poll\.fm|.+\.survey\.fm)\/.+/i,
+		],
 	},
 	{
 		name: 'core-embed/dailymotion',
 		settings: {
 			title: 'Dailymotion',
 			icon: embedVideoIcon,
+			keywords: [ __( 'video' ) ],
 			description: __( 'Embed a Dailymotion video.' ),
 		},
 		patterns: [ /^https?:\/\/(www\.)?dailymotion\.com\/.+/i ],
-	},
-	{
-		name: 'core-embed/funnyordie',
-		settings: {
-			title: 'Funny or Die',
-			icon: embedVideoIcon,
-			description: __( 'Embed Funny or Die content.' ),
-		},
-		patterns: [ /^https?:\/\/(www\.)?funnyordie\.com\/.+/i ],
 	},
 	{
 		name: 'core-embed/hulu',
 		settings: {
 			title: 'Hulu',
 			icon: embedVideoIcon,
+			keywords: [ __( 'video' ) ],
 			description: __( 'Embed Hulu content.' ),
 		},
 		patterns: [ /^https?:\/\/(www\.)?hulu\.com\/.+/i ],
@@ -196,7 +226,10 @@ export const others = [
 			icon: embedContentIcon,
 			description: __( 'Embed Kickstarter content.' ),
 		},
-		patterns: [ /^https?:\/\/(www\.)?kickstarter\.com\/.+/i, /^https?:\/\/kck\.st\/.+/i ],
+		patterns: [
+			/^https?:\/\/(www\.)?kickstarter\.com\/.+/i,
+			/^https?:\/\/kck\.st\/.+/i,
+		],
 	},
 	{
 		name: 'core-embed/meetup-com',
@@ -218,22 +251,17 @@ export const others = [
 		patterns: [ /^https?:\/\/(www\.)?mixcloud\.com\/.+/i ],
 	},
 	{
-		name: 'core-embed/photobucket',
-		settings: {
-			title: 'Photobucket',
-			icon: embedPhotoIcon,
-			description: __( 'Embed a Photobucket image.' ),
-		},
-		patterns: [ /^http:\/\/g?i*\.photobucket\.com\/.+/i ],
-	},
-	{
+		// Deprecated in favour of the core-embed/crowdsignal block
 		name: 'core-embed/polldaddy',
 		settings: {
 			title: 'Polldaddy',
 			icon: embedContentIcon,
 			description: __( 'Embed Polldaddy content.' ),
+			supports: {
+				inserter: false,
+			},
 		},
-		patterns: [ /^https?:\/\/(www\.)?polldaddy\.com\/.+/i ],
+		patterns: [],
 	},
 	{
 		name: 'core-embed/reddit',
@@ -306,18 +334,30 @@ export const others = [
 		settings: {
 			title: 'Speaker Deck',
 			icon: embedContentIcon,
-			transform: [ {
-				type: 'block',
-				blocks: [ 'core-embed/speaker' ],
-				transform: ( content ) => {
-					return createBlock( 'core-embed/speaker-deck', {
-						content,
-					} );
+			transform: [
+				{
+					type: 'block',
+					blocks: [ 'core-embed/speaker' ],
+					transform: ( content ) => {
+						return createBlock( 'core-embed/speaker-deck', {
+							content,
+						} );
+					},
 				},
-			} ],
+			],
 			description: __( 'Embed Speaker Deck content.' ),
 		},
 		patterns: [ /^https?:\/\/(www\.)?speakerdeck\.com\/.+/i ],
+	},
+	{
+		name: 'core-embed/tiktok',
+		settings: {
+			title: 'TikTok',
+			icon: embedVideoIcon,
+			keywords: [ __( 'video' ) ],
+			description: __( 'Embed a TikTok video.' ),
+		},
+		patterns: [ /^https?:\/\/(www\.)?tiktok\.com\/.+/i ],
 	},
 	{
 		name: 'core-embed/ted',
@@ -332,7 +372,8 @@ export const others = [
 		name: 'core-embed/tumblr',
 		settings: {
 			title: 'Tumblr',
-			icon: embedTumbrIcon,
+			icon: embedTumblrIcon,
+			keywords: [ __( 'social' ) ],
 			description: __( 'Embed a Tumblr post.' ),
 		},
 		patterns: [ /^https?:\/\/(www\.)?tumblr\.com\/.+/i ],
@@ -355,5 +396,19 @@ export const others = [
 			description: __( 'Embed a WordPress.tv video.' ),
 		},
 		patterns: [ /^https?:\/\/wordpress\.tv\/.+/i ],
+	},
+	{
+		name: 'core-embed/amazon-kindle',
+		settings: {
+			title: 'Amazon Kindle',
+			icon: embedAmazonIcon,
+			keywords: [ __( 'ebook' ) ],
+			responsive: false,
+			description: __( 'Embed Amazon Kindle content.' ),
+		},
+		patterns: [
+			/^https?:\/\/([a-z0-9-]+\.)?(amazon|amzn)(\.[a-z]{2,4})+\/.+/i,
+			/^https?:\/\/(www\.)?(a\.co|z\.cn)\/.+/i,
+		],
 	},
 ];

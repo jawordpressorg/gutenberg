@@ -2,17 +2,11 @@
  * WordPress dependencies
  */
 import { compose } from '@wordpress/compose';
-import { Popover, Button, IconButton } from '@wordpress/components';
+import { Popover, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { withSelect, withDispatch } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-
-function getAnchorRect( anchor ) {
-	// The default getAnchorRect() excludes an element's top and bottom padding
-	// from its calculation. We want tips to point to the outer margin of an
-	// element, so we override getAnchorRect() to include all padding.
-	return anchor.parentNode.getBoundingClientRect();
-}
+import { useCallback, useRef } from '@wordpress/element';
+import { close } from '@wordpress/icons';
 
 function onClick( event ) {
 	// Tips are often nested within buttons. We stop propagation so that clicking
@@ -21,12 +15,26 @@ function onClick( event ) {
 }
 
 export function DotTip( {
+	position = 'middle right',
 	children,
 	isVisible,
 	hasNextTip,
 	onDismiss,
 	onDisable,
 } ) {
+	const anchorParent = useRef( null );
+	const onFocusOutsideCallback = useCallback(
+		( event ) => {
+			if ( ! anchorParent.current ) {
+				return;
+			}
+			if ( anchorParent.current.contains( event.relatedTarget ) ) {
+				return;
+			}
+			onDisable();
+		},
+		[ onDisable, anchorParent ]
+	);
 	if ( ! isVisible ) {
 		return null;
 	}
@@ -34,13 +42,14 @@ export function DotTip( {
 	return (
 		<Popover
 			className="nux-dot-tip"
-			position="middle right"
+			position={ position }
 			noArrow
 			focusOnMount="container"
-			getAnchorRect={ getAnchorRect }
+			shouldAnchorIncludePadding
 			role="dialog"
-			aria-label={ __( 'Gutenberg tips' ) }
+			aria-label={ __( 'Editor tips' ) }
 			onClick={ onClick }
+			onFocusOutside={ onFocusOutsideCallback }
 		>
 			<p>{ children }</p>
 			<p>
@@ -48,9 +57,9 @@ export function DotTip( {
 					{ hasNextTip ? __( 'See next tip' ) : __( 'Got it' ) }
 				</Button>
 			</p>
-			<IconButton
+			<Button
 				className="nux-dot-tip__disable"
-				icon="no-alt"
+				icon={ close }
 				label={ __( 'Disable tips' ) }
 				onClick={ onDisable }
 			/>
@@ -59,15 +68,7 @@ export function DotTip( {
 }
 
 export default compose(
-	withSelect( ( select, { tipId, id } ) => {
-		if ( id ) {
-			tipId = id;
-			deprecated( 'The id prop of wp.nux.DotTip', {
-				plugin: 'Gutenberg',
-				version: '4.4',
-				alternative: 'the tipId prop',
-			} );
-		}
+	withSelect( ( select, { tipId } ) => {
 		const { isTipVisible, getAssociatedGuide } = select( 'core/nux' );
 		const associatedGuide = getAssociatedGuide( tipId );
 		return {
@@ -75,15 +76,15 @@ export default compose(
 			hasNextTip: !! ( associatedGuide && associatedGuide.nextTipId ),
 		};
 	} ),
-	withDispatch( ( dispatch, { tipId, id } ) => {
+	withDispatch( ( dispatch, { tipId } ) => {
 		const { dismissTip, disableTips } = dispatch( 'core/nux' );
 		return {
 			onDismiss() {
-				dismissTip( tipId || id );
+				dismissTip( tipId );
 			},
 			onDisable() {
 				disableTips();
 			},
 		};
-	} ),
+	} )
 )( DotTip );

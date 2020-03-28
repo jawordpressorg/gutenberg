@@ -1,13 +1,16 @@
-.wp-block-gallery {
+.wp-block-gallery,
+.blocks-gallery-grid {
 	display: flex;
 	flex-wrap: wrap;
 	list-style-type: none;
 	padding: 0;
+	// Some themes give all <ul> default margin instead of padding.
+	margin: 0;
 
 	.blocks-gallery-image,
 	.blocks-gallery-item {
 		// Add space between thumbnails, and unset right most thumbnails later.
-		margin: 0 $grid-size-large $grid-size-large 0;
+		margin: 0 $grid-unit-20 $grid-unit-20 0;
 		display: flex;
 		flex-grow: 1;
 		flex-direction: column;
@@ -48,11 +51,11 @@
 			width: 100%;
 			max-height: 100%;
 			overflow: auto;
-			padding: 40px 10px 5px;
+			padding: 40px 10px 9px;
 			color: $white;
 			text-align: center;
 			font-size: $default-font-size;
-			background: linear-gradient(0deg, rgba($color: $black, $alpha: 0.7) 0, rgba($color: $black, $alpha: 0.3) 60%, transparent);
+			background: linear-gradient(0deg, rgba($color: $black, $alpha: 0.7) 0, rgba($color: $black, $alpha: 0.3) 70%, transparent);
 
 			img {
 				display: inline;
@@ -81,7 +84,7 @@
 	// On mobile and responsive viewports, we allow only 1 or 2 columns at the most.
 	& .blocks-gallery-image,
 	& .blocks-gallery-item {
-		width: calc((100% - #{ $grid-size-large }) / 2);
+		width: calc(50% - #{ $grid-unit-20 });
 
 		&:nth-of-type(even) {
 			margin-right: 0;
@@ -99,8 +102,8 @@
 		@for $i from 3 through 8 {
 			&.columns-#{ $i } .blocks-gallery-image,
 			&.columns-#{ $i } .blocks-gallery-item {
-				width: calc((100% - #{ $grid-size-large } * #{ $i - 1 }) / #{ $i });
-				margin-right: 16px;
+				width: calc(#{ 100% / $i } - #{ $grid-unit-20 * ( $i - 1 ) / $i });
+				margin-right: $grid-unit-20;
 			}
 		}
 
@@ -114,22 +117,9 @@
 	}
 
 	// Last item always needs margins reset.
-	// When block is selected, only reset the right margin of the 2nd to last item.
 	.blocks-gallery-image:last-child,
-	.blocks-gallery-item:last-child,
-	.is-selected & .blocks-gallery-image:nth-last-child(2),
-	.is-selected & .blocks-gallery-item:nth-last-child(2),
-	.is-typing & .blocks-gallery-image:nth-last-child(2),
-	.is-typing & .blocks-gallery-item:nth-last-child(2) {
+	.blocks-gallery-item:last-child {
 		margin-right: 0;
-	}
-
-	// Make the "Add new Gallery item" button full-width (so it always appears
-	// below other items).
-	.blocks-gallery-item {
-		&.has-add-item-button {
-			width: 100%;
-		}
 	}
 
 	// Apply max-width to floated items that have no intrinsic width.
@@ -139,14 +129,6 @@
 		width: 100%;
 	}
 
-	// Keep the display property consistent when alignments are applied
-	// to preserve columns
-	&.alignleft,
-	&.aligncenter,
-	&.alignright {
-		display: flex;
-	}
-
 	// If the gallery is centered, center the content inside as well.
 	&.aligncenter {
 		.blocks-gallery-item figure {
@@ -154,3 +136,4 @@
 		}
 	}
 }
+

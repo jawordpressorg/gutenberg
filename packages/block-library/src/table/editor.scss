@@ -1,10 +1,18 @@
-.editor-block-list__block[data-type="core/table"] {
+.block-editor-block-list__block[data-type="core/table"] {
 	&[data-align="left"],
 	&[data-align="right"],
 	&[data-align="center"] {
+		// Stop table block from collapsing when tables are floated.
+		height: auto;
+
 		table {
 			// Ensure the table element is not full-width when aligned.
 			width: auto;
+		}
+
+		td,
+		th {
+			word-break: break-word;
 		}
 	}
 
@@ -19,15 +27,16 @@
 
 
 .wp-block-table {
+	// Remove default <figure> style.
+	margin: 0;
+
 	table {
 		border-collapse: collapse;
-		width: 100%;
 	}
 
 	td,
 	th {
-		padding: 0;
-		border: $border-width solid currentColor;
+		border: $border-width solid;
 	}
 
 	td.is-selected,
@@ -37,7 +46,41 @@
 		border-style: double;
 	}
 
-	&__cell-content {
-		padding: 0.5em;
+	figcaption {
+		@include caption-style-theme();
+	}
+}
+
+.blocks-table__placeholder-form.blocks-table__placeholder-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	> * {
+		margin-bottom: $grid-unit-10;
+	}
+
+	@include break-medium() {
+		flex-direction: row;
+		align-items: flex-end;
+
+		> * {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.blocks-table__placeholder-input {
+	width: $grid-unit-10 * 14;
+	margin-right: $grid-unit-10;
+	margin-bottom: 0;
+
+	input {
+		height: $button-size;
+	}
+
+
+	.components-base-control__field {
+		margin-bottom: 0;
 	}
 }

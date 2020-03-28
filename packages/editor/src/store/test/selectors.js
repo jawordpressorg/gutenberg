@@ -10,26 +10,133 @@ import {
 	registerBlockType,
 	unregisterBlockType,
 	createBlock,
-	getBlockTypes,
 	getDefaultBlockName,
 	setDefaultBlockName,
 	setFreeformContentHandlerName,
+	getBlockTypes,
 } from '@wordpress/blocks';
-import { moment } from '@wordpress/date';
 import { RawHTML } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import * as selectors from '../selectors';
+import * as _selectors from '../selectors';
 import { PREFERENCES_DEFAULTS } from '../defaults';
+import { POST_UPDATE_TRANSACTION_ID } from '../constants';
 
+const selectors = { ..._selectors };
+const selectorNames = Object.keys( selectors );
+selectorNames.forEach( ( name ) => {
+	selectors[ name ] = ( state, ...args ) => {
+		const select = () => ( {
+			getRawEntityRecord() {
+				return state.currentPost;
+			},
+
+			__experimentalGetDirtyEntityRecords() {
+				return (
+					state.__experimentalGetDirtyEntityRecords &&
+					state.__experimentalGetDirtyEntityRecords()
+				);
+			},
+
+			getEntityRecordEdits() {
+				const present = state.editor && state.editor.present;
+				let edits = present && present.edits;
+
+				if ( state.initialEdits ) {
+					edits = {
+						...state.initialEdits,
+						...edits,
+					};
+				}
+
+				const { value: blocks, isDirty } =
+					( present && present.blocks ) || {};
+				if ( blocks && isDirty !== false ) {
+					edits = {
+						...edits,
+						blocks,
+					};
+				}
+
+				return edits;
+			},
+
+			hasEditsForEntityRecord() {
+				return Object.keys( this.getEntityRecordEdits() ).length > 0;
+			},
+
+			getEditedEntityRecord() {
+				return {
+					...this.getRawEntityRecord(),
+					...this.getEntityRecordEdits(),
+				};
+			},
+
+			isSavingEntityRecord() {
+				return state.saving && state.saving.requesting;
+			},
+
+			getLastEntitySaveError() {
+				const saving = state.saving;
+				const successful = saving && saving.successful;
+				const error = saving && saving.error;
+				return successful === undefined ? error : ! successful;
+			},
+
+			hasUndo() {
+				return Boolean(
+					state.editor &&
+						state.editor.past &&
+						state.editor.past.length
+				);
+			},
+
+			hasRedo() {
+				return Boolean(
+					state.editor &&
+						state.editor.future &&
+						state.editor.future.length
+				);
+			},
+
+			getCurrentUser() {
+				return state.getCurrentUser && state.getCurrentUser();
+			},
+
+			hasFetchedAutosaves() {
+				return state.hasFetchedAutosaves && state.hasFetchedAutosaves();
+			},
+
+			getAutosave() {
+				return state.getAutosave && state.getAutosave();
+			},
+		} );
+
+		selectorNames.forEach( ( otherName ) => {
+			if ( _selectors[ otherName ].isRegistrySelector ) {
+				_selectors[ otherName ].registry = { select };
+			}
+		} );
+
+		return _selectors[ name ]( state, ...args );
+	};
+	selectors[ name ].isRegistrySelector =
+		_selectors[ name ].isRegistrySelector;
+	if ( selectors[ name ].isRegistrySelector ) {
+		selectors[ name ].registry = {
+			select: () => _selectors[ name ].registry.select(),
+		};
+	}
+} );
 const {
-	canUserUseUnfilteredHTML,
 	hasEditorUndo,
 	hasEditorRedo,
 	isEditedPostNew,
+	hasChangedContent,
 	isEditedPostDirty,
+	hasNonPostEntityChanges,
 	isCleanNewPost,
 	getCurrentPost,
 	getCurrentPostId,
@@ -37,7 +144,6 @@ const {
 	getCurrentPostRevisionsCount,
 	getCurrentPostType,
 	getPostEdits,
-	getReferenceByDistinctEdits,
 	getEditedPostVisibility,
 	isCurrentPostPending,
 	isCurrentPostPublished,
@@ -45,46 +151,11 @@ const {
 	isEditedPostPublishable,
 	isEditedPostSaveable,
 	isEditedPostAutosaveable,
-	getAutosave,
-	hasAutosave,
 	isEditedPostEmpty,
 	isEditedPostBeingScheduled,
 	isEditedPostDateFloating,
-	getBlockDependantsCacheBust,
-	getBlockName,
-	getBlock,
-	getBlocks,
-	getBlockCount,
-	getClientIdsWithDescendants,
-	getClientIdsOfDescendants,
-	hasSelectedBlock,
-	getSelectedBlock,
-	getSelectedBlockClientId,
-	getBlockRootClientId,
-	getBlockHierarchyRootClientId,
 	getCurrentPostAttribute,
 	getEditedPostAttribute,
-	getAutosaveAttribute,
-	getGlobalBlockCount,
-	getMultiSelectedBlockClientIds,
-	getMultiSelectedBlocks,
-	getMultiSelectedBlocksStartClientId,
-	getMultiSelectedBlocksEndClientId,
-	getBlockOrder,
-	getBlockIndex,
-	getPreviousBlockClientId,
-	getNextBlockClientId,
-	isBlockSelected,
-	hasSelectedInnerBlock,
-	isBlockWithinSelection,
-	hasMultiSelection,
-	isBlockMultiSelected,
-	isFirstMultiSelectedBlock,
-	getBlockMode,
-	isTyping,
-	isCaretWithinFormattedText,
-	getBlockInsertionPoint,
-	isBlockInsertionPointVisible,
 	isSavingPost,
 	didPostSaveRequestSucceed,
 	didPostSaveRequestFail,
@@ -93,25 +164,17 @@ const {
 	__experimentalGetReusableBlock: getReusableBlock,
 	__experimentalIsSavingReusableBlock: isSavingReusableBlock,
 	__experimentalIsFetchingReusableBlock: isFetchingReusableBlock,
-	isSelectionEnabled,
 	__experimentalGetReusableBlocks: getReusableBlocks,
 	getStateBeforeOptimisticTransaction,
 	isPublishingPost,
 	isPublishSidebarEnabled,
-	canInsertBlockType,
-	getInserterItems,
-	isValidTemplate,
-	getTemplate,
-	getTemplateLock,
-	getBlockListSettings,
-	POST_UPDATE_TRANSACTION_ID,
 	isPermalinkEditable,
 	getPermalink,
 	getPermalinkParts,
-	INSERTER_UTILITY_HIGH,
-	INSERTER_UTILITY_MEDIUM,
-	INSERTER_UTILITY_LOW,
+	getEditedPostSlug,
 	isPostSavingLocked,
+	isPostAutosavingLocked,
+	canUserUseUnfilteredHTML,
 } = selectors;
 
 describe( 'selectors', () => {
@@ -164,6 +227,9 @@ describe( 'selectors', () => {
 			category: 'common',
 			title: 'Test Freeform Content Handler',
 			icon: 'test',
+			supports: {
+				className: false,
+			},
 			attributes: {
 				content: {
 					type: 'string',
@@ -171,7 +237,20 @@ describe( 'selectors', () => {
 			},
 		} );
 
+		registerBlockType( 'core/test-default', {
+			category: 'common',
+			title: 'default',
+			attributes: {
+				modified: {
+					type: 'boolean',
+					default: false,
+				},
+			},
+			save: () => null,
+		} );
+
 		setFreeformContentHandlerName( 'core/test-freeform' );
+		setDefaultBlockName( 'core/test-default' );
 
 		cachedSelectors.forEach( ( { clear } ) => clear() );
 	} );
@@ -182,17 +261,17 @@ describe( 'selectors', () => {
 		unregisterBlockType( 'core/test-block-b' );
 		unregisterBlockType( 'core/test-block-c' );
 		unregisterBlockType( 'core/test-freeform' );
+		unregisterBlockType( 'core/test-default' );
 
 		setFreeformContentHandlerName( undefined );
+		setDefaultBlockName( undefined );
 	} );
 
 	describe( 'hasEditorUndo', () => {
 		it( 'should return true when the past history is not empty', () => {
 			const state = {
 				editor: {
-					past: [
-						{},
-					],
+					past: [ {} ],
 				},
 			};
 
@@ -214,9 +293,7 @@ describe( 'selectors', () => {
 		it( 'should return true when the future history is not empty', () => {
 			const state = {
 				editor: {
-					future: [
-						{},
-					],
+					future: [ {} ],
 				},
 			};
 
@@ -247,6 +324,7 @@ describe( 'selectors', () => {
 						},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostNew( state ) ).toBe( true );
@@ -264,56 +342,189 @@ describe( 'selectors', () => {
 						},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostNew( state ) ).toBe( false );
 		} );
 	} );
 
-	describe( 'isEditedPostDirty', () => {
-		it( 'should return true when post saved state dirty', () => {
+	describe( 'hasChangedContent', () => {
+		it( 'should return false if no dirty blocks nor content property edit', () => {
 			const state = {
 				editor: {
-					isDirty: true,
-				},
-				saving: {
-					requesting: false,
+					present: {
+						blocks: {
+							isDirty: false,
+						},
+						edits: {},
+					},
 				},
 			};
 
-			expect( isEditedPostDirty( state ) ).toBe( true );
+			expect( hasChangedContent( state ) ).toBe( false );
 		} );
 
-		it( 'should return true if pending transaction with dirty state', () => {
+		it( 'should return true if dirty blocks', () => {
 			const state = {
-				optimist: [
-					{
-						beforeState: {
-							editor: {
-								isDirty: true,
-							},
+				editor: {
+					present: {
+						blocks: {
+							isDirty: true,
+							value: [],
+						},
+						edits: {},
+					},
+				},
+			};
+
+			expect( hasChangedContent( state ) ).toBe( true );
+		} );
+
+		it( 'should return true if content property edit', () => {
+			const state = {
+				editor: {
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {
+							content: 'text mode edited',
 						},
 					},
-				],
-				editor: {
-					isDirty: false,
 				},
 			};
 
-			expect( isEditedPostDirty( state ) ).toBe( true );
+			expect( hasChangedContent( state ) ).toBe( true );
 		} );
+	} );
 
-		it( 'should return false when post saved state not dirty', () => {
+	describe( 'isEditedPostDirty', () => {
+		it( 'should return false when blocks state not dirty nor edits exist', () => {
 			const state = {
+				optimist: [],
 				editor: {
-					isDirty: false,
-				},
-				saving: {
-					requesting: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 			};
 
 			expect( isEditedPostDirty( state ) ).toBe( false );
+		} );
+
+		it( 'should return true when blocks state dirty', () => {
+			const state = {
+				optimist: [],
+				editor: {
+					present: {
+						blocks: {
+							isDirty: true,
+							value: [],
+						},
+						edits: {},
+					},
+				},
+			};
+
+			expect( isEditedPostDirty( state ) ).toBe( true );
+		} );
+
+		it( 'should return true when edits exist', () => {
+			const state = {
+				optimist: [],
+				editor: {
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {
+							excerpt: 'hello world',
+						},
+					},
+				},
+			};
+
+			expect( isEditedPostDirty( state ) ).toBe( true );
+		} );
+	} );
+
+	describe( 'hasNonPostEntityChanges', () => {
+		it( 'should return false if the full site editing experiment is disabled.', () => {
+			const state = {
+				currentPost: { id: 1, type: 'post' },
+				editorSettings: {
+					__experimentalEnableFullSiteEditing: false,
+				},
+				__experimentalGetDirtyEntityRecords() {
+					return [
+						{ kind: 'someKind', name: 'someName', key: 'someKey' },
+					];
+				},
+			};
+			expect( hasNonPostEntityChanges( state ) ).toBe( false );
+		} );
+		it( 'should return true if there are changes to an arbitrary entity', () => {
+			const state = {
+				currentPost: { id: 1, type: 'post' },
+				editorSettings: {
+					__experimentalEnableFullSiteEditing: true,
+				},
+				__experimentalGetDirtyEntityRecords() {
+					return [
+						{ kind: 'someKind', name: 'someName', key: 'someKey' },
+					];
+				},
+			};
+			expect( hasNonPostEntityChanges( state ) ).toBe( true );
+		} );
+		it( 'should return false if there are only changes for the current post', () => {
+			const state = {
+				currentPost: { id: 1, type: 'post' },
+				editorSettings: {
+					__experimentalEnableFullSiteEditing: true,
+				},
+				__experimentalGetDirtyEntityRecords() {
+					return [ { kind: 'postType', name: 'post', key: 1 } ];
+				},
+			};
+			expect( hasNonPostEntityChanges( state ) ).toBe( false );
+		} );
+		it( 'should return true if there are changes to multiple posts', () => {
+			const state = {
+				currentPost: { id: 1, type: 'post' },
+				editorSettings: {
+					__experimentalEnableFullSiteEditing: true,
+				},
+				__experimentalGetDirtyEntityRecords() {
+					return [
+						{ kind: 'postType', name: 'post', key: 1 },
+						{ kind: 'postType', name: 'post', key: 2 },
+					];
+				},
+			};
+			expect( hasNonPostEntityChanges( state ) ).toBe( true );
+		} );
+		it( 'should return true if there are changes to multiple posts of different post types', () => {
+			const state = {
+				currentPost: { id: 1, type: 'post' },
+				editorSettings: {
+					__experimentalEnableFullSiteEditing: true,
+				},
+				__experimentalGetDirtyEntityRecords() {
+					return [
+						{ kind: 'postType', name: 'post', key: 1 },
+						{ kind: 'postType', name: 'wp_template', key: 1 },
+					];
+				},
+			};
+			expect( hasNonPostEntityChanges( state ) ).toBe( true );
 		} );
 	} );
 
@@ -321,7 +532,13 @@ describe( 'selectors', () => {
 		it( 'should return true when the post is not dirty and has not been saved before', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					id: 1,
@@ -338,7 +555,13 @@ describe( 'selectors', () => {
 		it( 'should return false when the post is not dirty but the post has been saved', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					id: 1,
@@ -355,7 +578,13 @@ describe( 'selectors', () => {
 		it( 'should return false when the post is dirty but the post has not been saved', () => {
 			const state = {
 				editor: {
-					isDirty: true,
+					present: {
+						blocks: {
+							isDirty: true,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					id: 1,
@@ -383,7 +612,7 @@ describe( 'selectors', () => {
 	describe( 'getCurrentPostId', () => {
 		it( 'should return null if the post has not yet been saved', () => {
 			const state = {
-				currentPost: {},
+				postId: null,
 			};
 
 			expect( getCurrentPostId( state ) ).toBeNull();
@@ -391,7 +620,7 @@ describe( 'selectors', () => {
 
 		it( 'should return the current post ID', () => {
 			const state = {
-				currentPost: { id: 1 },
+				postId: 1,
 			};
 
 			expect( getCurrentPostId( state ) ).toBe( 1 );
@@ -412,7 +641,9 @@ describe( 'selectors', () => {
 				currentPost: {},
 			};
 
-			expect( getCurrentPostAttribute( state, 'valueOf' ) ).toBeUndefined();
+			expect(
+				getCurrentPostAttribute( state, 'valueOf' )
+			).toBeUndefined();
 		} );
 
 		it( 'should return the value of an attribute', () => {
@@ -422,7 +653,9 @@ describe( 'selectors', () => {
 				},
 			};
 
-			expect( getCurrentPostAttribute( state, 'title' ) ).toBe( 'Hello World' );
+			expect( getCurrentPostAttribute( state, 'title' ) ).toBe(
+				'Hello World'
+			);
 		} );
 	} );
 
@@ -435,9 +668,12 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
-			expect( getEditedPostAttribute( state, 'slug' ) ).toBe( 'post slug' );
+			expect( getEditedPostAttribute( state, 'slug' ) ).toBe(
+				'post slug'
+			);
 		} );
 
 		it( 'should return the latest slug if edits have been made to the post', () => {
@@ -450,9 +686,12 @@ describe( 'selectors', () => {
 						},
 					},
 				},
+				initialEdits: {},
 			};
 
-			expect( getEditedPostAttribute( state, 'slug' ) ).toBe( 'new slug' );
+			expect( getEditedPostAttribute( state, 'slug' ) ).toBe(
+				'new slug'
+			);
 		} );
 
 		it( 'should return the post saved title if the title is not edited', () => {
@@ -465,6 +704,7 @@ describe( 'selectors', () => {
 						edits: { status: 'private' },
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getEditedPostAttribute( state, 'title' ) ).toBe( 'sassel' );
@@ -480,6 +720,7 @@ describe( 'selectors', () => {
 						edits: { title: 'youcha' },
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getEditedPostAttribute( state, 'title' ) ).toBe( 'youcha' );
@@ -493,45 +734,38 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
-			expect( getEditedPostAttribute( state, 'valueOf' ) ).toBeUndefined();
-		} );
-	} );
-
-	describe( 'getAutosaveAttribute', () => {
-		it( 'returns null if there is no autosave', () => {
-			const state = {
-				autosave: null,
-			};
-
-			expect( getAutosaveAttribute( state, 'title' ) ).toBeNull();
+			expect(
+				getEditedPostAttribute( state, 'valueOf' )
+			).toBeUndefined();
 		} );
 
-		it( 'returns undefined for an attribute which is not set', () => {
+		it( 'should merge mergeable properties with current post value', () => {
 			const state = {
-				autosave: {},
-			};
-
-			expect( getAutosaveAttribute( state, 'foo' ) ).toBeUndefined();
-		} );
-
-		it( 'returns undefined for object prototype member', () => {
-			const state = {
-				autosave: {},
-			};
-
-			expect( getAutosaveAttribute( state, 'valueOf' ) ).toBeUndefined();
-		} );
-
-		it( 'returns the attribute value', () => {
-			const state = {
-				autosave: {
-					title: 'Hello World',
+				currentPost: {
+					meta: {
+						a: 1,
+						b: 1,
+					},
 				},
+				editor: {
+					present: {
+						edits: {
+							meta: {
+								b: 2,
+							},
+						},
+					},
+				},
+				initialEdits: {},
 			};
 
-			expect( getAutosaveAttribute( state, 'title' ) ).toBe( 'Hello World' );
+			expect( getEditedPostAttribute( state, 'meta' ) ).toEqual( {
+				a: 1,
+				b: 2,
+			} );
 		} );
 	} );
 
@@ -590,9 +824,7 @@ describe( 'selectors', () => {
 	describe( 'getCurrentPostType', () => {
 		it( 'should return the post type', () => {
 			const state = {
-				currentPost: {
-					type: 'post',
-				},
+				postType: 'post',
 			};
 
 			expect( getCurrentPostType( state ) ).toBe( 'post' );
@@ -607,24 +839,36 @@ describe( 'selectors', () => {
 						edits: { title: 'terga' },
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getPostEdits( state ) ).toEqual( { title: 'terga' } );
 		} );
-	} );
 
-	describe( 'getReferenceByDistinctEdits', () => {
-		it( 'should return referentially equal values across unchanging state', () => {
-			const state = { editor: {} };
+		it( 'should return value from initial edits', () => {
+			const state = {
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+				initialEdits: { title: 'terga' },
+			};
 
-			expect( getReferenceByDistinctEdits( state ) ).toBe( getReferenceByDistinctEdits( state ) );
+			expect( getPostEdits( state ) ).toEqual( { title: 'terga' } );
 		} );
 
-		it( 'should return referentially unequal values across changing state', () => {
-			const beforeState = { editor: {} };
-			const afterState = { editor: {} };
+		it( 'should prefer value from edits over initial edits', () => {
+			const state = {
+				editor: {
+					present: {
+						edits: { title: 'werga' },
+					},
+				},
+				initialEdits: { title: 'terga' },
+			};
 
-			expect( getReferenceByDistinctEdits( beforeState ) ).not.toBe( getReferenceByDistinctEdits( afterState ) );
+			expect( getPostEdits( state ) ).toEqual( { title: 'werga' } );
 		} );
 	} );
 
@@ -639,6 +883,7 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getEditedPostVisibility( state ) ).toBe( 'public' );
@@ -654,6 +899,7 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getEditedPostVisibility( state ) ).toBe( 'private' );
@@ -670,6 +916,7 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getEditedPostVisibility( state ) ).toBe( 'password' );
@@ -689,6 +936,7 @@ describe( 'selectors', () => {
 						},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getEditedPostVisibility( state ) ).toBe( 'private' );
@@ -814,7 +1062,13 @@ describe( 'selectors', () => {
 		it( 'should return true for pending posts', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					status: 'pending',
@@ -830,7 +1084,13 @@ describe( 'selectors', () => {
 		it( 'should return true for draft posts', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					status: 'draft',
@@ -846,7 +1106,13 @@ describe( 'selectors', () => {
 		it( 'should return false for published posts', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					status: 'publish',
@@ -862,7 +1128,13 @@ describe( 'selectors', () => {
 		it( 'should return true for published, dirty posts', () => {
 			const state = {
 				editor: {
-					isDirty: true,
+					present: {
+						blocks: {
+							isDirty: true,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					status: 'publish',
@@ -878,7 +1150,13 @@ describe( 'selectors', () => {
 		it( 'should return false for private posts', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					status: 'private',
@@ -894,7 +1172,13 @@ describe( 'selectors', () => {
 		it( 'should return false for scheduled posts', () => {
 			const state = {
 				editor: {
-					isDirty: false,
+					present: {
+						blocks: {
+							isDirty: false,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				currentPost: {
 					status: 'future',
@@ -913,7 +1197,13 @@ describe( 'selectors', () => {
 					status: 'private',
 				},
 				editor: {
-					isDirty: true,
+					present: {
+						blocks: {
+							isDirty: true,
+							value: [],
+						},
+						edits: {},
+					},
 				},
 				saving: {
 					requesting: false,
@@ -927,7 +1217,7 @@ describe( 'selectors', () => {
 	describe( 'isPostSavingLocked', () => {
 		it( 'should return true if the post has postSavingLocks', () => {
 			const state = {
-				postSavingLock: [ { 1: true } ],
+				postSavingLock: { example: true },
 				currentPost: {},
 				saving: {},
 			};
@@ -937,12 +1227,34 @@ describe( 'selectors', () => {
 
 		it( 'should return false if the post has no postSavingLocks', () => {
 			const state = {
-				postSavingLock: [],
+				postSavingLock: {},
 				currentPost: {},
 				saving: {},
 			};
 
 			expect( isPostSavingLocked( state ) ).toBe( false );
+		} );
+	} );
+
+	describe( 'isPostAutosavingLocked', () => {
+		it( 'should return true if the post has postAutosavingLocks', () => {
+			const state = {
+				postAutosavingLock: { example: true },
+				currentPost: {},
+				saving: {},
+			};
+
+			expect( isPostAutosavingLocked( state ) ).toBe( true );
+		} );
+
+		it( 'should return false if the post has no postAutosavingLocks', () => {
+			const state = {
+				postAutosavingLock: {},
+				currentPost: {},
+				saving: {},
+			};
+
+			expect( isPostAutosavingLocked( state ) ).toBe( false );
 		} );
 	} );
 
@@ -952,12 +1264,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 				saving: {},
 			};
@@ -970,12 +1282,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					title: 'sassel',
 				},
@@ -992,12 +1304,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					title: 'sassel',
 				},
@@ -1013,11 +1325,14 @@ describe( 'selectors', () => {
 					present: {
 						blocks: {
 							byClientId: {},
+							attributes: {},
 							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					excerpt: 'sassel',
 				},
@@ -1032,8 +1347,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-block-a',
 									isValid: true,
@@ -1041,14 +1356,12 @@ describe( 'selectors', () => {
 										text: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 				saving: {},
 			};
@@ -1061,22 +1374,21 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-freeform',
+									isValid: true,
 									attributes: {
 										content: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 				saving: {},
 			};
@@ -1089,8 +1401,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-freeform',
 									isValid: true,
@@ -1098,14 +1410,12 @@ describe( 'selectors', () => {
 										content: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					title: 'sassel',
 				},
@@ -1117,47 +1427,89 @@ describe( 'selectors', () => {
 	} );
 
 	describe( 'isEditedPostAutosaveable', () => {
-		it( 'should return false if the post is not saveable', () => {
+		it( 'should return false if existing autosaves have not yet been fetched', () => {
 			const state = {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					title: 'sassel',
 				},
 				saving: {
 					requesting: true,
 				},
-				autosave: {
-					title: 'sassel',
+				getCurrentUser() {},
+				hasFetchedAutosaves() {
+					return false;
+				},
+				getAutosave() {
+					return {
+						title: 'sassel',
+					};
 				},
 			};
 
 			expect( isEditedPostAutosaveable( state ) ).toBe( false );
 		} );
 
-		it( 'should return true if there is not yet an autosave', () => {
+		it( 'should return false if the post is not saveable', () => {
 			const state = {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
+				currentPost: {
+					title: 'sassel',
+				},
+				saving: {
+					requesting: true,
+				},
+				getCurrentUser() {},
+				hasFetchedAutosaves() {
+					return true;
+				},
+				getAutosave() {
+					return {
+						title: 'sassel',
+					};
+				},
+			};
+
+			expect( isEditedPostAutosaveable( state ) ).toBe( false );
+		} );
+
+		it( 'should return true if there is no autosave', () => {
+			const state = {
+				editor: {
+					present: {
+						blocks: {
+							value: [],
+						},
+						edits: {},
+					},
+				},
+				initialEdits: {},
 				currentPost: {
 					title: 'sassel',
 				},
 				saving: {},
-				autosave: null,
+				getCurrentUser() {},
+				hasFetchedAutosaves() {
+					return true;
+				},
+				getAutosave() {},
+				postAutosavingLock: {},
 			};
 
 			expect( isEditedPostAutosaveable( state ) ).toBe( true );
@@ -1168,103 +1520,114 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
+							isDirty: false,
 						},
-						edits: {
-							content: 'foo',
-						},
+						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					title: 'foo',
-					content: 'foo',
 					excerpt: 'foo',
 				},
 				saving: {},
-				autosave: {
-					title: 'foo',
-					content: 'foo',
-					excerpt: 'foo',
+				getCurrentUser() {},
+				hasFetchedAutosaves() {
+					return true;
 				},
+				getAutosave() {
+					return {
+						title: 'foo',
+						excerpt: 'foo',
+					};
+				},
+				postAutosavingLock: {},
 			};
 
 			expect( isEditedPostAutosaveable( state ) ).toBe( false );
 		} );
 
-		it( 'should return true if title, excerpt, or content have changed', () => {
-			for ( const variantField of [ 'title', 'excerpt', 'content' ] ) {
-				for ( const constantField of without( [ 'title', 'excerpt', 'content' ], variantField ) ) {
+		it( 'should return true if content has changes', () => {
+			const state = {
+				editor: {
+					present: {
+						blocks: {
+							value: [],
+							isDirty: true,
+						},
+						edits: {},
+					},
+				},
+				currentPost: {
+					title: 'foo',
+					excerpt: 'foo',
+				},
+				saving: {},
+				getCurrentUser() {},
+				hasFetchedAutosaves() {
+					return true;
+				},
+				getAutosave() {
+					return {
+						title: 'foo',
+						excerpt: 'foo',
+					};
+				},
+				postAutosavingLock: {},
+			};
+
+			expect( isEditedPostAutosaveable( state ) ).toBe( true );
+		} );
+
+		it( 'should return true if title or excerpt have changed', () => {
+			for ( const variantField of [ 'title', 'excerpt' ] ) {
+				for ( const constantField of without(
+					[ 'title', 'excerpt' ],
+					variantField
+				) ) {
 					const state = {
 						editor: {
 							present: {
 								blocks: {
-									byClientId: {},
-									order: {},
+									isDirty: false,
+									value: [],
 								},
-								edits: {
-									content: 'foo',
-								},
+								edits: {},
 							},
 						},
+						initialEdits: {},
 						currentPost: {
 							title: 'foo',
 							content: 'foo',
-							excerpt: 'foo',
 						},
 						saving: {},
-						autosave: {
-							[ constantField ]: 'foo',
-							[ variantField ]: 'bar',
+						getCurrentUser() {},
+						hasFetchedAutosaves() {
+							return true;
 						},
+						getAutosave() {
+							return {
+								[ constantField ]: 'foo',
+								[ variantField ]: 'bar',
+							};
+						},
+						postAutosavingLock: {},
 					};
 
 					expect( isEditedPostAutosaveable( state ) ).toBe( true );
 				}
 			}
 		} );
-	} );
 
-	describe( 'getAutosave', () => {
-		it( 'returns null if there is no autosave', () => {
+		it( 'should return false if autosaving is locked', () => {
 			const state = {
-				autosave: null,
+				currentPost: {},
+				saving: {},
+				postAutosavingLock: { example: true },
 			};
 
-			const result = getAutosave( state );
-
-			expect( result ).toBe( null );
-		} );
-
-		it( 'returns the autosave', () => {
-			const autosave = { title: '', excerpt: '', content: '' };
-			const state = { autosave };
-
-			const result = getAutosave( state );
-
-			expect( result ).toEqual( autosave );
-		} );
-	} );
-
-	describe( 'hasAutosave', () => {
-		it( 'returns false if there is no autosave', () => {
-			const state = {
-				autosave: null,
-			};
-
-			const result = hasAutosave( state );
-
-			expect( result ).toBe( false );
-		} );
-
-		it( 'returns true if there is a autosave', () => {
-			const state = {
-				autosave: { title: '', excerpt: '', content: '' },
-			};
-
-			const result = hasAutosave( state );
-
-			expect( result ).toBe( true );
+			expect( isEditedPostAutosaveable( state ) ).toBe( false );
 		} );
 	} );
 
@@ -1274,12 +1637,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -1291,8 +1654,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-block-a',
 									isValid: true,
@@ -1300,27 +1663,55 @@ describe( 'selectors', () => {
 										text: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
 			expect( isEditedPostEmpty( state ) ).toBe( false );
 		} );
 
-		it( 'should return true if blocks, but empty content edit', () => {
+		it( 'should account for filtering logic of getBlocksForSerialization', () => {
+			// Note: As an optimization, isEditedPostEmpty avoids using the
+			// getBlocksForSerialization selector and instead makes assumptions
+			// about its filtering. The behavior should still be reflected.
+			//
+			// See: https://github.com/WordPress/gutenberg/pull/13086
 			const state = {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
+									clientId: 'block1',
+									name: 'core/test-default',
+									attributes: {
+										modified: false,
+									},
+								},
+							],
+						},
+						edits: {},
+					},
+				},
+				initialEdits: {},
+				currentPost: {},
+			};
+
+			expect( isEditedPostEmpty( state ) ).toBe( true );
+		} );
+
+		it( 'should return false if blocks, but empty content edit', () => {
+			const state = {
+				editor: {
+					present: {
+						blocks: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-block-a',
 									isValid: true,
@@ -1328,22 +1719,20 @@ describe( 'selectors', () => {
 										text: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {
 							content: '',
 						},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					content: '',
 				},
 			};
 
-			expect( isEditedPostEmpty( state ) ).toBe( true );
+			expect( isEditedPostEmpty( state ) ).toBe( false );
 		} );
 
 		it( 'should return true if the post has an empty content property', () => {
@@ -1351,12 +1740,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					content: '',
 				},
@@ -1365,23 +1754,23 @@ describe( 'selectors', () => {
 			expect( isEditedPostEmpty( state ) ).toBe( true );
 		} );
 
-		it( 'should return false if edits include a non-empty content property', () => {
+		it( 'should return true if edits include a non-empty content property, but blocks are empty', () => {
 			const state = {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {
 							content: 'sassel',
 						},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
-			expect( isEditedPostEmpty( state ) ).toBe( false );
+			expect( isEditedPostEmpty( state ) ).toBe( true );
 		} );
 
 		it( 'should return true if empty classic block', () => {
@@ -1389,8 +1778,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-freeform',
 									isValid: true,
@@ -1398,14 +1787,12 @@ describe( 'selectors', () => {
 										content: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -1417,8 +1804,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-freeform',
 									isValid: true,
@@ -1426,14 +1813,12 @@ describe( 'selectors', () => {
 										content: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					content: '',
 				},
@@ -1447,8 +1832,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-freeform',
 									isValid: true,
@@ -1456,14 +1841,12 @@ describe( 'selectors', () => {
 										content: 'Test Data',
 									},
 								},
-							},
-							order: {
-								'': [ 123 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					content: 'Test Data',
 				},
@@ -1477,8 +1860,8 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: {
+							value: [
+								{
 									clientId: 123,
 									name: 'core/test-freeform',
 									isValid: true,
@@ -1486,7 +1869,7 @@ describe( 'selectors', () => {
 										content: '',
 									},
 								},
-								456: {
+								{
 									clientId: 456,
 									name: 'core/test-freeform',
 									isValid: true,
@@ -1494,14 +1877,12 @@ describe( 'selectors', () => {
 										content: '',
 									},
 								},
-							},
-							order: {
-								'': [ 123, 456 ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {
 					content: '\n\n',
 				},
@@ -1513,12 +1894,15 @@ describe( 'selectors', () => {
 
 	describe( 'isEditedPostBeingScheduled', () => {
 		it( 'should return true for posts with a future date', () => {
+			const time = Date.now() + 1000 * 3600 * 24 * 7; // 7 days in the future
+			const date = new Date( time );
 			const state = {
 				editor: {
 					present: {
-						edits: { date: moment().add( 7, 'days' ).format( '' ) },
+						edits: { date: date.toUTCString() },
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostBeingScheduled( state ) ).toBe( true );
@@ -1531,6 +1915,7 @@ describe( 'selectors', () => {
 						edits: { date: '2016-05-30T17:21:39' },
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostBeingScheduled( state ) ).toBe( false );
@@ -1538,16 +1923,6 @@ describe( 'selectors', () => {
 	} );
 
 	describe( 'isEditedPostDateFloating', () => {
-		let editor;
-
-		beforeEach( () => {
-			editor = {
-				present: {
-					edits: {},
-				},
-			};
-		} );
-
 		it( 'should return true for draft posts where the date matches the modified date', () => {
 			const state = {
 				currentPost: {
@@ -1555,7 +1930,12 @@ describe( 'selectors', () => {
 					modified: '2018-09-27T01:23:45.678Z',
 					status: 'draft',
 				},
-				editor,
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostDateFloating( state ) ).toBe( true );
@@ -1568,7 +1948,12 @@ describe( 'selectors', () => {
 					modified: '2018-09-27T01:23:45.678Z',
 					status: 'auto-draft',
 				},
-				editor,
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostDateFloating( state ) ).toBe( true );
@@ -1581,7 +1966,12 @@ describe( 'selectors', () => {
 					modified: '1970-01-01T00:00:00.000Z',
 					status: 'draft',
 				},
-				editor,
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostDateFloating( state ) ).toBe( false );
@@ -1594,7 +1984,12 @@ describe( 'selectors', () => {
 					modified: '1970-01-01T00:00:00.000Z',
 					status: 'auto-draft',
 				},
-				editor,
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostDateFloating( state ) ).toBe( false );
@@ -1607,1737 +2002,33 @@ describe( 'selectors', () => {
 					modified: '2018-09-27T01:23:45.678Z',
 					status: 'publish',
 				},
-				editor,
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+				initialEdits: {},
 			};
 
 			expect( isEditedPostDateFloating( state ) ).toBe( false );
 		} );
-	} );
 
-	describe( 'getBlockDependantsCacheBust', () => {
-		const rootBlock = { clientId: 123, name: 'core/paragraph', attributes: {} };
-		const rootOrder = [ 123 ];
-
-		it( 'returns an unchanging reference', () => {
-			const rootBlockOrder = [];
-
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const nextState = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect(
-				getBlockDependantsCacheBust( state, 123 )
-			).toBe( getBlockDependantsCacheBust( nextState, 123 ) );
-		} );
-
-		it( 'returns a new reference on added inner block', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-							},
-							order: {
-								'': rootOrder,
-								123: [],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const nextState = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: { clientId: 456, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': rootOrder,
-								123: [ 456 ],
-								456: [],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect(
-				getBlockDependantsCacheBust( state, 123 )
-			).not.toBe( getBlockDependantsCacheBust( nextState, 123 ) );
-		} );
-
-		it( 'returns an unchanging reference on unchanging inner block', () => {
-			const rootBlockOrder = [ 456 ];
-			const childBlock = { clientId: 456, name: 'core/paragraph', attributes: {} };
-			const childBlockOrder = [];
-
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: childBlock,
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-								456: childBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const nextState = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: childBlock,
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-								456: childBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect(
-				getBlockDependantsCacheBust( state, 123 )
-			).toBe( getBlockDependantsCacheBust( nextState, 123 ) );
-		} );
-
-		it( 'returns a new reference on updated inner block', () => {
-			const rootBlockOrder = [ 456 ];
-			const childBlockOrder = [];
-
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: { clientId: 456, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-								456: childBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const nextState = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: { clientId: 456, name: 'core/paragraph', attributes: { content: [ 'foo' ] } },
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-								456: childBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect(
-				getBlockDependantsCacheBust( state, 123 )
-			).not.toBe( getBlockDependantsCacheBust( nextState, 123 ) );
-		} );
-
-		it( 'returns a new reference on updated grandchild inner block', () => {
-			const rootBlockOrder = [ 456 ];
-			const childBlock = { clientId: 456, name: 'core/paragraph', attributes: {} };
-			const childBlockOrder = [ 789 ];
-			const grandChildBlockOrder = [];
-
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: childBlock,
-								789: { clientId: 789, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-								456: childBlockOrder,
-								789: grandChildBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const nextState = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: rootBlock,
-								456: childBlock,
-								789: { clientId: 789, name: 'core/paragraph', attributes: { content: [ 'foo' ] } },
-							},
-							order: {
-								'': rootOrder,
-								123: rootBlockOrder,
-								456: childBlockOrder,
-								789: grandChildBlockOrder,
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect(
-				getBlockDependantsCacheBust( state, 123 )
-			).not.toBe( getBlockDependantsCacheBust( nextState, 123 ) );
-		} );
-	} );
-
-	describe( 'getBlockName', () => {
-		it( 'returns null if no block by clientId', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const name = getBlockName( state, 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1' );
-
-			expect( name ).toBe( null );
-		} );
-
-		it( 'returns block name', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1': {
-									clientId: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-									name: 'core/paragraph',
-									attributes: {},
-								},
-							},
-							order: {
-								'': [ 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1' ],
-								'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1': [],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			const name = getBlockName( state, 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1' );
-
-			expect( name ).toBe( 'core/paragraph' );
-		} );
-	} );
-
-	describe( 'getBlock', () => {
-		it( 'should return the block', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 123 ],
-								123: [],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect( getBlock( state, 123 ) ).toEqual( {
-				clientId: 123,
-				name: 'core/paragraph',
-				attributes: {},
-				innerBlocks: [],
-			} );
-		} );
-
-		it( 'should return null if the block is not present in state', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect( getBlock( state, 123 ) ).toBe( null );
-		} );
-
-		it( 'should include inner blocks', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-								456: { clientId: 456, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 123 ],
-								123: [ 456 ],
-								456: [],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect( getBlock( state, 123 ) ).toEqual( {
-				clientId: 123,
-				name: 'core/paragraph',
-				attributes: {},
-				innerBlocks: [ {
-					clientId: 456,
-					name: 'core/paragraph',
-					attributes: {},
-					innerBlocks: [],
-				} ],
-			} );
-		} );
-
-		it( 'should merge meta attributes for the block', () => {
-			registerBlockType( 'core/meta-block', {
-				save: ( props ) => props.attributes.text,
-				category: 'common',
-				title: 'test block',
-				attributes: {
-					foo: {
-						type: 'string',
-						source: 'meta',
-						meta: 'foo',
-					},
-				},
-			} );
-
+		it( 'should return true for pending posts', () => {
 			const state = {
 				currentPost: {
-					meta: {
-						foo: 'bar',
-					},
+					date: '2018-09-27T01:23:45.678Z',
+					modified: '2018-09-27T01:23:45.678Z',
+					status: 'pending',
 				},
 				editor: {
 					present: {
-						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/meta-block', attributes: {} },
-							},
-							order: {
-								'': [ 123 ],
-								123: [],
-							},
-						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
-			expect( getBlock( state, 123 ) ).toEqual( {
-				clientId: 123,
-				name: 'core/meta-block',
-				attributes: {
-					foo: 'bar',
-				},
-				innerBlocks: [],
-			} );
-
-			unregisterBlockType( 'core/meta-block' );
-		} );
-	} );
-
-	describe( 'getBlocks', () => {
-		it( 'should return the ordered blocks', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								23: { clientId: 23, name: 'core/heading', attributes: {} },
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-
-			expect( getBlocks( state ) ).toEqual( [
-				{ clientId: 123, name: 'core/paragraph', attributes: {}, innerBlocks: [] },
-				{ clientId: 23, name: 'core/heading', attributes: {}, innerBlocks: [] },
-			] );
-		} );
-	} );
-
-	describe( 'getClientIdsOfDescendants', () => {
-		it( 'should return the ids of any descendants, given an array of clientIds', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								'uuid-2': { clientId: 'uuid-2', name: 'core/image', attributes: {} },
-								'uuid-4': { clientId: 'uuid-4', name: 'core/paragraph', attributes: {} },
-								'uuid-6': { clientId: 'uuid-6', name: 'core/paragraph', attributes: {} },
-								'uuid-8': { clientId: 'uuid-8', name: 'core/block', attributes: {} },
-								'uuid-10': { clientId: 'uuid-10', name: 'core/columns', attributes: {} },
-								'uuid-12': { clientId: 'uuid-12', name: 'core/column', attributes: {} },
-								'uuid-14': { clientId: 'uuid-14', name: 'core/column', attributes: {} },
-								'uuid-16': { clientId: 'uuid-16', name: 'core/quote', attributes: {} },
-								'uuid-18': { clientId: 'uuid-18', name: 'core/block', attributes: {} },
-								'uuid-20': { clientId: 'uuid-20', name: 'core/gallery', attributes: {} },
-								'uuid-22': { clientId: 'uuid-22', name: 'core/block', attributes: {} },
-								'uuid-24': { clientId: 'uuid-24', name: 'core/columns', attributes: {} },
-								'uuid-26': { clientId: 'uuid-26', name: 'core/column', attributes: {} },
-								'uuid-28': { clientId: 'uuid-28', name: 'core/column', attributes: {} },
-								'uuid-30': { clientId: 'uuid-30', name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 'uuid-6', 'uuid-8', 'uuid-10', 'uuid-22' ],
-								'uuid-2': [ ],
-								'uuid-4': [ ],
-								'uuid-6': [ ],
-								'uuid-8': [ ],
-								'uuid-10': [ 'uuid-12', 'uuid-14' ],
-								'uuid-12': [ 'uuid-16' ],
-								'uuid-14': [ 'uuid-18' ],
-								'uuid-16': [ ],
-								'uuid-18': [ 'uuid-24' ],
-								'uuid-20': [ ],
-								'uuid-22': [ ],
-								'uuid-24': [ 'uuid-26', 'uuid-28' ],
-								'uuid-26': [ ],
-								'uuid-28': [ 'uuid-30' ],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-			expect( getClientIdsOfDescendants( state, [ 'uuid-10' ] ) ).toEqual( [
-				'uuid-12',
-				'uuid-14',
-				'uuid-16',
-				'uuid-18',
-				'uuid-24',
-				'uuid-26',
-				'uuid-28',
-				'uuid-30',
-			] );
-		} );
-	} );
-
-	describe( 'getClientIdsWithDescendants', () => {
-		it( 'should return the ids for top-level blocks and their descendants of any depth (for nested blocks).', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								'uuid-2': { clientId: 'uuid-2', name: 'core/image', attributes: {} },
-								'uuid-4': { clientId: 'uuid-4', name: 'core/paragraph', attributes: {} },
-								'uuid-6': { clientId: 'uuid-6', name: 'core/paragraph', attributes: {} },
-								'uuid-8': { clientId: 'uuid-8', name: 'core/block', attributes: {} },
-								'uuid-10': { clientId: 'uuid-10', name: 'core/columns', attributes: {} },
-								'uuid-12': { clientId: 'uuid-12', name: 'core/column', attributes: {} },
-								'uuid-14': { clientId: 'uuid-14', name: 'core/column', attributes: {} },
-								'uuid-16': { clientId: 'uuid-16', name: 'core/quote', attributes: {} },
-								'uuid-18': { clientId: 'uuid-18', name: 'core/block', attributes: {} },
-								'uuid-20': { clientId: 'uuid-20', name: 'core/gallery', attributes: {} },
-								'uuid-22': { clientId: 'uuid-22', name: 'core/block', attributes: {} },
-								'uuid-24': { clientId: 'uuid-24', name: 'core/columns', attributes: {} },
-								'uuid-26': { clientId: 'uuid-26', name: 'core/column', attributes: {} },
-								'uuid-28': { clientId: 'uuid-28', name: 'core/column', attributes: {} },
-								'uuid-30': { clientId: 'uuid-30', name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 'uuid-6', 'uuid-8', 'uuid-10', 'uuid-22' ],
-								'uuid-2': [ ],
-								'uuid-4': [ ],
-								'uuid-6': [ ],
-								'uuid-8': [ ],
-								'uuid-10': [ 'uuid-12', 'uuid-14' ],
-								'uuid-12': [ 'uuid-16' ],
-								'uuid-14': [ 'uuid-18' ],
-								'uuid-16': [ ],
-								'uuid-18': [ 'uuid-24' ],
-								'uuid-20': [ ],
-								'uuid-22': [ ],
-								'uuid-24': [ 'uuid-26', 'uuid-28' ],
-								'uuid-26': [ ],
-								'uuid-28': [ 'uuid-30' ],
-							},
-						},
-						edits: {},
-					},
-				},
-			};
-			expect( getClientIdsWithDescendants( state ) ).toEqual( [
-				'uuid-6',
-				'uuid-8',
-				'uuid-10',
-				'uuid-22',
-				'uuid-12',
-				'uuid-14',
-				'uuid-16',
-				'uuid-18',
-				'uuid-24',
-				'uuid-26',
-				'uuid-28',
-				'uuid-30',
-			] );
-		} );
-	} );
-
-	describe( 'getBlockCount', () => {
-		it( 'should return the number of top-level blocks in the post', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								23: { clientId: 23, name: 'core/heading', attributes: {} },
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockCount( state ) ).toBe( 2 );
-		} );
-
-		it( 'should return the number of blocks in a nested context', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/columns', attributes: {} },
-								456: { clientId: 456, name: 'core/paragraph', attributes: {} },
-								789: { clientId: 789, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 123 ],
-								123: [ 456, 789 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockCount( state, '123' ) ).toBe( 2 );
-		} );
-	} );
-
-	describe( 'hasSelectedBlock', () => {
-		it( 'should return false if no selection', () => {
-			const state = {
-				blockSelection: {
-					start: null,
-					end: null,
-				},
-			};
-
-			expect( hasSelectedBlock( state ) ).toBe( false );
-		} );
-
-		it( 'should return false if multi-selection', () => {
-			const state = {
-				blockSelection: {
-					start: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-					end: '9db792c6-a25a-495d-adbd-97d56a4c4189',
-				},
-			};
-
-			expect( hasSelectedBlock( state ) ).toBe( false );
-		} );
-
-		it( 'should return true if singular selection', () => {
-			const state = {
-				blockSelection: {
-					start: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-					end: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-				},
-			};
-
-			expect( hasSelectedBlock( state ) ).toBe( true );
-		} );
-	} );
-
-	describe( 'getGlobalBlockCount', () => {
-		it( 'should return the global number of top-level blocks in the post', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								23: { clientId: 23, name: 'core/heading', attributes: {} },
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-						},
-					},
-				},
-			};
-
-			expect( getGlobalBlockCount( state ) ).toBe( 2 );
-		} );
-
-		it( 'should return the global umber of blocks of a given type', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/columns', attributes: {} },
-								456: { clientId: 456, name: 'core/paragraph', attributes: {} },
-								789: { clientId: 789, name: 'core/paragraph', attributes: {} },
-								124: { clientId: 123, name: 'core/heading', attributes: {} },
-							},
-						},
-					},
-				},
-			};
-
-			expect( getGlobalBlockCount( state, 'core/heading' ) ).toBe( 1 );
-		} );
-
-		it( 'should return 0 if no blocks exist', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-						},
-					},
-				},
-			};
-			expect( getGlobalBlockCount( state ) ).toBe( 0 );
-			expect( getGlobalBlockCount( state, 'core/heading' ) ).toBe( 0 );
-		} );
-	} );
-
-	describe( 'getSelectedBlockClientId', () => {
-		it( 'should return null if no block is selected', () => {
-			const state = {
-				blockSelection: { start: null, end: null },
-			};
-
-			expect( getSelectedBlockClientId( state ) ).toBe( null );
-		} );
-
-		it( 'should return null if there is multi selection', () => {
-			const state = {
-				blockSelection: { start: 23, end: 123 },
-			};
-
-			expect( getSelectedBlockClientId( state ) ).toBe( null );
-		} );
-
-		it( 'should return the selected block ClientId', () => {
-			const state = {
-				blockSelection: { start: 23, end: 23 },
-			};
-
-			expect( getSelectedBlockClientId( state ) ).toEqual( 23 );
-		} );
-	} );
-
-	describe( 'getSelectedBlock', () => {
-		it( 'should return null if no block is selected', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								23: { clientId: 23, name: 'core/heading', attributes: {} },
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 23, 123 ],
-								23: [],
-								123: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				blockSelection: { start: null, end: null },
-			};
-
-			expect( getSelectedBlock( state ) ).toBe( null );
-		} );
-
-		it( 'should return null if there is multi selection', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								23: { clientId: 23, name: 'core/heading', attributes: {} },
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 23, 123 ],
-								23: [],
-								123: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				blockSelection: { start: 23, end: 123 },
-			};
-
-			expect( getSelectedBlock( state ) ).toBe( null );
-		} );
-
-		it( 'should return the selected block', () => {
-			const state = {
-				currentPost: {},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								23: { clientId: 23, name: 'core/heading', attributes: {} },
-								123: { clientId: 123, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 23, 123 ],
-								23: [],
-								123: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				blockSelection: { start: 23, end: 23 },
-			};
-
-			expect( getSelectedBlock( state ) ).toEqual( {
-				clientId: 23,
-				name: 'core/heading',
-				attributes: {},
-				innerBlocks: [],
-			} );
-		} );
-	} );
-
-	describe( 'getBlockRootClientId', () => {
-		it( 'should return null if the block does not exist', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {},
-						},
-					},
-				},
-			};
-
-			expect( getBlockRootClientId( state, 56 ) ).toBeNull();
-		} );
-
-		it( 'should return root ClientId relative the block ClientId', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockRootClientId( state, 56 ) ).toBe( '123' );
-		} );
-	} );
-
-	describe( 'getBlockHierarchyRootClientId', () => {
-		it( 'should return the given block if the block has no parents', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {},
-						},
-					},
-				},
-			};
-
-			expect( getBlockHierarchyRootClientId( state, 56 ) ).toBe( 56 );
-		} );
-
-		it( 'should return root ClientId relative the block ClientId', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockHierarchyRootClientId( state, 56 ) ).toBe( '123' );
-		} );
-
-		it( 'should return the top level root ClientId relative the block ClientId', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ '123', '23' ],
-								123: [ '456', '56' ],
-								56: [ '12' ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockHierarchyRootClientId( state, '12' ) ).toBe( '123' );
-		} );
-	} );
-
-	describe( 'getMultiSelectedBlockClientIds', () => {
-		it( 'should return empty if there is no multi selection', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-				blockSelection: { start: null, end: null },
-			};
-
-			expect( getMultiSelectedBlockClientIds( state ) ).toEqual( [] );
-		} );
-
-		it( 'should return selected block clientIds if there is multi selection', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 5, 4, 3, 2, 1 ],
-							},
-						},
-					},
-				},
-				blockSelection: { start: 2, end: 4 },
-			};
-
-			expect( getMultiSelectedBlockClientIds( state ) ).toEqual( [ 4, 3, 2 ] );
-		} );
-
-		it( 'should return selected block clientIds if there is multi selection (nested context)', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 5, 4, 3, 2, 1 ],
-								4: [ 9, 8, 7, 6 ],
-							},
-						},
-					},
-				},
-				blockSelection: { start: 7, end: 9 },
-			};
-
-			expect( getMultiSelectedBlockClientIds( state ) ).toEqual( [ 9, 8, 7 ] );
-		} );
-	} );
-
-	describe( 'getMultiSelectedBlocks', () => {
-		it( 'should return the same reference on subsequent invocations of empty selection', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-				blockSelection: { start: null, end: null },
-				currentPost: {},
-			};
-
-			expect(
-				getMultiSelectedBlocks( state )
-			).toBe( getMultiSelectedBlocks( state ) );
-		} );
-	} );
-
-	describe( 'getMultiSelectedBlocksStartClientId', () => {
-		it( 'returns null if there is no multi selection', () => {
-			const state = {
-				blockSelection: { start: null, end: null },
-			};
-
-			expect( getMultiSelectedBlocksStartClientId( state ) ).toBeNull();
-		} );
-
-		it( 'returns multi selection start', () => {
-			const state = {
-				blockSelection: { start: 2, end: 4 },
-			};
-
-			expect( getMultiSelectedBlocksStartClientId( state ) ).toBe( 2 );
-		} );
-	} );
-
-	describe( 'getMultiSelectedBlocksEndClientId', () => {
-		it( 'returns null if there is no multi selection', () => {
-			const state = {
-				blockSelection: { start: null, end: null },
-			};
-
-			expect( getMultiSelectedBlocksEndClientId( state ) ).toBeNull();
-		} );
-
-		it( 'returns multi selection end', () => {
-			const state = {
-				blockSelection: { start: 2, end: 4 },
-			};
-
-			expect( getMultiSelectedBlocksEndClientId( state ) ).toBe( 4 );
-		} );
-	} );
-
-	describe( 'getBlockOrder', () => {
-		it( 'should return the ordered block ClientIds of top-level blocks by default', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockOrder( state ) ).toEqual( [ 123, 23 ] );
-		} );
-
-		it( 'should return the ordered block ClientIds at a specified rootClientId', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockOrder( state, '123' ) ).toEqual( [ 456 ] );
-		} );
-	} );
-
-	describe( 'getBlockIndex', () => {
-		it( 'should return the block order', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockIndex( state, 23 ) ).toBe( 1 );
-		} );
-
-		it( 'should return the block order (nested context)', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getBlockIndex( state, 56, '123' ) ).toBe( 1 );
-		} );
-	} );
-
-	describe( 'getPreviousBlockClientId', () => {
-		it( 'should return the previous block', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getPreviousBlockClientId( state, 23 ) ).toEqual( 123 );
-		} );
-
-		it( 'should return the previous block (nested context)', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getPreviousBlockClientId( state, 56, '123' ) ).toEqual( 456 );
-		} );
-
-		it( 'should return null for the first block', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getPreviousBlockClientId( state, 123 ) ).toBeNull();
-		} );
-
-		it( 'should return null for the first block (nested context)', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getPreviousBlockClientId( state, 456, '123' ) ).toBeNull();
-		} );
-	} );
-
-	describe( 'getNextBlockClientId', () => {
-		it( 'should return the following block', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getNextBlockClientId( state, 123 ) ).toEqual( 23 );
-		} );
-
-		it( 'should return the following block (nested context)', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getNextBlockClientId( state, 456, '123' ) ).toEqual( 56 );
-		} );
-
-		it( 'should return null for the last block', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getNextBlockClientId( state, 23 ) ).toBeNull();
-		} );
-
-		it( 'should return null for the last block (nested context)', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 123, 23 ],
-								123: [ 456, 56 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( getNextBlockClientId( state, 56, '123' ) ).toBeNull();
-		} );
-	} );
-
-	describe( 'isBlockSelected', () => {
-		it( 'should return true if the block is selected', () => {
-			const state = {
-				blockSelection: { start: 123, end: 123 },
-			};
-
-			expect( isBlockSelected( state, 123 ) ).toBe( true );
-		} );
-
-		it( 'should return false if a multi-selection range exists', () => {
-			const state = {
-				blockSelection: { start: 123, end: 124 },
-			};
-
-			expect( isBlockSelected( state, 123 ) ).toBe( false );
-		} );
-
-		it( 'should return false if the block is not selected', () => {
-			const state = {
-				blockSelection: { start: null, end: null },
-			};
-
-			expect( isBlockSelected( state, 23 ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'hasSelectedInnerBlock', () => {
-		it( 'should return false if the selected block is a child of the given ClientId', () => {
-			const state = {
-				blockSelection: { start: 5, end: 5 },
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								4: [ 3, 2, 1 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( hasSelectedInnerBlock( state, 4 ) ).toBe( false );
-		} );
-
-		it( 'should return true if the selected block is a child of the given ClientId', () => {
-			const state = {
-				blockSelection: { start: 3, end: 3 },
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								4: [ 3, 2, 1 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( hasSelectedInnerBlock( state, 4 ) ).toBe( true );
-		} );
-
-		it( 'should return true if a multi selection exists that contains children of the block with the given ClientId', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								6: [ 5, 4, 3, 2, 1 ],
-							},
-						},
-					},
-				},
-				blockSelection: { start: 2, end: 4 },
-			};
-			expect( hasSelectedInnerBlock( state, 6 ) ).toBe( true );
-		} );
-
-		it( 'should return false if a multi selection exists bot does not contains children of the block with the given ClientId', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								3: [ 2, 1 ],
-								6: [ 5, 4 ],
-							},
-						},
-					},
-				},
-				blockSelection: { start: 5, end: 4 },
-			};
-			expect( hasSelectedInnerBlock( state, 3 ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'isBlockWithinSelection', () => {
-		it( 'should return true if the block is selected but not the last', () => {
-			const state = {
-				blockSelection: { start: 5, end: 3 },
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 5, 4, 3, 2, 1 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( isBlockWithinSelection( state, 4 ) ).toBe( true );
-		} );
-
-		it( 'should return false if the block is the last selected', () => {
-			const state = {
-				blockSelection: { start: 5, end: 3 },
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 5, 4, 3, 2, 1 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( isBlockWithinSelection( state, 3 ) ).toBe( false );
-		} );
-
-		it( 'should return false if the block is not selected', () => {
-			const state = {
-				blockSelection: { start: 5, end: 3 },
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 5, 4, 3, 2, 1 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( isBlockWithinSelection( state, 2 ) ).toBe( false );
-		} );
-
-		it( 'should return false if there is no selection', () => {
-			const state = {
-				blockSelection: {},
-				editor: {
-					present: {
-						blocks: {
-							order: {
-								'': [ 5, 4, 3, 2, 1 ],
-							},
-						},
-					},
-				},
-			};
-
-			expect( isBlockWithinSelection( state, 4 ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'hasMultiSelection', () => {
-		it( 'should return false if no selection', () => {
-			const state = {
-				blockSelection: {
-					start: null,
-					end: null,
-				},
-			};
-
-			expect( hasMultiSelection( state ) ).toBe( false );
-		} );
-
-		it( 'should return false if singular selection', () => {
-			const state = {
-				blockSelection: {
-					start: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-					end: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-				},
-			};
-
-			expect( hasMultiSelection( state ) ).toBe( false );
-		} );
-
-		it( 'should return true if multi-selection', () => {
-			const state = {
-				blockSelection: {
-					start: 'afd1cb17-2c08-4e7a-91be-007ba7ddc3a1',
-					end: '9db792c6-a25a-495d-adbd-97d56a4c4189',
-				},
-			};
-
-			expect( hasMultiSelection( state ) ).toBe( true );
-		} );
-	} );
-
-	describe( 'isBlockMultiSelected', () => {
-		const state = {
-			editor: {
-				present: {
-					blocks: {
-						order: {
-							'': [ 5, 4, 3, 2, 1 ],
-						},
-					},
-				},
-			},
-			blockSelection: { start: 2, end: 4 },
-		};
-
-		it( 'should return true if the block is multi selected', () => {
-			expect( isBlockMultiSelected( state, 3 ) ).toBe( true );
-		} );
-
-		it( 'should return false if the block is not multi selected', () => {
-			expect( isBlockMultiSelected( state, 5 ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'isFirstMultiSelectedBlock', () => {
-		const state = {
-			editor: {
-				present: {
-					blocks: {
-						order: {
-							'': [ 5, 4, 3, 2, 1 ],
-						},
-					},
-				},
-			},
-			blockSelection: { start: 2, end: 4 },
-		};
-
-		it( 'should return true if the block is first in multi selection', () => {
-			expect( isFirstMultiSelectedBlock( state, 4 ) ).toBe( true );
-		} );
-
-		it( 'should return false if the block is not first in multi selection', () => {
-			expect( isFirstMultiSelectedBlock( state, 3 ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'getBlockMode', () => {
-		it( 'should return "visual" if unset', () => {
-			const state = {
-				blocksMode: {},
-			};
-
-			expect( getBlockMode( state, 123 ) ).toEqual( 'visual' );
-		} );
-
-		it( 'should return the block mode', () => {
-			const state = {
-				blocksMode: {
-					123: 'html',
-				},
-			};
-
-			expect( getBlockMode( state, 123 ) ).toEqual( 'html' );
-		} );
-	} );
-
-	describe( 'isTyping', () => {
-		it( 'should return the isTyping flag if the block is selected', () => {
-			const state = {
-				isTyping: true,
-			};
-
-			expect( isTyping( state ) ).toBe( true );
-		} );
-
-		it( 'should return false if the block is not selected', () => {
-			const state = {
-				isTyping: false,
-			};
-
-			expect( isTyping( state ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'isCaretWithinFormattedText', () => {
-		it( 'returns true if the isCaretWithinFormattedText state is also true', () => {
-			const state = {
-				isCaretWithinFormattedText: true,
-			};
-
-			expect( isCaretWithinFormattedText( state ) ).toBe( true );
-		} );
-
-		it( 'returns false if the isCaretWithinFormattedText state is also false', () => {
-			const state = {
-				isCaretWithinFormattedText: false,
-			};
-
-			expect( isCaretWithinFormattedText( state ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'isSelectionEnabled', () => {
-		it( 'should return true if selection is enable', () => {
-			const state = {
-				blockSelection: {
-					isEnabled: true,
-				},
-			};
-
-			expect( isSelectionEnabled( state ) ).toBe( true );
-		} );
-
-		it( 'should return false if selection is disabled', () => {
-			const state = {
-				blockSelection: {
-					isEnabled: false,
-				},
-			};
-
-			expect( isSelectionEnabled( state ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'getBlockInsertionPoint', () => {
-		it( 'should return the explicitly assigned insertion point', () => {
-			const state = {
-				currentPost: {},
-				preferences: { mode: 'visual' },
-				blockSelection: {
-					start: 'clientId2',
-					end: 'clientId2',
-				},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								clientId1: { clientId: 'clientId1' },
-								clientId2: { clientId: 'clientId2' },
-							},
-							order: {
-								'': [ 'clientId1' ],
-								clientId1: [ 'clientId2' ],
-								clientId2: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				insertionPoint: {
-					rootClientId: undefined,
-					index: 0,
-				},
-			};
-
-			expect( getBlockInsertionPoint( state ) ).toEqual( {
-				rootClientId: undefined,
-				index: 0,
-			} );
-		} );
-
-		it( 'should return an object for the selected block', () => {
-			const state = {
-				currentPost: {},
-				preferences: { mode: 'visual' },
-				blockSelection: {
-					start: 'clientId1',
-					end: 'clientId1',
-				},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								clientId1: { clientId: 'clientId1' },
-							},
-							order: {
-								'': [ 'clientId1' ],
-								clientId1: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				insertionPoint: null,
-			};
-
-			expect( getBlockInsertionPoint( state ) ).toEqual( {
-				rootClientId: undefined,
-				index: 1,
-			} );
-		} );
-
-		it( 'should return an object for the nested selected block', () => {
-			const state = {
-				currentPost: {},
-				preferences: { mode: 'visual' },
-				blockSelection: {
-					start: 'clientId2',
-					end: 'clientId2',
-				},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								clientId1: { clientId: 'clientId1' },
-								clientId2: { clientId: 'clientId2' },
-							},
-							order: {
-								'': [ 'clientId1' ],
-								clientId1: [ 'clientId2' ],
-								clientId2: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				insertionPoint: null,
-			};
-
-			expect( getBlockInsertionPoint( state ) ).toEqual( {
-				rootClientId: 'clientId1',
-				index: 1,
-			} );
-		} );
-
-		it( 'should return an object for the last multi selected clientId', () => {
-			const state = {
-				currentPost: {},
-				preferences: { mode: 'visual' },
-				blockSelection: {
-					start: 'clientId1',
-					end: 'clientId2',
-				},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								clientId1: { clientId: 'clientId1' },
-								clientId2: { clientId: 'clientId2' },
-							},
-							order: {
-								'': [ 'clientId1', 'clientId2' ],
-								clientId1: [],
-								clientId2: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				insertionPoint: null,
-			};
-
-			expect( getBlockInsertionPoint( state ) ).toEqual( {
-				rootClientId: undefined,
-				index: 2,
-			} );
-		} );
-
-		it( 'should return an object for the last block if no selection', () => {
-			const state = {
-				currentPost: {},
-				preferences: { mode: 'visual' },
-				blockSelection: {
-					start: null,
-					end: null,
-				},
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								clientId1: { clientId: 'clientId1' },
-								clientId2: { clientId: 'clientId2' },
-							},
-							order: {
-								'': [ 'clientId1', 'clientId2' ],
-								clientId1: [],
-								clientId2: [],
-							},
-						},
-						edits: {},
-					},
-				},
-				insertionPoint: null,
-			};
-
-			expect( getBlockInsertionPoint( state ) ).toEqual( {
-				rootClientId: undefined,
-				index: 2,
-			} );
-		} );
-	} );
-
-	describe( 'isBlockInsertionPointVisible', () => {
-		it( 'should return false if no assigned insertion point', () => {
-			const state = {
-				insertionPoint: null,
-			};
-
-			expect( isBlockInsertionPointVisible( state ) ).toBe( false );
-		} );
-
-		it( 'should return true if assigned insertion point', () => {
-			const state = {
-				insertionPoint: {
-					rootClientId: undefined,
-					index: 5,
-				},
-			};
-
-			expect( isBlockInsertionPointVisible( state ) ).toBe( true );
+			expect( isEditedPostDateFloating( state ) ).toBe( true );
 		} );
 	} );
 
@@ -3413,12 +2104,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {},
-							order: {},
+							value: [],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3430,17 +2121,23 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/image', attributes: {} },
-								456: { clientId: 456, name: 'core/quote', attributes: {} },
-							},
-							order: {
-								'': [ 123, 456 ],
-							},
+							value: [
+								{
+									clientId: 123,
+									name: 'core/image',
+									attributes: {},
+								},
+								{
+									clientId: 456,
+									name: 'core/quote',
+									attributes: {},
+								},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3452,16 +2149,18 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								123: { clientId: 123, name: 'core/image', attributes: {} },
-							},
-							order: {
-								'': [ 123 ],
-							},
+							value: [
+								{
+									clientId: 123,
+									name: 'core/image',
+									attributes: {},
+								},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3473,16 +2172,18 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								456: { clientId: 456, name: 'core/quote', attributes: {} },
-							},
-							order: {
-								'': [ 456 ],
-							},
+							value: [
+								{
+									clientId: 456,
+									name: 'core/quote',
+									attributes: {},
+								},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3494,16 +2195,18 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								567: { clientId: 567, name: 'core-embed/youtube', attributes: {} },
-							},
-							order: {
-								'': [ 567 ],
-							},
+							value: [
+								{
+									clientId: 567,
+									name: 'core-embed/youtube',
+									attributes: {},
+								},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3515,17 +2218,23 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								456: { clientId: 456, name: 'core/quote', attributes: {} },
-								789: { clientId: 789, name: 'core/paragraph', attributes: {} },
-							},
-							order: {
-								'': [ 456, 789 ],
-							},
+							value: [
+								{
+									clientId: 456,
+									name: 'core/quote',
+									attributes: {},
+								},
+								{
+									clientId: 789,
+									name: 'core/paragraph',
+									attributes: {},
+								},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3560,31 +2269,27 @@ describe( 'selectors', () => {
 			} );
 		} );
 
-		it( 'defers to returning an edited post attribute', () => {
+		it( 'serializes blocks, if any', () => {
 			const block = createBlock( 'core/block' );
 
 			const state = {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								[ block.clientId ]: block,
-							},
-							order: {
-								'': [ block.clientId ],
-							},
+							value: [ block ],
 						},
 						edits: {
 							content: 'custom edit',
 						},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
 			const content = getEditedPostContent( state );
 
-			expect( content ).toBe( 'custom edit' );
+			expect( content ).toBe( '<!-- wp:block /-->' );
 		} );
 
 		it( 'returns serialization of blocks', () => {
@@ -3594,16 +2299,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								[ block.clientId ]: block,
-							},
-							order: {
-								'': [ block.clientId ],
-							},
+							value: [ block ],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3612,7 +2313,7 @@ describe( 'selectors', () => {
 			expect( content ).toBe( '<!-- wp:block /-->' );
 		} );
 
-		it( 'returns removep\'d serialization of blocks for single unknown', () => {
+		it( "returns removep'd serialization of blocks for single unknown", () => {
 			const unknownBlock = createBlock( 'core/test-freeform', {
 				content: '<p>foo</p>',
 			} );
@@ -3620,16 +2321,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								[ unknownBlock.clientId ]: unknownBlock,
-							},
-							order: {
-								'': [ unknownBlock.clientId ],
-							},
+							value: [ unknownBlock ],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3638,7 +2335,7 @@ describe( 'selectors', () => {
 			expect( content ).toBe( 'foo' );
 		} );
 
-		it( 'returns non-removep\'d serialization of blocks for multiple unknown', () => {
+		it( "returns non-removep'd serialization of blocks for multiple unknown", () => {
 			const firstUnknown = createBlock( 'core/test-freeform', {
 				content: '<p>foo</p>',
 			} );
@@ -3649,17 +2346,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								[ firstUnknown.clientId ]: firstUnknown,
-								[ secondUnknown.clientId ]: secondUnknown,
-							},
-							order: {
-								'': [ firstUnknown.clientId, secondUnknown.clientId ],
-							},
+							value: [ firstUnknown, secondUnknown ],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3674,16 +2366,12 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								[ defaultBlock.clientId ]: defaultBlock,
-							},
-							order: {
-								'': [ defaultBlock.clientId ],
-							},
+							value: [ defaultBlock ],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
@@ -3698,486 +2386,28 @@ describe( 'selectors', () => {
 				editor: {
 					present: {
 						blocks: {
-							byClientId: {
-								[ defaultBlock.clientId ]: {
+							value: [
+								{
 									...defaultBlock,
 									attributes: {
 										...defaultBlock.attributes,
 										modified: true,
 									},
 								},
-							},
-							order: {
-								'': [ defaultBlock.clientId ],
-							},
+							],
 						},
 						edits: {},
 					},
 				},
+				initialEdits: {},
 				currentPost: {},
 			};
 
 			const content = getEditedPostContent( state );
 
-			expect( content ).toBe( '<!-- wp:default {\"modified\":true} /-->' );
-		} );
-	} );
-
-	describe( 'canInsertBlockType', () => {
-		it( 'should deny blocks that are not registered', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/invalid' ) ).toBe( false );
-		} );
-
-		it( 'should deny blocks that are not allowed by the editor', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {
-					allowedBlockTypes: [],
-				},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-a' ) ).toBe( false );
-		} );
-
-		it( 'should allow blocks that are allowed by the editor', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {
-					allowedBlockTypes: [ 'core/test-block-a' ],
-				},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-a' ) ).toBe( true );
-		} );
-
-		it( 'should deny blocks when the editor has a template lock', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {
-					templateLock: 'all',
-				},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-a' ) ).toBe( false );
-		} );
-
-		it( 'should deny blocks that restrict parent from being inserted into the root', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-c' ) ).toBe( false );
-		} );
-
-		it( 'should deny blocks that restrict parent from being inserted into a restricted parent', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-a' },
-							},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-c', 'block1' ) ).toBe( false );
-		} );
-
-		it( 'should allow blocks that restrict parent to be inserted into an allowed parent', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-b' },
-							},
-						},
-					},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-c', 'block1' ) ).toBe( true );
-		} );
-
-		it( 'should deny restricted blocks from being inserted into a block that restricts allowedBlocks', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-a' },
-							},
-						},
-					},
-				},
-				blockListSettings: {
-					block1: {
-						allowedBlocks: [ 'core/test-block-c' ],
-					},
-				},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-b', 'block1' ) ).toBe( false );
-		} );
-
-		it( 'should allow allowed blocks to be inserted into a block that restricts allowedBlocks', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-a' },
-							},
-						},
-					},
-				},
-				blockListSettings: {
-					block1: {
-						allowedBlocks: [ 'core/test-block-b' ],
-					},
-				},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-b', 'block1' ) ).toBe( true );
-		} );
-
-		it( 'should prioritise parent over allowedBlocks', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-b' },
-							},
-						},
-					},
-				},
-				blockListSettings: {
-					block1: {
-						allowedBlocks: [],
-					},
-				},
-				settings: {},
-			};
-			expect( canInsertBlockType( state, 'core/test-block-c', 'block1' ) ).toBe( true );
-		} );
-	} );
-
-	describe( 'getInserterItems', () => {
-		it( 'should properly list block type and reusable block items', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-a' },
-							},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {
-						1: { clientId: 'block1', title: 'Reusable Block 1' },
-					},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			const items = getInserterItems( state );
-			const testBlockAItem = items.find( ( item ) => item.id === 'core/test-block-a' );
-			expect( testBlockAItem ).toEqual( {
-				id: 'core/test-block-a',
-				name: 'core/test-block-a',
-				initialAttributes: {},
-				title: 'Test Block A',
-				icon: {
-					src: 'test',
-				},
-				category: 'formatting',
-				keywords: [ 'testing' ],
-				isDisabled: false,
-				utility: 0,
-				frecency: 0,
-				hasChildBlocksWithInserterSupport: false,
-			} );
-			const reusableBlockItem = items.find( ( item ) => item.id === 'core/block/1' );
-			expect( reusableBlockItem ).toEqual( {
-				id: 'core/block/1',
-				name: 'core/block',
-				initialAttributes: { ref: 1 },
-				title: 'Reusable Block 1',
-				icon: {
-					src: 'test',
-				},
-				category: 'reusable',
-				keywords: [],
-				isDisabled: false,
-				utility: 0,
-				frecency: 0,
-			} );
-		} );
-
-		it( 'should order items by descending utility and frecency', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-a' },
-								block2: { name: 'core/test-block-a' },
-							},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {
-						1: { clientId: 'block1', title: 'Reusable Block 1' },
-						2: { clientId: 'block1', title: 'Reusable Block 2' },
-					},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {
-						'core/block/1': { count: 10, time: 1000 },
-						'core/block/2': { count: 20, time: 1000 },
-					},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			const itemIDs = getInserterItems( state ).map( ( item ) => item.id );
-			expect( itemIDs ).toEqual( [
-				'core/block/2',
-				'core/block/1',
-				'core/test-block-b',
-				'core/test-freeform',
-				'core/test-block-a',
-			] );
-		} );
-
-		it( 'should correctly cache the return values', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-a' },
-								block2: { name: 'core/test-block-a' },
-							},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {
-						1: { clientId: 'block1', title: 'Reusable Block 1' },
-						2: { clientId: 'block1', title: 'Reusable Block 2' },
-					},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-
-			const stateSecondBlockRestricted = {
-				...state,
-				blockListSettings: {
-					block2: {
-						allowedBlocks: [ 'core/test-block-b' ],
-					},
-				},
-			};
-
-			const firstBlockFirstCall = getInserterItems( state, 'block1' );
-			const firstBlockSecondCall = getInserterItems( stateSecondBlockRestricted, 'block1' );
-			expect( firstBlockFirstCall ).toBe( firstBlockSecondCall );
-			expect( firstBlockFirstCall.map( ( item ) => item.id ) ).toEqual( [
-				'core/test-block-b',
-				'core/test-freeform',
-				'core/test-block-a',
-				'core/block/1',
-				'core/block/2',
-			] );
-
-			const secondBlockFirstCall = getInserterItems( state, 'block2' );
-			const secondBlockSecondCall = getInserterItems( stateSecondBlockRestricted, 'block2' );
-			expect( secondBlockFirstCall.map( ( item ) => item.id ) ).toEqual( [
-				'core/test-block-b',
-				'core/test-freeform',
-				'core/test-block-a',
-				'core/block/1',
-				'core/block/2',
-			] );
-			expect( secondBlockSecondCall.map( ( item ) => item.id ) ).toEqual( [
-				'core/test-block-b',
-			] );
-		} );
-
-		it( 'should set isDisabled when a block with `multiple: false` has been used', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { clientId: 'block1', name: 'core/test-block-b' },
-							},
-							order: {
-								'': [ 'block1' ],
-							},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			const items = getInserterItems( state );
-			const testBlockBItem = items.find( ( item ) => item.id === 'core/test-block-b' );
-			expect( testBlockBItem.isDisabled ).toBe( true );
-		} );
-
-		it( 'should give common blocks a low utility', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			const items = getInserterItems( state );
-			const testBlockBItem = items.find( ( item ) => item.id === 'core/test-block-b' );
-			expect( testBlockBItem.utility ).toBe( INSERTER_UTILITY_LOW );
-		} );
-
-		it( 'should give used blocks a medium utility and set a frecency', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {},
-							order: {},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {
-						'core/test-block-b': { count: 10, time: 1000 },
-					},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			const items = getInserterItems( state );
-			const reusableBlock2Item = items.find( ( item ) => item.id === 'core/test-block-b' );
-			expect( reusableBlock2Item.utility ).toBe( INSERTER_UTILITY_MEDIUM );
-			expect( reusableBlock2Item.frecency ).toBe( 2.5 );
-		} );
-
-		it( 'should give contextual blocks a high utility', () => {
-			const state = {
-				editor: {
-					present: {
-						blocks: {
-							byClientId: {
-								block1: { name: 'core/test-block-b' },
-							},
-							order: {
-								'': [ 'block1' ],
-							},
-						},
-						edits: {},
-					},
-				},
-				reusableBlocks: {
-					data: {},
-				},
-				currentPost: {},
-				preferences: {
-					insertUsage: {},
-				},
-				blockListSettings: {},
-				settings: {},
-			};
-			const items = getInserterItems( state, 'block1' );
-			const testBlockCItem = items.find( ( item ) => item.id === 'core/test-block-c' );
-			expect( testBlockCItem.utility ).toBe( INSERTER_UTILITY_HIGH );
+			expect( content ).toBe(
+				'<!-- wp:test-default {"modified":true} /-->'
+			);
 		} );
 	} );
 
@@ -4269,7 +2499,9 @@ describe( 'selectors', () => {
 					isPublishSidebarEnabled: true,
 				},
 			};
-			expect( isPublishSidebarEnabled( state ) ).toBe( state.preferences.isPublishSidebarEnabled );
+			expect( isPublishSidebarEnabled( state ) ).toBe(
+				state.preferences.isPublishSidebarEnabled
+			);
 		} );
 
 		it( 'should return the value on state if it is falsy', () => {
@@ -4278,14 +2510,18 @@ describe( 'selectors', () => {
 					isPublishSidebarEnabled: false,
 				},
 			};
-			expect( isPublishSidebarEnabled( state ) ).toBe( state.preferences.isPublishSidebarEnabled );
+			expect( isPublishSidebarEnabled( state ) ).toBe(
+				state.preferences.isPublishSidebarEnabled
+			);
 		} );
 
 		it( 'should return the default value if there is no isPublishSidebarEnabled key on state', () => {
 			const state = {
-				preferences: { },
+				preferences: {},
 			};
-			expect( isPublishSidebarEnabled( state ) ).toBe( PREFERENCES_DEFAULTS.isPublishSidebarEnabled );
+			expect( isPublishSidebarEnabled( state ) ).toBe(
+				PREFERENCES_DEFAULTS.isPublishSidebarEnabled
+			);
 		} );
 	} );
 
@@ -4347,43 +2583,52 @@ describe( 'selectors', () => {
 
 	describe( 'getStateBeforeOptimisticTransaction', () => {
 		it( 'should return null if no transaction can be found', () => {
-			const beforeState = getStateBeforeOptimisticTransaction( {
-				optimist: [],
-			}, 'foo' );
+			const beforeState = getStateBeforeOptimisticTransaction(
+				{
+					optimist: [],
+				},
+				'foo'
+			);
 
 			expect( beforeState ).toBe( null );
 		} );
 
 		it( 'should return null if a transaction with ID can be found, but lacks before state', () => {
-			const beforeState = getStateBeforeOptimisticTransaction( {
-				optimist: [
-					{
-						action: {
-							optimist: {
-								id: 'foo',
+			const beforeState = getStateBeforeOptimisticTransaction(
+				{
+					optimist: [
+						{
+							action: {
+								optimist: {
+									id: 'foo',
+								},
 							},
 						},
-					},
-				],
-			}, 'foo' );
+					],
+				},
+				'foo'
+			);
 
 			expect( beforeState ).toBe( null );
 		} );
 
 		it( 'should return the before state matching the given transaction id', () => {
 			const expectedBeforeState = {};
-			const beforeState = getStateBeforeOptimisticTransaction( {
-				optimist: [
-					{
-						beforeState: expectedBeforeState,
-						action: {
-							optimist: {
-								id: 'foo',
+			const beforeState = getStateBeforeOptimisticTransaction(
+				{
+					optimist: [
+						{
+							beforeState: expectedBeforeState,
+							action: {
+								optimist: {
+									id: 'foo',
+								},
 							},
 						},
-					},
-				],
-			}, 'foo' );
+					],
+				},
+				'foo'
+			);
 
 			expect( beforeState ).toBe( expectedBeforeState );
 		} );
@@ -4395,9 +2640,6 @@ describe( 'selectors', () => {
 				optimist: [],
 				saving: {
 					requesting: false,
-				},
-				editor: {
-					edits: {},
 				},
 				currentPost: {
 					status: 'publish',
@@ -4413,9 +2655,6 @@ describe( 'selectors', () => {
 				saving: {
 					requesting: true,
 				},
-				editor: {
-					edits: {},
-				},
 				currentPost: {
 					status: 'draft',
 				},
@@ -4429,9 +2668,6 @@ describe( 'selectors', () => {
 				optimist: [],
 				saving: {
 					requesting: true,
-				},
-				editor: {
-					edits: {},
 				},
 				currentPost: {
 					status: 'publish',
@@ -4449,9 +2685,6 @@ describe( 'selectors', () => {
 							saving: {
 								requesting: false,
 							},
-							editor: {
-								edits: {},
-							},
 							currentPost: {
 								status: 'publish',
 							},
@@ -4465,9 +2698,6 @@ describe( 'selectors', () => {
 				],
 				saving: {
 					requesting: true,
-				},
-				editor: {
-					edits: {},
 				},
 				currentPost: {
 					status: 'publish',
@@ -4485,11 +2715,6 @@ describe( 'selectors', () => {
 							saving: {
 								requesting: false,
 							},
-							editor: {
-								edits: {
-									status: 'publish',
-								},
-							},
 							currentPost: {
 								status: 'draft',
 							},
@@ -4504,93 +2729,12 @@ describe( 'selectors', () => {
 				saving: {
 					requesting: true,
 				},
-				editor: {
-					edits: {},
-				},
 				currentPost: {
 					status: 'publish',
 				},
 			} );
 
 			expect( isPublishing ).toBe( true );
-		} );
-	} );
-
-	describe( 'isValidTemplate', () => {
-		it( 'should return true if template is valid', () => {
-			const state = {
-				template: { isValid: true },
-			};
-
-			expect( isValidTemplate( state ) ).toBe( true );
-		} );
-
-		it( 'should return false if template is not valid', () => {
-			const state = {
-				template: { isValid: false },
-			};
-
-			expect( isValidTemplate( state ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'getTemplate', () => {
-		it( 'should return the template object', () => {
-			const template = [];
-			const state = {
-				settings: { template },
-			};
-
-			expect( getTemplate( state ) ).toBe( template );
-		} );
-	} );
-
-	describe( 'getTemplateLock', () => {
-		it( 'should return the general template lock if no clientId was set', () => {
-			const state = {
-				settings: { templateLock: 'all' },
-			};
-
-			expect( getTemplateLock( state ) ).toBe( 'all' );
-		} );
-
-		it( 'should return null if the specified clientId was not found ', () => {
-			const state = {
-				settings: { templateLock: 'all' },
-				blockListSettings: {
-					chicken: {
-						templateLock: 'insert',
-					},
-				},
-			};
-
-			expect( getTemplateLock( state, 'ribs' ) ).toBe( null );
-		} );
-
-		it( 'should return null if template lock was not set on the specified block', () => {
-			const state = {
-				settings: { templateLock: 'all' },
-				blockListSettings: {
-					chicken: {
-						test: 'tes1t',
-					},
-				},
-			};
-
-			expect( getTemplateLock( state, 'ribs' ) ).toBe( null );
-		} );
-
-		it( 'should return the template lock for the specified clientId', () => {
-			const state = {
-				settings: { templateLock: 'all' },
-				blockListSettings: {
-					chicken: {
-						templateLock: 'insert',
-					},
-				},
-			};
-
-			expect( getTemplateLock( state, 'chicken' ) ).toBe( 'insert' );
 		} );
 	} );
 
@@ -4603,6 +2747,7 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isPermalinkEditable( state ) ).toBe( false );
@@ -4610,12 +2755,15 @@ describe( 'selectors', () => {
 
 		it( 'should be false if the permalink is not of an editable kind', () => {
 			const state = {
-				currentPost: { permalink_template: 'http://foo.test/bar/%baz%/' },
+				currentPost: {
+					permalink_template: 'http://foo.test/bar/%baz%/',
+				},
 				editor: {
 					present: {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isPermalinkEditable( state ) ).toBe( false );
@@ -4623,12 +2771,15 @@ describe( 'selectors', () => {
 
 		it( 'should be true if the permalink has %postname%', () => {
 			const state = {
-				currentPost: { permalink_template: 'http://foo.test/bar/%postname%/' },
+				currentPost: {
+					permalink_template: 'http://foo.test/bar/%postname%/',
+				},
 				editor: {
 					present: {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isPermalinkEditable( state ) ).toBe( true );
@@ -4636,12 +2787,15 @@ describe( 'selectors', () => {
 
 		it( 'should be true if the permalink has %pagename%', () => {
 			const state = {
-				currentPost: { permalink_template: 'http://foo.test/bar/%pagename%/' },
+				currentPost: {
+					permalink_template: 'http://foo.test/bar/%pagename%/',
+				},
 				editor: {
 					present: {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( isPermalinkEditable( state ) ).toBe( true );
@@ -4658,6 +2812,7 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getPermalink( state ) ).toBe( url );
@@ -4674,9 +2829,21 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getPermalink( state ) ).toBe( 'http://foo.test/bar/baz/' );
+		} );
+
+		it( 'should return null if the post has no permalink template', () => {
+			const state = {
+				currentPost: {},
+				editor: {
+					present: {},
+				},
+			};
+
+			expect( getPermalink( state ) ).toBeNull();
 		} );
 	} );
 
@@ -4697,6 +2864,7 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getPermalinkParts( state ) ).toEqual( parts );
@@ -4717,36 +2885,104 @@ describe( 'selectors', () => {
 						edits: {},
 					},
 				},
+				initialEdits: {},
 			};
 
 			expect( getPermalinkParts( state ) ).toEqual( parts );
 		} );
-	} );
 
-	describe( 'getBlockListSettings', () => {
-		it( 'should return the settings of a block', () => {
+		it( 'should return null if the post has no permalink template', () => {
 			const state = {
-				blockListSettings: {
-					chicken: {
-						setting1: false,
-					},
-					ribs: {
-						setting2: true,
+				currentPost: {},
+				editor: {
+					present: {
+						edits: {},
 					},
 				},
 			};
 
-			expect( getBlockListSettings( state, 'chicken' ) ).toEqual( {
-				setting1: false,
-			} );
+			expect( getPermalinkParts( state ) ).toBeNull();
 		} );
+	} );
 
-		it( 'should return undefined if settings for the block don’t exist', () => {
+	describe( 'getEditedPostSlug', () => {
+		it( 'should return the current post’s slug if one exists and has not been edited', () => {
 			const state = {
-				blockListSettings: {},
+				currentPost: {
+					slug: 'custom-slug',
+					title: 'Sample Post',
+				},
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
 			};
 
-			expect( getBlockListSettings( state, 'chicken' ) ).toBe( undefined );
+			expect( getEditedPostSlug( state ) ).toBe( 'custom-slug' );
+		} );
+
+		it( 'should return the edited post slug if it has been edited', () => {
+			const state = {
+				currentPost: {
+					slug: 'custom-slug',
+					title: 'Sample Post',
+				},
+				editor: {
+					present: {
+						edits: {
+							slug: 'edited-slug',
+						},
+					},
+				},
+			};
+
+			expect( getEditedPostSlug( state ) ).toBe( 'edited-slug' );
+		} );
+
+		it( 'should return the cleaned title as slug if no saved or edited slug exists', () => {
+			const state = {
+				currentPost: {
+					title: 'Sample Post',
+				},
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+			};
+
+			expect( getEditedPostSlug( state ) ).toBe( 'sample-post' );
+		} );
+
+		it( 'should return cleaned, edited title as slug if it has been edited and no saved or edited slug exists', () => {
+			const state = {
+				currentPost: {
+					title: 'Sample Post',
+				},
+				editor: {
+					present: {
+						edits: {
+							title: 'Edited Title',
+						},
+					},
+				},
+			};
+
+			expect( getEditedPostSlug( state ) ).toBe( 'edited-title' );
+		} );
+
+		it( 'should return the post ID if no slug or post title exists', () => {
+			const state = {
+				postId: 123,
+				editor: {
+					present: {
+						edits: {},
+					},
+				},
+			};
+
+			expect( getEditedPostSlug( state ) ).toBe( 123 );
 		} );
 	} );
 

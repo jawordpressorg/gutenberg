@@ -7,11 +7,11 @@ import Textarea from 'react-autosize-textarea';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { parse } from '@wordpress/blocks';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { withInstanceId, compose } from '@wordpress/compose';
+import { VisuallyHidden } from '@wordpress/components';
 
 export class PostTextEditor extends Component {
 	constructor() {
@@ -65,45 +65,46 @@ export class PostTextEditor extends Component {
 
 	render() {
 		const { value } = this.state;
-		const { placeholder, instanceId } = this.props;
-		const decodedPlaceholder = decodeEntities( placeholder );
-
+		const { instanceId } = this.props;
 		return (
-			<Fragment>
-				<label htmlFor={ `post-content-${ instanceId }` } className="screen-reader-text">
-					{ decodedPlaceholder || __( 'Write your story' ) }
-				</label>
+			<>
+				<VisuallyHidden
+					as="label"
+					htmlFor={ `post-content-${ instanceId }` }
+				>
+					{ __( 'Type text or HTML' ) }
+				</VisuallyHidden>
 				<Textarea
 					autoComplete="off"
+					dir="auto"
 					value={ value }
 					onChange={ this.edit }
 					onBlur={ this.stopEditing }
 					className="editor-post-text-editor"
 					id={ `post-content-${ instanceId }` }
-					placeholder={ decodedPlaceholder || __( 'Write your story' ) }
+					placeholder={ __( 'Start writing with text or HTML' ) }
 				/>
-			</Fragment>
+			</>
 		);
 	}
 }
 
 export default compose( [
 	withSelect( ( select ) => {
-		const { getEditedPostContent, getEditorSettings } = select( 'core/editor' );
-		const { bodyPlaceholder } = getEditorSettings();
+		const { getEditedPostContent } = select( 'core/editor' );
 		return {
 			value: getEditedPostContent(),
-			placeholder: bodyPlaceholder,
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
-		const { editPost, resetBlocks } = dispatch( 'core/editor' );
+		const { editPost, resetEditorBlocks } = dispatch( 'core/editor' );
 		return {
 			onChange( content ) {
 				editPost( { content } );
 			},
 			onPersist( content ) {
-				resetBlocks( parse( content ) );
+				const blocks = parse( content );
+				resetEditorBlocks( blocks );
 			},
 		};
 	} ),

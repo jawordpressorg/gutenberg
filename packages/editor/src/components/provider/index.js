@@ -1,38 +1,75 @@
 /**
  * External dependencies
  */
-import { flow, map } from 'lodash';
+import { map, pick, defaultTo } from 'lodash';
+import memize from 'memize';
 
 /**
- * WordPress Dependencies
+ * WordPress dependencies
  */
 import { compose } from '@wordpress/compose';
-import { createElement, Component } from '@wordpress/element';
-import { DropZoneProvider, SlotFillProvider } from '@wordpress/components';
-import { withDispatch } from '@wordpress/data';
+import { Component } from '@wordpress/element';
+import { withDispatch, withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
+import { EntityProvider } from '@wordpress/core-data';
+import {
+	BlockEditorProvider,
+	__unstableEditorStyles as EditorStyles,
+} from '@wordpress/block-editor';
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
+import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Internal dependencies
  */
-import { traverse, wrap, urlRewrite } from '../../editor-styles';
+import withRegistryProvider from './with-registry-provider';
+import { mediaUpload } from '../../utils';
+import ReusableBlocksButtons from '../reusable-blocks-buttons';
+import ConvertToGroupButtons from '../convert-to-group-buttons';
+
+const fetchLinkSuggestions = async ( search, { perPage = 20 } = {} ) => {
+	const posts = await apiFetch( {
+		path: addQueryArgs( '/wp/v2/search', {
+			search,
+			per_page: perPage,
+			type: 'post',
+		} ),
+	} );
+
+	return map( posts, ( post ) => ( {
+		id: post.id,
+		url: post.url,
+		title: decodeEntities( post.title ) || __( '(no title)' ),
+		type: post.subtype || post.type,
+	} ) );
+};
 
 class EditorProvider extends Component {
 	constructor( props ) {
 		super( ...arguments );
+
+		this.getBlockEditorSettings = memize( this.getBlockEditorSettings, {
+			maxSize: 1,
+		} );
 
 		// Assume that we don't need to initialize in the case of an error recovery.
 		if ( props.recovery ) {
 			return;
 		}
 
-		props.updateEditorSettings( props.settings );
 		props.updatePostLock( props.settings.postLock );
-		props.setupEditor( props.post );
+		props.setupEditor(
+			props.post,
+			props.initialEdits,
+			props.settings.template
+		);
 
 		if ( props.settings.autosave ) {
 			props.createWarningNotice(
-				__( 'There is an autosave of this post that is more recent than the version below.' ),
+				__(
+					'There is an autosave of this post that is more recent than the version below.'
+				),
 				{
 					id: 'autosave-exists',
 					actions: [
@@ -46,25 +83,60 @@ class EditorProvider extends Component {
 		}
 	}
 
-	componentDidMount() {
-		if ( ! this.props.settings.styles ) {
-			return;
-		}
+	getBlockEditorSettings(
+		settings,
+		reusableBlocks,
+		__experimentalFetchReusableBlocks,
+		hasUploadPermissions,
+		canUserUseUnfilteredHTML,
+		undo,
+		shouldInsertAtTheTop
+	) {
+		return {
+			...pick( settings, [
+				'alignWide',
+				'allowedBlockTypes',
+				'__experimentalPreferredStyleVariations',
+				'availableLegacyWidgets',
+				'bodyPlaceholder',
+				'codeEditingEnabled',
+				'colors',
+				'disableCustomColors',
+				'disableCustomFontSizes',
+				'disableCustomGradients',
+				'focusMode',
+				'fontSizes',
+				'hasFixedToolbar',
+				'hasPermissionsToManageWidgets',
+				'imageSizes',
+				'imageDimensions',
+				'isRTL',
+				'maxWidth',
+				'styles',
+				'template',
+				'templateLock',
+				'titlePlaceholder',
+				'onUpdateDefaultBlockStyles',
+				'__experimentalEnableLegacyWidgetBlock',
+				'__experimentalBlockDirectory',
+				'__experimentalEnableFullSiteEditing',
+				'__experimentalEnableFullSiteEditingDemo',
+				'__experimentalGlobalStylesUserEntityId',
+				'__experimentalGlobalStylesBase',
+				'gradients',
+			] ),
+			mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
+			__experimentalReusableBlocks: reusableBlocks,
+			__experimentalFetchReusableBlocks,
+			__experimentalFetchLinkSuggestions: fetchLinkSuggestions,
+			__experimentalCanUserUseUnfilteredHTML: canUserUseUnfilteredHTML,
+			__experimentalUndo: undo,
+			__experimentalShouldInsertAtTheTop: shouldInsertAtTheTop,
+		};
+	}
 
-		map( this.props.settings.styles, ( { css, baseURL } ) => {
-			const transforms = [
-				wrap( '.editor-styles-wrapper' ),
-			];
-			if ( baseURL ) {
-				transforms.push( urlRewrite( baseURL ) );
-			}
-			const updatedCSS = traverse( css, compose( transforms ) );
-			if ( updatedCSS ) {
-				const node = document.createElement( 'style' );
-				node.innerHTML = updatedCSS;
-				document.body.appendChild( node );
-			}
-		} );
+	componentDidMount() {
+		this.props.updateEditorSettings( this.props.settings );
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -73,49 +145,128 @@ class EditorProvider extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.props.tearDownEditor();
+	}
+
 	render() {
 		const {
+			canUserUseUnfilteredHTML,
 			children,
+			post,
+			blocks,
+			resetEditorBlocks,
+			selectionStart,
+			selectionEnd,
+			isReady,
+			settings,
+			reusableBlocks,
+			resetEditorBlocksWithoutUndoLevel,
+			hasUploadPermissions,
+			isPostTitleSelected,
+			__experimentalFetchReusableBlocks,
+			undo,
 		} = this.props;
 
-		const providers = [
-			// Slot / Fill provider:
-			//
-			//  - context.getSlot
-			//  - context.registerSlot
-			//  - context.unregisterSlot
-			[
-				SlotFillProvider,
-			],
+		if ( ! isReady ) {
+			return null;
+		}
 
-			// DropZone provider:
-			[
-				DropZoneProvider,
-			],
-		];
-
-		const createEditorElement = flow(
-			providers.map( ( [ Provider, props ] ) => (
-				( arg ) => createElement( Provider, props, arg )
-			) )
+		const editorSettings = this.getBlockEditorSettings(
+			settings,
+			reusableBlocks,
+			__experimentalFetchReusableBlocks,
+			hasUploadPermissions,
+			canUserUseUnfilteredHTML,
+			undo,
+			isPostTitleSelected
 		);
 
-		return createEditorElement( children );
+		return (
+			<>
+				<EditorStyles styles={ settings.styles } />
+				<EntityProvider kind="root" type="site">
+					<EntityProvider
+						kind="postType"
+						type={ post.type }
+						id={ post.id }
+					>
+						<BlockEditorProvider
+							value={ blocks }
+							onInput={ resetEditorBlocksWithoutUndoLevel }
+							onChange={ resetEditorBlocks }
+							selectionStart={ selectionStart }
+							selectionEnd={ selectionEnd }
+							settings={ editorSettings }
+							useSubRegistry={ false }
+						>
+							{ children }
+							<ReusableBlocksButtons />
+							<ConvertToGroupButtons />
+						</BlockEditorProvider>
+					</EntityProvider>
+				</EntityProvider>
+			</>
+		);
 	}
 }
 
-export default withDispatch( ( dispatch ) => {
-	const {
-		setupEditor,
-		updateEditorSettings,
-		updatePostLock,
-	} = dispatch( 'core/editor' );
-	const { createWarningNotice } = dispatch( 'core/notices' );
+export default compose( [
+	withRegistryProvider,
+	withSelect( ( select ) => {
+		const {
+			canUserUseUnfilteredHTML,
+			__unstableIsEditorReady: isEditorReady,
+			getEditorBlocks,
+			getEditorSelectionStart,
+			getEditorSelectionEnd,
+			__experimentalGetReusableBlocks,
+			isPostTitleSelected,
+		} = select( 'core/editor' );
+		const { canUser } = select( 'core' );
 
-	return {
-		setupEditor,
-		updateEditorSettings,
-		updatePostLock,
-		createWarningNotice,
-	};
-} )( EditorProvider );
+		return {
+			canUserUseUnfilteredHTML: canUserUseUnfilteredHTML(),
+			isReady: isEditorReady(),
+			blocks: getEditorBlocks(),
+			selectionStart: getEditorSelectionStart(),
+			selectionEnd: getEditorSelectionEnd(),
+			reusableBlocks: __experimentalGetReusableBlocks(),
+			hasUploadPermissions: defaultTo(
+				canUser( 'create', 'media' ),
+				true
+			),
+			// This selector is only defined on mobile.
+			isPostTitleSelected: isPostTitleSelected && isPostTitleSelected(),
+		};
+	} ),
+	withDispatch( ( dispatch ) => {
+		const {
+			setupEditor,
+			updatePostLock,
+			resetEditorBlocks,
+			updateEditorSettings,
+			__experimentalFetchReusableBlocks,
+			__experimentalTearDownEditor,
+			undo,
+		} = dispatch( 'core/editor' );
+		const { createWarningNotice } = dispatch( 'core/notices' );
+
+		return {
+			setupEditor,
+			updatePostLock,
+			createWarningNotice,
+			resetEditorBlocks,
+			updateEditorSettings,
+			resetEditorBlocksWithoutUndoLevel( blocks, options ) {
+				resetEditorBlocks( blocks, {
+					...options,
+					__unstableShouldCreateUndoLevel: false,
+				} );
+			},
+			tearDownEditor: __experimentalTearDownEditor,
+			__experimentalFetchReusableBlocks,
+			undo,
+		};
+	} ),
+] )( EditorProvider );

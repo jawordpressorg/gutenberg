@@ -1,7 +1,5 @@
 .wp-block-audio {
-	margin: 0;
-}
-
-.wp-block-audio audio {
-	width: 100%;
+	// Remove the left and right margin the figure is born with.
+	margin-left: 0;
+	margin-right: 0;
 }

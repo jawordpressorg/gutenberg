@@ -70,7 +70,7 @@ export function fromDOM( domNode ) {
 	if ( domNode.nodeType !== ELEMENT_NODE ) {
 		throw new TypeError(
 			'A block node can only be created from a node of type text or ' +
-			'element.'
+				'element.'
 		);
 	}
 
@@ -118,6 +118,17 @@ export function matcher( selector ) {
 	};
 }
 
+/**
+ * Object of utility functions used in managing block attribute values of
+ * source `node`.
+ *
+ * @see https://github.com/WordPress/gutenberg/pull/10439
+ *
+ * @deprecated since 4.0. The `node` source should not be used, and can be
+ *             replaced by the `html` source.
+ *
+ * @private
+ */
 export default {
 	isNodeOfType,
 	fromDOM,

@@ -1,0 +1,110 @@
+.block-editor-block-mover {
+	display: inline-flex;
+	flex-direction: row;
+}
+
+.block-editor-block-mover__description {
+	display: none;
+}
+
+.block-editor-block-mover__control.has-icon {
+	padding: 0;
+}
+
+// Show the mover in a single button under the contextual toolbar.
+.block-editor-block-mover {
+	.components-toolbar {
+		flex-direction: column;
+	}
+
+	&.is-horizontal .components-toolbar {
+		flex-direction: row;
+	}
+
+	// Position the icons correctly.
+	.components-toolbar .block-editor-block-mover__control-up {
+		svg {
+			margin-bottom: -$grid-unit-10;
+		}
+
+		// Focus style.
+		&::before {
+			bottom: 0;
+			height: calc(100% - #{ $grid-unit-10 });
+		}
+	}
+
+	.components-toolbar .block-editor-block-mover__control-down {
+		svg {
+			margin-top: -$grid-unit-10;
+		}
+
+		// Focus style.
+		&::before {
+			top: 0;
+			height: calc(100% - #{ $grid-unit-10 });
+		}
+	}
+
+	// Mover is horizontal.
+	&.is-horizontal {
+		.block-editor-block-mover__control.has-icon {
+			height: $block-toolbar-height;
+			width: $block-toolbar-height/2 !important;
+			min-width: $grid-unit-30;
+			padding-left: 0;
+			padding-right: 0;
+
+			// Focus style.
+			&::before {
+				top: $grid-unit-10;
+				bottom: $grid-unit-10;
+				min-width: 0;
+				width: auto;
+				height: auto;
+			}
+		}
+
+		// Position the icons correctly.
+		.block-editor-block-mover__control-up.has-icon {
+			svg {
+				margin-left: 0;
+				margin-right: -$grid-unit-10;
+				margin-bottom: 0;
+			}
+
+			// Focus style.
+			&::before {
+				left: $grid-unit-10;
+				right: 0;
+			}
+		}
+
+		.block-editor-block-mover__control-down.has-icon {
+			svg {
+				margin-left: -$grid-unit-10;
+				margin-right: 0;
+				margin-top: 0;
+			}
+
+			// Focus style.
+			&::before {
+				left: 0;
+				right: $grid-unit-10;
+			}
+		}
+	}
+
+	// Drag and drop is only enabled in contextual toolbars.
+	&:not([draggable="false"]) {
+		cursor: grab;
+
+		.block-editor-block-mover__control {
+			cursor: grab !important;
+
+			&:not(:disabled):not([aria-disabled="true"]):active {
+				cursor: grabbing;
+			}
+		}
+	}
+}

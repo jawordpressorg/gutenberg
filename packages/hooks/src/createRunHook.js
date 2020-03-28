@@ -30,10 +30,16 @@ function createRunHook( hooks, returnFirstArg ) {
 
 		const handlers = hooks[ hookName ].handlers;
 
+		// The following code is stripped from production builds.
+		if ( 'production' !== process.env.NODE_ENV ) {
+			// Handle any 'all' hooks registered.
+			if ( 'hookAdded' !== hookName && hooks.all ) {
+				handlers.push( ...hooks.all.handlers );
+			}
+		}
+
 		if ( ! handlers || ! handlers.length ) {
-			return returnFirstArg ?
-				args[ 0 ] :
-				undefined;
+			return returnFirstArg ? args[ 0 ] : undefined;
 		}
 
 		const hookInfo = {

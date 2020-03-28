@@ -1,73 +1,104 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Component, Fragment } from '@wordpress/element';
-import { IconButton, ResizableBox, Toolbar } from '@wordpress/components';
+import { ResizableBox, withNotices } from '@wordpress/components';
 import {
 	BlockControls,
+	BlockIcon,
 	MediaPlaceholder,
-	MediaUpload,
-} from '@wordpress/editor';
+	MediaReplaceFlow,
+} from '@wordpress/block-editor';
+import { Component } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import { compose } from '@wordpress/compose';
+import { withDispatch } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import icon from './media-container-icon';
 
 /**
  * Constants
  */
 const ALLOWED_MEDIA_TYPES = [ 'image', 'video' ];
 
+export function imageFillStyles( url, focalPoint ) {
+	return url
+		? {
+				backgroundImage: `url(${ url })`,
+				backgroundPosition: focalPoint
+					? `${ focalPoint.x * 100 }% ${ focalPoint.y * 100 }%`
+					: `50% 50%`,
+		  }
+		: {};
+}
+
 class MediaContainer extends Component {
+	constructor() {
+		super( ...arguments );
+		this.onUploadError = this.onUploadError.bind( this );
+	}
+
+	onUploadError( message ) {
+		const { noticeOperations } = this.props;
+		noticeOperations.removeAllNotices();
+		noticeOperations.createErrorNotice( message );
+	}
+
 	renderToolbarEditButton() {
-		const { mediaId, onSelectMedia } = this.props;
+		const { onSelectMedia, mediaUrl, mediaId } = this.props;
 		return (
 			<BlockControls>
-				<Toolbar>
-					<MediaUpload
-						onSelect={ onSelectMedia }
-						allowedTypes={ ALLOWED_MEDIA_TYPES }
-						value={ mediaId }
-						render={ ( { open } ) => (
-							<IconButton
-								className="components-toolbar__control"
-								label={ __( 'Edit Media' ) }
-								icon="edit"
-								onClick={ open }
-							/>
-						) }
-					/>
-				</Toolbar>
+				<MediaReplaceFlow
+					mediaId={ mediaId }
+					mediaURL={ mediaUrl }
+					allowedTypes={ ALLOWED_MEDIA_TYPES }
+					accept="image/*,video/*"
+					onSelect={ onSelectMedia }
+				/>
 			</BlockControls>
 		);
 	}
 
 	renderImage() {
-		const { mediaAlt, mediaUrl, className } = this.props;
+		const {
+			mediaAlt,
+			mediaUrl,
+			className,
+			imageFill,
+			focalPoint,
+		} = this.props;
+		const backgroundStyles = imageFill
+			? imageFillStyles( mediaUrl, focalPoint )
+			: {};
 		return (
-			<Fragment>
+			<>
 				{ this.renderToolbarEditButton() }
-				<figure className={ className }>
+				<figure className={ className } style={ backgroundStyles }>
 					<img src={ mediaUrl } alt={ mediaAlt } />
 				</figure>
-			</Fragment>
+			</>
 		);
 	}
 
 	renderVideo() {
 		const { mediaUrl, className } = this.props;
 		return (
-			<Fragment>
+			<>
 				{ this.renderToolbarEditButton() }
 				<figure className={ className }>
 					<video controls src={ mediaUrl } />
 				</figure>
-			</Fragment>
+			</>
 		);
 	}
 
 	renderPlaceholder() {
-		const { onSelectMedia, className } = this.props;
+		const { onSelectMedia, className, noticeUI } = this.props;
 		return (
 			<MediaPlaceholder
-				icon="format-image"
+				icon={ <BlockIcon icon={ icon } /> }
 				labels={ {
 					title: __( 'Media area' ),
 				} }
@@ -75,17 +106,31 @@ class MediaContainer extends Component {
 				onSelect={ onSelectMedia }
 				accept="image/*,video/*"
 				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				notices={ noticeUI }
+				onError={ this.onUploadError }
 			/>
 		);
 	}
 
 	render() {
-		const { mediaPosition, mediaUrl, mediaType, mediaWidth, commitWidthChange, onWidthChange } = this.props;
+		const {
+			mediaPosition,
+			mediaUrl,
+			mediaType,
+			mediaWidth,
+			commitWidthChange,
+			onWidthChange,
+			toggleSelection,
+		} = this.props;
 		if ( mediaType && mediaUrl ) {
+			const onResizeStart = () => {
+				toggleSelection( false );
+			};
 			const onResize = ( event, direction, elt ) => {
 				onWidthChange( parseInt( elt.style.width ) );
 			};
 			const onResizeStop = ( event, direction, elt ) => {
+				toggleSelection( true );
 				commitWidthChange( parseInt( elt.style.width ) );
 			};
 			const enablePositions = {
@@ -109,6 +154,7 @@ class MediaContainer extends Component {
 					minWidth="10%"
 					maxWidth="100%"
 					enable={ enablePositions }
+					onResizeStart={ onResizeStart }
 					onResize={ onResize }
 					onResizeStop={ onResizeStop }
 					axis="x"
@@ -121,4 +167,13 @@ class MediaContainer extends Component {
 	}
 }
 
-export default MediaContainer;
+export default compose( [
+	withDispatch( ( dispatch ) => {
+		const { toggleSelection } = dispatch( 'core/block-editor' );
+
+		return {
+			toggleSelection,
+		};
+	} ),
+	withNotices,
+] )( MediaContainer );

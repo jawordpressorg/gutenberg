@@ -12,21 +12,31 @@ exports[`PostPublishPanel should render the post-publish panel if the post is pu
     >
       Published
     </div>
-    <IconButton
-      aria-expanded={true}
-      icon="no-alt"
+    <ForwardRef(Button)
+      icon={
+        <SVG
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Path
+            d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+          />
+        </SVG>
+      }
       label="Close panel"
     />
   </div>
   <div
     className="editor-post-publish-panel__content"
   >
-    <WithSelect(PostPublishPanelPostpublish) />
+    <WithSelect(PostPublishPanelPostpublish)
+      focusOnMount={true}
+    />
   </div>
   <div
     className="editor-post-publish-panel__footer"
   >
-    <WithInstanceId(CheckboxControl)
+    <CheckboxControl
       label="Always show pre-publish checks."
     />
   </div>
@@ -45,21 +55,31 @@ exports[`PostPublishPanel should render the post-publish panel if the post is sc
     >
       Scheduled
     </div>
-    <IconButton
-      aria-expanded={true}
-      icon="no-alt"
+    <ForwardRef(Button)
+      icon={
+        <SVG
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Path
+            d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+          />
+        </SVG>
+      }
       label="Close panel"
     />
   </div>
   <div
     className="editor-post-publish-panel__content"
   >
-    <WithSelect(PostPublishPanelPostpublish) />
+    <WithSelect(PostPublishPanelPostpublish)
+      focusOnMount={true}
+    />
   </div>
   <div
     className="editor-post-publish-panel__footer"
   >
-    <WithInstanceId(CheckboxControl)
+    <CheckboxControl
       label="Always show pre-publish checks."
     />
   </div>
@@ -80,13 +100,18 @@ exports[`PostPublishPanel should render the pre-publish panel if post status is 
         focusOnMount={true}
         onSubmit={[Function]}
       />
-      <span
-        className="editor-post-publish-panel__spacer"
-      />
     </div>
-    <IconButton
-      aria-expanded={true}
-      icon="no-alt"
+    <ForwardRef(Button)
+      icon={
+        <SVG
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Path
+            d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+          />
+        </SVG>
+      }
       label="Close panel"
     />
   </div>
@@ -98,7 +123,7 @@ exports[`PostPublishPanel should render the pre-publish panel if post status is 
   <div
     className="editor-post-publish-panel__footer"
   >
-    <WithInstanceId(CheckboxControl)
+    <CheckboxControl
       label="Always show pre-publish checks."
     />
   </div>
@@ -119,13 +144,18 @@ exports[`PostPublishPanel should render the pre-publish panel if the post is not
         focusOnMount={true}
         onSubmit={[Function]}
       />
-      <span
-        className="editor-post-publish-panel__spacer"
-      />
     </div>
-    <IconButton
-      aria-expanded={true}
-      icon="no-alt"
+    <ForwardRef(Button)
+      icon={
+        <SVG
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Path
+            d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+          />
+        </SVG>
+      }
       label="Close panel"
     />
   </div>
@@ -137,7 +167,7 @@ exports[`PostPublishPanel should render the pre-publish panel if the post is not
   <div
     className="editor-post-publish-panel__footer"
   >
-    <WithInstanceId(CheckboxControl)
+    <CheckboxControl
       label="Always show pre-publish checks."
     />
   </div>
@@ -158,13 +188,18 @@ exports[`PostPublishPanel should render the spinner if the post is being saved 1
         focusOnMount={true}
         onSubmit={[Function]}
       />
-      <span
-        className="editor-post-publish-panel__spacer"
-      />
     </div>
-    <IconButton
-      aria-expanded={true}
-      icon="no-alt"
+    <ForwardRef(Button)
+      icon={
+        <SVG
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Path
+            d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+          />
+        </SVG>
+      }
       label="Close panel"
     />
   </div>
@@ -176,7 +211,7 @@ exports[`PostPublishPanel should render the spinner if the post is being saved 1
   <div
     className="editor-post-publish-panel__footer"
   >
-    <WithInstanceId(CheckboxControl)
+    <CheckboxControl
       label="Always show pre-publish checks."
     />
   </div>

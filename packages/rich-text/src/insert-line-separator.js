@@ -11,27 +11,30 @@ import { LINE_SEPARATOR } from './special-characters';
  * `startIndex`. Any content between `startIndex` and `endIndex` will be
  * removed. Indices are retrieved from the selection if none are provided.
  *
- * @param {Object} value         Value to modify.
- * @param {number} startIndex    Start index.
- * @param {number} endIndex      End index.
+ * @param {Object} value        Value to modify.
+ * @param {number} [startIndex] Start index.
+ * @param {number} [endIndex]   End index.
  *
  * @return {Object} A new value with the value inserted.
  */
 export function insertLineSeparator(
 	value,
 	startIndex = value.start,
-	endIndex = value.end,
+	endIndex = value.end
 ) {
 	const beforeText = getTextContent( value ).slice( 0, startIndex );
 	const previousLineSeparatorIndex = beforeText.lastIndexOf( LINE_SEPARATOR );
-	let formats = [ , ];
+	const previousLineSeparatorFormats =
+		value.replacements[ previousLineSeparatorIndex ];
+	let replacements = [ , ];
 
-	if ( previousLineSeparatorIndex !== -1 ) {
-		formats = [ value.formats[ previousLineSeparatorIndex ] ];
+	if ( previousLineSeparatorFormats ) {
+		replacements = [ previousLineSeparatorFormats ];
 	}
 
 	const valueToInsert = {
-		formats,
+		formats: [ , ],
+		replacements,
 		text: LINE_SEPARATOR,
 	};
 

@@ -8,6 +8,11 @@ export const PREFERENCES_DEFAULTS = {
 	},
 	features: {
 		fixedToolbar: false,
+		welcomeGuide: true,
+		fullscreenMode: true,
 	},
 	pinnedPluginItems: {},
+	hiddenBlockTypes: [],
+	preferredStyleVariations: {},
+	localAutosaveInterval: 15,
 };

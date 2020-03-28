@@ -1,6 +1,6 @@
 {
 	"name": "@wordpress/rich-text",
-	"version": "2.0.2",
+	"version": "3.12.1",
 	"description": "Rich text value and manipulation API.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
@@ -11,7 +11,8 @@
 	"homepage": "https://github.com/WordPress/gutenberg/tree/master/packages/rich-text/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git"
+		"url": "https://github.com/WordPress/gutenberg.git",
+		"directory": "packages/rich-text"
 	},
 	"bugs": {
 		"url": "https://github.com/WordPress/gutenberg/issues"
@@ -20,16 +21,18 @@
 	"module": "build-module/index.js",
 	"react-native": "src/index",
 	"dependencies": {
-		"@babel/runtime": "^7.0.0",
+		"@babel/runtime": "^7.8.3",
+		"@wordpress/compose": "file:../compose",
 		"@wordpress/data": "file:../data",
 		"@wordpress/deprecated": "file:../deprecated",
+		"@wordpress/element": "file:../element",
 		"@wordpress/escape-html": "file:../escape-html",
-		"lodash": "^4.17.10",
+		"@wordpress/is-shallow-equal": "file:../is-shallow-equal",
+		"@wordpress/keycodes": "file:../keycodes",
+		"classnames": "^2.2.5",
+		"lodash": "^4.17.15",
+		"memize": "^1.0.5",
 		"rememo": "^3.0.0"
-	},
-	"devDependencies": {
-		"deep-freeze": "^0.0.1",
-		"jsdom": "^11.12.0"
 	},
 	"publishConfig": {
 		"access": "public"

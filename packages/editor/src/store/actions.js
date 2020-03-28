@@ -1,31 +1,88 @@
 /**
- * External Dependencies
+ * External dependencies
  */
-import { partial, castArray } from 'lodash';
+import { has, castArray } from 'lodash';
 
 /**
  * WordPress dependencies
  */
-import {
-	getDefaultBlockName,
-	createBlock,
-} from '@wordpress/blocks';
 import deprecated from '@wordpress/deprecated';
-import { dispatch } from '@wordpress/data';
+import { dispatch, select, apiFetch } from '@wordpress/data-controls';
+import { parse, synchronizeBlocksWithTemplate } from '@wordpress/blocks';
 
 /**
- * Returns an action object used in signalling that editor has initialized with
+ * Internal dependencies
+ */
+import {
+	STORE_KEY,
+	POST_UPDATE_TRANSACTION_ID,
+	TRASH_POST_NOTICE_ID,
+} from './constants';
+import {
+	getNotificationArgumentsForSaveSuccess,
+	getNotificationArgumentsForSaveFail,
+	getNotificationArgumentsForTrashFail,
+} from './utils/notice-builder';
+import serializeBlocks from './utils/serialize-blocks';
+
+/**
+ * Returns an action generator used in signalling that editor has initialized with
  * the specified post object and editor settings.
  *
- * @param {Object} post Post object.
+ * @param {Object} post      Post object.
+ * @param {Object} edits     Initial edited attributes object.
+ * @param {Array?} template  Block Template.
+ */
+export function* setupEditor( post, edits, template ) {
+	// In order to ensure maximum of a single parse during setup, edits are
+	// included as part of editor setup action. Assume edited content as
+	// canonical if provided, falling back to post.
+	let content;
+	if ( has( edits, [ 'content' ] ) ) {
+		content = edits.content;
+	} else {
+		content = post.content.raw;
+	}
+
+	let blocks = parse( content );
+
+	// Apply a template for new posts only, if exists.
+	const isNewPost = post.status === 'auto-draft';
+	if ( isNewPost && template ) {
+		blocks = synchronizeBlocksWithTemplate( blocks, template );
+	}
+
+	yield resetPost( post );
+	yield {
+		type: 'SETUP_EDITOR',
+		post,
+		edits,
+		template,
+	};
+	yield resetEditorBlocks( blocks, {
+		__unstableShouldCreateUndoLevel: false,
+	} );
+	yield setupEditorState( post );
+	if (
+		edits &&
+		Object.keys( edits ).some(
+			( key ) =>
+				edits[ key ] !==
+				( has( post, [ key, 'raw' ] ) ? post[ key ].raw : post[ key ] )
+		)
+	) {
+		yield editPost( edits );
+	}
+}
+
+/**
+ * Returns an action object signalling that the editor is being destroyed and
+ * that any necessary state or side-effect cleanup should occur.
  *
  * @return {Object} Action object.
  */
-export function setupEditor( post ) {
-	return {
-		type: 'SETUP_EDITOR',
-		post,
-	};
+export function __experimentalTearDownEditor() {
+	return { type: 'TEAR_DOWN_EDITOR' };
 }
 
 /**
@@ -47,14 +104,50 @@ export function resetPost( post ) {
  * Returns an action object used in signalling that the latest autosave of the
  * post has been received, by initialization or autosave.
  *
- * @param {Object} post Autosave post object.
+ * @deprecated since 5.6. Callers should use the `receiveAutosaves( postId, autosave )`
+ * 			   selector from the '@wordpress/core-data' package.
+ *
+ * @param {Object} newAutosave Autosave post object.
  *
  * @return {Object} Action object.
  */
-export function resetAutosave( post ) {
+export function* resetAutosave( newAutosave ) {
+	deprecated( 'resetAutosave action (`core/editor` store)', {
+		alternative: 'receiveAutosaves action (`core` store)',
+		plugin: 'Gutenberg',
+	} );
+
+	const postId = yield select( STORE_KEY, 'getCurrentPostId' );
+	yield dispatch( 'core', 'receiveAutosaves', postId, newAutosave );
+
+	return { type: '__INERT__' };
+}
+
+/**
+ * Action for dispatching that a post update request has started.
+ *
+ * @param {Object} options
+ *
+ * @return {Object} An action object
+ */
+export function __experimentalRequestPostUpdateStart( options = {} ) {
 	return {
-		type: 'RESET_AUTOSAVE',
-		post,
+		type: 'REQUEST_POST_UPDATE_START',
+		options,
+	};
+}
+
+/**
+ * Action for dispatching that a post update request has finished.
+ *
+ * @param {Object} options
+ *
+ * @return {Object} An action object
+ */
+export function __experimentalRequestPostUpdateFinish( options = {} ) {
+	return {
+		type: 'REQUEST_POST_UPDATE_FINISH',
+		options,
 	};
 }
 
@@ -74,390 +167,223 @@ export function updatePost( edits ) {
 }
 
 /**
- * Returns an action object used to setup the editor state when first opening an editor.
+ * Returns an action object used to setup the editor state when first opening
+ * an editor.
  *
- * @param {Object}  post            Post object.
- * @param {Array}   blocks          Array of blocks.
- * @param {Object}  edits           Initial edited attributes object.
+ * @param {Object} post   Post object.
  *
  * @return {Object} Action object.
  */
-export function setupEditorState( post, blocks, edits ) {
+export function setupEditorState( post ) {
 	return {
 		type: 'SETUP_EDITOR_STATE',
 		post,
-		blocks,
+	};
+}
+
+/**
+ * Returns an action object used in signalling that attributes of the post have
+ * been edited.
+ *
+ * @param {Object} edits   Post attributes to edit.
+ * @param {Object} options Options for the edit.
+ *
+ * @yield {Object} Action object or control.
+ */
+export function* editPost( edits, options ) {
+	const { id, type } = yield select( STORE_KEY, 'getCurrentPost' );
+	yield dispatch(
+		'core',
+		'editEntityRecord',
+		'postType',
+		type,
+		id,
 		edits,
-	};
+		options
+	);
 }
 
 /**
- * Returns an action object used in signalling that blocks state should be
- * reset to the specified array of blocks, taking precedence over any other
- * content reflected as an edit in state.
+ * Returns action object produced by the updatePost creator augmented by
+ * an optimist option that signals optimistically applying updates.
  *
- * @param {Array} blocks Array of blocks.
+ * @param {Object} edits  Updated post fields.
  *
  * @return {Object} Action object.
  */
-export function resetBlocks( blocks ) {
+export function __experimentalOptimisticUpdatePost( edits ) {
 	return {
-		type: 'RESET_BLOCKS',
-		blocks,
+		...updatePost( edits ),
+		optimist: { id: POST_UPDATE_TRANSACTION_ID },
 	};
 }
 
 /**
- * Returns an action object used in signalling that blocks have been received.
- * Unlike resetBlocks, these should be appended to the existing known set, not
- * replacing.
+ * Action generator for saving the current post in the editor.
  *
- * @param {Object[]} blocks Array of block objects.
- *
- * @return {Object} Action object.
+ * @param {Object} options
  */
-export function receiveBlocks( blocks ) {
-	return {
-		type: 'RECEIVE_BLOCKS',
-		blocks,
+export function* savePost( options = {} ) {
+	if ( ! ( yield select( STORE_KEY, 'isEditedPostSaveable' ) ) ) {
+		return;
+	}
+	let edits = {
+		content: yield select( STORE_KEY, 'getEditedPostContent' ),
 	};
-}
+	if ( ! options.isAutosave ) {
+		yield dispatch( STORE_KEY, 'editPost', edits, { undoIgnore: true } );
+	}
 
-/**
- * Returns an action object used in signalling that the block attributes with
- * the specified client ID has been updated.
- *
- * @param {string} clientId   Block client ID.
- * @param {Object} attributes Block attributes to be merged.
- *
- * @return {Object} Action object.
- */
-export function updateBlockAttributes( clientId, attributes ) {
-	return {
-		type: 'UPDATE_BLOCK_ATTRIBUTES',
-		clientId,
-		attributes,
+	yield __experimentalRequestPostUpdateStart( options );
+	const previousRecord = yield select( STORE_KEY, 'getCurrentPost' );
+	edits = {
+		id: previousRecord.id,
+		...( yield select(
+			'core',
+			'getEntityRecordNonTransientEdits',
+			'postType',
+			previousRecord.type,
+			previousRecord.id
+		) ),
+		...edits,
 	};
-}
-
-/**
- * Returns an action object used in signalling that the block with the
- * specified client ID has been updated.
- *
- * @param {string} clientId Block client ID.
- * @param {Object} updates  Block attributes to be merged.
- *
- * @return {Object} Action object.
- */
-export function updateBlock( clientId, updates ) {
-	return {
-		type: 'UPDATE_BLOCK',
-		clientId,
-		updates,
-	};
-}
-
-/**
- * Returns an action object used in signalling that the block with the
- * specified client ID has been selected, optionally accepting a position
- * value reflecting its selection directionality. An initialPosition of -1
- * reflects a reverse selection.
- *
- * @param {string}  clientId        Block client ID.
- * @param {?number} initialPosition Optional initial position. Pass as -1 to
- *                                  reflect reverse selection.
- *
- * @return {Object} Action object.
- */
-export function selectBlock( clientId, initialPosition = null ) {
-	return {
-		type: 'SELECT_BLOCK',
-		initialPosition,
-		clientId,
-	};
-}
-
-export function startMultiSelect() {
-	return {
-		type: 'START_MULTI_SELECT',
-	};
-}
-
-export function stopMultiSelect() {
-	return {
-		type: 'STOP_MULTI_SELECT',
-	};
-}
-
-export function multiSelect( start, end ) {
-	return {
-		type: 'MULTI_SELECT',
-		start,
-		end,
-	};
-}
-
-export function clearSelectedBlock() {
-	return {
-		type: 'CLEAR_SELECTED_BLOCK',
-	};
-}
-
-/**
- * Returns an action object that enables or disables block selection.
- *
- * @param {boolean} [isSelectionEnabled=true] Whether block selection should
- *                                            be enabled.
-
- * @return {Object} Action object.
- */
-export function toggleSelection( isSelectionEnabled = true ) {
-	return {
-		type: 'TOGGLE_SELECTION',
-		isSelectionEnabled,
-	};
-}
-
-/**
- * Returns an action object signalling that a blocks should be replaced with
- * one or more replacement blocks.
- *
- * @param {(string|string[])} clientIds Block client ID(s) to replace.
- * @param {(Object|Object[])} blocks    Replacement block(s).
- *
- * @return {Object} Action object.
- */
-export function replaceBlocks( clientIds, blocks ) {
-	return {
-		type: 'REPLACE_BLOCKS',
-		clientIds: castArray( clientIds ),
-		blocks: castArray( blocks ),
-		time: Date.now(),
-	};
-}
-
-/**
- * Returns an action object signalling that a single block should be replaced
- * with one or more replacement blocks.
- *
- * @param {(string|string[])} clientId Block client ID to replace.
- * @param {(Object|Object[])} block    Replacement block(s).
- *
- * @return {Object} Action object.
- */
-export function replaceBlock( clientId, block ) {
-	return replaceBlocks( clientId, block );
-}
-
-/**
- * Higher-order action creator which, given the action type to dispatch creates
- * an action creator for managing block movement.
- *
- * @param {string} type Action type to dispatch.
- *
- * @return {Function} Action creator.
- */
-function createOnMove( type ) {
-	return ( clientIds, rootClientId ) => {
-		return {
-			clientIds: castArray( clientIds ),
-			type,
-			rootClientId,
-		};
-	};
-}
-
-export const moveBlocksDown = createOnMove( 'MOVE_BLOCKS_DOWN' );
-export const moveBlocksUp = createOnMove( 'MOVE_BLOCKS_UP' );
-
-/**
- * Returns an action object signalling that an indexed block should be moved
- * to a new index.
- *
- * @param  {?string} clientId         The client ID of the block.
- * @param  {?string} fromRootClientId Root client ID source.
- * @param  {?string} toRootClientId   Root client ID destination.
- * @param  {number}  index            The index to move the block into.
- *
- * @return {Object} Action object.
- */
-export function moveBlockToPosition( clientId, fromRootClientId, toRootClientId, index ) {
-	return {
-		type: 'MOVE_BLOCK_TO_POSITION',
-		fromRootClientId,
-		toRootClientId,
-		clientId,
-		index,
-	};
-}
-
-/**
- * Returns an action object used in signalling that a single block should be
- * inserted, optionally at a specific index respective a root block list.
- *
- * @param {Object}  block        Block object to insert.
- * @param {?number} index        Index at which block should be inserted.
- * @param {?string} rootClientId Optional root client ID of block list on which
- *                               to insert.
- *
- * @return {Object} Action object.
- */
-export function insertBlock( block, index, rootClientId ) {
-	return insertBlocks( [ block ], index, rootClientId );
-}
-
-/**
- * Returns an action object used in signalling that an array of blocks should
- * be inserted, optionally at a specific index respective a root block list.
- *
- * @param {Object[]} blocks       Block objects to insert.
- * @param {?number}  index        Index at which block should be inserted.
- * @param {?string}  rootClientId Optional root client ID of block list on
- *                                which to insert.
- *
- * @return {Object} Action object.
- */
-export function insertBlocks( blocks, index, rootClientId ) {
-	return {
-		type: 'INSERT_BLOCKS',
-		blocks: castArray( blocks ),
-		index,
-		rootClientId,
-		time: Date.now(),
-	};
-}
-
-/**
- * Returns an action object used in signalling that the insertion point should
- * be shown.
- *
- * @param {?string} rootClientId Optional root client ID of block list on
- *                               which to insert.
- * @param {?number} index        Index at which block should be inserted.
- *
- * @return {Object} Action object.
- */
-export function showInsertionPoint( rootClientId, index ) {
-	return {
-		type: 'SHOW_INSERTION_POINT',
-		rootClientId,
-		index,
-	};
-}
-
-/**
- * Returns an action object hiding the insertion point.
- *
- * @return {Object} Action object.
- */
-export function hideInsertionPoint() {
-	return {
-		type: 'HIDE_INSERTION_POINT',
-	};
-}
-
-/**
- * Returns an action object resetting the template validity.
- *
- * @param {boolean}  isValid  template validity flag.
- *
- * @return {Object} Action object.
- */
-export function setTemplateValidity( isValid ) {
-	return {
-		type: 'SET_TEMPLATE_VALIDITY',
-		isValid,
-	};
-}
-
-/**
- * Returns an action object synchronize the template with the list of blocks
- *
- * @return {Object} Action object.
- */
-export function synchronizeTemplate() {
-	return {
-		type: 'SYNCHRONIZE_TEMPLATE',
-	};
-}
-
-export function editPost( edits ) {
-	return {
-		type: 'EDIT_POST',
+	yield dispatch(
+		'core',
+		'saveEntityRecord',
+		'postType',
+		previousRecord.type,
 		edits,
-	};
+		options
+	);
+	yield __experimentalRequestPostUpdateFinish( options );
+
+	const error = yield select(
+		'core',
+		'getLastEntitySaveError',
+		'postType',
+		previousRecord.type,
+		previousRecord.id
+	);
+	if ( error ) {
+		const args = getNotificationArgumentsForSaveFail( {
+			post: previousRecord,
+			edits,
+			error,
+		} );
+		if ( args.length ) {
+			yield dispatch( 'core/notices', 'createErrorNotice', ...args );
+		}
+	} else {
+		const updatedRecord = yield select( STORE_KEY, 'getCurrentPost' );
+		const args = getNotificationArgumentsForSaveSuccess( {
+			previousPost: previousRecord,
+			post: updatedRecord,
+			postType: yield select( 'core', 'getPostType', updatedRecord.type ),
+			options,
+		} );
+		if ( args.length ) {
+			yield dispatch( 'core/notices', 'createSuccessNotice', ...args );
+		}
+		// Make sure that any edits after saving create an undo level and are
+		// considered for change detection.
+		if ( ! options.isAutosave ) {
+			yield dispatch(
+				'core/block-editor',
+				'__unstableMarkLastChangeAsPersistent'
+			);
+		}
+	}
 }
 
 /**
- * Returns an action object to save the post.
- *
- * @param {Object}  options          Options for the save.
- * @param {boolean} options.autosave Perform an autosave if true.
- *
- * @return {Object} Action object.
+ * Action generator for handling refreshing the current post.
  */
-export function savePost( options = {} ) {
-	return {
-		type: 'REQUEST_POST_UPDATE',
-		options,
-	};
-}
-
-export function refreshPost() {
-	return {
-		type: 'REFRESH_POST',
-	};
-}
-
-export function trashPost( postId, postType ) {
-	return {
-		type: 'TRASH_POST',
-		postId,
-		postType,
-	};
+export function* refreshPost() {
+	const post = yield select( STORE_KEY, 'getCurrentPost' );
+	const postTypeSlug = yield select( STORE_KEY, 'getCurrentPostType' );
+	const postType = yield select( 'core', 'getPostType', postTypeSlug );
+	const newPost = yield apiFetch( {
+		// Timestamp arg allows caller to bypass browser caching, which is
+		// expected for this specific function.
+		path:
+			`/wp/v2/${ postType.rest_base }/${ post.id }` +
+			`?context=edit&_timestamp=${ Date.now() }`,
+	} );
+	yield dispatch( STORE_KEY, 'resetPost', newPost );
 }
 
 /**
- * Returns an action object used in signalling that two blocks should be merged
- *
- * @param {string} firstBlockClientId  Client ID of the first block to merge.
- * @param {string} secondBlockClientId Client ID of the second block to merge.
- *
- * @return {Object} Action object.
+ * Action generator for trashing the current post in the editor.
  */
-export function mergeBlocks( firstBlockClientId, secondBlockClientId ) {
-	return {
-		type: 'MERGE_BLOCKS',
-		blocks: [ firstBlockClientId, secondBlockClientId ],
-	};
+export function* trashPost() {
+	const postTypeSlug = yield select( STORE_KEY, 'getCurrentPostType' );
+	const postType = yield select( 'core', 'getPostType', postTypeSlug );
+	yield dispatch( 'core/notices', 'removeNotice', TRASH_POST_NOTICE_ID );
+	try {
+		const post = yield select( STORE_KEY, 'getCurrentPost' );
+		yield apiFetch( {
+			path: `/wp/v2/${ postType.rest_base }/${ post.id }`,
+			method: 'DELETE',
+		} );
+
+		yield dispatch( STORE_KEY, 'savePost' );
+	} catch ( error ) {
+		yield dispatch(
+			'core/notices',
+			'createErrorNotice',
+			...getNotificationArgumentsForTrashFail( { error } )
+		);
+	}
 }
 
 /**
- * Returns an action object used in signalling that the post should autosave.
+ * Action generator used in signalling that the post should autosave.
  *
- * @return {Object} Action object.
+ * @param {Object?} options Extra flags to identify the autosave.
  */
-export function autosave() {
-	return savePost( { autosave: true } );
+export function* autosave( options ) {
+	yield dispatch( STORE_KEY, 'savePost', { isAutosave: true, ...options } );
+}
+
+export function* __experimentalLocalAutosave() {
+	const post = yield select( STORE_KEY, 'getCurrentPost' );
+	const title = yield select( STORE_KEY, 'getEditedPostAttribute', 'title' );
+	const content = yield select(
+		STORE_KEY,
+		'getEditedPostAttribute',
+		'content'
+	);
+	const excerpt = yield select(
+		STORE_KEY,
+		'getEditedPostAttribute',
+		'excerpt'
+	);
+	yield {
+		type: 'LOCAL_AUTOSAVE_SET',
+		postId: post.id,
+		title,
+		content,
+		excerpt,
+	};
 }
 
 /**
  * Returns an action object used in signalling that undo history should
  * restore last popped state.
  *
- * @return {Object} Action object.
+ * @yield {Object} Action object.
  */
-export function redo() {
-	return { type: 'REDO' };
+export function* redo() {
+	yield dispatch( 'core', 'redo' );
 }
 
 /**
  * Returns an action object used in signalling that undo history should pop.
  *
- * @return {Object} Action object.
+ * @yield {Object} Action object.
  */
-export function undo() {
-	return { type: 'UNDO' };
+export function* undo() {
+	yield dispatch( 'core', 'undo' );
 }
 
 /**
@@ -468,97 +394,6 @@ export function undo() {
  */
 export function createUndoLevel() {
 	return { type: 'CREATE_UNDO_LEVEL' };
-}
-
-/**
- * Returns an action object used in signalling that the blocks corresponding to
- * the set of specified client IDs are to be removed.
- *
- * @param {string|string[]} clientIds      Client IDs of blocks to remove.
- * @param {boolean}         selectPrevious True if the previous block should be
- *                                         selected when a block is removed.
- *
- * @return {Object} Action object.
- */
-export function removeBlocks( clientIds, selectPrevious = true ) {
-	return {
-		type: 'REMOVE_BLOCKS',
-		clientIds: castArray( clientIds ),
-		selectPrevious,
-	};
-}
-
-/**
- * Returns an action object used in signalling that the block with the
- * specified client ID is to be removed.
- *
- * @param {string}  clientId       Client ID of block to remove.
- * @param {boolean} selectPrevious True if the previous block should be
- *                                 selected when a block is removed.
- *
- * @return {Object} Action object.
- */
-export function removeBlock( clientId, selectPrevious ) {
-	return removeBlocks( [ clientId ], selectPrevious );
-}
-
-/**
- * Returns an action object used to toggle the block editing mode between
- * visual and HTML modes.
- *
- * @param {string} clientId Block client ID.
- *
- * @return {Object} Action object.
- */
-export function toggleBlockMode( clientId ) {
-	return {
-		type: 'TOGGLE_BLOCK_MODE',
-		clientId,
-	};
-}
-
-/**
- * Returns an action object used in signalling that the user has begun to type.
- *
- * @return {Object} Action object.
- */
-export function startTyping() {
-	return {
-		type: 'START_TYPING',
-	};
-}
-
-/**
- * Returns an action object used in signalling that the user has stopped typing.
- *
- * @return {Object} Action object.
- */
-export function stopTyping() {
-	return {
-		type: 'STOP_TYPING',
-	};
-}
-
-/**
- * Returns an action object used in signalling that the caret has entered formatted text.
- *
- * @return {Object} Action object.
- */
-export function enterFormattedText() {
-	return {
-		type: 'ENTER_FORMATTED_TEXT',
-	};
-}
-
-/**
- * Returns an action object used in signalling that the user caret has exited formatted text.
- *
- * @return {Object} Action object.
- */
-export function exitFormattedText() {
-	return {
-		type: 'EXIT_FORMATTED_TEXT',
-	};
 }
 
 /**
@@ -638,24 +473,25 @@ export function __experimentalDeleteReusableBlock( id ) {
 }
 
 /**
- * Returns an action object used in signalling that a reusable block's title is
+ * Returns an action object used in signalling that a reusable block is
  * to be updated.
  *
- * @param {number} id    The ID of the reusable block to update.
- * @param {string} title The new title.
+ * @param {number} id      The ID of the reusable block to update.
+ * @param {Object} changes The changes to apply.
  *
  * @return {Object} Action object.
  */
-export function __experimentalUpdateReusableBlockTitle( id, title ) {
+export function __experimentalUpdateReusableBlock( id, changes ) {
 	return {
-		type: 'UPDATE_REUSABLE_BLOCK_TITLE',
+		type: 'UPDATE_REUSABLE_BLOCK',
 		id,
-		title,
+		changes,
 	};
 }
 
 /**
- * Returns an action object used to convert a reusable block into a static block.
+ * Returns an action object used to convert a reusable block into a static
+ * block.
  *
  * @param {string} clientId The client ID of the block to attach.
  *
@@ -669,7 +505,8 @@ export function __experimentalConvertBlockToStatic( clientId ) {
 }
 
 /**
- * Returns an action object used to convert a static block into a reusable block.
+ * Returns an action object used to convert a static block into a reusable
+ * block.
  *
  * @param {string} clientIds The client IDs of the block to detach.
  *
@@ -681,56 +518,10 @@ export function __experimentalConvertBlockToReusable( clientIds ) {
 		clientIds: castArray( clientIds ),
 	};
 }
-/**
- * Returns an action object used in signalling that a new block of the default
- * type should be added to the block list.
- *
- * @param {?Object} attributes   Optional attributes of the block to assign.
- * @param {?string} rootClientId Optional root client ID of block list on which
- *                               to append.
- * @param {?number} index        Optional index where to insert the default block
- *
- * @return {Object} Action object
- */
-export function insertDefaultBlock( attributes, rootClientId, index ) {
-	const block = createBlock( getDefaultBlockName(), attributes );
-
-	return insertBlock( block, index, rootClientId );
-}
 
 /**
- * Returns an action object that changes the nested settings of a given block.
- *
- * @param {string} clientId Client ID of the block whose nested setting are
- *                          being received.
- * @param {Object} settings Object with the new settings for the nested block.
- *
- * @return {Object} Action object
- */
-export function updateBlockListSettings( clientId, settings ) {
-	return {
-		type: 'UPDATE_BLOCK_LIST_SETTINGS',
-		clientId,
-		settings,
-	};
-}
-
-/*
- * Returns an action object used in signalling that the editor settings have been updated.
- *
- * @param {Object} settings Updated settings
- *
- * @return {Object} Action object
- */
-export function updateEditorSettings( settings ) {
-	return {
-		type: 'UPDATE_EDITOR_SETTINGS',
-		settings,
-	};
-}
-
-/**
- * Returns an action object used in signalling that the user has enabled the publish sidebar.
+ * Returns an action object used in signalling that the user has enabled the
+ * publish sidebar.
  *
  * @return {Object} Action object
  */
@@ -741,7 +532,8 @@ export function enablePublishSidebar() {
 }
 
 /**
- * Returns an action object used in signalling that the user has disabled the publish sidebar.
+ * Returns an action object used in signalling that the user has disabled the
+ * publish sidebar.
  *
  * @return {Object} Action object
  */
@@ -755,6 +547,42 @@ export function disablePublishSidebar() {
  * Returns an action object used to signal that post saving is locked.
  *
  * @param  {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * const { subscribe } = wp.data;
+ *
+ * const initialPostStatus = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+ *
+ * // Only allow publishing posts that are set to a future date.
+ * if ( 'publish' !== initialPostStatus ) {
+ *
+ * 	// Track locking.
+ * 	let locked = false;
+ *
+ * 	// Watch for the publish event.
+ * 	let unssubscribe = subscribe( () => {
+ * 		const currentPostStatus = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+ * 		if ( 'publish' !== currentPostStatus ) {
+ *
+ * 			// Compare the post date to the current date, lock the post if the date isn't in the future.
+ * 			const postDate = new Date( wp.data.select( 'core/editor' ).getEditedPostAttribute( 'date' ) );
+ * 			const currentDate = new Date();
+ * 			if ( postDate.getTime() <= currentDate.getTime() ) {
+ * 				if ( ! locked ) {
+ * 					locked = true;
+ * 					wp.data.dispatch( 'core/editor' ).lockPostSaving( 'futurelock' );
+ * 				}
+ * 			} else {
+ * 				if ( locked ) {
+ * 					locked = false;
+ * 					wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'futurelock' );
+ * 				}
+ * 			}
+ * 		}
+ * 	} );
+ * }
+ * ```
  *
  * @return {Object} Action object
  */
@@ -770,6 +598,12 @@ export function lockPostSaving( lockName ) {
  *
  * @param  {string} lockName The lock name.
  *
+ * @example
+ * ```
+ * // Unlock post saving with the lock key `mylock`:
+ * wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
+ * ```
+ *
  * @return {Object} Action object
  */
 export function unlockPostSaving( lockName ) {
@@ -779,112 +613,279 @@ export function unlockPostSaving( lockName ) {
 	};
 }
 
-//
-// Deprecated
-//
-
-export function createNotice( status, content, options ) {
-	deprecated( 'createNotice action (`core/editor` store)', {
-		alternative: 'createNotice action (`core/notices` store)',
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-	} );
-
-	dispatch( 'core/notices' ).createNotice( status, content, options );
-
-	return { type: '__INERT__' };
+/**
+ * Returns an action object used to signal that post autosaving is locked.
+ *
+ * @param  {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * // Lock post autosaving with the lock key `mylock`:
+ * wp.data.dispatch( 'core/editor' ).lockPostAutosaving( 'mylock' );
+ * ```
+ *
+ * @return {Object} Action object
+ */
+export function lockPostAutosaving( lockName ) {
+	return {
+		type: 'LOCK_POST_AUTOSAVING',
+		lockName,
+	};
 }
 
-export function removeNotice( id ) {
-	deprecated( 'removeNotice action (`core/editor` store)', {
-		alternative: 'removeNotice action (`core/notices` store)',
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-	} );
-
-	dispatch( 'core/notices' ).removeNotice( id );
-
-	return { type: '__INERT__' };
+/**
+ * Returns an action object used to signal that post autosaving is unlocked.
+ *
+ * @param  {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * // Unlock post saving with the lock key `mylock`:
+ * wp.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
+ * ```
+ *
+ * @return {Object} Action object
+ */
+export function unlockPostAutosaving( lockName ) {
+	return {
+		type: 'UNLOCK_POST_AUTOSAVING',
+		lockName,
+	};
 }
 
-export const createSuccessNotice = partial( createNotice, 'success' );
-export const createInfoNotice = partial( createNotice, 'info' );
-export const createErrorNotice = partial( createNotice, 'error' );
-export const createWarningNotice = partial( createNotice, 'warning' );
+/**
+ * Returns an action object used to signal that the blocks have been updated.
+ *
+ * @param {Array}   blocks  Block Array.
+ * @param {?Object} options Optional options.
+ *
+ * @yield {Object} Action object
+ */
+export function* resetEditorBlocks( blocks, options = {} ) {
+	const {
+		__unstableShouldCreateUndoLevel,
+		selectionStart,
+		selectionEnd,
+	} = options;
+	const edits = { blocks, selectionStart, selectionEnd };
 
-//
-// Deprecated
-//
+	if ( __unstableShouldCreateUndoLevel !== false ) {
+		const { id, type } = yield select( STORE_KEY, 'getCurrentPost' );
+		const noChange =
+			( yield select(
+				'core',
+				'getEditedEntityRecord',
+				'postType',
+				type,
+				id
+			) ).blocks === edits.blocks;
+		if ( noChange ) {
+			return yield dispatch(
+				'core',
+				'__unstableCreateUndoLevel',
+				'postType',
+				type,
+				id
+			);
+		}
 
-export function fetchReusableBlocks( id ) {
-	deprecated( "wp.data.dispatch( 'core/editor' ).fetchReusableBlocks( id )", {
-		alternative: "wp.data.select( 'core' ).getEntityRecords( 'postType', 'wp_block' )",
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-	} );
-
-	return __experimentalFetchReusableBlocks( id );
+		// We create a new function here on every persistent edit
+		// to make sure the edit makes the post dirty and creates
+		// a new undo level.
+		edits.content = ( { blocks: blocksForSerialization = [] } ) =>
+			serializeBlocks( blocksForSerialization );
+	}
+	yield* editPost( edits );
 }
 
-export function receiveReusableBlocks( results ) {
-	deprecated( "wp.data.dispatch( 'core/editor' ).receiveReusableBlocks( results )", {
-		alternative: "wp.data.select( 'core' ).getEntityRecords( 'postType', 'wp_block' )",
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-	} );
-
-	return __experimentalReceiveReusableBlocks( results );
+/*
+ * Returns an action object used in signalling that the post editor settings have been updated.
+ *
+ * @param {Object} settings Updated settings
+ *
+ * @return {Object} Action object
+ */
+export function updateEditorSettings( settings ) {
+	return {
+		type: 'UPDATE_EDITOR_SETTINGS',
+		settings,
+	};
 }
 
-export function saveReusableBlock( id ) {
-	deprecated( "wp.data.dispatch( 'core/editor' ).saveReusableBlock( id )", {
-		alternative: "wp.data.dispatch( 'core' ).saveEntityRecord( 'postType', 'wp_block', reusableBlock )",
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-	} );
+/**
+ * Backward compatibility
+ */
 
-	return __experimentalSaveReusableBlock( id );
-}
+const getBlockEditorAction = ( name ) =>
+	function*( ...args ) {
+		deprecated( "`wp.data.dispatch( 'core/editor' )." + name + '`', {
+			alternative:
+				"`wp.data.dispatch( 'core/block-editor' )." + name + '`',
+		} );
+		yield dispatch( 'core/block-editor', name, ...args );
+	};
 
-export function deleteReusableBlock( id ) {
-	deprecated( 'deleteReusableBlock action (`core/editor` store)', {
-		alternative: '__experimentalDeleteReusableBlock action (`core/edtior` store)',
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-		hint: 'Using experimental APIs is strongly discouraged as they are subject to removal without notice.',
-	} );
+/**
+ * @see resetBlocks in core/block-editor store.
+ */
+export const resetBlocks = getBlockEditorAction( 'resetBlocks' );
 
-	return __experimentalDeleteReusableBlock( id );
-}
+/**
+ * @see receiveBlocks in core/block-editor store.
+ */
+export const receiveBlocks = getBlockEditorAction( 'receiveBlocks' );
 
-export function updateReusableBlockTitle( id, title ) {
-	deprecated( "wp.data.dispatch( 'core/editor' ).updateReusableBlockTitle( id, title )", {
-		alternative: "wp.data.dispatch( 'core' ).saveEntityRecord( 'postType', 'wp_block', reusableBlock )",
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-	} );
+/**
+ * @see updateBlock in core/block-editor store.
+ */
+export const updateBlock = getBlockEditorAction( 'updateBlock' );
 
-	return __experimentalUpdateReusableBlockTitle( id, title );
-}
+/**
+ * @see updateBlockAttributes in core/block-editor store.
+ */
+export const updateBlockAttributes = getBlockEditorAction(
+	'updateBlockAttributes'
+);
 
-export function convertBlockToStatic( id ) {
-	deprecated( 'convertBlockToStatic action (`core/editor` store)', {
-		alternative: '__experimentalConvertBlockToStatic action (`core/edtior` store)',
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-		hint: 'Using experimental APIs is strongly discouraged as they are subject to removal without notice.',
-	} );
+/**
+ * @see selectBlock in core/block-editor store.
+ */
+export const selectBlock = getBlockEditorAction( 'selectBlock' );
 
-	return __experimentalConvertBlockToStatic( id );
-}
+/**
+ * @see startMultiSelect in core/block-editor store.
+ */
+export const startMultiSelect = getBlockEditorAction( 'startMultiSelect' );
 
-export function convertBlockToReusable( id ) {
-	deprecated( 'convertBlockToReusable action (`core/editor` store)', {
-		alternative: '__experimentalConvertBlockToReusable action (`core/edtior` store)',
-		plugin: 'Gutenberg',
-		version: '4.4.0',
-		hint: 'Using experimental APIs is strongly discouraged as they are subject to removal without notice.',
-	} );
+/**
+ * @see stopMultiSelect in core/block-editor store.
+ */
+export const stopMultiSelect = getBlockEditorAction( 'stopMultiSelect' );
 
-	return __experimentalConvertBlockToReusable( id );
-}
+/**
+ * @see multiSelect in core/block-editor store.
+ */
+export const multiSelect = getBlockEditorAction( 'multiSelect' );
+
+/**
+ * @see clearSelectedBlock in core/block-editor store.
+ */
+export const clearSelectedBlock = getBlockEditorAction( 'clearSelectedBlock' );
+
+/**
+ * @see toggleSelection in core/block-editor store.
+ */
+export const toggleSelection = getBlockEditorAction( 'toggleSelection' );
+
+/**
+ * @see replaceBlocks in core/block-editor store.
+ */
+export const replaceBlocks = getBlockEditorAction( 'replaceBlocks' );
+
+/**
+ * @see replaceBlock in core/block-editor store.
+ */
+export const replaceBlock = getBlockEditorAction( 'replaceBlock' );
+
+/**
+ * @see moveBlocksDown in core/block-editor store.
+ */
+export const moveBlocksDown = getBlockEditorAction( 'moveBlocksDown' );
+
+/**
+ * @see moveBlocksUp in core/block-editor store.
+ */
+export const moveBlocksUp = getBlockEditorAction( 'moveBlocksUp' );
+
+/**
+ * @see moveBlockToPosition in core/block-editor store.
+ */
+export const moveBlockToPosition = getBlockEditorAction(
+	'moveBlockToPosition'
+);
+
+/**
+ * @see insertBlock in core/block-editor store.
+ */
+export const insertBlock = getBlockEditorAction( 'insertBlock' );
+
+/**
+ * @see insertBlocks in core/block-editor store.
+ */
+export const insertBlocks = getBlockEditorAction( 'insertBlocks' );
+
+/**
+ * @see showInsertionPoint in core/block-editor store.
+ */
+export const showInsertionPoint = getBlockEditorAction( 'showInsertionPoint' );
+
+/**
+ * @see hideInsertionPoint in core/block-editor store.
+ */
+export const hideInsertionPoint = getBlockEditorAction( 'hideInsertionPoint' );
+
+/**
+ * @see setTemplateValidity in core/block-editor store.
+ */
+export const setTemplateValidity = getBlockEditorAction(
+	'setTemplateValidity'
+);
+
+/**
+ * @see synchronizeTemplate in core/block-editor store.
+ */
+export const synchronizeTemplate = getBlockEditorAction(
+	'synchronizeTemplate'
+);
+
+/**
+ * @see mergeBlocks in core/block-editor store.
+ */
+export const mergeBlocks = getBlockEditorAction( 'mergeBlocks' );
+
+/**
+ * @see removeBlocks in core/block-editor store.
+ */
+export const removeBlocks = getBlockEditorAction( 'removeBlocks' );
+
+/**
+ * @see removeBlock in core/block-editor store.
+ */
+export const removeBlock = getBlockEditorAction( 'removeBlock' );
+
+/**
+ * @see toggleBlockMode in core/block-editor store.
+ */
+export const toggleBlockMode = getBlockEditorAction( 'toggleBlockMode' );
+
+/**
+ * @see startTyping in core/block-editor store.
+ */
+export const startTyping = getBlockEditorAction( 'startTyping' );
+
+/**
+ * @see stopTyping in core/block-editor store.
+ */
+export const stopTyping = getBlockEditorAction( 'stopTyping' );
+
+/**
+ * @see enterFormattedText in core/block-editor store.
+ */
+export const enterFormattedText = getBlockEditorAction( 'enterFormattedText' );
+
+/**
+ * @see exitFormattedText in core/block-editor store.
+ */
+export const exitFormattedText = getBlockEditorAction( 'exitFormattedText' );
+
+/**
+ * @see insertDefaultBlock in core/block-editor store.
+ */
+export const insertDefaultBlock = getBlockEditorAction( 'insertDefaultBlock' );
+
+/**
+ * @see updateBlockListSettings in core/block-editor store.
+ */
+export const updateBlockListSettings = getBlockEditorAction(
+	'updateBlockListSettings'
+);

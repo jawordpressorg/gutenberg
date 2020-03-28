@@ -2,8 +2,8 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { IconButton, Dropdown, MenuGroup } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
+import { DropdownMenu, MenuGroup } from '@wordpress/components';
+import { moreVertical } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -14,34 +14,34 @@ import ToolsMoreMenuGroup from '../tools-more-menu-group';
 import OptionsMenuItem from '../options-menu-item';
 import WritingMenu from '../writing-menu';
 
-const ariaClosed = __( 'Show more tools & options' );
-const ariaOpen = __( 'Hide more tools & options' );
+const POPOVER_PROPS = {
+	className: 'edit-post-more-menu__content',
+	position: 'bottom left',
+};
+const TOGGLE_PROPS = {
+	tooltipPosition: 'bottom',
+};
 
 const MoreMenu = () => (
-	<Dropdown
+	<DropdownMenu
 		className="edit-post-more-menu"
-		contentClassName="edit-post-more-menu__content"
-		position="bottom left"
-		renderToggle={ ( { isOpen, onToggle } ) => (
-			<IconButton
-				icon="ellipsis"
-				label={ isOpen ? ariaOpen : ariaClosed }
-				onClick={ onToggle }
-				aria-expanded={ isOpen }
-			/>
-		) }
-		renderContent={ ( { onClose } ) => (
-			<Fragment>
-				<WritingMenu onClose={ onClose } />
-				<ModeSwitcher onSelect={ onClose } />
+		icon={ moreVertical }
+		label={ __( 'More tools & options' ) }
+		popoverProps={ POPOVER_PROPS }
+		toggleProps={ TOGGLE_PROPS }
+	>
+		{ ( { onClose } ) => (
+			<>
+				<WritingMenu />
+				<ModeSwitcher />
 				<PluginMoreMenuGroup.Slot fillProps={ { onClose } } />
 				<ToolsMoreMenuGroup.Slot fillProps={ { onClose } } />
 				<MenuGroup>
-					<OptionsMenuItem onSelect={ onClose } />
+					<OptionsMenuItem />
 				</MenuGroup>
-			</Fragment>
+			</>
 		) }
-	/>
+	</DropdownMenu>
 );
 
 export default MoreMenu;

@@ -2,64 +2,66 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import {
-	get,
-	isEmpty,
-	map,
-	pick,
-	startCase,
-	keyBy,
-} from 'lodash';
+import { get, filter, map, last, omit, pick } from 'lodash';
 
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Component, Fragment } from '@wordpress/element';
-import { getBlobByURL, revokeBlobURL, isBlobURL } from '@wordpress/blob';
+import { getBlobByURL, isBlobURL, revokeBlobURL } from '@wordpress/blob';
 import {
-	Button,
-	ButtonGroup,
-	IconButton,
+	ExternalLink,
 	PanelBody,
 	ResizableBox,
-	SelectControl,
-	TextControl,
+	Spinner,
 	TextareaControl,
-	Toolbar,
+	TextControl,
+	ToolbarGroup,
 	withNotices,
-	ToggleControl,
 } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
-import {
-	RichText,
-	BlockControls,
-	InspectorControls,
-	MediaPlaceholder,
-	MediaUpload,
-	BlockAlignmentToolbar,
-	mediaUpload,
-} from '@wordpress/editor';
-import { withViewportMatch } from '@wordpress/viewport';
 import { compose } from '@wordpress/compose';
+import { withSelect, withDispatch } from '@wordpress/data';
+import {
+	BlockAlignmentToolbar,
+	BlockControls,
+	BlockIcon,
+	InspectorControls,
+	InspectorAdvancedControls,
+	MediaPlaceholder,
+	MediaReplaceFlow,
+	RichText,
+	__experimentalBlock as Block,
+	__experimentalImageSizeControl as ImageSizeControl,
+	__experimentalImageURLInputUI as ImageURLInputUI,
+} from '@wordpress/block-editor';
+import { Component } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
+import { getPath } from '@wordpress/url';
+import { withViewportMatch } from '@wordpress/viewport';
+import { image as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
+import { createUpgradedEmbedBlock } from '../embed/util';
 import ImageSize from './image-size';
-
 /**
  * Module constants
  */
-const MIN_SIZE = 20;
-const LINK_DESTINATION_NONE = 'none';
-const LINK_DESTINATION_MEDIA = 'media';
-const LINK_DESTINATION_ATTACHMENT = 'attachment';
-const LINK_DESTINATION_CUSTOM = 'custom';
-const ALLOWED_MEDIA_TYPES = [ 'image' ];
+import {
+	MIN_SIZE,
+	LINK_DESTINATION_MEDIA,
+	LINK_DESTINATION_ATTACHMENT,
+	ALLOWED_MEDIA_TYPES,
+	DEFAULT_SIZE_SLUG,
+} from './constants';
 
 export const pickRelevantMediaFiles = ( image ) => {
-	return pick( image, [ 'alt', 'id', 'link', 'url', 'caption' ] );
+	const imageProps = pick( image, [ 'alt', 'id', 'link', 'caption' ] );
+	imageProps.url =
+		get( image, [ 'sizes', 'large', 'url' ] ) ||
+		get( image, [ 'media_details', 'sizes', 'large', 'source_url' ] ) ||
+		image.url;
+	return imageProps;
 };
 
 /**
@@ -84,8 +86,8 @@ const isTemporaryImage = ( id, url ) => ! id && isBlobURL( url );
  */
 const isExternalImage = ( id, url ) => url && ! id && ! isBlobURL( url );
 
-class ImageEdit extends Component {
-	constructor( { attributes } ) {
+export class ImageEdit extends Component {
+	constructor() {
 		super( ...arguments );
 		this.updateAlt = this.updateAlt.bind( this );
 		this.updateAlignment = this.updateAlignment.bind( this );
@@ -93,22 +95,20 @@ class ImageEdit extends Component {
 		this.onImageClick = this.onImageClick.bind( this );
 		this.onSelectImage = this.onSelectImage.bind( this );
 		this.onSelectURL = this.onSelectURL.bind( this );
-		this.updateImageURL = this.updateImageURL.bind( this );
-		this.updateWidth = this.updateWidth.bind( this );
-		this.updateHeight = this.updateHeight.bind( this );
-		this.updateDimensions = this.updateDimensions.bind( this );
-		this.onSetCustomHref = this.onSetCustomHref.bind( this );
-		this.onSetLinkDestination = this.onSetLinkDestination.bind( this );
-		this.toggleIsEditing = this.toggleIsEditing.bind( this );
+		this.updateImage = this.updateImage.bind( this );
+		this.onSetHref = this.onSetHref.bind( this );
+		this.onSetTitle = this.onSetTitle.bind( this );
+		this.getFilename = this.getFilename.bind( this );
+		this.onUploadError = this.onUploadError.bind( this );
+		this.onImageError = this.onImageError.bind( this );
 
 		this.state = {
 			captionFocused: false,
-			isEditing: ! attributes.url,
 		};
 	}
 
 	componentDidMount() {
-		const { attributes, setAttributes } = this.props;
+		const { attributes, mediaUpload, noticeOperations } = this.props;
 		const { id, url = '' } = attributes;
 
 		if ( isTemporaryImage( id, url ) ) {
@@ -118,9 +118,12 @@ class ImageEdit extends Component {
 				mediaUpload( {
 					filesList: [ file ],
 					onFileChange: ( [ image ] ) => {
-						setAttributes( pickRelevantMediaFiles( image ) );
+						this.onSelectImage( image );
 					},
 					allowedTypes: ALLOWED_MEDIA_TYPES,
+					onError: ( message ) => {
+						noticeOperations.createErrorNotice( message );
+					},
 				} );
 			}
 		}
@@ -130,15 +133,28 @@ class ImageEdit extends Component {
 		const { id: prevID, url: prevURL = '' } = prevProps.attributes;
 		const { id, url = '' } = this.props.attributes;
 
-		if ( isTemporaryImage( prevID, prevURL ) && ! isTemporaryImage( id, url ) ) {
+		if (
+			isTemporaryImage( prevID, prevURL ) &&
+			! isTemporaryImage( id, url )
+		) {
 			revokeBlobURL( url );
 		}
 
-		if ( ! this.props.isSelected && prevProps.isSelected && this.state.captionFocused ) {
+		if (
+			! this.props.isSelected &&
+			prevProps.isSelected &&
+			this.state.captionFocused
+		) {
 			this.setState( {
 				captionFocused: false,
 			} );
 		}
+	}
+
+	onUploadError( message ) {
+		const { noticeOperations } = this.props;
+		noticeOperations.removeAllNotices();
+		noticeOperations.createErrorNotice( message );
 	}
 
 	onSelectImage( media ) {
@@ -147,38 +163,64 @@ class ImageEdit extends Component {
 				url: undefined,
 				alt: undefined,
 				id: undefined,
+				title: undefined,
 				caption: undefined,
 			} );
 			return;
 		}
 
-		this.setState( {
-			isEditing: false,
-		} );
+		const {
+			id,
+			url,
+			alt,
+			caption,
+			linkDestination,
+		} = this.props.attributes;
 
-		this.props.setAttributes( {
-			...pickRelevantMediaFiles( media ),
-			width: undefined,
-			height: undefined,
-		} );
-	}
+		let mediaAttributes = pickRelevantMediaFiles( media );
 
-	onSetLinkDestination( value ) {
-		let href;
+		// If the current image is temporary but an alt text was meanwhile written by the user,
+		// make sure the text is not overwritten.
+		if ( isTemporaryImage( id, url ) ) {
+			if ( alt ) {
+				mediaAttributes = omit( mediaAttributes, [ 'alt' ] );
+			}
+		}
 
-		if ( value === LINK_DESTINATION_NONE ) {
-			href = undefined;
-		} else if ( value === LINK_DESTINATION_MEDIA ) {
-			href = ( this.props.image && this.props.image.source_url ) || this.props.attributes.url;
-		} else if ( value === LINK_DESTINATION_ATTACHMENT ) {
-			href = this.props.image && this.props.image.link;
+		// If a caption text was meanwhile written by the user,
+		// make sure the text is not overwritten by empty captions
+		if ( caption && ! get( mediaAttributes, [ 'caption' ] ) ) {
+			mediaAttributes = omit( mediaAttributes, [ 'caption' ] );
+		}
+
+		let additionalAttributes;
+		// Reset the dimension attributes if changing to a different image.
+		if ( ! media.id || media.id !== id ) {
+			additionalAttributes = {
+				width: undefined,
+				height: undefined,
+				sizeSlug: DEFAULT_SIZE_SLUG,
+			};
 		} else {
-			href = this.props.attributes.href;
+			// Keep the same url when selecting the same file, so "Image Size" option is not changed.
+			additionalAttributes = { url };
+		}
+
+		// Check if the image is linked to it's media.
+		if ( linkDestination === LINK_DESTINATION_MEDIA ) {
+			// Update the media link.
+			mediaAttributes.href = media.url;
+		}
+
+		// Check if the image is linked to the attachment page.
+		if ( linkDestination === LINK_DESTINATION_ATTACHMENT ) {
+			// Update the media link.
+			mediaAttributes.href = media.link;
 		}
 
 		this.props.setAttributes( {
-			linkDestination: value,
-			href,
+			...mediaAttributes,
+			...additionalAttributes,
 		} );
 	}
 
@@ -189,16 +231,26 @@ class ImageEdit extends Component {
 			this.props.setAttributes( {
 				url: newURL,
 				id: undefined,
+				sizeSlug: DEFAULT_SIZE_SLUG,
 			} );
 		}
-
-		this.setState( {
-			isEditing: false,
-		} );
 	}
 
-	onSetCustomHref( value ) {
-		this.props.setAttributes( { href: value } );
+	onImageError( url ) {
+		// Check if there's an embed block that handles this URL.
+		const embedBlock = createUpgradedEmbedBlock( { attributes: { url } } );
+		if ( undefined !== embedBlock ) {
+			this.props.onReplace( embedBlock );
+		}
+	}
+
+	onSetHref( props ) {
+		this.props.setAttributes( props );
+	}
+
+	onSetTitle( value ) {
+		// This is the HTML title attribute, separate from the media object title
+		this.props.setAttributes( { title: value } );
 	}
 
 	onFocusCaption() {
@@ -222,51 +274,55 @@ class ImageEdit extends Component {
 	}
 
 	updateAlignment( nextAlign ) {
-		const extraUpdatedAttributes = [ 'wide', 'full' ].indexOf( nextAlign ) !== -1 ?
-			{ width: undefined, height: undefined } :
-			{};
-		this.props.setAttributes( { ...extraUpdatedAttributes, align: nextAlign } );
-	}
-
-	updateImageURL( url ) {
-		this.props.setAttributes( { url, width: undefined, height: undefined } );
-	}
-
-	updateWidth( width ) {
-		this.props.setAttributes( { width: parseInt( width, 10 ) } );
-	}
-
-	updateHeight( height ) {
-		this.props.setAttributes( { height: parseInt( height, 10 ) } );
-	}
-
-	updateDimensions( width = undefined, height = undefined ) {
-		return () => {
-			this.props.setAttributes( { width, height } );
-		};
-	}
-
-	getImageSizes() {
-		return get( this.props.image, [ 'media_details', 'sizes' ], {} );
-	}
-
-	getLinkDestinationOptions() {
-		return [
-			{ value: LINK_DESTINATION_NONE, label: __( 'None' ) },
-			{ value: LINK_DESTINATION_MEDIA, label: __( 'Media File' ) },
-			{ value: LINK_DESTINATION_ATTACHMENT, label: __( 'Attachment Page' ) },
-			{ value: LINK_DESTINATION_CUSTOM, label: __( 'Custom URL' ) },
-		];
-	}
-
-	toggleIsEditing() {
-		this.setState( {
-			isEditing: ! this.state.isEditing,
+		const extraUpdatedAttributes =
+			[ 'wide', 'full' ].indexOf( nextAlign ) !== -1
+				? { width: undefined, height: undefined }
+				: {};
+		this.props.setAttributes( {
+			...extraUpdatedAttributes,
+			align: nextAlign,
 		} );
 	}
 
+	updateImage( sizeSlug ) {
+		const { image } = this.props;
+
+		const url = get( image, [
+			'media_details',
+			'sizes',
+			sizeSlug,
+			'source_url',
+		] );
+		if ( ! url ) {
+			return null;
+		}
+
+		this.props.setAttributes( {
+			url,
+			width: undefined,
+			height: undefined,
+			sizeSlug,
+		} );
+	}
+
+	getFilename( url ) {
+		const path = getPath( url );
+		if ( path ) {
+			return last( path.split( '/' ) );
+		}
+	}
+
+	getImageSizeOptions() {
+		const { imageSizes, image } = this.props;
+		return map(
+			filter( imageSizes, ( { slug } ) =>
+				get( image, [ 'media_details', 'sizes', slug, 'source_url' ] )
+			),
+			( { name, slug } ) => ( { value: slug, label: name } )
+		);
+	}
+
 	render() {
-		const { isEditing } = this.state;
 		const {
 			attributes,
 			setAttributes,
@@ -274,77 +330,113 @@ class ImageEdit extends Component {
 			isSelected,
 			className,
 			maxWidth,
-			noticeOperations,
 			noticeUI,
-			toggleSelection,
 			isRTL,
-			availableImageSizes,
+			onResizeStart,
+			onResizeStop,
 		} = this.props;
-		const { url, alt, caption, align, id, href, linkDestination, width, height, linkTarget } = attributes;
+		const {
+			url,
+			alt,
+			caption,
+			align,
+			id,
+			href,
+			rel,
+			linkClass,
+			linkDestination,
+			title,
+			width,
+			height,
+			linkTarget,
+			sizeSlug,
+		} = attributes;
+
 		const isExternal = isExternalImage( id, url );
-		const availableImageSizesBySlug = keyBy( availableImageSizes, 'slug' );
-
-		let toolbarEditButton;
-		if ( url ) {
-			if ( isExternal ) {
-				toolbarEditButton = (
-					<Toolbar>
-						<IconButton
-							className="components-icon-button components-toolbar__control"
-							label={ __( 'Edit image' ) }
-							onClick={ this.toggleIsEditing }
-							icon="edit"
-						/>
-					</Toolbar>
-				);
-			} else {
-				toolbarEditButton = (
-					<Toolbar>
-						<MediaUpload
-							onSelect={ this.onSelectImage }
-							allowedTypes={ ALLOWED_MEDIA_TYPES }
-							value={ id }
-							render={ ( { open } ) => (
-								<IconButton
-									className="components-toolbar__control"
-									label={ __( 'Edit image' ) }
-									icon="edit"
-									onClick={ open }
-								/>
-							) }
-						/>
-					</Toolbar>
-				);
-			}
-		}
-
 		const controls = (
 			<BlockControls>
 				<BlockAlignmentToolbar
 					value={ align }
 					onChange={ this.updateAlignment }
 				/>
-				{ toolbarEditButton }
-			</BlockControls>
-		);
-
-		if ( isEditing ) {
-			const src = isExternal ? url : undefined;
-			return (
-				<Fragment>
-					{ controls }
-					<MediaPlaceholder
-						icon="format-image"
-						className={ className }
+				{ url && (
+					<MediaReplaceFlow
+						mediaId={ id }
+						mediaURL={ url }
+						allowedTypes={ ALLOWED_MEDIA_TYPES }
+						accept="image/*"
 						onSelect={ this.onSelectImage }
 						onSelectURL={ this.onSelectURL }
-						notices={ noticeUI }
-						onError={ noticeOperations.createErrorNotice }
-						accept="image/*"
-						allowedTypes={ ALLOWED_MEDIA_TYPES }
-						value={ { id, src } }
+						onError={ this.onUploadError }
 					/>
-				</Fragment>
+				) }
+				{ url && (
+					<ToolbarGroup>
+						<ImageURLInputUI
+							url={ href || '' }
+							onChangeUrl={ this.onSetHref }
+							linkDestination={ linkDestination }
+							mediaUrl={
+								this.props.image && this.props.image.source_url
+							}
+							mediaLink={
+								this.props.image && this.props.image.link
+							}
+							linkTarget={ linkTarget }
+							linkClass={ linkClass }
+							rel={ rel }
+						/>
+					</ToolbarGroup>
+				) }
+			</BlockControls>
+		);
+		const src = isExternal ? url : undefined;
+		const mediaPreview = !! url && (
+			<img
+				alt={ __( 'Edit image' ) }
+				title={ __( 'Edit image' ) }
+				className={ 'edit-image-preview' }
+				src={ url }
+			/>
+		);
+		const needsAlignmentWrapper = [ 'center', 'left', 'right' ].includes(
+			align
+		);
+
+		const mediaPlaceholder = (
+			<MediaPlaceholder
+				icon={ <BlockIcon icon={ icon } /> }
+				onSelect={ this.onSelectImage }
+				onSelectURL={ this.onSelectURL }
+				notices={ noticeUI }
+				onError={ this.onUploadError }
+				accept="image/*"
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				value={ { id, src } }
+				mediaPreview={ mediaPreview }
+				disableMediaButtons={ url }
+			/>
+		);
+
+		if ( ! url ) {
+			return (
+				<>
+					{ controls }
+					<Block.div
+						className={ classnames( className, {
+							[ `align${ align }` ]:
+								! needsAlignmentWrapper && align,
+						} ) }
+					>
+						{ needsAlignmentWrapper ? (
+							<div className={ `align${ align }` }>
+								{ mediaPlaceholder }
+							</div>
+						) : (
+							mediaPlaceholder
+						) }
+					</Block.div>
+				</>
 			);
 		}
 
@@ -352,249 +444,297 @@ class ImageEdit extends Component {
 			'is-transient': isBlobURL( url ),
 			'is-resized': !! width || !! height,
 			'is-focused': isSelected,
+			[ `size-${ sizeSlug }` ]: sizeSlug,
+			[ `align${ align }` ]: align,
 		} );
 
-		const imageSizes = this.getImageSizes();
-		const isResizable = [ 'wide', 'full' ].indexOf( align ) === -1 && isLargeViewport;
-		const isLinkURLInputDisabled = linkDestination !== LINK_DESTINATION_CUSTOM;
+		const isResizable =
+			[ 'wide', 'full' ].indexOf( align ) === -1 && isLargeViewport;
+
+		const imageSizeOptions = this.getImageSizeOptions();
 
 		const getInspectorControls = ( imageWidth, imageHeight ) => (
-			<InspectorControls>
-				<PanelBody title={ __( 'Image Settings' ) }>
-					<TextareaControl
-						label={ __( 'Alt Text (Alternative Text)' ) }
-						value={ alt }
-						onChange={ this.updateAlt }
-						help={ __( 'Alternative text describes your image to people who can’t see it. Add a short description with its key details.' ) }
-					/>
-					{ ! isEmpty( imageSizes ) && (
-						<SelectControl
-							label={ __( 'Image Size' ) }
-							value={ url }
-							options={ map( imageSizes, ( size, slug ) => ( {
-								value: size.source_url,
-								label: availableImageSizesBySlug[ slug ] ? availableImageSizesBySlug[ slug ].name : startCase( slug ),
-							} ) ) }
-							onChange={ this.updateImageURL }
+			<>
+				<InspectorControls>
+					<PanelBody title={ __( 'Image settings' ) }>
+						<TextareaControl
+							label={ __( 'Alt text (alternative text)' ) }
+							value={ alt }
+							onChange={ this.updateAlt }
+							help={
+								<>
+									<ExternalLink href="https://www.w3.org/WAI/tutorials/images/decision-tree">
+										{ __(
+											'Describe the purpose of the image'
+										) }
+									</ExternalLink>
+									{ __(
+										'Leave empty if the image is purely decorative.'
+									) }
+								</>
+							}
 						/>
-					) }
-					{ isResizable && (
-						<div className="block-library-image__dimensions">
-							<p className="block-library-image__dimensions__row">
-								{ __( 'Image Dimensions' ) }
-							</p>
-							<div className="block-library-image__dimensions__row">
-								<TextControl
-									type="number"
-									className="block-library-image__dimensions__width"
-									label={ __( 'Width' ) }
-									value={ width !== undefined ? width : '' }
-									placeholder={ imageWidth }
-									min={ 1 }
-									onChange={ this.updateWidth }
-								/>
-								<TextControl
-									type="number"
-									className="block-library-image__dimensions__height"
-									label={ __( 'Height' ) }
-									value={ height !== undefined ? height : '' }
-									placeholder={ imageHeight }
-									min={ 1 }
-									onChange={ this.updateHeight }
-								/>
-							</div>
-							<div className="block-library-image__dimensions__row">
-								<ButtonGroup aria-label={ __( 'Image Size' ) }>
-									{ [ 25, 50, 75, 100 ].map( ( scale ) => {
-										const scaledWidth = Math.round( imageWidth * ( scale / 100 ) );
-										const scaledHeight = Math.round( imageHeight * ( scale / 100 ) );
-
-										const isCurrent = width === scaledWidth && height === scaledHeight;
-
-										return (
-											<Button
-												key={ scale }
-												isSmall
-												isPrimary={ isCurrent }
-												aria-pressed={ isCurrent }
-												onClick={ this.updateDimensions( scaledWidth, scaledHeight ) }
-											>
-												{ scale }%
-											</Button>
-										);
-									} ) }
-								</ButtonGroup>
-								<Button
-									isSmall
-									onClick={ this.updateDimensions() }
-								>
-									{ __( 'Reset' ) }
-								</Button>
-							</div>
-						</div>
-					) }
-				</PanelBody>
-				<PanelBody title={ __( 'Link Settings' ) }>
-					<SelectControl
-						label={ __( 'Link To' ) }
-						value={ linkDestination }
-						options={ this.getLinkDestinationOptions() }
-						onChange={ this.onSetLinkDestination }
+						<ImageSizeControl
+							onChangeImage={ this.updateImage }
+							onChange={ ( value ) => setAttributes( value ) }
+							slug={ sizeSlug }
+							width={ width }
+							height={ height }
+							imageSizeOptions={ imageSizeOptions }
+							isResizable={ isResizable }
+							imageWidth={ imageWidth }
+							imageHeight={ imageHeight }
+						/>
+					</PanelBody>
+				</InspectorControls>
+				<InspectorAdvancedControls>
+					<TextControl
+						label={ __( 'Title attribute' ) }
+						value={ title || '' }
+						onChange={ this.onSetTitle }
+						help={
+							<>
+								{ __(
+									'Describe the role of this image on the page.'
+								) }
+								<ExternalLink href="https://www.w3.org/TR/html52/dom.html#the-title-attribute">
+									{ __(
+										'(Note: many devices and browsers do not display this text.)'
+									) }
+								</ExternalLink>
+							</>
+						}
 					/>
-					{ linkDestination !== LINK_DESTINATION_NONE && (
-						<Fragment>
-							<TextControl
-								label={ __( 'Link URL' ) }
-								value={ href || '' }
-								onChange={ this.onSetCustomHref }
-								placeholder={ ! isLinkURLInputDisabled ? 'https://' : undefined }
-								disabled={ isLinkURLInputDisabled }
-							/>
-							<ToggleControl
-								label={ __( 'Open in New Tab' ) }
-								onChange={ () => setAttributes( { linkTarget: ! linkTarget ? '_blank' : undefined } ) }
-								checked={ linkTarget === '_blank' } />
-						</Fragment>
-					) }
-				</PanelBody>
-			</InspectorControls>
+				</InspectorAdvancedControls>
+			</>
 		);
 
 		// Disable reason: Each block can be selected by clicking on it
-		/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events */
+		/* eslint-disable jsx-a11y/click-events-have-key-events */
 		return (
-			<Fragment>
+			<>
 				{ controls }
-				<figure className={ classes }>
-					<ImageSize src={ url } dirtynessTrigger={ align }>
-						{ ( sizes ) => {
-							const {
-								imageWidthWithinContainer,
-								imageHeightWithinContainer,
-								imageWidth,
-								imageHeight,
-							} = sizes;
+				<div
+					className={
+						// Ideally these classes are not needed, and ideally, we
+						// provide an alignment wrapper component that the block
+						// can wrap around the block or we build it into
+						// Block.*.
+						needsAlignmentWrapper
+							? 'wp-block block-editor-block-list__block'
+							: undefined
+					}
+				>
+					<Block.figure className={ classes }>
+						<ImageSize src={ url } dirtynessTrigger={ align }>
+							{ ( sizes ) => {
+								const {
+									imageWidthWithinContainer,
+									imageHeightWithinContainer,
+									imageWidth,
+									imageHeight,
+								} = sizes;
 
-							// Disable reason: Image itself is not meant to be
-							// interactive, but should direct focus to block
-							// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-							const img = <img src={ url } alt={ alt } onClick={ this.onImageClick } />;
+								const filename = this.getFilename( url );
+								let defaultedAlt;
+								if ( alt ) {
+									defaultedAlt = alt;
+								} else if ( filename ) {
+									defaultedAlt = sprintf(
+										__(
+											'This image has an empty alt attribute; its file name is %s'
+										),
+										filename
+									);
+								} else {
+									defaultedAlt = __(
+										'This image has an empty alt attribute'
+									);
+								}
 
-							if ( ! isResizable || ! imageWidthWithinContainer ) {
-								return (
-									<Fragment>
-										{ getInspectorControls( imageWidth, imageHeight ) }
-										<div style={ { width, height } }>
-											{ img }
-										</div>
-									</Fragment>
+								const img = (
+									// Disable reason: Image itself is not meant to be interactive, but
+									// should direct focus to block.
+									/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+									<>
+										<img
+											src={ url }
+											alt={ defaultedAlt }
+											onClick={ this.onImageClick }
+											onError={ () =>
+												this.onImageError( url )
+											}
+										/>
+										{ isBlobURL( url ) && <Spinner /> }
+									</>
+									/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
 								);
-							}
 
-							const currentWidth = width || imageWidthWithinContainer;
-							const currentHeight = height || imageHeightWithinContainer;
-
-							const ratio = imageWidth / imageHeight;
-							const minWidth = imageWidth < imageHeight ? MIN_SIZE : MIN_SIZE * ratio;
-							const minHeight = imageHeight < imageWidth ? MIN_SIZE : MIN_SIZE / ratio;
-
-							let showRightHandle = false;
-							let showLeftHandle = false;
-
-							/* eslint-disable no-lonely-if */
-							// See https://github.com/WordPress/gutenberg/issues/7584.
-							if ( align === 'center' ) {
-								// When the image is centered, show both handles.
-								showRightHandle = true;
-								showLeftHandle = true;
-							} else if ( isRTL ) {
-								// In RTL mode the image is on the right by default.
-								// Show the right handle and hide the left handle only when it is aligned left.
-								// Otherwise always show the left handle.
-								if ( align === 'left' ) {
-									showRightHandle = true;
-								} else {
-									showLeftHandle = true;
+								if (
+									! isResizable ||
+									! imageWidthWithinContainer
+								) {
+									return (
+										<>
+											{ getInspectorControls(
+												imageWidth,
+												imageHeight
+											) }
+											<div style={ { width, height } }>
+												{ img }
+											</div>
+										</>
+									);
 								}
-							} else {
-								// Show the left handle and hide the right handle only when the image is aligned right.
-								// Otherwise always show the right handle.
-								if ( align === 'right' ) {
-									showLeftHandle = true;
-								} else {
-									showRightHandle = true;
-								}
-							}
-							/* eslint-enable no-lonely-if */
 
-							return (
-								<Fragment>
-									{ getInspectorControls( imageWidth, imageHeight ) }
-									<ResizableBox
-										size={
-											width && height ? {
+								const currentWidth =
+									width || imageWidthWithinContainer;
+								const currentHeight =
+									height || imageHeightWithinContainer;
+
+								const ratio = imageWidth / imageHeight;
+								const minWidth =
+									imageWidth < imageHeight
+										? MIN_SIZE
+										: MIN_SIZE * ratio;
+								const minHeight =
+									imageHeight < imageWidth
+										? MIN_SIZE
+										: MIN_SIZE / ratio;
+
+								// With the current implementation of ResizableBox, an image needs an explicit pixel value for the max-width.
+								// In absence of being able to set the content-width, this max-width is currently dictated by the vanilla editor style.
+								// The following variable adds a buffer to this vanilla style, so 3rd party themes have some wiggleroom.
+								// This does, in most cases, allow you to scale the image beyond the width of the main column, though not infinitely.
+								// @todo It would be good to revisit this once a content-width variable becomes available.
+								const maxWidthBuffer = maxWidth * 2.5;
+
+								let showRightHandle = false;
+								let showLeftHandle = false;
+
+								/* eslint-disable no-lonely-if */
+								// See https://github.com/WordPress/gutenberg/issues/7584.
+								if ( align === 'center' ) {
+									// When the image is centered, show both handles.
+									showRightHandle = true;
+									showLeftHandle = true;
+								} else if ( isRTL ) {
+									// In RTL mode the image is on the right by default.
+									// Show the right handle and hide the left handle only when it is aligned left.
+									// Otherwise always show the left handle.
+									if ( align === 'left' ) {
+										showRightHandle = true;
+									} else {
+										showLeftHandle = true;
+									}
+								} else {
+									// Show the left handle and hide the right handle only when the image is aligned right.
+									// Otherwise always show the right handle.
+									if ( align === 'right' ) {
+										showLeftHandle = true;
+									} else {
+										showRightHandle = true;
+									}
+								}
+								/* eslint-enable no-lonely-if */
+
+								return (
+									<>
+										{ getInspectorControls(
+											imageWidth,
+											imageHeight
+										) }
+										<ResizableBox
+											size={ {
 												width,
 												height,
-											} : undefined
-										}
-										minWidth={ minWidth }
-										maxWidth={ maxWidth }
-										minHeight={ minHeight }
-										maxHeight={ maxWidth / ratio }
-										lockAspectRatio
-										enable={ {
-											top: false,
-											right: showRightHandle,
-											bottom: true,
-											left: showLeftHandle,
-										} }
-										onResizeStart={ () => {
-											toggleSelection( false );
-										} }
-										onResizeStop={ ( event, direction, elt, delta ) => {
-											setAttributes( {
-												width: parseInt( currentWidth + delta.width, 10 ),
-												height: parseInt( currentHeight + delta.height, 10 ),
-											} );
-											toggleSelection( true );
-										} }
-									>
-										{ img }
-									</ResizableBox>
-								</Fragment>
-							);
-						} }
-					</ImageSize>
-					{ ( ! RichText.isEmpty( caption ) || isSelected ) && (
-						<RichText
-							tagName="figcaption"
-							placeholder={ __( 'Write caption…' ) }
-							value={ caption }
-							unstableOnFocus={ this.onFocusCaption }
-							onChange={ ( value ) => setAttributes( { caption: value } ) }
-							isSelected={ this.state.captionFocused }
-							inlineToolbar
-						/>
-					) }
-				</figure>
-			</Fragment>
+											} }
+											minWidth={ minWidth }
+											maxWidth={ maxWidthBuffer }
+											minHeight={ minHeight }
+											maxHeight={ maxWidthBuffer / ratio }
+											lockAspectRatio
+											enable={ {
+												top: false,
+												right: showRightHandle,
+												bottom: true,
+												left: showLeftHandle,
+											} }
+											onResizeStart={ onResizeStart }
+											onResizeStop={ (
+												event,
+												direction,
+												elt,
+												delta
+											) => {
+												onResizeStop();
+												setAttributes( {
+													width: parseInt(
+														currentWidth +
+															delta.width,
+														10
+													),
+													height: parseInt(
+														currentHeight +
+															delta.height,
+														10
+													),
+												} );
+											} }
+										>
+											{ img }
+										</ResizableBox>
+									</>
+								);
+							} }
+						</ImageSize>
+						{ ( ! RichText.isEmpty( caption ) || isSelected ) && (
+							<RichText
+								tagName="figcaption"
+								placeholder={ __( 'Write caption…' ) }
+								value={ caption }
+								unstableOnFocus={ this.onFocusCaption }
+								onChange={ ( value ) =>
+									setAttributes( { caption: value } )
+								}
+								isSelected={ this.state.captionFocused }
+								inlineToolbar
+							/>
+						) }
+
+						{ mediaPlaceholder }
+					</Block.figure>
+				</div>
+			</>
 		);
-		/* eslint-enable jsx-a11y/no-static-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events */
+		/* eslint-enable jsx-a11y/click-events-have-key-events */
 	}
 }
 
 export default compose( [
-	withSelect( ( select, props ) => {
-		const { getMedia } = select( 'core' );
-		const { getEditorSettings } = select( 'core/editor' );
-		const { id } = props.attributes;
-		const { maxWidth, isRTL, availableImageSizes } = getEditorSettings();
+	withDispatch( ( dispatch ) => {
+		const { toggleSelection } = dispatch( 'core/block-editor' );
 
 		return {
-			image: id ? getMedia( id ) : null,
+			onResizeStart: () => toggleSelection( false ),
+			onResizeStop: () => toggleSelection( true ),
+		};
+	} ),
+	withSelect( ( select, props ) => {
+		const { getMedia } = select( 'core' );
+		const { getSettings } = select( 'core/block-editor' );
+		const {
+			attributes: { id },
+			isSelected,
+		} = props;
+		const { mediaUpload, imageSizes, isRTL, maxWidth } = getSettings();
+
+		return {
+			image: id && isSelected ? getMedia( id ) : null,
 			maxWidth,
 			isRTL,
-			availableImageSizes,
+			imageSizes,
+			mediaUpload,
 		};
 	} ),
 	withViewportMatch( { isLargeViewport: 'medium' } ),

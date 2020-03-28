@@ -1,6 +1,14 @@
 # DateTimePicker
 
-DateTimePicker is a React component to render a calendar and clock for selecting a date and time. The calendar and clock components can be accessed individually using the `DatePicker` and `TimePicker` components respectively.
+DateTimePicker is a React component that renders a calendar and clock for date and time selection. The calendar and clock components can be accessed individually using the `DatePicker` and `TimePicker` components respectively.
+
+![Date Time component](https://wordpress.org/gutenberg/files/2019/07/date-time-picker.png)
+
+## Best practices
+
+Date pickers should:
+
+- Use smart defaults and highlight the current date.
 
 ## Usage
 
@@ -29,7 +37,6 @@ const MyDateTimePicker = withState( {
 		<DateTimePicker
 			currentDate={ date }
 			onChange={ ( date ) => setState( { date } ) }
-			locale={ settings.l10n.locale }
 			is12Hour={ is12HourTime }
 		/>
 	);
@@ -42,29 +49,29 @@ The component accepts the following props:
 
 ### currentDate
 
-The current date and time at initialization.
+The current date and time at initialization. Optionally pass in a `null` value to specify no date is currently selected.
 
 - Type: `string`
-- Required: Yes
+- Required: No
+- Default: today's date
 
 ### onChange
 
 The function called when a new date or time has been selected. It is passed the `currentDate` as an argument.
 
 - Type: `Function`
-- Required: No
-- Default: `noop`
-
-### locale
-
-The localization for the display of the date and time.
-
-- Type: `string`
-- Required: No
+- Required: Yes
 
 ### is12Hour
 
 Whether we use a 12-hour clock. With a 12-hour clock, an AM/PM widget is displayed and the time format is assumed to be MM-DD-YYYY.
 
 - Type: `bool`
+- Required: No
+
+### isInvalidDate
+
+A callback function which receives a Date object representing a day as an argument, and should return a Boolean to signify if the day is valid or not.
+
+- Type: `Function`
 - Required: No

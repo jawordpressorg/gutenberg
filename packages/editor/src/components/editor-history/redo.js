@@ -2,19 +2,23 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { IconButton } from '@wordpress/components';
+import { Button } from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { displayShortcut } from '@wordpress/keycodes';
+import { redo as redoIcon } from '@wordpress/icons';
 
 function EditorHistoryRedo( { hasRedo, redo } ) {
 	return (
-		<IconButton
-			icon="redo"
+		<Button
+			icon={ redoIcon }
 			label={ __( 'Redo' ) }
 			shortcut={ displayShortcut.primaryShift( 'z' ) }
+			// If there are no redo levels we don't want to actually disable this
+			// button, because it will remove focus for keyboard users.
+			// See: https://github.com/WordPress/gutenberg/issues/3486
 			aria-disabled={ ! hasRedo }
-			onClick={ redo }
+			onClick={ hasRedo ? redo : undefined }
 			className="editor-history__redo"
 		/>
 	);
@@ -24,14 +28,7 @@ export default compose( [
 	withSelect( ( select ) => ( {
 		hasRedo: select( 'core/editor' ).hasEditorRedo(),
 	} ) ),
-	withDispatch( ( dispatch, ownProps ) => ( {
-		redo: () => {
-			// If there are no redo levels this is a no-op, because we don't actually
-			// disable the button.
-			// See: https://github.com/WordPress/gutenberg/issues/3486
-			if ( ownProps.hasRedo ) {
-				dispatch( 'core/editor' ).redo();
-			}
-		},
+	withDispatch( ( dispatch ) => ( {
+		redo: dispatch( 'core/editor' ).redo,
 	} ) ),
 ] )( EditorHistoryRedo );

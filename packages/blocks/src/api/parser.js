@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { parse as hpqParse } from 'hpq';
-import { flow, castArray, mapValues, omit, stubFalse } from 'lodash';
+import { flow, get, castArray, mapValues, omit, stubFalse } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -20,21 +20,18 @@ import {
 	getUnregisteredTypeHandlerName,
 } from './registration';
 import { createBlock } from './factory';
-import { isValidBlockContent } from './validation';
-import { getCommentDelimitedContent } from './serializer';
+import { getBlockContentValidationResult } from './validation';
+import { getCommentDelimitedContent, getSaveContent } from './serializer';
 import { attr, html, text, query, node, children, prop } from './matchers';
+import { normalizeBlockType } from './utils';
+import { DEPRECATED_ENTRY_KEYS } from './constants';
 
 /**
  * Sources which are guaranteed to return a string value.
  *
  * @type {Set}
  */
-const STRING_SOURCES = new Set( [
-	'attribute',
-	'html',
-	'text',
-	'tag',
-] );
+const STRING_SOURCES = new Set( [ 'attribute', 'html', 'text', 'tag' ] );
 
 /**
  * Higher-order hpq matcher which enhances an attribute matcher to return true
@@ -47,23 +44,24 @@ const STRING_SOURCES = new Set( [
  *
  * @return {Function} Enhanced hpq matcher.
  */
-export const toBooleanAttributeMatcher = ( matcher ) => flow( [
-	matcher,
-	// Expected values from `attr( 'disabled' )`:
-	//
-	// <input>
-	// - Value:       `undefined`
-	// - Transformed: `false`
-	//
-	// <input disabled>
-	// - Value:       `''`
-	// - Transformed: `true`
-	//
-	// <input disabled="disabled">
-	// - Value:       `'disabled'`
-	// - Transformed: `true`
-	( value ) => value !== undefined,
-] );
+export const toBooleanAttributeMatcher = ( matcher ) =>
+	flow( [
+		matcher,
+		// Expected values from `attr( 'disabled' )`:
+		//
+		// <input>
+		// - Value:       `undefined`
+		// - Transformed: `false`
+		//
+		// <input disabled>
+		// - Value:       `''`
+		// - Transformed: `true`
+		//
+		// <input disabled="disabled">
+		// - Value:       `'disabled'`
+		// - Transformed: `true`
+		( value ) => value !== undefined,
+	] );
 
 /**
  * Returns true if value is of the given JSON schema type, or false otherwise.
@@ -116,6 +114,36 @@ export function isOfTypes( value, types ) {
 }
 
 /**
+ * Returns true if value is valid per the given block attribute schema type
+ * definition, or false otherwise.
+ *
+ * @see https://json-schema.org/latest/json-schema-validation.html#rfc.section.6.1.1
+ *
+ * @param {*}                       value Value to test.
+ * @param {?(Array<string>|string)} type  Block attribute schema type.
+ *
+ * @return {boolean} Whether value is valid.
+ */
+export function isValidByType( value, type ) {
+	return type === undefined || isOfTypes( value, castArray( type ) );
+}
+
+/**
+ * Returns true if value is valid per the given block attribute schema enum
+ * definition, or false otherwise.
+ *
+ * @see https://json-schema.org/latest/json-schema-validation.html#rfc.section.6.1.2
+ *
+ * @param {*}      value   Value to test.
+ * @param {?Array} enumSet Block attribute schema enum.
+ *
+ * @return {boolean} Whether value is valid.
+ */
+export function isValidByEnum( value, enumSet ) {
+	return ! Array.isArray( enumSet ) || enumSet.includes( value );
+}
+
+/**
  * Returns true if the given attribute schema describes a value which may be
  * an ambiguous string.
  *
@@ -136,45 +164,6 @@ export function isAmbiguousStringSource( attributeSchema ) {
 	const isSingleType = typeof type === 'string';
 
 	return isStringSource && isSingleType;
-}
-
-/**
- * Returns value coerced to the specified JSON schema type string.
- *
- * @see http://json-schema.org/latest/json-schema-validation.html#rfc.section.6.25
- *
- * @param {*}      value Original value.
- * @param {string} type  Type to coerce.
- *
- * @return {*} Coerced value.
- */
-export function asType( value, type ) {
-	switch ( type ) {
-		case 'string':
-			return String( value );
-
-		case 'boolean':
-			return Boolean( value );
-
-		case 'object':
-			return Object( value );
-
-		case 'null':
-			return null;
-
-		case 'array':
-			if ( Array.isArray( value ) ) {
-				return value;
-			}
-
-			return Array.from( value );
-
-		case 'integer':
-		case 'number':
-			return Number( value );
-	}
-
-	return value;
 }
 
 /**
@@ -202,12 +191,16 @@ export function matcherFromSource( sourceConfig ) {
 		case 'node':
 			return node( sourceConfig.selector );
 		case 'query':
-			const subMatchers = mapValues( sourceConfig.query, matcherFromSource );
+			const subMatchers = mapValues(
+				sourceConfig.query,
+				matcherFromSource
+			);
 			return query( sourceConfig.selector, subMatchers );
 		case 'tag':
 			return flow( [
 				prop( sourceConfig.selector, 'nodeName' ),
-				( value ) => value.toLowerCase(),
+				( nodeName ) =>
+					nodeName ? nodeName.toLowerCase() : undefined,
 			] );
 		default:
 			// eslint-disable-next-line no-console
@@ -240,14 +233,21 @@ export function parseWithAttributeSchema( innerHTML, attributeSchema ) {
  *
  * @return {*} Attribute value.
  */
-export function getBlockAttribute( attributeKey, attributeSchema, innerHTML, commentAttributes ) {
-	const { type } = attributeSchema;
+export function getBlockAttribute(
+	attributeKey,
+	attributeSchema,
+	innerHTML,
+	commentAttributes
+) {
+	const { type, enum: enumSet } = attributeSchema;
 	let value;
 
 	switch ( attributeSchema.source ) {
 		// undefined source means that it's an attribute serialized to the block's "comment"
 		case undefined:
-			value = commentAttributes ? commentAttributes[ attributeKey ] : undefined;
+			value = commentAttributes
+				? commentAttributes[ attributeKey ]
+				: undefined;
 			break;
 		case 'attribute':
 		case 'property':
@@ -261,9 +261,9 @@ export function getBlockAttribute( attributeKey, attributeSchema, innerHTML, com
 			break;
 	}
 
-	if ( type !== undefined && ! isOfTypes( value, castArray( type ) ) ) {
-		// Reject the value if it is not valid of type. Reverting to the
-		// undefined value ensures the default is restored, if applicable.
+	if ( ! isValidByType( value, type ) || ! isValidByEnum( value, enumSet ) ) {
+		// Reject the value if it is not valid. Reverting to the undefined
+		// value ensures the default is respected, if applicable.
 		value = undefined;
 	}
 
@@ -277,16 +277,29 @@ export function getBlockAttribute( attributeKey, attributeSchema, innerHTML, com
 /**
  * Returns the block attributes of a registered block node given its type.
  *
- * @param {?Object} blockType  Block type.
- * @param {string}  innerHTML  Raw block content.
- * @param {?Object} attributes Known block attributes (from delimiters).
+ * @param {string|Object} blockTypeOrName Block type or name.
+ * @param {string}        innerHTML       Raw block content.
+ * @param {?Object}       attributes      Known block attributes (from delimiters).
  *
  * @return {Object} All block attributes.
  */
-export function getBlockAttributes( blockType, innerHTML, attributes = {} ) {
-	const blockAttributes = mapValues( blockType.attributes, ( attributeSchema, attributeKey ) => {
-		return getBlockAttribute( attributeKey, attributeSchema, innerHTML, attributes );
-	} );
+export function getBlockAttributes(
+	blockTypeOrName,
+	innerHTML,
+	attributes = {}
+) {
+	const blockType = normalizeBlockType( blockTypeOrName );
+	const blockAttributes = mapValues(
+		blockType.attributes,
+		( attributeSchema, attributeKey ) => {
+			return getBlockAttribute(
+				attributeKey,
+				attributeSchema,
+				innerHTML,
+				attributes
+			);
+		}
+	);
 
 	return applyFilters(
 		'blocks.getBlockAttributes',
@@ -302,11 +315,13 @@ export function getBlockAttributes( blockType, innerHTML, attributes = {} ) {
  * deprecated migrations applied, or the original block if it was both valid
  * and no eligible migrations exist.
  *
- * @param {WPBlock} block Original block object.
+ * @param {WPBlock} block            Original block object.
+ * @param {Object}  parsedAttributes Attributes as parsed from the initial
+ *                                   block markup.
  *
  * @return {WPBlock} Migrated block object.
  */
-export function getMigratedBlock( block ) {
+export function getMigratedBlock( block, parsedAttributes ) {
 	const blockType = getBlockType( block.name );
 
 	const { deprecated: deprecatedDefinitions } = blockType;
@@ -314,14 +329,14 @@ export function getMigratedBlock( block ) {
 		return block;
 	}
 
-	const { originalContent, attributes, innerBlocks } = block;
+	const { originalContent, innerBlocks } = block;
 
 	for ( let i = 0; i < deprecatedDefinitions.length; i++ ) {
 		// A block can opt into a migration even if the block is valid by
 		// defining isEligible on its deprecation. If the block is both valid
 		// and does not opt to migrate, skip.
 		const { isEligible = stubFalse } = deprecatedDefinitions[ i ];
-		if ( block.isValid && ! isEligible( attributes, innerBlocks ) ) {
+		if ( block.isValid && ! isEligible( parsedAttributes, innerBlocks ) ) {
 			continue;
 		}
 
@@ -329,31 +344,33 @@ export function getMigratedBlock( block ) {
 		// parsing are not considered in the deprecated block type by default,
 		// and must be explicitly provided.
 		const deprecatedBlockType = Object.assign(
-			omit( blockType, [ 'attributes', 'save', 'supports' ] ),
+			omit( blockType, DEPRECATED_ENTRY_KEYS ),
 			deprecatedDefinitions[ i ]
 		);
 
 		let migratedAttributes = getBlockAttributes(
 			deprecatedBlockType,
 			originalContent,
-			attributes
+			parsedAttributes
 		);
 
 		// Ignore the deprecation if it produces a block which is not valid.
-		const isValid = isValidBlockContent(
+		const { isValid, validationIssues } = getBlockContentValidationResult(
 			deprecatedBlockType,
 			migratedAttributes,
 			originalContent
 		);
 
 		if ( ! isValid ) {
+			block = {
+				...block,
+				validationIssues: [
+					...get( block, 'validationIssues', [] ),
+					...validationIssues,
+				],
+			};
 			continue;
 		}
-
-		block = {
-			...block,
-			isValid: true,
-		};
 
 		let migratedInnerBlocks = innerBlocks;
 
@@ -361,14 +378,18 @@ export function getMigratedBlock( block ) {
 		// inner blocks.
 		const { migrate } = deprecatedBlockType;
 		if ( migrate ) {
-			( [
-				migratedAttributes = attributes,
+			[
+				migratedAttributes = parsedAttributes,
 				migratedInnerBlocks = innerBlocks,
-			] = castArray( migrate( migratedAttributes, innerBlocks ) ) );
+			] = castArray( migrate( migratedAttributes, innerBlocks ) );
 		}
 
-		block.attributes = migratedAttributes;
-		block.innerBlocks = migratedInnerBlocks;
+		block = {
+			...block,
+			attributes: migratedAttributes,
+			innerBlocks: migratedInnerBlocks,
+			isValid: true,
+		};
 	}
 
 	return block;
@@ -383,13 +404,11 @@ export function getMigratedBlock( block ) {
  */
 export function createBlockWithFallback( blockNode ) {
 	const { blockName: originalName } = blockNode;
-	let {
-		attrs: attributes,
-		innerBlocks = [],
-		innerHTML,
-	} = blockNode;
+	let { attrs: attributes, innerBlocks = [], innerHTML } = blockNode;
+	const { innerContent } = blockNode;
 	const freeformContentFallbackBlock = getFreeformContentHandlerName();
-	const unregisteredFallbackBlock = getUnregisteredTypeHandlerName() || freeformContentFallbackBlock;
+	const unregisteredFallbackBlock =
+		getUnregisteredTypeHandlerName() || freeformContentFallbackBlock;
 
 	attributes = attributes || {};
 
@@ -410,6 +429,14 @@ export function createBlockWithFallback( blockNode ) {
 		name = 'core/paragraph';
 	}
 
+	// Convert derivative blocks such as 'core/social-link-wordpress' to the
+	// canonical form 'core/social-link'.
+	if ( name && name.indexOf( 'core/social-link-' ) === 0 ) {
+		// Capture `social-link-wordpress` into `{"service":"wordpress"}`
+		attributes.service = name.substring( 17 );
+		name = 'core/social-link';
+	}
+
 	// Fallback content may be upgraded from classic editor expecting implicit
 	// automatic paragraphs, so preserve them. Assumes wpautop is idempotent,
 	// meaning there are no negative consequences to repeated autop calls.
@@ -421,27 +448,59 @@ export function createBlockWithFallback( blockNode ) {
 	let blockType = getBlockType( name );
 
 	if ( ! blockType ) {
-		// Preserve undelimited content for use by the unregistered type handler.
-		const originalUndelimitedContent = innerHTML;
+		// Since the constituents of the block node are extracted at the start
+		// of the present function, construct a new object rather than reuse
+		// `blockNode`.
+		const reconstitutedBlockNode = {
+			attrs: attributes,
+			blockName: originalName,
+			innerBlocks,
+			innerContent,
+		};
+
+		// Preserve undelimited content for use by the unregistered type
+		// handler. A block node's `innerHTML` isn't enough, as that field only
+		// carries the block's own HTML and not its nested blocks'.
+		const originalUndelimitedContent = serializeBlockNode(
+			reconstitutedBlockNode,
+			{
+				isCommentDelimited: false,
+			}
+		);
+
+		// Preserve full block content for use by the unregistered type
+		// handler, block boundaries included.
+		const originalContent = serializeBlockNode( reconstitutedBlockNode, {
+			isCommentDelimited: true,
+		} );
 
 		// If detected as a block which is not registered, preserve comment
 		// delimiters in content of unregistered type handler.
 		if ( name ) {
-			innerHTML = getCommentDelimitedContent( name, attributes, innerHTML );
+			innerHTML = originalContent;
 		}
 
 		name = unregisteredFallbackBlock;
-		attributes = { originalName, originalUndelimitedContent };
+		attributes = {
+			originalName,
+			originalContent,
+			originalUndelimitedContent,
+		};
 		blockType = getBlockType( name );
 	}
 
 	// Coerce inner blocks from parsed form to canonical form.
 	innerBlocks = innerBlocks.map( createBlockWithFallback );
 
-	const isFallbackBlock = (
+	// Remove `undefined` innerBlocks.
+	//
+	// This is a temporary fix to prevent unrecoverable TypeErrors when handling unexpectedly
+	// empty freeform block nodes. See https://github.com/WordPress/gutenberg/pull/17164.
+	innerBlocks = innerBlocks.filter( ( innerBlock ) => innerBlock );
+
+	const isFallbackBlock =
 		name === freeformContentFallbackBlock ||
-		name === unregisteredFallbackBlock
-	);
+		name === unregisteredFallbackBlock;
 
 	// Include in set only if type was determined.
 	if ( ! blockType || ( ! innerHTML && isFallbackBlock ) ) {
@@ -459,16 +518,86 @@ export function createBlockWithFallback( blockNode ) {
 	// provided source value with the serialized output before there are any modifications to
 	// the block. When both match, the block is marked as valid.
 	if ( ! isFallbackBlock ) {
-		block.isValid = isValidBlockContent( blockType, block.attributes, innerHTML );
+		const { isValid, validationIssues } = getBlockContentValidationResult(
+			blockType,
+			block.attributes,
+			innerHTML
+		);
+		block.isValid = isValid;
+		block.validationIssues = validationIssues;
 	}
 
-	// Preserve original content for future use in case the block is parsed as
-	// invalid, or future serialization attempt results in an error.
-	block.originalContent = innerHTML;
+	// Preserve original content for future use in case the block is parsed
+	// as invalid, or future serialization attempt results in an error.
+	block.originalContent = block.originalContent || innerHTML;
 
-	block = getMigratedBlock( block );
+	block = getMigratedBlock( block, attributes );
+
+	if ( block.validationIssues && block.validationIssues.length > 0 ) {
+		if ( block.isValid ) {
+			// eslint-disable-next-line no-console
+			console.info(
+				'Block successfully updated for `%s` (%o).\n\nNew content generated by `save` function:\n\n%s\n\nContent retrieved from post body:\n\n%s',
+				blockType.name,
+				blockType,
+				getSaveContent( blockType, block.attributes ),
+				block.originalContent
+			);
+		} else {
+			block.validationIssues.forEach( ( { log, args } ) =>
+				log( ...args )
+			);
+		}
+	}
 
 	return block;
+}
+
+/**
+ * Serializes a block node into the native HTML-comment-powered block format.
+ * CAVEAT: This function is intended for reserializing blocks as parsed by
+ * valid parsers and skips any validation steps. This is NOT a generic
+ * serialization function for in-memory blocks. For most purposes, see the
+ * following functions available in the `@wordpress/blocks` package:
+ *
+ * @see serializeBlock
+ * @see serialize
+ *
+ * For more on the format of block nodes as returned by valid parsers:
+ *
+ * @see `@wordpress/block-serialization-default-parser` package
+ * @see `@wordpress/block-serialization-spec-parser` package
+ *
+ * @param {Object}   blockNode                  A block node as returned by a valid parser.
+ * @param {?Object}  options                    Serialization options.
+ * @param {?boolean} options.isCommentDelimited Whether to output HTML comments around blocks.
+ *
+ * @return {string} An HTML string representing a block.
+ */
+export function serializeBlockNode( blockNode, options = {} ) {
+	const { isCommentDelimited = true } = options;
+	const {
+		blockName,
+		attrs = {},
+		innerBlocks = [],
+		innerContent = [],
+	} = blockNode;
+
+	let childIndex = 0;
+	const content = innerContent
+		.map( ( item ) =>
+			// `null` denotes a nested block, otherwise we have an HTML fragment
+			item !== null
+				? item
+				: serializeBlockNode( innerBlocks[ childIndex++ ], options )
+		)
+		.join( '\n' )
+		.replace( /\n+/g, '\n' )
+		.trim();
+
+	return isCommentDelimited
+		? getCommentDelimitedContent( blockName, attrs, content )
+		: content;
 }
 
 /**
@@ -478,13 +607,13 @@ export function createBlockWithFallback( blockNode ) {
  *
  * @return {Function} An implementation which parses the post content.
  */
-const createParse = ( parseImplementation ) =>
-	( content ) => parseImplementation( content ).reduce( ( memo, blockNode ) => {
+const createParse = ( parseImplementation ) => ( content ) =>
+	parseImplementation( content ).reduce( ( accumulator, blockNode ) => {
 		const block = createBlockWithFallback( blockNode );
 		if ( block ) {
-			memo.push( block );
+			accumulator.push( block );
 		}
-		return memo;
+		return accumulator;
 	}, [] );
 
 /**

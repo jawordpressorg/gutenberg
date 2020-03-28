@@ -1,306 +1,127 @@
 <?php
 /**
- * PHP and WordPress configuration compatibility functions for the Gutenberg
- * editor plugin.
+ * Temporary compatibility shims for features present in Gutenberg, pending
+ * upstream commit to the WordPress core source repository. Functions here
+ * exist only as long as necessary for corresponding WordPress support, and
+ * each should be associated with a Trac ticket.
  *
  * @package gutenberg
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die( 'Silence is golden.' );
-}
-
 /**
- * Splits a UTF-8 string into an array of UTF-8-encoded codepoints.
+ * Extends block editor settings to include a list of image dimensions per size.
  *
- * @since 0.5.0
+ * This can be removed when plugin support requires WordPress 5.4.0+.
  *
- * Based on WordPress' _mb_substr() compat function.
+ * @see https://core.trac.wordpress.org/ticket/49389
+ * @see https://core.trac.wordpress.org/changeset/47240
  *
- * @param string $str        The string to split.
- * @return array
+ * @param array $settings Default editor settings.
+ *
+ * @return array Filtered editor settings.
  */
-function _gutenberg_utf8_split( $str ) {
-	if ( _wp_can_use_pcre_u() ) {
-		// Use the regex unicode support to separate the UTF-8 characters into
-		// an array.
-		preg_match_all( '/./us', $str, $match );
-		return $match[0];
-	}
-
-	$regex = '/(
-		  [\x00-\x7F]                  # single-byte sequences   0xxxxxxx
-		| [\xC2-\xDF][\x80-\xBF]       # double-byte sequences   110xxxxx 10xxxxxx
-		| \xE0[\xA0-\xBF][\x80-\xBF]   # triple-byte sequences   1110xxxx 10xxxxxx * 2
-		| [\xE1-\xEC][\x80-\xBF]{2}
-		| \xED[\x80-\x9F][\x80-\xBF]
-		| [\xEE-\xEF][\x80-\xBF]{2}
-		| \xF0[\x90-\xBF][\x80-\xBF]{2} # four-byte sequences   11110xxx 10xxxxxx * 3
-		| [\xF1-\xF3][\x80-\xBF]{3}
-		| \xF4[\x80-\x8F][\x80-\xBF]{2}
-	)/x';
-
-	// Start with 1 element instead of 0 since the first thing we do is pop.
-	$chars = array( '' );
-	do {
-		// We had some string left over from the last round, but we counted it
-		// in that last round.
-		array_pop( $chars );
-
-		// Split by UTF-8 character, limit to 1000 characters (last array
-		// element will contain the rest of the string).
-		$pieces = preg_split(
-			$regex,
-			$str,
-			1000,
-			PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
-		);
-
-		$chars = array_merge( $chars, $pieces );
-
-		// If there's anything left over, repeat the loop.
-		if ( count( $pieces ) > 1 ) {
-			$str = array_pop( $pieces );
-		} else {
-			break;
+function gutenberg_extend_settings_image_dimensions( $settings ) {
+	/*
+	 * Only filter settings if:
+	 * 1. `imageDimensions` is not already assigned, in which case it can be
+	 *    assumed to have been set from WordPress 5.4.0+ default settings.
+	 * 2. `imageSizes` is an array. Plugins may run `block_editor_settings`
+	 *    directly and not provide all properties of the settings array.
+	 */
+	if ( ! isset( $settings['imageDimensions'] ) && ! empty( $settings['imageSizes'] ) ) {
+		$image_dimensions = array();
+		$all_sizes        = wp_get_registered_image_subsizes();
+		foreach ( $settings['imageSizes'] as $size ) {
+			$key = $size['slug'];
+			if ( isset( $all_sizes[ $key ] ) ) {
+				$image_dimensions[ $key ] = $all_sizes[ $key ];
+			}
 		}
-	} while ( $str );
-
-	return $chars;
-}
-
-/**
- * Disables wpautop behavior in classic editor when post contains blocks, to
- * prevent removep from invalidating paragraph blocks.
- *
- * @param  array  $settings  Original editor settings.
- * @param  string $editor_id ID for the editor instance.
- * @return array             Filtered settings.
- */
-function gutenberg_disable_editor_settings_wpautop( $settings, $editor_id ) {
-	$post = get_post();
-	if ( 'content' === $editor_id && is_object( $post ) && has_blocks( $post ) ) {
-		$settings['wpautop'] = false;
+		$settings['imageDimensions'] = $image_dimensions;
 	}
 
 	return $settings;
 }
-add_filter( 'wp_editor_settings', 'gutenberg_disable_editor_settings_wpautop', 10, 2 );
+add_filter( 'block_editor_settings', 'gutenberg_extend_settings_image_dimensions' );
 
 /**
- * Add rest nonce to the heartbeat response.
+ * Adds a polyfill for the WHATWG URL in environments which do not support it.
+ * The intention in how this action is handled is under the assumption that this
+ * code would eventually be placed at `wp_default_packages_vendor`, which is
+ * called as a result of `wp_default_packages` via the `wp_default_scripts`.
  *
- * @param  array $response Original heartbeat response.
- * @return array           New heartbeat response.
- */
-function gutenberg_add_rest_nonce_to_heartbeat_response_headers( $response ) {
-	$response['rest-nonce'] = wp_create_nonce( 'wp_rest' );
-	return $response;
-}
-add_filter( 'wp_refresh_nonces', 'gutenberg_add_rest_nonce_to_heartbeat_response_headers' );
-
-/**
- * As a substitute for the default content `wpautop` filter, applies autop
- * behavior only for posts where content does not contain blocks.
+ * This can be removed when plugin support requires WordPress 5.4.0+.
  *
- * @param  string $content Post content.
- * @return string          Paragraph-converted text if non-block content.
- */
-function gutenberg_wpautop( $content ) {
-	if ( has_blocks( $content ) ) {
-		return $content;
-	}
-
-	return wpautop( $content );
-}
-remove_filter( 'the_content', 'wpautop' );
-add_filter( 'the_content', 'gutenberg_wpautop', 6 );
-
-
-/**
- * Check if we need to load the block warning in the Classic Editor.
+ * The script registration occurs in `gutenberg_register_vendor_scripts`, which
+ * should be removed in coordination with this function.
  *
- * @since 3.4.0
- */
-function gutenberg_check_if_classic_needs_warning_about_blocks() {
-	global $pagenow;
-
-	if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ), true ) || ! isset( $_REQUEST['classic-editor'] ) ) {
-		return;
-	}
-
-	$post = get_post();
-	if ( ! $post ) {
-		return;
-	}
-
-	if ( ! has_blocks( $post ) ) {
-		return;
-	}
-
-	// Enqueue the JS we're going to need in the dialog.
-	wp_enqueue_script( 'wp-a11y' );
-	wp_enqueue_script( 'wp-sanitize' );
-
-	add_action( 'admin_footer', 'gutenberg_warn_classic_about_blocks' );
-}
-add_action( 'admin_enqueue_scripts', 'gutenberg_check_if_classic_needs_warning_about_blocks' );
-
-/**
- * Adds a warning to the Classic Editor when trying to edit a post containing blocks.
+ * @see gutenberg_register_vendor_scripts
+ * @see https://core.trac.wordpress.org/ticket/49360
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/URL/URL
+ * @see https://developer.wordpress.org/reference/functions/wp_default_packages_vendor/
  *
- * @since 3.4.0
+ * @since 7.3.0
+ *
+ * @param WP_Scripts $scripts WP_Scripts object.
  */
-function gutenberg_warn_classic_about_blocks() {
-	$post = get_post();
-
-	$gutenberg_edit_link = get_edit_post_link( $post->ID, 'raw' );
-
-	$classic_edit_link = $gutenberg_edit_link;
-	$classic_edit_link = add_query_arg(
-		array(
-			'classic-editor'     => '',
-			'hide-block-warning' => '',
-		),
-		$classic_edit_link
+function gutenberg_add_url_polyfill( $scripts ) {
+	did_action( 'init' ) && $scripts->add_inline_script(
+		'wp-polyfill',
+		wp_get_script_polyfill(
+			$scripts,
+			array(
+				'window.URL && window.URL.prototype && window.URLSearchParams' => 'wp-polyfill-url',
+			)
+		)
 	);
+}
+add_action( 'wp_default_scripts', 'gutenberg_add_url_polyfill', 20 );
 
-	$revisions_link = '';
-	if ( wp_revisions_enabled( $post ) ) {
-		$revisions = wp_get_post_revisions( $post );
+/**
+ * Adds a polyfill for DOMRect in environments which do not support it.
+ *
+ * This can be removed when plugin support requires WordPress 5.4.0+.
+ *
+ * The script registration occurs in `gutenberg_register_vendor_scripts`, which
+ * should be removed in coordination with this function.
+ *
+ * @see gutenberg_register_vendor_scripts
+ * @see gutenberg_add_url_polyfill
+ * @see https://core.trac.wordpress.org/ticket/49360
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/DOMRect
+ * @see https://developer.wordpress.org/reference/functions/wp_default_packages_vendor/
+ *
+ * @since 7.5.0
+ *
+ * @param WP_Scripts $scripts WP_Scripts object.
+ */
+function gutenberg_add_dom_rect_polyfill( $scripts ) {
+	did_action( 'init' ) && $scripts->add_inline_script(
+		'wp-polyfill',
+		wp_get_script_polyfill(
+			$scripts,
+			array(
+				'window.DOMRect' => 'wp-polyfill-dom-rect',
+			)
+		)
+	);
+}
+add_action( 'wp_default_scripts', 'gutenberg_add_dom_rect_polyfill', 20 );
 
-		// If there's only one revision, that won't help.
-		if ( count( $revisions ) > 1 ) {
-			reset( $revisions ); // Reset pointer for key().
-			$revisions_link = get_edit_post_link( key( $revisions ) );
-		}
+/**
+ * Sets the current post for usage in template blocks.
+ *
+ * @return WP_Post|null The post if any, or null otherwise.
+ */
+function gutenberg_get_post_from_context() {
+	// TODO: Without this temporary fix, an infinite loop can occur where
+	// posts with post content blocks render themselves recursively.
+	if ( is_admin() || defined( 'REST_REQUEST' ) ) {
+		return null;
 	}
-	?>
-		<style type="text/css">
-			#blocks-in-post-dialog .notification-dialog {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				width: 500px;
-				box-sizing: border-box;
-				transform: translate(-50%, -50%);
-				margin: 0;
-				padding: 25px;
-				max-height: 90%;
-				background: #fff;
-				box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-				line-height: 1.5;
-				z-index: 1000005;
-				overflow-y: auto;
-			}
-
-			@media only screen and (max-height: 480px), screen and (max-width: 450px) {
-				#blocks-in-post-dialog .notification-dialog {
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					transform: none;
-					max-height: 100%;
-				}
-			}
-		</style>
-
-		<div id="blocks-in-post-dialog" class="notification-dialog-wrap">
-			<div class="notification-dialog-background"></div>
-			<div class="notification-dialog">
-				<div class="blocks-in-post-message">
-					<p><?php _e( 'This post was previously edited in Gutenberg. You can continue in the Classic Editor, but you may lose data and formatting.', 'gutenberg' ); ?></p>
-					<?php
-					if ( $revisions_link ) {
-						?>
-							<p>
-							<?php
-								/* translators: link to the post revisions page */
-								printf( __( 'You can also <a href="%s">browse previous revisions</a> and restore a version of the post before it was edited in Gutenberg.', 'gutenberg' ), esc_url( $revisions_link ) );
-							?>
-							</p>
-						<?php
-					} else {
-						?>
-							<p><strong><?php _e( 'Because this post does not have revisions, you will not be able to revert any changes you make in the Classic Editor.', 'gutenberg' ); ?></strong></p>
-						<?php
-					}
-					?>
-				</div>
-				<p>
-					<a class="button button-primary blocks-in-post-gutenberg-button" href="<?php echo esc_url( $gutenberg_edit_link ); ?>"><?php _e( 'Edit in Gutenberg', 'gutenberg' ); ?></a>
-					<button type="button" class="button blocks-in-post-classic-button"><?php _e( 'Continue to Classic Editor', 'gutenberg' ); ?></button>
-				</p>
-			</div>
-		</div>
-
-		<script type="text/javascript">
-			/* <![CDATA[ */
-			( function( $ ) {
-				var dialog = {};
-
-				dialog.init = function() {
-					// The modal
-					dialog.warning = $( '#blocks-in-post-dialog' );
-					// Get the links and buttons within the modal.
-					dialog.warningTabbables = dialog.warning.find( 'a, button' );
-
-					// Get the text within the modal.
-					dialog.rawMessage = dialog.warning.find( '.blocks-in-post-message' ).text();
-
-					// Hide all the #wpwrap content from assistive technologies.
-					$( '#wpwrap' ).attr( 'aria-hidden', 'true' );
-
-					// Detach the warning modal from its position and append it to the body.
-					$( document.body )
-						.addClass( 'modal-open' )
-						.append( dialog.warning.detach() );
-
-					// Reveal the modal and set focus on the Gutenberg button.
-					dialog.warning
-						.removeClass( 'hidden' )
-						.find( '.blocks-in-post-gutenberg-button' ).focus();
-
-					// Attach event handlers.
-					dialog.warningTabbables.on( 'keydown', dialog.constrainTabbing );
-					dialog.warning.on( 'click', '.blocks-in-post-classic-button', dialog.dismissWarning );
-
-					// Make screen readers announce the warning message after a short delay (necessary for some screen readers).
-					setTimeout( function() {
-						wp.a11y.speak( wp.sanitize.stripTags( dialog.rawMessage.replace( /\s+/g, ' ' ) ), 'assertive' );
-					}, 1000 );
-				};
-
-				dialog.constrainTabbing = function( event ) {
-					var firstTabbable, lastTabbable;
-
-					if ( 9 !== event.which ) {
-						return;
-					}
-
-					firstTabbable = dialog.warningTabbables.first()[0];
-					lastTabbable = dialog.warningTabbables.last()[0];
-
-					if ( lastTabbable === event.target && ! event.shiftKey ) {
-						firstTabbable.focus();
-						event.preventDefault();
-					} else if ( firstTabbable === event.target && event.shiftKey ) {
-						lastTabbable.focus();
-						event.preventDefault();
-					}
-				};
-
-				dialog.dismissWarning = function() {
-					// Hide modal.
-					dialog.warning.remove();
-					$( '#wpwrap' ).removeAttr( 'aria-hidden' );
-					$( 'body' ).removeClass( 'modal-open' );
-				};
-
-				$( document ).ready( dialog.init );
-			} )( jQuery );
-			/* ]]> */
-		</script>
-	<?php
+	if ( ! in_the_loop() ) {
+		rewind_posts();
+		the_post();
+	}
+	return get_post();
 }

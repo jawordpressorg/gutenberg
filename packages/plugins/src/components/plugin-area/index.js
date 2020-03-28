@@ -18,7 +18,36 @@ import { getPlugins } from '../../api';
 /**
  * A component that renders all plugin fills in a hidden div.
  *
- * @return {WPElement} Plugin area.
+ * @example <caption>ES5</caption>
+ * ```js
+ * // Using ES5 syntax
+ * var el = wp.element.createElement;
+ * var PluginArea = wp.plugins.PluginArea;
+ *
+ * function Layout() {
+ * 	return el(
+ * 		'div',
+ * 		{},
+ * 		'Content of the page',
+ * 		PluginArea
+ * 	);
+ * }
+ * ```
+ *
+ * @example <caption>ESNext</caption>
+ * ```js
+ * // Using ESNext syntax
+ * const { PluginArea } = wp.plugins;
+ *
+ * const Layout = () => (
+ * 	<div>
+ * 		Content of the page
+ * 		<PluginArea />
+ * 	</div>
+ * );
+ * ```
+ *
+ * @return {WPComponent} The component to be rendered.
  */
 class PluginArea extends Component {
 	constructor() {
@@ -43,13 +72,27 @@ class PluginArea extends Component {
 	}
 
 	componentDidMount() {
-		addAction( 'plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered', this.setPlugins );
-		addAction( 'plugins.pluginUnregistered', 'core/plugins/plugin-area/plugins-unregistered', this.setPlugins );
+		addAction(
+			'plugins.pluginRegistered',
+			'core/plugins/plugin-area/plugins-registered',
+			this.setPlugins
+		);
+		addAction(
+			'plugins.pluginUnregistered',
+			'core/plugins/plugin-area/plugins-unregistered',
+			this.setPlugins
+		);
 	}
 
 	componentWillUnmount() {
-		removeAction( 'plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered' );
-		removeAction( 'plugins.pluginUnregistered', 'core/plugins/plugin-area/plugins-unregistered' );
+		removeAction(
+			'plugins.pluginRegistered',
+			'core/plugins/plugin-area/plugins-registered'
+		);
+		removeAction(
+			'plugins.pluginUnregistered',
+			'core/plugins/plugin-area/plugins-unregistered'
+		);
 	}
 
 	setPlugins() {

@@ -6,48 +6,60 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Fragment } from '@wordpress/element';
-import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { IconButton } from '@wordpress/components';
-import { withDispatch, withSelect } from '@wordpress/data';
+import { Button } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { close } from '@wordpress/icons';
 
-/**
- * Internal dependencies
- */
-import shortcuts from '../../../keyboard-shortcuts';
+const SidebarHeader = ( { children, className, closeLabel } ) => {
+	const { shortcut, title } = useSelect(
+		( select ) => ( {
+			shortcut: select(
+				'core/keyboard-shortcuts'
+			).getShortcutRepresentation( 'core/edit-post/toggle-sidebar' ),
+			title: select( 'core/editor' ).getEditedPostAttribute( 'title' ),
+		} ),
+		[]
+	);
+	const { closeGeneralSidebar } = useDispatch( 'core/edit-post' );
 
-const SidebarHeader = ( { children, className, closeLabel, closeSidebar, title } ) => {
+	// The `tabIndex` serves the purpose of normalizing browser behavior of
+	// button clicks and focus. Notably, without making the header focusable, a
+	// Button click would not trigger a focus event in macOS Firefox. Thus, when
+	// the sidebar is unmounted, the corresponding "focus return" behavior to
+	// shift focus back to the heading toolbar would not be run.
+	//
+	// See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
+
 	return (
-		<Fragment>
+		<>
 			<div className="components-panel__header edit-post-sidebar-header__small">
 				<span className="edit-post-sidebar-header__title">
 					{ title || __( '(no title)' ) }
 				</span>
-				<IconButton
-					onClick={ closeSidebar }
-					icon="no-alt"
+				<Button
+					onClick={ closeGeneralSidebar }
+					icon={ close }
 					label={ closeLabel }
 				/>
 			</div>
-			<div className={ classnames( 'components-panel__header edit-post-sidebar-header', className ) }>
+			<div
+				className={ classnames(
+					'components-panel__header edit-post-sidebar-header',
+					className
+				) }
+				tabIndex={ -1 }
+			>
 				{ children }
-				<IconButton
-					onClick={ closeSidebar }
-					icon="no-alt"
+				<Button
+					onClick={ closeGeneralSidebar }
+					icon={ close }
 					label={ closeLabel }
-					shortcut={ shortcuts.toggleSidebar }
+					shortcut={ shortcut }
 				/>
 			</div>
-		</Fragment>
+		</>
 	);
 };
 
-export default compose(
-	withSelect( ( select ) => ( {
-		title: select( 'core/editor' ).getEditedPostAttribute( 'title' ),
-	} ) ),
-	withDispatch( ( dispatch ) => ( {
-		closeSidebar: dispatch( 'core/edit-post' ).closeGeneralSidebar,
-	} ) ),
-)( SidebarHeader );
+export default SidebarHeader;

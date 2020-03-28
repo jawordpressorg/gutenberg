@@ -12,24 +12,17 @@ const OBJECT_REPLACEMENT_CHARACTER = '\ufffc';
  * removed. Indices are retrieved from the selection if none are provided.
  *
  * @param {Object} value          Value to modify.
- * @param {string} formatToInsert Format to insert as object.
- * @param {number} startIndex     Start index.
- * @param {number} endIndex       End index.
+ * @param {Object} formatToInsert Format to insert as object.
+ * @param {number} [startIndex]   Start index.
+ * @param {number} [endIndex]     End index.
  *
  * @return {Object} A new value with the object inserted.
  */
-export function insertObject(
-	value,
-	formatToInsert,
-	startIndex,
-	endIndex
-) {
+export function insertObject( value, formatToInsert, startIndex, endIndex ) {
 	const valueToInsert = {
+		formats: [ , ],
+		replacements: [ formatToInsert ],
 		text: OBJECT_REPLACEMENT_CHARACTER,
-		formats: [ [ {
-			...formatToInsert,
-			object: true,
-		} ] ],
 	};
 
 	return insert( value, valueToInsert, startIndex, endIndex );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { get } from 'lodash';
+import { flow, get, includes, omit, union, without } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -19,6 +19,18 @@ import { PREFERENCES_DEFAULTS } from './defaults';
  * @type {string}
  */
 export const DEFAULT_ACTIVE_GENERAL_SIDEBAR = 'edit-post/document';
+
+/**
+ * Higher-order reducer creator which provides the given initial state for the
+ * original reducer.
+ *
+ * @param {*} initialState Initial state to provide to reducer.
+ *
+ * @return {Function} Higher-order reducer.
+ */
+const createWithInitialState = ( initialState ) => ( reducer ) => {
+	return ( state = initialState, action ) => reducer( state, action );
+};
 
 /**
  * Reducer returning the user preferences.
@@ -39,8 +51,11 @@ export const DEFAULT_ACTIVE_GENERAL_SIDEBAR = 'edit-post/document';
  *
  * @return {Object} Updated state.
  */
-export const preferences = combineReducers( {
-	isGeneralSidebarDismissed( state = false, action ) {
+export const preferences = flow( [
+	combineReducers,
+	createWithInitialState( PREFERENCES_DEFAULTS ),
+] )( {
+	isGeneralSidebarDismissed( state, action ) {
 		switch ( action.type ) {
 			case 'OPEN_GENERAL_SIDEBAR':
 			case 'CLOSE_GENERAL_SIDEBAR':
@@ -49,7 +64,7 @@ export const preferences = combineReducers( {
 
 		return state;
 	},
-	panels( state = PREFERENCES_DEFAULTS.panels, action ) {
+	panels( state, action ) {
 		switch ( action.type ) {
 			case 'TOGGLE_PANEL_ENABLED': {
 				const { panelName } = action;
@@ -64,7 +79,9 @@ export const preferences = combineReducers( {
 
 			case 'TOGGLE_PANEL_OPENED': {
 				const { panelName } = action;
-				const isOpen = state[ panelName ] === true || get( state, [ panelName, 'opened' ], false );
+				const isOpen =
+					state[ panelName ] === true ||
+					get( state, [ panelName, 'opened' ], false );
 				return {
 					...state,
 					[ panelName ]: {
@@ -77,7 +94,7 @@ export const preferences = combineReducers( {
 
 		return state;
 	},
-	features( state = PREFERENCES_DEFAULTS.features, action ) {
+	features( state, action ) {
 		if ( action.type === 'TOGGLE_FEATURE' ) {
 			return {
 				...state,
@@ -87,23 +104,82 @@ export const preferences = combineReducers( {
 
 		return state;
 	},
-	editorMode( state = PREFERENCES_DEFAULTS.editorMode, action ) {
+	editorMode( state, action ) {
 		if ( action.type === 'SWITCH_MODE' ) {
 			return action.mode;
 		}
 
 		return state;
 	},
-	pinnedPluginItems( state = PREFERENCES_DEFAULTS.pinnedPluginItems, action ) {
+	pinnedPluginItems( state, action ) {
 		if ( action.type === 'TOGGLE_PINNED_PLUGIN_ITEM' ) {
 			return {
 				...state,
-				[ action.pluginName ]: ! get( state, [ action.pluginName ], true ),
+				[ action.pluginName ]: ! get(
+					state,
+					[ action.pluginName ],
+					true
+				),
 			};
 		}
 		return state;
 	},
+	hiddenBlockTypes( state, action ) {
+		switch ( action.type ) {
+			case 'SHOW_BLOCK_TYPES':
+				return without( state, ...action.blockNames );
+
+			case 'HIDE_BLOCK_TYPES':
+				return union( state, action.blockNames );
+		}
+
+		return state;
+	},
+	preferredStyleVariations( state, action ) {
+		switch ( action.type ) {
+			case 'UPDATE_PREFERRED_STYLE_VARIATIONS': {
+				if ( ! action.blockName ) {
+					return state;
+				}
+				if ( ! action.blockStyle ) {
+					return omit( state, [ action.blockName ] );
+				}
+				return {
+					...state,
+					[ action.blockName ]: action.blockStyle,
+				};
+			}
+		}
+		return state;
+	},
+	localAutosaveInterval( state, action ) {
+		switch ( action.type ) {
+			case 'UPDATE_LOCAL_AUTOSAVE_INTERVAL':
+				return action.interval;
+		}
+
+		return state;
+	},
 } );
+
+/**
+ * Reducer storing the list of all programmatically removed panels.
+ *
+ * @param {Array}  state  Current state.
+ * @param {Object} action Action object.
+ *
+ * @return {Array} Updated state.
+ */
+export function removedPanels( state = [], action ) {
+	switch ( action.type ) {
+		case 'REMOVE_PANEL':
+			if ( ! includes( state, action.panelName ) ) {
+				return [ ...state, action.panelName ];
+			}
+	}
+
+	return state;
+}
 
 /**
  * Reducer returning the next active general sidebar state. The active general
@@ -114,19 +190,13 @@ export const preferences = combineReducers( {
  *
  * @return {?string} Updated state.
  */
-export function activeGeneralSidebar( state = DEFAULT_ACTIVE_GENERAL_SIDEBAR, action ) {
+export function activeGeneralSidebar(
+	state = DEFAULT_ACTIVE_GENERAL_SIDEBAR,
+	action
+) {
 	switch ( action.type ) {
 		case 'OPEN_GENERAL_SIDEBAR':
 			return action.name;
-	}
-
-	return state;
-}
-
-export function panel( state = 'document', action ) {
-	switch ( action.type ) {
-		case 'SET_ACTIVE_PANEL':
-			return action.panel;
 	}
 
 	return state;
@@ -201,16 +271,34 @@ export function metaBoxLocations( state = {}, action ) {
 	return state;
 }
 
+/**
+ * Reducer returning the editing canvas device type.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+export function deviceType( state = 'Desktop', action ) {
+	switch ( action.type ) {
+		case 'SET_PREVIEW_DEVICE_TYPE':
+			return action.deviceType;
+	}
+
+	return state;
+}
+
 const metaBoxes = combineReducers( {
 	isSaving: isSavingMetaBoxes,
 	locations: metaBoxLocations,
 } );
 
 export default combineReducers( {
-	preferences,
 	activeGeneralSidebar,
-	panel,
 	activeModal,
-	publishSidebarActive,
 	metaBoxes,
+	preferences,
+	publishSidebarActive,
+	removedPanels,
+	deviceType,
 } );

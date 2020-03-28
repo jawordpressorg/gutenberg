@@ -3,7 +3,7 @@
  */
 import fetchAllMiddleware from '../fetch-all-middleware';
 
-describe( 'Fetch All Middleware', async () => {
+describe( 'Fetch All Middleware', () => {
 	it( 'should defer with the same options to the next middleware', async () => {
 		expect.hasAssertions();
 		const originalOptions = { path: '/posts' };
@@ -29,9 +29,9 @@ describe( 'Fetch All Middleware', async () => {
 				status: 200,
 				headers: {
 					get() {
-						return options.url === '/posts?per_page=100' ?
-							'</posts?per_page=100&page=2>; rel="next"' :
-							'';
+						return options.url === '/posts?per_page=100'
+							? '</posts?per_page=100&page=2>; rel="next"'
+							: '';
 					},
 				},
 				json() {

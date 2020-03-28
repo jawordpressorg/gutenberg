@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import validateNamespace from './validateNamespace.js';
 import validateHookName from './validateHookName.js';
 import { doAction } from './';
@@ -36,7 +39,9 @@ function createAddHook( hooks ) {
 		// Validate numeric priority
 		if ( 'number' !== typeof priority ) {
 			// eslint-disable-next-line no-console
-			console.error( 'If specified, the hook priority must be a number.' );
+			console.error(
+				'If specified, the hook priority must be a number.'
+			);
 			return;
 		}
 
@@ -45,21 +50,31 @@ function createAddHook( hooks ) {
 		if ( hooks[ hookName ] ) {
 			// Find the correct insert index of the new hook.
 			const handlers = hooks[ hookName ].handlers;
-			let i = 0;
-			while ( i < handlers.length ) {
-				if ( handlers[ i ].priority > priority ) {
+
+			let i;
+			for ( i = handlers.length; i > 0; i-- ) {
+				if ( priority >= handlers[ i - 1 ].priority ) {
 					break;
 				}
-				i++;
 			}
-			// Insert (or append) the new hook.
-			handlers.splice( i, 0, handler );
+
+			if ( i === handlers.length ) {
+				// If append, operate via direct assignment.
+				handlers[ i ] = handler;
+			} else {
+				// Otherwise, insert before index via splice.
+				handlers.splice( i, 0, handler );
+			}
+
 			// We may also be currently executing this hook.  If the callback
 			// we're adding would come after the current callback, there's no
 			// problem; otherwise we need to increase the execution index of
 			// any other runs by 1 to account for the added element.
 			( hooks.__current || [] ).forEach( ( hookInfo ) => {
-				if ( hookInfo.name === hookName && hookInfo.currentIndex >= i ) {
+				if (
+					hookInfo.name === hookName &&
+					hookInfo.currentIndex >= i
+				) {
 					hookInfo.currentIndex++;
 				}
 			} );

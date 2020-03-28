@@ -3,12 +3,7 @@
  */
 
 import { toTree } from './to-tree';
-
-/**
- * Browser dependencies
- */
-
-const { TEXT_NODE, ELEMENT_NODE } = window.Node;
+import { createElement } from './create-element';
 
 /**
  * Creates a path as an array of indices from the given root node to the given
@@ -58,11 +53,6 @@ function getNodeByPath( node, path ) {
 	};
 }
 
-function createEmpty() {
-	const { body } = document.implementation.createHTMLDocument( '' );
-	return body;
-}
-
 function append( element, child ) {
 	if ( typeof child === 'string' ) {
 		child = element.ownerDocument.createTextNode( child );
@@ -93,8 +83,8 @@ function getParent( { parentNode } ) {
 	return parentNode;
 }
 
-function isText( { nodeType } ) {
-	return nodeType === TEXT_NODE;
+function isText( node ) {
+	return node.nodeType === node.TEXT_NODE;
 }
 
 function getText( { nodeValue } ) {
@@ -105,46 +95,39 @@ function remove( node ) {
 	return node.parentNode.removeChild( node );
 }
 
-function padEmptyLines( { element, createLinePadding, multilineWrapperTags } ) {
-	const length = element.childNodes.length;
-	const doc = element.ownerDocument;
-
-	for ( let index = 0; index < length; index++ ) {
-		const child = element.childNodes[ index ];
-
-		if ( child.nodeType === TEXT_NODE ) {
-			if ( length === 1 && ! child.nodeValue ) {
-				// Pad if the only child is an empty text node.
-				element.appendChild( createLinePadding( doc ) );
-			}
-		} else {
-			if (
-				multilineWrapperTags &&
-				! child.previousSibling &&
-				multilineWrapperTags.indexOf( child.nodeName.toLowerCase() ) !== -1
-			) {
-				// Pad the line if there is no content before a nested wrapper.
-				element.insertBefore( createLinePadding( doc ), child );
-			}
-
-			padEmptyLines( { element: child, createLinePadding, multilineWrapperTags } );
-		}
-	}
-}
-
 export function toDom( {
 	value,
 	multilineTag,
-	multilineWrapperTags,
-	createLinePadding,
+	prepareEditableTree,
+	isEditableTree = true,
+	placeholder,
+	doc = document,
 } ) {
 	let startPath = [];
 	let endPath = [];
 
+	if ( prepareEditableTree ) {
+		value = {
+			...value,
+			formats: prepareEditableTree( value ),
+		};
+	}
+
+	/**
+	 * Returns a new instance of a DOM tree upon which RichText operations can be
+	 * applied.
+	 *
+	 * Note: The current implementation will return a shared reference, reset on
+	 * each call to `createEmpty`. Therefore, you should not hold a reference to
+	 * the value to operate upon asynchronously, as it may have unexpected results.
+	 *
+	 * @return {Object} RichText tree.
+	 */
+	const createEmpty = () => createElement( doc, '' );
+
 	const tree = toTree( {
 		value,
 		multilineTag,
-		multilineWrapperTags,
 		createEmpty,
 		append,
 		getLastChild,
@@ -154,17 +137,18 @@ export function toDom( {
 		remove,
 		appendText,
 		onStartIndex( body, pointer ) {
-			startPath = createPathToNode( pointer, body, [ pointer.nodeValue.length ] );
+			startPath = createPathToNode( pointer, body, [
+				pointer.nodeValue.length,
+			] );
 		},
 		onEndIndex( body, pointer ) {
-			endPath = createPathToNode( pointer, body, [ pointer.nodeValue.length ] );
+			endPath = createPathToNode( pointer, body, [
+				pointer.nodeValue.length,
+			] );
 		},
-		isEditableTree: true,
+		isEditableTree,
+		placeholder,
 	} );
-
-	if ( createLinePadding ) {
-		padEmptyLines( { element: tree, createLinePadding, multilineWrapperTags } );
-	}
 
 	return {
 		body: tree,
@@ -177,50 +161,85 @@ export function toDom( {
  * the `Element` tree contained by `current`. If a `multilineTag` is provided,
  * text separated by two new lines will be wrapped in an `Element` of that type.
  *
- * @param {Object}      value        Value to apply.
- * @param {HTMLElement} current      The live root node to apply the element
- *                                   tree to.
- * @param {string}      multilineTag Multiline tag.
+ * @param {Object}      $1                        Named arguments.
+ * @param {Object}      $1.value                  Value to apply.
+ * @param {HTMLElement} $1.current                The live root node to apply the element tree to.
+ * @param {string}      [$1.multilineTag]         Multiline tag.
+ * @param {Array}       [$1.multilineWrapperTags] Tags where lines can be found if nesting is possible.
  */
 export function apply( {
 	value,
 	current,
 	multilineTag,
-	multilineWrapperTags,
-	createLinePadding,
+	prepareEditableTree,
+	__unstableDomOnly,
+	placeholder,
 } ) {
 	// Construct a new element tree in memory.
 	const { body, selection } = toDom( {
 		value,
 		multilineTag,
-		multilineWrapperTags,
-		createLinePadding,
+		prepareEditableTree,
+		placeholder,
+		doc: current.ownerDocument,
 	} );
 
 	applyValue( body, current );
 
-	if ( value.start !== undefined ) {
+	if ( value.start !== undefined && ! __unstableDomOnly ) {
 		applySelection( selection, current );
 	}
 }
 
 export function applyValue( future, current ) {
 	let i = 0;
+	let futureChild;
 
-	while ( future.firstChild ) {
+	while ( ( futureChild = future.firstChild ) ) {
 		const currentChild = current.childNodes[ i ];
-		const futureNodeType = future.firstChild.nodeType;
 
 		if ( ! currentChild ) {
-			current.appendChild( future.firstChild );
-		} else if (
-			futureNodeType !== currentChild.nodeType ||
-			futureNodeType !== TEXT_NODE ||
-			future.firstChild.nodeValue !== currentChild.nodeValue
-		) {
-			current.replaceChild( future.firstChild, currentChild );
+			current.appendChild( futureChild );
+		} else if ( ! currentChild.isEqualNode( futureChild ) ) {
+			if (
+				currentChild.nodeName !== futureChild.nodeName ||
+				( currentChild.nodeType === currentChild.TEXT_NODE &&
+					currentChild.data !== futureChild.data )
+			) {
+				current.replaceChild( futureChild, currentChild );
+			} else {
+				const currentAttributes = currentChild.attributes;
+				const futureAttributes = futureChild.attributes;
+
+				if ( currentAttributes ) {
+					let ii = currentAttributes.length;
+
+					// Reverse loop because `removeAttribute` on `currentChild`
+					// changes `currentAttributes`.
+					while ( ii-- ) {
+						const { name } = currentAttributes[ ii ];
+
+						if ( ! futureChild.getAttribute( name ) ) {
+							currentChild.removeAttribute( name );
+						}
+					}
+				}
+
+				if ( futureAttributes ) {
+					for ( let ii = 0; ii < futureAttributes.length; ii++ ) {
+						const { name, value } = futureAttributes[ ii ];
+
+						if ( currentChild.getAttribute( name ) !== value ) {
+							currentChild.setAttribute( name, value );
+						}
+					}
+				}
+
+				applyValue( futureChild, currentChild );
+				future.removeChild( futureChild );
+			}
 		} else {
-			future.removeChild( future.firstChild );
+			future.removeChild( futureChild );
 		}
 
 		i++;
@@ -231,38 +250,67 @@ export function applyValue( future, current ) {
 	}
 }
 
-export function applySelection( selection, current ) {
-	const { node: startContainer, offset: startOffset } = getNodeByPath( current, selection.startPath );
-	const { node: endContainer, offset: endOffset } = getNodeByPath( current, selection.endPath );
+/**
+ * Returns true if two ranges are equal, or false otherwise. Ranges are
+ * considered equal if their start and end occur in the same container and
+ * offset.
+ *
+ * @param {Range} a First range object to test.
+ * @param {Range} b First range object to test.
+ *
+ * @return {boolean} Whether the two ranges are equal.
+ */
+function isRangeEqual( a, b ) {
+	return (
+		a.startContainer === b.startContainer &&
+		a.startOffset === b.startOffset &&
+		a.endContainer === b.endContainer &&
+		a.endOffset === b.endOffset
+	);
+}
 
-	const windowSelection = window.getSelection();
-	const range = current.ownerDocument.createRange();
-	const collapsed = startContainer === endContainer && startOffset === endOffset;
+export function applySelection( { startPath, endPath }, current ) {
+	const { node: startContainer, offset: startOffset } = getNodeByPath(
+		current,
+		startPath
+	);
+	const { node: endContainer, offset: endOffset } = getNodeByPath(
+		current,
+		endPath
+	);
+	const { ownerDocument } = current;
+	const { defaultView } = ownerDocument;
+	const selection = defaultView.getSelection();
+	const range = ownerDocument.createRange();
 
-	if (
-		collapsed &&
-		startOffset === 0 &&
-		startContainer.previousSibling &&
-		startContainer.previousSibling.nodeType === ELEMENT_NODE &&
-		startContainer.previousSibling.nodeName !== 'BR'
-	) {
-		startContainer.insertData( 0, '\uFEFF' );
-		range.setStart( startContainer, 1 );
-		range.setEnd( endContainer, 1 );
-	} else if (
-		collapsed &&
-		startOffset === 0 &&
-		startContainer === TEXT_NODE &&
-		startContainer.nodeValue.length === 0
-	) {
-		startContainer.insertData( 0, '\uFEFF' );
-		range.setStart( startContainer, 1 );
-		range.setEnd( endContainer, 1 );
-	} else {
-		range.setStart( startContainer, startOffset );
-		range.setEnd( endContainer, endOffset );
+	range.setStart( startContainer, startOffset );
+	range.setEnd( endContainer, endOffset );
+
+	const { activeElement } = ownerDocument;
+
+	if ( selection.rangeCount > 0 ) {
+		// If the to be added range and the live range are the same, there's no
+		// need to remove the live range and add the equivalent range.
+		if ( isRangeEqual( range, selection.getRangeAt( 0 ) ) ) {
+			return;
+		}
+
+		selection.removeAllRanges();
 	}
 
-	windowSelection.removeAllRanges();
-	windowSelection.addRange( range );
+	selection.addRange( range );
+
+	// This function is not intended to cause a shift in focus. Since the above
+	// selection manipulations may shift focus, ensure that focus is restored to
+	// its previous state.
+	if ( activeElement !== ownerDocument.activeElement ) {
+		// The `instanceof` checks protect against edge cases where the focused
+		// element is not of the interface HTMLElement (does not have a `focus`
+		// or `blur` property).
+		//
+		// See: https://github.com/Microsoft/TypeScript/issues/5901#issuecomment-431649653
+		if ( activeElement instanceof defaultView.HTMLElement ) {
+			activeElement.focus();
+		}
+	}
 }

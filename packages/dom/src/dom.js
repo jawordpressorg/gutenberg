@@ -7,7 +7,7 @@ import { includes } from 'lodash';
  * Browser dependencies
  */
 
-const { getComputedStyle } = window;
+const { DOMParser, getComputedStyle } = window;
 const {
 	TEXT_NODE,
 	ELEMENT_NODE,
@@ -26,12 +26,7 @@ const {
  * @return {boolean} Whether the selection is forward.
  */
 function isSelectionForward( selection ) {
-	const {
-		anchorNode,
-		focusNode,
-		anchorOffset,
-		focusOffset,
-	} = selection;
+	const { anchorNode, focusNode, anchorOffset, focusOffset } = selection;
 
 	const position = anchorNode.compareDocumentPosition( focusNode );
 
@@ -60,14 +55,17 @@ function isSelectionForward( selection ) {
 }
 
 /**
- * Check whether the selection is horizontally at the edge of the container.
+ * Check whether the selection is at the edge of the container. Checks for
+ * horizontal position by default. Set `onlyVertical` to true to check only
+ * vertically.
  *
- * @param {Element} container Focusable element.
- * @param {boolean} isReverse Set to true to check left, false for right.
+ * @param {Element} container    Focusable element.
+ * @param {boolean} isReverse    Set to true to check left, false to check right.
+ * @param {boolean} onlyVertical Set to true to check only vertical position.
  *
- * @return {boolean} True if at the horizontal edge, false if not.
+ * @return {boolean} True if at the edge, false if not.
  */
-export function isHorizontalEdge( container, isReverse ) {
+function isEdge( container, isReverse, onlyVertical ) {
 	if ( includes( [ 'INPUT', 'TEXTAREA' ], container.tagName ) ) {
 		if ( container.selectionStart !== container.selectionEnd ) {
 			return false;
@@ -86,85 +84,18 @@ export function isHorizontalEdge( container, isReverse ) {
 
 	const selection = window.getSelection();
 
-	// Create copy of range for setting selection to find effective offset.
-	const range = selection.getRangeAt( 0 ).cloneRange();
+	if ( ! selection.rangeCount ) {
+		return false;
+	}
+
+	const originalRange = selection.getRangeAt( 0 );
+	const range = originalRange.cloneRange();
+	const isForward = isSelectionForward( selection );
+	const isCollapsed = selection.isCollapsed;
 
 	// Collapse in direction of selection.
-	if ( ! selection.isCollapsed ) {
-		range.collapse( ! isSelectionForward( selection ) );
-	}
-
-	let node = range.startContainer;
-
-	let extentOffset;
-	if ( isReverse ) {
-		// When in reverse, range node should be first.
-		extentOffset = 0;
-	} else if ( node.nodeValue ) {
-		// Otherwise, vary by node type. A text node has no children. Its range
-		// offset reflects its position in nodeValue.
-		//
-		// "If the startContainer is a Node of type Text, Comment, or
-		// CDATASection, then the offset is the number of characters from the
-		// start of the startContainer to the boundary point of the Range."
-		//
-		// See: https://developer.mozilla.org/en-US/docs/Web/API/Range/startOffset
-		// See: https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeValue
-		extentOffset = node.nodeValue.length;
-	} else {
-		// "For other Node types, the startOffset is the number of child nodes
-		// between the start of the startContainer and the boundary point of
-		// the Range."
-		//
-		// See: https://developer.mozilla.org/en-US/docs/Web/API/Range/startOffset
-		extentOffset = node.childNodes.length;
-	}
-
-	// Offset of range should be at expected extent.
-	const position = isReverse ? 'start' : 'end';
-	const offset = range[ `${ position }Offset` ];
-	if ( offset !== extentOffset ) {
-		return false;
-	}
-
-	// If confirmed to be at extent, traverse up through DOM, verifying that
-	// the node is at first or last child for reverse or forward respectively.
-	// Continue until container is reached.
-	const order = isReverse ? 'first' : 'last';
-	while ( node !== container ) {
-		const parentNode = node.parentNode;
-		if ( parentNode[ `${ order }Child` ] !== node ) {
-			return false;
-		}
-
-		node = parentNode;
-	}
-
-	// If reached, range is assumed to be at edge.
-	return true;
-}
-
-/**
- * Check whether the selection is vertically at the edge of the container.
- *
- * @param {Element} container Focusable element.
- * @param {boolean} isReverse Set to true to check top, false for bottom.
- *
- * @return {boolean} True if at the edge, false if not.
- */
-export function isVerticalEdge( container, isReverse ) {
-	if ( includes( [ 'INPUT', 'TEXTAREA' ], container.tagName ) ) {
-		return isHorizontalEdge( container, isReverse );
-	}
-
-	if ( ! container.isContentEditable ) {
-		return true;
-	}
-
-	const selection = window.getSelection();
-	const range = selection.rangeCount ? selection.getRangeAt( 0 ) : null;
-	if ( ! range ) {
-		return false;
+	if ( ! isCollapsed ) {
+		range.collapse( ! isForward );
 	}
 
 	const rangeRect = getRectangleFromRange( range );
@@ -173,20 +104,92 @@ export function isVerticalEdge( container, isReverse ) {
 		return false;
 	}
 
-	const buffer = rangeRect.height / 2;
-	const editableRect = container.getBoundingClientRect();
+	const computedStyle = window.getComputedStyle( container );
+	const lineHeight = parseInt( computedStyle.lineHeight, 10 ) || 0;
 
-	// Too low.
-	if ( isReverse && rangeRect.top - buffer > editableRect.top ) {
+	// Only consider the multiline selection at the edge if the direction is
+	// towards the edge.
+	if (
+		! isCollapsed &&
+		rangeRect.height > lineHeight &&
+		isForward === isReverse
+	) {
 		return false;
 	}
 
-	// Too high.
-	if ( ! isReverse && rangeRect.bottom + buffer < editableRect.bottom ) {
+	const padding =
+		parseInt(
+			computedStyle[ `padding${ isReverse ? 'Top' : 'Bottom' }` ],
+			10
+		) || 0;
+
+	// Calculate a buffer that is half the line height. In some browsers, the
+	// selection rectangle may not fill the entire height of the line, so we add
+	// 3/4 the line height to the selection rectangle to ensure that it is well
+	// over its line boundary.
+	const buffer = ( 3 * parseInt( lineHeight, 10 ) ) / 4;
+	const containerRect = container.getBoundingClientRect();
+	const originalRangeRect = getRectangleFromRange( originalRange );
+	const verticalEdge = isReverse
+		? containerRect.top + padding > originalRangeRect.top - buffer
+		: containerRect.bottom - padding < originalRangeRect.bottom + buffer;
+
+	if ( ! verticalEdge ) {
 		return false;
 	}
 
-	return true;
+	if ( onlyVertical ) {
+		return true;
+	}
+
+	// In the case of RTL scripts, the horizontal edge is at the opposite side.
+	const { direction } = computedStyle;
+	const isReverseDir = direction === 'rtl' ? ! isReverse : isReverse;
+
+	// To calculate the horizontal position, we insert a test range and see if
+	// this test range has the same horizontal position. This method proves to
+	// be better than a DOM-based calculation, because it ignores empty text
+	// nodes and a trailing line break element. In other words, we need to check
+	// visual positioning, not DOM positioning.
+	const x = isReverseDir ? containerRect.left + 1 : containerRect.right - 1;
+	const y = isReverse
+		? containerRect.top + buffer
+		: containerRect.bottom - buffer;
+	const testRange = hiddenCaretRangeFromPoint( document, x, y, container );
+
+	if ( ! testRange ) {
+		return false;
+	}
+
+	const side = isReverseDir ? 'left' : 'right';
+	const testRect = getRectangleFromRange( testRange );
+
+	// Allow the position to be 1px off.
+	return Math.abs( testRect[ side ] - rangeRect[ side ] ) <= 1;
+}
+
+/**
+ * Check whether the selection is horizontally at the edge of the container.
+ *
+ * @param {Element} container Focusable element.
+ * @param {boolean} isReverse Set to true to check left, false for right.
+ *
+ * @return {boolean} True if at the horizontal edge, false if not.
+ */
+export function isHorizontalEdge( container, isReverse ) {
+	return isEdge( container, isReverse );
+}
+
+/**
+ * Check whether the selection is vertically at the edge of the container.
+ *
+ * @param {Element} container Focusable element.
+ * @param {boolean} isReverse Set to true to check top, false for bottom.
+ *
+ * @return {boolean} True if at the vertical edge, false if not.
+ */
+export function isVerticalEdge( container, isReverse ) {
+	return isEdge( container, isReverse, true );
 }
 
 /**
@@ -204,6 +207,20 @@ export function getRectangleFromRange( range ) {
 		return range.getBoundingClientRect();
 	}
 
+	const { startContainer } = range;
+
+	// Correct invalid "BR" ranges. The cannot contain any children.
+	if ( startContainer.nodeName === 'BR' ) {
+		const { parentNode } = startContainer;
+		const index = Array.from( parentNode.childNodes ).indexOf(
+			startContainer
+		);
+
+		range = document.createRange();
+		range.setStart( parentNode, index );
+		range.setEnd( parentNode, index );
+	}
+
 	let rect = range.getClientRects()[ 0 ];
 
 	// If the collapsed range starts (and therefore ends) at an element node,
@@ -213,6 +230,8 @@ export function getRectangleFromRange( range ) {
 	// See: https://stackoverflow.com/a/6847328/995445
 	if ( ! rect ) {
 		const padNode = document.createTextNode( '\u200b' );
+		// Do not modify the live range.
+		range = range.cloneRange();
 		range.insertNode( padNode );
 		rect = range.getClientRects()[ 0 ];
 		padNode.parentNode.removeChild( padNode );
@@ -224,15 +243,9 @@ export function getRectangleFromRange( range ) {
 /**
  * Get the rectangle for the selection in a container.
  *
- * @param {Element} container Editable container.
- *
  * @return {?DOMRect} The rectangle.
  */
-export function computeCaretRect( container ) {
-	if ( ! container.isContentEditable ) {
-		return;
-	}
-
+export function computeCaretRect() {
 	const selection = window.getSelection();
 	const range = selection.rangeCount ? selection.getRangeAt( 0 ) : null;
 
@@ -343,11 +356,17 @@ function caretRangeFromPoint( doc, x, y ) {
  * @return {?Range} The best range for the given point.
  */
 function hiddenCaretRangeFromPoint( doc, x, y, container ) {
+	const originalZIndex = container.style.zIndex;
+	const originalPosition = container.style.position;
+
+	// A z-index only works if the element position is not static.
 	container.style.zIndex = '10000';
+	container.style.position = 'relative';
 
 	const range = caretRangeFromPoint( doc, x, y );
 
-	container.style.zIndex = null;
+	container.style.zIndex = originalZIndex;
+	container.style.position = originalPosition;
 
 	return range;
 }
@@ -360,7 +379,12 @@ function hiddenCaretRangeFromPoint( doc, x, y, container ) {
  * @param {DOMRect} [rect]              The rectangle to position the caret with.
  * @param {boolean} [mayUseScroll=true] True to allow scrolling, false to disallow.
  */
-export function placeCaretAtVerticalEdge( container, isReverse, rect, mayUseScroll = true ) {
+export function placeCaretAtVerticalEdge(
+	container,
+	isReverse,
+	rect,
+	mayUseScroll = true
+) {
 	if ( ! container ) {
 		return;
 	}
@@ -379,15 +403,19 @@ export function placeCaretAtVerticalEdge( container, isReverse, rect, mayUseScro
 	const buffer = rect.height / 2;
 	const editableRect = container.getBoundingClientRect();
 	const x = rect.left;
-	const y = isReverse ? ( editableRect.bottom - buffer ) : ( editableRect.top + buffer );
-	const selection = window.getSelection();
+	const y = isReverse
+		? editableRect.bottom - buffer
+		: editableRect.top + buffer;
 
-	let range = hiddenCaretRangeFromPoint( document, x, y, container );
+	const range = hiddenCaretRangeFromPoint( document, x, y, container );
 
 	if ( ! range || ! container.contains( range.startContainer ) ) {
-		if ( mayUseScroll && (
-			( ! range || ! range.startContainer ) ||
-				! range.startContainer.contains( container ) ) ) {
+		if (
+			mayUseScroll &&
+			( ! range ||
+				! range.startContainer ||
+				! range.startContainer.contains( container ) )
+		) {
 			// Might be out of view.
 			// Easier than attempting to calculate manually.
 			container.scrollIntoView( isReverse );
@@ -399,20 +427,7 @@ export function placeCaretAtVerticalEdge( container, isReverse, rect, mayUseScro
 		return;
 	}
 
-	// Check if the closest text node is actually further away.
-	// If so, attempt to get the range again with the y position adjusted to get the right offset.
-	if ( range.startContainer.nodeType === TEXT_NODE ) {
-		const parentNode = range.startContainer.parentNode;
-		const parentRect = parentNode.getBoundingClientRect();
-		const side = isReverse ? 'bottom' : 'top';
-		const padding = parseInt( getComputedStyle( parentNode ).getPropertyValue( `padding-${ side }` ), 10 ) || 0;
-		const actualY = isReverse ? ( parentRect.bottom - padding - buffer ) : ( parentRect.top + padding + buffer );
-
-		if ( y !== actualY ) {
-			range = hiddenCaretRangeFromPoint( document, x, actualY, container );
-		}
-	}
-
+	const selection = window.getSelection();
 	selection.removeAllRanges();
 	selection.addRange( range );
 	container.focus();
@@ -438,7 +453,7 @@ export function isTextField( element ) {
 
 		return (
 			( nodeName === 'INPUT' && selectionStart !== null ) ||
-			( nodeName === 'TEXTAREA' ) ||
+			nodeName === 'TEXTAREA' ||
 			contentEditable === 'true'
 		);
 	} catch ( error ) {
@@ -481,7 +496,10 @@ export function documentHasSelection() {
  */
 export function isEntirelySelected( element ) {
 	if ( includes( [ 'INPUT', 'TEXTAREA' ], element.nodeName ) ) {
-		return element.selectionStart === 0 && element.value.length === element.selectionEnd;
+		return (
+			element.selectionStart === 0 &&
+			element.value.length === element.selectionEnd
+		);
 	}
 
 	if ( ! element.isContentEditable ) {
@@ -497,11 +515,26 @@ export function isEntirelySelected( element ) {
 
 	const { startContainer, endContainer, startOffset, endOffset } = range;
 
-	return (
+	if (
 		startContainer === element &&
 		endContainer === element &&
 		startOffset === 0 &&
 		endOffset === element.childNodes.length
+	) {
+		return true;
+	}
+
+	const lastChild = element.lastChild;
+	const lastChildContentLength =
+		lastChild.nodeType === TEXT_NODE
+			? lastChild.data.length
+			: lastChild.childNodes.length;
+
+	return (
+		startContainer === element.firstChild &&
+		endContainer === element.lastChild &&
+		startOffset === 0 &&
+		endOffset === lastChildContentLength
 	);
 }
 
@@ -620,12 +653,11 @@ export function unwrap( node ) {
  *
  * @param {Element}  node    The node to replace
  * @param {string}   tagName The new tag name.
- * @param {Document} doc     The document of the node.
  *
  * @return {Element} The new node.
  */
-export function replaceTag( node, tagName, doc ) {
-	const newNode = doc.createElement( tagName );
+export function replaceTag( node, tagName ) {
+	const newNode = node.ownerDocument.createElement( tagName );
 
 	while ( node.firstChild ) {
 		newNode.appendChild( node.firstChild );
@@ -634,4 +666,27 @@ export function replaceTag( node, tagName, doc ) {
 	node.parentNode.replaceChild( newNode, node );
 
 	return newNode;
+}
+
+/**
+ * Wraps the given node with a new node with the given tag name.
+ *
+ * @param {Element} newNode       The node to insert.
+ * @param {Element} referenceNode The node to wrap.
+ */
+export function wrap( newNode, referenceNode ) {
+	referenceNode.parentNode.insertBefore( newNode, referenceNode );
+	newNode.appendChild( referenceNode );
+}
+
+/**
+ * Removes any HTML tags from the provided string.
+ *
+ * @param {string} html The string containing html.
+ *
+ * @return {string} The text content with any html removed.
+ */
+export function __unstableStripHTML( html ) {
+	const document = new DOMParser().parseFromString( html, 'text/html' );
+	return document.body.textContent || '';
 }

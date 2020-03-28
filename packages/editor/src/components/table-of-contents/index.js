@@ -2,36 +2,43 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Dropdown, IconButton } from '@wordpress/components';
+import { Dropdown, Button } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
+import { info } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import TableOfContentsPanel from './panel';
 
-function TableOfContents( { hasBlocks } ) {
+function TableOfContents( { hasBlocks, hasOutlineItemsDisabled } ) {
 	return (
 		<Dropdown
 			position="bottom"
 			className="table-of-contents"
 			contentClassName="table-of-contents__popover"
 			renderToggle={ ( { isOpen, onToggle } ) => (
-				<IconButton
-					onClick={ onToggle }
-					icon="info-outline"
+				<Button
+					onClick={ hasBlocks ? onToggle : undefined }
+					icon={ info }
 					aria-expanded={ isOpen }
 					label={ __( 'Content structure' ) }
-					disabled={ ! hasBlocks }
+					tooltipPosition="bottom"
+					aria-disabled={ ! hasBlocks }
 				/>
 			) }
-			renderContent={ () => <TableOfContentsPanel /> }
+			renderContent={ ( { onClose } ) => (
+				<TableOfContentsPanel
+					onRequestClose={ onClose }
+					hasOutlineItemsDisabled={ hasOutlineItemsDisabled }
+				/>
+			) }
 		/>
 	);
 }
 
 export default withSelect( ( select ) => {
 	return {
-		hasBlocks: !! select( 'core/editor' ).getBlockCount(),
+		hasBlocks: !! select( 'core/block-editor' ).getBlockCount(),
 	};
 } )( TableOfContents );

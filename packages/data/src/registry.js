@@ -1,49 +1,51 @@
 /**
  * External dependencies
  */
-import {
-	without,
-	mapValues,
-} from 'lodash';
-
-/**
- * WordPress dependencies
- */
-import deprecated from '@wordpress/deprecated';
+import { omit, without, mapValues } from 'lodash';
+import memize from 'memize';
 
 /**
  * Internal dependencies
  */
-import createNamespace from './namespace-store.js';
-import dataStore from './store';
+import createNamespace from './namespace-store';
+import createCoreDataStore from './store';
 
 /**
- * An isolated orchestrator of store registrations.
+ * @typedef {Object} WPDataRegistry An isolated orchestrator of store registrations.
  *
- * @typedef {WPDataRegistry}
- *
- * @property {Function} registerGenericStore
- * @property {Function} registerStore
- * @property {Function} subscribe
- * @property {Function} select
- * @property {Function} dispatch
+ * @property {Function} registerGenericStore Given a namespace key and settings
+ *                                           object, registers a new generic
+ *                                           store.
+ * @property {Function} registerStore        Given a namespace key and settings
+ *                                           object, registers a new namespace
+ *                                           store.
+ * @property {Function} subscribe            Given a function callback, invokes
+ *                                           the callback on any change to state
+ *                                           within any registered store.
+ * @property {Function} select               Given a namespace key, returns an
+ *                                           object of the  store's registered
+ *                                           selectors.
+ * @property {Function} dispatch             Given a namespace key, returns an
+ *                                           object of the store's registered
+ *                                           action dispatchers.
  */
 
 /**
- * An object of registry function overrides.
+ * @typedef {Object} WPDataPlugin An object of registry function overrides.
  *
- * @typedef {WPDataPlugin}
+ * @property {Function} registerStore registers store.
  */
 
 /**
  * Creates a new store registry, given an optional object of initial store
  * configurations.
  *
- * @param {Object} storeConfigs Initial store configurations.
+ * @param {Object}  storeConfigs Initial store configurations.
+ * @param {Object?} parent       Parent registry.
  *
  * @return {WPDataRegistry} Data registry.
  */
-export function createRegistry( storeConfigs = {} ) {
+export function createRegistry( storeConfigs = {}, parent = null ) {
 	const stores = {};
 	let listeners = [];
 
@@ -79,7 +81,67 @@ export function createRegistry( storeConfigs = {} ) {
 	 */
 	function select( reducerKey ) {
 		const store = stores[ reducerKey ];
-		return store && store.getSelectors();
+		if ( store ) {
+			return store.getSelectors();
+		}
+
+		return parent && parent.select( reducerKey );
+	}
+
+	const getResolveSelectors = memize(
+		( selectors ) => {
+			return mapValues(
+				omit( selectors, [
+					'getIsResolving',
+					'hasStartedResolution',
+					'hasFinishedResolution',
+					'isResolving',
+					'getCachedResolvers',
+				] ),
+				( selector, selectorName ) => {
+					return ( ...args ) => {
+						return new Promise( ( resolve ) => {
+							const hasFinished = () =>
+								selectors.hasFinishedResolution(
+									selectorName,
+									args
+								);
+							const getResult = () =>
+								selector.apply( null, args );
+
+							// trigger the selector (to trigger the resolver)
+							const result = getResult();
+							if ( hasFinished() ) {
+								return resolve( result );
+							}
+
+							const unsubscribe = subscribe( () => {
+								if ( hasFinished() ) {
+									unsubscribe();
+									resolve( getResult() );
+								}
+							} );
+						} );
+					};
+				}
+			);
+		},
+		{ maxSize: 1 }
+	);
+
+	/**
+	 * Given the name of a registered store, returns an object containing the store's
+	 * selectors pre-bound to state so that you only need to supply additional arguments,
+	 * and modified so that they return promises that resolve to their eventual values,
+	 * after any resolvers have ran.
+	 *
+	 * @param {string} reducerKey Part of the state shape to register the
+	 *                            selectors for.
+	 *
+	 * @return {Object} Each key of the object matches the name of a selector.
+	 */
+	function __experimentalResolveSelect( reducerKey ) {
+		return getResolveSelectors( select( reducerKey ) );
 	}
 
 	/**
@@ -92,7 +154,11 @@ export function createRegistry( storeConfigs = {} ) {
 	 */
 	function dispatch( reducerKey ) {
 		const store = stores[ reducerKey ];
-		return store && store.getActions();
+		if ( store ) {
+			return store.getActions();
+		}
+
+		return parent && parent.dispatch( reducerKey );
 	}
 
 	//
@@ -136,65 +202,9 @@ export function createRegistry( storeConfigs = {} ) {
 		namespaces: stores, // TODO: Deprecate/remove this.
 		subscribe,
 		select,
+		__experimentalResolveSelect,
 		dispatch,
 		use,
-	};
-
-	//
-	// Deprecated
-	//
-	registry.registerReducer = ( reducerKey, reducer ) => {
-		deprecated( 'registry.registerReducer', {
-			alternative: 'registry.registerStore',
-			plugin: 'Gutenberg',
-			version: '4.4.0',
-		} );
-
-		const namespace = createNamespace( reducerKey, { reducer }, registry );
-		registerGenericStore( reducerKey, namespace );
-		return namespace.store;
-	};
-
-	//
-	// Deprecated
-	//
-	registry.registerActions = ( reducerKey, actions ) => {
-		deprecated( 'registry.registerActions', {
-			alternative: 'registry.registerStore',
-			plugin: 'Gutenberg',
-			version: '4.4.0',
-		} );
-
-		const namespace = createNamespace( reducerKey, { actions }, registry );
-		registerGenericStore( reducerKey, namespace );
-	};
-
-	//
-	// Deprecated
-	//
-	registry.registerSelectors = ( reducerKey, selectors ) => {
-		deprecated( 'registry.registerSelectors', {
-			alternative: 'registry.registerStore',
-			plugin: 'Gutenberg',
-			version: '4.4.0',
-		} );
-
-		const namespace = createNamespace( reducerKey, { selectors }, registry );
-		registerGenericStore( reducerKey, namespace );
-	};
-
-	//
-	// Deprecated
-	//
-	registry.registerResolvers = ( reducerKey, resolvers ) => {
-		deprecated( 'registry.registerResolvers', {
-			alternative: 'registry.registerStore',
-			plugin: 'Gutenberg',
-			version: '4.4.0',
-		} );
-
-		const namespace = createNamespace( reducerKey, { resolvers }, registry );
-		registerGenericStore( reducerKey, namespace );
 	};
 
 	/**
@@ -228,10 +238,15 @@ export function createRegistry( storeConfigs = {} ) {
 		return registry;
 	}
 
-	Object.entries( {
-		'core/data': dataStore,
-		...storeConfigs,
-	} ).map( ( [ name, config ] ) => registry.registerStore( name, config ) );
+	registerGenericStore( 'core/data', createCoreDataStore( registry ) );
+
+	Object.entries( storeConfigs ).forEach( ( [ name, config ] ) =>
+		registry.registerStore( name, config )
+	);
+
+	if ( parent ) {
+		parent.subscribe( globalListener );
+	}
 
 	return withPlugins( registry );
 }

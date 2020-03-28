@@ -5,11 +5,6 @@ import createSelector from 'rememo';
 import { get, includes, some, flatten, values } from 'lodash';
 
 /**
- * WordPress dependencies
- */
-import deprecated from '@wordpress/deprecated';
-
-/**
  * Returns the current editing mode.
  *
  * @param {Object} state Global application state.
@@ -30,7 +25,10 @@ export function getEditorMode( state ) {
 export function isEditorSidebarOpened( state ) {
 	const activeGeneralSidebar = getActiveGeneralSidebarName( state );
 
-	return includes( [ 'edit-post/document', 'edit-post/block' ], activeGeneralSidebar );
+	return includes(
+		[ 'edit-post/document', 'edit-post/block' ],
+		activeGeneralSidebar
+	);
 }
 
 /**
@@ -60,7 +58,11 @@ export function isPluginSidebarOpened( state ) {
  */
 export function getActiveGeneralSidebarName( state ) {
 	// Dismissal takes precedent.
-	const isDismissed = getPreference( state, 'isGeneralSidebarDismissed', false );
+	const isDismissed = getPreference(
+		state,
+		'isGeneralSidebarDismissed',
+		false
+	);
 	if ( isDismissed ) {
 		return null;
 	}
@@ -83,9 +85,9 @@ export function getPreferences( state ) {
  *
  * @param {Object} state         Global application state.
  * @param {string} preferenceKey Preference Key.
- * @param {Mixed}  defaultValue  Default Value.
+ * @param {*}      defaultValue  Default Value.
  *
- * @return {Mixed} Preference Value.
+ * @return {*} Preference Value.
  */
 export function getPreference( state, preferenceKey, defaultValue ) {
 	const preferences = getPreferences( state );
@@ -105,6 +107,19 @@ export function isPublishSidebarOpened( state ) {
 }
 
 /**
+ * Returns true if the given panel was programmatically removed, or false otherwise.
+ * All panels are not removed by default.
+ *
+ * @param {Object} state     Global application state.
+ * @param {string} panelName A string that identifies the panel.
+ *
+ * @return {boolean} Whether or not the panel is removed.
+ */
+export function isEditorPanelRemoved( state, panelName ) {
+	return includes( state.removedPanels, panelName );
+}
+
+/**
  * Returns true if the given panel is enabled, or false otherwise. Panels are
  * enabled by default.
  *
@@ -115,25 +130,11 @@ export function isPublishSidebarOpened( state ) {
  */
 export function isEditorPanelEnabled( state, panelName ) {
 	const panels = getPreference( state, 'panels' );
-	return get( panels, [ panelName, 'enabled' ], true );
-}
 
-/**
- * Returns true if the given panel is enabled, or false otherwise. Panels are
- * enabled by default.
- *
- * @param {Object} state Global application state.
- * @param {string} panel A string that identifies the panel.
- *
- * @return {boolean} Whether or not the panel is enabled.
- */
-export function isEditorSidebarPanelOpened( state, panel ) {
-	deprecated( 'isEditorSidebarPanelOpened', {
-		alternative: 'isEditorPanelEnabled',
-		plugin: 'Gutenberg',
-		version: '4.3',
-	} );
-	return isEditorPanelEnabled( state, panel );
+	return (
+		! isEditorPanelRemoved( state, panelName ) &&
+		get( panels, [ panelName, 'enabled' ], true )
+	);
 }
 
 /**
@@ -147,7 +148,10 @@ export function isEditorSidebarPanelOpened( state, panel ) {
  */
 export function isEditorPanelOpened( state, panelName ) {
 	const panels = getPreference( state, 'panels' );
-	return panels[ panelName ] === true || get( panels, [ panelName, 'opened' ], false );
+	return (
+		get( panels, [ panelName ] ) === true ||
+		get( panels, [ panelName, 'opened' ] ) === true
+	);
 }
 
 /**
@@ -171,7 +175,7 @@ export function isModalActive( state, modalName ) {
  * @return {boolean} Is active.
  */
 export function isFeatureActive( state, feature ) {
-	return !! state.preferences.features[ feature ];
+	return get( state.preferences.features, [ feature ], false );
 }
 
 /**
@@ -198,12 +202,11 @@ export function isPluginItemPinned( state, pluginName ) {
  */
 export const getActiveMetaBoxLocations = createSelector(
 	( state ) => {
-		return Object.keys( state.metaBoxes.locations )
-			.filter( ( location ) => isMetaBoxLocationActive( state, location ) );
+		return Object.keys( state.metaBoxes.locations ).filter( ( location ) =>
+			isMetaBoxLocationActive( state, location )
+		);
 	},
-	( state ) => [
-		state.metaBoxes.locations,
-	]
+	( state ) => [ state.metaBoxes.locations ]
 );
 
 /**
@@ -260,9 +263,7 @@ export const getAllMetaBoxes = createSelector(
 	( state ) => {
 		return flatten( values( state.metaBoxes.locations ) );
 	},
-	( state ) => [
-		state.metaBoxes.locations,
-	]
+	( state ) => [ state.metaBoxes.locations ]
 );
 
 /**
@@ -285,4 +286,17 @@ export function hasMetaBoxes( state ) {
  */
 export function isSavingMetaBoxes( state ) {
 	return state.metaBoxes.isSaving;
+}
+
+/**
+ * Returns the current editing canvas device type.
+ * It's marked as experimental because, potentially, we'll need this
+ * in several pages including edit-site.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {string} Device type.
+ */
+export function __experimentalGetPreviewDeviceType( state ) {
+	return state.deviceType;
 }

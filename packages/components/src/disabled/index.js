@@ -17,7 +17,7 @@ const { Consumer, Provider } = createContext( false );
  *
  * See WHATWG HTML Standard: 4.10.18.5: "Enabling and disabling form controls: the disabled attribute".
  *
- * @link https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#enabling-and-disabling-form-controls:-the-disabled-attribute
+ * @see https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#enabling-and-disabling-form-controls:-the-disabled-attribute
  *
  * @type {string[]}
  */
@@ -65,7 +65,9 @@ class Disabled extends Component {
 
 	disable() {
 		focus.focusable.find( this.node ).forEach( ( focusable ) => {
-			if ( includes( DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName ) ) {
+			if (
+				includes( DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName )
+			) {
 				focusable.setAttribute( 'disabled', '' );
 			}
 
