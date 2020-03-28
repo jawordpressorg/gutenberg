@@ -1,12 +1,24 @@
+<!-- 
 # Introducing Attributes and Editable Fields
 
 The example blocks so far are still not very interesting because they lack options to customize the appearance of the message. In this section, we will implement a RichText field allowing the user to specify their own message. Before doing so, it's important to understand how the state of a block (its "attributes") is maintained and changed over time.
+ -->
+# 属性と編集可能フィールド
 
+ここまでのサンプルブロックではメッセージを変更できないためあまり面白くありません。このセクションでは RichText フィールドを実装して、ユーザーが好きなメッセージを指定できるようにします。実装の前に、まずブロックの状態「属性」がどのように管理され、どのように変更されるかを理解することは重要です。
+
+<!-- 
 ## Attributes
 
 Until now, the `edit` and `save` functions have returned a simple representation of a paragraph element. We also learned how these functions are responsible for _describing_ the structure of the block's appearance. If the user changes a block, this structure may need to change. To achieve this, the state of a block is maintained throughout the editing session as a plain JavaScript object, and when an update occurs, the `edit` function is invoked again. Put another way: __the output of a block is a function of its attributes__.
 
 One challenge of maintaining the representation of a block as a JavaScript object is that we must be able to extract this object again from the saved content of a post. This is achieved with the block type's `attributes` property:
+ -->
+## 属性
+
+これまでの `edit` 関数と `save` 関数は paragraph 要素の単純な表現を返していました。すでに学んだようにこれらの関数はブロックの外観の構造の _記述_ に責任があります。ユーザーがブロックを変更すれば、その構造も変更する必要があります。この実現のために編集セッションの間はブロックの状態をプレーンな JavaScript オブジェクトとして管理し、更新があると、`edit` 関数が再び呼び出します。別の言い方をすれば、__ブロックの出力はその属性の関数です。__
+
+JavaScript オブジェクトとしてブロックの外観を管理する場合の1つの挑戦は、投稿の保存されたコンテンツから再びこのオブジェクトを取り出す必要がある点です。
 
 ```js
 	attributes: {
@@ -17,11 +29,16 @@ One challenge of maintaining the representation of a block as a JavaScript objec
 		},
 	},
 ```
-
+<!-- 
 When registering a new block type, the `attributes` property describes the shape of the attributes object you'd like to receive in the `edit` and `save` functions. Each value is a [source function](/docs/designers-developers/developers/block-api/block-attributes.md) to find the desired value from the markup of the block.
 
 In the code snippet above, when loading the editor, the `content` value will be extracted from the HTML of the paragraph element in the saved post's markup.
+ -->
+新しいブロックタイプを登録する際、`attributes` プロパティは、`edit` 関数や `save` 関数で受け取る属性オブジェクトの形を記述します。それぞれの値はブロックのマークアップから希望の値を見つける [source 関数](https://developer.wordpress.org/block-editor/designers-developers/developers/block-api/block-attributes/) です。
 
+上のコード例ではエディターにロードされると、保存された投稿のマークアップの中の paragraph 要素の HTML から `content` 値が取り出されます。
+
+<!-- 
 ## Components and the `RichText` Component
 
 Earlier examples used the `createElement` function to create DOM nodes, but it's also possible to encapsulate this behavior into "components". This abstraction helps you share common behaviors and hide complexity in self-contained units.
@@ -31,6 +48,16 @@ There are a number of [components available](/docs/designers-developers/develope
 The `RichText` component can be considered as a super-powered `textarea` element, enabling rich content editing including bold, italics, hyperlinks, etc.
 
 To use the `RichText` component, and using ES5 code, remember to add `wp-editor` to the dependency array of registered script handles when calling `wp_register_script`.
+ -->
+## コンポーネントと `RichText` コンポーネント
+
+これまでのサンプルでは `createElement` 関数を使用して DOM ノードを作成しましたが、この動きを「コンポーネント」にカプセル化することができます。この抽象化により共通の動作を共有しやすくなり、複雑さを自己完結したユニット内に隠す事ができます。
+
+ブロックの実装に[利用できるコンポーネント](https://developer.wordpress.org/block-editor/packages/packages-editor/#components)が多数あります。以下のサンプルではそのうちの1つ [`RichText` コンポーネント](https://developer.wordpress.org/block-editor/packages/packages-editor/#richtext)を使用します。`RickTest` コンポーネントは `wp-editor` パッケージの一部です。
+
+`RichText` コンポーネントはパワーアップした `textarea` 要素と見なせます。ここでは太字、車体、ハイパーリンクなどのリッチコンテンツを編集できます。
+
+ES5 コードを使用して `RichText` コンポーネントを使用する場合は、`wp_register_script` 呼び出しの際の登録スクリプトハンドルの依存性配列に `wp-editor` を追加してください。
 
 ```php
 // automatically load dependencies and version
@@ -43,7 +70,7 @@ wp_register_script(
 	$asset_file['version']
 );
 ```
-
+<!-- 
 Do not forget to also update the `editor_script` handle in `register_block_type` to `gutenberg-examples-03-esnext`.
 
 Implementing this behavior as a component enables you as the block implementer to be much more granular about editable fields. Your block may not need `RichText` at all, or it may need many independent `RichText` elements, each operating on a subset of the overall block state.
@@ -51,6 +78,16 @@ Implementing this behavior as a component enables you as the block implementer t
 Because `RichText` allows for nested nodes, you'll most often use it in conjunction with the `html` attribute source when extracting the value from saved content. You'll also use `RichText.Content` in the `save` function to output RichText values.
 
 Here is the complete block definition for Example 03.
+ -->
+忘れずに `register_block_type` の `editor_script` ハンドルを `gutenberg-examples-03-esnext` に更新してください。
+
+振る舞いをコンポーネントとして実装することで、ブロック開発者は編集可能フィールドに対するきめ細かい制御が可能になります。ブロックでは `RichText` が不要かもしれませんし、それぞれが状態全体の一部を操作する多くの独立した `RichText` 要素が必要かもしれません。
+
+`RickText` はネストしたノードが許されるため、多くの場合、保存されたコンテンツから取り出す際に `html` 属性ソースと組み合わせて使用されます。また `RichText.Content` は `save` 関数の中で RickText の出力に使用されます。
+
+Example 03 の完全なブロック定義を以下に示します。
+
+**ESNext**
 
 {% codetabs %}
 {% ESNext %}
@@ -93,11 +130,13 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	},
 } );
 ```
+**ES5**
+
 {% ES5 %}
 ```js
 ( function( blocks, editor, element ) {
 	var el = element.createElement;
-	var RichText = editor.RichText;
+	var RichText = editor.RichText;◊
 
 	blocks.registerBlockType( 'gutenberg-examples/example-03-editable', {
 		title: 'Example: Editable',

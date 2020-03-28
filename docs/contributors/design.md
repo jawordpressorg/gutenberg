@@ -1,14 +1,32 @@
+<!--
 # Design Contributions
+-->
+# デザインのコントリビューション
 
+<!--
 A guide on how to get started contributing design to the Gutenberg project.
+-->
+ここでは Gutenberg プロジェクトにデザイン面から貢献する方法について解説します。
 
+<!--
 ## Discussions
+-->
+## ディスカッション
 
+<!--
 The [Make WordPress Design blog](https://make.wordpress.org/design/) is the primary spot for the latest information around WordPress Design Team: including announcements, product goals, meeting notes, meeting agendas, and more.
 
 Real-time discussions for design take place in the `#design` channel in [Make WordPress Slack](https://make.wordpress.org/chat) (registration required). Weekly meetings for the Design team are on Wednesdays at 19:00UTC.
+-->
+WordPress デザインチームからのアナウンス、製品ゴール、議事録、アジェンダ等の最新情報は [Make WordPress Design ブログ](https://make.wordpress.org/design/) に掲載されます。
 
+<!--
+-->
+
+<!--
 ## How Can Designers Contribute?
+-->
+## どうやってデザイナーがコントリビューションできるか?
 
 The Gutenberg project uses GitHub for managing code and tracking issues. The main repository is at: [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg).
 

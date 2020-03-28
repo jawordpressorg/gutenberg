@@ -1,7 +1,14 @@
+<!-- 
 # Block Controls: Block Toolbar and Settings Sidebar
+ -->
+# ブロックコントロール: ブロックツールバーと設定サイドバー
 
+<!-- 
 To simplify block customization and ensure a consistent experience for users, there are a number of built-in UI patterns to help generate the editor preview. Like with the `RichText` component covered in the previous chapter, the `wp.editor` global includes a few other common components to render editing interfaces. In this chapter, we'll explore toolbars and the block inspector.
+ -->
+ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与えるため、エディタープレビュー生成を支援する組み込み UI パターンが多数あります。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には編集インターフェースをレンダリングするその他の共通コンポーネントがいくつか含まれています。このセクションではツールバーとブロックインスペクターを探索します。
 
+<!-- 
 ## Block Toolbar
 
 ![Screenshot of the rich text toolbar applied to a Paragraph block inside the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/toolbar-text.png)
@@ -9,6 +16,16 @@ To simplify block customization and ensure a consistent experience for users, th
 When the user selects a block, a number of control buttons may be shown in a toolbar above the selected block. Some of these block-level controls are included automatically if the editor is able to transform the block to another type, or if the focused element is a RichText component.
 
 You can also customize the toolbar to include controls specific to your block type. If the return value of your block type's `edit` function includes a `BlockControls` element, those controls will be shown in the selected block's toolbar.
+ -->
+## ブロックツールバー
+
+![ブロックエディター内部で Paragraph ブロックに適用されたリッチテキストツールバー](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/toolbar-text.png)
+
+ユーザーがブロックを選択するとブロックの上のツールバーに複数のコントロールボタンが表示されます。エディターがブロックを他のタイプに変換できる場合、またはフォーカスを得た要素が RichText コンポーネントの場合、ブロックレベルコントロールのいくつかは自動的に表示されます。
+
+ツールバーをカスタマイズして、ブロックタイプ固有のコントロールを表示することもできます。ブロックタイプの `edit` 関数の戻り値に `BlockControls` を加えると、ブロックのツールバーにそのコントロールが表示されます。
+
+**ESNext**
 
 {% codetabs %}
 {% ESNext %}
@@ -90,6 +107,9 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 	},
 } );
 ```
+
+**ES5**
+
 {% ES5 %}
 ```js
 ( function( blocks, editor, element ) {
@@ -174,8 +194,12 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 ```
 {% end %}
 
+<!-- 
 Note that `BlockControls` is only visible when the block is currently selected and in visual editing mode. `BlockControls` are not shown when editing a block in HTML editing mode.
+ -->
+注意: `BlockControls` はブロックがエディターのビジュアルモードで選択されている場合のみ表示されます。HTML 編集モードでは表示されません。
 
+<!-- 
 ## Inspector
 
 ![Screenshot of the inspector panel focused on the settings for a Paragraph block](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/inspector.png)
@@ -187,3 +211,15 @@ If you have settings that affects only selected content inside a block (example:
 The Block Tab is shown in place of the Document Tab when a block is selected.
 
 Similar to rendering a toolbar, if you include an `InspectorControls` element in the return value of your block type's `edit` function, those controls will be shown in the Settings Sidebar region.
+ -->
+## インスペクター
+
+![Paragraph ブロックの設定でフォーカスのあるインスペクターパネル](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/inspector.png)
+
+設定サイドバーはあまり使わない設定や大きなスペースが必要な設定で使用します。設定サイドバーは**ブロックレベル設定でのみ**使用してください。
+
+ブロック内の選択したコンテンツでのみ有効な設定は (例: Paragraph 内の選択したテキストの「太字」設定)、**設定サイドバーの中に含めないでください**。設定サイドバーは HTML モードでブロックを編集する場合にも表示されるため、ブロックレベルの設定のみを含めてください。
+
+ブロックタブはブロックが選択されるとドキュメントタブと同じ位置に表示されます。
+
+ツールバーのレンダリングと同様、ブロックタイプの `edit` 関数の戻り地に `InspectorControls` 要素を追加すると、それらのコントロールは設定サイドバー領域に表示されます。

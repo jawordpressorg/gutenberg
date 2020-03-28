@@ -1,10 +1,22 @@
+<!-- 
 # Nested Blocks: Using InnerBlocks
+ -->
+# ネストしたブロック: InnerBlocks の使用
 
+<!-- 
 You can create a single block that nests other blocks using the [InnerBlocks](/packages/block-editor/src/components/inner-blocks) component. This is used in the Columns block, Social Links block, or any block you want to contain other blocks.
 
 Note: A single block can only contain one `InnerBlock` component.
 
 Here is the basic InnerBlocks usage.
+ -->
+他のブロックをネストするブロックを作成するには [InnerBlocks](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-block-editor/src/components/inner-blocks/) コンポーネントを使用します。このコンポーネントは「カラム」ブロックや「ソーシャルリンク」ブロックなど、他のブロックを含むブロックで使用されています。
+
+注意: 単一のブロックは、1つの `InnerBlock` コンポーネントのみを含むことができます。
+
+基本的な InnerBlocks の使用方法
+
+**ES5**
 
 {% codetabs %}
 {% ES5 %}
@@ -39,6 +51,9 @@ Here is the basic InnerBlocks usage.
 	window.wp.blockEditor,
 ) );
 ```
+
+**ESNext**
+
 {% ESNext %}
 ```js
 import { registerBlockType } from '@wordpress/blocks';
@@ -66,9 +81,14 @@ registerBlockType( 'gutenberg-examples/example-06', {
 ```
 {% end %}
 
+<!-- 
 ## Allowed Blocks
 
 Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in your InnerBlock. This restricts the that can be included only to those listed, all other blocks will not show in the inserter. 
+ -->
+## 許可されるブロック
+
+`ALLOWED_BLOCKS` プロパティを使用すると、InnerBlock 内で許可されるブロックの集合を定義できます。インサーターに含まれるブロックはリストされたブロックのみに制限され、その他のすべてのブロックは表示されません。
 
 ```js
 const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
@@ -78,10 +98,16 @@ const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
 />
 ```
 
-
+<!-- 
 ## Template
 
 Use the template property to define a set of blocks that prefill the InnerBlocks component when inserted. You can set attributes on the blocks to define their use. The example below shows a book review template using InnerBlocks component and setting placeholders values to show the block usage.
+ -->
+## テンプレート
+
+template プロパティを使用して、InnerBlocks コンポーネントが挿入された際にデフォルトで含まれるブロックの集合を定義できます。ブロックの属性を設定して使用例を定義できます。次の例は InnerBlocks コンポーネントを使用した本のレビューのテンプレートです。placeholder 値を設定してブロックの使用例を示しています。
+
+**ES5**
 
 {% codetabs %}
 {% ES5 %}
@@ -104,6 +130,9 @@ const MY_TEMPLATE = [
 		);
 	},
 ```
+
+**ESNext**
+
 {% ESNext %}
 ```js
 const MY_TEMPLATE = [
@@ -125,14 +154,23 @@ const MY_TEMPLATE = [
 ```
 {% end %}
 
+<!-- 
 Use the `templateLock` property to lock down the template. Using `all` locks the template complete, no changes can be made. Using `insert` prevents additional blocks to be inserted, but existing blocks can be reorderd. See [templateLock documentation](/packages/block-editor/src/components/inner-blocks#templatelock) for additional information.
+ -->
+`templateLock` プロパティを使用するとテンプレートをロックできます。テンプレートを完全にロックするには `all` を使用します。`insert` は追加ブロックのインサートを禁止しますが、既存のブロックは並べ替えられます。詳細については [templateLock のドキュメント](/packages/block-editor/src/components/inner-blocks#templatelock)を参照してください。
 
+<!-- 
 ### Post Template
 
 Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks. 
 
 The `InnerBlocks` template is for the component in the single block that you created, the rest of the post can include any blocks the user likes. Using a post template, can lock the entire post to just the template you define.
+ -->
+### 投稿テンプレート
 
+`InnerBlocks` とは関連しませんが、ちょうどよいのでここで触れますが、投稿タイプごとに[投稿テンプレート](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/)を作ることができます。ブロックエディターをブロックの集合と共にプリロードします。
+
+`InnerBlocks` テンプレートは、作成する単一ブロック内のコンポーネントのためのものであり、投稿のそれ以外の箇所ではユーザーが好きなブロックを含めることができます。投稿テンプレートを使用すれば投稿全体をロックし、定義したテンプレートのみに制限できます。
 
 ```php
 add_action( 'init', function() {
@@ -144,11 +182,18 @@ add_action( 'init', function() {
 } );
 ```
 
+<!-- 
 ## Parent-Child InnerBlocks
 
 A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks. An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src/column).
 
 When defining a child block, use the `parent` block setting to define which block is the parent. This prevents the block showing in the inserter outside of the InnerBlock it is defined for.
+ -->
+## 親子 InnerBlocks
+
+InnerBloks を使用する一般的なパターンは InnerBlocks のみに含まれるカスタムブロックの作成です。この例として「カラム」ブロックがあります。「カラム」ブロックでは単一の親ブロック `columns` とその子ブロック `column` を作成します。親ブロックは子ブロックのみを許可するとして定義されます。[Column のコード](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src/column)を参照してください。
+
+子ブロックを定義する際に `parent` ブロック設定を使用して親ブロックを定義します。こうすると定義された InnerBlock の外側ではインサーターに表示されません。
 
 ```js
 export const settings = {

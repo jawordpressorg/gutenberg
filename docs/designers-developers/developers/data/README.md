@@ -1,4 +1,7 @@
+<!--
 # Data Module Reference
+-->
+# データモジュールリファレンス
 
  - [**core**: WordPress Core Data](/docs/designers-developers/developers/data/data-core.md)
  - [**core/annotations**: Annotations](/docs/designers-developers/developers/data/data-core-annotations.md)
@@ -9,3 +12,9 @@
  - [**core/notices**: Notices Data](/docs/designers-developers/developers/data/data-core-notices.md)
  - [**core/nux**: The NUX (New User Experience) Data](/docs/designers-developers/developers/data/data-core-nux.md)
  - [**core/viewport**: The Viewport Data](/docs/designers-developers/developers/data/data-core-viewport.md)
+
+## データモジュール一覧
+
+原文およびその下のページを参照してください。
+
+https://developer.wordpress.org/block-editor/data/
