@@ -8,7 +8,7 @@ With the meta field registered in the previous step, next you will create a new 
 
 For this block, you will use the TextControl component, which is similar to an HTML input text field. For additional components, check out the [components](/packages/components/src) and [editor](/packages/editor/src/components) packages repositories.
  -->
-前のステップではメタフィールドを登録しました。このステップではユーザーにフィールド値を表示する新しいブロックをさくせします。カスタムブロック作成の詳細については [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) を参照してください。
+前のステップではメタフィールドを登録しました。このステップではユーザーにフィールド値を表示する新しいブロックを作成します。カスタムブロック作成の詳細については [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) を参照してください。
 
 このブロックでは HTML インプットテキストフィールドに似た、TextControl コンポーネントを使用します。その他のコンポーネントについては [コンポーネント](https://ja.wordpress.org/team/handbook/block-editor/components/) を参照してください。
 
@@ -139,9 +139,7 @@ registerBlockType( 'myguten/meta-block', {
 <!-- 
 **Important:** Before you test, you need to enqueue your JavaScript file and its dependencies. Note the WordPress packages used above are `wp.element`, `wp.blocks`, `wp.components`, `wp.data`, and `wp.coreData`. Each of these need to be included in the array of dependencies. Update the `myguten-meta-block.php` file adding the enqueue function:
  -->
-**重要:** テストの前に JavaScript ファイルと依存性をエンキューする必要があります。
-**Important:** Before you test, you need to enqueue your JavaScript file and its dependencies. Note the WordPress packages used above are `wp.element`, `wp.blocks`, `wp.components`, `wp.data`, and `wp.coreData`. Each of these need to be included in the array of dependencies. Update the `myguten-meta-block.php` file adding the enqueue function:
-
+**重要:** テストの前に JavaScript ファイルと依存性をエンキューする必要があります。上の例では WordPress パッケージ `wp.element`、`wp.blocks`、`wp.components`、`wp.data`、`wp.coreData` が使われていることに注意してください。それぞれを依存性の配列に含める必要があります。`myguten-meta-block.php` ファイルを更新してエンキュー関数を加えてください。
 
 ```php
 function myguten_enqueue() {
@@ -160,8 +158,9 @@ You can now edit a draft post and add a Meta Block to the post. You will see you
 
 You can now use the post meta data in a template, or another block. See next section for [using post meta data](/docs/designers-developers/developers/tutorials/metabox/meta-block-4-use-data.md). You could also confirm the data is saved by checking the database table `wp_postmeta` and confirm the new post id contains the new field data.
  -->
-You can now edit a draft post and add a Meta Block to the post. You will see your field that you can type a value in. When you save the post, either as a draft or published, the post meta value will be saved too. You can verify by saving and reloading your draft, the form will still be filled in on reload.
 
-![Meta Block](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/metabox/meta-block.png)
+これで投稿の下書きを編集し、メタブロックを追加できます。ブロックにはフィールドが表示され文字を入力することができます。下書き、あるいは公開状態で投稿を保存すると、投稿メタ値も保存されます。確認するには投稿の下書きを保存し再ロードします。リロードされたフォームには数値が入力されているはずです。データが保存されたことはデータベーステーブル `wp_postmeta` を調べ、新しい投稿 ID が新しいフィールドデータを含むことでも確認できます。
 
-You can now use the post meta data in a template, or another block. See next section for [using post meta data](/docs/designers-developers/developers/tutorials/metabox/meta-block-4-use-data.md). You could also confirm the data is saved by checking the database table `wp_postmeta` and confirm the new post id contains the new field data.
+![メタブロック](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/metabox/meta-block.png)
+
+投稿メタデータはテンプレートでも、あるいは別のブロックでも使用できます。次のセクションでは[投稿メタデータを使用します](/docs/designers-developers/developers/tutorials/metabox/meta-block-4-use-data.md)。

@@ -31,6 +31,6 @@ Before starting this tutorial, you will need a plugin to hold your code. Please 
 ## 目次
 
 1. [データフィールドの登録](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-2-register-meta/)
-2. [Add Meta Block](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/metabox/meta-block-3-add/)
+2. [メタブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-3-add/)
 3. [Use Post Meta Data](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/metabox/meta-block-4-use-data/)
 4. [Finishing Touches](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/metabox/meta-block-5-finishing/)
