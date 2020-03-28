@@ -1,4 +1,14 @@
+<!-- 
 # Gutenberg
+ -->
+# ブロックエディターハンドブック翻訳作業用リポジトリ
+
+これは[ブロックエディターハンドブック](https://ja.wordpress.org/team/handbook/block-editor/)の翻訳ファイル用リポジトリです。
+
+Takayuki Miyauchi さんの発案された翻訳方式を採用して、ブロックエディターハンドブックのドキュメントを翻訳しています。
+https://qiita.com/miya0001/items/4745cf900a66c0bbf8e5
+
+<!-- 
 [![Build Status](https://img.shields.io/travis/com/WordPress/gutenberg/master.svg)](https://travis-ci.com/WordPress/gutenberg)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
 
@@ -43,7 +53,7 @@ As with all WordPress projects, we want to ensure a welcoming environment for ev
 You can join us in the `#core-editor` channel in Slack, see the [WordPress Slack page](https://make.wordpress.org/chat/) for signup information; it is free to join.
 
 **Weekly meetings** The Editor Team meets weekly on Wednesdays at 14:00 UTC in Slack. If you can not join the meeting, agenda and notes are posted to the [Make WordPress Blog](https://make.wordpress.org/core/).
-
+ -->
 ## License
 
 WordPress is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE.md](LICENSE.md) for complete license.
