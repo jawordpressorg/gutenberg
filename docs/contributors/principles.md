@@ -39,3 +39,9 @@ Gutenberg が転換する*開発者体験、デザイナー体験*:
 * 一貫した UX パターンを採用することで、開発者はユーザーがすぐに自分のプログラムに親しみ、利用できることを確信できます。新たにインターフェースパターンを再発明する必要はなく、プログラムの作成に集中できます。
 * たった1つのモダンで柔軟性のあるインターフェース - 「ブロック」 - はさまざまな形で適用でき、開発者には WordPress を新しい多くの方法で拡張する機会があります。
 
+## 目次
+- [Key Concepts](https://developer.wordpress.org/block-editor/principles/key-concepts/)
+- [Glossary](https://developer.wordpress.org/block-editor/principles/glossary/)
+- [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/faq/)
+- [History](https://developer.wordpress.org/block-editor/principles/history/)
+- [Outreach](https://developer.wordpress.org/block-editor/principles/outreach/)

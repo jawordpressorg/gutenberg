@@ -21,7 +21,7 @@
 <!-- 
 * Check out the [Notices Tutorial](/docs/designers-developers/developers/tutorials/notices/README.md) to learn how to display informational UI at the top of the editor.
 -->
-* [通知チュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/notices/) - エディターの先頭に情報を表示するユーザーインターフェースについて学習します。
+* [通知チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/notices/) - エディターの先頭に情報を表示するユーザーインターフェースについて学習します。
 
 <!-- 
 * The [Sidebar Tutorial](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-0.md) will walk you through the steps of creating a sidebar to update data from the `post_meta` table.
