@@ -11,12 +11,12 @@
 <!--
 * The [Blocks Tutorial](/docs/designers-developers/developers/tutorials/block-tutorial/readme.md) is the best place to start to learn more about block creation.
 -->
-* [ブロックチュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/block-tutorial/) - ブロックの作成方法について学習します。
+* [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) - ブロックの作成方法について学習します。
 
 <!-- 
 * See the [Meta Boxes Tutorial](/docs/designers-developers/developers/tutorials/metabox/readme.md) for new ways of extending the editor storing and using post meta data.
 -->
-* [メタボックスチュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/metabox/) - 投稿メタデータを保存、利用する新しいエディターの拡張方法について学習します。
+* [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/) - 投稿メタデータを保存、利用する新しいエディターの拡張方法について学習します。
 
 <!-- 
 * Check out the [Notices Tutorial](/docs/designers-developers/developers/tutorials/notices/README.md) to learn how to display informational UI at the top of the editor.

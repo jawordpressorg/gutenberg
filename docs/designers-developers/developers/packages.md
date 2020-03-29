@@ -65,8 +65,9 @@ Once installed, you can access the component in your code using:
 import { PlainText }  from '@wordpress/block-editor';
 ```
 
-## パッケージ一覧 (訳出済のもの)
+## パッケージ一覧 (翻訳のあるもの)
 
+- [create-block](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-create-block/)
 - [env](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-env/)
 
 完全なパッケージ一覧は原文およびその下のページを参照してください。
