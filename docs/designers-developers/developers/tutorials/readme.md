@@ -26,7 +26,7 @@
 <!-- 
 * The [Sidebar Tutorial](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-0.md) will walk you through the steps of creating a sidebar to update data from the `post_meta` table.
 -->
-* [サイドバーチュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-0/) - `post_meta` テーブルからのデータを更新するサイドバーの作成手順について学習します。
+* [サイドバーチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/plugin-sidebar-0/) - `post_meta` テーブルからのデータを更新するサイドバーの作成手順について学習します。
 
 <!--
 * Learn how to add customized buttons to the toolbar with the [Format API tutorial](/docs/designers-developers/developers/tutorials/format-api/).

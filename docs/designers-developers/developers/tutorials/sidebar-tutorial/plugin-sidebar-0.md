@@ -1,12 +1,29 @@
+<!-- 
 # Creating a Sidebar for Your Plugin
+ -->
+# プラグイン用サイドバーの作成
 
+<!-- 
 This tutorial starts with you having an existing plugin setup and ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/designers-developers/developers/tutorials/javascript/) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
 
  In the next sections, you're going to create a custom sidebar for a plugin that contains a text control so the user can update a value that is stored in the `post_meta` table.
+ -->
+このチュートリアルはすでにプラグインがあることを仮定し、PHP と JavaScript のコードを追加するところから始めます。WordPress プラグインの入門、そしてブロックエディターを拡張するプラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/) チュートリアルを参照してください。
 
+次のセクションではプラグイン用のカスタムサイドバーを作成します。サイドバーにはテキストコントロールがあり、ユーザーは値を更新でき、値は `post_meta` テーブルに保存されます。
+
+<!-- 
 1. [Get a sidebar up and running](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)
 2. [Tweak the sidebar style and add controls](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)
 3. [Register a new meta field](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-3-register-meta.md)
 4. [Initialize the input control with the meta field value](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-4-initialize-input.md)
 5. [Update the meta field value when input's content changes](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-5-update-meta.md)
 6. [Finishing touches](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-6-finishing-touches.md)
+ -->
+
+1. [Get a sidebar up and running](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-1-up-and-running/)
+2. [Tweak the sidebar style and add controls](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls/)
+3. [Register a new meta field](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-3-register-meta/)
+4. [Initialize the input control with the meta field value](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-4-initialize-input/)
+5. [Update the meta field value when input's content changes](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-5-update-meta/)
+6. [Finishing touches](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-6-finishing-touches/)
