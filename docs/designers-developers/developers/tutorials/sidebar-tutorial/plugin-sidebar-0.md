@@ -8,9 +8,9 @@ This tutorial starts with you having an existing plugin setup and ready to add P
 
  In the next sections, you're going to create a custom sidebar for a plugin that contains a text control so the user can update a value that is stored in the `post_meta` table.
  -->
-このチュートリアルはすでにプラグインがあることを仮定し、PHP と JavaScript のコードを追加するところから始めます。WordPress プラグインの入門、そしてブロックエディターを拡張するプラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/) チュートリアルを参照してください。
+このチュートリアルはすでにプラグインがあると仮定し、PHP と JavaScript のコードを追加していきます。WordPress プラグインの入門、ブロックエディター拡張プラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/) チュートリアルを参照してください。
 
-次のセクションではプラグイン用のカスタムサイドバーを作成します。サイドバーにはテキストコントロールがあり、ユーザーは値を更新でき、値は `post_meta` テーブルに保存されます。
+次のセクション以降でプラグイン用のカスタムサイドバーを作成します。サイドバーにはテキストコントロールがあり、ユーザーは値を更新でき、値は `post_meta` テーブルに保存されます。
 
 <!-- 
 1. [Get a sidebar up and running](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)
@@ -21,7 +21,7 @@ This tutorial starts with you having an existing plugin setup and ready to add P
 6. [Finishing touches](/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-6-finishing-touches.md)
  -->
 
-1. [Get a sidebar up and running](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-1-up-and-running/)
+1. [サイドバーの起動](https://ja.wordpress.org/team/handbook/block-editor/tutorials/plugin-sidebar-0/plugin-sidebar-1-up-and-running/)
 2. [Tweak the sidebar style and add controls](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls/)
 3. [Register a new meta field](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-3-register-meta/)
 4. [Initialize the input control with the meta field value](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-4-initialize-input/)
