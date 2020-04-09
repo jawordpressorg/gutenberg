@@ -1,5 +1,11 @@
+<!-- 
+# Initialize the Input Control
+ -->
 # Initialize the Input Control
 
+<!-- 
+Now that the field is available in the editor store, it can be surfaced to the UI. The first step will be to extract the input control to a separate function so you can expand its functionality while the code stays clear.
+ -->
 Now that the field is available in the editor store, it can be surfaced to the UI. The first step will be to extract the input control to a separate function so you can expand its functionality while the code stays clear.
 
 ```js
@@ -36,10 +42,15 @@ Now that the field is available in the editor store, it can be surfaced to the U
 	} );
 } )( window.wp );
 ```
-
+<!-- 
 Now you can focus solely on the `MetaBlockField` component. The goal is to initialize it with the value of `sidebar_plugin_meta_block_field`, but also to keep it updated when that value changes.
 
 WordPress has [some utilities to work with data](/packages/data/README.md) from the stores. The first you're going to use is [withSelect](/packages/data/README.md#withselect-mapselecttoprops-function-function), whose signature is:
+ -->
+Now you can focus solely on the `MetaBlockField` component. The goal is to initialize it with the value of `sidebar_plugin_meta_block_field`, but also to keep it updated when that value changes.
+
+WordPress has [some utilities to work with data](/packages/data/README.md) from the stores. The first you're going to use is [withSelect](/packages/data/README.md#withselect-mapselecttoprops-function-function), whose signature is:
+
 
 ```js
 withSelect(

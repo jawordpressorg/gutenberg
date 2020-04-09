@@ -23,7 +23,7 @@ This tutorial starts with you having an existing plugin setup and ready to add P
 
 1. [サイドバーの起動](https://ja.wordpress.org/team/handbook/block-editor/tutorials/plugin-sidebar-0/plugin-sidebar-1-up-and-running/)
 2. [サイドバースタイルの調整とコントロールの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/plugin-sidebar-0/plugin-sidebar-2-styles-and-controls/)
-3. [Register a new meta field](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-3-register-meta/)
+3. [メタフィールドの登録](https://ja.wordpress.org/team/handbook/block-editor/tutorials/plugin-sidebar-0/plugin-sidebar-3-register-meta/)
 4. [Initialize the input control with the meta field value](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-4-initialize-input/)
 5. [Update the meta field value when input's content changes](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-5-update-meta/)
 6. [Finishing touches](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-6-finishing-touches/)
