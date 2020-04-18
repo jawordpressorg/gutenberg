@@ -50,9 +50,13 @@ export default function MyButton() {
 ```
 
 <!--
-Many components also include styles which will need to be output in order to appear correctly. Within WordPress, you can [add the `wp-components` stylesheet as a dependency of your plugin's stylesheet](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters). In other projects, you can link to the `build-style/style.css` file directly.
+Many components include CSS to add style, you will need to add in order to appear correctly. Within WordPress, add the `wp-components` stylesheet as a dependency of your plugin's stylesheet. See [wp_enqueue_style documentation](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters) for how to specify dependencies.
+
+In non-WordPress projects, link to the `build-style/style.css` file directly, it is located at `node_modules/@wordpress/components/build-style/style.css`.
 -->
-多くのコンポーネントは正しい描画出力に必要なスタイルを含みます。WordPress の中であれば、[プラグイン用スタイルシートの依存先として `wp-components` スタイルシートを追加](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters)できます。他のプロジェクトの場合は、直接 `build-style/style.css` ファイルをリンクできます。
+多くのコンポーネントには期待する表示のため、スタイルを追加する CSS が含まれています。WordPress プロジェクトの場合はプラグインのスタイルシートの依存として `wp-components` スタイルシートを追加してください。依存性の指定については [wp_enqueue_style のドキュメント](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters)を参照してください。
+
+WordPress 以外のプロジェクトの場合は、直接 `build-style/style.css` ファイルをリンクしてください。`node_modules/@wordpress/components/build-style/style.css` にあります。
 
 ## コンポーネント一覧
 
