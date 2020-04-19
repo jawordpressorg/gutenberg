@@ -6,7 +6,7 @@
 <!-- 
 Now that the field is available in the editor store, it can be surfaced to the UI. The first step will be to extract the input control to a separate function so you can expand its functionality while the code stays clear.
  -->
-エディターの「store」でフィールドが利用可能になりました。これで UI を作成できます。まず最初の手順として入力コントロールを別の関数に分離します。コードをクリーンにしたまま機能を拡張できます。
+エディターストア内でフィールドが利用可能になりました。これで UI を作成できます。まず最初の手順として入力コントロールを別の関数に分離します。コードをクリーンにしたまま機能を拡張できます。
 
 ```js
 ( function( wp ) {
@@ -49,7 +49,7 @@ WordPress has [some utilities to work with data](/packages/data/README.md) from 
  -->
 こここからは `MetaBlockField` コンポーネントのみに集中できます。ゴールは `sidebar_plugin_meta_block_field` 値による初期化と、同時に値が変更された場合の更新の維持です。
 
-WordPress には store からの[データを操作するユーティリティ](https://developer.wordpress.org/block-editor/packages/packages-data/)がいくつかありますが、最初に使用するのは恐らく [withSelect](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-data/#withselect-mapselecttoprops-function-function) でしょう。シグニチャーは以下です。
+WordPress にはエディタストアからの[データを操作するユーティリティ](https://developer.wordpress.org/block-editor/packages/packages-data/)がいくつかありますが、最初に使用するのは恐らく [withSelect](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-data/#withselect-mapselecttoprops-function-function) でしょう。シグニチャーは以下です。
 
 <!-- 
 ```js
@@ -144,7 +144,7 @@ This is how the code changes from the previous section:
 <!-- 
 Update the code and open the sidebar. The input's content is no longer `Initial value` but a void string. Users can't type values yet, but let's check that the component is updated if the value in the store changes. Open the browser's console, execute
  -->
-コードを更新しサイドバーを開いていください。入力コントロールのコンテンツはこれまでの `Initial value` ではなく空白文字列になります。まだ値を入力することはできませんが、store の値を変更するとコンポーネントが更新されます。ブラウザーのコンソールを開き、次のコードを実行してください。
+コードを更新しサイドバーを開いていください。入力コントロールのコンテンツはこれまでの `Initial value` ではなく空白文字列になります。まだ値を入力することはできませんが、エディターストアの値を変更するとコンポーネントが更新されます。ブラウザーのコンソールを開き、次のコードを実行してください。
 
 ```js
 wp.data.dispatch( 'core/editor' ).editPost(

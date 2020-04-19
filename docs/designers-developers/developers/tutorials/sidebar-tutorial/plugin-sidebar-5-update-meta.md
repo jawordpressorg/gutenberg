@@ -1,8 +1,16 @@
+<!-- 
 # Update the Meta Field When the Input's Content Changes
+ -->
+# 入力コントロールの変更でメタフィールドを更新する
 
+<!-- 
 The last step in the journey is to update the meta field when the input content changes. To do that, you'll use another utility from the `@wordpress/data` package, [withDispatch](/packages/data/README.md#withdispatch-mapdispatchtoprops-function-function).
 
 `withDispatch` works similarly to `withSelect`. It takes two functions, the first returns an object with data, and the second takes that data object as input and returns a new UI component. Let's see how to use it:
+ -->
+最後のステップでは入力コンテンツが変更された際にメタフィールドを更新します。これには `@wordpress/data` パッケージから別のユーティリティ [withDispatch](https://developer.wordpress.org/block-editor/packages/packages-data/#withdispatch-mapdispatchtoprops-function-function) を使用します。
+
+`withDispatch` は `withSelect` と同様に動作し、2つの関数を取ります。最初の関数はデータのオブジェクトを返し、2番めの関数はそのデータオブジェクトを引数として取り新しい UI コンポーネントを返します。以下の例を参照してください。
 
 ```js
 ( function( wp ) {
@@ -61,7 +69,7 @@ The last step in the journey is to update the meta field when the input content 
 	} );
 } )( window.wp );
 ```
-
+<!-- 
 Here's how it changed from the previous section:
 
 * Added a new `mapDispatchToProps` function that will be passed to `withDispatch`. It takes `dispatch` as input and returns an object containing functions to update the internal data structures of the editor. These functions are also known as _actions_.
@@ -69,6 +77,14 @@ Here's how it changed from the previous section:
 * The `props` argument to the `MetaBlockField` component contains now the data passed by `mapSelectToProps` and the actions passed by `mapDispatchToProps`.
 
 Copy this new code to the JavaScript file, load the sidebar and see how the input value gets updated as you type. You may want to check that the internal data structures are updated as well. Type something in the input control, and execute the following instruction in your browser's console:
+ -->
+前のセクションからコードは以下のように変わりました。
+
+* 新しい関数 `mapDispatchToProps` を追加しました。この関数は `withDispatch` に渡されます。`dispatch` を引数として取り、エディターの内部データ構造を更新する関数を含むオブジェクトを返します。これらの関数は _アクション_ としても知られます。
+* ユーザーが入力コントロール内で何か入力するたびに `setMetaFieldValue` を呼ぶことで、各キーストロークごとにエディターストアを効果的に更新しています。
+* `MetaBlockField` コンポーネントの `props` 引数には `mapSelectToProps` から渡されたデータと `mapDispatchToProps` から渡されたアクションが含まれます。
+
+この新しいコードを JavaScript ファイルにコピーしてサイドバーを再ロードし、タイプするたびに入力値が更新されることを確認してください。内部データ構造が更新されることも確認してください。確認には入力コントロールで何か入力し、次の命令をブラウザーのコンソールで実行します。
 
 ```js
 wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' )[
@@ -76,11 +92,18 @@ wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' )[
 ];
 ```
 
+<!-- 
 The message displayed should be what you typed in the input.
 
 Now, after doing some changes, hit the "Save draft" button or publish the post. Then, reload the editor page. The browser has now new content, fresh from the database. You want to confirm that what you typed was stored properly in the database, and has been reloaded in the current post data structure. Open the sidebar and make sure the input control is initialized with the last value you typed.
 
 One last check. At this point, because you haven't edited the input yet, the current post and the edited attributes should be the same. Confirm that by executing this code in your browser's console:
+ -->
+入力コントロールにタイプしたメッセージが表示されるはずです。
+
+何文字か入力したら「下書き保存」または「公開する」をクリックし、エディターページをリロードしてください。ブラウザーは新しいコンテンツを開き、データベースから更新します。タイプした文字列がデータベースに正しく保存され、現在の投稿データ構造にリロードされたことを確認します。サイドバーを開き、入力コントロールがタイプした最後の値で初期化されることを確認してください。
+
+最後のチェックです。この時点ではまだ入力を編集していませんので、現在の投稿と編集された属性は同じはずです。次のコードをブラウザーのコンソールで実行し確認してください。
 
 ```js
 wp.data.select( 'core/editor' ).getCurrentPost()[ 'meta' ][
@@ -90,5 +113,7 @@ wp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' )[
 	'sidebar_plugin_meta_block_field'
 ];
 ```
-
+<!-- 
 This is it! You now have a custom sidebar that updates `post_meta` contents.
+ -->
+以上です !  `post_meta` コンテンツを更新するカスタムサイドバーを作成しました。

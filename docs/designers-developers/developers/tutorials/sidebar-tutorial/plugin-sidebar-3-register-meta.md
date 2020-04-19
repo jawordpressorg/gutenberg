@@ -23,7 +23,7 @@ register_post_meta( 'post', 'sidebar_plugin_meta_block_field', array(
 <!-- 
 To make sure the field has been loaded, query the block editor [internal data structures](/docs/designers-developers/developers/data/), also known as _stores_. Open your browser's console, and execute this piece of code:
  -->
-フィールドがロードされたことを確認するには、「stores」と呼ばれるブロックエディターの[内部データ構造](https://ja.wordpress.org/team/handbook/block-editor/data/)を照会します。ブラウザーのコンソールを開き、次のコードを実行してください。
+フィールドがロードされたことを確認するには、「ストア」と呼ばれるブロックエディターの[内部データ構造](https://ja.wordpress.org/team/handbook/block-editor/data/)を照会します。ブラウザーのコンソールを開き、次のコードを実行してください。
 
 ```js
 wp.data.select( 'core/editor' ).getCurrentPost().meta;
