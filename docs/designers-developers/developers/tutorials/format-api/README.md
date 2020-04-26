@@ -28,4 +28,4 @@ WordPress プラグインと javaScript に馴染みのない方はまず [JavaS
  -->
 1. [新しいフォーマットの登録 ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/1-register-format/)
 2. [ツールバーへのボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/2-toolbar-button/)
-3. [Apply the format when the button is clicked](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/format-api/3-apply-format/)
+3. [ボタンのクリックでフォーマットを適用する](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/3-apply-format/)

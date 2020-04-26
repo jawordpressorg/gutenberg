@@ -31,7 +31,7 @@
 <!--
 * Learn how to add customized buttons to the toolbar with the [Format API tutorial](/docs/designers-developers/developers/tutorials/format-api/).
 -->
-* [フォーマット API チュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/format-api/) - ツールバーにカスタマイズしたボタンを追加する方法について学習します。
+* [フォーマット API チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/) - ツールバーにカスタマイズしたボタンを追加する方法について学習します。
 
 <!-- 
 * Build your own [custom block editor instance](/docs/designers-developers/developers/platform/custom-block-editor/) - this will walk you through building a standalone instance of the block editor within WP Admin.
