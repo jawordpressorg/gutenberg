@@ -11,7 +11,7 @@ Let's prepare a minimal plugin to make this work. Create a new folder and a file
 
 まずはじめにプラグインで適用する新しいフォーマットを登録します。これには WordPress の [`registerFormatType`](https://developer.wordpress.org/block-editor/packages/packages-rich-text/#registerFormatType) 関数を使用します。
 
-最小限のプラグインを準備します。新しいフォルダーに新しいファイル `my-custom-format.php` を作成し、中に登録と JavaScript アセットのエンキューに必要な PHP コードを記述します。
+最小限のプラグインを準備します。新しいフォルダーにファイル `my-custom-format.php` を作成し、中に登録と JavaScript アセットのエンキューに必要な PHP コードを記述します。
 
 ```php
 <?php

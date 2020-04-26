@@ -10,11 +10,11 @@ The new block editor does support most existing meta boxes, see [this backward c
 
 Here are two mini-tutorials for creating similar functionality to meta boxes in the block editor.
  -->
-ブロックエディター以前のエディターを拡張する場合には、カスタムメタボックスが使用されていました。新しいブロックエディターでは、開発者にさらなるパワーを与え、ユーザーにより良い体験を与える、いくつかの新しい拡張方法があります。古いカスタムメタボックスをこれらの新しい方法に移植することが推奨されます。この結果エディターの使用において、統一され一貫性のあるユーザー体験を生み出すことができます。
+ブロックエディター以前のエディターを拡張する際にはカスタムメタボックスが使用されていました。新しいブロックエディターでは、開発者にさらなるパワーを与えユーザーにより良い体験を与える新しい拡張方法があります。古いカスタムメタボックスを新しい方法に移植することが推奨されています。エディターの使用において統一され一貫性のあるユーザー体験を生み出すことができます。
 
-なお、新しいブロックエディターはほとんどの既存のメタボックスをサポートします。サポートの詳細については[この広報互換性に関する記事](/docs/designers-developers/developers/backward-compatibility/meta-box.md)を参照してください。
+なお、新しいブロックエディターはほとんどの既存のメタボックスをサポートします。サポートの詳細については[この後方互換性に関する記事](/docs/designers-developers/developers/backward-compatibility/meta-box.md)を参照してください。
 
-以下の2つの簡単なチュートリアルではブロックエディター内でメタボックスと同様の機能を作成します。
+以下の2つの簡単なチュートリアルではブロックエディター内でメタボックスと同じ機能を作成します。
 
 <!-- 
 ## Use Blocks to Store Meta

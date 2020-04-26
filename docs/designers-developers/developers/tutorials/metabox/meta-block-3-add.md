@@ -163,4 +163,4 @@ You can now use the post meta data in a template, or another block. See next sec
 
 ![メタブロック](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/metabox/meta-block.png)
 
-投稿メタデータはテンプレートでも、あるいは別のブロックでも使用できます。次のセクションでは[投稿メタデータを使用します](/docs/designers-developers/developers/tutorials/metabox/meta-block-4-use-data.md)。
+投稿メタデータはテンプレートでも、あるいは別のブロックでも使用できます。次のセクションでは[投稿メタデータを使用します](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-4-use-data/)。
