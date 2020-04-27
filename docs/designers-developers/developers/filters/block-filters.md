@@ -177,8 +177,10 @@ wp.hooks.addFilter(
 	addBackgroundColorStyle
 );
 ```
-
+<!-- 
 _Note:_ This filter must always be run on every page load, and not in your browser's developer tools console. Otherwise, a [block validation](/docs/designers-developers/developers/block-api/block-edit-save.md#validation) error will occur the next time the post is edited. This is due to the fact that block validation occurs by verifying that the saved output matches what is stored in the post's content during editor initialization. So, if this filter does not exist when the editor loads, the block will be marked as invalid.
+ -->
+_注意:_ このフィルターは、ブラウザの開発者コンソールではなく、常にすべてのページ読み込みに際して実行される必要があります。実行できない場合、次に投稿を編集する際に [ブロックのバリデーション](https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/#validation) エラーが発生します。これはブロックのバリデーションが、エディター初期化の際に、保存された出力と投稿のコンテンツとを比較することで行われる事実によります。エディターの読み込み時にこのフィルターが存在しなければブロックは無効とマークされます。
 
 #### `blocks.getBlockDefaultClassName`
 
@@ -318,11 +320,21 @@ wp.hooks.addFilter( 'editor.BlockListBlock', 'my-plugin/with-client-id-class-nam
 
 {% end %}
 
+<!-- 
 ## Removing Blocks
 
 ### Using a blacklist
 
 Adding blocks is easy enough, removing them is as easy. Plugin or theme authors have the possibility to "unregister" blocks.
+ -->
+
+## ブロックの削除
+
+### ブラックリストの使用
+
+ブロックの追加は簡単でしたが、ブロックの削除も同様です。プラグインやテーマの作者は、ブロックを登録解除することができます。
+
+**ES5**
 
 {% codetabs %}
 {% ES5 %}
@@ -332,6 +344,9 @@ wp.domReady( function() {
 	wp.blocks.unregisterBlockType( 'core/verse' );
 } );
 ```
+
+**ESNext**
+
 {% ESNext %}
 ```js
 // my-plugin.js
@@ -344,7 +359,10 @@ domReady( function() {
 ```
 {% end %}
 
+<!-- 
 and load this script in the Editor
+ -->
+次に、このスクリプトをエディターで読み込みます。
 
 ```php
 <?php
@@ -362,9 +380,14 @@ add_action( 'enqueue_block_editor_assets', 'my_plugin_blacklist_blocks' );
 
 **Important:** When unregistering a block, there can be a [race condition](https://en.wikipedia.org/wiki/Race_condition) on which code runs first: registering the block, or unregistering the block. You want your unregister code to run last. The way to do that is specify the component that is registering the block as a dependency, in this case `wp-edit-post`. Additionally, using `wp.domReady()` ensures the unregister code runs once the dom is loaded.
 
+<!-- 
 ### Using a whitelist
 
 If you want to disable all blocks except a whitelisted list, you can adapt the script above like so:
+ -->
+### ホワイトリストの使用
+
+ホワイトリスト化されたブロック以外のすべてのブロックを無効にしたい場合、上と同様のスクリプトを使用できます。
 
 ```js
 // my-plugin.js
@@ -382,10 +405,14 @@ wp.blocks.getBlockTypes().forEach( function( blockType ) {
 	}
 } );
 ```
-
+<!-- 
 ## Hiding blocks from the inserter
 
 On the server, you can filter the list of blocks shown in the inserter using the `allowed_block_types` filter. You can return either true (all block types supported), false (no block types supported), or an array of block type names to allow. You can also use the second provided param `$post` to filter block types based on its content.
+ -->
+## ブロックをインサーターから隠す
+
+サーバーサイドで `allowed_block_types` フィルターを使うことで、インサーターに表示されるブロックを選別することができます。true (すべてのブロックタイプが許可される)、false (すべてのブロックをサポートしない)、または許可するブロックの名前の配列を返すことができます。またあ2番目に渡されるパラメータ `$post` を使用して、内容に応じてブロックタイプをフィルタリングすることもできます。
 
 ```php
 <?php
