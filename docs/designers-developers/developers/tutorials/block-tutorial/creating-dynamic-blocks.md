@@ -130,7 +130,7 @@ Because it is a dynamic block it doesn't need to override the default `save` imp
  * Plugin Name: Gutenberg examples dynamic
  */
 
-function gutenberg_examples_dynamic_render_callback( $block, $content ) {
+function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
 	$recent_posts = wp_get_recent_posts( array(
 		'numberposts' => 1,
 		'post_status' => 'publish',
@@ -181,18 +181,7 @@ There are a few things to notice:
 * 組み込みの `save` 関数は `null` を返すだけです。これはレンダリングがサーバー側で実行されるためです。
 * サーバー側レンダリングは、ブロックとブロックの内部コンテンツを引数に取る関数で、ショートコードに似たマークアップを返します。
 
-<!-- 
-Note that for convenience and for backward-compatibility, the first argument of a `render_callback` function can also be referenced as an associative array of the block's attributes:
- -->
-便宜性および後方互換性のため、`render_callback` 関数の第1引数はブロック属性の連想配列としても参照できます。
-
-```php
-function gutenberg_examples_dynamic_render_callback( $block_attributes ) {
-	return 'The record ID is: ' . esc_html( $block_attributes['recordId'] );
-}
-```
-
-<!-- 
+<!--
 ## Live rendering in the block editor
 
 Gutenberg 2.8 added the [`<ServerSideRender>`](/packages/server-side-render/README.md) block which enables rendering to take place on the server using PHP rather than in JavaScript. 

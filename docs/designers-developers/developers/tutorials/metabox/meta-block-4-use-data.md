@@ -42,7 +42,7 @@ In PHP, use the [register_block_type](https://developer.wordpress.org/reference/
 ブロックがレンダリングされる際にメタ値を含めるには PHP では [register_block_type](https://developer.wordpress.org/reference/functions/register_block_type/) 関数を使用してコールバックを設定してください。
 
 ```php
-function myguten_render_paragraph( $block, $content ) {
+function myguten_render_paragraph( $block_attributes, $content ) {
 	$value = get_post_meta( get_the_ID(), 'myguten_meta_block_field', true );
 	// check value is set before outputting
 	if ( $value ) {

@@ -68,21 +68,30 @@ $ npm init @wordpress/block [options] [slug]
 
 <!-- 
 `[slug]` is optional. When provided it triggers the quick mode where it is used as the block slug used for its identification, the output location for scaffolded files, and the name of the WordPress plugin. The rest of the configuration is set to all default values.
+`[slug]` is optional. When provided it triggers the quick mode where it is used as the block slug used for its identification, the output location for scaffolded files, and the name of the WordPress plugin. The rest of the configuration is set to all default values unless overriden with some of the options listed below.
 
 Options:
-```bash
--t, --template <name>  template type name, allowed values: "es5", "esnext" (default: "esnext")
--V, --version          output the version number
--h, --help             output usage information
+```
+-V, --version                output the version number
+-t, --template <name>        template type name, allowed values: "es5", "esnext" (default: "esnext")
+--namespace <value>          internal namespace for the block name
+--title <value>              display title for the block
+--short-description <value>  short description for the block
+--category <name>            category name for the block
+-h, --help                   output usage information
 ```
  -->
-`[slug]` はオプションです。指定するとクイックモードとなり、ブロックの slug として識別子、ひな形ファイルの出力先、WordPress プラグインの名前に使用されます。構成の残りはすべてデフォルト値が設定されます。
+`[slug]` はオプションです。指定するとクイックモードとなり、ブロックの slug として識別子、ひな形ファイルの出力先、WordPress プラグインの名前に使用されます。構成の残りは、以下に挙げるオプションで上書きしない限り、すべてデフォルト値が設定されます。
 
 オプション:
-```bash
--t, --template <name>  テンプレートタイプ名。指定可能な値: "es5", "esnext" (デフォルト: "esnext")
--V, --version          バージョン番号の出力
--h, --help             使用方法の出力
+```
+-V, --version                バージョン番号の出力
+-t, --template <name>        テンプレートタイプ名。指定可能な値: "es5", "esnext" (デフォルト: "esnext")
+--namespace <value>          ブロック名の内部名前空間
+--title <value>              ブロックの表示タイトル
+--short-description <value>  ブロックの短い説明
+--category <name>            ブロックのカテゴリー名
+-h, --help                   使用方法の出力
 ```
 
 <!-- 
