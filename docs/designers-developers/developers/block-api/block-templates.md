@@ -11,19 +11,32 @@ The scope of templates include:
 ブロックテンプレートは、ブロックアイテムのリストとして定義されます。このようなブロックには、事前に定義された属性やプレースホルダーコンテンツを含めることができ、静的または動的にすることができます。ブロックテンプレートを使用すると、エディターセッションのデフォルトの初期状態を指定できます。
 
 テンプレートの範囲は次のとおりです
-
+<!-- 
 - Setting a default state dynamically on the client. (like `defaultBlock`)
 - Registered as a default for a given post type.
+ -->
+- クライアント側で初期状態を動的に設定する (`defaultBlock` のように)
+- 特定の投稿タイプのデフォルトとして登録
 
+<!-- 
 Planned additions:
 
 - Saved and assigned to pages as "page templates".
 - Defined in a `template.php` file or pulled from a custom post type (`wp_templates`) that is site specific.
 - As the equivalent of the theme hierarchy.
+ -->
+予定されている追加機能
+
+- 「ページテンプレート」として固定ページへ保存、割り当て
+- `template.php`ファイル内で定義するか、サイト特有のカスタム投稿タイプ (` wp_templates`) から読み込む
+- テーマ階層に相当するもの
 
 ## API
 
+<!-- 
 Templates can be declared in JS or in PHP as an array of blockTypes (block name and optional attributes).
+ -->
+テンプレートはJSまたはPHPでブロックタイプ (ブロック名とオプション属性) の配列として宣言できます。
 
 The first example in PHP creates a template for posts that includes an image block to start, you can add as many or as few blocks to your template as needed.
 
@@ -69,9 +82,14 @@ registerBlockType( 'myplugin/template', {
 
 See the [Meta Block Tutorial](/docs/designers-developers/developers/tutorials/metabox/meta-block-5-finishing.md) for a full example of a template in use.
 
+<!-- 
 ## Custom Post types
 
 A custom post type can register its own template during registration:
+ -->
+## カスタム投稿タイプ
+
+カスタム投稿タイプ登録時に独自のテンプレートを登録できます。
 
 ```php
 function myplugin_register_book_post_type() {
@@ -96,9 +114,14 @@ function myplugin_register_book_post_type() {
 add_action( 'init', 'myplugin_register_book_post_type' );
 ```
 
+<!-- 
 ### Locking
 
 Sometimes the intention might be to lock the template on the UI so that the blocks presented cannot be manipulated. This is achieved with a `template_lock` property.
+ -->
+### ロック
+
+場合によっては、ブロックを操作できないようにUIでテンプレートをロックすることが考えられます。 これは `template_lock` プロパティによって可能です。
 
 ```php
 function myplugin_register_template() {
@@ -113,10 +136,16 @@ function myplugin_register_template() {
 add_action( 'init', 'myplugin_register_template' );
 ```
 
+<!-- 
 *Options:*
 
 - `all` — prevents all operations. It is not possible to insert new blocks, move existing blocks, or delete blocks.
 - `insert` — prevents inserting or removing blocks, but allows moving existing blocks.
+ -->
+*オプション*
+
+- `all` - すべての操作を禁止します。新しいブロックの挿入、既存ブロックの移動、ブロックの削除はできません。
+- `insert` - 新しいブロックの挿入、ブロックの削除はできませんが、既存ブロックの移動はできます。
 
 ## Nested Templates
 
