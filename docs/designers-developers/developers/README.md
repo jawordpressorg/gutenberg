@@ -17,9 +17,9 @@ If you want to learn more about block creation, the [Blocks Tutorial](/docs/desi
 -->
 ## ブロックの作成
 
-エディターの大きな要素はブロックであり、主な拡張 API はブロック API です。ブロック API を使用することでユーザーは自分の静的ブロックや、サーバー側でレンダリングされる[動的ブロック](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは、より構造化したコンテンツのため Post Meta にデータを保存できます。
+エディターの大きな要素はブロックであり、主な拡張 API はブロック API です。ブロック API を使用することでユーザーは自分の静的ブロックや、サーバー側でレンダリングされる[動的ブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは、より構造化したコンテンツのため Post Meta にデータを保存できます。
 
-ブロックの作成について学習するには、まず[ブロックチュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/block-tutorial/) から始めると良いでしょう。
+ブロックの作成について学習するには、まず[ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) から始めると良いでしょう。
 
 <!--
 ## Extending Blocks
@@ -62,7 +62,7 @@ See how the new editor [supports existing Meta Boxes](/docs/designers-developers
 -->
 ## メタボックス
 
-PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックスチュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/metabox/) を参照してください。
+PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/) を参照してください。
 
 新しいエディターがどのように既存のメタボックスをサポートするかについては、[こちらの文書](https://developer.wordpress.org/block-editor/designers-developers/developers/backward-compatibility/meta-box/) を参照してください。
 
