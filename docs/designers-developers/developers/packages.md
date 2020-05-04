@@ -69,6 +69,7 @@ import { PlainText }  from '@wordpress/block-editor';
 
 - [create-block](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-create-block/)
 - [env](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-env/)
+- [i18n](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-i18n/)
 
 完全なパッケージ一覧は原文およびその下のページを参照してください。
 
