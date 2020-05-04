@@ -221,7 +221,7 @@ _パラメータ_
 -   _single_ `string`: 数値が1の場合に使用されるテキスト
 -   _plural_ `string`: 数値が2以上の場合に使用されるテキスト
 -   _number_ `number`: 単数形、複数形どちらのフォームを使うかを比較する数値
--   _context_ `string`: 翻訳者へのコンテキスト情報
+-   _context_ `string`: コンテキスト情報
 -   _domain_ `[string]`: 翻訳テキストを取得するドメイン
 
 _返り値_
@@ -255,7 +255,7 @@ _関連_
 _パラメータ_
 
 -   _text_ `string`: 翻訳するテキスト
--   _context_ `string`: 翻訳者へのコンテキスト情報
+-   _context_ `string`: コンテキスト情報
 -   _domain_ `[string]`: 翻訳テキストを取得するドメイン
 
 _返り値_
