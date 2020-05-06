@@ -1,16 +1,34 @@
+<!-- 
 # Feature Flags
+ -->
+# フィーチャーフラグ
 
+<!-- 
 With phase 2 of the Gutenberg project there's a need for improved control over how code changes are released. Newer features developed for phase 2 and beyond should only be released to the Gutenberg plugin, while improvements and bug fixes should still continue to make their way into core releases.
 
 The technique for handling this is known as a 'feature flag'. 
+ -->
+Gutenberg プロジェクトのフェーズ2を開始するにあたって、コード変更のリリースコントロールを改良する必要がありました。フェーズ2以降で開発された新しい機能は Gutenberg プラグインとしてリリースする一方、改良やバグの修正は引き続きコアリリースに反映しなければなりません。
 
+こうした処理技術は「フィーチャーフラグ」として知られています。
+
+<!-- 
 ## Introducing `process.env.GUTENBERG_PHASE`
 
 The `process.env.GUTENBERG_PHASE` is an environment variable containing a number that represents the phase. When the codebase is built for the plugin, this variable will be set to `2`. When building for core, it will be set to `1`.
+ -->
+## `process.env.GUTENBERG_PHASE` の導入
 
+`process.env.GUTENBERG_PHASE` はフェーズ番号を示す環境変数です。コードがプラグインとしてビルドされる際、この変数は `2` にセットされます。コアとしてビルドされる際には `1` にセットされます。
+
+<!-- 
 ## Basic Use
 
 A phase 2 function or constant should be exported using the following ternary syntax:
+ -->
+## 基本的な使用方法
+
+フェーズ2の関数や定数は次の3項構文を使用してエクスポートしてください。
 
 ```js
 function myPhaseTwoFeature() {
@@ -19,10 +37,15 @@ function myPhaseTwoFeature() {
 
 export const phaseTwoFeature = process.env.GUTENBERG_PHASE === 2 ? myPhaseTwoFeature : undefined;
 ```
-
+<!-- 
 In phase 1 environments the `phaseTwoFeature` export will be `undefined`.
 
 If you're attempting to import and call a phase 2 feature, be sure to wrap the call to the function in an if statement to avoid an error:
+ -->
+フェーズ1の環境では `phaseTwoFeature` のエクスポートは `undefined` になります。
+
+フェーズ2の機能をインポートし呼び出す場合はエラーを避けるため、関数呼び出しを if 文でラップしてください。
+
 ```js
 import { phaseTwoFeature } from '@wordpress/foo';
 
@@ -30,61 +53,103 @@ if ( process.env.GUTENBERG_PHASE === 2) {
 	phaseTwoFeature();
 }
 ```
-
+<!-- 
 ### How it works
 
 During the webpack build, any instances of `process.env.GUTENBERG_PHASE` will be replaced using webpack's define plugin (https://webpack.js.org/plugins/define-plugin/).
 
 If you write the following code:
+ -->
+### 動作原理
+
+During the webpack build, any instances of `process.env.GUTENBERG_PHASE` will be replaced using webpack's define plugin (https://webpack.js.org/plugins/define-plugin/).
+
+If you write the following code:
+
 ```js
 if ( process.env.GUTENBERG_PHASE === 2 ) {
 	phaseTwoFeature();
 }
 ```
-
+<!-- 
 When building the codebase for the plugin the variable will be replaced with the number literal `2`:
+ -->
+When building the codebase for the plugin the variable will be replaced with the number literal `2`:
+
 ```js
 if ( 2 === 2 ) {
 	phaseTwoFeature();
 }
 ```
-
+<!-- 
 Any code within the body of the if statement will be executed within the gutenberg plugin since `2 === 2` evaluates to `true`.
 
 For core, the `process.env.GUTENBERG_PHASE` variable is replaced with `1`, so the built code will look like:
+ -->
+Any code within the body of the if statement will be executed within the gutenberg plugin since `2 === 2` evaluates to `true`.
+
+For core, the `process.env.GUTENBERG_PHASE` variable is replaced with `1`, so the built code will look like:
+
 ```js
 if ( 1 === 2 ) {
 	phaseTwoFeature();
 }
 ```
-
+<!-- 
+`1 === 2` evaluates to false so the phase 2 feature will not be executed within core.
+ -->
 `1 === 2` evaluates to false so the phase 2 feature will not be executed within core.
 
+<!-- 
 ### Dead Code Elimination
 
 When building code for production, webpack 'minifies' code (https://en.wikipedia.org/wiki/Minification_(programming)), removing the amount of unnecessary JavaScript as much as possible. One of the steps involves something known as 'dead code elimination'. 
 
 When the following code is encountered, webpack determines that the surrounding `if`statement is unnecessary:
+ -->
+### 呼ばれないコードの削除
+
+When building code for production, webpack 'minifies' code (https://en.wikipedia.org/wiki/Minification_(programming)), removing the amount of unnecessary JavaScript as much as possible. One of the steps involves something known as 'dead code elimination'. 
+
+When the following code is encountered, webpack determines that the surrounding `if`statement is unnecessary:
+
 ```js
 if ( 2 === 2 ) {
 	phaseTwoFeature();
 }
 ```
-
+<!-- 
  The condition will alway evaluates to `true`, so can be removed leaving just the code in the body:
+ -->
+ The condition will alway evaluates to `true`, so can be removed leaving just the code in the body:
+
  ```js
  phaseTwoFeature();
  ```
-
+<!-- 
 Similarly when building for core, the condition in the following `if` statement always resolves to false:
+ -->
+Similarly when building for core, the condition in the following `if` statement always resolves to false:
+
 ```js
 if ( 1 === 2 ) {
 	phaseTwoFeature();
 }
 ```
-
+<!-- 
+The minification process will remove the entire `if` statement including the body, ensuring code destined for phase 2 is not included in the built JavaScript intended for core.
+ -->
 The minification process will remove the entire `if` statement including the body, ensuring code destined for phase 2 is not included in the built JavaScript intended for core.
 
+<!-- 
+## FAQ
+
+#### Why should I only use `===` or `!==` when comparing `process.env.GUTENBERG_PHASE` and not `>`, `>=`, `<` or `<=`?
+
+This is a restriction due to the behaviour of the greater than or less than operators in JavaScript when `process.env.GUTENBERG_PHASE` is undefined, as might be the case for third party users of WordPress npm packages. Both `process.env.GUTENBERG_PHASE < 2` and `process.env.GUTENBERG_PHASE > 1` resolve to false. When writing `if ( process.env.GUTENBERG_PHASE > 1 )`, the intention might be to avoid executing the phase 2 code in the following `if` statement's body. That's fine since it will evaluate to false. 
+
+However, the following code doesn't quite have the intended behaviour:
+ -->
 ## FAQ
 
 #### Why should I only use `===` or `!==` when comparing `process.env.GUTENBERG_PHASE` and not `>`, `>=`, `<` or `<=`?
@@ -102,9 +167,16 @@ function myPhaseTwoFeature() {
 	// implementation of phase 2 feature
 }
 ```
-
+<!-- 
+Here an early return is used to avoid execution of a phase 2 feature, but because the `if` condition resolves to false, the early return is bypassed and the phase 2 feature is incorrectly triggered.
+ -->
 Here an early return is used to avoid execution of a phase 2 feature, but because the `if` condition resolves to false, the early return is bypassed and the phase 2 feature is incorrectly triggered.
 
+<!-- 
+#### Why shouldn't I assign the result of an expression involving `GUTENBERG_PHASE` to a variable, e.g. `const isMyFeatureActive = process.env.GUTENBERG_PHASE === 2`?
+
+The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.
+ -->
 #### Why shouldn't I assign the result of an expression involving `GUTENBERG_PHASE` to a variable, e.g. `const isMyFeatureActive = process.env.GUTENBERG_PHASE === 2`?
 
 The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.
