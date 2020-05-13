@@ -57,35 +57,48 @@ $ npm -g i @wordpress/env
 ```
 <!-- 
 You're now ready to use `wp-env`!
+-->
+これで `wp-env` を使うことができます !
 
+<!-- 
 ### Installation as a local package
 
 If your project already has a package.json, it's also possible to use `wp-env` as a local package. First install `wp-env` locally as a dev dependency:
+ -->
+### ローカルパッケージとしてのインストール
+
+プロジェクトにすでに package.json がある場合、`wp-env` をローカルパッケージとして使用することもできます。まず `wp-env` を開発依存としてローカルにインストールします。
 
 ```sh
 $ npm i @wordpress/env --save-dev
 ```
-
+<!-- 
 Then modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
+ -->
+次に package.json を変更し、npm `scripts` (https://docs.npmjs.com/misc/scripts) にコマンドを追加します。
 
 ```json
 "scripts": {
 	"wp-env": "wp-env"
 }
 ```
-
+<!-- 
 When installing `wp-env` in this way, all `wp-env` commands detailed in these docs must be prefixed with `npm run`, for example:
+ -->
+この方法で `wp-env` をインストールした場合、この文書で説明するすべての `wp-env` コマンドの前に `npm run` を追加してください。たとえば
 
 ```sh
 $ npm run wp-env start
 ```
-
+<!-- 
 instead of:
+ -->
+と実行します。以後は次のような形式のみ記述します。
 
 ```sh
 $ wp-env start
 ```
-
+<!--
 ## Usage
 
 ### Starting the environment
@@ -94,7 +107,7 @@ First, ensure that Docker is running. You can do this by clicking on the Docker 
 
 Then, change to a directory that contains a WordPress plugin or theme:
  -->
-これで `wp-env` を使うことができます !
+## 使用方法
 
 ### 環境の開始
 
@@ -354,7 +367,7 @@ WordPress データベースをクリアします。
 ```
 
 <!-- 
-### `wp-env run [container] [command]` 
+### `wp-env run [container] [command]`
 
 ```sh
 wp-env run <container> [command..]
@@ -370,7 +383,7 @@ Positionals:
 
 For example:
  -->
-### `wp-env run [container] [command]` 
+### `wp-env run [container] [command]`
 
 ```sh
 wp-env run <container> [command..]
@@ -395,15 +408,15 @@ ID      user_login      display_name    user_email      user_registered roles
 ```
 
 <!--
-### `docker logs -f [container_id] >/dev/null` 
+### `docker logs -f [container_id] >/dev/null`
 
 ```sh
-docker logs -f <container_id> >/dev/null 
+docker logs -f <container_id> >/dev/null
 
 Shows the error logs of the specified container in the terminal. The container_id is the one that is visible with `docker ps -a`
 ```
  -->
-### `docker logs -f [container_id] >/dev/null` 
+### `docker logs -f [container_id] >/dev/null`
 
 ```sh
 docker logs -f <container_id> >/dev/null 
@@ -425,14 +438,15 @@ WordPress のインストールや開発環境で使用するプラグインや�
 `.wp-env.json` には5つのフィールドがあります。
 
 <!-- 
-| Field         | Type          | Default                                    | Description                                                                                                               |
-| ------------- | ------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Field         | Type           | Default                                    | Description                                                                                                               |
+| ------------- | -------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `"core"`      | `string\|null` | `null`                                     | The WordPress installation to use. If `null` is specified, `wp-env` will use the latest production release of WordPress.  |
-| `"plugins"`   | `string[]`    | `[]`                                       | A list of plugins to install and activate in the environment.                                                             |
-| `"themes"`    | `string[]`    | `[]`                                       | A list of themes to install in the environment. The first theme in the list will be activated.                            |
-| `"port"`      | `string`      | `"8888"`                                   | The primary port number to use for the insallation. You'll access the instance through the port: 'http://localhost:8888'. |
-| `"testsPort"` | `string`      | `"8889"`                                   | The port number to use for the tests instance.                                                                            |
-| `"config"`    | `Object`      | `"{ WP_DEBUG: true, SCRIPT_DEBUG: true }"` | Mapping of wp-config.php constants to their desired values.                                                               |
+| `"plugins"`   | `string[]`     | `[]`                                       | A list of plugins to install and activate in the environment.                                                             |
+| `"themes"`    | `string[]`     | `[]`                                       | A list of themes to install in the environment. The first theme in the list will be activated.                            |
+| `"port"`      | `integer`      | `8888`                                     | The primary port number to use for the insallation. You'll access the instance through the port: 'http://localhost:8888'. |
+| `"testsPort"` | `integer`      | `8889`                                     | The port number to use for the tests instance.                                                                            |
+| `"config"`    | `Object`       | `"{ WP_DEBUG: true, SCRIPT_DEBUG: true }"` | Mapping of wp-config.php constants to their desired values.                                                               |
+| `"mappings"`  | `Object`       | `"{}"`                                     | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                            |
  -->
 | フィールド      | タイプ         | デフォルト                                   | 説明                                                                                                               |
 | ------------- | ------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
@@ -442,21 +456,22 @@ WordPress のインストールや開発環境で使用するプラグインや�
 | `"port"`      | `integer`      | `8888`                                   | インストールに使用するポート番号。インスタンスには 'http://localhost:8888' でアクセスできる |
 | `"testsPort"` | `integer`      | `8889`                                   | テストインスタンスに使用するポート番号                                                                            |
 | `"config"`    | `Object`      | `"{ WP_DEBUG: true, SCRIPT_DEBUG: true }"` | wp-config.php の定数とその値                                                               |
+| `"mappings"`  | `Object`       | `"{}"`                                     | WordPress インスタンス内にマウントされるローカルディレクトリと WordPress ディレクトリのマッピング                                      |
 
 <!-- 
 _Note: the port number environment variables (`WP_ENV_PORT` and `WP_ENV_TESTS_PORT`) take precedent over the .wp-env.json values._
 
-Several types of strings can be passed into the `core`, `plugins`, and `themes` fields:
+Several types of strings can be passed into the `core`, `plugins`, `themes`, and `mappings` fields.
  -->
-_注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TESTS_PORT`) は .wp-env.json での値に優先します。_
+_注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TESTS_PORT`) は .wp-env.json の値に優先します。_
 
-`core`、`plugins`、`themes` フィールドに指定できる文字列のタイプをいかに示します。
+`core`、`plugins`、`themes`、`mappings` フィールドに指定できる文字列のタイプを以下に示します。
 
 <!-- 
 | Type              | Format                        | Example(s)                                               |
 | ----------------- | ----------------------------- | -------------------------------------------------------- |
-| Relative path     | `.<path>\|~<path>`             | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
-| Absolute path     | `/<path>\|<letter>:\<path>`    | `"/a/directory"`, `"C:\\a\\directory"`                   |
+| Relative path     | `.<path>\|~<path>`            | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
+| Absolute path     | `/<path>\|<letter>:\<path>`   | `"/a/directory"`, `"C:\\a\\directory"`                   |
 | GitHub repository | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#master"`  |
 | ZIP File          | `http[s]://<host>/<path>.zip` | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
  -->
@@ -543,6 +558,42 @@ This is useful for integration testing: that is, testing how old versions of Wor
 	"core": "WordPress/WordPress#5.2.0",
 	"plugins": [ "WordPress/wp-lazy-loading", "WordPress/classic-editor" ],
 	"themes": [ "WordPress/theme-experiments" ]
+}
+```
+<!-- 
+#### Add mu-plugins and other mapped directories
+
+You can add mu-plugins via the mapping config. The mapping config also allows you to mount a directory to any location in the wordpress install, so you could even mount a subdirectory. Note here that theme-1, will not be activated, despite being the "first" mapped theme.
+ -->
+#### mu-plugins とマッピングディレクトリの追加
+
+マッピング構成を使用して mu-plugins を追加できます。マッピング構成を使用すると、WordPress インストール内の任意の場所にディレクトリをマウントできます。サブディレクトリにマウントすることも可能です。ただし以下の例で theme-1 は「最初」のマップされたテーマですが、有効化されないことに注意してください。
+
+```json
+{
+	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/mu-plugins": "./path/to/local/mu-plugins",
+		"wp-content/themes": "./path/to/local/themes",
+		"wp-content/themes/specific-theme": "./path/to/local/theme-1"
+	}
+}
+```
+<!-- 
+#### Avoid activating plugins or themes on the instance
+
+Since all plugins in the `plugins` key are activated by default, you should use the `mappings` key to avoid this behavior. This might be helpful if you have a test plugin that should not be activated all the time. The same applies for a theme which should not be activated.
+ -->
+#### インスタンスのプラグインやテーマを有効化しない
+
+デフォルトでは `plugins` キーのすべてのプラグインは有効化されます。この動きを避けるには `mappings` キーを使用してください。この方法は常には有効化すべきでない、テスト用のプラグインがある場合に便利です。同じことは有効化すべきでないテーマにも当てはまります。
+
+```json
+{
+	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/plugins/my-test-plugin": "./path/to/test/plugin"
+	}
 }
 ```
 
