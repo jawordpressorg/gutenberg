@@ -308,10 +308,10 @@ Positionals:
        choosing a specific version.                 [string] [default: "master"]
 ```
  -->
-### `wp-env start [ref]`
+### wp-env start
 
 ```sh
-wp-env start
+wp-env start [ref]
 
 WordPress 開発環境をポート 8888 (​http://localhost:8888​) で (ポートは WP_ENV_PORT で指定可)、
 テスト環境を 8889 (​http://localhost:8889​) で (ポートは WP_ENV_TESTS_PORT で指定化) 開始します。
@@ -333,7 +333,7 @@ wp-env stop
 Stops running WordPress for development and tests and frees the ports.
 ```
  -->
-### `wp-env stop`
+### wp-env stop
 
 ```sh
 wp-env stop
@@ -354,7 +354,7 @@ Positionals:
             [string] [choices: "all", "development", "tests"] [default: "tests"]
 ```
  -->
-### `wp-env clean [environment]`
+### wp-env clean
 
 ```sh
 wp-env clean [environment]
@@ -383,7 +383,7 @@ Positionals:
 
 For example:
  -->
-### `wp-env run [container] [command]`
+### wp-env run
 
 ```sh
 wp-env run <container> [command..]
@@ -416,7 +416,7 @@ docker logs -f <container_id> >/dev/null
 Shows the error logs of the specified container in the terminal. The container_id is the one that is visible with `docker ps -a`
 ```
  -->
-### `docker logs -f [container_id] >/dev/null`
+### docker logs
 
 ```sh
 docker logs -f <container_id> >/dev/null 
