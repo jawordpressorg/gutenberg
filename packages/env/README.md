@@ -392,8 +392,8 @@ wp-env run <container> [command..]
 
 
 引数:
-  container  コマンドを実行するコンテナ            [string] [必須]
-  command    実行するコマンド                           [array] [デフォルト: []]
+  container  コマンドを実行するコンテナ        [string] [必須]
+  command    実行するコマンド                [array] [デフォルト: []]
 ```
 
 例:
@@ -408,20 +408,56 @@ ID      user_login      display_name    user_email      user_registered roles
 ```
 
 <!--
-### `docker logs -f [container_id] >/dev/null`
+### `wp-env destroy`
 
 ```sh
-docker logs -f <container_id> >/dev/null
+wp-env destroy
 
-Shows the error logs of the specified container in the terminal. The container_id is the one that is visible with `docker ps -a`
+Destroy the WordPress environment. Delete docker containers and remove local files.
 ```
  -->
-### docker logs
+### wp-env destroy
 
 ```sh
-docker logs -f <container_id> >/dev/null 
+wp-env destroy
 
-指定したコンテナのログをターミナルに表示します。container_id は `docker ps -a` で確認できます。
+WordPress 環境を破壊します。Docker コンテナを削除し、ローカルファイルを削除します。
+```
+<!-- 
+### `wp-env logs [environment]`
+
+```sh
+wp-env logs
+
+displays PHP and Docker logs for given WordPress environment.
+
+Positionals:
+  environment  Which environment to display the logs from.
+      [string] [choices: "development", "tests", "all"] [default: "development"]
+
+Options:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+  --debug    Enable debug output.                     [boolean] [default: false]
+  --watch    Watch for logs as they happen.            [boolean] [default: true]
+```
+ -->
+### wp-env logs
+
+```sh
+wp-env logs [environment]
+
+指定した WordPress 環境の PHP と Docker のログを表示します。
+
+引数:
+  environment  どの環境のログを出力するか
+      [string] [選択: "development", "tests", "all"] [デフォルト: "development"]
+
+オプション:
+  --help     ヘルプの表示                [boolean]
+  --version  バージョン番号の表示         [boolean]
+  --debug    デバッグ出力の有効化         [boolean] [デフォルト: false]
+  --watch    ログをウオッチする          [boolean] [デフォルト: true]
 ```
 
 <!--
@@ -615,3 +651,4 @@ You can tell `wp-env` to use a custom port number so that your instance does not
 ```
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+````
