@@ -11,7 +11,7 @@
 <!-- 
 Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`wp-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
  -->
-Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`wp-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
+すべてのブロック作成は、新規にブロックタイプの定義を登録するところから始まります。登録には [`wp-blocks` パッケージ](/packages/blocks/README.md#registerBlockType) の `registerBlockType` 関数を使用します。関数はブロック名とブロック構成オブジェクトの2つの引数を取ります。
 
 ### Block Name
 
@@ -25,10 +25,10 @@ The name for a block is a unique string that identifies a block. Names have to b
 registerBlockType( 'my-plugin/book', {} );
 ```
  -->
-The name for a block is a unique string that identifies a block. Names have to be structured as `namespace/block-name`, where namespace is the name of your plugin or theme.
+ブロック名はブロックを一意に識別する固有の文字列です。ブロック名は `namespace/block-name` の形式を取り namespace はプラグインやテーマの名前です。
 
 ```js
-// Registering my block with a unique name
+// ブロックを一意の名前で登録
 registerBlockType( 'my-plugin/book', {} );
 ```
 
@@ -38,15 +38,17 @@ _Note:_ A block name can only contain lowercase alphanumeric characters and dash
 _Note:_ This name is used on the comment delimiters as `<!-- wp:my-plugin/book -->
 <!--`. Those blocks provided by core don't include a namespace when serialized.
  -->
-_Note:_ A block name can only contain lowercase alphanumeric characters and dashes, and must begin with a letter.
+_注意:_ ブロック名には英小文字、数字、ダッシュのみを使うことができます。また文字で始まる必要があります。
 
-_Note:_ This name is used on the comment delimiters as `<!-- wp:my-plugin/book -->`. Those blocks provided by core don't include a namespace when serialized.
+_注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plugin/book -->` のように使用されます。コアで提供されるブロックは、シリアライズの際に名前空間が削除されます。
 
 ### Block Configuration
 
 -   **Type:** `Object` [ `{ key: value }` ]
 
-A block requires a few properties to be specified before it can be registered successfully. These are defined through a configuration object, which includes the following:
+登録する際、ブロックにプロパティを指定できます。プロパティは構成オブジェクトで定義します。
+
+プロパティの一覧は以下のとおりです。
 
 #### title
 
@@ -59,10 +61,10 @@ This is the display title for your block, which can be translated with our trans
 title: __( 'Book' );
 ```
  -->
-This is the display title for your block, which can be translated with our translation functions. The block inserter will show this name.
+ブロックの表示タイトル。翻訳関数を使用して翻訳されます。ブロックインサーターはこの名前を表示します。
 
 ```js
-// Our data object
+// 私たちのデータオブジェクト
 title: __( 'Book' );
 ```
 #### description (optional)
@@ -70,12 +72,8 @@ title: __( 'Book' );
 -   **Type:** `String`
 <!-- 
 This is a short description for your block, which can be translated with our translation functions. This will be shown in the Block Tab in the Settings Sidebar.
-
-```js
-description: __( 'Block showing a Book card.' );
-```
  -->
-This is a short description for your block, which can be translated with our translation functions. This will be shown in the Block Tab in the Settings Sidebar.
+ブロックの簡単な説明。翻訳関数を使用して翻訳されます。「設定」サイドバーの「ブロック」タブで表示されます。
 
 ```js
 description: __( 'Block showing a Book card.' );
@@ -102,22 +100,22 @@ category: 'widgets',
 
 Plugins and Themes can also register [custom block categories](/docs/designers-developers/developers/filters/block-filters.md#managing-block-categories).
  -->
-Blocks are grouped into categories to help users browse and discover them.
+ブロックはユーザーの見やすさ、検索しやすさのためカテゴリーにグループ分けされます。
 
-The core provided categories are:
+コアで提供されるカテゴリー一覧:
 
--   common
--   formatting
--   layout
--   widgets
--   embed
+-   common  (一般ブロック)
+-   formatting  (フォーマット)
+-   layout  (レイアウト要素
+-   widgets  (ウィジェット)
+-   embed  (埋め込み)
 
 ```js
-// Assigning to the 'widgets' category
+// 'widgets' (ウィジェット) カテゴリーに割り当て
 category: 'widgets',
 ```
 
-Plugins and Themes can also register [custom block categories](/docs/designers-developers/developers/filters/block-filters.md#managing-block-categories).
+プラグインとテーマは [カスタムブロックカテゴリー](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#managing-block-categories) を登録することもできます。
 
 #### icon (optional)
 
@@ -133,13 +131,13 @@ icon: 'book-alt',
 icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 ```
  -->
-An icon property should be specified to make it easier to identify a block. These can be any of [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/), or a custom `svg` element.
+ブロックを見つけやすくするには icon プロパティを指定してします。任意の [WordPress Dashicon](https://developer.wordpress.org/resource/dashicons/) またはカスタム `svg` 要素を指定できます。
 
 ```js
-// Specifying a dashicon for the block
+// ブロックに dashicon を指定
 icon: 'book-alt',
 
-// Specifying a custom svg for the block
+// ブロックにカスタム svg を指定
 icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 ```
 <!-- 
@@ -149,11 +147,11 @@ An object can also be passed as icon, in this case, icon, as specified above, sh
 
 Besides src the object can contain background and foreground colors, this colors will appear with the icon when they are applicable e.g.: in the inserter.
  -->
-**Note:** Custom SVG icons are automatically wrapped in the [`wp.primitives.SVG` component](/packages/primitives/src/svg/) to add accessibility attributes (`aria-hidden`, `role`, and `focusable`).
+**注意:** カスタム SVG アイコンは自動的に [`wp.primitives.SVG` コンポーネント](/packages/primitives/src/svg/) でラップされ、アクセシビリティ属性 `aria-hidden`、`role`、`focusable` が追加されます。
 
-An object can also be passed as icon, in this case, icon, as specified above, should be included in the src property.
+オブジェクトもアイコンとして指定できますが、この場合にアイコンは src プロパティに含めてください。
 
-Besides src the object can contain background and foreground colors, this colors will appear with the icon when they are applicable e.g.: in the inserter.
+src 以外にオブジェクトは背景色と前景色を含むことができます。ここで指定した色はインサーターの中など適切な場面でアイコンの背景色や前景色として使用されます。
 
 <!-- 
 ```js
@@ -169,11 +167,11 @@ icon: {
  -->
 ```js
 icon: {
-	// Specifying a background color to appear with the icon e.g.: in the inserter.
+	// インサーターの中などでアイコンの背景色として使用される色の指定
 	background: '#7e70af',
-	// Specifying a color for the icon (optional: if not set, a readable color will be automatically defined)
+	// アイコンの色の指定。オプションで、指定しなければ視認性の高い色が自動で定義される
 	foreground: '#fff',
-	// Specifying an icon for the block
+	// ブロックのアイコンの指定
 	src: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 } ,
 ```
@@ -668,7 +666,7 @@ Blocks can be added to collections, grouping together all blocks from the same o
 <!-- 
 This should match the namespace declared in the block name; the name of your plugin or theme.
  -->
-This should match the namespace declared in the block name; the name of your plugin or theme.
+ブロック名で定義された namespace と合致する必要があります。プラグインやテーマの名前です。
 
 ### Settings
 
