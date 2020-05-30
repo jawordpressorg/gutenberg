@@ -4,11 +4,14 @@
 import { getPath, getQueryString } from '@wordpress/url';
 import { useSelect } from '@wordpress/data';
 import {
+	Tooltip,
 	DropdownMenu,
 	MenuGroup,
 	MenuItemsChoice,
 } from '@wordpress/components';
+import { Icon, home } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
+import { __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 
 function getPathFromLink( link ) {
 	const path = getPath( link );
@@ -31,9 +34,26 @@ export default function PageSwitcher( {
 					( _page ) => {
 						const path = getPathFromLink( _page.link );
 						return {
-							label: _page.title.rendered,
+							label:
+								path === '/' ? (
+									<>
+										{ _page.title.rendered }
+										<Tooltip text={ __( 'Home' ) }>
+											<div>
+												<Icon icon={ home } />
+											</div>
+										</Tooltip>
+									</>
+								) : (
+									_page.title.rendered
+								),
+							type: 'page',
+							slug: _page.slug,
 							value: path,
-							context: { postType: 'page', postId: _page.id },
+							context: {
+								postType: 'page',
+								postId: _page.id,
+							},
 						};
 					}
 				),
@@ -42,6 +62,8 @@ export default function PageSwitcher( {
 						const path = getPathFromLink( category.link );
 						return {
 							label: category.name,
+							type: 'category',
+							slug: category.slug,
 							value: path,
 							context: {
 								query: { categoryIds: [ category.id ] },
@@ -54,7 +76,16 @@ export default function PageSwitcher( {
 			};
 			if ( showOnFront === 'posts' )
 				pageGroups.posts.unshift( {
-					label: __( 'All Posts' ),
+					label: (
+						<>
+							{ __( 'All Posts' ) }
+							<Tooltip text={ __( 'Home' ) }>
+								<div>
+									<Icon icon={ home } />
+								</div>
+							</Tooltip>
+						</>
+					),
 					value: '/',
 					context: {
 						query: { categoryIds: [] },
@@ -65,21 +96,33 @@ export default function PageSwitcher( {
 		},
 		[ showOnFront ]
 	);
+
 	const onPageSelect = ( newPath ) => {
-		const { value: path, context } = [ ...pages, ...categories ].find(
-			( choice ) => choice.value === newPath
-		);
-		onActivePageChange( { path, context } );
+		const { value: path, ...rest } = [
+			...pages,
+			...categories,
+			...posts,
+		].find( ( choice ) => choice.value === newPath );
+		onActivePageChange( { ...rest, path } );
 	};
+	const onPostSelect = ( post ) =>
+		onActivePageChange( {
+			type: 'post',
+			slug: post.slug,
+			path: getPathFromLink( post.url ),
+			context: { postType: post.type, postId: post.id },
+		} );
 	return (
 		<DropdownMenu
 			icon={ null }
 			label={ __( 'Switch Page' ) }
 			toggleProps={ {
-				children: [ ...pages, ...categories, ...posts ].find(
-					( choice ) => choice.value === activePage.path
-				)?.label,
+				children:
+					[ ...pages, ...categories, ...posts ].find(
+						( choice ) => choice.value === activePage.path
+					)?.label || activePage.path,
 			} }
+			menuProps={ { className: 'edit-site-page-switcher__menu' } }
 		>
 			{ () => (
 				<>
@@ -102,6 +145,13 @@ export default function PageSwitcher( {
 							choices={ posts }
 							value={ activePage.path }
 							onSelect={ onPageSelect }
+						/>
+						<LinkControl
+							searchInputPlaceholder={ __( 'Search for Post' ) }
+							onChange={ onPostSelect }
+							settings={ {} }
+							noDirectEntry
+							showInitialSuggestions
 						/>
 					</MenuGroup>
 				</>

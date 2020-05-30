@@ -339,6 +339,25 @@ example: {
 `example` が定義されていない場合、プレビューは表示されません。属性が定義されていない場合にもプレビューを表示するには、空の `example` オブジェクト `example: {}` を設定します。
 
 
+It's also possible to extend the block preview with inner blocks via `innerBlocks`. For example:
+
+```js
+example: {
+    attributes: {
+        cover: 'https://example.com/image.jpg',
+    },
+    innerBlocks: {
+        name: 'core/paragraph',
+        attributes: {
+            /* translators: example text. */
+            content: __(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.'
+            ),
+        },
+    },
+},
+```
+
 #### variations (optional)
 
 - **Type:** `Object[]`

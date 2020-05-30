@@ -13,7 +13,7 @@ The following sections will walk you through the existing block APIs:
 次のセクションでは既存のブロック API を紹介します。
 
 <!-- 
-- [Block registration](/docs/designers-developers/developers/block-api/block-registration.md).
+- [Block registration](/docs/designers-developers/developers/block-api/block-registration.md)
 - [Edit and Save](/docs/designers-developers/developers/block-api/block-edit-save.md)
 - [Attributes](/docs/designers-developers/developers/block-api/block-attributes.md)
 - [Deprecated blocks](/docs/designers-developers/developers/block-api/block-deprecation.md)
