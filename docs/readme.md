@@ -32,3 +32,11 @@ Blocks treat Paragraphs, Headings, Media, and Embeds all as components that, whe
 The Editor offers rich new value to users with visual, drag-and-drop creation tools and powerful developer enhancements with modern vendor packages, reusable components, rich APIs and hooks to modify and extend the editor through Custom Blocks, Custom Block Styles and Plugins.
 -->
 ブロックエディターはユーザーにリッチで新しい価値を届けます。ブロックエディターの機能としては、ビジュアルでドラッグアンドドロップ対応の作成ツール、最新のベンダーパッケージを使用したパワフルな開発拡張、再利用可能コンポーネント、カスタムブロックやカスタムブロックスタイル、プラグインを通じたエディターの変更、拡張が可能なリッチな API とフックがあります。
+
+## 問い合わせ先
+ハンドブックへのコメントは [WordPress の 日本語 Slack](https://ja.wordpress.org/support/article/slack/) 内の #docs チャンネル、[フォーラム > その他](https://ja.wordpress.org/support/forum/miscellaneous/)、または以下のリポジトリへお願いします。
+
+## 参照
+- [英語版](https://developer.wordpress.org/block-editor/)
+- [英語版リポジトリ](https://github.com/WordPress/gutenberg)
+- [日本語版リポジトリ](https://github.com/jawordpressorg/gutenberg)

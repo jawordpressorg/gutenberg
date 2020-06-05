@@ -1,10 +1,19 @@
+<!-- 
 # Edit and Save
-
+ -->
+# Edit と Save
+<!-- 
+When registering a block, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
+ -->
 When registering a block, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
 
 ## Edit
-
+<!-- 
 The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
+ -->
+The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
+
+### ES5
 
 {% codetabs %}
 {% ES5 %}
@@ -18,6 +27,9 @@ edit: function() {
 	);
 }
 ```
+
+### ESNext
+
 {% ESNext %}
 ```jsx
 edit: () => {
@@ -26,6 +38,9 @@ edit: () => {
 ```
 {% end %}
 
+<!-- 
+The function receives the following properties through an object argument:
+ -->
 The function receives the following properties through an object argument:
 
 ### attributes

@@ -23,7 +23,7 @@ The following sections will walk you through the existing block APIs:
 - [Patterns (experimental)](/docs/designers-developers/developers/block-api/block-patterns.md)
  -->
 
-- [Block registration](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/)
+- [ブロックの登録](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/)
 - [Edit and Save](https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/)
 - [Attributes](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)
 - [Deprecated blocks](https://developer.wordpress.org/block-editor/developers/block-api/block-deprecation/)
