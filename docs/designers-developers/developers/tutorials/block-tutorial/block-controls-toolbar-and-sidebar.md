@@ -41,7 +41,7 @@ import {
 registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 	title: 'Example: Controls (esnext)',
 	icon: 'universal-access-alt',
-	category: 'layout',
+	category: 'design',
 	attributes: {
 		content: {
 			type: 'array',
@@ -121,7 +121,7 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 	blocks.registerBlockType( 'gutenberg-examples/example-04-controls', {
 		title: 'Example: Controls',
 		icon: 'universal-access-alt',
-		category: 'layout',
+		category: 'design',
 
 		attributes: {
 			content: {

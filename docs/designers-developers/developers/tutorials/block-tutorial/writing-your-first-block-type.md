@@ -91,7 +91,7 @@ const blockStyle = {
 registerBlockType( 'gutenberg-examples/example-01-basic-esnext', {
 	title: 'Example: Basic (esnext)',
 	icon: 'universal-access-alt',
-	category: 'layout',
+	category: 'design',
 	example: {},
 	edit() {
 		return <div style={ blockStyle }>Hello World, step 1 (from the editor).</div>;
@@ -118,7 +118,7 @@ registerBlockType( 'gutenberg-examples/example-01-basic-esnext', {
 	blocks.registerBlockType( 'gutenberg-examples/example-01-basic', {
 		title: 'Example: Basic',
 		icon: 'universal-access-alt',
-		category: 'layout',
+		category: 'design',
 		example: {},
 		edit: function() {
 			return el(

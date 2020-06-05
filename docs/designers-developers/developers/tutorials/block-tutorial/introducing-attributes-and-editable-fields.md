@@ -98,7 +98,7 @@ import { RichText } from '@wordpress/block-editor';
 registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	title: 'Example: Editable (esnext)',
 	icon: 'universal-access-alt',
-	category: 'layout',
+	category: 'design',
 	attributes: {
 		content: {
 			type: 'array',
@@ -141,7 +141,7 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	blocks.registerBlockType( 'gutenberg-examples/example-03-editable', {
 		title: 'Example: Editable',
 		icon: 'universal-access-alt',
-		category: 'layout',
+		category: 'design',
 
 		attributes: {
 			content: {
