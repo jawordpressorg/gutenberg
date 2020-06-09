@@ -16,9 +16,37 @@ Here is the basic InnerBlocks usage.
 
 基本的な InnerBlocks の使用方法
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```js
+import { registerBlockType } from '@wordpress/blocks';
+import { InnerBlocks } from '@wordpress/block-editor';
+
+registerBlockType( 'gutenberg-examples/example-06', {
+	// ...
+
+	edit: ( { className } ) => {
+		return (
+			<div className={ className }>
+				<InnerBlocks />
+			</div>
+		);
+	},
+
+	save: ( { className } ) => {
+		return (
+			<div className={ className }>
+				<InnerBlocks.Content />
+			</div>
+		);
+	},
+} );
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 ( function( blocks, element, blockEditor ) {
@@ -51,40 +79,12 @@ Here is the basic InnerBlocks usage.
 	window.wp.blockEditor,
 ) );
 ```
-
-**ESNext**
-
-{% ESNext %}
-```js
-import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks } from '@wordpress/block-editor';
-
-registerBlockType( 'gutenberg-examples/example-06', {
-	// ...
-
-	edit: ( { className } ) => {
-		return (
-			<div className={ className }>
-				<InnerBlocks />
-			</div>
-		);
-	},
-
-	save: ( { className } ) => {
-		return (
-			<div className={ className }>
-				<InnerBlocks.Content />
-			</div>
-		);
-	},
-} );
-```
 {% end %}
 
 <!-- 
 ## Allowed Blocks
 
-Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in your InnerBlock. This restricts the that can be included only to those listed, all other blocks will not show in the inserter. 
+Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in your InnerBlock. This restricts the that can be included only to those listed, all other blocks will not show in the inserter.
  -->
 ## 許可されるブロック
 
@@ -107,9 +107,31 @@ Use the template property to define a set of blocks that prefill the InnerBlocks
 
 template プロパティを使用して、InnerBlocks コンポーネントが挿入された際にデフォルトで含まれるブロックの集合を定義できます。ブロックの属性を設定して使用例を定義できます。次の例は InnerBlocks コンポーネントを使用した本のレビューのテンプレートです。placeholder 値を設定してブロックの使用例を示しています。
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```js
+const MY_TEMPLATE = [
+	[ 'core/image', {} ],
+	[ 'core/heading', { placeholder: 'Book Title' } ],
+	[ 'core/paragraph', { placeholder: 'Summary' } ],
+];
+
+//...
+
+	edit: () => {
+		return (
+			<InnerBlocks
+				template={ MY_TEMPLATE }
+				templateLock="all"
+			/>
+		);
+	},
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 const MY_TEMPLATE = [
@@ -130,28 +152,6 @@ const MY_TEMPLATE = [
 		);
 	},
 ```
-
-**ESNext**
-
-{% ESNext %}
-```js
-const MY_TEMPLATE = [
-	[ 'core/image', {} ],
-	[ 'core/heading', { placeholder: 'Book Title' } ],
-	[ 'core/paragraph', { placeholder: 'Summary' } ],
-];
-
-//...
-
-	edit: () => {
-		return (
-			<InnerBlocks
-				template={ MY_TEMPLATE }
-				templateLock="all"
-			/>
-		);
-	},
-```
 {% end %}
 
 <!-- 
@@ -162,7 +162,7 @@ Use the `templateLock` property to lock down the template. Using `all` locks the
 <!-- 
 ### Post Template
 
-Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks. 
+Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks.
 
 The `InnerBlocks` template is for the component in the single block that you created, the rest of the post can include any blocks the user likes. Using a post template, can lock the entire post to just the template you define.
  -->

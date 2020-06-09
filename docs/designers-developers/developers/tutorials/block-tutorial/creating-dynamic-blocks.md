@@ -9,22 +9,26 @@ Dynamic blocks are blocks that build their structure and content on the fly when
 There are two primary uses for dynamic blocks:
 
 1. Blocks where content should change even if a post has not been updated. One example from WordPress itself is the Latest Posts block. This block will update everywhere it is used when a new post is published.
-2. Blocks where updates to the code (HTML, CSS, JS) should be immediately shown on the front end of the website. For example, if you update the structure of a block by adding a new class, adding an HTML element, or changing the layout in any other way, using a dynamic block ensures those changes are applied immediately on all occurrences of that block across the site. (If a dynamic block is not used then when block code is updated Guterberg's [validation process](https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#validation) generally applies, causing users to see the validation message, "This block appears to have been modified externally").
  -->
 ダイナミックブロックはフロントエンド側でレンダリングされる際に、動的に構造とコンテンツを構築するブロックです。
 
 ダイナミックブロックの代表的な2つの使用例です。
 
 1. 投稿が更新されていなくてもコンテンツを変更するブロック。WordPress 自身から1つ例を挙げると「最近の更新」ブロックがあります。このブロックは新しい投稿が発行されるとすべての使用箇所を更新します。
+
+<!-- 
+2. Blocks where updates to the code (HTML, CSS, JS) should be immediately shown on the front end of the website. For example, if you update the structure of a block by adding a new class, adding an HTML element, or changing the layout in any other way, using a dynamic block ensures those changes are applied immediately on all occurrences of that block across the site. (If a dynamic block is not used then when block code is updated Guterberg's [validation process](/docs/designers-developers/developers/block-api/block-edit-save.md#validation) generally applies, causing users to see the validation message, "This block appears to have been modified externally").
+ -->
 2. HTML、CSS、JS などのコードを更新するとすぐにWeb サイトのフロントエンド側で反映されるブロック。たとえば新しいクラスを追加したり、HTML 要素を追加したり、その他の方法でレイアウトを変更してブロックの構造を更新した場合、ダイナミックブロックを使えばサイト内のすべてのブロックの使用箇所に即座に変更を適用できます。ダイナミックブロックを使わない場合、ブロックコードが更新されると Gutenberg の[妥当性検証プロセス](https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#validation)が適用され、ユーザーに検証メッセージ「ブロックの外観は外部で更新されました」が表示されます。 
 
 <!-- 
-For many dynamic blocks, the `save` callback function should be returned as `null`, which tells the editor to save only the [block attributes](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/) to the database.  These attributes are then passed into the server-side rendering callback, so you can decide how to display the block on the front end of your site. When you return `null`, the editor will skip the block markup validation process, avoiding issues with frequently-changing markup.
-
-If you are using [InnerBlocks](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) in a dynamic block you will need to save the `InnerBlocks` in the `save` callback function using `<InnerBlocks.Content/>`
+For many dynamic blocks, the `save` callback function should be returned as `null`, which tells the editor to save only the [block attributes](/docs/designers-developers/developers/block-api/block-attributes.md) to the database.  These attributes are then passed into the server-side rendering callback, so you can decide how to display the block on the front end of your site. When you return `null`, the editor will skip the block markup validation process, avoiding issues with frequently-changing markup.
  -->
 多くのダイナミックブロックでは `save` コールバック関数は `null` として返されるべきです。これを受けてエディターはデータベースに[ブロック属性](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)のみを保存します。その後、これらの属性はサーバー側レンダリングコールバックに渡されるため、サイトのフロントエンドでどのようにブロックを表示するか決定できます。`null` を返すと、エディターはブロックのマークアップの妥当性検査プロセスをスキップするため、頻繁にマークアップを変更する際の問題を回避できます。
 
+<!-- 
+If you are using [InnerBlocks](/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md) in a dynamic block you will need to save the `InnerBlocks` in the `save` callback function using `<InnerBlocks.Content/>`
+ -->
 ダイナミックブロック内で [InnerBlocks](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) を使用している場合には、`<InnerBlocks.Content/>` を使用して `save` コールバック関数内で `InnerBlocks` を保存する必要があります。
 
 <!-- 
@@ -184,7 +188,7 @@ There are a few things to notice:
 <!--
 ## Live rendering in the block editor
 
-Gutenberg 2.8 added the [`<ServerSideRender>`](https://github.com/WordPress/gutenberg/tree/master/packages/server-side-render) block which enables rendering to take place on the server using PHP rather than in JavaScript. 
+Gutenberg 2.8 added the [`<ServerSideRender>`](/packages/server-side-render/README.md) block which enables rendering to take place on the server using PHP rather than in JavaScript.
 
 *Server-side render is meant as a fallback; client-side rendering in JavaScript is always preferred (client rendering is faster and allows better editor manipulation).*
  -->
