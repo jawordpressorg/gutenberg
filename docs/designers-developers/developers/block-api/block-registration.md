@@ -67,7 +67,10 @@ title: __( 'Book' );
 // データオブジェクト
 title: __( 'Book' );
 ```
+<!-- 
 #### description (optional)
+ -->
+#### description (オプション)
 
 -   **Type:** `String`
 <!-- 
@@ -116,8 +119,10 @@ category: 'widgets',
 ```
 
 プラグインとテーマは [カスタムブロックカテゴリー](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#managing-block-categories) を登録することもできます。
-
+<!-- 
 #### icon (optional)
+ -->
+#### icon (オプション)
 
 -   **Type:** `String` | `Object`
 <!-- 
@@ -175,8 +180,10 @@ icon: {
 	src: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 } ,
 ```
-
+<!-- 
 #### keywords (optional)
+ -->
+#### keywords (オプション)
 
 -   **Type:** `Array`
 <!-- 
@@ -195,8 +202,10 @@ keywords: [ __( 'image' ), __( 'photo' ), __( 'pics' ) ],
 // キーワードは翻訳可能。翻訳すればロケールに関わらず動作する
 keywords: [ __( 'image' ), __( 'photo' ), __( 'pics' ) ],
 ```
-
+<!-- 
 #### styles (optional)
+ -->
+#### styles (オプション)
 
 -   **Type:** `Array`
 <!-- 
@@ -248,8 +257,10 @@ styles: [
 
 プラグインやテーマは既存のブロックに対して [カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-style-variations) を登録することもできます。
 
-
+<!-- 
 #### attributes (optional)
+ -->
+#### attributes (オプション)
 
 -   **Type:** `Object`
 <!-- 
@@ -301,8 +312,10 @@ attributes: {
  -->
 -   **参照: [属性](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-attributes.md)**
 
-
+<!-- 
 #### example (optional)
+ -->
+#### example (オプション)
 
 -   **Type:** `Object`
 <!-- 
@@ -357,8 +370,10 @@ example: {
     },
 },
 ```
-
+<!-- 
 #### variations (optional)
+ -->
+#### variations (オプション)
 
 - **Type:** `Object[]`
 <!-- 
@@ -368,7 +383,7 @@ By default, all variations will show up in the Inserter in addition to the regul
  -->
 ブロックスタイルバリエーションの定義方法と同様に、ブロックタイプはユーザーが選択可能なブロックバリエーションを定義できます。違いとしてはこのフィールドはビジュアルな見た目を変更するだけでなく、ブロックが挿入された際の初期カスタム属性とインナーブロックの適用方法を提供します。
 
-デフォルトではインサーター内に、通常のブロックタイプ項目に加えてすべてのバリエーションが表示されます。しかしリストされた任意のバリエーションに `isDefault` フラグを設定すると、インサーター内の通常のブロックタイプを上書きします。
+デフォルトではインサーター内に、通常のブロックタイプ項目に加えてすべてのバリエーションが表示されます。リストされた任意のバリエーションに `isDefault` フラグを設定すると、インサーター内の通常のブロックタイプを上書きします。
 
 ```js
 variations: [
@@ -413,13 +428,13 @@ It's also possible to override the default block style variation using the `clas
 
 - `name` (type `string`) – 機械で識別可能な固有の名前
 - `title` (type `string`) – ユーザー向けのバリエーションのタイトル
-- `description` (optional, type `string`) – 詳細なバリエーションの説明
-- `icon` (optional, type `String` | `Object`) – バリエーションの視覚化を助けるアイコン。ブロックタイプと同じ形でも良い。
-- `isDefault` (optional, type `boolean`) – 現行のバリエーションがデフォルトかどうかを示すフラグ。デフォルトは `false`
-- `attributes` (optional, type `Object`) – ブロック属性を上書きする値
-- `innerBlocks` (optional, type `Array[]`) – ネストしたブロックの初期構成
-- `example` (optional, type `Object`) – ブロックプレビューの例を提供する構造化データ。`undefined` を設定するとブロックタイプに表示するプレビューを無効化できる。
-- `scope` (optional, type `String[]`) - バリエーションを適用できるスコープのリスト。指定しない場合はすべての有効なスコープを仮定する。有効なオプション: `block`, `inserter`.
+- `description` (オプション, type `string`) – 詳細なバリエーションの説明
+- `icon` (オプション, type `String` | `Object`) – バリエーションの視覚化を助けるアイコン。ブロックタイプと同じ形でも良い。
+- `isDefault` (オプション, type `boolean`) – 現行のバリエーションがデフォルトかどうかを示すフラグ。デフォルトは `false`
+- `attributes` (オプション, type `Object`) – ブロック属性を上書きする値
+- `innerBlocks` (オプション, type `Array[]`) – ネストしたブロックの初期構成
+- `example` (オプション, type `Object`) – ブロックプレビューの例を提供する構造化データ。`undefined` を設定するとブロックタイプに表示するプレビューを無効化できる。
+- `scope` (オプション, type `String[]`) - バリエーションを適用できるスコープのリスト。指定しない場合はすべての有効なスコープを仮定する。有効なオプション: `block`, `inserter`.
 
 またブロックバリーションを定義する際、`className` 属性を使用して、デフォルトのブロックスタイルバリエーションを上書きすることもきます。
 
@@ -434,8 +449,10 @@ variations: [
 	},
 ],
 ```
-
+<!-- 
 #### transforms (optional)
+ -->
+#### transforms (オプション)
 
 -   **Type:** `Object`
 <!-- 
@@ -443,7 +460,10 @@ Transforms provide rules for what a block can be transformed from and what it ca
  -->
 `transform` は、何をブロックに変換できるのか、またブロックは何に変換できるのかのルールを提供します。ブロックは、別のブロック、ショートコード、正規表現、ファイル、生の DOM ノードから変換できます。利用可能な個々の変換の詳細については [ブロック変換 API](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-transforms.md) を参照してください。
 
+<!-- 
 #### parent (optional)
+ -->
+#### parent (オプション)
 
 -   **Type:** `Array`
 <!-- 
@@ -464,8 +484,11 @@ parent: [ 'core/columns' ],
 // ブロックは Columns ブロックにネストする場合のみ利用可能
 parent: [ 'core/columns' ],
 ```
-
+<!-- 
 #### supports (optional)
+ -->
+#### supports (オプション)
+
 <!-- 
 _Some [block supports](#supports-optional) — for example, `anchor` or `className` — apply their attributes by adding additional props on the element returned by `save`. This will work automatically for default HTML tag elements (`div`, etc). However, if the return value of your `save` is a custom component element, you will need to ensure that your custom component handles these props in order for the attributes to be persisted._
  -->
