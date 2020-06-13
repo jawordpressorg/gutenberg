@@ -13,12 +13,12 @@ Providing i18n support to your plugin and theme allows it to reach the largest p
  -->
  国際化とはソフトウエア、特にここでは WordPress に対して複数言語のサポートを提供するプロセスを指します。国際化は **i18n** とも表記されます。これは「国際化」の原語の「Internationalization」の先頭の _i_ と 最後の _n_ の間に18文字あることから来ています。
 
-プラグインやテーマを国際化することで世界中のユーザーに使ってもらうことができます。あなた自身がすべての言語の翻訳ファイルを作成する必要はありません。作成したソフトウエアを WordPress.org にアップロードすると、すべての JavaScript と PHP ファイルが自動でパースされ、見つかった翻訳文字列は [translate.wordpress.org](https://translate.wordpress.org/) に追加され、コミュニティが翻訳できるようになります。結果、多くの言語でプラグインやテーマを利用することができます。
+プラグインやテーマを国際化すると世界中のユーザーに使ってもらうことができます。あなた自身ですべての言語の翻訳ファイルを作成する必要はありません。作成したソフトウエアを WordPress.org にアップロードすると、すべての JavaScript と PHP ファイルは自動でパースされます。見つかった翻訳文字列は [translate.wordpress.org](https://translate.wordpress.org/) に追加され、コミュニティで翻訳できるようになります。結果、多くの言語でプラグインやテーマを利用することができます。
 
 <!-- 
 For PHP, WordPress has a long established process, see [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/). The release of WordPress 5.0 brings a similar process for translation to JavaScript code.
  -->
-PHP に対して WordPress には歴史ある確立したプロセスがあります。[How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) を参照してください。WordPress 5.0 のリリースに際しては JavaScript コードの翻訳にも同様のプロセスが導入されました。
+ PHP の翻訳に対して WordPress には歴史ある確立したプロセスがあります。[How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) を参照してください。WordPress 5.0 のリリースに際しても JavaScript コードの翻訳に対して同様のプロセスが導入されました。
 
 <!-- 
 ## How to use i18n in JavaScript
@@ -30,7 +30,7 @@ WordPress 5.0 introduced the wp-i18n JavaScript package that provides the functi
 
 First, add **wp-i18n** as a dependency when registering your script:
  -->
-WordPress 5.0 では wp-i18n JavaScript パッケージが導入され、PHP 同様、翻訳可能な文字列の追加に必要な関数が提供されました。
+WordPress 5.0 では wp-i18n JavaScript パッケージが導入され、PHP 同様、文字列を翻訳可能とする場合に必要な関数が提供されました。
 
 まずはじめにスクリプトを登録する際、依存性に **wp-i18n** を追加します。
 
@@ -75,39 +75,13 @@ function myguten_simple_block_init() {
 add_action( 'init', 'myguten_simple_block_init' );
 ```
 <!-- 
-In your code, you can include the i18n functions. The most common function is **__** (a double underscore) which provides translation of a simple string. Here is a basic static block example, this is in a file called `block.js`:
+In your code, you can include the i18n functions. The most common function is **__** (a double underscore) which provides translation of a simple string. Here is a basic block example:
  -->
-これでコードに国際化関数を加えられます。もっともよく使われる関数が単純な文字列の翻訳を返す **__** (下線2個) です。以下は基本的な静的ブロックの例です。ファイル名を `block.js` とします。
+これでコードに国際化関数を加えられます。もっともよく使われる関数が単純な文字列の翻訳を返す **__** (下線2個) です。以下は基本的なブロックの例です。
+
 
 <!-- 
 {% codetabs %}
-{% ES5 %}
-```js
-const { __ } = wp.i18n;
-const el = wp.element.createElement;
-const { registerBlockType } = wp.blocks;
-
-registerBlockType( 'myguten/simple', {
-	title: __( 'Simple Block', 'myguten' ),
-	category: 'widgets',
-
-	edit: () => {
-		return el(
-			'p',
-			{ style: { color: 'red' } },
-			__( 'Hello World', 'myguten' )
-		);
-	},
-
-	save: () => {
-		return el(
-			'p',
-			{ style: { color: 'red' } },
-			__( 'Hello World', 'myguten' )
-		);
-	},
-} );
-```
 {% ESNext %}
 ```js
 import { __ } from '@wordpress/i18n';
@@ -130,6 +104,33 @@ registerBlockType( 'myguten/simple', {
 			<p style="color:red">
 				{ __( 'Hello World', 'myguten' ) }
 			</p>
+		);
+	},
+} );
+```
+{% ES5 %}
+```js
+const { __ } = wp.i18n;
+const el = wp.element.createElement;
+const { registerBlockType } = wp.blocks;
+
+registerBlockType( 'myguten/simple', {
+	title: __( 'Simple Block', 'myguten' ),
+	category: 'widgets',
+
+	edit: function() {
+		return el(
+			'p',
+			{ style: { color: 'red' } },
+			__( 'Hello World', 'myguten' )
+		);
+	},
+
+	save: function() {
+		return el(
+			'p',
+			{ style: { color: 'red' } },
+			__( 'Hello World', 'myguten' )
 		);
 	},
 } );

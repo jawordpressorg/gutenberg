@@ -224,6 +224,30 @@ Used to modify the block's `edit` component. It receives the original block `Blo
 _Example:_
 
 {% codetabs %}
+{% ESNext %}
+```js
+const { createHigherOrderComponent } = wp.compose;
+const { Fragment } = wp.element;
+const { InspectorControls } = wp.blockEditor;
+const { PanelBody } = wp.components;
+
+const withInspectorControls =  createHigherOrderComponent( ( BlockEdit ) => {
+	return ( props ) => {
+		return (
+			<Fragment>
+				<BlockEdit { ...props } />
+				<InspectorControls>
+					<PanelBody>
+						My custom control
+					</PanelBody>
+				</InspectorControls>
+			</Fragment>
+		);
+	};
+}, "withInspectorControl" );
+
+wp.hooks.addFilter( 'editor.BlockEdit', 'my-plugin/with-inspector-controls', withInspectorControls );
+```
 {% ES5 %}
 ```js
 var el = wp.element.createElement;
@@ -252,30 +276,6 @@ var withInspectorControls = wp.compose.createHigherOrderComponent( function( Blo
 
 wp.hooks.addFilter( 'editor.BlockEdit', 'my-plugin/with-inspector-controls', withInspectorControls );
 ```
-{% ESNext %}
-```js
-const { createHigherOrderComponent } = wp.compose;
-const { Fragment } = wp.element;
-const { InspectorControls } = wp.blockEditor;
-const { PanelBody } = wp.components;
-
-const withInspectorControls =  createHigherOrderComponent( ( BlockEdit ) => {
-	return ( props ) => {
-		return (
-			<Fragment>
-				<BlockEdit { ...props } />
-				<InspectorControls>
-					<PanelBody>
-						My custom control
-					</PanelBody>
-				</InspectorControls>
-			</Fragment>
-		);
-	};
-}, "withInspectorControl" );
-
-wp.hooks.addFilter( 'editor.BlockEdit', 'my-plugin/with-inspector-controls', withInspectorControls );
-```
 {% end %}
 
 #### `editor.BlockListBlock`
@@ -285,8 +285,19 @@ Used to modify the block's wrapper component containing the block's `edit` compo
 _Example:_
 
 {% codetabs %}
-{% ES5 %}
+{% ESNext %}
+```js
+const { createHigherOrderComponent } = wp.compose;
 
+const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
+	return ( props ) => {
+		return <BlockListBlock { ...props } className={ "block-" + props.clientId } />;
+	};
+}, 'withClientIdClassName' );
+
+wp.hooks.addFilter( 'editor.BlockListBlock', 'my-plugin/with-client-id-class-name', withClientIdClassName );
+```
+{% ES5 %}
 ```js
 var el = wp.element.createElement;
 
@@ -308,50 +319,26 @@ var withClientIdClassName = wp.compose.createHigherOrderComponent( function( Blo
 }, 'withClientIdClassName' );
 
 wp.hooks.addFilter( 'editor.BlockListBlock', 'my-plugin/with-client-id-class-name', withClientIdClassName );
-
 ```
-{% ESNext %}
-```js
-const { createHigherOrderComponent } = wp.compose;
-
-const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
-	return ( props ) => {
-		return <BlockListBlock { ...props } className={ "block-" + props.clientId } />;
-	};
-}, 'withClientIdClassName' );
-
-wp.hooks.addFilter( 'editor.BlockListBlock', 'my-plugin/with-client-id-class-name', withClientIdClassName );
-```
-
 {% end %}
 
 <!-- 
 ## Removing Blocks
 
-### Using a blacklist
+### Using a deny list
 
 Adding blocks is easy enough, removing them is as easy. Plugin or theme authors have the possibility to "unregister" blocks.
  -->
 
 ## ブロックの削除
 
-### ブラックリストの使用
+### 拒否リストの使用
 
-ブロックの追加は簡単でしたが、ブロックの削除も同様です。プラグインやテーマの作者は、ブロックを登録解除することができます。
-
-**ES5**
-
-{% codetabs %}
-{% ES5 %}
-```js
-// my-plugin.js
-wp.domReady( function() {
-	wp.blocks.unregisterBlockType( 'core/verse' );
-} );
-```
+ブロックの追加も簡単でしたが、ブロックの削除も同様です。プラグインやテーマの作者は、ブロックを登録解除することができます。
 
 **ESNext**
 
+{% codetabs %}
 {% ESNext %}
 ```js
 // my-plugin.js
@@ -360,6 +347,16 @@ import domReady from '@wordpress/dom-ready'
 
 domReady( function() {
 	unregisterBlockType( 'core/verse' );
+} );
+```
+
+**ES5**
+
+{% ES5 %}
+```js
+// my-plugin.js
+wp.domReady( function() {
+	wp.blocks.unregisterBlockType( 'core/verse' );
 } );
 ```
 {% end %}
@@ -373,26 +370,27 @@ and load this script in the Editor
 <?php
 // my-plugin.php
 
-function my_plugin_blacklist_blocks() {
+function my_plugin_deny_list_blocks() {
 	wp_enqueue_script(
-		'my-plugin-blacklist-blocks',
+		'my-plugin-deny-list-blocks',
 		plugins_url( 'my-plugin.js', __FILE__ ),
 		array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' )
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'my_plugin_blacklist_blocks' );
+add_action( 'enqueue_block_editor_assets', 'my_plugin_deny_list_blocks' );
 ```
 
 **Important:** When unregistering a block, there can be a [race condition](https://en.wikipedia.org/wiki/Race_condition) on which code runs first: registering the block, or unregistering the block. You want your unregister code to run last. The way to do that is specify the component that is registering the block as a dependency, in this case `wp-edit-post`. Additionally, using `wp.domReady()` ensures the unregister code runs once the dom is loaded.
 
 <!-- 
-### Using a whitelist
-
-If you want to disable all blocks except a whitelisted list, you can adapt the script above like so:
+### Using an allow list
  -->
-### ホワイトリストの使用
-
-ホワイトリスト化されたブロック以外のすべてのブロックを無効にしたい場合、上と同様のスクリプトを使用できます。
+### 許可リストの使用
+<!-- 
+If you want to disable all blocks except an allow list, you can adapt the script above like so:
+ -->
+許可リスト以外のすべてのブロックを無効にしたい場合、上と同様のスクリプトを使用できます。
+If you want to disable all blocks except an allow list, you can adapt the script above like so:
 
 ```js
 // my-plugin.js
@@ -464,6 +462,7 @@ You can also display an icon with your block category by setting an `icon` attri
 You can also set a custom icon in SVG format. To do so, the icon should be rendered and set on the frontend, so it can make use of WordPress SVG, allowing mobile compatibility and making the icon more accessible.
 
 To set an SVG icon for the category shown in the previous example, add the following example JavaScript code to the editor calling `wp.blocks.updateCategory` e.g:
+
 ```js
 ( function() {
 	var el = wp.element.createElement;

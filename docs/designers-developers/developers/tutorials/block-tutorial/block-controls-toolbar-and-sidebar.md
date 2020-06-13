@@ -6,7 +6,7 @@
 <!-- 
 To simplify block customization and ensure a consistent experience for users, there are a number of built-in UI patterns to help generate the editor preview. Like with the `RichText` component covered in the previous chapter, the `wp.editor` global includes a few other common components to render editing interfaces. In this chapter, we'll explore toolbars and the block inspector.
  -->
-ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与えるため、エディタープレビュー生成を支援する組み込み UI パターンが多数あります。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には編集インターフェースをレンダリングするその他の共通コンポーネントがいくつか含まれています。このセクションではツールバーとブロックインスペクターを探索します。
+ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与えるため、エディタープレビュー生成を支援する多数の組み込み UI パターンがあります。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には編集インターフェースをレンダリングするその他の共通コンポーネントがいくつか含まれています。このセクションではツールバーとブロックインスペクターを見ていきます。
 
 <!-- 
 ## Block Toolbar
@@ -222,4 +222,10 @@ Similar to rendering a toolbar, if you include an `InspectorControls` element in
 
 ブロックタブはブロックが選択されるとドキュメントタブと同じ位置に表示されます。
 
-ツールバーのレンダリングと同様、ブロックタイプの `edit` 関数の戻り地に `InspectorControls` 要素を追加すると、それらのコントロールは設定サイドバー領域に表示されます。
+ツールバーのレンダリングと同様、ブロックタイプの `edit` 関数の戻り値に `InspectorControls` 要素を追加すると、それらのコントロールは設定サイドバー領域に表示されます。
+
+<!-- 
+Block controls rendered in both the toolbar and sidebar will also be used when
+multiple blocks of the same type are selected.
+ -->
+ツールバーとサイドバーの両方でレンダリングされるブロックコントロールは、同じタイプの複数のブロックが選択された際にも使用されます。

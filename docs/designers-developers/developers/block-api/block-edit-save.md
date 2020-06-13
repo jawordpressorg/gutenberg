@@ -13,9 +13,18 @@ The `edit` function describes the structure of your block in the context of the 
  -->
 `edit` 関数はエディター内でのブロックの構造を記述します。すなわち、ブロックが使用される際にエディターがどのようにブロックをレンダリングするかを表します。
 
-### ES5
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```jsx
+edit: () => {
+	return <div>Your block.</div>;
+}
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 // A static div
@@ -25,15 +34,6 @@ edit: function() {
 		null,
 		'Your block.'
 	);
-}
-```
-
-### ESNext
-
-{% ESNext %}
-```jsx
-edit: () => {
-	return <div>Your block.</div>;
 }
 ```
 {% end %}
@@ -54,9 +54,18 @@ In this case, assuming we had defined an attribute of `content` during block reg
 
 この例ではブロック登録の際に `content` 属性を定義したと仮定し、`edit` 関数内で値を受け取り使用します。
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```js
+edit: ( { attributes } ) => {
+	return <div>{ attributes.content }</div>;
+}
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 edit: function( props ) {
@@ -65,15 +74,6 @@ edit: function( props ) {
 		null,
 		props.attributes.content
 	);
-}
-```
-
-**ESNext**
-
-{% ESNext %}
-```js
-edit: ( { attributes } ) => {
-	return <div>{ attributes.content }</div>;
 }
 ```
 {% end %}
@@ -88,9 +88,18 @@ This property returns the class name for the wrapper element. This is automatica
  -->
 `className` プロパティはラッパー要素のクラス名を返します。クラス名は `save` メソッドでは自動的に追加されますが、`edit` では追加されません。これはルートの要素が、ブロックのビジュアル部分を司るメインの要素と異なるかもしれないからです。関数内でどの要素に追加すべきかをリクエストできます。
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```js
+edit: ( { attributes, className } ) => {
+	return <div className={ className }>{ attributes.content }</div>;
+}
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 edit: function( props ) {
@@ -101,15 +110,6 @@ edit: function( props ) {
 	);
 }
 ```
-
-**ESNext**
-
-{% ESNext %}
-```js
-edit: ( { attributes, className } ) => {
-	return <div className={ className }>{ attributes.content }</div>;
-}
-```
 {% end %}
 
 ### isSelected
@@ -118,9 +118,25 @@ The isSelected property is an object that communicates whether the block is curr
  -->
 `isSelected` プロパティはブロックが現在選択されているかどうかを伝えるオブジェクトです。
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```jsx
+edit: ( { attributes, className, isSelected } ) => {
+	return (
+		<div className={ className }>
+			Your block.
+			{ isSelected &&
+				<span>Shows only when the block is selected.</span>
+			}
+		</div>
+	);
+}
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 edit: function( props ) {
@@ -138,22 +154,6 @@ edit: function( props ) {
 	);
 }
 ```
-
-**ESNext** 
-
-{% ESNext %}
-```jsx
-edit: ( { attributes, className, isSelected } ) => {
-	return (
-		<div className={ className }>
-			Your block.
-			{ isSelected &&
-				<span>Shows only when the block is selected.</span>
-			}
-		</div>
-	);
-}
-```
 {% end %}
 
 ### setAttributes
@@ -162,9 +162,30 @@ This function allows the block to update individual attributes based on user int
  -->
 ブロックは `setAttributes` 関数を使用して、ユーザーの操作に基づき個々の属性を更新できます。
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```jsx
+edit: ( { attributes, setAttributes, className, isSelected } ) => {
+	// Simplify access to attributes
+	const { content, mySetting } = attributes;
+
+	// Toggle a setting when the user clicks the button
+	const toggleSetting = () => setAttributes( { mySetting: ! mySetting } );
+	return (
+		<div className={ className }>
+			{ content }
+			{ isSelected &&
+				<button onClick={ toggleSetting }>Toggle setting</button>
+			}
+		</div>
+	);
+}
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 edit: function( props ) {
@@ -188,27 +209,6 @@ edit: function( props ) {
 	);
 },
 ```
-
-**ESNext**
-
-{% ESNext %}
-```jsx
-edit: ( { attributes, setAttributes, className, isSelected } ) => {
-	// Simplify access to attributes
-	const { content, mySetting } = attributes;
-
-	// Toggle a setting when the user clicks the button
-	const toggleSetting = () => setAttributes( { mySetting: ! mySetting } );
-	return (
-		<div className={ className }>
-			{ content }
-			{ isSelected &&
-				<button onClick={ toggleSetting }>Toggle setting</button>
-			}
-		</div>
-	);
-}
-```
 {% end %}
 
 <!-- 
@@ -217,9 +217,25 @@ When using attributes that are objects or arrays it's a good idea to copy or clo
 
 オブジェクトや配列の属性を使用する場合には、更新の前に属性をコピーするかクローンしてください。
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```js
+// Good - a new array is created from the old list attribute and a new list item:
+const { list } = attributes;
+const addListItem = ( newListItem ) => setAttributes( { list: [ ...list, newListItem ] } );
+
+// Bad - the list from the existing attribute is modified directly to add the new list item:
+const { list } = attributes;
+const addListItem = ( newListItem ) => {
+	list.push( newListItem );
+	setAttributes( { list } );
+};
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 // Good - cloning the old list
@@ -236,22 +252,6 @@ var addListItem = function( newListItem ) {
 	setAttributes( { list: list } );
 };
 ```
-
-**ESNext**
-
-{% ESNext %}
-```js
-// Good - a new array is created from the old list attribute and a new list item:
-const { list } = attributes;
-const addListItem = ( newListItem ) => setAttributes( { list: [ ...list, newListItem ] } );
-
-// Bad - the list from the existing attribute is modified directly to add the new list item:
-const { list } = attributes;
-const addListItem = ( newListItem ) => {
-	list.push( newListItem );
-	setAttributes( { list } );
-};
-```
 {% end %}
 
 <!-- 
@@ -265,9 +265,18 @@ The `save` function defines the way in which the different attributes should be 
  -->
 `save` 関数は、最終的なマークアップに異なる属性を組み込む方法を定義します。この属性は `post_content` にシリアライズされます。
 
-**ES5** 
+**ESNext** 
 
 {% codetabs %}
+{% ESNext %}
+```jsx
+save: () => {
+	return <div> Your block. </div>;
+}
+```
+
+**ES5** 
+
 {% ES5 %}
 ```js
 save: function() {
@@ -276,15 +285,6 @@ save: function() {
 		null,
 		'Your block.'
 	);
-}
-```
-
-**ESNext**
-
-{% ESNext %}
-```jsx
-save: () => {
-	return <div> Your block. </div>;
 }
 ```
 {% end %}
@@ -333,9 +333,18 @@ As with `edit`, the `save` function also receives an object argument including a
  -->
 As with `edit`, the `save` function also receives an object argument including attributes which can be inserted into the markup.
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```jsx
+save: ( { attributes } ) => {
+	return <div>{ attributes.content }</div>;
+}
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 save: function( props ) {
@@ -344,15 +353,6 @@ save: function( props ) {
 		null,
 		props.attributes.content
 	);
-}
-```
-
-**ESNext**
-
-{% ESNext %}
-```jsx
-save: ( { attributes } ) => {
-	return <div>{ attributes.content }</div>;
 }
 ```
 {% end %}
@@ -377,9 +377,37 @@ Here are a couple examples of using attributes, edit, and save all together.  Fo
  -->
 ### 子要素への属性の保存
 
-**ES5**
+**ESNext**
 
 {% codetabs %}
+{% ESNext %}
+```jsx
+attributes: {
+	content: {
+		type: 'string',
+		source: 'html',
+		selector: 'p'
+	}
+},
+
+edit: ( { attributes, setAttributes } ) => {
+	const updateFieldValue = ( val ) => {
+		setAttributes( { content: val } );
+	}
+	return <TextControl
+			label='My Text Field'
+			value={ attributes.content }
+			onChange={ updateFieldValue }
+		/>;
+},
+
+save: ( { attributes } ) => {
+	return <p> { attributes.content } </p>;
+},
+```
+
+**ES5**
+
 {% ES5 %}
 ```js
 attributes: {
@@ -410,33 +438,6 @@ save: function( props ) {
 },
 ```
 
-**ESNext**
-
-{% ESNext %}
-```jsx
-attributes: {
-	content: {
-		type: 'string',
-		source: 'html',
-		selector: 'p'
-	}
-},
-
-edit: ( { attributes, setAttributes } ) => {
-	const updateFieldValue = ( val ) => {
-		setAttributes( { content: val } );
-	}
-	return <TextControl
-			label='My Text Field'
-			value={ attributes.content }
-			onChange={ updateFieldValue }
-		/>;
-},
-
-save: ( { attributes } ) => {
-	return <p> { attributes.content } </p>;
-},
-```
 {% end %}
 
 <!-- 
@@ -452,6 +453,34 @@ This example could be for a dynamic block, such as the [Latest Posts block](http
 Ideally, the attributes saved should be included in the markup. However, there are times when this is not practical, so if no attribute source is specified the attribute is serialized and saved to the block's comment delimiter.
 
 This example could be for a dynamic block, such as the [Latest Posts block](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/latest-posts/index.js), which renders the markup server-side. The save function is still required, however in this case it simply returns null since the block is not saving content from the editor.
+
+**ESNext**
+
+{% codetabs %}
+{% ESNext %}
+```jsx
+attributes: {
+	postsToShow: {
+		type: 'number',
+	}
+},
+
+edit: ( { attributes, setAttributes } ) => {
+	return <TextControl
+			label='Number Posts to Show'
+			value={ attributes.postsToShow }
+			onChange={ ( val ) => {
+				setAttributes( { postsToShow: parseInt( val ) } );
+			}},
+		}
+	);
+},
+
+save: () => {
+	return null;
+}
+```
+{% end %}
 
 **ES5**
 
@@ -478,32 +507,6 @@ edit: function( props ) {
 },
 
 save: function() {
-	return null;
-}
-```
-
-**ESNext**
-
-{% ESNext %}
-```jsx
-attributes: {
-	postsToShow: {
-		type: 'number',
-	}
-},
-
-edit: ( { attributes, setAttributes } ) => {
-	return <TextControl
-			label='Number Posts to Show'
-			value={ attributes.postsToShow }
-			onChange={ ( val ) => {
-				setAttributes( { postsToShow: parseInt( val ) } );
-			}},
-		}
-	);
-},
-
-save: () => {
 	return null;
 }
 ```
