@@ -5,7 +5,7 @@ The example blocks so far are still not very interesting because they lack optio
  -->
 # 属性と編集可能フィールド
 
-ここまでのサンプルブロックではメッセージを変更できないためあまり面白くありません。このセクションでは RichText フィールドを実装して、ユーザーが好きなメッセージを指定できるようにします。実装の前に、まずブロックの状態「属性」がどのように管理され、どのように変更されるかを理解することは重要です。
+これまでに作ったサンプルブロックはメッセージを変更できないため、あまり面白くありませんでした。このセクションでは RichText フィールドを実装して、ユーザーが好きなメッセージを指定できるようにします。実装の前に、まず重要な、ブロックの状態である「属性」がどのように管理され、どのように変更されるかを理解しましょう。
 
 <!-- 
 ## Attributes
@@ -16,9 +16,9 @@ One challenge of maintaining the representation of a block as a JavaScript objec
  -->
 ## 属性
 
-これまでの `edit` 関数と `save` 関数は paragraph 要素の単純な表現を返していました。すでに学んだようにこれらの関数はブロックの外観の構造の _記述_ に責任があります。ユーザーがブロックを変更すれば、その構造も変更する必要があります。この実現のために編集セッションの間はブロックの状態をプレーンな JavaScript オブジェクトとして管理し、更新があると、`edit` 関数が再び呼び出します。別の言い方をすれば、__ブロックの出力はその属性の関数です。__
+これまで、`edit` 関数と `save` 関数はシンプルな paragraph 要素を返しました。これらの関数はまた、ブロックの表示の構造の _記述_ に責任をもつことも学んできました。ユーザーがブロックを変更すれば、その構造も変更する必要があります。この動作を実現するには、編集セッションの間中はずっと、ブロックの状態をプレーンな JavaScript オブジェクトとして管理しておき、更新があると、`edit` 関数を再び呼び出す必要があります。別の言い方をすれば、__ブロックの出力は、ブロックの属性の関数になります。__
 
-JavaScript オブジェクトとしてブロックの外観を管理する場合の1つの挑戦は、投稿の保存されたコンテンツから再びこのオブジェクトを取り出す必要がある点です。
+ブロックの表示を JavaScript オブジェクトとして管理する場合の課題は、投稿の保存されたコンテンツから再びこのオブジェクトを取り出さなければならない点です。この問題の解決にはブロックタイプの `attributes` プロパティを使用します。
 
 ```js
 	attributes: {
@@ -34,9 +34,9 @@ When registering a new block type, the `attributes` property describes the shape
 
 In the code snippet above, when loading the editor, the `content` value will be extracted from the HTML of the paragraph element in the saved post's markup.
  -->
-新しいブロックタイプを登録する際、`attributes` プロパティは、`edit` 関数や `save` 関数で受け取る属性オブジェクトの形を記述します。それぞれの値はブロックのマークアップから希望の値を見つける [source 関数](https://developer.wordpress.org/block-editor/designers-developers/developers/block-api/block-attributes/) です。
+新しいブロックタイプを登録する際、`attributes` プロパティで `edit` 関数や `save` 関数で受け取る属性オブジェクトの形を記述します。それぞれの値はブロックのマークアップから希望の値を見つける [source 関数](https://developer.wordpress.org/block-editor/designers-developers/developers/block-api/block-attributes/) になります。
 
-上のコード例ではエディターにロードされると、保存された投稿のマークアップの中の paragraph 要素の HTML から `content` 値が取り出されます。
+上のコード例ではエディターのロード中に、保存された投稿のマークアップの中の paragraph 要素の HTML から `content` 値が取り出されます。
 
 <!-- 
 ## Components and the `RichText` Component
@@ -49,7 +49,7 @@ The `RichText` component can be considered as a super-powered `textarea` element
 
 To use the `RichText` component, and using ES5 code, remember to add `wp-editor` to the dependency array of registered script handles when calling `wp_register_script`.
  -->
-## コンポーネントと `RichText` コンポーネント
+## コンポーネントと RichText コンポーネント
 
 これまでのサンプルでは `createElement` 関数を使用して DOM ノードを作成しましたが、この動きを「コンポーネント」にカプセル化することができます。この抽象化により共通の動作を共有しやすくなり、複雑さを自己完結したユニット内に隠す事ができます。
 
