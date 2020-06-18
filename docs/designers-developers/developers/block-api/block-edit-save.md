@@ -5,7 +5,7 @@
 <!-- 
 When registering a block, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
  -->
-ブロックの登録の際 `edit` 関数と `save` 関数は、ブロックがどのように動作し、操作され、保存されるかのインターフェイスを提供します。
+ブロックを登録する際、`edit` 関数と `save` 関数はブロックがどのように動作し、操作、保存されるかのインターフェイスを提供します。
 
 ## Edit
 <!-- 
@@ -50,9 +50,9 @@ This property surfaces all the available attributes and their corresponding valu
 
 In this case, assuming we had defined an attribute of `content` during block registration, we would receive and use that value in our edit function:
  -->
-`attributes` プロパティはすべての利用可能な属性と対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティによって記述されています。属性のソースを指定する方法については[属性のドキュメント](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)を参照してください。
+`attributes` プロパティはすべての利用可能な属性とその対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティで記述されます。属性ソースを指定する方法については[属性のドキュメント](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)を参照してください。
 
-この例ではブロック登録の際に `content` 属性を定義したと仮定し、`edit` 関数内で値を受け取り使用します。
+この例ではブロック登録の際に `content` 属性を定義したと仮定し、`edit` 関数内で値を受け取って使用します。
 
 **ESNext**
 
@@ -257,13 +257,13 @@ var addListItem = function( newListItem ) {
 <!-- 
 Why do this? In JavaScript, arrays and objects are passed by reference, so this practice ensures changes won't affect other code that might hold references to the same data. Furthermore, the Gutenberg project follows the philosophy of the Redux library that [state should be immutable](https://redux.js.org/faq/immutable-data#what-are-the-benefits-of-immutability)—data should not be changed directly, but instead a new version of the data created containing the changes.
  -->
-なぜコピーやクローンが必要なのでしょうか ? JavaScript では配列やオブジェクトは参照渡しされますが、コピーやクローンを行うことで変更が同じデータへの参照を持つ他のコードに影響を与えないことが保証されます。さらに Gutenberg プロジェクトは Redux ライブラリの哲学、[state は不変でなければならない ](https://redux.js.org/faq/immutable-data#what-are-the-benefits-of-immutability)に従っています。データは直接変更せず、変更を含む新しいバージョンのデータを作る必要があります。
+コピーやクローンが必要なのはなぜでしょうか ? JavaScript では配列やオブジェクトは参照渡しされるため、コピーやクローンを行うことで変更が同じデータへの参照を持つ他のコードに影響を与えないことが保証されます。さらに Gutenberg プロジェクトは Redux ライブラリの哲学、[state は不変でなければならない ](https://redux.js.org/faq/immutable-data#what-are-the-benefits-of-immutability)に従っています。データは直接変更せず、変更を含む新しいバージョンのデータを作る必要があります。
 
 ## Save
 <!-- 
 The `save` function defines the way in which the different attributes should be combined into the final markup, which is then serialized into `post_content`.
  -->
-`save` 関数は、最終的なマークアップに異なる属性を組み込む方法を定義します。この属性は `post_content` にシリアライズされます。
+`save` 関数は、最終的なマークアップに異なる属性を結合する方法を定義します。この属性は `post_content` 内にシリアライズされます。
 
 **ESNext** 
 
@@ -307,31 +307,26 @@ If there is a need to have other information as part of the save, developers can
  - Use [dynamic blocks](/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md) and dynamically retrieve the required information on the server.
  - Store the external value as an attribute which is dynamically updated in the block's `edit` function as changes occur.
  -->
-_注意:_ `save` 関数は、呼び出し時に使用された属性にのみ依存する、純粋関数であるべきです。いかなるサイドイフェクトも与えず、別のソースから情報も取得できません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することもできません。
-これは外部の情報が変更されると、あとで投稿を編集する際にブロックが invalid (不正) としてマーク付けされる可能性があるためです。詳細については以下の[Validation を参照](#validation))してください。
-保存の一環として他の情報が必要であれば、
-
-The save function should be a pure function that depends only on the attributes used to invoke it.
-It can not have any side effect or retrieve information from another source, e.g. it is not possible to use the data module inside it `select( store ).selector( ... )`.
-This is because if the external information changes, the block may be flagged as invalid when the post is later edited ([read more about Validation](#validation)).
-If there is a need to have other information as part of the save, developers can consider one of these two alternatives:
- - Use [dynamic blocks](/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md) and dynamically retrieve the required information on the server.
- - Store the external value as an attribute which is dynamically updated in the block's `edit` function as changes occur.
+_注意:_ `save` 関数は、呼び出し時に使用された属性にのみ依存する純粋関数でなければなりません。どのようなサイドイフェクトも与えられず、別のソースからの情報も取得できません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することはできません。
+これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「[妥当性検証 (Validation)](#validation))」を参照してください。
+保存の流れで他の情報が必要になった場合、開発者には2つの選択肢があります。
+ - [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/) を使用してサーバー上で動的に必要な情報を取得する。
+ - 外部の値を属性として保存し、変更があった場合にはブロックの `edit` 関数内で動的に更新する。
 
 <!-- 
 For [dynamic blocks](/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md), the return value of `save` could represent a cached copy of the block's content to be shown only in case the plugin implementing the block is ever disabled.
-
+ -->
+[ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/) の場合、`save` の戻り値は、ブロックを実装するプラグインが無効化された場合に表示されるブロックコンテンツの、キャッシュしたコピーを返すことができます。
+<!-- 
 If left unspecified, the default implementation will save no markup in post content for the dynamic block, instead deferring this to always be calculated when the block is shown on the front of the site.
  -->
-For [dynamic blocks](/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md), the return value of `save` could represent a cached copy of the block's content to be shown only in case the plugin implementing the block is ever disabled.
-
-If left unspecified, the default implementation will save no markup in post content for the dynamic block, instead deferring this to always be calculated when the block is shown on the front of the site.
+特に指定しない場合、デフォルトの実装ではダイナミックブロックの投稿コンテンツにはマークアップは保存されず、代わりにブロックがサイトのフロントエンド側で表示された際に常に計算するよう延期されます。
 
 ### attributes
 <!-- 
 As with `edit`, the `save` function also receives an object argument including attributes which can be inserted into the markup.
  -->
-As with `edit`, the `save` function also receives an object argument including attributes which can be inserted into the markup.
+`edit` 関数と同様 `save` 関数もまたオブジェクト引数を受け取ります。オブジェクト引数にはマークアップに挿入することができる属性が含まれます。
 
 **ESNext**
 
@@ -360,7 +355,8 @@ save: function( props ) {
 <!-- 
 When saving your block, you want to save the attributes in the same format specified by the attribute source definition. If no attribute source is specified, the attribute will be saved to the block's comment delimiter. See the [Block Attributes documentation](/docs/designers-developers/developers/block-api/block-attributes.md) for more details.
  -->
-When saving your block, you want to save the attributes in the same format specified by the attribute source definition. If no attribute source is specified, the attribute will be saved to the block's comment delimiter. See the [Block Attributes documentation](/docs/designers-developers/developers/block-api/block-attributes.md) for more details.
+
+ブロックを保存する際、属性は、属性ソース定義で指定した形式で保存されます。属性ソースが指定されていない場合、属性はブロックのコメントデリミッターに保存されます。詳細は [ブロック属性のドキュメント](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/) を参照してください。
 
 <!-- 
 ## Examples
@@ -370,7 +366,7 @@ When saving your block, you want to save the attributes in the same format speci
 <!-- 
 Here are a couple examples of using attributes, edit, and save all together.  For a full working example, see the [Introducing Attributes and Editable Fields](/docs/designers-developers/developers/tutorials/block-tutorial/introducing-attributes-and-editable-fields.md) section of the Block Tutorial.
  -->
-Here are a couple examples of using attributes, edit, and save all together.  For a full working example, see the [Introducing Attributes and Editable Fields](/docs/designers-developers/developers/tutorials/block-tutorial/introducing-attributes-and-editable-fields.md) section of the Block Tutorial.
+属性、`edit`、`save` を一緒に使用する例をいくつか挙げます。完全に動作するサンプルはブロックのチュートリアルの「[属性と編集可能フィールド](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/introducing-attributes-and-editable-fields/)」
 
 <!-- 
 ### Saving Attributes to Child Elements
@@ -443,21 +439,23 @@ save: function( props ) {
 <!-- 
 ### Saving Attributes via Serialization
  -->
-### シリアライゼーションを介した属性の保存
+### シリアライゼーションを通じた属性の保存
 
 <!-- 
 Ideally, the attributes saved should be included in the markup. However, there are times when this is not practical, so if no attribute source is specified the attribute is serialized and saved to the block's comment delimiter.
 
 This example could be for a dynamic block, such as the [Latest Posts block](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/latest-posts/index.js), which renders the markup server-side. The save function is still required, however in this case it simply returns null since the block is not saving content from the editor.
  -->
-Ideally, the attributes saved should be included in the markup. However, there are times when this is not practical, so if no attribute source is specified the attribute is serialized and saved to the block's comment delimiter.
+理想的には保存する属性はマークアップに含まれるべきですが、常に現実的ではありません。このため属性ソースが指定されない場合、属性はシリアライズされブロックのコメントデリミッターに保存されます。
 
-This example could be for a dynamic block, such as the [Latest Posts block](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/latest-posts/index.js), which renders the markup server-side. The save function is still required, however in this case it simply returns null since the block is not saving content from the editor.
+次の例は[「最近の投稿」ブロック](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/latest-posts/index.js)のような、マークアップをサーバーサイドでレンダリングするダイナミックブロックになります。`save` 関数は依然として必要ですが、ブロックはエディターからコンテンツを保存していないため、この例では単純に null を返しています。
 
 **ESNext**
 
 {% codetabs %}
 {% ESNext %}
+
+<!-- 
 ```jsx
 attributes: {
 	postsToShow: {
@@ -480,6 +478,29 @@ save: () => {
 	return null;
 }
 ```
+ -->
+```jsx
+attributes: {
+	postsToShow: {
+		type: 'number',
+	}
+},
+
+edit: ( { attributes, setAttributes } ) => {
+	return <TextControl
+			label='Number Posts to Show'
+			value={ attributes.postsToShow }
+			onChange={ ( val ) => {
+				setAttributes( { postsToShow: parseInt( val ) } );
+			}}
+		/>;
+},
+
+save: () => {
+	return null;
+}
+```
+
 {% end %}
 
 **ES5**
@@ -515,39 +536,39 @@ save: function() {
 <!-- 
 ## Validation
  -->
-## Validation
+## 妥当性検証 (Validation)
 
 <!-- 
-When the editor loads, all blocks within post content are validated to determine their accuracy in order to protect against content loss. This is closely related to the saving implementation of a block, as a user may unintentionally remove or modify their content if the editor is unable to restore a block correctly. During editor initialization, the saved markup for each block is regenerated using the attributes that were parsed from the post's content. If the newly-generated markup does not match what was already stored in post content, the block is marked as invalid. This is because we assume that unless the user makes edits, the markup should remain identical to the saved content.
+When the editor loads, all blocks within post content are validated to determine their accuracy in order to protect against content loss. This is closely related to the saving implementation of a block, as a user may unintentionally remove or modify their co ntent if the editor is unable to restore a block correctly. During editor initialization, the saved markup for each block is regenerated using the attributes that were parsed from the post's content. If the newly-generated markup does not match what was already stored in post content, the block is marked as invalid. This is because we assume that unless the user makes edits, the markup should remain identical to the saved content.
  -->
-When the editor loads, all blocks within post content are validated to determine their accuracy in order to protect against content loss. This is closely related to the saving implementation of a block, as a user may unintentionally remove or modify their content if the editor is unable to restore a block correctly. During editor initialization, the saved markup for each block is regenerated using the attributes that were parsed from the post's content. If the newly-generated markup does not match what was already stored in post content, the block is marked as invalid. This is because we assume that unless the user makes edits, the markup should remain identical to the saved content.
+エディターがブロックをロードする際、コンテンツの消失を防止するため投稿コンテンツ内のすべてのブロックは妥当性検証 (validatite) され、その正しさが確かめられます。これはブロックを保存する実装と密接な関係があります。なぜならエディターが正しくブロックをリストアしなければユーザーは意図せずにコンテンツを削除したり、変更するためです。エディターの初期化中、各ブロックのマークアップは、投稿コンテンツからパースされた属性を使用して再生成されます。新しく生成されたマークアップが投稿コンテンツ内の保存済みマークアップと異なる場合、ブロックは不正 (invalid) とマークされます。これはユーザーが編集していない限り、マークアップは保存されたコンテンツと同じはずだと仮定しているためです。
 
 <!-- 
 If a block is detected to be invalid, the user will be prompted to choose how to handle the invalidation:
 
 ![Invalid block prompt](https://user-images.githubusercontent.com/1779930/35637234-a6a7a18a-0681-11e8-858b-adfc1c6f47da.png)
  -->
-If a block is detected to be invalid, the user will be prompted to choose how to handle the invalidation:
+ブロックが不正とマークされると、ユーザーには妥当性検証の失敗をどのように処理するか求められます。
 
-![Invalid block prompt](https://user-images.githubusercontent.com/1779930/35637234-a6a7a18a-0681-11e8-858b-adfc1c6f47da.png)
+![不正なブロックのプロンプト](https://user-images.githubusercontent.com/1779930/35637234-a6a7a18a-0681-11e8-858b-adfc1c6f47da.png)
 
 <!-- 
 - **Overwrite**: Ignores the warning and treats the newly generated markup as correct. As noted in the behavior described above, this can result in content loss since it will overwrite the markup saved in post content.
 - **Convert to Classic**: Protects the original markup from the saved post content as correct. Since the block will be converted from its original type to the Classic block type, it will no longer be possible to edit the content using controls available for the original block type.
 - **Edit as HTML block**: Similar to _Convert to Classic_, this will protect the original markup from the saved post content and convert the block from its original type to the HTML block type, enabling the user to modify the HTML markup directly.
  -->
-- **Overwrite**: Ignores the warning and treats the newly generated markup as correct. As noted in the behavior described above, this can result in content loss since it will overwrite the markup saved in post content.
-- **Convert to Classic**: Protects the original markup from the saved post content as correct. Since the block will be converted from its original type to the Classic block type, it will no longer be possible to edit the content using controls available for the original block type.
-- **Edit as HTML block**: Similar to _Convert to Classic_, this will protect the original markup from the saved post content and convert the block from its original type to the HTML block type, enabling the user to modify the HTML markup directly.
+- **上書き**: 警告を無視し、新しく生成されたマークアップを正しいものとして扱います。上で説明したようにこの操作は投稿コンテンツの保存済みマークアップを上書きするため、コンテンツを失う結果になる可能性があります。
+- **クラシックブロックに変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを正しいものとして保護します。ブロックはオリジナルのブロックタイプからクラシックブロックタイプに変換されるため、オリジナルのブロックタイプで利用可能だったコントロールでコンテンツを編集できない可能性があります。
+- **HTMLブロックとして編集**: _クラシックブロックに変換_ 同様、このオプションも保存された投稿コンテンツからオリジナルのマークアップを保護し、オリジナルのブロックタイプから HTML ブロックタイプに変換します。ユーザーは HTML マークアップを直接変更できます。
 
 <!-- 
 ### Validation FAQ
  -->
-### Validation FAQ
+### 妥当性検証 FAQ
 <!-- 
 **How do blocks become invalid?**
  -->
-**ブロックが invalid (不正) になるのはどのような場合ですか?**
+**ブロックが不正になるのはどのような場合ですか?**
 
 <!-- 
 The two most common sources of block invalidations are:
@@ -555,15 +576,15 @@ The two most common sources of block invalidations are:
 1. A flaw in a block's code would result in unintended content modifications. See the question below on how to debug block invalidation as a plugin author.
 2. You or an external editor changed the HTML markup of the block in such a way that it is no longer considered correct.
  -->
-The two most common sources of block invalidations are:
+ブロックが不正になる原因には大きく2つあります。
 
-1. A flaw in a block's code would result in unintended content modifications. See the question below on how to debug block invalidation as a plugin author.
-2. You or an external editor changed the HTML markup of the block in such a way that it is no longer considered correct.
+1. ブロックのコードのフローが、コンテンツの意図しない変更を引き起こした。以下の質問「プラグイン作者です。プラグインが invalid とマークされたらどうやってデバッグすればいいですか ?」を参照してください。
+2. ユーザーまたは外部のエディターがブロックの HTML マークアップを変更して不正となった。
 
 <!-- 
 **I'm a plugin author. What should I do to debug why my blocks are being marked as invalid?**
  -->
-**プラグイン作者です。プラグインが invalid とマークされた場合、デバッグするには何をすればいいですか ?**
+**プラグイン作者です。プラグインが invalid とマークされたらどうやってデバッグすればいいですか ?**
 
 <!-- 
 Before starting to debug, be sure to familiarize yourself with the validation step described above documenting the process for detecting whether a block is invalid. A block is invalid if its regenerated markup does not match what is saved in post content, so often this can be caused by the attributes of a block being parsed incorrectly from the saved content.
@@ -572,18 +593,18 @@ If you're using [attribute sources](/docs/designers-developers/developers/block-
 
 When a block is detected as invalid, a warning will be logged into your browser's developer tools console. The warning will include specific details about the exact point at which a difference in markup occurred. Be sure to look closely at any differences in the expected and actual markups to see where problems are occurring.
  -->
-Before starting to debug, be sure to familiarize yourself with the validation step described above documenting the process for detecting whether a block is invalid. A block is invalid if its regenerated markup does not match what is saved in post content, so often this can be caused by the attributes of a block being parsed incorrectly from the saved content.
+デバッグを始める前に、上に記述された妥当性検証のステップと、ブロックが不正と検知されるプロセスについて理解してください。ブロックが不正となるのは再生成されたマークアップが投稿コンテンツ内の保存済みマークアップと合致しない場合です。したがって保存されたコンテンツからブロックの属性が正しくパースされなかった場合にしばしば発生します。
 
-If you're using [attribute sources](/docs/designers-developers/developers/block-api/block-attributes.md), be sure that attributes sourced from markup are saved exactly as you expect, and in the correct type (usually a `'string'` or `'number'`).
+[属性ソース](/docs/designers-developers/developers/block-api/block-attributes.md)を使用している場合には、マークアップのソースの属性が期待したとおりに正しいタイプ (通常は `'string'` か `'number'`) で保存されていることを確認してください。
 
-When a block is detected as invalid, a warning will be logged into your browser's developer tools console. The warning will include specific details about the exact point at which a difference in markup occurred. Be sure to look closely at any differences in the expected and actual markups to see where problems are occurring.
+ブロックの不正が検知されるとブラウザーの開発者ツールコンソールに警告が出力されます。警告にはマークアップの相違が発生した正確な場所の詳細が含まれます。期待したマークアップと実際のマークアップの違いを比較し、どこで問題が発生したかを調べてください。
 
 <!-- 
 **I've changed my block's `save` behavior and old content now includes invalid blocks. How can I fix this?**
  -->
-**ブロックの `save` の動きを変えたら古いコンテンツが invalid なブロックを含むようになりました。どのように修正すればよいですか ?**
+**ブロックの `save` の動きを変えたら古いコンテンツが不正なブロックになりました。どのように修正すればよいですか ?**
 
 <!-- 
 Refer to the guide on [Deprecated Blocks](/docs/designers-developers/developers/block-api/block-deprecation.md) to learn more about how to accommodate legacy content in intentional markup changes.
  -->
-Refer to the guide on [Deprecated Blocks](/docs/designers-developers/developers/block-api/block-deprecation.md) to learn more about how to accommodate legacy content in intentional markup changes.
+[非推奨ブロック](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-deprecation.md) のガイドを参照して、意図したマークアップの変更に古いコンテンツを収容する方法を学習してください。
