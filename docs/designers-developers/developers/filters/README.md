@@ -10,9 +10,9 @@ There are two types of hooks: [Actions](https://developer.wordpress.org/plugins/
 You can also learn more about both APIs: [PHP](https://codex.wordpress.org/Plugin_API/) and [JavaScript](/packages/hooks/README.md).
  -->
 
-[フック](https://developer.wordpress.org/plugins/hooks/)とは、あるコードが別のコードと通信する、あるいは別のコードを変更する方法です。プラグインやテーマはフックを使用してエディターと通信します。また WordPress コア自身も広範囲に利用しています。
+[フック](https://developer.wordpress.org/plugins/hooks/)とは、あるコードが別のコードと通信したり、別のコードを変更する方法です。プラグインやテーマはフックを使用してエディターと通信します。WordPress コア自身も広範囲でフックを利用しています。
 
-フックには、[アクション](https://developer.wordpress.org/plugins/hooks/actions/) と [フィルター](https://developer.wordpress.org/plugins/hooks/filters/) の2種類があります。WordPress ではフックの登録と実行を PHP からだけではなく、JavaScript からも実行できる手段を提供します。この機能はまた npm でも [@wordpress/hooks](https://www.npmjs.com/package/@wordpress/hooks) パッケージとして汎用目的に利用できます。
+フックには、[アクション](https://developer.wordpress.org/plugins/hooks/actions/) と [フィルター](https://developer.wordpress.org/plugins/hooks/filters/) の2種類があります。WordPress ではフックの登録と実行を PHP だけでなく、JavaScript からも実行できる手段を提供します。またこの機能は npm でも [@wordpress/hooks](https://www.npmjs.com/package/@wordpress/hooks) パッケージとして汎用的に利用できます。
 
 両方の API の詳細については [PHP](https://codex.wordpress.org/Plugin_API/) と [JavaScript](https://developer.wordpress.org/block-editor/packages/packages-hooks/) を参照してください。
 

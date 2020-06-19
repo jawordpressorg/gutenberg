@@ -10,11 +10,11 @@ There are two primary uses for dynamic blocks:
 
 1. Blocks where content should change even if a post has not been updated. One example from WordPress itself is the Latest Posts block. This block will update everywhere it is used when a new post is published.
  -->
-ダイナミックブロックはフロントエンド側でレンダリングされる際に、動的に構造とコンテンツを構築するブロックです。
+ダイナミックブロックはフロントエンドでレンダリングされる際に動的に構造とコンテンツを構築するブロックです。
 
-ダイナミックブロックの代表的な2つの使用例です。
+ダイナミックブロックの代表的な使用例が2つあります。
 
-1. 投稿が更新されていなくてもコンテンツを変更するブロック。WordPress 自身から1つ例を挙げると「最近の更新」ブロックがあります。このブロックは新しい投稿が発行されるとすべての使用箇所を更新します。
+1. 投稿が更新されていなくてもコンテンツを変更するブロック。WordPress から例を挙げると「最近の更新」ブロックがあります。このブロックは新しい投稿が発行されるとすべての使用箇所を更新します。
 
 <!-- 
 2. Blocks where updates to the code (HTML, CSS, JS) should be immediately shown on the front end of the website. For example, if you update the structure of a block by adding a new class, adding an HTML element, or changing the layout in any other way, using a dynamic block ensures those changes are applied immediately on all occurrences of that block across the site. (If a dynamic block is not used then when block code is updated Guterberg's [validation process](/docs/designers-developers/developers/block-api/block-edit-save.md#validation) generally applies, causing users to see the validation message, "This block appears to have been modified externally").
@@ -24,7 +24,7 @@ There are two primary uses for dynamic blocks:
 <!-- 
 For many dynamic blocks, the `save` callback function should be returned as `null`, which tells the editor to save only the [block attributes](/docs/designers-developers/developers/block-api/block-attributes.md) to the database.  These attributes are then passed into the server-side rendering callback, so you can decide how to display the block on the front end of your site. When you return `null`, the editor will skip the block markup validation process, avoiding issues with frequently-changing markup.
  -->
-多くのダイナミックブロックでは `save` コールバック関数は `null` として返されるべきです。これを受けてエディターはデータベースに[ブロック属性](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)のみを保存します。その後、これらの属性はサーバー側レンダリングコールバックに渡されるため、サイトのフロントエンドでどのようにブロックを表示するか決定できます。`null` を返すと、エディターはブロックのマークアップの妥当性検査プロセスをスキップするため、頻繁にマークアップを変更する際の問題を回避できます。
+多くのダイナミックブロックでは `save` コールバック関数は `null` として返されるべきです。これを受けてエディターはデータベースに[ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)のみを保存します。その後、これらの属性はサーバー側レンダリングコールバックに渡されるため、サイトのフロントエンドでどのようにブロックを表示するか決定できます。`null` を返すとエディターはブロックのマークアップの妥当性検査プロセスをスキップするため、頻繁にマークアップを変更する際の問題を回避できます。
 
 <!-- 
 If you are using [InnerBlocks](/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md) in a dynamic block you will need to save the `InnerBlocks` in the `save` callback function using `<InnerBlocks.Content/>`
@@ -40,7 +40,7 @@ The following code example shows how to create a dynamic block that shows only t
  -->
 ブロックの HTML 表現も保存できます。サーバー側レンダリングコールバックを提供すると、この HTML はコールバックの出力で置換されますが、ブロックが無効化されたり、レンダリングコールバックが削除される場合には、レンダリングされます。
 
-ブロック属性は、ブロックのために保存したい任意のコンテツや設定に対して使用できます。最初の最新の投稿ブロックの例では、フロントエンドに表示したい最新の投稿数を属性として保存できます。あるいは2番めの例では、フロントエンドで表示したい各コンテンツの部品、たとえば見出しテキスト、段落テキスト、画像、URLとして属性を使用できます。
+ブロックの属性は、ブロックのために保存したい任意のコンテツや設定に対して使用できます。最初の最新の投稿ブロックの例では、フロントエンドに表示したい最新の投稿数を属性として保存できます。2番目の例では、フロントエンドで表示したい各コンテンツの部品、たとえば見出しテキスト、段落テキスト、画像、URLとして属性を使用できます。
 
 次のコード例では最後の投稿だけをリンクとして表示するダイナミックブロックを作成します。
 
@@ -125,7 +125,7 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 <!-- 
 Because it is a dynamic block it doesn't need to override the default `save` implementation on the client. Instead, it needs a server component. The contents in the front of your site depend on the function called by the `render_callback` property of `register_block_type`.
  -->
-これはダイナミックブロックですので、クライアントのデフォルトの `save` 実装をオーバーライドする必要はありません。代わりに、サーバーコンポーネントが必要です。サイトのフロントエンドのコンテツは `register_block_type` の `render_callback` プロパティに呼び出される関数に依存します。
+これはダイナミックブロックですのでクライアントのデフォルトの `save` 実装をオーバーライドする必要はありません。代わりにサーバーコンポーネントが必要です。サイトのフロントエンドのコンテツは `register_block_type` の `render_callback` プロパティに呼び出される関数に依存します。
 
 ```php
 <?php

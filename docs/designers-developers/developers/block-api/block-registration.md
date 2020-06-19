@@ -310,7 +310,7 @@ attributes: {
 <!-- 
 -   **See: [Attributes](/docs/designers-developers/developers/block-api/block-attributes.md).**
  -->
--   **参照: [属性](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-attributes.md)**
+-   **参照: [属性](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)**
 
 <!-- 
 #### example (optional)

@@ -8,7 +8,7 @@ Blocks are the fundamental element of the editor. They are the primary way in wh
 
 The following sections will walk you through the existing block APIs:
  -->
-ブロックはエディターの基本要素です。プラグインやテーマは自身の機能を登録しエディターを拡張することができます。
+「ブロック」はエディターの基本的な要素です。エディターの機能を拡張するには主にプラグインやテーマから機能を登録します。
 
 次のセクションでは既存のブロック API を紹介します。
 
@@ -24,8 +24,8 @@ The following sections will walk you through the existing block APIs:
  -->
 
 - [ブロックの登録](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/)
-- [Edit and Save](https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/)
-- [Attributes](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)
+- [Edit と Save](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/)
+- [属性](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)
 - [Deprecated blocks](https://developer.wordpress.org/block-editor/developers/block-api/block-deprecation/)
 - [Transformations](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-transforms.md)
 - [Templates](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/)
