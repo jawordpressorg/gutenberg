@@ -10,6 +10,7 @@
 | @atachibana | @atachibana |
 | @miminari | @mimitips |
 | @shizumi | @Shizumi |
+| @arm-band | |
 
 ## 原文
 
