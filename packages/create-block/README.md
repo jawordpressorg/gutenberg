@@ -1,4 +1,4 @@
-<!-- 
+¥<!-- 
 # Create Block
  -->
 # @wordpress/create-block
@@ -38,11 +38,11 @@ You just need to provide the `slug` which is the target location for scaffolded 
 
 ひな形ファイルの保管場所、そして内部のブロック名となる `slug` を指定するだけで十分です。
 
-  ```bash
-  $ npm init @wordpress/block todo-list
-  $ cd todo-list
-  $ npm start
-  ```
+```bash
+$ npx @wordpress/create-block todo-list
+$ cd todo-list
+$ npm start
+```
 
 <!-- 
 _(requires `node` version `10.0.0` or above, and `npm` version `6.9.0` or above)_
@@ -63,7 +63,7 @@ The following command generates PHP, JS and CSS code for registering a block.
 次のコマンドはブロックを登録する PHP、JS、CSS コードを生成します。
 
 ```bash
-$ npm init @wordpress/block [options] [slug]
+$ npx @wordpress/create-block [options] [slug]
 ```
 
 <!-- 
@@ -71,7 +71,8 @@ $ npm init @wordpress/block [options] [slug]
 `[slug]` is optional. When provided it triggers the quick mode where it is used as the block slug used for its identification, the output location for scaffolded files, and the name of the WordPress plugin. The rest of the configuration is set to all default values unless overriden with some of the options listed below.
 
 Options:
-```
+
+```sh
 -V, --version                output the version number
 -t, --template <name>        block template type name, allowed values: "es5", "esnext" (default: "esnext")
 --namespace <value>          internal namespace for the block name
@@ -105,31 +106,40 @@ _注意: `--version` と `--help` オプションは `npm init` とは一緒に�
 
 サンプル:
 <!-- 
-1. Interactive mode - it gives a chance to customize a few most important options before the code gets generated.
-  ```bash
-  $ npm init @wordpress/block
-  ```
+1. Interactive mode - without giving a project name, the script will run in interactive mode giving a chance to customize the important options before generating the files.
+
+```bash
+$ npx @wordpress/create-block
+```
+
 2. ES5 template – it is also possible to pick ES5 template when you don't want to deal with a build step (`npm start`) which enables ESNext and JSX support.
-  ```bash
-  $ npm init @wordpress/block --template es5
-  ```
+
+```bash
+$ npx @wordpress/create-block --template es5
+```
+
 3. Help – you need to use `npx` to output usage information.
-  ```bash
-  $ npx @wordpress/create-block --help
-  ```
+```bash
+$ npx @wordpress/create-block --help
+```
  -->
-1. 対話モード - コードが生成される前に、もっとも重要なオプションのいくつかをカスタマイズする機会が得られます。
-  ```bash
-  $ npm init @wordpress/block
-  ```
+1. 対話モード - プロジェクト名を指定しなければスクリプトは対話モードで動作します。コードが生成される前に、もっとも重要なオプションのいくつかをカスタマイズする機会が得られます。
+
+```bash
+$ npx @wordpress/create-block
+```
+
 2. ES5 テンプレート – ESNext や JSX サポートを有効化するビルド手順 (`npm start`) を実行したくない場合は ES5 テンプレートを選択できます。
-  ```bash
-  $ npm init @wordpress/block --template es5
-  ```
+
+```bash
+$ npm init @wordpress/block --template es5
+```
+
 3. ヘルプ – 使用例の情報を出力する場合は `npx` が必要です。
-  ```bash
-  $ npx @wordpress/create-block --help
-  ```
+```bash
+$ npx @wordpress/create-block --help
+```
+
 <!-- 
 When you scaffold a block, you must provide at least a `slug` name, the `namespace` which usually corresponds to either the `theme` or `plugin` name, and the `category`. In most cases, we recommended pairing blocks with plugins rather than themes, because only using plugin ensures that all blocks still work when your theme changes.
  -->
@@ -143,31 +153,37 @@ Inside that bootstrapped directory _(it doesn't apply to `es5` template)_, you c
 ```bash
 $ npm start
 ```
+
 Starts the build for development. [Learn more](/packages/scripts#start).
 
 ```bash
 $ npm run build
 ```
+
 Builds the code for production. [Learn more](/packages/scripts#build).
 
 ```bash
 $ npm run format:js
 ```
+
 Formats JavaScript files. [Learn more](/packages/scripts#format-js).
 
 ```bash
 $ npm run lint:css
 ```
+
 Lints CSS files. [Learn more](/packages/scripts#lint-style).
 
 ```bash
 $ npm run lint:js
 ```
+
 Lints JavaScript files. [Learn more](/packages/scripts#lint-js).
 
 ```bash
 $ npm run packages-update
 ```
+
 Updates WordPress packages to the latest version. [Learn more](/packages/scripts#packages-update).
  -->
 ## 使用可能なコマンド
@@ -211,5 +227,7 @@ Another way of making a developer’s life easier is to use [WP-CLI](https://wp-
 ## WP-CLI
 
 もう1つの開発者をラクにしてくれる方法が [WP-CLI](https://wp-cli.org) です。WP-CLI は WordPress に対する多くの操作をコマンドラインから実行できますが、その中の1つ `wp scaffold block` はこのツール、特に ES5 テンプレートの開始ラインとして使用されました。
+
+[原文](https://github.com/WordPress/gutenberg/tree/master/packages/create-block)
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

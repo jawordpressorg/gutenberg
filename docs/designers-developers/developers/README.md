@@ -6,20 +6,20 @@
 <!--
 The new editor is highly flexible, like most of WordPress. You can build custom blocks, modify the editor's appearance, add special plugins, and much more.
 -->
-新しいエディターは WordPress 従来の機能と同様、非常にフレキシブルです。カスタムブロックの作成、エディターの外観の変更、特別なプラグインの追加、等々が可能です。
+新しいエディターは WordPress の従来の機能と同じように非常にフレキシブルで、カスタムブロックの作成、エディターの外観の変更、特別なプラグインの追加、等々が可能です。
 
 <!--
 ## Creating Blocks
 
 The editor is about blocks, and the main extensibility API is the Block API. It allows you to create your own static blocks, [Dynamic Blocks](/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md) ( rendered on the server ) and also blocks capable of saving data to Post Meta for more structured content.
 
-If you want to learn more about block creation, the [Blocks Tutorial](/docs/designers-developers/developers/tutorials/block-tutorial/readme.md) is the best place to start.
+If you want to learn more about block creation, see the [Create a Block tutorial](/docs/designers-developers/developers/tutorials/create-block/readme.md) for the best place to start.
 -->
 ## ブロックの作成
 
 エディターの大きな要素はブロックであり、主な拡張 API はブロック API です。ブロック API を使用することでユーザーは自分の静的ブロックや、サーバー側でレンダリングされる[動的ブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは、より構造化したコンテンツのため Post Meta にデータを保存できます。
 
-ブロックの作成について学習するには、まず[ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) から始めると良いでしょう。
+ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/) を参照してください。
 
 <!--
 ## Extending Blocks
@@ -100,3 +100,5 @@ Customizing the parser is an advanced topic that you can learn more about in the
 エディター内のテキストは、`post_content` への保存とエディターでの表示との間でいくつかの異なるステージを経由します。ブロック自体はメモリー内に存在するデータ構造のため、データベース内の保存形式との間でパースやシリアライゼーションが必要です。
 
 パーサーのカスタマイズは高度なトピックになります。詳細については [パーサーの拡張](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/parser-filters/) セクションを参照してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/README.md)

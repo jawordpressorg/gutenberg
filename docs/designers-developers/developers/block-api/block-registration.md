@@ -456,7 +456,7 @@ variations: [
 
 -   **Type:** `Object`
 <!-- 
-Transforms provide rules for what a block can be transformed from and what it can be transformed to. A block can be transformed from another block, a shortcode, a regular expression, a file or a raw DOM node. Take a look at the [Block Transforms API](./block-transforms.md) for more info about each available transformation.
+Transforms provide rules for what a block can be transformed from and what it can be transformed to. A block can be transformed from another block, a shortcode, a regular expression, a file or a raw DOM node. Take a look at the [Block Transforms API](/docs/designers-developers/developers/block-api/block-transforms.md) for more info about each available transformation.
  -->
 `transform` は、何をブロックに変換できるのか、またブロックは何に変換できるのかのルールを提供します。ブロックは、別のブロック、ショートコード、正規表現、ファイル、生の DOM ノードから変換できます。利用可能な個々の変換の詳細については [ブロック変換 API](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-transforms.md) を参照してください。
 
@@ -725,3 +725,5 @@ registerBlockCollection( 'my-plugin', { title: 'My Plugin' } );
 // ブロックコレクションの登録
 registerBlockCollection( 'my-plugin', { title: 'My Plugin' } );
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-registration.md)

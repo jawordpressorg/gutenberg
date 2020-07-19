@@ -29,3 +29,10 @@ See the [JavaScript Build Setup documentation](/docs/designers-developers/develo
 簡素化のため JavaScript チュートリアルでは ES5 定義を使用します。JSX は使用しません。ES5 のコードは追加のビルド手順を必要とせずブラウザーでそのまま動作します。多くの場合、単純なプラグインや実験であれば同様のアプローチで問題ないでしょう。そして、コードが大きく複雑になった際に ESNext に切り替えるのも良い考えです。ブロックエディターの大部分のコードやドキュメントは EXNext を使用します。
 
 ESNext 構文を使用する開発環境をセットアップする方法については [JavaScript ビルド手順のドキュメント](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/javascript/js-build-setup/) を参照してください。
+
+<!-- 
+See the [ESNext syntax documentation](/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) for explanation and examples about common code differences between standard JavaScript and ESNext.
+ -->
+標準の JavaScript と ESNext との一般的なコードの違いに関する説明と例については [ESNext 構文ドキュメント](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) を参照してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/versions-and-building.md)

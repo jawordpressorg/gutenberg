@@ -4,24 +4,31 @@
 # JavaScript ビルド環境のセットアップ
 
 <!-- 
-This page covers how to set up your development environment to use the ESNext and [JSX](https://reactjs.org/docs/introducing-jsx.html) syntaxes. ESNext is JavaScript code written using features that are only available in a specification greater than ECMAScript 5 (ES5 for short). JSX is a custom syntax extension to JavaScript that allows you to write JavaScript in a more familiar tag syntax.
-
-This documentation covers development for your plugin to work with the Gutenberg project (ie: the block editor). If you want to develop Gutenberg itself, see the [Getting Started](/docs/contributors/getting-started.md) documentation.
-
-Most browsers cannot interpret or run ESNext and JSX syntaxes, so we use a transformation step to convert these syntaxes to code that browsers can understand.
+ESNext is JavaScript written using syntax and features only available in a version newer than browser support—the support browser versions is referred to as ECMAScript 5 (ES5). [JSX](https://reactjs.org/docs/introducing-jsx.html) is a custom syntax extension to JavaScript, created by React project, that allows you to write JavaScript using a familiar HTML tag-like syntax.
  -->
-このページでは ESNext と [JSX](https://reactjs.org/docs/introducing-jsx.html) 構文を利用する開発環境のセットアップについて説明します。ESNext は ECMAScript 5 (略称 ES5) 以上の仕様の機能を使用した JavaScript コードです。JSX は JavaScript のカスタム構文拡張で、より馴染みのあるタグ構文を使用して JavaScript を書くことができます。
+ESNext はブラウザーがサポートするバージョンより新しいバージョンで利用可能な構文や機能を使用して書かれた JavaScript です。サポートするブラウザーのバージョンは ECMAScript 5 (ES5) と参照されます。[JSX](https://reactjs.org/docs/introducing-jsx.html) は React プロジェクトで作成された JavaScript に対するカスタム構文拡張です。馴染みのある HTML タグに似た構文を使用して JavaScript を書くことができます。
 
-このドキュメントはブロックエディターを始めとする Gutenberg プロジェクトと一緒に動作するプラグインの開発方法について説明します。Gutenberg 自身の開発については [入門](https://developer.wordpress.org/block-editor/contributors/develop/getting-started/) を参照してください。
+<!-- 
+See the [ESNext syntax documentation](/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) for explanation and examples about common code differences between standard JavaScript and ESNext.
+ -->
+標準の JavaScript と ESNext との一般的なコードの違いに関する説明と例については [ESNext 構文ドキュメント](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) を参照してください。
 
-ほとんどのブラウザーは ESNext や JSX 構文を解釈したり実行することはできません。このため変換ステップを使用して、すべてのブラウザが理解できるよう構文を変換します。
+<!-- 
+Let's set up your development environment to use these syntaxes, we'll cover development for your plugin to work with the Gutenberg project (ie: the block editor). If you want to develop on Gutenberg itself, see the [Getting Started](/docs/contributors/getting-started.md) documentation.
+ -->
+これらの構文を使用する開発環境をセットアップしましょう。このドキュメントではブロックエディターを始めとする Gutenberg プロジェクトと一緒に動作するプラグインの開発方法について説明します。Gutenberg 自身の開発については [入門](https://developer.wordpress.org/block-editor/contributors/develop/getting-started/) を参照してください。
+
+<!-- 
+Browsers cannot interpret or run ESNext and JSX syntaxes, so we must use a transformation step to convert these syntaxes to code that browsers can understand.
+ -->
+ブラウザーは ESNext や JSX 構文を解釈したり実行することはできません。変換ステップを使用してすべてのブラウザが理解できるよう構文を変換する必要があります。
 
 <!--
 There are a few reasons to use ESNext and this extra step of transformation:
 
-- It makes for simpler code that is easier to read and write. 
-- Using a transformation step allows for tools to optimize the code to work on the widest variety of browsers.
-- By using a build step you can organize your code into smaller modules and files that can be bundled together into a single download.
+-   It makes for simpler code that is easier to read and write.
+-   Using a transformation step allows for tools to optimize the code to work on the widest variety of browsers.
+-   By using a build step you can organize your code into smaller modules and files that can be bundled together into a single download.
 
 There are different tools that can perform this transformation or build step; WordPress uses webpack and Babel.
 
@@ -63,23 +70,25 @@ webpack も Babel も JavaScript で書かれており [Node.js](https://nodejs.
 
 はじめに開発環境に Node.js をセットアップする必要があります。手順はオペレーティングシステムによって異なりますが、パッケージマネージャーをインストールしていればセットアップは単純です。
 
-- Ubuntu: `apt install nodejs npm`
-- macOS: `brew install node`
-- Windows: `choco install node`
+-   Ubuntu: `apt install nodejs npm`
+-   macOS: `brew install node`
+-   Windows: `choco install node`
 
 <!-- 
 If you are not using a package manager, see the [Node.js download page](https://nodejs.org/en/download/) for installers and binaries.
 
+If you are not using a package manager, see the [developer environment setup documentation](/docs/designers-developers/developers/tutorials/devenv/readme.md) for setting up Node using nvm, or see the official [Node.js download page](https://nodejs.org/en/download/) for installers and binaries.
+
 **Note:** The build tools and process occur on the command-line, so basic familiarity using a terminal application is required. Some text editors have a terminal built-in that is fine to use; Visual Studio Code and PhpStorm are two popular options.
  -->
-パッケージマネージャーをインストールしていない場合は、[Node.js ダウンロードページ](https://nodejs.org/en/download/) を参照してインストーラーとバイナリーを入手してください。
+パッケージマネージャーをインストールしていない場合は、nvm を使用した Node のセットアップについて [開発環境セットアップドキュメント](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/devenv/readme.md) を参照するか、または公式 [Node.js ダウンロードページ](https://nodejs.org/en/download/) を参照してインストーラーとバイナリーを入手してください。
 
 **注意:** ビルドツールやプロセスはコマンドライン上で動作するため、ターミナルアプリケーションの基本的な使い方は覚える必要があります。テキストエディターの中には便利なビルトインターミナル機能があるものもあります。Visual Studio Code と PhpStorm は人気のあるエディターです。
 
 <!-- 
 ### Node Package Manager (npm)
 
-The Node Package Manager (npm) is a tool included with node. npm allows you to install and manage JavaScript packages. npm can also generate and process a special file called `package.json`, which contains some information about your project and the packages your project uses.
+The Node Package Manager (npm) is a tool included with node. npm allows you to install and manage JavaScript packages. npm can also generate and process a special file called `package.json`, that contains information about your project and the packages your project uses.
 
 To start a new node project, first create a directory to work in:
  -->
@@ -89,17 +98,17 @@ node パッケージマネージャー (npm) は node に含まれる、JavaScri
 
 新しい node プロジェクトを開始するには、まず作業用のディレクトリを作成します。
 
-```
+```sh
 mkdir myguten-block
 cd myguten-block
 ```
 
 <!-- 
-You create a new package.json running `npm init` in your terminal.  This will walk you through creating your package.json file:
+You create a new package.json running `npm init` in your terminal. This will walk you through creating your package.json file:
  -->
 次に、ターミナルで `npm init` を実行して新しい package.json を作成します。出力される画面の指示に従ってください。
 
-```
+```sh
 npm init
 
 package name: (myguten-block) myguten-block
@@ -201,17 +210,13 @@ After the build finishes, you will see the built file created at `build/index.js
 ビルドが終わるとファイル `build/index.js` が作成されます。このファイルは、通常の WordPress での JavaScript ファイルと同様に管理画面にエンキューできます。[このチュートリアルの JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/loading-javascript/)を参照してください。エディターにブロックがロードされます。
 
 <!-- 
-## Finishing Touches
-
-### Development Mode
+## Development Mode
 
 The **build** command in `@wordpress/scripts` runs in "production" mode. This shrinks the code down so it downloads faster, but makes it difficult to read in the process. You can use the **start** command which runs in development mode that does not shrink the code, and additionally continues a running process to watch the source file for more changes and rebuilds as you develop.
 
 The start command can be added to the same scripts section of `package.json`:
  -->
-## 最後の仕上げ
-
-### 開発モード
+## 開発モード
 
 `@wordpress/scripts` の **build** コマンドは本番モードで動作します。コードはダウンロード時間が短くなるよう圧縮されますが、結果、コードは読むことが難しくなります。**start** コマンドは開発モードで動作しコードを圧縮しません。プロセスは動作し続け、ソースファイルを変更するたびに再ビルドされます。
 
@@ -234,27 +239,27 @@ Now, when you run `npm start` a watcher will run in the terminal. You can then e
 **注意:** ターミナルに表示されるエラーには注意してください。編集ミスや構文のエラーがあるとビルドは失敗し、ターミナルにエラーが表示されます。
 
 <!-- 
-### Source Control
+## Source Control
 
 Because a typical `node_modules` folder will contain thousands of files that change with every software update, you should exclude `node_modules/` from your source control. If you ever start from a fresh clone, simply run `npm install` in the same folder your `package.json` is located to pull your required packages.
 
 Likewise, you do not need to include `node_modules` or any of the above configuration files in your plugin because they will be bundled inside the file that webpack builds. **Be sure to enqueue the `build/index.js` file** in your plugin PHP. This is the main JavaScript file needed for your block to run.
  -->
-### ソースコントロール
+## ソースコントロール
 
 一般に `node_modules` フォルダーには大量のファイルが含まれ、バージョンが上がるたびにファイルが更新されるため `node_modules/` はソースコントロールの対象から外します。リポジトリーのクローンから始める場合でも、`package.json` のあるフォルダーで `npm install` を実行すれば必要なパッケージがダウンロードされます。
 
 同様に `node_modules` や構成ファイルをプラグインに含める必要はありません。webpack ビルド内部にバンドリングされます。プラグイン PHP の中では **`build/index.js` ファイルを必ずエンキューしてください**。このファイルが、ブロックの実行に必要なメインの JavaScript ファイルになります。
 
 <!-- 
-### Dependency Management
+## Dependency Management
 
 Using `wp-scripts` ver 5.0.0+ build step will also produce an `index.asset.php` file that contains an array of dependencies and a version number for your block. For our simple example above, it is something like:
 `array('dependencies' => array('wp-element', 'wp-polyfill'), 'version' => 'fc93c4a9675c108725227db345898bcc');`
 
 Here is how to use this asset file to automatically set the dependency list for enqueuing the script. This prevents having to manually update the dependencies, it will be created based on the package imports used within your block.
  -->
-### 依存性の管理
+## 依存性の管理
 
 `wp-scripts` Version 5.0.0 以降を使用したビルドステップでは `index.asset.php` ファイルが生成され、中に依存性の配列とブロックのバージョンが記述されます。上のサンプルでは次のような内容になります。
 ```
@@ -300,3 +305,5 @@ With a setup in place, the standard workflow is:
 2. 開発ビルドの開始: `npm start`
 3. 開発とテストの繰り返し
 4. リリースビルドの作成: `npm run build`
+
+[参照](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/js-build-setup.md)

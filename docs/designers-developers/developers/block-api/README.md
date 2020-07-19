@@ -17,10 +17,10 @@ The following sections will walk you through the existing block APIs:
 - [Edit and Save](/docs/designers-developers/developers/block-api/block-edit-save.md)
 - [Attributes](/docs/designers-developers/developers/block-api/block-attributes.md)
 - [Deprecated blocks](/docs/designers-developers/developers/block-api/block-deprecation.md)
-- [Transformations](./docs/designers-developers/developers/block-transforms.md)
+- [Transformations](/docs/designers-developers/developers/block-api/block-transforms.md)
 - [Templates](/docs/designers-developers/developers/block-api/block-templates.md)
 - [Annotations](/docs/designers-developers/developers/block-api/block-annotations.md)
-- [Patterns (experimental)](/docs/designers-developers/developers/block-api/block-patterns.md)
+- [Block Patterns](/docs/designers-developers/developers/block-api/block-patterns.md)
  -->
 
 - [ブロックの登録](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/)
@@ -30,4 +30,6 @@ The following sections will walk you through the existing block APIs:
 - [Transformations](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-transforms.md)
 - [Templates](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/)
 - [Annotations](https://developer.wordpress.org/block-editor/developers/block-api/block-annotations/)
-- [Patterns (experimental)](https://developer.wordpress.org/block-editor/developers/block-api/block-patterns/)
+- [Block Patterns](https://developer.wordpress.org/block-editor/developers/block-api/block-patterns/)
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/README.md)

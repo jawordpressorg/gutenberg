@@ -1,6 +1,6 @@
 <!-- 
 # Gutenberg
- -->
+-->
 # ブロックエディターハンドブック翻訳作業用リポジトリ
 
 これは[ブロックエディターハンドブック](https://ja.wordpress.org/team/handbook/block-editor/)の翻訳ファイル用リポジトリです。
@@ -8,7 +8,7 @@
 Takayuki Miyauchi さんの発案された翻訳方式を採用して、ブロックエディターハンドブックのドキュメントを翻訳しています。
 https://qiita.com/miya0001/items/4745cf900a66c0bbf8e5
 
-<!-- 
+<!--
 [![Build Status](https://img.shields.io/travis/com/WordPress/gutenberg/master.svg)](https://travis-ci.com/WordPress/gutenberg)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org)
 
@@ -28,17 +28,17 @@ Get hands on: check out the [block editor live demo](https://wordpress.org/guten
 
 ### Using Gutenberg
 
-- **Download:** To use the latest release of the Gutenberg plugin on your WordPress site: install from the plugins page in wp-admin, or [download from the WordPress.org plugins repository](https://wordpress.org/plugins/gutenberg/).
+-   **Download:** To use the latest release of the Gutenberg plugin on your WordPress site: install from the plugins page in wp-admin, or [download from the WordPress.org plugins repository](https://wordpress.org/plugins/gutenberg/).
 
-- **User Documentation:** See the [WordPress Editor documentation](https://wordpress.org/support/article/wordpress-editor/) for detailed docs on using the editor as an author creating posts and pages.
+-   **User Documentation:** See the [WordPress Editor documentation](https://wordpress.org/support/article/wordpress-editor/) for detailed docs on using the editor as an author creating posts and pages.
 
-- **User Support:** If you have run into an issue, you should check the [Support Forums first](https://wordpress.org/support/forums/). The forums are a great place to get help. If you have a bug to report, please [submit it to the Gutenberg repository](https://github.com/wordpress/gutenberg/issues). Please search prior to creating a new bug to confirm its not a duplicate.
+-   **User Support:** If you have run into an issue, you should check the [Support Forums first](https://wordpress.org/support/forums/). The forums are a great place to get help. If you have a bug to report, please [submit it to the Gutenberg repository](https://github.com/wordpress/gutenberg/issues). Please search prior to creating a new bug to confirm its not a duplicate.
 
 ### Developing for Gutenberg
 
 Extending and customizing is at the heart of the WordPress platform, this is no different for the Gutenberg project. The editor and future products can be extended by third-party developers using plugins.
 
-The <a href="/docs/contributors/getting-started.md">Getting Started guide</a> will help you run Gutenberg locally to tinker with. See the [Developer Documentation](https://developer.wordpress.org/block-editor/developers/) for extensive tutorials, documentation, and API references on how to extend the editor.
+Review the [Create a Block tutorial](/docs/designers-developers/developers/tutorials/create-block/readme.md) for the fastest way to get started extending the block editor. See the [Developer Documentation](https://developer.wordpress.org/block-editor/developers/) for extensive tutorials, documentation, and API references.
 
 ### Contribute to Gutenberg
 
@@ -57,5 +57,7 @@ You can join us in the `#core-editor` channel in Slack, see the [WordPress Slack
 ## License
 
 WordPress is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE.md](LICENSE.md) for complete license.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/README.md)
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

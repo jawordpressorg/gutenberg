@@ -84,7 +84,7 @@ registerBlockType( 'gutenberg-examples/example-06', {
 <!-- 
 ## Allowed Blocks
 
-Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in your InnerBlock. This restricts the that can be included only to those listed, all other blocks will not show in the inserter.
+Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in your InnerBlock. This restricts the blocks that can be included only to those listed, all other blocks will not show in the inserter.
  -->
 ## 許可されるブロック
 
@@ -99,6 +99,25 @@ const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
 ```
 
 <!-- 
+## Orientation
+
+By default, `InnerBlocks` expects its blocks to be shown in a vertical list. A valid use-case is to style InnerBlocks to appear horizontally. When blocks are styled in such a way, the `orientation` prop can be used to indicate a horizontal layout:
+-->
+## orientation
+
+`InnerBlocks` はデフォルトではブロックが盾のリストで表示されることを期待しますが、横にスタイリングすることも有効な使用例です。ブロックを横にスタイリングする場合は、horizontal レイアウトを示すために `orientation` プロパティを使用できます。
+
+```js
+<InnerBlocks
+	orientation="horizontal"
+/>
+```
+<!--
+Specifying this prop will result in the block movers being shown horizontally, and also ensure drag and drop works correctly.
+-->
+このプロパティを指定するとブロックの移動ハンドルは水平に表示され、ドラッグアンドドロップが正しく動作することが保証されます。
+
+<!--
 ## Template
 
 Use the template property to define a set of blocks that prefill the InnerBlocks component when inserted. You can set attributes on the blocks to define their use. The example below shows a book review template using InnerBlocks component and setting placeholders values to show the block usage.
@@ -204,3 +223,5 @@ export const settings = {
 	//...
 }
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md)
