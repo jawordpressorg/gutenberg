@@ -312,7 +312,7 @@ Positionals:
 wp-env start [ref]
 
 WordPress 開発環境をポート 8888 (​http://localhost:8888​) で (ポートは WP_ENV_PORT で指定可)、
-テスト環境を 8889 (​http://localhost:8889​) で (ポートは WP_ENV_TESTS_PORT で指定化) 開始します。
+テスト環境を 8889 (​http://localhost:8889​) で (ポートは WP_ENV_TESTS_PORT で指定可) 開始します。
 コマンドは WordPress インストールディレクトリー、プラグインやテーマのディレクトリー、
 または .wp-env.json ファイルのあるディレクトリーで実行する必要があります。
 
@@ -489,7 +489,7 @@ You can customize the WordPress installation, plugins and themes that the develo
 
 WordPress のインストールや開発環境で使用するプラグインやテーマをカスタマイズできます。`.wp-env.json` ファイルに指定し、同じディレクトリーで `wp-env` を実行してください。
 
-`.wp-env.json` には5つのフィールドがあります。
+`.wp-env.json` には7つのフィールドがあります。
 
 <!-- 
 | Field         | Type           | Default                                    | Description                                                                                                               |
@@ -605,7 +605,7 @@ This is useful for integration testing: that is, testing how old versions of Wor
  -->
 #### 完全なテスト環境
 
-いんてグレショーンテストで便利です。古いバージョンの WordPress と異なるプラグインの組み合わせで互いに与える影響をテストできます。
+インテグレショーンテストで便利です。古いバージョンの WordPress と異なるプラグインの組み合わせで互いに与える影響をテストできます。
 
 ```json
 {
