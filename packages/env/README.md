@@ -1,4 +1,4 @@
-¥<!-- 
+<!-- 
 # `wp-env`
 
 `wp-env` lets you easily set up a local WordPress environment for building and testing plugins and themes. It's simple to install and requires no configuration.
