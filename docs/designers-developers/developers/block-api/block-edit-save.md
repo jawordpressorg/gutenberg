@@ -5,13 +5,13 @@
 <!-- 
 When registering a block, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
  -->
-ブロックを登録する際、`edit` 関数と `save` 関数はブロックがどのように動作し、操作、保存されるかのインターフェイスを提供します。
+ブロックの登録では `edit` 関数と `save` 関数を使用してブロックがどのように動作し、操作、保存されるかのインターフェイスを提供します。
 
 ## Edit
 <!-- 
 The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
  -->
-`edit` 関数はエディター内でのブロックの構造を記述します。すなわち、ブロックが使用される際にエディターがどのようにブロックをレンダリングするかを表します。
+`edit` 関数はエディター内でのブロックの構造を記述します。ブロックが使用される際、エディターがどのようにブロックをレンダリングするかを表します。
 
 **ESNext**
 
@@ -50,7 +50,7 @@ This property surfaces all the available attributes and their corresponding valu
 
 In this case, assuming we had defined an attribute of `content` during block registration, we would receive and use that value in our edit function:
  -->
-`attributes` プロパティはすべての利用可能な属性とその対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティで記述されます。属性ソースを指定する方法については[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)を参照してください。
+`attributes` プロパティはすべての利用可能な属性と対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティで記述されます。属性ソースを指定する方法については[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)を参照してください。
 
 この例ではブロック登録の際に `content` 属性を定義したと仮定し、`edit` 関数内で値を受け取って使用します。
 
@@ -546,20 +546,33 @@ When the editor loads, all blocks within post content are validated to determine
 <!-- 
 If a block is detected to be invalid, the user will be prompted to choose how to handle the invalidation:
 
-![Invalid block prompt](https://user-images.githubusercontent.com/1779930/35637234-a6a7a18a-0681-11e8-858b-adfc1c6f47da.png)
+![Invalid block prompt](https://user-images.githubusercontent.com/8876600/87853743-bb45db80-c947-11ea-8e61-93d948d2ba84.png)
  -->
 ブロックが不正とマークされると、ユーザーには妥当性検証の失敗をどのように処理するか求められます。
 
-![不正なブロックのプロンプト](https://user-images.githubusercontent.com/1779930/35637234-a6a7a18a-0681-11e8-858b-adfc1c6f47da.png)
+![不正なブロックのプロンプト](https://user-images.githubusercontent.com/8876600/88192506-8f906180-cc77-11ea-874b-71f860f64041.png)
 
 <!-- 
-- **Overwrite**: Ignores the warning and treats the newly generated markup as correct. As noted in the behavior described above, this can result in content loss since it will overwrite the markup saved in post content.
-- **Convert to Classic**: Protects the original markup from the saved post content as correct. Since the block will be converted from its original type to the Classic block type, it will no longer be possible to edit the content using controls available for the original block type.
-- **Edit as HTML block**: Similar to _Convert to Classic_, this will protect the original markup from the saved post content and convert the block from its original type to the HTML block type, enabling the user to modify the HTML markup directly.
+Clicking Resolve button will open Resolve Block dialog box with two buttons:
+
+- **Convert to HTML**: Protects the original markup from the saved post content and convert the block from its original type to the HTML block type, enabling the user to modify the HTML markup directly.
+- **Convert to Blocks**: Protects the original markup from the saved post content and convert the block from its original type to the validated block type.
  -->
-- **上書き**: 警告を無視し、新しく生成されたマークアップを正しいものとして扱います。上で説明したようにこの操作は投稿コンテンツの保存済みマークアップを上書きするため、コンテンツを失う結果になる可能性があります。
+「解決」ボタンをクリックすると「ブロックの問題を解決」ダイアログが開き、2つのオプションを選択できます。
+
+- **HTML に変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから HTML ブロックタイプに変換します。ユーザーは HTML マークアップを直接変更できます。
+- **ブロックへ変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから検証済みのブロックタイプに変換します。
+
+<!-- 
+Clicking the "3-dot" menu on the side of the block displays two options:
+
+- **Convert to Classic Block**: Protects the original markup from the saved post content as correct. Since the block will be converted from its original type to the Classic block type, it will no longer be possible to edit the content using controls available for the original block type.
+- **Attempt Block Recovery**: Attempts recovery action as much as possible.
+ -->
+ブロック側の横の3ドットメニューをクリックすると、2つのオプションが表示されます。
+
 - **クラシックブロックに変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを正しいものとして保護します。ブロックはオリジナルのブロックタイプからクラシックブロックタイプに変換されるため、オリジナルのブロックタイプで利用可能だったコントロールでコンテンツを編集できない可能性があります。
-- **HTMLブロックとして編集**: _クラシックブロックに変換_ 同様、このオプションも保存された投稿コンテンツからオリジナルのマークアップを保護し、オリジナルのブロックタイプから HTML ブロックタイプに変換します。ユーザーは HTML マークアップを直接変更できます。
+- **ブロックのリカバリーを試行**: できる限りの修復を試みます。
 
 <!-- 
 ### Validation FAQ
@@ -608,3 +621,5 @@ When a block is detected as invalid, a warning will be logged into your browser'
 Refer to the guide on [Deprecated Blocks](/docs/designers-developers/developers/block-api/block-deprecation.md) to learn more about how to accommodate legacy content in intentional markup changes.
  -->
 [非推奨ブロック](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-deprecation.md) のガイドを参照して、意図したマークアップの変更に古いコンテンツを収容する方法を学習してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-edit-save.md)
