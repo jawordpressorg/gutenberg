@@ -1,4 +1,4 @@
-¥<!-- 
+<!-- 
 # Create Block
  -->
 # @wordpress/create-block

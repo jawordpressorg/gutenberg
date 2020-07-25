@@ -21,7 +21,7 @@
 <!-- 
 -   Intermediate: The [Block Tutorial](/docs/designers-developers/developers/tutorials/block-tutorial/readme.md) covers different aspects of block developement. The documentation is slightly dated but still valid, if you are new to block development, start with the Create Block Tutorial above.
  -->
--   中級者向け: [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) ではブロックの開発を別のアプローチで紹介します。ドキュメントは少し古くなっていますが依然として有効です。ブロック開発が初めてあれば、まず上の「ブロックの作成 チュートリアル」から始めてください。
+-   中級者向け: [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) ではブロックの開発を別のアプローチで紹介します。ドキュメントは少し古くなっていますが有効です。ブロック開発が初めてあれば、まず上の「ブロックの作成 チュートリアル」から始めてください。
 
 <!-- 
 -   See the [Meta Boxes Tutorial](/docs/designers-developers/developers/tutorials/metabox/readme.md) for new ways of extending the editor storing and using post meta data.
@@ -46,6 +46,6 @@
 <!-- 
 -   Build your own [custom block editor instance](/docs/designers-developers/developers/platform/custom-block-editor/) - this will walk you through building a standalone instance of the block editor within WP Admin.
  -->
--   [カスタムブロックインスタンス](https://developer.wordpress.org/block-editor/developers/platform/custom-block-editor/)の構築 - WP Admin 内でスタンドアロンのブロックエディターインスタンスを構築する方法について学習します。
+-   [カスタムブロックインスタンス](https://ja.wordpress.org/team/handbook/block-editor/developers/platform/custom-block-editor/)の構築 - WP Admin 内でスタンドアロンのブロックエディターインスタンスを構築する方法について学習します。
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/readme.md)

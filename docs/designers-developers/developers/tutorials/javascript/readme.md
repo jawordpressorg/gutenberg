@@ -42,6 +42,6 @@ WordPress 5.0 で導入されたブロックエディターは JavaScript で書
 5. [JavaScript のバージョンとビルド手順](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/versions-and-building/)
 6. [コードのスコープ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/scope-your-code/)
 7. [JavaScript ビルド環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/)
-8. [ESNext Syntax](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/esnext-js.md)
+8. [ESNext Syntax](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/esnext-js)
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/readme.md)

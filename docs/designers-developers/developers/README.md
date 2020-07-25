@@ -6,7 +6,7 @@
 <!--
 The new editor is highly flexible, like most of WordPress. You can build custom blocks, modify the editor's appearance, add special plugins, and much more.
 -->
-新しいエディターは WordPress の従来の機能と同じように非常にフレキシブルで、カスタムブロックの作成、エディターの外観の変更、特別なプラグインの追加、等々が可能です。
+新しいエディターは WordPress と同じように非常にフレキシブルです。カスタムブロックを作成したり、エディターの外観を変更したり、特別なプラグインを追加することができます。
 
 <!--
 ## Creating Blocks
@@ -17,7 +17,7 @@ If you want to learn more about block creation, see the [Create a Block tutorial
 -->
 ## ブロックの作成
 
-エディターの大きな要素はブロックであり、主な拡張 API はブロック API です。ブロック API を使用することでユーザーは自分の静的ブロックや、サーバー側でレンダリングされる[動的ブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは、より構造化したコンテンツのため Post Meta にデータを保存できます。
+エディターは「ブロック」であり、主な拡張 API は「ブロック API」です。ブロック API を使用してユーザーは静的ブロックやサーバー側でレンダリングされる[動的ブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは構造化されたコンテンツのため投稿メタにデータを保存できます。
 
 ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/) を参照してください。
 
@@ -30,7 +30,7 @@ Learn more in the [Block Filters](/docs/designers-developers/developers/filters/
 -->
 ## ブロックの拡張
 
-フィルターを使用すると既存のブロックの振る舞いを変更したり、完全に削除することもできます。
+フィルターを使用して既存のブロックの振る舞いを変更したり完全に削除することができます。
 
 詳細は [ブロックフィルター](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/block-filters/) セクションを参照してください。
 

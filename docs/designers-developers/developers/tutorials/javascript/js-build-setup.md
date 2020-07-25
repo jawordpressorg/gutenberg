@@ -6,7 +6,7 @@
 <!-- 
 ESNext is JavaScript written using syntax and features only available in a version newer than browser support—the support browser versions is referred to as ECMAScript 5 (ES5). [JSX](https://reactjs.org/docs/introducing-jsx.html) is a custom syntax extension to JavaScript, created by React project, that allows you to write JavaScript using a familiar HTML tag-like syntax.
  -->
-ESNext はブラウザーがサポートするバージョンより新しいバージョンで利用可能な構文や機能を使用して書かれた JavaScript です。サポートするブラウザーのバージョンは ECMAScript 5 (ES5) と参照されます。[JSX](https://reactjs.org/docs/introducing-jsx.html) は React プロジェクトで作成された JavaScript に対するカスタム構文拡張です。馴染みのある HTML タグに似た構文を使用して JavaScript を書くことができます。
+ESNext はブラウザーのサポートする JavaScript よりも新しいバージョンで利用可能な構文や機能を使用して書かれた JavaScript です。サポートするブラウザーのバージョンは ECMAScript 5 (ES5) と参照されます。[JSX](https://reactjs.org/docs/introducing-jsx.html) は React プロジェクトで作成された JavaScript に対するカスタム構文拡張です。馴染みのある HTML タグに似た構文を使用して JavaScript を書くことができます。
 
 <!-- 
 See the [ESNext syntax documentation](/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) for explanation and examples about common code differences between standard JavaScript and ESNext.
