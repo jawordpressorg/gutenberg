@@ -359,7 +359,8 @@ example: {
     attributes: {
         cover: 'https://example.com/image.jpg',
     },
-    innerBlocks: {
+    innerBlocks: [
+    {
         name: 'core/paragraph',
         attributes: {
             /* translators: example text. */
@@ -368,6 +369,7 @@ example: {
             ),
         },
     },
+    ],
 },
 ```
 <!-- 
