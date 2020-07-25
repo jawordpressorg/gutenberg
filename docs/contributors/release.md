@@ -414,3 +414,5 @@ Ta-da! 🎉
 
 [plugin repository]: https://plugins.trac.wordpress.org/browser/gutenberg/
 [package release process]: https://github.com/WordPress/gutenberg/blob/master/packages/README.md#releasing-packages
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/release.md)

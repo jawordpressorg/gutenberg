@@ -161,3 +161,5 @@ A purely dynamic block that is to be server-rendered before display could look l
 In summary, the Gutenberg workflow parses the saved document to an in-memory tree of blocks, using token delimiters to help. During editing, all manipulations happen within the block tree. The process ends by serializing the blocks back to the `post_content`.
 
 The workflow process relies on a serialization/parser pair to persist posts. Hypothetically, the post data structure could be stored using a plugin or retrieved from a remote JSON file to be converted to the block tree.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/key-concepts.md)

@@ -70,3 +70,5 @@ The following code sample unregisters the category named 'hero':
 ```php
 unregister_block_pattern_category( 'hero' );
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-patterns.md)

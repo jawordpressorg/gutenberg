@@ -18,3 +18,5 @@ For more context, refer to the following resources:
    - In early iterations, the contributing team opted to use Cypress for end-to-end testing. This pull request outlines problems with the approach, and proposed the initial transition to Puppeteer.
 - [JavaScript Chat Summary: January 28, 2020](https://make.wordpress.org/core/2020/02/04/javascript-chat-summary-january-28-2020/)
    - Playwright is a new offering created by many of the original contributors to Puppeteer. It offers increased browser coverage and improved reliability of tests. While still early in development at the time of this writing, there has been some interest in evaluating it for future use as an end-to-end testing solution.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/architecture/automated-testing.md)

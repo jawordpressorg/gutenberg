@@ -98,3 +98,5 @@ That said, there isn’t any fixed limit to the kind of layouts Gutenberg will b
 Every block nested inside the content block would be _rearrangeable_. Every block would be _editable_. Every block would use the same API, and both the editor and the theme would load the same `style.css` file directly. In the end, both the editor/page builder and theme/front-end would appear near-identical, allowing for a true WYSIWYG experience.
 
 This concept is speculative, but it’s one direction Gutenberg could go in the future.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/design.md)

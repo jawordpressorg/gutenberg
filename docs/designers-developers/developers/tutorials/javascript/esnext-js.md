@@ -121,3 +121,5 @@ Here are a few more resources that may help
 -   [ES5 vs ES6 with example code](https://medium.com/recraftrelic/es5-vs-es6-with-example-code-9901fa0136fc)
 -   [Top 10 ES6 Features by Example](https://blog.pragmatists.com/top-10-es6-features-by-example-80ac878794bb)
 -   [ES6 Syntax and Feature Overview](https://www.taniarascia.com/es6-syntax-and-feature-overview/)
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/esnext-js.md)

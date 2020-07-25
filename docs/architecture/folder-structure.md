@@ -127,3 +127,4 @@ The following snippet explains how the Gutenberg repository is structured omitti
     └── test/unit
         Configuration for the Packages unit tests.
 
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/architecture/folder-structure.md)

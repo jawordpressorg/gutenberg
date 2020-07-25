@@ -63,3 +63,4 @@ https://www.meetup.com/WordPress-Melbourne/events/241543639
 
 https://wpmeetups.de/termin/29-wp-meetup-stuttgart-gutenberg-editor-rueckblick-wordcamp-europe/
 
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/outreach.md)

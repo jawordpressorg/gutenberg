@@ -49,3 +49,5 @@ WordPress components in Figma mirror the live React components. Documentation fo
 
 
 If you have questions, please don’t hesitate to ask in the #design channel on the WordPress community Slack.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/designers/design-resources.md)

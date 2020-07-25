@@ -25,3 +25,5 @@ Basic block settings won’t always make sense in the context of the placeholder
 
 ### The Settings Sidebar should only be used for advanced, tertiary controls.
 The Settings Sidebar is not visible by default on a small / mobile screen, and may also be collapsed even in a desktop view. Therefore, it should not be relied on for anything that is necessary for the basic operation of the block. Pick good defaults, make important actions available in the block toolbar, and think of the sidebar as something that only power users may discover.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/principles/the-block.md)

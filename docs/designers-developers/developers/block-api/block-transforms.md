@@ -431,3 +431,5 @@ transforms: {
 },
 ```
 {% end %}
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-transforms.md)

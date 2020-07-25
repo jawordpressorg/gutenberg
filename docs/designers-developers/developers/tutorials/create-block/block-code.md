@@ -65,3 +65,5 @@ $editor_css = "build/index.css";
 ```
 
 Next Section: [Authoring Experience](/docs/designers-developers/developers/tutorials/create-block/author-experience.md)
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/block-code.md)

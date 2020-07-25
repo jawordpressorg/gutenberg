@@ -29,3 +29,5 @@ If you encounter a failed Android/iOS test on your pull request, we recommend th
 ## Debugging the native mobile unit tests
 
 Follow the instructions in [Native mobile testing](/docs/contributors/testing-overview.md#native-mobile-testing) to locally debug the native mobile unit tests when needed.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/native-mobile.md)

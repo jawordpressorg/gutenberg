@@ -65,3 +65,5 @@
 <dd>Template parts are equivalent – in blocks – of theme template parts. They are generally defined by a theme first. They carry some semantic meaning (could be swapped between themes such as a header) and can only be inserted in the site editor context (within “templates”). They are primarily site structure and are never to be mixed with the post content editor. </dd>
 
 </dl>
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/glossary.md)

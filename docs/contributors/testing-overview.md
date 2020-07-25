@@ -487,3 +487,5 @@ Finally, you can pass an additional `--tests-branch` argument to specify which b
 ```
 
 **Note** This command needs may take some time to perform the benchmark. While running make sure to avoid using your computer or have a lot of background process to minimize external factors that can impact the results across branches.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/testing-overview.md)

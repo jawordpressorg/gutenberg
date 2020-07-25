@@ -28,3 +28,4 @@ Based on the idea that **when editing a given block, it is very rare that an upd
 
  - [Journey towards a performant editor](https://riad.blog/2020/02/14/a-journey-towards-a-performant-web-editor/)
 
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/architecture/performance.md)

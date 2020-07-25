@@ -77,3 +77,5 @@ The
 provides a webpack plugin to help extract WordPress dependencies from bundles. `@wordpress/scripts`
 [`build`](https://github.com/WordPress/gutenberg/tree/master/packages/scripts#build) script includes
 the plugin by default.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/scripts.md)

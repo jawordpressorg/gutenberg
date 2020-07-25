@@ -73,3 +73,5 @@ Reminders:
 * If the issue/pull has not been prioritized yet, consider adding a priority to help move the issue forward. 
 
 For more detailed information about weekly design triage and to join in, please [review this guide](https://make.wordpress.org/design/handbook/workflows/weekly-gutenberg-design-triage/). 
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/triage.md)

@@ -201,3 +201,5 @@ _Note that the Block Toolbar does not include the Block Chip in this case, since
 - Has options for post order, narrowing the list by category, changing the default number of posts to show, and showing the post date.
 
 _Latest Posts is fully functional as soon as it’s inserted because it comes with good defaults._
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/designers/block-design.md)

@@ -74,3 +74,5 @@ The above commands will update your `master` branch from _upstream_. To update a
 ## References
 - https://git-scm.com/book/en/v2
 - https://help.github.com/categories/collaborating-with-issues-and-pull-requests/
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/git-workflow.md)

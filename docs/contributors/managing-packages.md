@@ -6,3 +6,5 @@ Maintaining dozens of npm packages is difficult—it can be tough to keep track 
 
 [lerna]: https://lerna.js.org
 [npm]: https://www.npmjs.com/
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/managing-packages.md)

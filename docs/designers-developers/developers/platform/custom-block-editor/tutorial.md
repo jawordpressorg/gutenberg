@@ -614,4 +614,4 @@ The full code for the custom functioning block editor we've just built is [avail
 
 
 
-
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)

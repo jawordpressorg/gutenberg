@@ -61,3 +61,5 @@ Actions that could go in the block tab of the sidebar could be:
 ![Block Library](https://cldup.com/7QoQIoLk-A-3000x3000.png)
 
 The **Block Library** appears when someone inserts a block, whether via the toolbar, or contextually within the content area. Inside, blocks are organized into expandable sections. The block library’s search bar auto-filters the list of blocks as the user types. Users can choose a block by selecting the **Block Button** or the **Block Name**.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/designers/user-interface.md)

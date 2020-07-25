@@ -74,3 +74,5 @@ register_block_type( 'my-plugin/record-title', array(
 	},
 ) );
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-context.md)

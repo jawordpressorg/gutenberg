@@ -100,4 +100,6 @@ Structured this way, these packages can be used in a variety of combinations out
 
 ## Going further
 
- - [Package Reference](/docs/designers-developers/developers/packages.md)
+ - [Package Reference](https://ja.wordpress.org/team/handbook/block-editor/packages/)
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/architecture/modularity.md)

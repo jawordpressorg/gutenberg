@@ -62,3 +62,5 @@ Instead, the templates and template parts are saved as custom post types, that a
 
 Saved templates and template parts can be exported as a partial theme from the Tools menu in the site editor.
 The block HTML code can then be copied to the theme that you are editing.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-based-themes/block-based-themes-2-adding-blocks.md)

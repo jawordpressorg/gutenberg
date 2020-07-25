@@ -282,3 +282,5 @@ Consistency with existing UI language is great, but not when it gets in the way 
 It might seem obvious to us that the user got this message when they tried to publish something or change a setting that they don’t have permission for. It might not be so obvious to the user: people click around a lot, especially when we’re unsure how to do something, and we don’t always remember what page or setting we were just looking at (or why!).
 
 A good error message also includes some context that orients the user. “Your account does not have permission to publish posts” reminds them that they were trying to publish a post, and that that’s the particular stumbling block that caused the error.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/copy-guide.md)

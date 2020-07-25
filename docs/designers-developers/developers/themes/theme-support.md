@@ -371,3 +371,5 @@ Using the Gutenberg plugin (version 8.3 or later), link color control is availab
 ```php
 add_theme_support('experimental-link-color');
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/themes/theme-support.md)

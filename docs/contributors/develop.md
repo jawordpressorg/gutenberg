@@ -23,3 +23,5 @@ Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find 
 * [Managing Packages](/docs/contributors/managing-packages.md) documents the process for managing the npm packages.
 * [Gutenberg Release Process](/docs/contributors/release.md) - a checklist for the different types of releases for the Gutenberg project.
 * [React Native mobile Gutenberg](/docs/contributors/native-mobile.md) - a guide on the React Native based mobile Gutenberg editor.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/develop.md)

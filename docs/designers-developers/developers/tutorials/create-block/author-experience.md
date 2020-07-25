@@ -139,3 +139,5 @@ export default function Edit( { attributes, className, setAttributes } ) {
 ```
 
 Next Section: [Finishing Touches](/docs/designers-developers/developers/tutorials/create-block/finishing.md)
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/author-experience.md)

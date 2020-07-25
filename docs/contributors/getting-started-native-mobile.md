@@ -129,3 +129,5 @@ Note: You might experience problems that seem to be related to the tests startin
 For a more detailed outline of the UI tests and how to get started writing one, please visit the [UI Test documentation](/packages/react-native-editor/__device-tests__/README.md) and our [contributing guide](/packages/react-native-editor/__device-tests__/CONTRIBUTING.md).
 
 You might want to use Visual Studio Code as an editor. The project includes the configuration needed to use the above codestyle and linting tools automatically.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/getting-started-native-mobile.md)

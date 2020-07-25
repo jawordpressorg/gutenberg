@@ -279,3 +279,5 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
  - `wp.blocks.source.*` matchers removed. Please use the declarative attributes instead. See [block attributes](/docs/designers-developers/developers/block-api/block-attributes.md) for more info.
  - `wp.data.select( 'selector', ...args )` removed. Please use `wp.data.select( reducerKey' ).*` instead.
  - `wp.blocks.MediaUploadButton` component removed. Please use `wp.blocks.MediaUpload` component instead.
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/backward-compatibility/deprecations.md)

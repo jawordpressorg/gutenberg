@@ -40,3 +40,5 @@ If anything looks incorrect here, please bring it up in #core-editor in [WordPre
 | 4.7.0              | 5.0.2             |
 | 4.6.1              | 5.0.1             |
 | 4.6.1              | 5.0.0             |
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/versions-in-wordpress.md)

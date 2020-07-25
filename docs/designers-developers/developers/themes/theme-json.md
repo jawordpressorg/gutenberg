@@ -412,3 +412,5 @@ The list of features that are currently supported are:
   }
 }
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/themes/theme-json.md)
