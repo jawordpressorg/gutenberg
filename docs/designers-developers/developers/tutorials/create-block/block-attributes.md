@@ -72,3 +72,5 @@ export default function Save( { attributes, className } ) {
 Rebuild the block using `npm run build`, reload the editor and add the block. Type a message in the editor, save, and view it in the post.
 
 Next Section: [Code Implementation](/docs/designers-developers/developers/tutorials/create-block/block-code.md)
+
+[本文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/block-attributes.md)
