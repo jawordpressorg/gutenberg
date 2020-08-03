@@ -546,33 +546,32 @@ When the editor loads, all blocks within post content are validated to determine
 <!-- 
 If a block is detected to be invalid, the user will be prompted to choose how to handle the invalidation:
 
-![Invalid block prompt](https://user-images.githubusercontent.com/8876600/87853743-bb45db80-c947-11ea-8e61-93d948d2ba84.png)
+![Invalid block prompt](https://user-images.githubusercontent.com/7753001/88754471-4cf7e900-d191-11ea-9123-3cee20719d10.png)
+
+Clicking **Attempt Block Recovery** button will attempt recovery action as much as possible.
  -->
 ブロックが不正とマークされると、ユーザーには妥当性検証の失敗をどのように処理するか求められます。
 
-![不正なブロックのプロンプト](https://user-images.githubusercontent.com/8876600/88192506-8f906180-cc77-11ea-874b-71f860f64041.png)
+![不正なブロックのプロンプト](https://user-images.githubusercontent.com/7753001/88754471-4cf7e900-d191-11ea-9123-3cee20719d10.png)
+
+**ブロックのリカバリーを試行** ボタンをクリックすると、できる限りの修復のアクションを試みます。
 
 <!-- 
-Clicking Resolve button will open Resolve Block dialog box with two buttons:
+Clicking the "3-dot" menu on the side of the block displays three options:
 
+- **Resolve**: Open Resolve Block dialog box with two buttons:
+  - **Convert to HTML**: Protects the original markup from the saved post content and convert the block from its original type to the HTML block type, enabling the user to modify the HTML markup directly.
+  - **Convert to Blocks**: Protects the original markup from the saved post content and convert the block from its original type to the validated block type.
 - **Convert to HTML**: Protects the original markup from the saved post content and convert the block from its original type to the HTML block type, enabling the user to modify the HTML markup directly.
-- **Convert to Blocks**: Protects the original markup from the saved post content and convert the block from its original type to the validated block type.
- -->
-「解決」ボタンをクリックすると「ブロックの問題を解決」ダイアログが開き、2つのオプションを選択できます。
-
-- **HTML に変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから HTML ブロックタイプに変換します。ユーザーは HTML マークアップを直接変更できます。
-- **ブロックへ変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから検証済みのブロックタイプに変換します。
-
-<!-- 
-Clicking the "3-dot" menu on the side of the block displays two options:
-
 - **Convert to Classic Block**: Protects the original markup from the saved post content as correct. Since the block will be converted from its original type to the Classic block type, it will no longer be possible to edit the content using controls available for the original block type.
-- **Attempt Block Recovery**: Attempts recovery action as much as possible.
  -->
-ブロック側の横の3ドットメニューをクリックすると、2つのオプションが表示されます。
+ブロック側の横の3ドットメニューをクリックすると、3つのオプションが表示されます。
 
+- 「解決」ボタンをクリックすると「ブロックの問題を解決」ダイアログが開き、2つのオプションを選択できます。
+  - **HTML に変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから HTML ブロックタイプに変換します。ユーザーは HTML マークアップを直接変更できます。
+  - **ブロックへ変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから検証済みのブロックタイプに変換します。
+- **HTML に変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを保護し、ブロックをオリジナルのブロックタイプから HTML ブロックタイプに変換します。ユーザーは HTML マークアップを直接変更できます。
 - **クラシックブロックに変換**: 投稿コンテンツ内の保存済みオリジナルのマークアップを正しいものとして保護します。ブロックはオリジナルのブロックタイプからクラシックブロックタイプに変換されるため、オリジナルのブロックタイプで利用可能だったコントロールでコンテンツを編集できない可能性があります。
-- **ブロックのリカバリーを試行**: できる限りの修復を試みます。
 
 <!-- 
 ### Validation FAQ

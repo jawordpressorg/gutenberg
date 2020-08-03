@@ -56,7 +56,7 @@ The Editor offers rich new value to users with visual, drag-and-drop creation to
 -   [コントリビューションガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/) では **あなた** がどのような方法で Gutenberg プロジェクトを支援できるかを説明します。コード、デザイン、ドキュメント、翻訳、問題管理等々、さまざまな支援が可能です。
 
 ## 問い合わせ先
-ハンドブックへのコメントは [WordPress の 日本語 Slack](https://ja.wordpress.org/support/article/slack/) 内の #docs チャンネル、[フォーラム > その他](https://ja.wordpress.org/support/forum/miscellaneous/)、または以下のリポジトリへお願いします。
+ブロックエディターハンドブックへのコメントは [WordPress の 日本語 Slack](https://ja.wordpress.org/support/article/slack/) 内の #docs チャンネル、[フォーラム > その他](https://ja.wordpress.org/support/forum/miscellaneous/)、または以下のリポジトリへお願いします。
 
 ## 参照
 - [英語版ブロックエディターハンドブック](https://developer.wordpress.org/block-editor/)
