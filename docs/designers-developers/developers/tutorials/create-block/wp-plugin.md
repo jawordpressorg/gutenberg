@@ -230,7 +230,7 @@ With the above in place, create a new post to load the editor and check the you 
 <!-- 
 It is a good skill to learn and get comfortable using the web console. This is where JavaScript errors are shown and a nice way to test out snippets of JavaScript. See [Firefox Developer Tools documentation](https://developer.mozilla.org/en-US/docs/Tools).
 
-To open the developer tools in Firefox, use the menu selecting Web Developer : Toggle Tools, on Chrome, select More Tools -> Developers Tools. For both browers, the keyboard shortcut on Windows is Ctrl+Shift+I, or on Mac Cmd+Shift+I. On Windows & Linux, the F12 key also works. You can then click Console to view logs.
+To open the developer tools in Firefox, use the menu selecting Web Developer : Toggle Tools, on Chrome, select More Tools -> Developers Tools. For both browsers, the keyboard shortcut on Windows is Ctrl+Shift+I, or on Mac Cmd+Shift+I. On Windows & Linux, the F12 key also works. You can then click Console to view logs.
  -->
 Web コンソールの使い方を学び親しみましょう。Web コンソールでは JavaScript のエラーを表示したり、JavaScript のスニペットをテストできます。[Firefox 開発ツールドキュメント](https://developer.mozilla.org/ja/docs/Tools)を参照してください。
 

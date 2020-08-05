@@ -12,11 +12,11 @@ WordPress ブロックエディター用のはじめてのブロックを作り�
 このチュートリアルには開発環境とツールのセットアップの他に、新しい開発モデルに親しむという目的が含まれています。すでに親しんでいる方は、以下のクイックスタートを試すかチュートリアルの必要な箇所にジャンプしてください。
 
 <!-- 
-## Prerequisities
+## Prerequisites
  -->
 ## 前提ソフトウエア
 <!-- 
-The first thing you need is a development enviornment and tools. This includes setting up your WordPress environment, Node, NPM, and your code editor. If you need help, see the [setting up your development environment documentation](/docs/designers-developers/developers/tutorials/devenv/readme.md).
+The first thing you need is a development environment and tools. This includes setting up your WordPress environment, Node, NPM, and your code editor. If you need help, see the [setting up your development environment documentation](/docs/designers-developers/developers/tutorials/devenv/readme.md).
  -->
 最初に開発環境とツールが必要です。これには WordPress 環境、Node、NPM、コードエディターが含まれます。詳細は [開発環境のセットアップドキュメント](https://ja.wordpress.org/team/handbook/block-editor/tutorials/devenv/) を参照してください。
 
@@ -58,7 +58,7 @@ The create a block tutorials breaks down to the following sections.
 
 1. [WordPress Plugin](/docs/designers-developers/developers/tutorials/create-block/wp-plugin.md)
 2. [Anatomy of a Gutenberg Block ](/docs/designers-developers/developers/tutorials/create-block/block-anatomy.md)
-3. [Block Attributes](/docs/designers-developers/developers/tutorials/create-block/block-attributes.md)
+3. [Block Attributes](/docs/designers-developers/developers/tutorials/create-block/attributes.md)
 4. [Code Implementation](/docs/designers-developers/developers/tutorials/create-block/block-code.md)
 5. [Authoring Experience](/docs/designers-developers/developers/tutorials/create-block/author-experience.md)
 6. [Finishing Touches](/docs/designers-developers/developers/tutorials/create-block/finishing.md)

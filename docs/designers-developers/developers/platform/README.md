@@ -57,7 +57,7 @@ The [wp-scripts package](https://developer.wordpress.org/block-editor/packages/p
 
 Here is a quick example, on how to use wp-scripts in your project.
 
-Install the depenency:
+Install the dependency:
  -->
 [wp-scripts パッケージ](https://developer.wordpress.org/block-editor/packages/packages-scripts/)は JavaScript 開発用の再利用可能なスクリプト集です。ビルド、lint、テスト用のスクリプトが含まれ、すべてのスクリプトで追加の構成ファイルは不要です。
 
@@ -104,3 +104,4 @@ You can learn more by reading the [tutorial "Building a custom block editor"](/d
 
 詳細については [チュートリアル "Building a custom block editor"](https://developer.wordpress.org/block-editor/developers/platform/custom-block-editor/) を参照してください。
 
+[原文](https://github.com/WordPress/gutenberg/tree/master/docs/designers-developers/developers/platform)

@@ -178,8 +178,7 @@ wp.hooks.addFilter(
 );
 ```
 
-<!-- 
-_Note:_  A [block validation](/docs/designers-developers/developers/block-api/block-edit-save.md#validation) error will occur if this filter modifies existing content the next time the post is edited. The editor verifies that the content stored in the post matches the content ouput by the `save()` function.
+_Note:_  A [block validation](/docs/designers-developers/developers/block-api/block-edit-save.md#validation) error will occur if this filter modifies existing content the next time the post is edited. The editor verifies that the content stored in the post matches the content output by the `save()` function.
 
 To avoid this validation error, use `render_block` server-side to modify existing post content instead of this filter. See [render_block documentation](https://developer.wordpress.org/reference/hooks/render_block/).
  -->
@@ -472,3 +471,5 @@ To set an SVG icon for the category shown in the previous example, add the follo
 	wp.blocks.updateCategory( 'my-category', { icon: svgIcon } );
 } )();
 ```
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/filters/block-filters.md)

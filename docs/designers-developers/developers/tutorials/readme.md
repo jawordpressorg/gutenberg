@@ -19,7 +19,7 @@
 -   初心者向け: [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/) では `@wordpress/create-block` パッケージを使用してブロックプラグインを作成します。ブロックを素早く簡単に作成できます。
 
 <!-- 
--   Intermediate: The [Block Tutorial](/docs/designers-developers/developers/tutorials/block-tutorial/readme.md) covers different aspects of block developement. The documentation is slightly dated but still valid, if you are new to block development, start with the Create Block Tutorial above.
+-   Intermediate: The [Block Tutorial](/docs/designers-developers/developers/tutorials/block-tutorial/readme.md) covers different aspects of block development. The documentation is slightly dated but still valid, if you are new to block development, start with the Create Block Tutorial above.
  -->
 -   中級者向け: [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) ではブロックの開発を別のアプローチで紹介します。ドキュメントは少し古くなっていますが有効です。ブロック開発が初めてあれば、まず上の「ブロックの作成 チュートリアル」から始めてください。
 
