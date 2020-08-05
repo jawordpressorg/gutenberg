@@ -254,6 +254,6 @@ Next Section: [Anatomy of a Block](/docs/designers-developers/developers/tutoria
  -->
 この時点でプラグインを作成し有効化できました。`@wordpress/scripts` への依存性を含む package.json ではビルドとスクリプトの開始を定義しています。基本的なブロックが完成しエディターに追加できました。
 
-次のセクション: [ブロックの解剖](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
+次のセクション: [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/wp-plugin.md)

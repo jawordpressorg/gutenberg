@@ -66,7 +66,7 @@ The create a block tutorials breaks down to the following sections.
 「ブロックの作成 チュートリアル」は以下のセクションに分かれます。
 
 1. [WordPress プラグイン](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/wp-plugin/)
-2. [Gutenberg Block の解剖](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
+2. [Gutenberg Block の詳細](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
 3. [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-attributes/)
 4. [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-code/)
 5. [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/author-experience/)
