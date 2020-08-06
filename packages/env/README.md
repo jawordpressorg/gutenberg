@@ -88,7 +88,8 @@ When installing `wp-env` in this way, all `wp-env` commands detailed in these do
 この方法で `wp-env` をインストールした場合、この文書で説明するすべての `wp-env` コマンドの前に `npm run` を追加してください。たとえば
 
 ```sh
-$ npm run wp-env start
+# You must add another dash to pass the "update" flag to wp-env
+$ npm run wp-env start -- --update
 ```
 <!-- 
 instead of:
@@ -96,7 +97,7 @@ instead of:
 と実行します。以後は次のような形式のみ記述します。
 
 ```sh
-$ wp-env start
+$ wp-env start --update
 ```
 <!--
 ## Usage
