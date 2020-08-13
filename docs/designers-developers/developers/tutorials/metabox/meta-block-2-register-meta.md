@@ -47,3 +47,9 @@ register_post_meta( 'post', '_myguten_protected_key', array(
 	}
 ) );
 ```
+<!-- 
+**Note:** Your post type needs to support `custom-fields` for `register_post_meta` function to work.
+ -->
+**注意:** `register_post_meta` 関数が動作するには投稿タイプが `custom-fields` をサポートする必要があります。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/metabox/meta-block-2-register-meta.md)

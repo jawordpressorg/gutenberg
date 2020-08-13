@@ -32,3 +32,10 @@ wp.data.select( 'core/editor' ).getCurrentPost().meta;
 Before adding the `register_post_meta` function to the plugin, this code returns a void array, because WordPress hasn't been told to load any meta field yet. After registering the field, the same code will return an object containing the registered meta field you registered.
  -->
 プラグインに `register_post_meta` 関数を追加する前は、このコードは void の配列を返します。これは WordPress にメタフィールドがロードされていなかったためです。フィールドを登録すると、登録済みのメタフィールドを含むオブジェクトを返します。
+
+<!-- 
+If the code returns `undefined` make sure your post type supports `custom-fields`. Either when [registering the post](https://developer.wordpress.org/reference/functions/register_post_type/#supports) or with [add_post_type_support function](https://developer.wordpress.org/reference/functions/add_post_type_support/).
+ -->
+コードが `undefined` を返す場合、[投稿の登録時](https://developer.wordpress.org/reference/functions/register_post_type/#supports)または [add_post_type_support 関数](https://developer.wordpress.org/reference/functions/add_post_type_support/)で投稿タイプが `custom-fields` をサポートすることを確認してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-3-register-meta.md)
