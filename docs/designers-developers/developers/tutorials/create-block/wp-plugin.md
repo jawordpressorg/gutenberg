@@ -91,11 +91,17 @@ Let's confirm the plugin is loaded and working.
 ```sh
 wp-env start
 ```
+<<<<<<< HEAD
 <!-- 
 This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to [https://localhost:8888/wp-admin/] and login, the default username is "admin" and password is "password", no quotes.
  -->
 ローカルで WordPress を起動し、カレントディレクトリをプラグインディレクトリとして使用します。ブラウザから [https://localhost:8888/wp-admin/] にアクセスしてログインします。デフォルトユーザー名は「admin」、パスワードは「password」です。
 <!-- 
+=======
+
+This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to https://localhost:8888/wp-admin/ and login, the default username is "admin" and password is "password", no quotes.
+
+>>>>>>> upstream/master
 ### Confirm Plugin Installed
  -->
 ### Plugin のインストールの確認
@@ -115,7 +121,7 @@ WordPress プラグイン作成の詳細については [Plugin Basics](https://
 <!-- 
 The `package.json` file defines the JavaScript properties for your project. This is a standard file used by NPM for defining properties and scripts it can run, the file and process is not specific to WordPress.
 
-A `package.json` file was created with the create script, this defines the dependecies and scripts needed. you can install dependencies. The only initial dependency is the `@wordpress/scripts` package that bundles the tools and configurations needed to build blocks.
+A `package.json` file was created with the create script, this defines the dependecies and scripts needed. You can install dependencies. The only initial dependency is the `@wordpress/scripts` package that bundles the tools and configurations needed to build blocks.
 
 In `package.json`, there is a `scripts` property that defines what command to run when using `npm run (cmd)`. In our generated `package.json` file, the two main scripts point to the commands in the `wp-scripts` package:
  -->
@@ -216,12 +222,16 @@ The `register_block_type` function registers the block we are going to create an
  -->
 `wp_set_script_translations` 関数は WordPress に、もし存在するならスクリプトの翻訳をロードするよう伝えます。詳細については[翻訳と国際化](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/)を参照してください。
 
+<<<<<<< HEAD
 `register_block_type` 関数はこれから作成するブロックを登録し、登録済みの editor_script ファイルハンドルを指定します。エディターがブロックをロードすると、このスクリプトをロードします。
 
 <!-- 
 With the above in place, create a new post to load the editor and check the you can add the block in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
  -->
 すべてを終えたら新しい投稿を作成してエディターを開始し、インサーターにブロックが追加されていることを確認してください。検索には `/` を使うか、[+] のボックスをクリックして「Gutenpride」を検索し、ブロックを見つけてください。
+=======
+With the above in place, create a new post to load the editor and check your plugin is in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
+>>>>>>> upstream/master
 
 <!-- 
 ## Troubleshooting
@@ -238,7 +248,7 @@ FireFox で開発ツールを開くにはメニューの「Web 開発」>「開�
 <!-- 
 Try running `npm run start` that will start the watch process for automatic rebuilds. If you then make an update to `src/index.js` file, you will see the build run, and if you reload the WordPress editor you'll see the change.
 
-For more info, see the build section of the [Getting Started with JavaScript tutorial](/docs/designers-developers/developers/tutorials/javascript/js-build-setup.md) in the WordPress Handbook.
+For more info, see the build section of the [Getting Started with JavaScript tutorial](/docs/designers-developers/developers/tutorials/javascript/js-build-setup.md) in the Block Editor Handbook.
  -->
 `npm run start` を実行してください。watch プロセスが始まり、自動リビルドが行われます。`src/index.js` ファイルを更新するとビルドが始まります。ブロックエディターをリロードすると変更が反映されます。
 

@@ -14,11 +14,11 @@ This tutorial covers general concepts and structure for creating basic blocks.
 <!-- 
 The block editor provides a [components package](/packages/components/README.md) which contains numerous prebuilt components you can use to build your block.
 
-You can visually browse the components and what their implementation looks like using the Storybook tool published at [https://wordpress.github.io/gutenberg].
+You can visually browse the components and what their implementation looks like using the Storybook tool published at https://wordpress.github.io/gutenberg.
  -->
 ブロックエディターでは [コンポーネントパッケージ](https://ja.wordpress.org/team/handbook/block-editor/components/) を提供しています。ブロックを作成する際に利用可能な多くのビルド済みコンポーネントが含まれています。
 
-コンポーネントやその実装がどのように見えるかは [https://wordpress.github.io/gutenberg](https://wordpress.github.io/gutenberg) で公開されている Storybook ツールを使用してビジュアルに確認できます。
+コンポーネントやその実装がどのように見えるかは https://wordpress.github.io/gutenberg で公開されている Storybook ツールを使用してビジュアルに確認できます。
 <!-- 
 ## Additional Tutorials
  -->

@@ -58,7 +58,7 @@ export default function Edit( { attributes, setAttributes } ) {
 <!-- 
 For our example block, the component we are going to use is the **TextControl** component, it is similar to an HTML text input field. You can see [documentation for TextControl component](/packages/components/src/text-control/README.md). You can browse an [interactive set of components in this Storybook](https://wordpress.github.io/gutenberg/).
 
-The component is added similar to an HTML tag, setting a label, the `value` is set to the `attributes.message` and the `onChange` function uses the `setAttributes` to update the url attribute value.
+The component is added similar to an HTML tag, setting a label, the `value` is set to the `attributes.message` and the `onChange` function uses the `setAttributes` to update the message attribute value.
  -->
 このチュートリアルのブロックは HTML テキスト入力フィールドに似た **TextControl** コンポーネントを使用します。[TextControl コンポーネント ドキュメント](https://developer.wordpress.org/block-editor/components/text-control/) を参照してください。[この Storybook でインタラクティブなコンポーネントセット](https://wordpress.github.io/gutenberg/) をブラウズできます。
 

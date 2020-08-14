@@ -79,6 +79,7 @@ This can be used inside a block to control what shows when a parameter is set or
 					/>
 				</div>
 			}
+		</div>
 	);
 ```
 <!-- 
