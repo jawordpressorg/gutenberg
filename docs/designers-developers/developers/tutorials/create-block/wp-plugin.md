@@ -21,7 +21,7 @@ A WordPress plugin is a set of files within the site's `wp-content/plugins` dire
  -->
 ### ワーキングディレクトリへの切り替え
 <!-- 
-(1A) If you do not plan to use `wp-env` change to your local WordPress plugin directory. For example in Local it is: `~\Local Sites\mywp\wp-content\plugins`
+(1A) If you do not plan to use `wp-env`, change to your local WordPress plugin directory. For example in Local it is: `~\Local Sites\mywp\wp-content\plugins`
 
 -or-
 
@@ -91,20 +91,16 @@ Let's confirm the plugin is loaded and working.
 ```sh
 wp-env start
 ```
-<<<<<<< HEAD
 <!-- 
-This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to [https://localhost:8888/wp-admin/] and login, the default username is "admin" and password is "password", no quotes.
+This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to https://localhost:8888/wp-admin/ and login, the default username is "admin" and password is "password", no quotes.
  -->
 ローカルで WordPress を起動し、カレントディレクトリをプラグインディレクトリとして使用します。ブラウザから [https://localhost:8888/wp-admin/] にアクセスしてログインします。デフォルトユーザー名は「admin」、パスワードは「password」です。
+
 <!-- 
-=======
-
-This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to https://localhost:8888/wp-admin/ and login, the default username is "admin" and password is "password", no quotes.
-
->>>>>>> upstream/master
 ### Confirm Plugin Installed
  -->
 ### Plugin のインストールの確認
+
 <!-- 
 The generated plugin should now be listed on the Plugins admin page in your WordPress install. Switch WorPress to the plugins page and activate.
 
@@ -222,16 +218,12 @@ The `register_block_type` function registers the block we are going to create an
  -->
 `wp_set_script_translations` 関数は WordPress に、もし存在するならスクリプトの翻訳をロードするよう伝えます。詳細については[翻訳と国際化](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/)を参照してください。
 
-<<<<<<< HEAD
 `register_block_type` 関数はこれから作成するブロックを登録し、登録済みの editor_script ファイルハンドルを指定します。エディターがブロックをロードすると、このスクリプトをロードします。
 
 <!-- 
-With the above in place, create a new post to load the editor and check the you can add the block in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
+With the above in place, create a new post to load the editor and check your plugin is in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
  -->
 すべてを終えたら新しい投稿を作成してエディターを開始し、インサーターにブロックが追加されていることを確認してください。検索には `/` を使うか、[+] のボックスをクリックして「Gutenpride」を検索し、ブロックを見つけてください。
-=======
-With the above in place, create a new post to load the editor and check your plugin is in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
->>>>>>> upstream/master
 
 <!-- 
 ## Troubleshooting
