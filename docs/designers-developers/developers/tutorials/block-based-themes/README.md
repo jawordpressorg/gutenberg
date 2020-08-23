@@ -15,8 +15,6 @@ how to add presets for global styles, and how to add blocks and export the templ
 <!-- 
 Full site editing is an experimental feature and the workflow in this tutorial is likely to change.
 This tutorial was written for Gutenberg version 8.5.
-
-Additional documentation for block-based themes is available at https://developer.wordpress.org/block-editor/developers/themes/block-based-themes/
  -->
 「サイト全体編集」は実験中の機能のため、以下の手順も変わる可能性があります。このチュートリアルは Gutenberg Version 8.5 をベースに書かれています。
 
@@ -278,9 +276,10 @@ Eventually, you will be able to create and combine templates and template parts 
 将来的にはテンプレートやテンプレートパーツを直接サイトエディターで作成し、組み合わせできるようになります。
 
 <!-- 
-### Experimental-theme.json -Global styles
+### Experimental-theme.json - Global styles
  -->
 ### experimental-theme.json - グローバルスタイル
+
 <!-- 
 The purpose of the experimental-theme.json file is to make it easier to style blocks by setting defaults.
  -->
