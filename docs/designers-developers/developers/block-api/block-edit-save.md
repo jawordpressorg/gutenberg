@@ -1,13 +1,13 @@
 <!-- 
 # Edit and Save
  -->
-# Edit と Save
+# edit と save
 <!-- 
 When registering a block, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
  -->
 ブロックの登録では `edit` 関数と `save` 関数を使用してブロックがどのように動作し、操作、保存されるかのインターフェイスを提供します。
 
-## Edit
+## edit
 <!-- 
 The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
  -->
@@ -259,7 +259,7 @@ Why do this? In JavaScript, arrays and objects are passed by reference, so this 
  -->
 コピーやクローンが必要なのはなぜでしょうか ? JavaScript では配列やオブジェクトは参照渡しされるため、コピーやクローンを行うことで変更が同じデータへの参照を持つ他のコードに影響を与えないことが保証されます。さらに Gutenberg プロジェクトは Redux ライブラリの哲学、[state は不変でなければならない ](https://redux.js.org/faq/immutable-data#what-are-the-benefits-of-immutability)に従っています。データは直接変更せず、変更を含む新しいバージョンのデータを作る必要があります。
 
-## Save
+## save
 <!-- 
 The `save` function defines the way in which the different attributes should be combined into the final markup, which is then serialized into `post_content`.
  -->
