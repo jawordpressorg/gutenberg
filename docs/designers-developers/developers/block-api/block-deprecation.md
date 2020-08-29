@@ -6,21 +6,21 @@
 <!-- 
 When updating static blocks markup and attributes, block authors need to consider existing posts using the old versions of their block. In order to provide a good upgrade path, you can choose one of the following strategies:
  -->
-ブロックの静的なマークアップや属性を更新する際、開発者は古いバージョンを使用して書かれた既存の投稿に注意する必要があります。適切にアップグレードするには以下の戦略の1つを選択する必要があります。
+ブロックの静的なマークアップや属性を更新する際、開発者は古いバージョンを使用した既存の投稿に注意する必要があります。適切にアップグレードするには以下のどちらかの戦略を選択する必要があります。
 
 <!-- 
  - Do not deprecate the block and create a new one (a different name)
  - Provide a "deprecated" version of the block allowing users opening these in the block editor to edit them using the updated block.
  -->
  - 既存のブロックはそのままにして、新しいブロックを異なる名前で作成する。
- - ブロックの「deprecated (非推奨)」バージョンを提供する。ユーザーはブロックエディターで投稿を開き、更新されたブロックを使用して編集できる。
+ - ブロックの「deprecated (非推奨)」バージョンを提供する。ユーザーはブロックエディターで投稿を開き、更新されたブロックを使用して編集できます。
 
 <!-- 
 A block can have several deprecated versions. A deprecation will be tried if a parsed block appears to be invalid, or if there is a deprecation defined for which its `isEligible` property function returns true.
 
 Deprecations are defined on a block type as its `deprecated` property, an array of deprecation objects where each object takes the form:
  -->
-ブロックは複数の非推奨バージョンをもつことができます。パースしたブロックが不正の場合、または、`isEligible` プロパティ関数で true を返し非推奨を宣言する場合、非推奨プロセス (deprecation) が実行されます。
+ブロックは複数の非推奨バージョンをもつことができます。パースしたブロックが不正の場合、または、`isEligible` プロパティ関数で true を返して非推奨を宣言する場合、非推奨プロセス (deprecation) が実行されます。
 
 非推奨プロセスは、ブロックタイプの `deprecated` プロパティに以下の形式の非推奨プロセスオブジェクトの配列として定義します。
 
