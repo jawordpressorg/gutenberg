@@ -27,7 +27,7 @@ To use the site editor, a full site editing theme must be installed and active.
 
 The site editor is similar to the block editor, but is used for the site layout instead of the post and page content.
  -->
-「サイト全体編集」機能が有効化されている場合、WordPres 管理画面で「サイトエディター (ベータ)」を利用できます。サイトエディターを使用するには「サイト全体編集」対応のテーマをインストール、有効化する必要があります。
+「フルサイト編集」機能が有効化されている場合、WordPres 管理画面で「サイトエディター (ベータ)」を利用できます。サイトエディターを使用するには「フルサイト編集」対応のテーマをインストール、有効化する必要があります。
 
 サイトエディターはブロックエディターに似ていますが、投稿やページなどのコンテンツではなく、サイトレイアウトのために使用されます。
 

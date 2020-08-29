@@ -9,14 +9,14 @@ and help theme developers transition to full site editing.
 You will learn about the required files, how to combine templates and template parts,
 how to add presets for global styles, and how to add blocks and export the templates in the site editor.
  -->
-このチュートリアルの目的は基本的なブロックベーステーマの作り方の紹介と、テーマ開発者の「サイト全体編集 (full site editing)」への移行の支援です。
+このチュートリアルの目的は基本的なブロックベーステーマの作り方の紹介と、テーマ開発者の「フルサイト編集 (full site editing)」への移行の支援です。
 
 このチュートリアルでは、ブロックベーステーマに必要なファイルの一覧、テンプレートとテンプレートパーツの組み合わせ、グローバルスタイルへのプリセットの追加、サイトエディターでのブロックの追加とテンプレートのエクスポートについて学びます。
 <!-- 
 Full site editing is an experimental feature and the workflow in this tutorial is likely to change.
 This tutorial was written for Gutenberg version 8.5.
  -->
-「サイト全体編集」は実験中の機能のため、以下の手順も変わる可能性があります。このチュートリアルは Gutenberg Version 8.5 をベースに書かれています。
+「フルサイト編集」は実験中の機能のため、以下の手順も変わる可能性があります。このチュートリアルは Gutenberg Version 8.5 をベースに書かれています。
 
 <!-- 
 ## Table of Contents
@@ -43,7 +43,7 @@ This tutorial was written for Gutenberg version 8.5.
 To use a block based theme you need to have Gutenberg installed and full site editing must be enabled.
 Full site editing can be enabled from the Gutenberg experiments menu in the WordPress admin area.
  -->
-ブロックベーステーマを使用するには Gutenberg をインストールし、「サイト全体編集」を有効化する必要があります。「サイト全体編集」は WordPress 管理画面の「Gutenberg」->「実験中」メニューから有効化できます。
+ブロックベーステーマを使用するには Gutenberg をインストールし、「フルサイト編集」を有効化する必要があります。「フルサイト編集」は WordPress 管理画面の「Gutenberg」->「実験中」メニューから有効化できます。
 
 <!-- 
 A block-based theme is built using HTML templates and template parts.
@@ -153,7 +153,7 @@ https://developer.wordpress.org/themes/basics/theme-functions/#what-is-functions
 
 https://developer.wordpress.org/block-editor/developers/themes/theme-support/
  -->
-- タイトルタグのテーマサポートの追加は不要です。すでにサイト全体編集で有効化されています。
+- タイトルタグのテーマサポートの追加は不要です。すでにフルサイト編集では有効化されています。
 
 [What is functions.php?](https://developer.wordpress.org/themes/basics/theme-functions/#what-is-functions-php)
 
@@ -221,7 +221,7 @@ You may leave the file empty for this tutorial.
 Your theme should now include the following files and folders:
  -->
 index.php ファイルを作成してください。
-このファイルはテーマは有効化されたものの、「サイト全体編集」が有効化されていない場合のフォールバックとして使用されます。このチュートリアルでは空のままで構いません。
+このファイルはテーマは有効化されたものの、「フルサイト編集」が有効化されていない場合のフォールバックとして使用されます。このチュートリアルでは空のままで構いません。
 
 この段階でテーマには次のようなファイルとフォルダーがあります。
 

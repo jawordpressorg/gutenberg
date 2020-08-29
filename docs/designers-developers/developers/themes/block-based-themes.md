@@ -6,7 +6,7 @@
 <!-- 
 > This is the documentation for the current implementation of block-based themes, also known as Full Site Editing or Block Content Areas. These features are still experimental in the plugin. “Experimental” means this is just an early implementation that is subject to potential drastic and breaking changes in iterations based on feedback from users, contributors and theme authors.
  -->
-> これは現段階での「ブロックベーステーマ」(block-based theme) 実装に関する文書です。「ブロックベーステーマ」は、「フルサイトエディティング」(Full Site Editing)、または「ブロックコンテントエリア」(Block Content Area) とも呼ばれ、これらの機能はまだプラグインの実験レベルの機能です。ここで「実験レベル」とは早い段階での実装を意味し、ユーザー、コントリビューター、テーマ作成者のフィードバックに基づくイテレーションによっては、大きく互換性を失う形で変更される可能性があります。
+> これは現段階での「ブロックベーステーマ」(block-based theme) 実装に関する文書です。「ブロックベーステーマ」は、「フルサイト編集」(Full Site Editing)、または「ブロックコンテントエリア」(Block Content Area) とも呼ばれ、これらの機能はまだプラグインの実験レベルの機能です。ここで「実験レベル」とは早い段階での実装を意味し、ユーザー、コントリビューター、テーマ作成者のフィードバックに基づくイテレーションによっては、大きく互換性を失う形で変更される可能性があります。
 
 <!-- 
 > Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. You can provide feedback in the weekly #core-editor chats where the latest progress of this effort will be shared and discussed, or async via Github issues.
@@ -15,7 +15,7 @@
  -->
 > 早い段階で文書を共有する理由は、作業の様子を明らかにし、API を利用した実験からフィードバックを得るためです。フィードバックは、最新の進捗を共有、議論している #core-editor 週次ミーティングで行うか、または Github の issue を通して非同期に行えます。
 
-**注意:** この機能を使用するには、Gutenberg プラグインの「実験中」ページの「サイト全体編集」フラグを有効にしてください。
+**注意:** この機能を使用するには、Gutenberg プラグインの「実験中」ページの「フルサイト編集」フラグを有効にしてください。
 
 <!-- 
 ## What is a block-based theme?
