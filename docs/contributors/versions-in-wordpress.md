@@ -2,10 +2,11 @@
 # Versions in WordPress
  -->
 # WordPress に組み込まれたバージョン
+
 <!-- 
-With each WordPress release cycle, various versions of Gutenberg are included. This has created confusion over time as people try to figure out how best to debug problems and report bugs appropriately. To make this easier for everyone to keep track of, this document serves as a canonical list of the Gutenberg versions integrated into each WordPress release. Of note, during the beta period for WordPress releases, additional bug fixes from later Gutenberg releases than those noted are cherry-picked into the WordPress release as necessary.
+With each major release of WordPress a new version of Gutenberg is included. This has caused confusion over time as people have tried to figure out how to best debug problems and report bugs appropriately. To make this easier we have made this document to serve as a canonical list of the Gutenberg versions integrated into each major WordPress release. Of note, during the beta period of a WordPress release, additional bug fixes from later Gutenberg releases than those noted are added into the WordPress release where it is needed.
  -->
-各 WordPress のリリースサイクルでは複数の Gutenberg バージョンを取り込んでいるため、問題をデバッグしたりバグを報告する際に何度も混乱を引き起こしてきました。リリースを追いかけやすくする目的でこの文書では、各 WordPress リリースに取り込まれた Gutenberg のバージョンのリストを掲載します。ただし WordPress リリースのベータ期間中、必要に応じてここに掲示したバージョンよりも新しい Gutenberg のバージョンから追加のバグフィックスを適用している場合があることに注意してください。
+WordPress の各メジャーリリースには新しいバージョンの Gutenberg が含まれますが、このことは問題のデバッグや適切なバグレポートを検討する開発者に何度も混乱を招いてきました。この文書では問題の解決を助けるため WordPress の各メジャーリリースに取り込まれた Gutenberg のバージョンの履歴リストを掲載します。ただし WordPress リリースのベータ期間中、必要に応じてここに掲示したバージョンよりも新しい Gutenberg のバージョンから追加のバグフィックスを適用している場合があることに注意してください。
 
 <!-- 
 If anything looks incorrect here, please bring it up in #core-editor in [WordPress.org slack](https://make.wordpress.org/chat/).
@@ -14,6 +15,7 @@ If anything looks incorrect here, please bring it up in #core-editor in [WordPre
 
 | Gutenberg Versions | WordPress Version |
 | ------------------ | ----------------- |
+| 7.6-8.5            | 5.5.1             |
 | 7.6-8.5            | 5.5               |
 | 6.6-7.5            | 5.4.2             |
 | 6.6-7.5            | 5.4.0             |

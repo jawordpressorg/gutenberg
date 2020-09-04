@@ -5,7 +5,7 @@
 <!-- 
 This tutorial covers general concepts and structure for creating basic blocks.
  -->
-このチュートリアルでは、基本的なブロックを作る場合の一般的なコンセプトと構造を説明しました。
+このチュートリアルでは基本的なブロック作成のコンセプト全般と構造を説明しました。
 
 <!-- 
 ## Additional Components
@@ -14,11 +14,11 @@ This tutorial covers general concepts and structure for creating basic blocks.
 <!-- 
 The block editor provides a [components package](/packages/components/README.md) which contains numerous prebuilt components you can use to build your block.
 
-You can visually browse the components and what their implementation looks like using the Storybook tool published at https://wordpress.github.io/gutenberg.
+You can visually browse the components and what their implementation looks like using the Storybook tool published at [https://wordpress.github.io/gutenberg](https://wordpress.github.io/gutenberg).
  -->
 ブロックエディターでは [コンポーネントパッケージ](https://ja.wordpress.org/team/handbook/block-editor/components/) を提供しています。ブロックを作成する際に利用可能な多くのビルド済みコンポーネントが含まれています。
 
-コンポーネントやその実装がどのように見えるかは https://wordpress.github.io/gutenberg で公開されている Storybook ツールを使用してビジュアルに確認できます。
+コンポーネントやその実装がどのように見えるかは [https://wordpress.github.io/gutenberg](https://wordpress.github.io/gutenberg で公開されている Storybook ツールを使用してビジュアルに確認できます。
 <!-- 
 ## Additional Tutorials
  -->
@@ -48,7 +48,7 @@ One of the best sources for information and reference is the Block Editor itself
 
 All core blocks source are in the [block library package on Github](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src).
  -->
-情報やリファレンスの中で最小のものの1つがブロックエディター自身でしょう。すべてのコアブロックは同じ方法で構築されています。どのように実装されているのか学ぶにあたって良い方法は自分の興味に近いコアブロックのコードを調べ、同じアプローチを作成中のブロックに対しても行うことです。
+情報やリファレンスの中で最良のものの1つがブロックエディターのソースコード自身でしょう。すべてのコアブロックは同じ方法で構築されています。どのように実装されているのかを学ぶには自分の興味に近いコアブロックのコードを探し、同じアプローチを自分のブロックに対しても行うと良いでしょう。
 
 すべてのコアブロックのソースは [Github 上のブロックライブラリーパッケージ](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src) にあります。
 
