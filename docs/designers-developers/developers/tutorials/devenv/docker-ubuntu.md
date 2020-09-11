@@ -58,3 +58,5 @@ npm run wp-env start
 ```
 
 Your environment should be setup at: http://localhost:8888/
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/devenv/docker-ubuntu.md)
