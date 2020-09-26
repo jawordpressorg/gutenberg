@@ -1,7 +1,7 @@
-<!--
-# Block Editor Handbook
--->
-# ブロックエディターハンドブック
+<!-- 
+# Project Overview
+ -->
+# プロジェク概要
 
 <!-- 
 The Gutenberg project is transforming the way content is created on WordPress. A block editor was the first product launched creating a new methodology for working with content.
@@ -11,7 +11,7 @@ Gutenberg プロジェクトは WordPress 上でのコンテンツの作り方�
 <!--
 The Block Editor handbook provides documentation for designers and developers on how to extend the editor, and also how you can start contributing to the project. For authors, writers, and users of the block editor see the [block editor support documentation](https://wordpress.org/support/article/wordpress-editor/).
 -->
-「ブロックエディターハンドブック」はデザイナーや開発者向けのドキュメントです。エディターの拡張方法やプロジェクトへの貢献方法を解説します。ブロックエディターのユーザーや著作者、ライターは [ブロックエディターのサポート文書](https://ja.wordpress.org/support/article/wordpress-editor/) を参照してください。
+「ブロックエディターハンドブック」はデザイナーや開発者向けのドキュメントです。エディターの拡張方法やプロジェクトへの貢献方法を解説します。ブロックエディターの使い方については [サポート内のブロックエディターに関する文書](https://ja.wordpress.org/support/article/wordpress-editor/) を参照してください。
 
 <!--
 ![Gutenberg Demo](https://cldup.com/kZXGDcGPMU.gif)
@@ -56,11 +56,23 @@ The Editor offers rich new value to users with visual, drag-and-drop creation to
 -   [コントリビューションガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/) では **あなた** がどのような方法で Gutenberg プロジェクトを支援できるかを説明します。コード、デザイン、ドキュメント、翻訳、問題管理等々、さまざまな支援が可能です。
 
 ## 問い合わせ先
-ブロックエディターハンドブックへのコメントは [WordPress の 日本語 Slack](https://ja.wordpress.org/support/article/slack/) 内の #docs チャンネル、[フォーラム > その他](https://ja.wordpress.org/support/forum/miscellaneous/)、または以下のリポジトリへお願いします。
+ブロックエディターハンドブックへのコメントは [Gutenberg GitHub リポジトリ](https://github.com/WordPress/gutenberg)、[WordPress の 日本語 Slack](https://ja.wordpress.org/support/article/slack/) 内の #docs チャンネル、または「[フォーラム > その他](https://ja.wordpress.org/support/forum/miscellaneous/)」へお願いします。
 
 ## 参照
 - [英語版ブロックエディターハンドブック](https://developer.wordpress.org/block-editor/)
 - [英語版リポジトリ](https://github.com/WordPress/gutenberg)
 - [日本語版リポジトリ](https://github.com/jawordpressorg/gutenberg)
+
+## ブロックエディターハンドブック日本語版翻訳者
+
+| GitHub Username | WordPress.org Username|
+| --------------- | --------------------- |
+| @naokomc | @nao |
+| @ryo-utsunomiya | |
+| @mypacecreator | @mypacecreator |
+| @atachibana | @atachibana |
+| @miminari | @mimitips |
+| @shizumi | @Shizumi |
+| @arm-band | @armband |
 
 [原文](https://github.com/WordPress/gutenberg/tree/master/docs)

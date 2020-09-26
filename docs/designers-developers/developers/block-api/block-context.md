@@ -38,24 +38,24 @@ A block can provide a context value by assigning a `providesContext` property in
  -->
 コンテキスト値を提供するには、登録設定の中で `providesContext` プロパティに割り当てます。`providesContext` プロパティはコンテキスト名をブロック自身の属性のどれか1つとマップするオブジェクトです。属性値に関連付けられた値は子孫のブロックで利用でき、同じコンテキスト名で参照できます。現行ではブロックコンテキストはブロック自身の属性から派生した値のみをサポートしますが、将来的には拡張されコンテキスト値の追加ソースをサポートする予定です。
 
-`record/block.json`
-
-```json
-{
-	"name": "my-plugin/record",
-	"attributes": {
-		"recordId": {
-			"type": "number"
-		}
+```js
+	attributes: {
+		recordId: {
+			type: 'number',
+		},
 	},
-	"providesContext": {
-		"my-plugin/recordId": "recordId"
-	}
-}
+
+	providesContext: {
+		'my-plugin/recordId': 'recordId',
+	},
 ```
 <!-- 
+For complete example, refer below section.
+
 As seen in the above example, it is recommended that you include a namespace as part of the name of the context key so as to avoid potential conflicts with other plugins or default context values provided by WordPress. The context namespace should be specific to your plugin, and in most cases can be the same as used in the name of the block itself.
  -->
+完全なサンプルコードは以下のセクションを参照してください。
+
 上の例で見るようにコンテキストキーには名前空間を含めることが推奨されます。他のプラグインや WordPress で提供されるデフォルトのコンテキスト値との潜在的な衝突を防ぎます。コンテキストの名前空間は、プラグイン固有にしてください。多くの場合、ブロックの名前と同じものが使用されます。
 
 <!-- 
@@ -68,13 +68,13 @@ A block can inherit a context value from an ancestor provider by assigning a `us
  -->
 ブロックは、登録設定の中で `usesContext` プロパティを割り当てることで先祖のプロバイダーからコンテキスト値を継承します。このときプロパティには、ブロックが継承するコンテキスト名の配列を割り当てる必要があります。
 
-`record-title/block.json`
+```js
+registerBlockType('my-plugin/record-title', {
+	title: 'Record Title',
+	category: 'widgets',
 
-```json
-{
-	"name": "my-plugin/record-title",
-	"usesContext": [ "my-plugin/recordId" ]
-}
+	usesContext: ['my-plugin/recordId'],
+
 ```
 <!-- 
 ## Using Block Context
@@ -85,16 +85,17 @@ Once a block has defined the context it seeks to inherit, this can be accessed i
  -->
 ブロックが継承するコンテキストを定義すると、`edit` (JavaScript) や `render_callback` (PHP) の実装の中でアクセスできます。コンテキストは、ブロックで定義されたコンテキスト値のオブジェクト (JavaScript) または連想配列 (PHP) として提供されます。注意: コンテキスト値は、ブロックが値の継承の意志を明示的に定義した場合にのみ利用可能です。
 
+Note: Block Context is not available to `save`.
+
 ### JavaScript
 
-`record-title/index.js`
-
 ```js
-registerBlockType( 'my-plugin/record-title', {
-	edit( { context } ) {
-		return 'The current record ID is: ' + context[ 'my-plugin/recordId' ];
+registerBlockType('my-plugin/record-title', {
+
+	edit({ context }) {
+		return 'The record ID: ' + context['my-plugin/recordId'];
 	},
-} );
+
 ```
 
 ### PHP
@@ -103,8 +104,6 @@ A block's context values are available from the `context` property of the `$bloc
  -->
 ブロックのコンテキスト値は、`render_callback` 関数の第3引数として渡される `$block` 引数の `content` プロパティから利用可能です。
 
-`record-title/index.php`
-
 ```php
 register_block_type( 'my-plugin/record-title', array(
 	'render_callback' => function( $attributes, $content, $block ) {
@@ -112,5 +111,106 @@ register_block_type( 'my-plugin/record-title', array(
 	},
 ) );
 ```
+<!-- 
+## Example
+1. Create `record` block.
+ -->
+## 例
+1. `record` ブロックを作成します。
+```
+npm init @wordpress/block --namespace my-plugin record
+cd record
+```
+<!-- 
+2. Edit `src/index.js`. Insert `recordId` attribute and `providesContext` property in `registerBlockType` function and add registration of `record-title` block at the bottom. 
+ -->
+2. `src/index.js` を編集します。`recordId` 属性と `providesContext` プロパティを `registerBlockType` 関数内に挿入し、末尾に `record-title` ブロックの登録を追加します。 
+
+```js
+registerBlockType('my-plugin/record', {
+
+	// ... cut ...
+
+	attributes: {
+		recordId: {
+			type: 'number',
+		},
+	},
+
+	providesContext: {
+		'my-plugin/recordId': 'recordId',
+	},
+
+	/**
+	 * @see ./edit.js
+	 */
+	edit: Edit,
+
+	/**
+	 * @see ./save.js
+	 */
+	save,
+});
+
+registerBlockType('my-plugin/record-title', {
+	title: 'Record Title',
+	category: 'widgets',
+
+	usesContext: ['my-plugin/recordId'],
+
+	edit({ context }) {
+		return 'The record ID: ' + context['my-plugin/recordId'];
+	},
+
+	save() {
+		return null;
+	}
+});
+```
+<!-- 
+3. Edit `src/edit.js`. Replace `Edit` function by following code. 
+ -->
+3. `src/edit.js` を編集します。`Edit` 関数を以下のコードで置き換えます。 
+
+```js
+import { TextControl } from '@wordpress/components';
+import { InnerBlocks } from '@wordpress/block-editor';
+
+export default function Edit(props) {
+	const MY_TEMPLATE = [
+		['my-plugin/record-title', {}],
+	];
+	const { attributes: { recordId }, setAttributes } = props;
+	return (
+		<div>
+			<TextControl
+				label={__('Record ID:')}
+				value={recordId}
+				onChange={(val) => setAttributes({ recordId: Number(val) })}
+			/>
+			<InnerBlocks
+				template={MY_TEMPLATE}
+				templateLock="all"
+			/>
+		</div>
+	);
+}
+```
+<!-- 
+4. Edit `src/save.js`. Replace `save` function by following code.
+ -->
+4. `src/save.js` を編集します。`save` 関数を以下のコードで置き換えます。
+ 
+```js
+export default function save(props) {
+	return <p>The record ID: {props.attributes.recordId}</p>;
+}
+```
+<!-- 
+5. Create new post and add `record` block. If you type number in the above box, you'll see the same number is shown in below box.
+ -->
+5. 新しい投稿を作成し、`record` ブロックを追加します。上のテキストボックスに数を入力すると、同じ数が下のボックスに表示されます。
+
+![Block Context Example](https://user-images.githubusercontent.com/8876600/93000215-c8570380-f561-11ea-9bd0-0b2bd0ca1752.png)
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-context.md)

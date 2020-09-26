@@ -1,7 +1,9 @@
 # Architecture
 
-This living document serves as a high-level documentation to explain the conceptual choices and tool choices in the Gutenberg repository.
+Let’s look at the big picture and the architectural and UX principles of the block editor and the Gutenberg repository.
 
+- [Key Concepts](https://ja.wordpress.org/team/handbook/block-editor/architecture/key-concepts/)
+- [Data Format And Data Flow](https://ja.wordpress.org/team/handbook/block-editor/architecture/data-flow/)
 - [Understand the repository folder structure](https://ja.wordpress.org/team/handbook/block-editor/principles/architecture/folder-structure/).
 - [Modularity and WordPress Packages](https://ja.wordpress.org/team/handbook/block-editor/principles/architecture/modularity).
 - [Block Editor Performance](https://ja.wordpress.org/team/handbook/block-editor/principles/architecture/performance).
