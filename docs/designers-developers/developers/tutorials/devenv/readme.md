@@ -4,11 +4,11 @@
 # 開発環境
 
 <!-- 
-This guide is for setting up your local environment for JavaScript development for creating plugins and tools to extend WordPress and the block editor.
+This guide is for setting up your local environment for JavaScript development for creating plugins and tools to extend WordPress and the block editor. If you are looking to contribute to Gutenberg project itself, see additional documentation in the [Getting Started guide](/docs/contributors/getting-started.md).
 
 A development environment is a catch-all term for what you need setup on your computer to work. The three main pieces needed for our development environment are:
  -->
-このガイドでは WordPress やブロックエディターを拡張するプラグインやツールを作成可能な ローカル JavaScript 開発環境の構築方法について説明します。
+このガイドでは WordPress やブロックエディターを拡張するプラグインやツールを作成可能な ローカル JavaScript 開発環境の構築方法について説明します。Gutenberg プロジェクトへのコントリビューションを検討している場合は、[開発入門ガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/getting-started/) 内の追加のドキュメントも参照してください。
 
 「開発環境」とはコンピュータでの動作に必要セットアップ全体を指します。この開発環境では大きく3つのセットアップが必要です。
 

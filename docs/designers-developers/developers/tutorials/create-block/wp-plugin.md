@@ -92,9 +92,10 @@ Let's confirm the plugin is loaded and working.
 wp-env start
 ```
 <!-- 
-This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to https://localhost:8888/wp-admin/ and login, the default username is "admin" and password is "password", no quotes.
+This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to http://localhost:8888/wp-admin/ and login, the default username is "admin" and password is "password", no quotes.
  -->
-ローカルで WordPress を起動し、カレントディレクトリをプラグインディレクトリとして使用します。ブラウザから [https://localhost:8888/wp-admin/] にアクセスしてログインします。デフォルトユーザー名は「admin」、パスワードは「password」です。
+ローカルで WordPress を起動し、カレントディレクトリをプラグインディレクトリとして使用します。ブラウザから http://localhost:8888/wp-admin/ にアクセスしてログインします。デフォルトユーザー名は「admin」、パスワードは「password」です。
+
 
 <!-- 
 ### Confirm Plugin Installed

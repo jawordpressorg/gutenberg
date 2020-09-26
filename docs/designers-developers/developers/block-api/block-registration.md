@@ -454,6 +454,17 @@ variations: [
 ],
 ```
 <!-- 
+#### supports (optional)
+-->
+#### supports (オプション)
+
+-   ***Type:*** `Object`
+<!--
+Supports contains as set of options to control features used in the editor. See the [the supports documentation](/docs/designers-developers/developers/block-api/block-supports.md) for more details.
+ -->
+`supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-supports/) を参照してください。
+
+<!-- 
 #### transforms (optional)
  -->
 #### transforms (オプション)
@@ -488,191 +499,7 @@ parent: [ 'core/columns' ],
 // ブロックは Columns ブロックにネストする場合のみ利用可能
 parent: [ 'core/columns' ],
 ```
-<!-- 
-#### supports (optional)
- -->
-#### supports (オプション)
 
-<!-- 
-_Some [block supports](#supports-optional) — for example, `anchor` or `className` — apply their attributes by adding additional props on the element returned by `save`. This will work automatically for default HTML tag elements (`div`, etc). However, if the return value of your `save` is a custom component element, you will need to ensure that your custom component handles these props in order for the attributes to be persisted._
- -->
-_`anchor` や `className` などいくつかの [ブロックサポート](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-registration.md#supports-optional) は、`save` から返される要素に追加の props を加えて属性を適用します。 `div` などのデフォルトの HTML タグ要素であればこれは自動的に動作します。しかし `save` の戻り値がカスタムコンポーネント要素の場合、属性が永続化されるようカスタムコンポーネントがこれらの props を処理する必要があります。_
-
--   **Type:** `Object`
-<!-- 
-Optional block extended support features. The following options are supported:
-
--   `align` (default `false`): This property adds block controls which allow to change block's alignment. _Important: It doesn't work with dynamic blocks yet._
-
-```js
-// Add the support for block's alignment (left, center, right, wide, full).
-align: true,
-// Pick which alignment options to display.
-align: [ 'left', 'right', 'full' ],
-```
- -->
-オプションのブロック拡張サポート機能。次のオプションがサポートされます。
-
--   `align` (デフォルト `false`): このプロパティはブロックの配置を変更するブロックコントロールを追加する。_重要: ダイナミックブロックとは、まだ、動作しない。_
-
-```js
-// ブロックの配置のサポートを追加 (left (左寄せ), center (中央寄せ), right (右寄せ), wide (幅広), full (全幅)).
-align: true,
-// どの配置オプションを表示するかを選択
-align: [ 'left', 'right', 'full' ],
-```
-<!-- 
-When supports align is used the block attributes definition is extended to include an align attribute with a string type.
-By default, no alignment is assigned to the block.
-The block can apply a default alignment by specifying its own align attribute with a default e.g.:
- -->
-`align` サポートを使用するとブロック属性定義が拡張され、string タイプの align 属性が含まれます。
-デフォルトではブロックに配置は割り当てられません。
-ブロックにデフォルトの配置を適用するには、デフォルト値と共に align 属性を指定します。たとえば
-
-```
-attributes: {
-	...
-	align: {
-		type: 'string',
-		default: 'right'
-	},
-	...
-}
-```
-
-<!-- 
--   `alignWide` (default `true`): This property allows to enable [wide alignment](/docs/designers-developers/developers/themes/theme-support.md#wide-alignment) for your theme. To disable this behavior for a single block, set this flag to `false`.
-
-```js
-// Remove the support for wide alignment.
-alignWide: false,
-```
- -->
--   `alignWide` (デフォルト `true`): このプロパティを使用するとテーマの [幅広揃え](/docs/designers-developers/developers/themes/theme-support.md#wide-alignment) を有効化できます。単一ブロックに対してこの機能を無効化するにはこのフラグに `false` を設定してください。
-
-```js
-// 幅広揃えサポートを除去
-alignWide: false,
-```
-
-<!-- 
--   `defaultStylePicker` (default `true`): When the style picker is shown, a dropdown is displayed so the user can select a default style for this block type. If you prefer not to show the dropdown, set this property to `false`.
-
-```js
-// Remove the Default Style picker.
-defaultStylePicker: false,
-```
- -->
--   `defaultStylePicker` (デフォルト `true`): スタイルピッカーの表示の際、ユーザーがブロックタイプのデフォルトスタイルを選択できるようドロップダウンが表示されます。ドロップダウンを表示したくない場合にはこのプロパティを `false` に設定してください。
-
-```js
-// デフォルトのスタイルピッカーを除去
-defaultStylePicker: false,
-```
-
-<!-- 
--   `anchor` (default `false`): Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link.
-
-```js
-// Add the support for an anchor link.
-anchor: true,
-```
- -->
--   `anchor` (デフォルト `false`): アンカーを使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドとダイレクトリンクをコピーするボタンをを追加します。
-
-```js
-// アンカーリンクサポートを追加
-anchor: true,
-```
-
-<!-- 
--   `customClassName` (default `true`): This property adds a field to define a custom className for the block's wrapper.
-
-```js
-// Remove the support for the custom className.
-customClassName: false,
-```
- -->
--   `customClassName` (デフォルト `true`): このプロパティはブロックのラッパーのカスタム classsName を定義するフィールドを追加します。
-
-```js
-// カスタム className サポートを除去
-customClassName: false,
-```
-<!-- 
--   `className` (default `true`): By default, the class `.wp-block-your-block-name` is added to the root element of your saved markup. This helps having a consistent mechanism for styling blocks that themes and plugins can rely on. If for whatever reason a class is not desired on the markup, this functionality can be disabled.
-
-```js
-// Remove the support for the generated className.
-className: false,
-```
- -->
--   `className` (デフォルト `true`): デフォルトでは保存したマークアップの root 要素にクラス `.wp-block-your-block-name` が追加されます。この結果、テーマやプラグインがブロックのスタイリングにあたって利用可能な一貫した機構が実現します。何らかの理由によりこのクラスをマークアップに負荷したくない場合、この機能を無効化できます。
-
-```js
-// className 生成サポートを除去
-className: false,
-```
-<!-- 
--   `html` (default `true`): By default, a block's markup can be edited individually. To disable this behavior, set `html` to `false`.
-
-```js
-// Remove support for an HTML mode.
-html: false,
-```
- -->
--   `html` (デフォルト `true`): デフォルトではブロックのマークアップは個別に編集できます。この動きを止めるには  `html` に  `false` を設定してください。
-
-```js
-// HTML モードサポートを除去
-html: false,
-```
-
-<!-- 
--   `inserter` (default `true`): By default, all blocks will appear in the inserter. To hide a block so that it can only be inserted programmatically, set `inserter` to `false`.
-
-```js
-// Hide this block from the inserter.
-inserter: false,
-```
- -->
--   `inserter` (デフォルト `true`): デフォルトではすべてのブロックはインサーターに表示されます。ブロックをインサーターには表示せず、プログラム的にのみ挿入可能にするには `inserter` に `false` を設定してください。
-
-```js
-// このブロックをインサーターに表示しない
-inserter: false,
-```
-<!-- 
--   `multiple` (default `true`): A non-multiple block can be inserted into each post, one time only. For example, the built-in 'More' block cannot be inserted again if it already exists in the post being edited. A non-multiple block's icon is automatically dimmed (unclickable) to prevent multiple instances.
-
-```js
-// Use the block just once per post
-multiple: false,
-```
- -->
--   `multiple` (デフォルト `true`): 非 multiple ブロックは各投稿に1回だけ挿入できます。たとえば組み込みの「続きを読む」ブロックは、編集中の投稿にすでに存在する場合は挿入できません。非 multiple ブロックのアイコンクリックできないよう自動的にグレイアウトされ、複数インスタンスの作成を回避します。
-
-```js
-// ブロックは投稿ごとに1度だけ使用できる
-multiple: false,
-```
-
-<!-- 
--   `reusable` (default `true`): A block may want to disable the ability of being converted into a reusable block.
-    By default all blocks can be converted to a reusable block. If supports reusable is set to false, the option to convert the block into a reusable block will not appear.
-
-```js
-// Don't allow the block to be converted into a reusable block.
-reusable: false,
-```
- -->
--   `reusable` (デフォルト `true`): ブロックを再利用可能なブロックに変換する機能を無効化したい場合があります。デフォルトではすべてのブロックは再利用可能ブロックに変換できます。reusable サポートを false に設定すると、再利用可能ブロックするに変換するオプションが表示されません。
-
-```js
-// 再利用可能ブロックへの変換を許可しない
-reusable: false,
-```
 <!-- 
 ## Block Collections
  -->
