@@ -84,8 +84,10 @@ registerBlockType('my-plugin/record-title', {
 Once a block has defined the context it seeks to inherit, this can be accessed in the implementation of `edit` (JavaScript) and `render_callback` (PHP). It is provided as an object (JavaScript) or associative array (PHP) of the context values which have been defined for the block. Note that a context value will only be made available if the block explicitly defines a desire to inherit that value.
  -->
 ブロックが継承するコンテキストを定義すると、`edit` (JavaScript) や `render_callback` (PHP) の実装の中でアクセスできます。コンテキストは、ブロックで定義されたコンテキスト値のオブジェクト (JavaScript) または連想配列 (PHP) として提供されます。注意: コンテキスト値は、ブロックが値の継承の意志を明示的に定義した場合にのみ利用可能です。
-
+<!-- 
 Note: Block Context is not available to `save`.
+ -->
+注意: ブロックコンテキストは `save` で利用できません。
 
 ### JavaScript
 
