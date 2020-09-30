@@ -6,12 +6,12 @@
 <!-- 
 Block context is a feature which enables ancestor blocks to provide values which can be consumed by descendent blocks within its own hierarchy. Those descendent blocks can inherit these values without resorting to hard-coded values and without an explicit awareness of the block which provides those values.
  -->
-ブロックは「ブロックコンテキスト」を使用すると継承先のブロックでも消費可能な値を提供できます。子や孫のブロックはハードコードされた値に依存せず、また明示的に提供元のブロックを知ることなく値を継承できます。
+ブロックは「ブロックコンテキスト」を使用して、継承先のブロックでも消費可能な値を提供できます。子や孫のブロックは、ハードコードされた値に依存せず、また明示的に提供元のブロックを知ることなく値を継承できます。
 
 <!-- 
 This is especially useful in full-site editing where, for example, the contents of a block may depend on the context of the post in which it is displayed. A blogroll template may show excerpts of many different posts. Using block context, there can still be one single "Post Excerpt" block which displays the contents of the post based on an inherited post ID.
  -->
-この機能は「フルサイト編集」で特に有用です。たとえば表示される投稿の種類によってブロックの内容が変わる場合があります。ブログ用のテンプレートであれば多くの異なる投稿の抜粋を表示するでしょう。ブロックコンテキストを使用すると単一の「投稿抜粋」ブロックで、継承した投稿 ID を基に投稿のコンテンツを表示できます。
+この機能は特に「フルサイト編集」で有用です。たとえば表示される投稿の種類によってブロックの内容を変える場合があります。ブログ用のテンプレートであれば多くの異なる投稿の抜粋を表示します。ブロックコンテキストを使用すると、単一の「投稿抜粋」ブロックで、継承した投稿 ID を基に投稿のコンテンツを表示できます。
 
 <!-- 
 If you are familiar with [React Context](https://reactjs.org/docs/context.html), block context adopts many of the same ideas. In fact, the client-side block editor implementation of block context is a very simple application of React Context. Block context is also supported in server-side `render_callback` implementations, demonstrated in the examples below.
