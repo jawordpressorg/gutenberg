@@ -28,7 +28,6 @@ The local environment will be available at http://localhost:8888 (Username: `adm
 
 `wp-env` requires Docker to be installed. There are instructions available for installing Docker on [Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/), [all other versions of Windows](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script).
 
-After confirming that Docker is installed, you can install `wp-env` globally like so:
 Node.js and NPM are required. The latest LTS version of Node.js is used to develop `wp-env` and is recommended.
  -->
 http://localhost:8888 (ユーザー名: `admin`、パスワード: `password`) でローカル環境が利用できます。
@@ -87,10 +86,17 @@ When installing `wp-env` in this way, all `wp-env` commands detailed in these do
  -->
 この方法で `wp-env` をインストールした場合、この文書で説明するすべての `wp-env` コマンドの前に `npm run` を追加してください。たとえば
 
+<!-- 
 ```sh
 # You must add another dash to pass the "update" flag to wp-env
 $ npm run wp-env start -- --update
 ```
+ -->
+```sh
+# wp-env に "update" を渡すには別のダッシュ(-)を追加する必要があります。
+$ npm run wp-env start -- --update
+```
+
 <!-- 
 instead of:
  -->
@@ -280,6 +286,33 @@ To nuke everything:
 $ wp-env destroy
 $ wp-env start
 ```
+<!-- 
+### 7. Debug mode and inspecting the generated dockerfile.
+ -->
+### 7. デバッグモードと生成された docker ファイルの確認
+<!-- 
+`wp-env` uses docker behind the scenes. Inspecting the generated docker-compose file can help to understand what's going on.
+
+Start `wp-env` in debug mode
+ -->
+`wp-env` は裏側で docker を使用しています。生成された docker-compose ファイルを調べると何が起きているかを理解できます。
+
+`wp-env` をデバッグモードで開始します。
+
+```sh
+wp-env start --debug
+```
+<!-- 
+`wp-env` will output its config which includes `dockerComposeConfigPath`. 
+ -->
+`wp-env` `dockerComposeConfigPath` を含む構成情報を出力します。 
+
+```sh
+ℹ Config:
+	...
+	"dockerComposeConfigPath": "/Users/$USERNAME/.wp-env/5a619d332a92377cd89feb339c67b833/docker-compose.yml",
+	...
+```
 
 <!-- 
 ## Command reference
@@ -315,17 +348,18 @@ Options:
 ```
  -->
 ```sh
-wp-env start [ref]
+wp-env start
 
 WordPress 開発環境をポート 8888 (​http://localhost:8888​) で (ポートは WP_ENV_PORT で指定可)、
 テスト環境を 8889 (​http://localhost:8889​) で (ポートは WP_ENV_TESTS_PORT で指定可) 開始します。
 コマンドは WordPress インストールディレクトリー、プラグインやテーマのディレクトリー、
-または .wp-env.json ファイルのあるディレクトリーで実行する必要があります。
-
+または .wp-env.json ファイルのあるディレクトリーで実行する必要があります。最初のインストール後、
+'--update' フラグを使用して更新をマップされたソースにダウンロードし、WordPress 構成オプションに
+再適用します。
 
 引数:
-  ref  git リポジトリー `https://github.com/WordPress/WordPress` のブランチ、またはコミット
-       特定のバージョンを指定できる                 [string] [デフォルト: "master"]
+  --update   ソースの更新をダウンロードし、WordPress 構成に適用する
+                                                      [boolean] [デフォルト: false]
 ```
 
 <!-- 
@@ -400,11 +434,17 @@ For example:
 wp-env run <container> [command..]
 
 動作している Docker コンテナの任意のコマンドを実行します。たとえば wp cli コマンドを実行する際に便利です。
-
+また bash のようなシェルセッションや、WordPress インスタンス内の WordPress シェルを開くためにも
+使用できます。たとえば `wp-env run cli bash` は開発 WordPress インスタンス内で bash を開きます。
 
 引数:
   container  コマンドを実行するコンテナ        [string] [必須]
   command    実行するコマンド                [array] [デフォルト: []]
+
+オプション:
+  --help     ヘルプの表示                                              [boolean]
+  --version  バージョン番号の表示                                       [boolean]
+  --debug    デバッグ出力の有効化                     [boolean] [でファルト: false]
 ```
 
 例:
@@ -445,7 +485,8 @@ networks associated with the WordPress environment and removes local files.
 ```sh
 wp-env destroy
 
-WordPress 環境を破壊します。Docker コンテナを削除し、ローカルファイルを削除します。
+WordPress 環境を破壊します。WordPress 環境と関連する Docker コンテナ、ボリューム、
+ネットワークを削除し、ローカルファイルを削除します。
 ```
 <!-- 
 ### `wp-env logs [environment]`
@@ -542,8 +583,13 @@ _注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TEST
 
 <!-- 
 Remote sources will be downloaded into a temporary directory located in `~/.wp-env`.
+ -->
+リモートのソースは `~/.wp-env` 内の一時ディレクトリーにダウンロードされます。
 
+<!-- 
 Additionally, the key `env` is available to override any of the above options on an individual-environment basis. For example, take the following `.wp-env.json` file:
+ -->
+さらにキー `env` は上の任意のオプションを個々の環境ごとに上書きできます。たとえば次の `.wp-env.json` ファイルでは
 
 ```json
 {
@@ -565,20 +611,35 @@ Additionally, the key `env` is available to override any of the above options on
 	}
 }
 ```
-
+<!-- 
 On the development instance, `cwd` will be mapped as a plugin, `one-theme` will be mapped as a theme, KEY_1 will be set to true, and KEY_2 will be set to false. Also note that the default port, 8888, will be used as well.
+ -->
+development インスタンスでは、`cwd` がプラグインに、`one-theme` がテーマにマップされ、KEY_1 が true に、KEY_2 が false に設定されます。デフォルトのポートは引き続き 8888 が使用されます。
 
+<!-- 
 On the tests instance, `cwd` is still mapped as a plugin, but no theme is mapped. Additionaly, while KEY_2 is still set to false, KEY_1 is overriden and set to false. 3000 overrides the default port as well.
 
 This gives you a lot of power to change the options appliciable to each environment.
+ -->
+tests インスタンスでは、`cwd` がプラグインマップされますがテーマのマップはありません。また KEY_2 は false のままですが、KEY_1 は false で、デフォルトのポートは 3000 で上書きされます。
+
+この強力な機能により環境ごとにオプションを変更できます。
 
 ## .wp-env.override.json
-
+<!-- 
 Any fields here will take precedence over .wp-env.json. This file is useful when ignored from version control, to persist local development overrides. Note that options like `plugins` and `themes` are not merged. As a result, if you set `plugins` in your override file, this will override all of the plugins listed in the base-level config. The only keys which are merged are `config` and `mappings`. This means that you can set your own wp-config values without losing any of the default values.
+ -->
+このファイルのフィールド値は、.wp-env.json の値よりも優先されます。このファイルをバージョンコントロールの対象外とすると、常に希望のローカル環境で上書きできて便利です。注意: `plugins` や `themes` などのオプションはマージされません。結果として .wp-env.override.json ファイル内で `plugins` を設定すると、ベースレベルの構成でリストされたすべてのプラウグインを上書きします。マージされるキーは `config` と `mappings` のみです。すなわちデフォルト値を失うこと無く自身の wp-config 値を設定できます。
 
+<!-- 
 ## Default wp-config values.
+ -->
+## デフォルト wp-config 値
 
+<!-- 
 On the development instance, these wp-config values are defined by default:
+ -->
+development インスタンスでは次の wp-config 値がデフォルトとして定義されます。
 
 ```
 WP_DEBUG: true,
@@ -590,23 +651,22 @@ WP_TESTS_DOMAIN: 'http://localhost',
 WP_SITEURL: 'http://localhost',
 WP_HOME: 'http://localhost',
 ```
-
+<!-- 
 On the test instance, all of the above are still defined, but `WP_DEBUG` and `SCRIPT_DEBUG` are set to false.
 
 Additionally, the values referencing a URL include the specified port for the given environment. So if you set `testsPort: 3000, port: 2000`, `WP_HOME` (for example) will be `http://localhost:3000` on the tests instance and `http://localhost:2000` on the development instance.
+ -->
+tests インスタンスでは同じすべての値が定義されますが、`WP_DEBUG` と `SCRIPT_DEBUG` は false に設定されます。
 
+また URL を参照する値には環境で指定されたポート番号が含まれます。たとえば `testsPort: 3000, port: 2000` を設定すると、`WP_HOME` は tests インスタンスでは `http://localhost:3000`、development インスタンスでは `http://localhost:2000` になります。
+
+<!-- 
 ### Examples
 
 #### Latest production WordPress + current directory as a plugin
 
 This is useful for plugin development.
  -->
-リモートのソースは `~/.wp-env` の一時ディレクトリーにダウンロードされます。
-
-## .wp-env.override.json
-
-このファイルのフィールド値は、.wp-env.json の値を上書きします。このファイルをバージョンコントロールの対象外とすると、常に希望のローカル環境で上書きできて便利です。
-
 ### 例
 
 #### 最新のリリース版 WordPress + 現行ディレクトリーのプラグインをインストールし有効化

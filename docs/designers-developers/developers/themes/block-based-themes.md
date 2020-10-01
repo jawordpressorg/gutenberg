@@ -40,6 +40,7 @@ A very simple block-based theme is structured like so:
 ```
 theme
 |__ style.css
+|__ experimental-theme.json
 |__ functions.php
 |__ block-templates
     |__ index.html
@@ -52,10 +53,11 @@ theme
     |__ sidebar.html
     |__ ...
 ```
+
 <!-- 
-The difference with existing WordPress themes is that the different templates in the template hierarchy, and template parts, are block templates instead of php files.
+The difference with existing WordPress themes is that the different templates in the template hierarchy, and template parts, are block templates instead of php files. In addition, this example includes an [`experimental-theme.json`](/docs/designers-developers/developers/themes/theme-json.md) file for some styles.  
  -->
-既存の WordPress テーマとの違いは、テンプレート階層内の異なるテンプレート、およびテンプレートパーツがこれまでの PHP ファイルでなく、「ブロックテンプレート」である点です。
+既存の WordPress テーマとの違いは、テンプレート階層内の異なるテンプレート、およびテンプレートパーツがこれまでの PHP ファイルでなく、「ブロックテンプレート」である点です。更にこの例ではいくつかのスタイルのために [`experimental-theme.json`](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-json/) ファイルが含まれています。
 
 <!-- 
 ## What is a block template?
@@ -197,12 +199,16 @@ As we're still early in the process, the number of blocks specifically dedicated
 - Post Title
 - Post Content
 - Post Author
+- Post Comment
+- Post Comment Author
+- Post Comment Date
 - Post Comments
-- Post CommentsCount
-- Post CommentsForm
+- Post Comments Count
+- Post Comments Form
 - Post Date
 - Post Excerpt
 - Post Featured Image
+- Post Hierarchical Terms
 - Post Tags
 
 <!-- 
@@ -211,9 +217,9 @@ As we're still early in the process, the number of blocks specifically dedicated
 ## スタイリング
 
 <!-- 
-One of the most important aspects of themes (if not the most important) is the styling. While initially you'll be able to provide styles and enqueue them using the same hooks themes have always used, this is an area that is still [being explored](https://github.com/WordPress/gutenberg/issues/9534).
+One of the most important aspects of themes (if not the most important) is the styling. While initially you'll be able to provide styles and enqueue them using the same hooks themes have always used, the [Global Styles](/docs/designers-developers/developers/themes/theme-json.md) effort will provide a scaffolding for adding many theme styles in the future. 
  -->
-テーマのもっとも重要、あるいは重要な要素の1つは、スタイリングです。当面はスタイルを準備し、テーマが通常行うのと同じフックを使用してエンキューできるようになります。この部分は現在も[調査中](https://github.com/WordPress/gutenberg/issues/9534)です。
+テーマのもっとも重要、あるいは重要な要素の1つはスタイリングです。当面はスタイルを準備し、テーマが通常行うのと同じフックを使用してエンキューできますが、将来的には開発中の「[グローバルスタイル](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-json/)」で多くのテーマスタイルを追加するひな形が提供されます。
 
 <!--
 ## Resources
