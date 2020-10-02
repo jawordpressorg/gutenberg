@@ -348,9 +348,10 @@ experimental-theme.json ファイルに次のグローバルプリセットを�
 					"slug": "large",
 					"value": "2.5"
 				}
-			],
-		},
-	},
+			]
+		}
+	}
+}
 ```
 <!-- 
 This code generates the following variables:
