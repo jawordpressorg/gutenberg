@@ -6,7 +6,7 @@
 <!-- 
 Block Transforms is the API that allows a block to be transformed _from_ and _to_ other blocks, as well as _from_ other entities. Existing entities that work with this API include shortcodes, files, regular expressions, and raw DOM nodes.
  -->
-「ブロック変換 (Block Transforms)」はあるブロックを別のブロックに変換したり、他のエンティティからブロックに変換する API です。この API を適用できる既存エンティティにはショートコード、ファイル、正規表現、生の DOM ノードがあります。
+「ブロック変換 (Block Transforms)」API はあるブロックを別のブロックに変換したり、エンティティからブロックに変換します。この API が動作する既存エンティティにはショートコード、ファイル、正規表現、生の DOM ノードがあります。
 
 <!-- 
 ## Transform direction: `to` and `from`
@@ -15,7 +15,7 @@ Block Transforms is the API that allows a block to be transformed _from_ and _to
 <!-- 
 A block declares which transformations it supports via the optional `transforms` key of the block configuration, whose subkeys `to` and `from` hold an array of available transforms for every direction. Example:
  -->
-A block declares which transformations it supports via the optional `transforms` key of the block configuration, whose subkeys `to` and `from` hold an array of available transforms for every direction. Example:
+ブロックはブロック構成の `transforms` オプションキーを使用してどの方向の変換をサポートするかを宣言します。そのサブキー `to` と `from` にはすべての方向に対して利用可能な変換の配列を指定します。例:
 
 ```js
 export const settings = {
@@ -31,11 +31,11 @@ export const settings = {
 <!-- 
 ## Transformations Types
  -->
-## Transformations Types
+## 変換タイプ
 <!-- 
 This section goes through the existing types of transformations blocks support:
  -->
-This section goes through the existing types of transformations blocks support:
+このセクションではブロックがサポートする既存の変換タイプを説明します。
 
 * block
 * enter
@@ -43,18 +43,19 @@ This section goes through the existing types of transformations blocks support:
 * prefix
 * raw
 * shortcode
+
 <!-- 
 ### Block
  -->
-### Block
+### block
 <!-- 
 This type of transformations support both _from_ and _to_ directions, allowing blocks to be converted into a different one. It has a corresponding UI control within the block toolbar.
 
 A transformation of type `block` is an object that takes the following parameters:
  -->
-This type of transformations support both _from_ and _to_ directions, allowing blocks to be converted into a different one. It has a corresponding UI control within the block toolbar.
+この変換タイプは _from_ と _to_ の両方の方向をサポートし、ブロックは異なるブロックに変換できます。ブロックツールバー内に関連する UI コントロールを持ちます。
 
-A transformation of type `block` is an object that takes the following parameters:
+変換タイプ `block` は次のパラメータを取るオブジェクトです。
 <!-- 
 - **type** _(string)_: the value `block`.
 - **blocks** _(array)_: a list of known block types. It also accepts the wildcard value (`"*"`), meaning that the transform is available to _all_ block types (eg: all blocks can transform into `core/group`).
