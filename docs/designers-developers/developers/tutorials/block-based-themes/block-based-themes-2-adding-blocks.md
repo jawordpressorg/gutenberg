@@ -22,8 +22,7 @@ There is more than one way to add blocks to the theme files:
  -->
 ## サイトエディターでのブロックとテンプレートの操作
 <!-- 
-The beta site editor is available from the WordPress admin area when full site editing is enabled.
-To use the site editor, a full site editing theme must be installed and active.
+The beta site editor is available from the WordPress admin area when full site editing is enabled. To use the site editor, a full site editing theme must be installed and active.
 
 The site editor is similar to the block editor, but is used for the site layout instead of the post and page content.
  -->
@@ -62,30 +61,22 @@ Template parts can be selected and edited directly in the site editor, like othe
 ![選択したテンプレートパーツはハイライト表示されます。選択するとブロックツールバーには限定された配置コントロールが表示されます。](https://wordpress.org/gutenberg/files/2020/07/block-based-themes-editor-template-part.png)
 
 <!-- 
-Select the header template part in the menu to view and edit it individually.
-Add the blocks that you would like in your header, for example a site title block, a navigation block, and an image.
+Select the header template part in the menu to view and edit it individually. Add the blocks that you would like in your header, for example a site title block, a navigation block, and an image.
  -->
-メニューでヘッダーテンプレートパーツを選択して表示し、個別に編集します。
-ヘッダーに表示するブロック、たとえばサイトタイトルブロック、ナビゲーションブロックを追加してください。
+メニューでヘッダーテンプレートパーツを選択して表示し、個別に編集します。ヘッダーに表示するブロック、たとえばサイトタイトルブロック、ナビゲーションブロックを追加してください。
 
 <!-- 
 Next, select the footer template part and add some content, for example widget blocks.
 
 Select the index template again to view the template parts together in the page context.
 
-To add a post loop to the index template, add a **query** block.
-The query block includes the query loop and the query pagination.
-The default loop displays the post title and post content.
-The query loop and query pagination are also available as individual blocks.
+To add a post loop to the index template, add a **query** block. The query block includes the query loop and the query pagination. The default loop displays the post title and post content. The query loop and query pagination are also available as individual blocks.
  -->
 次にフッターテンプレートパーツを選択し、ウィジェットブロックなどのコンテンツを追加します。
 
 再度 index テンプレートを選択すると、ページ内ですべてのテンプレートパーツが一緒に表示されます。
 
-index テンプレートに投稿ループを追加するには、**query** ブロックを追加してください。
-query ブロックには query ループと query ページネーションが含まれます。
-デフォルトのループは投稿のタイトルとコンテンツを表示します。
-query ループと query ページネーションは個別のブロックとしても利用可能です。
+index テンプレートに投稿ループを追加するには、**query** ブロックを追加してください。query ブロックには query ループと query ページネーションが含まれます。デフォルトのループは投稿のタイトルとコンテンツを表示します。query ループと query ページネーションは個別のブロックとしても利用可能です。
 
 <!-- 
 ## Saving templates and template parts
@@ -108,11 +99,9 @@ Select the templates and template parts that you want to save:
 ![「保存」メニューはテンプレートとテンプレートパーツのリストをチェックボックス付きで表示します](https://wordpress.org/gutenberg/files/2020/07/block-based-themes-save.png)
 
 <!-- 
-When you save changes in the site editor, the files in the active theme are not updated.
-Instead, the templates and template parts are saved as custom post types, that are accessed via the appearance menu.
+When you save changes in the site editor, the files in the active theme are not updated. Instead, the templates and template parts are saved as custom post types, that are accessed via the appearance menu.
  -->
-サイトエディターで変更を保存しても、現在有効なテーマのファイルは更新されません。
-代わりにテンプレートとテンプレートパーツはカスタム投稿タイプとして保存され、「外観」メニューからアクセスできます。
+サイトエディターで変更を保存しても、現在有効なテーマのファイルは更新されません。代わりにテンプレートとテンプレートパーツはカスタム投稿タイプとして保存され、「外観」メニューからアクセスできます。
 
 <!-- 
 ![The template parts view in the admin area displays a list of all saved template parts](https://wordpress.org/gutenberg/files/2020/07/block-based-themes-appearance-template-parts.png)
@@ -125,8 +114,7 @@ Instead, the templates and template parts are saved as custom post types, that a
 ## 変更のエクスポート
 
 <!-- 
-Saved templates and template parts can be exported as a partial theme from the Tools menu in the site editor.
-The block HTML code can then be copied to the theme that you are editing.
+Saved templates and template parts can be exported as a partial theme from the Tools menu in the site editor. The block HTML code can then be copied to the theme that you are editing.
  -->
 保存されたテンプレートとテンプレーtパーツはサイトエディターの「ツール」メニューから部分テーマとしてエクスポートできます。次に、ブロック HTML コードを編集するテーマにコピーできます。
 

@@ -14,14 +14,19 @@ how to add presets for global styles, and how to add blocks and export the templ
 このチュートリアルでは、ブロックベーステーマに必要なファイルの一覧、テンプレートとテンプレートパーツの組み合わせ、グローバルスタイルへのプリセットの追加、サイトエディターでのブロックの追加とテンプレートのエクスポートについて学びます。
 <!-- 
 Full site editing is an experimental feature and the workflow in this tutorial is likely to change.
-This tutorial was written for Gutenberg version 8.5.
  -->
-「フルサイト編集」は実験中の機能のため、以下の手順も変わる可能性があります。このチュートリアルは Gutenberg Version 8.5 をベースに書かれています。
+「フルサイト編集」は実験中の機能のため、以下の手順も変わる可能性があります。
+
+<!-- 
+This tutorial is up to date as of Gutenberg version 9.1.
+ -->
+このチュートリアルは Gutenberg Version 9.1 時点の最新です。
 
 <!-- 
 ## Table of Contents
  -->
 ## 目次
+
 <!-- 
  1. [What is needed to create a block-based theme?](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#what-is-needed-to-create-a-block-based-theme)
  2. [Creating the theme](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#creating-the-theme)
@@ -41,44 +46,39 @@ This tutorial was written for Gutenberg version 8.5.
 ## ブロックベーステーマを作成するには何が必要か ?
 <!-- 
 To use a block based theme you need to have Gutenberg installed and full site editing must be enabled.
+
 Full site editing can be enabled from the Gutenberg experiments menu in the WordPress admin area.
  -->
 ブロックベーステーマを使用するには Gutenberg をインストールし、「フルサイト編集」を有効化する必要があります。「フルサイト編集」は WordPress 管理画面の「Gutenberg」->「実験中」メニューから有効化できます。
 
 <!-- 
-A block-based theme is built using HTML templates and template parts.
-Templates are the main files used in the [template hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/), 
-for example index, single or archive.
-Templates can optionally include structural template parts, for example a header, footer or sidebar.
+A block-based theme is built using HTML templates and template parts. Templates are the main files used in the [template hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/), for example index, single or archive. Templates can optionally include structural template parts, for example a header, footer or sidebar.
  -->
-ブロックベーステーマは HTML テンプレートとテンプレートパーツから構成されています。
-テンプレートは[テンプレート階層](https://developer.wordpress.org/themes/basics/template-hierarchy/)内で使用されるメインのファイルで、たとえば index、single、archive などがあります。
-テンプレートはオプションで、ヘッダー、フッター、サイドバーなどの構造化テンプレートパーツを含むことができます。
+ブロックベーステーマは HTML テンプレートとテンプレートパーツから構成されています。テンプレートは[テンプレート階層](https://developer.wordpress.org/themes/basics/template-hierarchy/)内で使用されるメインのファイルで、たとえば index、single、archive などがあります。テンプレートはオプションで、ヘッダー、フッター、サイドバーなどの構造化テンプレートパーツを含むことができます。
 
 <!-- 
-Each template or template part contains the [block grammar](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks), the HTML, for the selected blocks.
-The block HTML is generated in and exported from the **site editor**. It can also be added to the theme's HTML files manually.
+Each template or template part contains the [block grammar](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks), the HTML, for the selected blocks. The block HTML is generated in and exported from the **site editor**. It can also be added to the theme's HTML files manually.
  -->
-各テンプレート、テンプレートパーツは、選択したブロックの HTML、[ブロック文法](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks)を含みます。
-ブロック HTML は **サイトエディター** で生成し、エクスポートします。手動でテーマの HTML ファイルに追加することもできます。
+各テンプレート、テンプレートパーツは、選択したブロックの HTML、[ブロック文法](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks)を含みます。ブロック HTML は **サイトエディター** で生成し、エクスポートします。手動でテーマの HTML ファイルに追加することもできます。
 
 <!-- 
 ### Required files and file structure
  -->
 ### 必要なファイルとファイル構造
+
 <!-- 
-A block based theme requires an index.php file, an index template file, a style.css file, and a functions.php file.
-
-The theme may optionally include an experimental-theme.json file to manage global styles.
-You decide what additional templates and template parts to include in your theme.
-
-Templates are placed inside the block-templates folder, 
-and template parts are placed inside the block-template-parts folder:
+A block based theme requires an `index.php` file, an index template file, a `style.css` file, and a `functions.php` file.
  -->
-ブロックベーステーマには index テンプレートファイルの index.php ファイル、スタイル用 style.css ファイル、functions.php ファイルが必要です。
+ブロックベーステーマには index テンプレートファイルの `index.php` ファイル、スタイル用 `style.css` ファイル、`functions.php` ファイルが必要です。
 
+<!-- 
+The theme may optionally include an [experimental-theme.json file](/docs/designers-developers/developers/themes/theme-json.md) to manage global styles. You decide what additional templates and template parts to include in your theme.
+ -->
 テーマはグローバルなスタイルを管理する experimental-theme.json ファイルをオプションで含むこともできます。さらにテーマには追加のテンプレートやテンプレートパーツを含めることができます。
 
+<!-- 
+Templates are placed inside the block-templates folder, and template parts are placed inside the block-template-parts folder:
+ -->
 テンプレートは block-templates フォルダー内に、テンプレートパーツは block-template-parts フォルダー内に配置します。
 
 ```
@@ -98,23 +98,24 @@ theme
 	|__ sidebar.html
 	|__ ...
 ```
+
 <!-- 
 ## Creating the theme
  -->
-
 ## テーマの作成
+
 <!-- 
-Create a new folder for your theme in /wp-content/themes/.
+Create a new folder for your theme in `/wp-content/themes/`.
 Inside this folder, create the block-templates and block-template-parts folders.
-
-Create a style.css file.
-The file header in the style.css file has the same items that you would use in a traditional theme.
-https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/#explanations
  -->
-/wp-content/themes/ 下にテーマ用の新しいフォルダーを作成してください。フォルダーの中に block-templates フォルダーと block-template-parts フォルダーを作成します。
+`/wp-content/themes/` 下にテーマ用の新しいフォルダーを作成してください。
+フォルダーの中に block-templates フォルダーと block-template-parts フォルダーを作成します。
 
-style.css ファイルを作成してください。style.css ファイルのヘッダーには通常のテーマと同じ要素を記述します。
-https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/#explanations
+<!-- 
+Create a `style.css` file. The file header in the `style.css` file has [the same items that you would use in a traditional theme](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/#explanations).
+ -->
+`style.css` ファイルを作成してください。style.css ファイルのヘッダーには[通常のテーマと同じ要素を記述します](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/#explanations)。
+
 
 ```
 /*
@@ -137,23 +138,23 @@ Use it to make something cool, have fun, and share what you've learned with othe
 */
 ```
 <!-- 
-Create a functions.php file.
-
-In this file, you will enqueue the style.css file and add any theme support that you want to use.
-For example colors, wide blocks and featured images.
+Create a `functions.php` file.
  -->
-functions.php ファイルを作成してください。
-
-このファイルで style.css ファイルをエンキューし、色、幅広ブロック、アイキャッチ画像など使用したいテーマサポートを追加します。
+`functions.php` ファイルを作成してください。
 
 <!-- 
--You no longer need to add theme support for the title tag. It is already enabled with full site editing.
+In this file, you will enqueue the `style.css` file and add any theme support that you want to use. For example colors, wide blocks and featured images.
+ -->
+このファイルで `style.css` ファイルをエンキューし、色、幅広ブロック、アイキャッチ画像など使用したいテーマサポートを追加します。
+
+<!-- 
+_You no longer need to add theme support for the title tag. It is already enabled with full site editing._
 
 https://developer.wordpress.org/themes/basics/theme-functions/#what-is-functions-php
 
 https://developer.wordpress.org/block-editor/developers/themes/theme-support/
  -->
-- タイトルタグのテーマサポートの追加は不要です。すでにフルサイト編集では有効化されています。
+_タイトルタグのテーマサポートの追加は不要です。すでにフルサイト編集では有効化されています。_
 
 [What is functions.php?](https://developer.wordpress.org/themes/basics/theme-functions/#what-is-functions-php)
 
@@ -214,13 +215,13 @@ function myfirsttheme_scripts() {
 add_action( 'wp_enqueue_scripts', 'myfirsttheme_scripts' );
 ```
 <!-- 
-Create an index.php file.
+Create an `index.php` file.
 This file is used as a fallback if the theme is activated when full site editing is not enabled. 
 You may leave the file empty for this tutorial.
 
 Your theme should now include the following files and folders:
  -->
-index.php ファイルを作成してください。
+`index.php` ファイルを作成してください。
 このファイルはテーマは有効化されたものの、「フルサイト編集」が有効化されていない場合のフォールバックとして使用されます。このチュートリアルでは空のままで構いません。
 
 この段階でテーマには次のようなファイルとフォルダーがあります。
@@ -239,27 +240,27 @@ theme
 ### Creating the templates and template parts
  -->
 ### テンプレートとテンプレートパーツの作成
-<!-- 
-Create two template parts called footer.html and header.html and place them inside the block-template-parts folder.
-You can leave the files empty for now.
 
-Inside the block-templates folder, create an index.html file.
+<!-- 
+Create two template parts called `footer.html` and `header.html` and place them inside the block-template-parts folder. You can leave the files empty for now.
  -->
-2つのテンプレートパーツ footer.html、header.html を作成し、block-template-parts フォルダー内に保存してください。
+2つのテンプレートパーツ `footer.html`、`header.html` を作成し、block-template-parts フォルダー内に保存してください。
 ファイルの中身は空で構いません。
 
-block-templates フォルダー内に index.html ファイルを作成してください。
+<!-- 
+Inside the block-templates folder, create an `index.html` file.
+ -->
+block-templates フォルダー内に `index.html` ファイルを作成してください。
 
 <!-- 
-In index.html, include the template parts by adding two HTML comments.
-
-The HTML comments starts with `wp:template-part` which is the name of the template-part block type.
-Inside the curly brackets are two keys and their values: The slug of the template part, and the theme name.
+In `index.html`, include the template parts by adding two HTML comments.
  -->
-2つの HTML コメントを追加することで index.html にテンプレートパーツを含めます。
+2つの HTML コメントを追加することで `index.html` にテンプレートパーツを含めます。
 
-HTML コメントは `wp:template-part` で始めます。これは template-part ブロックタイプの名前です。
-中括弧の中には2つのキーと値、テンプレートパーツのスラッグとテーマ名を含めます。
+<!-- 
+The HTML comments starts with `wp:template-part` which is the name of the template-part block type. Inside the curly brackets are two keys and their values: The slug of the template part, and the theme name.
+ -->
+HTML コメントは `wp:template-part` で始めます。これは template-part ブロックタイプの名前です。中括弧の中には2つのキーと値、テンプレートパーツのスラッグとテーマ名を含めます。
 
 ```
 <!-- wp:template-part {"slug":"header","theme":"myfirsttheme"} /-->
@@ -281,9 +282,9 @@ Eventually, you will be able to create and combine templates and template parts 
 ### experimental-theme.json - グローバルスタイル
 
 <!-- 
-The purpose of the experimental-theme.json file is to make it easier to style blocks by setting defaults.
+The purpose of the `experimental-theme.json` file is to make it easier to style blocks by setting defaults.
  -->
-experimental-theme.json ファイルはブロックのスタイルにデフォルトを設定し、ブロックのスタイルを支援します。
+`experimental-theme.json` ファイルはブロックのスタイルにデフォルトを設定し、ブロックのスタイルを支援します。
 
 <!-- 
 It is used to:
@@ -299,56 +300,55 @@ experimental-theme.json ファイルを使用することで以下が可能で�
 <!-- 
 [The documentation for global styles contains a list of available block and style combinations.](https://developer.wordpress.org/block-editor/developers/themes/theme-json/)
 
-Create a file called experimental-theme.json and save it inside the main folder.
+Create a file called `experimental-theme.json` and save it inside the main folder.
  -->
 [グローバルスタイルのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-json/)には利用可能なスタイルとスタイルの組み合わせの一覧があります。
 
-メインのフォルダー内に experimental-theme.json ファイルを作成してください。
+メインのフォルダー内に `experimental-theme.json` ファイルを作成してください。
 
 <!-- 
-CSS variables are generated using **Global presets**.
-The variables are added to the `:root` on the front, and to the `.editor-styles-wrapper` class in the editor.
+CSS variables are generated using **Global presets**. The variables are added to the `:root` on the front, and to the `.editor-styles-wrapper` class in the editor.
  -->
-CSS 変数は **グローバルプリセット** を使用して生成されます。
-変数は、フロント表示時の `:root` と、エディター表示時の `.editor-styles-wrapper` クラスに追加されます。
+CSS 変数は **グローバルプリセット** を使用して生成されます。変数は、フロント表示時の `:root` と、エディター表示時の `.editor-styles-wrapper` クラスに追加されます。
 
 <!-- 
-Styles that are added to the themes style.css file or an editor style sheet are loaded after global styles.
+Styles that are added to the themes `style.css` file or an editor style sheet are loaded after global styles.
 
-Add the following global presets to the experimental-theme.json file:
+Add the following global presets to the `experimental-theme.json` file:
  -->
-テーマの style.css やエディターのスタイルシートに追加されたスタイルは、グローバルスタイルの後でロードされます。
+テーマの `style.css` やエディターのスタイルシートに追加されたスタイルは、グローバルスタイルの後でロードされます。
 
-experimental-theme.json ファイルに次のグローバルプリセットを追加してください。
+`experimental-theme.json` ファイルに次のグローバルプリセットを追加してください。
 
 ```
 {
 	"global": {
-		"presets": {
-			"color": [
-				{
-					"slug": "strong-magenta",
-					"value": "#a156b4"
-				},
-				{
-					"slug": "very-dark-gray",
-					"value": "#444"
-				},
-			],
-			"line-height": [
-				{
-					"slug": "small",
-					"value": "1.3"
-				},
-				{
-					"slug": "medium",
-					"value": "2"
-				},
-				{
-					"slug": "large",
-					"value": "2.5"
-				}
-			]
+		"setttings": {
+			"color": {
+				"palette": [
+					{
+						"slug": "strong-magenta",
+						"color": "#a156b4"
+					},
+					{
+						"slug": "very-dark-gray",
+						"color": "#444"
+					},
+				]
+			},
+			"custom": {
+				"line-height": [
+					{
+						"small": "1.3"
+					},
+					{
+						"medium": "2"
+					},
+					{
+						large": "2.5"
+					}
+				]
+			}
 		}
 	}
 }
@@ -362,9 +362,9 @@ This code generates the following variables:
 	--wp--preset--color--strong-magenta: #a156b4;
 	--wp--preset--color--very-dark-gray: #444;
 	
-	--wp--preset--line-height--small: 1.3;
-	--wp--preset--line-height--medium: 2;
-	--wp--preset--line-height--large: 2.5;
+	--wp--custom--line-height--small: 1.3;
+	--wp--custom--line-height--medium: 2;
+	--wp--custom--line-height--large: 2.5;
 ```
 <!-- 
 **Global styles** are used to set default values for the website and for the blocks.
@@ -411,13 +411,14 @@ Block styles are separate from global styles. Add the code after the globals, bu
 		},
 		"typography": {
 			"fontSize": "2.5rem",
-			"lineHeight": "var(--wp--preset--line-height--medium)"
+			"lineHeight": "var(--wp--custom--line-height--medium)"
 		}
 	}
 },
 ```
 <!-- 
 CSS variables for font sizes are generated using the `editor-font-sizes` theme support or by adding a global preset.
+
 https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes
  -->
 フォントサイズ用の CSS 変数は、`editor-font-sizes` テーマサポートを使用するか、グローバルプリセットに追加することで生成されます。
@@ -427,14 +428,12 @@ https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-supp
 If the theme does not add any custom font sizes, variables are created using the default sizes.
 This example adds the default medium font size to the paragraph block.
 
-The font sizes are unit less, which is why calc is used:
-https://developer.mozilla.org/en-US/docs/Web/CSS/calc
+The font sizes are unitless, which is why calc is used: https://developer.mozilla.org/en-US/docs/Web/CSS/calc
  -->
 テーマがカスタムフォントサイズを追加しない場合、変数はデフォルトサイズを使用して作成されます。
 この例では段落ブロックにデフォルトの medium フォントサイズを追加します。
 
-フォントサイズに単位は指定しません。calc が使用されるのはこのためです。
-https://developer.mozilla.org/en-US/docs/Web/CSS/calc
+フォントサイズに単位は指定しません。calc が使用されるのはこのためです。https://developer.mozilla.org/en-US/docs/Web/CSS/calc
 
 ```
 "core/paragraph": {
@@ -445,12 +444,11 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/calc
 	}
 },
 ```
+
 <!-- 
-Using the CSS variables is optional.
-In this example, the default background color for the group block is changed to white using a color code:
+Using the CSS variables is optional. In this example, the default background color for the group block is changed to white using a color code:
  -->
-CSS 変数の仕様はオプションです。
-この例ではグループブロックのデフォルトの背景色をカラーコードを使用して白に変更します。
+CSS 変数の仕様はオプションです。この例ではグループブロックのデフォルトの背景色をカラーコードを使用して白に変更します。
 
 ```
 "core/group": {
@@ -469,35 +467,31 @@ Below are the presets and styles combined:
 ```
 {
 	"global": {
-		"presets": {
-			"color": [
-				{
-					"slug": "strong-magenta",
-					"value": "#a156b4"
-				},
-				{
-					"slug": "very-dark-gray",
-					"value": "#444"
-				}
-			],
-			"line-height": [
-				{
-					"slug": "small",
-					"value": "1.3"
-				},
-				{
-					"slug": "medium",
-					"value": "2"
-				},
-				{
-					"slug": "large",
-					"value": "2.5"
-				}
-			]
-		},
-		"styles": {
+		"setttings": {
 			"color": {
-				"background": "var(--wp--preset--color--very-dark-gray)"
+				"palette": [
+					{
+						"slug": "strong-magenta",
+						"color": "#a156b4"
+					},
+					{
+						"slug": "very-dark-gray",
+						"color": "#444"
+					},
+				]
+			},
+			"custom": {
+				"line-height": [
+					{
+						"small": "1.3"
+					},
+					{
+						"medium": "2"
+					},
+					{
+						large": "2.5"
+					}
+				]
 			}
 		}
 	},
@@ -509,7 +503,7 @@ Below are the presets and styles combined:
 			},
 			"typography": {
 				"fontSize": "2.5rem",
-				"lineHeight": "var(--wp--preset--line-height--medium)"
+				"lineHeight": "var(--wp--custom--line-height--medium)"
 			}
 		}
 	},
