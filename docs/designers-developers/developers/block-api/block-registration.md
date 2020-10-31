@@ -11,9 +11,11 @@
 <!-- 
 Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`wp-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
  -->
-すべてのブロック作成は新しくブロックタイプの定義を登録するところから始まります。登録には [`wp-blocks` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-blocks/#registerBlockType) の `registerBlockType` 関数を使用します。関数はブロック名とブロック構成オブジェクトの2つの引数を取ります。
-
+すべてのブロックの作成は、新しいブロックタイプ定義の登録から始まります。登録には [`wp-blocks` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-blocks/#registerBlockType) の `registerBlockType` 関数を使用します。関数はブロック名とブロック構成オブジェクトの2つの引数を取ります。
+<!-- 
 ### Block Name
+ -->
+### ブロック名
 
 -   **Type:** `String`
 
@@ -25,7 +27,7 @@ The name for a block is a unique string that identifies a block. Names have to b
 registerBlockType( 'my-plugin/book', {} );
 ```
  -->
-ブロック名はブロックを一意に識別する固有の文字列です。ブロック名は `namespace/block-name` の形式で namespace はプラグインやテーマの名前です。
+ブロック名はブロックを一意に識別する固有の文字列です。ブロック名は「`namespace/block-name`」の形式を取り、namespace はプラグインやテーマの名前になります。
 
 ```js
 // ブロックを一意の名前で登録
@@ -42,7 +44,10 @@ _注意:_ ブロック名には英小文字、数字、ダッシュのみを使�
 
 _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plugin/book -->` のように使用されます。コアで提供されるブロックはシリアライズの際に名前空間が削除されます。
 
+<!-- 
 ### Block Configuration
+ -->
+### ブロック構成
 
 -   **Type:** `Object` [ `{ key: value }` ]
 
@@ -61,7 +66,7 @@ This is the display title for your block, which can be translated with our trans
 title: __( 'Book' );
 ```
  -->
-ブロックの表示タイトル。翻訳関数を使用して翻訳されます。ブロックインサーターはこの名前を表示します。
+ブロックの表示タイトル。翻訳関数を使用して翻訳できます。ブロックインサーターはこの名前を表示します。
 
 ```js
 // データオブジェクト
@@ -76,7 +81,7 @@ title: __( 'Book' );
 <!-- 
 This is a short description for your block, which can be translated with our translation functions. This will be shown in the Block Tab in the Settings Sidebar.
  -->
-ブロックの簡単な説明。翻訳関数を使用して翻訳されます。「設定」サイドバーの「ブロック」タブで表示されます。
+ブロックの簡単な説明。翻訳関数を使用して翻訳できます。「設定」サイドバーの「ブロック」タブで表示されます。
 
 ```js
 description: __( 'Block showing a Book card.' );
@@ -351,8 +356,10 @@ example: {
 
 `example` が定義されていない場合、プレビューは表示されません。属性が定義されていない場合にもプレビューを表示するには、空の `example` オブジェクト `example: {}` を設定します。
 
-
+<!-- 
 It's also possible to extend the block preview with inner blocks via `innerBlocks`. For example:
+ -->
+また `innerBlocks` を使用したインナーブロックでブロックプレビューを拡張することもできます。
 
 ```js
 example: {
@@ -373,7 +380,10 @@ example: {
 },
 ```
 
+<!-- 
 It's also possible to define the width of the preview container in pixels via `viewportWidth`. For example:
+ -->
+また `viewportWidth` を使用してプレビューコンテナの幅をピクセル単位で定義することもできます。
 
 ```js
 example: {
@@ -450,6 +460,7 @@ It's also possible to override the default block style variation using the `clas
 - `innerBlocks` (オプション, type `Array[]`) – ネストしたブロックの初期構成
 - `example` (オプション, type `Object`) – ブロックプレビューの例を提供する構造化データ。`undefined` を設定するとブロックタイプに表示するプレビューを無効化できる。
 - `scope` (オプション, type `String[]`) - バリエーションを適用できるスコープのリスト。指定しない場合はすべての有効なスコープを仮定する。有効なオプション: `block`, `inserter`.
+- `keywords` (オプション, type `string[]`) - 翻訳可能な語句の配列。ユーザーがバリエーションを検索しやすくする。
 
 またブロックバリーションを定義する際、`className` 属性を使用して、デフォルトのブロックスタイルバリエーションを上書きすることもきます。
 
