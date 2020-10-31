@@ -22,7 +22,12 @@ import { GLOBAL_CONTEXT } from '../editor/utils';
 import TypographyPanel from './typography-panel';
 import ColorPanel from './color-panel';
 
-export default ( { identifier, title, icon, closeLabel } ) => {
+export default function GlobalStylesSidebar( {
+	identifier,
+	title,
+	icon,
+	closeLabel,
+} ) {
 	const {
 		contexts,
 		getStyleProperty,
@@ -89,7 +94,14 @@ export default ( { identifier, title, icon, closeLabel } ) => {
 								 * as it's translatable and the block.json doesn't
 								 * have it yet.
 								 */
+
 								const blockType = getBlockType( blockName );
+								// Protect against blocks that aren't registered
+								// eg: widget-area
+								if ( blockType === undefined ) {
+									return blockType;
+								}
+
 								let panelTitle = blockType.title;
 								if (
 									'object' ===
@@ -171,4 +183,4 @@ export default ( { identifier, title, icon, closeLabel } ) => {
 			</TabPanel>
 		</DefaultSidebar>
 	);
-};
+}
