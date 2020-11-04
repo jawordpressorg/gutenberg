@@ -345,7 +345,7 @@ Add the following global presets to the `experimental-theme.json` file:
 						"medium": "2"
 					},
 					{
-						large": "2.5"
+						"large": "2.5"
 					}
 				]
 			}
@@ -489,7 +489,7 @@ Below are the presets and styles combined:
 						"medium": "2"
 					},
 					{
-						large": "2.5"
+						"large": "2.5"
 					}
 				]
 			}
