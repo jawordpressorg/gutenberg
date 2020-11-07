@@ -17,7 +17,7 @@ Gutenberg プロジェクトのフェーズ2を開始するにあたってはコ
 
 The `process.env.GUTENBERG_PHASE` is an environment variable containing a number that represents the phase. When the codebase is built for the plugin, this variable will be set to `2`. When building for core, it will be set to `1`.
  -->
-## `process.env.GUTENBERG_PHASE` の導入
+## process.env.GUTENBERG_PHASE の導入
 
 `process.env.GUTENBERG_PHASE` はフェーズ番号を示す環境変数です。コードをプラグインとしてビルドする際、この変数を `2` にセットします。コアとしてビルドする際には `1` にセットします。
 
@@ -119,7 +119,7 @@ if ( 2 === 2 ) {
 }
 ```
 <!-- 
- The condition will alway evaluates to `true`, so can be removed leaving just the code in the body:
+ The condition will always evaluates to `true`, so can be removed leaving just the code in the body:
  -->
 条件は常に `true` と評価されるため、if 文を削除し、中の実行部分のみを残すことができます。
 
@@ -152,7 +152,7 @@ However, the following code doesn't quite have the intended behaviour:
  -->
 ## FAQ
 
-#### なぜ `process.env.GUTENBERG_PHASE` の比較には `===` や `!==` のみを使うべきなのですか ? `>`、`>=`、`<`、`<=` ではいけないのですか ?
+#### なぜ process.env.GUTENBERG_PHASE の比較には === や !== のみを使うべきなのですか ? >、>=、<、<= ではいけないのですか ?
 
 これは `process.env.GUTENBERG_PHASE` が `undefined` の場合の JavaScript 演算子 `>`、`<` の振る舞いのための制限です。WordPress npm パッケージのサードパーティユーザーも同様です。`process.env.GUTENBERG_PHASE < 2` も `process.env.GUTENBERG_PHASE > 1` も `false` と解決されます。`if ( process.env.GUTENBERG_PHASE > 1 )` と書いて、続く `if` 文内部のフェーズ2のコードの実行を避けるつもりなら、これは `false` と評価されるため意図したとおりに動作します。
 
@@ -177,6 +177,8 @@ Here an early return is used to avoid execution of a phase 2 feature, but becaus
 
 The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.
  -->
-#### なぜ `GUTENBERG_PHASE` 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば `const isMyFeatureActive = process.env.GUTENBERG_PHASE === 2` ではいけないのですか ?
+#### なぜ GUTENBERG_PHASE 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.GUTENBERG_PHASE === 2 ではいけないのですか ?
 
-webpack のミニファイが呼ばれないコードを削除できるよう、コードに複雑性を持ち込まないようにするためです。詳細については上の「 呼ばれないコードの削除」セクションを参照してください。
+webpack のミニファイが呼ばれないコードを削除できるよう、コードに複雑性を持ち込まないようにするためです。詳細については上の「呼ばれないコードの削除」セクションを参照してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/feature-flags.md)
