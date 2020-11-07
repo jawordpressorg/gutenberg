@@ -8,14 +8,14 @@ A block template is defined as a list of block items. Such blocks can have prede
 
 The scope of templates include:
  -->
-ブロックテンプレートは、ブロックアイテムのリストとして定義されます。このようなブロックには、事前に定義された属性やプレースホルダーコンテンツを含めることができ、静的または動的にすることができます。ブロックテンプレートを使用すると、エディターセッションのデフォルトの初期状態を指定できます。
+ブロックテンプレートはブロックアイテムのリストとして定義されます。事前に定義された属性やプレースホルダーコンテンツを含めることができ、静的にも動的にもできます。ブロックテンプレートを使用するとエディターセッションのデフォルトの初期状態を指定できます。
 
 テンプレートの範囲は次のとおりです
 <!-- 
 - Setting a default state dynamically on the client. (like `defaultBlock`)
 - Registered as a default for a given post type.
  -->
-- クライアント側で初期状態を動的に設定する (`defaultBlock` のように)
+- クライアント側で初期状態を動的に設定 (`defaultBlock` のように)
 - 特定の投稿タイプのデフォルトとして登録
 
 <!-- 
@@ -36,11 +36,15 @@ Planned additions:
 <!-- 
 Templates can be declared in JS or in PHP as an array of blockTypes (block name and optional attributes).
  -->
-テンプレートはJSまたはPHPでブロックタイプ (ブロック名とオプション属性) の配列として宣言できます。
-
+テンプレートは JS または PHP で、ブロックタイプ (ブロック名とオプション属性) の配列として宣言できます。
+<!-- 
 The first example in PHP creates a template for posts that includes an image block to start, you can add as many or as few blocks to your template as needed.
 
 PHP example:
+ -->
+最初の PHP の例では開始時に画像ブロックを含む投稿のテンプレートを作成します。必要に応じて好きなだけテンプレートにブロックを追加できます。
+
+PHP の例:
 
 ```php
 <?php
@@ -52,8 +56,10 @@ function myplugin_register_template() {
 }
 add_action( 'init', 'myplugin_register_template' );
 ```
-
+<!-- 
 The following example in JavaScript creates a new block using [InnerBlocks](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) and templates, when inserted creates a set of blocks based off the template.
+ -->
+次の JavaScript の例では [InnerBlocks](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) とテンプレートを使用して新しいブロックを作成します。エディターに挿入されるとテンプレートに基づいて一連のブロックを作成します。
 
 ```js
 const el = wp.element.createElement;
@@ -79,9 +85,11 @@ registerBlockType( 'myplugin/template', {
 	},
 });
 ```
-
+<!-- 
 See the [Meta Block Tutorial](/docs/designers-developers/developers/tutorials/metabox/meta-block-5-finishing.md) for a full example of a template in use.
-
+ -->
+テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-5-finishing/) を参照してください。
+ 
 <!-- 
 ## Custom Post types
 
@@ -121,7 +129,7 @@ Sometimes the intention might be to lock the template on the UI so that the bloc
  -->
 ### ロック
 
-場合によっては、ブロックを操作できないようにUIでテンプレートをロックすることが考えられます。 これは `template_lock` プロパティによって可能です。
+場合によっては、ブロックを操作できないように UI でテンプレートをロックすることが考えられます。 これは `template_lock` プロパティによって可能です。
 
 ```php
 function myplugin_register_template() {
@@ -146,10 +154,15 @@ add_action( 'init', 'myplugin_register_template' );
 
 - `all` - すべての操作を禁止します。新しいブロックの挿入、既存ブロックの移動、ブロックの削除はできません。
 - `insert` - 新しいブロックの挿入、ブロックの削除はできませんが、既存ブロックの移動はできます。
-
+<!-- 
 ## Nested Templates
+ -->
+## ネストしたテンプレート
 
+<!-- 
 Container blocks like the columns blocks also support templates. This is achieved by assigning a nested template to the block.
+ -->
+「カラム」ブロックのようなコンテナブロックもテンプレートをサポートします。実装にはブロックにネストしたテンプレートを割り当てます。
 
 ```php
 $template = array(
