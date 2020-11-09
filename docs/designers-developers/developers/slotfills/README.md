@@ -10,7 +10,7 @@ Please see the [SlotFill component docs](https://wordpress.org/gutenberg/handboo
 In order to use them, we must leverage the [@wordpress/plugins](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-plugins/) api to register a plugin that will inject our items.
  -->
 
-Slot と Fill は外部に公開されたコンポーネントで、開発者は Gutenberg 管理画面内の事前定義された場所に項目を注入できます。
+Slot と Fill は外部に公開されているコンポーネントです。開発者は Gutenberg 管理画面内の事前定義された場所に項目を注入できます。
 詳細については [SlotFill コンポーネントのドキュメント](https://wordpress.org/gutenberg/handbook/designers-developers/developers/components/slot-fill/)を参照してください。
 
 SlotFill を使用するには [@wordpress/plugins](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-plugins/) API を使用して項目を注入するプラグインを登録する必要があります。
@@ -31,7 +31,7 @@ In order to access the SlotFills, we need to do four things:
 Here is an example using the `PluginPostStatusInfo` slotFill:
  -->
 
-SlotFill に悪世するには4つの手順が必要です。
+SlotFill にアクセスするには4つの手順が必要です。
 
 1. `wp.plugins` から `registerPlugin` メソッドを import します。
 2. `wp.editPost` から必要な SlotFill を import します。
@@ -152,6 +152,7 @@ There are currently eight available SlotFills in the `edit-post` package. Please
 
 現在 `edit-post` パッケージでは8個の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
 
+* [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button.md)
 * [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)
 * [PluginDocumentSettingPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-document-setting-panel/)
 * [PluginMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-more-menu-item/)
@@ -160,3 +161,5 @@ There are currently eight available SlotFills in the `edit-post` package. Please
 * [PluginPrePublishPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-pre-publish-panel/)
 * [PluginSidebar](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar/)
 * [PluginSidebarMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar-more-menu-item/)
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/slotfills/README.md)

@@ -11,5 +11,4 @@ In this section, you'll learn about the ways that themes can customize the edito
 
 このセクションではテーマからエディターをカスタマイズする方法について解説します。
 
-- [Theme Support (未訳)](https://developer.wordpress.org/block-editor/developers/themes/theme-support/)
-- [ブロックベーステーマ (実験レベル)](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/block-based-themes/)
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/themes/README.md)
