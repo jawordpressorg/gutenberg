@@ -53,7 +53,7 @@ The property `richTextIdentifier` is the identifier of the RichText instance the
 プロパティ `richTextIdentifier` はアノテーションを適用する RichText インスタンスの識別子です。ブロックは異なる属性のデータ管理のため複数の RichText インスタンスを持つ可能性があります。このとき正しいテキストを強調表示するには識別子を渡す必要があります。
 
 <!-- 
-For example the Paragraph block only has a single RichText instance, with the identifer `content`. The quote block type has 2 RichText instances, so if you wish to highlight text in the citation, you need to pass `citation` as the `richTextIdentifier` when adding an annotation. To target the quote content, you need to use the identifier `value`. Refer to the source code of the block type to find the correct identifier.
+For example the Paragraph block only has a single RichText instance, with the identifier `content`. The quote block type has 2 RichText instances, so if you wish to highlight text in the citation, you need to pass `citation` as the `richTextIdentifier` when adding an annotation. To target the quote content, you need to use the identifier `value`. Refer to the source code of the block type to find the correct identifier.
  -->
 たとえば「段落」ブロックにはただ1つの RichText インスタンス `content` しかありません。一方、「引用」ブロックタイプには2つの RichText インスタンスがあり、引用のリード文を強調表示したければアノテーションを追加する際、`richTextIdentifier` に `citation` を渡す必要があります。引用内容の本文を強調表示するには識別子 `value` を使用する必要があります。正しい識別子を見つけるにはブロックタイプのソースコードを参照してください。
 

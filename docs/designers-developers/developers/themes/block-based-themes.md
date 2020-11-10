@@ -11,11 +11,11 @@
 <!-- 
 > Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. You can provide feedback in the weekly #core-editor chats where the latest progress of this effort will be shared and discussed, or async via Github issues.
 
-**Note:** In order to use these features, make sure to enable the "Full Site Editing" flag from the **Experiments** page of the Gutenberg plugin.
+**Note:** In order to use these features, make sure to use a block-based theme.
  -->
 > 早い段階で文書を共有する理由は、作業の様子を明らかにし、API を利用した実験からフィードバックを得るためです。フィードバックは、最新の進捗を共有、議論している #core-editor 週次ミーティングで行うか、または Github の issue を通して非同期に行えます。
 
-**注意:** この機能を使用するには、Gutenberg プラグインの「実験中」ページの「フルサイト編集」フラグを有効にしてください。
+**注意:** この機能を使用するには、ブロックベーステーマを使用してください。
 
 <!-- 
 ## What is a block-based theme?
