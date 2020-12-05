@@ -27,17 +27,17 @@ The properties of the block pattern include:
  - `title` (required): A human-readable title for the pattern.
  - `content` (required): Raw HTML content for the pattern.
  - `description`: A visually hidden text used to describe the pattern in the inserter. A description is optional but it is strongly encouraged when the title does not fully describe what the pattern does.
- - `categories`: A list of pattern categories used to group block patterns. Block patterns can be shown on multiple categories.
- - `keywords`: Aliases or keywords that help users discover it while searching.
- - `viewportWidth`: Specify the width of the pattern in the inserter.
+ - `categories`: An array of pattern categories used to group block patterns. Block patterns can be shown on multiple categories.
+ - `keywords`: An array of aliases or keywords that help users discover the pattern while searching.
+ - `viewportWidth`: An integer specifying the width of the pattern in the inserter.
  -->
 ブロックパターンのプロパティを以下に示します。
  - `title` (必須): 表示されるパターンのタイトル。
  - `content` (必須): パターンの生の HTML コンテンツ。
  - `description`: インスペクター内でパターンの記述に使用される非表示のテキスト。オプションだがタイトルで十分にブロックの動作を表せない場合は強く推奨。
- - `categories`: ブロックパターンのグループ化に使用されるブロックカテゴリーのリスト。ブロックパターンは複数のカテゴリーに分けて表示できる。
- - `keywords`: 検索の際に役立つ別名またはキーワード。
- - `viewportWidth`: インサーター内でのパターンの幅。
+ - `categories`: ブロックパターンのグループ化に使用されるブロックカテゴリーの配列。ブロックパターンは複数のカテゴリーに分けて表示できる。
+ - `keywords`: 検索の際に役立つ別名またはキーワードの配列。
+ - `viewportWidth`: インサーター内でのパターンの幅を指定する整数
 
 ```php
 register_block_pattern(
