@@ -444,7 +444,10 @@ An object describing a variation defined for the block type can contain the foll
 - `attributes` (optional, type `Object`) – Values that override block attributes.
 - `innerBlocks` (optional, type `Array[]`) – Initial configuration of nested blocks.
 - `example` (optional, type `Object`) – Example provides structured data for the block preview. You can set to `undefined` to disable the preview shown for the block type.
-- `scope` (optional, type `string[]`) - the list of scopes where the variation is applicable. When not provided, it assumes all available scopes. Available options: `block`, `inserter`.
+- `scope` (optional, type `WPBlockVariationScope[]`) - the list of scopes where the variation is applicable. When not provided, it defaults to `block` and `inserter`. Available options:
+	- `inserter` - Block Variation is shown on the inserter.
+	- `block` - Used by blocks to filter specific block variations. Mostly used in Placeholder patterns like `Columns` block.
+	- `transform` - Block Variation will be shown in the component for Block Variations transformations.
 - `keywords` (optional, type `string[]`) - An array of terms (which can be translated) that help users discover the variation while searching.
 
 It's also possible to override the default block style variation using the `className` attribute when defining block variations.
@@ -459,7 +462,10 @@ It's also possible to override the default block style variation using the `clas
 - `attributes` (オプション, type `Object`) – ブロック属性を上書きする値
 - `innerBlocks` (オプション, type `Array[]`) – ネストしたブロックの初期構成
 - `example` (オプション, type `Object`) – ブロックプレビューの例を提供する構造化データ。`undefined` を設定するとブロックタイプに表示するプレビューを無効化できる。
-- `scope` (オプション, type `String[]`) - バリエーションを適用できるスコープのリスト。指定しない場合はすべての有効なスコープを仮定する。有効なオプション: `block`, `inserter`.
+- `scope` (オプション, type `WPBlockVariationScope[]`) - バリエーションを適用できるスコープのリスト。指定しない場合のデフォルトは `block` と `inserter`。利用可能なオプション:
+	- `inserter` - ブロックバリエーションはインサーターに表示される。
+	- `block` - 特定のブロックバリエーションをフィルターするためにブロックから使用される。ほとんどの場合、`Columns` ブロックのように Placeholder パターンで使用される。
+	- `transform` - ブロックバリエーションはブロックバリエーション変換のコンポーネント内で表示される。
 - `keywords` (オプション, type `string[]`) - 翻訳可能な語句の配列。ユーザーがバリエーションを検索しやすくする。
 
 またブロックバリーションを定義する際、`className` 属性を使用して、デフォルトのブロックスタイルバリエーションを上書きすることもきます。

@@ -1,7 +1,7 @@
 <!-- 
 # Register Meta Field
  -->
-# データフィールドの登録
+# メタフィールドの登録
 
 <!-- 
 A post meta field is a WordPress object used to store extra data about a post. You need to first register a new meta field prior to use. See Managing [Post Metadata](https://developer.wordpress.org/plugins/metadata/managing-post-metadata/) to learn more about post meta.

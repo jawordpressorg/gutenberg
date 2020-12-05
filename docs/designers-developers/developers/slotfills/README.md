@@ -137,7 +137,7 @@ const PostStatus = ( { isOpened, onTogglePanel } ) => (
 ## 現在利用可能な SlotFill とサンプル
 
 <!-- 
-There are currently eight available SlotFills in the `edit-post` package. Please refer to the individual items below for usage and example details:
+The following SlotFills are available in the `edit-post` package. Please refer to the individual items below for usage and example details:
 
 * [MainDashboardButton](/docs/designers-developers/developers/slotfills/main-dashboard-button.md)
 * [PluginBlockSettingsMenuItem](/docs/designers-developers/developers/slotfills/plugin-block-settings-menu-item.md)
@@ -150,7 +150,7 @@ There are currently eight available SlotFills in the `edit-post` package. Please
 * [PluginSidebarMoreMenuItem](/docs/designers-developers/developers/slotfills/plugin-sidebar-more-menu-item.md)
  -->
 
-現在 `edit-post` パッケージでは8個の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
+`edit-post` パッケージでは以下の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
 
 * [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button.md)
 * [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)

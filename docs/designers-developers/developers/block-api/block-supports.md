@@ -49,7 +49,7 @@ supports: {
 <!-- 
 This property adds block controls which allow to change block's alignment. _Important: It doesn't work with dynamic blocks yet._
  -->
-このプロパティはブロックの配置を変更するブロックコントロールを追加する。_重要: ダイナミックブロックとは、まだ、動作しない。_
+このプロパティはブロックの配置を変更するブロックコントロールを追加します。_重要: ダイナミックブロックでは、まだ動作しません。_
 
 <!-- 
 ```js
@@ -136,7 +136,7 @@ supports: {
 <!-- 
 By default, the class `.wp-block-your-block-name` is added to the root element of your saved markup. This helps having a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.
  -->
-デフォルトでは保存したマークアップの root 要素にクラス `.wp-block-your-block-name` が追加されます。この結果、テーマやプラグインがブロックのスタイリングにあたって利用可能な一貫した機構が実現します。何らかの理由によりこのクラスをマークアップに負荷したくない場合、この機能を無効化できます。
+デフォルトでは保存したマークアップの root 要素にクラス `.wp-block-your-block-name` が追加されます。この結果、テーマやプラグインがブロックをスタイリングする際に利用可能な一貫した機構が実現します。何らかの理由によりこのクラスをマークアップに付加したくない場合、この機能を無効化できます。
 
 <!-- 
 ```js
@@ -150,6 +150,141 @@ supports: {
 supports: {
     // className 生成サポートを除去
     className: false
+}
+```
+
+## color
+
+<!-- 
+- Type: `Object`
+- Default value: null
+- Subproperties:
+  - `background`: type `boolean`, default value `true`
+  - `gradient`: type `boolean`, default value `false`
+  - `text`: type `boolean`, default value `true`
+ -->
+- タイプ: `Object`
+- デフォルト値: null
+- サブプロパティ:
+  - `background`: タイプ `boolean`, デフォルト値 `true`
+  - `gradient`: タイプ `boolean`, デフォルト値 `false`
+  - `text`: タイプ `boolean`, デフォルト値 `true`
+
+<!-- 
+This value signals that a block supports some of the CSS style properties related to color. When it does, the block editor will show UI controls for the user to set their values.
+ -->
+この値はブロックが色に関連する CSS スタイルプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+<!-- 
+The controls for background and text will source their colors from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), while the gradient's from `editor-gradient-presets` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets).
+ -->
+背景とテキストのコントロールは色を `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-color-palettes) から、グラデーションは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-gradient-presets) から取得します。
+
+<!-- 
+Note that the `text` and `background` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
+ -->
+注意: `text` キーと `background` キーのデフォルト値は `true` です。`color` プロパティを宣言するとこれらも有効化されます。
+
+<!-- 
+```js
+supports: {
+    color: { // This also enables text and background UI controls.
+        gradient: true // Enable gradients UI control.
+    }
+}
+```
+ -->
+```js
+supports: {
+    color: { // 同時にテキスト UI コントロールと背景 UI コントロールも有効化
+        gradient: true // グラデーション UI コントロールを有効化
+    }
+}
+```
+<!-- 
+It's possible to disable them individually:
+ -->
+これらは個別に無効化できます。
+
+<!-- 
+```js
+supports: {
+    color: { // Text UI control is enabled.
+        background: false, // Disable background UI control.
+        gradient: true // Enable gradients UI control.
+    }
+}
+```
+ -->
+```js
+supports: {
+    color: { // テキスト UI コントロールは有効
+        background: false, // 背景 UI コントロールを無効化
+        gradient: true // グラデーション UI コントロールを有効化
+    }
+}
+```
+<!-- 
+When the block has support for a specific color property, the attributes definition is extended to include some attributes.
+ -->
+ブロックが color プロパティをサポートすると、attributes の定義もいくつかの属性を含むよう拡張されます。
+
+<!-- 
+- `style`: attribute of `object` type with no default assigned. This is added when any of support color properties are declared. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+ -->
+- `style`: デフォルトの割り当てのない `object` タイプの属性。任意の color プロパティのサポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトスタイルを適用できます。
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            color: {
+                background: 'value',
+                gradient: 'value',
+                text: 'value'
+            }
+        }
+    }
+}
+```
+<!-- 
+- When `background` support is declared: it'll be added a new `backgroundColor` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default background color by specifying its own attribute with a default e.g.:
+ -->
+- `background` サポートを宣言すると、新しく `string` タイプの `backgroundColor` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトの背景色を適用できます。
+
+```js
+attributes: {
+    backgroundColor: {
+        type: 'string',
+        default: 'some-value',
+    }
+}
+```
+<!-- 
+- When `gradient` support is declared: it'll be added a new `gradient` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
+ -->
+- `gradient` サポートを宣言すると、新しく `string` タイプの `gradient` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのグラデーションを適用できます。
+
+```js
+attributes: {
+    gradient: {
+        type: 'string',
+        default: 'some-value',
+    }
+}
+```
+<!-- 
+- When `text` support is declared: it'll be added a new `textColor` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
+ -->
+- `text` サポートを宣言すると、新しく `string` タイプの `textColor` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのテキスト色を適用できます。
+
+```js
+attributes: {
+    textColor: {
+        type: 'string',
+        default: 'some-value',
+    }
 }
 ```
 
@@ -206,6 +341,73 @@ supports: {
 }
 ```
 
+## fontSize
+
+<!-- 
+- Type: `boolean`
+- Default value: `false`
+
+This value signals that a block supports the font-size CSS style property. When it does, the block editor will show an UI control for the user to set its value.
+
+The values shown in this control are the ones declared by the theme via the `editor-font-sizes` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes), or the default ones if none is provided.
+ -->
+- タイプ: `boolean`
+- デフォルト値: `false`
+
+この値はブロックが font-size CSS スタイルプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+このコントロール内に表示される値は `editor-font-sizes` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-font-sizes) でテーマが宣言したもの、または指定がなければデフォルトのものになります。
+
+<!-- 
+```js
+supports: {
+    // Enable UI control for font-size.
+    fontSize: true,
+}
+```
+ -->
+```js
+supports: {
+    // font-size UI コントールの有効化
+    fontSize: true,
+}
+```
+
+<!-- 
+When the block declares support for `fontSize`, the attributes definition is extended to include two new attributes: `fontSize` and `style`:
+
+- `fontSize`: attribute of `string` type with no default assigned. It stores the preset values set by the user. The block can apply a default fontSize by specifying its own `fontSize` attribute with a default e.g.:
+ -->
+ブロックが `fontSize` サポートを宣言すると、attributes の定義も新しい属性 `fontSize` と `style` を含むよう拡張されます。
+
+- `fontSize`: `string` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `fontSize` 属性とデフォルトを指定することで、デフォルトの fontSize を適用できます。
+
+```js
+attributes: {
+    fontSize: {
+        type: 'string',
+        default: 'some-value',
+    }
+}
+```
+<!-- 
+- `style`: attribute of `object` type with no default assigned. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+ -->
+- `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            typography: {
+                fontSize: 'value'
+            }
+        }
+    }
+}
+```
+
 ## html
 <!-- 
 - Type: `boolean`
@@ -258,6 +460,53 @@ supports: {
 }
 ```
 
+## lineHeight
+
+<!-- 
+- Type: `boolean`
+- Default value: `false`
+
+This value signals that a block supports the line-height CSS style property. When it does, the block editor will show an UI control for the user to set its value if [the theme declares support](/docs/designers-developers/developers/themes/theme-support.md#supporting-custom-line-heights).
+
+```js
+supports: {
+    // Enable UI control for line-height.
+    lineHeight: true,
+}
+```
+ -->
+- タイプ: `boolean`
+- デフォルト値: `false`
+
+この値はブロックが line-height CSS スタイルプロパティをサポートすることを通知します。サポートする場合、[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#supporting-custom-line-heights)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+```js
+supports: {
+    // line-height の UI コントロールを有効化
+    lineHeight: true,
+}
+```
+
+<!-- 
+When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+ -->
+When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+
+ブロックが `lineHeight` プロパティのサポートを宣言すると、attributes の定義も新しい属性 `style` を含むよう拡張されます。`style` は `obuject` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトの style を適用できます。
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            typography: {
+                lineHeight: 'value'
+            }
+        }
+    }
+}
+```
+
 ## multiple
 <!-- 
 - Type: `boolean`
@@ -275,7 +524,7 @@ supports: {
 - タイプ: `boolean`
 - デフォルト値: `true`
 
-非 multiple ブロックは各投稿に1回だけ挿入できます。たとえば組み込みの「続きを読む」ブロックは、編集中の投稿にすでに存在する場合は挿入できません。非 multiple ブロックのアイコンクリックできないよう自動的にグレイアウトされ、複数インスタンスの作成を回避します。
+非 multiple ブロックは各投稿に1回だけ挿入できます。たとえば組み込みの「続きを読む」ブロックは、編集中の投稿にすでに存在する場合は挿入できません。非 multiple ブロックのアイコンはクリックできないよう自動的にグレイアウトされ、複数インスタンスの作成を回避します。
 
 ```js
 supports: {
@@ -307,6 +556,62 @@ supports: {
 supports: {
     // 再利用可能ブロックへの変換を許可しない
     reusable: false
+}
+```
+## spacing
+
+<!-- 
+- Type: `Object`
+- Default value: null
+- Subproperties:
+  - `padding`: type `boolean`, default value `false`
+
+This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/designers-developers/developers/themes/theme-support.md##cover-block-padding).
+
+```js
+supports: {
+    padding: true, // Enable padding color UI control.
+}
+```
+ -->
+- タイプ: `Object`
+- デフォルト値: null
+- サブプロパティ:
+  - `padding`: タイプ `boolean`, デフォルト値 `false`
+
+この値はブロックがスペースに関連する CSS スタイルプロパティをサポートすることを通知します。[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#cover-block-padding)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+```js
+supports: {
+    spacing: {
+        padding: true, // padding 色 UI コントロールを有効化
+}
+```
+
+<!-- 
+When the block declares support for a specific spacing property, the attributes definition is extended to include some attributes.
+
+- `style`: attribute of `object` type with no default assigned. This is added when `padding` support is declared. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+ -->
+ブロックが spacing プロパティのサポートを宣言すると、attributes の定義もいくつかの属性を含むよう拡張されます。
+
+- `style`: デフォルトの割り当てのない `object` タイプの属性。`padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトスタイルを適用できます。
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            spacing: {
+                padding: {
+                    top: 'value',
+                    right: 'value',
+                    bottom: 'value',
+                    left: 'value'
+                }
+            }
+        }
+    }
 }
 ```
 

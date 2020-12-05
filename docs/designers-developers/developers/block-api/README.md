@@ -25,12 +25,13 @@ The following sections will walk you through the existing block APIs:
  -->
 
 - [ブロックの登録](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/)
-- [Edit と Save](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/)
+- [edit と save](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/)
 - [属性](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)
-- [Deprecated blocks](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-deprecation/)
-- [Transformations](https://ja.wordpress.org/team/handbook/developers/block-api/block-transforms)
-- [Templates](https://ja.wordpress.org/team/handbook/developers/block-api/block-templates/)
-- [Annotations](https://ja.wordpress.org/team/handbook/developers/block-api/block-annotations/)
-- [Block Patterns](https://ja.wordpress.org/team/handbook/developers/block-api/block-patterns/)
+- [非推奨にするブロック](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-deprecation/)
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-supports/)
+- [ブロック変換](https://ja.wordpress.org/team/handbook/developers/block-api/block-transforms)
+- [テンプレート](https://ja.wordpress.org/team/handbook/developers/block-api/block-templates/)
+- [アノテーション](https://ja.wordpress.org/team/handbook/developers/block-api/block-annotations/)
+- [ブロックパターン](https://ja.wordpress.org/team/handbook/developers/block-api/block-patterns/)
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/README.md)

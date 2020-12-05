@@ -1,6 +1,6 @@
 {
 	"name": "@wordpress/editor",
-	"version": "9.24.2",
+	"version": "9.24.4",
 	"description": "Building blocks for WordPress editors.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
@@ -54,7 +54,6 @@
 		"@wordpress/rich-text": "file:../rich-text",
 		"@wordpress/server-side-render": "file:../server-side-render",
 		"@wordpress/url": "file:../url",
-		"@wordpress/viewport": "file:../viewport",
 		"@wordpress/wordcount": "file:../wordcount",
 		"classnames": "^2.2.5",
 		"lodash": "^4.17.19",

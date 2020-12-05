@@ -163,3 +163,4 @@ _この段階でエディター画面には `Hello World, step 1 (from the edito
 
 `edit` 関数と `save` 関数ではそれぞれエディターコンテキストでのブロックの構造と、保存されるコンテンツを記述します。この簡単な例では違いがはっきりしませんが、次のセクションでエディタープレビューでブロックのカスタマイズを行う際に、これらがどのように使用されるかを見ます。
 
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/writing-your-first-block-type.md)

@@ -597,13 +597,13 @@ To make the content resize and keep its aspect ratio, the `<body>` element needs
 add_theme_support( 'responsive-embeds' );
 ```
 <!-- 
-## Cover block padding
+## Spacing control
  -->
-## 「カバー」ブロックのパディング
+##  スペースの制御
 <!-- 
-Some blocks can provide padding controls in the editor for users. This is off by default, and requires the theme to opt in by declaring support:
+Using the Gutenberg plugin (version 8.3 or later), some blocks can provide padding controls in the editor for users. This is off by default, and requires the theme to opt in by declaring support:
  -->
-ブロックはユーザーに対してパディングの制御を提供できます。この機能は標準で無効のため、テーマはサポートを宣言してオプトインする必要があります。
+Gutenberg プラグイン Version 8.3 以降を使用すると、ブロックはユーザーに対してパディングの制御を提供できます。この機能は標準で無効のため、テーマはサポートを宣言してオプトインする必要があります。
 
 ```php
 add_theme_support('custom-spacing');

@@ -31,7 +31,7 @@ This tutorial is up to date as of Gutenberg version 9.1.
  1. [What is needed to create a block-based theme?](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#what-is-needed-to-create-a-block-based-theme)
  2. [Creating the theme](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#creating-the-theme)
  3. [Creating the templates and template parts](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#creating-the-templates-and-template-parts)
- 4. [Experimental-theme.json -Global styles](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#experimental-theme-json-global-styles)
+ 4. [Experimental-theme.json - Global styles](/docs/designers-developers/developers/tutorials/block-based-themes/README.md#experimental-theme-json-global-styles)
  5. [Adding blocks](/docs/designers-developers/developers/tutorials/block-based-themes/block-based-themes-2-adding-blocks.md)
  -->
  1. ブロックベーステーマを作成するには何が必要か ?
@@ -77,9 +77,9 @@ The theme may optionally include an [experimental-theme.json file](/docs/designe
 テーマはグローバルなスタイルを管理する experimental-theme.json ファイルをオプションで含むこともできます。さらにテーマには追加のテンプレートやテンプレートパーツを含めることができます。
 
 <!-- 
-Templates are placed inside the block-templates folder, and template parts are placed inside the block-template-parts folder:
+Templates are placed inside the `block-templates` folder, and template parts are placed inside the `block-template-parts` folder:
  -->
-テンプレートは block-templates フォルダー内に、テンプレートパーツは block-template-parts フォルダー内に配置します。
+テンプレートは `block-templates` フォルダー内に、テンプレートパーツは `block-template-parts` フォルダー内に配置します。
 
 ```
 theme
@@ -106,10 +106,10 @@ theme
 
 <!-- 
 Create a new folder for your theme in `/wp-content/themes/`.
-Inside this folder, create the block-templates and block-template-parts folders.
+Inside this folder, create the `block-templates` and `block-template-parts` folders.
  -->
 `/wp-content/themes/` 下にテーマ用の新しいフォルダーを作成してください。
-フォルダーの中に block-templates フォルダーと block-template-parts フォルダーを作成します。
+フォルダーの中に `block-templates` フォルダーと `block-template-parts` フォルダーを作成します。
 
 <!-- 
 Create a `style.css` file. The file header in the `style.css` file has [the same items that you would use in a traditional theme](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/#explanations).
@@ -242,9 +242,9 @@ theme
 ### テンプレートとテンプレートパーツの作成
 
 <!-- 
-Create two template parts called `footer.html` and `header.html` and place them inside the block-template-parts folder. You can leave the files empty for now.
+Create two template parts called `footer.html` and `header.html` and place them inside the `block-template-parts` folder. You can leave the files empty for now.
  -->
-2つのテンプレートパーツ `footer.html`、`header.html` を作成し、block-template-parts フォルダー内に保存してください。
+2つのテンプレートパーツ `footer.html`、`header.html` を作成し、`block-template-parts` フォルダー内に保存してください。
 ファイルの中身は空で構いません。
 
 <!-- 
@@ -467,7 +467,7 @@ Below are the presets and styles combined:
 ```
 {
 	"global": {
-		"setttings": {
+		"settings": {
 			"color": {
 				"palette": [
 					{

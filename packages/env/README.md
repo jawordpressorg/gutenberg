@@ -179,7 +179,7 @@ By default `wp-env` uses port 8888, meaning that the local environment will be a
 
 You can configure the port that `wp-env` uses so that it doesn't clash with another server by specifying the `WP_ENV_PORT` environment variable when starting `wp-env`:
  -->
-リストに3つのエントリーが表示されます。ポート 8888 の `wordpress`、ポート 8889 の `tests-wordpress`、ポート 3306 の `mariadb` です。
+リストにはデフォルトで3つのエントリーが表示されます。ポート 8888 の `wordpress`、ポート 8889 の `tests-wordpress`、ポート 3306 の `mariadb` です。
 
 ### 2. ポート番号の確認
 
@@ -276,7 +276,7 @@ To nuke everything:
  -->
 ### 6. すべてを破壊して、最初からやり直す 🔥
 
-上のすべてがうまくいかない場合、ローカルの Docker コンテナとボリューム、WordPress ディレクトリーを強制的に削除して、ゼロからやり直してみてください。
+上のすべてがうまくいかない場合、`wp-env destroy` を使用してローカルの Docker コンテナとボリュームを強制的に削除できます。ゼロからやり直すことができます。
 
 すべてを破壊するには
 
@@ -303,7 +303,7 @@ Start `wp-env` in debug mode
 wp-env start --debug
 ```
 <!-- 
-`wp-env` will output its config which includes `dockerComposeConfigPath`. 
+`wp-env` will output its config which includes `dockerComposeConfigPath`.
  -->
 `wp-env` `dockerComposeConfigPath` を含む構成情報を出力します。 
 
@@ -326,7 +326,7 @@ wp-env start --debug
 <!-- 
 ### `wp-env start`
 
-The start command installs and initalizes the WordPress environment, which includes downloading any specified remote sources. By default, `wp-env` will not update or re-configure the environment except when the configuration file changes. Tell `wp-env` to update sources and apply the configuration options again with `wp-env start --update`. This will not overrwrite any existing content.
+The start command installs and initializes the WordPress environment, which includes downloading any specified remote sources. By default, `wp-env` will not update or re-configure the environment except when the configuration file changes. Tell `wp-env` to update sources and apply the configuration options again with `wp-env start --update`. This will not overwrite any existing content.
  -->
 ### wp-env start
 
@@ -339,7 +339,7 @@ wp-env start
 Starts WordPress for development on port 8888 (override with WP_ENV_PORT) and
 tests on port 8889 (override with WP_ENV_TESTS_PORT). The current working
 directory must be a WordPress installation, a plugin, a theme, or contain a
-.wp-env.json file. After first insall, use the '--update' flag to download updates
+.wp-env.json file. After first install, use the '--update' flag to download updates
 to mapped sources and to re-apply WordPress configuration options.
 
 Options:
@@ -410,10 +410,15 @@ WordPress データベースをクリアします。
 ```sh
 wp-env run <container> [command..]
 
-Runs an arbitrary command in one of the underlying Docker containers. For
-example, it can be useful for running wp cli commands. You can also use it to
-open shell sessions like bash and the WordPress shell in the WordPress instance.
-For example, `wp-env run cli bash` will open bash in the development WordPress
+Runs an arbitrary command in one of the underlying Docker containers. The
+"container" param should reference one of the underlying Docker services like
+"development", "tests", or "cli". To run a wp-cli command, use the "cli" or
+"tests-cli" service. You can also use this command to open shell sessions like
+bash and the WordPress shell in the WordPress instance. For example, `wp-env run
+cli bash` will open bash in the development WordPress instance. When using long
+commands with arguments and quotation marks, you need to wrap the "command"
+param in quotation marks. For example: `wp-env run tests-cli "wp post create
+--post_type=page --post_title='Test'"` will create a post on the tests WordPress
 instance.
 
 Positionals:
@@ -433,9 +438,15 @@ For example:
 ```sh
 wp-env run <container> [command..]
 
-動作している Docker コンテナの任意のコマンドを実行します。たとえば wp cli コマンドを実行する際に便利です。
+動作している Docker コンテナ内で任意のコマンドを実行します。
+"container" パラメータは Docker サービス "development"、"tests"、"cli"の1つを指定する必要が
+あります。wp-cli コマンドを実行するには "cli" または "tests-cli" サービスを使用してください。
 また bash のようなシェルセッションや、WordPress インスタンス内の WordPress シェルを開くためにも
 使用できます。たとえば `wp-env run cli bash` は開発 WordPress インスタンス内で bash を開きます。
+引数や引用符を含む長いコマンドを使用する場合には、"command" パラメータ全体を引用符で囲む必要が
+あります。例えば `wp-env run tests-cli "wp post create
+--post_type=page --post_title='Test'"` は  WordPress インスタンス "tests" に投稿を
+作成します。
 
 引数:
   container  コマンドを実行するコンテナ        [string] [必須]
@@ -448,6 +459,12 @@ wp-env run <container> [command..]
 ```
 
 例:
+
+<!-- 
+#### Displaying the users on the development instance:
+ -->
+#### development インスタンス上のユーザーの表示
+
 ```sh
 wp-env run cli wp user list
 ⠏ Running `wp user list` in 'cli'.
@@ -457,6 +474,23 @@ ID      user_login      display_name    user_email      user_registered roles
 
 ✔ Ran `wp user list` in 'cli'. (in 2s 374ms)
 ```
+<!-- 
+#### Creating a post on the tests instance:
+ -->
+#### tests インスタンスで投稿を作成
+
+```sh
+wp-env run tests-cli "wp post create --post_type=page --post_title='Ready'"
+
+ℹ Starting 'wp post create --post_type=page --post_title='Ready'' on the tests-cli container.
+
+Success: Created post 5.
+✔ Ran `wp post create --post_type=page --post_title='Ready'` in 'tests-cli'. (in 3s 293ms)
+```
+<!-- 
+#### Opening the WordPress shell on the tests instance and running PHP commands:
+ -->
+#### tests インスタンスで WordPress シェルを開き、PHP コマンドを実行
 
 ```sh
 wp-env run tests-cli wp shell
@@ -536,25 +570,30 @@ You can customize the WordPress installation, plugins and themes that the develo
 
 WordPress のインストールや開発環境で使用するプラグインやテーマをカスタマイズできます。`.wp-env.json` ファイルに指定し、同じディレクトリーで `wp-env` を実行してください。
 
+
+
+
 `.wp-env.json` はテストと開発の両方のインスタンスに適用可能なオプションとして、6つのフィールドをサポートします。
 
 <!-- 
-| Field        | Type           | Default                                | Description                                                                                                                |
-| ------------ | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `"core"`     | `string\|null` | `null`                                 | The WordPress installation to use. If `null` is specified, `wp-env` will use the latest production release of WordPress.   |
-| `"plugins"`  | `string[]`     | `[]`                                   | A list of plugins to install and activate in the environment.                                                              |
-| `"themes"`   | `string[]`     | `[]`                                   | A list of themes to install in the environment. The first theme in the list will be activated.                             |
-| `"port"`     | `integer`      | `8888` (`8889` for the tests instance) | The primary port number to use for the installation. You'll access the instance through the port: 'http://localhost:8888'. |
-| `"config"`   | `Object`       | See below.                             | Mapping of wp-config.php constants to their desired values.                                                                |
-| `"mappings"` | `Object`       | `"{}"`                                 | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                             |
+| Field          | Type           | Default                                | Description                                                                                                                      |
+| -------------- | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `"core"`       | `string\|null` | `null`                                 | The WordPress installation to use. If `null` is specified, `wp-env` will use the latest production release of WordPress.         |
+| `"phpVersion"` | `string\|null` | `null`                                 | The PHP version to use. If `null` is specified, `wp-env` will use the default version used with production release of WordPress. |
+| `"plugins"`    | `string[]`     | `[]`                                   | A list of plugins to install and activate in the environment.                                                                    |
+| `"themes"`     | `string[]`     | `[]`                                   | A list of themes to install in the environment.                                                                                  |
+| `"port"`       | `integer`      | `8888` (`8889` for the tests instance) | The primary port number to use for the installation. You'll access the instance through the port: 'http://localhost:8888'.       |
+| `"config"`     | `Object`       | See below.                             | Mapping of wp-config.php constants to their desired values.                                                                      |
+| `"mappings"`   | `Object`       | `"{}"`                                 | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                                   |
  -->
 | フィールド      | タイプ         | デフォルト                                   | 説明                                                                                                               |
 | ------------- | ------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `"core"`      | `string|null` | `null`                                     | 使用する WordPress のバージョンまたはビルド。`null` の場合、最新リリース版 |
+| `"phpVersion"` | `string\|null` | `null`                                 | 使用する PHP のバージョン。`null` が指定されると `wp-env` は WordPress の製品版リリースで使用されるデフォルトバージョンを使用する。|
 | `"plugins"`   | `string[]`    | `[]`                                       | 環境にインストール、有効化するプラグインのリスト                                                             |
-| `"themes"`    | `string[]`    | `[]`                                       | 環境にインストールするテーマのリスト。最初のテーマが有効化される                            |
+| `"themes"`    | `string[]`    | `[]`                                       | 環境にインストールするテーマのリスト                            |
 | `"port"`      | `integer`      | `8888` (テストインスタンスでは `8889`)        | インストールに使用するポート番号。インスタンスには 'http://localhost:8888' でアクセスできる |
-| `"config"`    | `Object`      | `"{ WP_DEBUG: true, SCRIPT_DEBUG: true }"` | wp-config.php の定数とその値                                                               |
+| `"config"`    | `Object`      | 以下を参照                                    | wp-config.php の定数とその値のマッピング                                                               |
 | `"mappings"`  | `Object`       | `"{}"`                                     | WordPress インスタンス内にマウントされるローカルディレクトリと WordPress ディレクトリのマッピング                                      |
 
 <!--
@@ -616,10 +655,12 @@ On the development instance, `cwd` will be mapped as a plugin, `one-theme` will 
  -->
 development インスタンスでは、`cwd` がプラグインに、`one-theme` がテーマにマップされ、KEY_1 が true に、KEY_2 が false に設定されます。デフォルトのポートは引き続き 8888 が使用されます。
 
-<!-- 
-On the tests instance, `cwd` is still mapped as a plugin, but no theme is mapped. Additionaly, while KEY_2 is still set to false, KEY_1 is overriden and set to false. 3000 overrides the default port as well.
 
-This gives you a lot of power to change the options appliciable to each environment.
+
+<!-- 
+On the tests instance, `cwd` is still mapped as a plugin, but no theme is mapped. Additionally, while KEY_2 is still set to false, KEY_1 is overridden and set to false. 3000 overrides the default port as well.
+
+This gives you a lot of power to change the options applicable to each environment.
  -->
 tests インスタンスでは、`cwd` がプラグインマップされますがテーマのマップはありません。また KEY_2 は false のままですが、KEY_1 は false で、デフォルトのポートは 3000 で上書きされます。
 
@@ -729,11 +770,11 @@ This is useful for integration testing: that is, testing how old versions of Wor
 <!-- 
 #### Add mu-plugins and other mapped directories
 
-You can add mu-plugins via the mapping config. The mapping config also allows you to mount a directory to any location in the wordpress install, so you could even mount a subdirectory. Note here that theme-1, will not be activated, despite being the "first" mapped theme.
+You can add mu-plugins via the mapping config. The mapping config also allows you to mount a directory to any location in the wordpress install, so you could even mount a subdirectory. Note here that theme-1, will not be activated.
  -->
 #### mu-plugins とマッピングディレクトリの追加
 
-マッピング構成を使用して mu-plugins を追加できます。マッピング構成を使用すると、WordPress インストール内の任意の場所にディレクトリをマウントできます。サブディレクトリにマウントすることも可能です。ただし以下の例で theme-1 は「最初」のマップされたテーマですが、有効化されないことに注意してください。
+マッピング構成を使用して mu-plugins を追加できます。マッピング構成を使用すると、WordPress インストール内の任意の場所にディレクトリをマウントできます。サブディレクトリにマウントすることも可能です。ただし theme-1 は有効化されないことに注意してください。
 
 ```json
 {
@@ -748,11 +789,11 @@ You can add mu-plugins via the mapping config. The mapping config also allows yo
 <!-- 
 #### Avoid activating plugins or themes on the instance
 
-Since all plugins in the `plugins` key are activated by default, you should use the `mappings` key to avoid this behavior. This might be helpful if you have a test plugin that should not be activated all the time. The same applies for a theme which should not be activated.
+Since all plugins in the `plugins` key are activated by default, you should use the `mappings` key to avoid this behavior. This might be helpful if you have a test plugin that should not be activated all the time.
  -->
 #### インスタンスのプラグインやテーマを有効化しない
 
-デフォルトでは `plugins` キーのすべてのプラグインは有効化されます。この動きを避けるには `mappings` キーを使用してください。この方法は常には有効化すべきでない、テスト用のプラグインがある場合に便利です。同じことは有効化すべきでないテーマにも当てはまります。
+デフォルトでは `plugins` キーのすべてのプラグインは有効化されます。この動きを避けるには `mappings` キーを使用してください。この方法は常には有効化すべきでない、テスト用のプラグインがある場合に便利です。
 
 ```json
 {
@@ -801,6 +842,22 @@ You can tell `wp-env` to use a custom port number so that your instance does not
 			"port": 4012
 		}
 	}
+}
+```
+<!-- 
+#### Specific PHP Version
+ -->
+#### PHP バージョンの指定
+
+<!-- 
+You can tell `wp-env` to use a specific PHP version for compatibility and testing. This can also be set via the environment variable `WP_ENV_PHP_VERSION`.
+ -->
+互換性やテストのため、`wp-env` では特定の PHP バージョンを使用できます。これは環境変数 `WP_ENV_PHP_VERSION` からでも設定できます。
+
+```json
+{
+	"phpVersion": "7.2",
+	"plugins": [ "." ]
 }
 ```
 

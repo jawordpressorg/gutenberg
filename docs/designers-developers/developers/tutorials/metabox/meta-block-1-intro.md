@@ -16,7 +16,7 @@ Before starting this tutorial, you will need a plugin to hold your code. Please 
 
 このチュートリアルではユーザーに値の入力を求め投稿メタに保存するブロックを作成します。
 
-ブロックをインターフェースとみなす考え方の背景についてはハンドブックの [プロジェクト概要](https://ja.wordpress.org/team/handbook/block-editor/principles/) を参照してください。
+ブロックをインターフェースとみなす考え方の背景についてはハンドブックの [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/architecture/key-concepts/) を参照してください。
 
 チュートリアルを始める前にコードを囲むプラグインが必要です。プラグインの設定方法の詳細については[JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/)の最初の2つのステップを参照してください。
 

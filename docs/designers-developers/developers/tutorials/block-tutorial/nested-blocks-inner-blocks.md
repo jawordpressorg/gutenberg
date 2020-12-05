@@ -105,7 +105,7 @@ By default, `InnerBlocks` expects its blocks to be shown in a vertical list. A v
 -->
 ## orientation
 
-`InnerBlocks` はデフォルトではブロックが盾のリストで表示されることを期待しますが、横にスタイリングすることも有効な使用例です。ブロックを横にスタイリングする場合は、horizontal レイアウトを示すために `orientation` プロパティを使用できます。
+`InnerBlocks` はデフォルトでは縦のリストとしてブロックが表示されることを期待していますが、横に並べて使用することもできます。ブロックを横に並べる場合は、horizontal レイアウトを示すために `orientation` プロパティを使用してください。
 
 ```js
 <InnerBlocks

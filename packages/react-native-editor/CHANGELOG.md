@@ -10,8 +10,15 @@ For each user feature we should also add a importance categorization label  to i
 -->
 
 ## Unreleased
-* [***] Faster editor start and overall operation on Android [#26732]
 
+* [***] Adding support for selecting different unit of value in Cover and Columns blocks [#26161]
+* [**] Button block - Add link picker to the block settings [#26206]
+* [**] Support to render background/text colors in Group, Paragraph and Quote blocks [#25994]
+* [*] Fix theme colors syncing with the editor [#26821]
+
+## 1.41.0
+
+* [***] Faster editor start and overall operation on Android [#26732]
 * [*] [Android] Enable multiple upload support for Image block
 
 ## 1.40.0
