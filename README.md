@@ -3,7 +3,15 @@
 -->
 # ブロックエディターハンドブック翻訳作業用リポジトリ
 
-これは[ブロックエディターハンドブック](https://ja.wordpress.org/team/handbook/block-editor/)の翻訳ファイル用リポジトリです。
+これは[ブロックエディターハンドブック 日本語版](https://ja.wordpress.org/team/handbook/block-editor/)の翻訳ファイル用リポジトリです。
+
+## 日本語訳への質問やコメント
+
+[Issues](https://github.com/jawordpressorg/gutenberg/issues) から新しい issue を作成してください。[こちら](https://github.com/jawordpressorg/gutenberg/issues/new) のリンクをクリックしても作成できます。
+
+画面は英語ですが、日本語を入力できます。
+
+## 日本語翻訳のワークフロー
 
 Takayuki Miyauchi さんの発案された翻訳方式を採用して、ブロックエディターハンドブックのドキュメントを翻訳しています。
 https://qiita.com/miya0001/items/4745cf900a66c0bbf8e5
