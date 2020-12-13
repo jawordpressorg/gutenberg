@@ -11,56 +11,136 @@ When registering a block, the `edit` and `save` functions provide the interface 
 <!-- 
 The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
  -->
-`edit` 関数はエディター内でのブロックの構造を記述します。ブロックが使用される際、エディターがどのようにブロックをレンダリングするかを表します。
+`edit` 関数はエディターのコンテキスト内でのブロックの構造を記述します。ブロックが使用される際、エディターがどのようにブロックをレンダリングするかを表します。
 
 **ESNext**
 
 {% codetabs %}
 {% ESNext %}
 ```jsx
-edit: () => {
-	return <div>Your block.</div>;
-}
+import { useBlockProps } from '@wordpress/block-editor';
+
+// ...
+const blockSettings = {
+	apiVersion: 2,
+	
+	// ... 
+
+	edit: () => {
+		const blockProps = useBlockProps();
+
+		return <div {...blockProps}>Your block.</div>;
+	}
+};
 ```
 
 **ES5**
 
 {% ES5 %}
 ```js
-// A static div
-edit: function() {
-	return wp.element.createElement(
-		'div',
-		null,
-		'Your block.'
-	);
-}
+var blockSettings = {
+	apiVersion: 2,
+
+	// ...
+
+	edit: function() {
+		var blockProps = wp.blockEditor.useBlockProps();
+
+		return wp.element.createElement(
+			'div',
+			blockProps,
+			'Your block.'
+		);
+	}
+};
 ```
 {% end %}
 
 <!-- 
-The function receives the following properties through an object argument:
+### block wrapper props
  -->
-`edit` 関数はオブジェクト引数を通じて以下のプロパティを受け取ります。
-
-### attributes
+### ブロックラッパー props
 
 <!-- 
-This property surfaces all the available attributes and their corresponding values, as described by the `attributes` property when the block type was registered. See [attributes documentation](/docs/designers-developers/developers/block-api/block-attributes.md) for how to specify attribute sources.
+The first thing to notice here is the use of the `useBlockProps` React hook on the block wrapper element. In the example above, the block wrapper renders a "div" in the editor, but in order for the Gutenberg editor to know how to manipulate the block, add any extra classNames that are needed for the block... the block wrapper element should apply props retrieved from the `useBlockProps` react hook call.
+ -->
+ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に "div" をレンダリングしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。
 
-In this case, assuming we had defined an attribute of `content` during block registration, we would receive and use that value in our edit function:
+<!-- 
+If the element wrapper needs any extra custom HTML attributes, these need to be passed as an argument to the `useBlockProps` hook. For example to add a `my-random-classname` className to the wrapper, you can use the following code:
+ -->
+要素ラッパーで追加のカスタム HTML 属性が必要であれば、`useBlockProps` フックに引数として追加する必要があります。たとえば次のコードではラッパーに  `my-random-classname` className を追加します。
+
+**ESNext**
+{% codetabs %}
+{% ESNext %}
+```jsx
+import { useBlockProps } from '@wordpress/block-editor';
+
+// ...
+const blockSettings = {
+	apiVersion: 2,
+	
+	// ... 
+
+	edit: () => {
+		const blockProps = useBlockProps( { className: 'my-random-classname' } );
+
+		return <div { ...blockProps }>Your block.</div>;
+	}
+};
+```
+
+**ES5**
+
+{% ES5 %}
+```js
+var blockSettings = {
+	apiVersion: 2,
+
+	// ...
+
+	edit: function() {
+		var blockProps = wp.blockEditor.useBlockProps( { className: 'my-random-classname' } );
+
+		return wp.element.createElement(
+			'div',
+			blockProps,
+			'Your block.'
+		);
+	}
+};
+```
+{% end %}
+
+<!-- 
+### attributes
+ -->
+### 属性
+
+<!-- 
+The `edit` function also receives a number of properties through an object argument. You can use these properties to adapt the behavior of your block.
+ -->
+`edit` 関数はまたオブジェクト引数を通じて多くのプロパティを受け取ります。このプロパティを使用してブロックの振る舞いを変更できます。
+
+<!-- 
+The `attributes` property surfaces all the available attributes and their corresponding values, as described by the `attributes` property when the block type was registered. See [attributes documentation](/docs/designers-developers/developers/block-api/block-attributes.md) for how to specify attribute sources.
  -->
 `attributes` プロパティはすべての利用可能な属性と対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティで記述されます。属性ソースを指定する方法については[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)を参照してください。
 
+<!-- 
+In this case, assuming we had defined an attribute of `content` during block registration, we would receive and use that value in our edit function:
+ -->
 この例ではブロック登録の際に `content` 属性を定義したと仮定し、`edit` 関数内で値を受け取って使用します。
 
 **ESNext**
-
 {% codetabs %}
 {% ESNext %}
 ```js
 edit: ( { attributes } ) => {
-	return <div>{ attributes.content }</div>;
+	const blockProps = useBlockProps();
+
+	return <div { ...blockProps }>{ attributes.content }</div>;
 }
 ```
 
@@ -69,48 +149,21 @@ edit: ( { attributes } ) => {
 {% ES5 %}
 ```js
 edit: function( props ) {
+	var blockProps = wp.blockEditor.useBlockProps();
+
 	return wp.element.createElement(
 		'div',
-		null,
+		blockProps,
 		props.attributes.content
 	);
 }
 ```
 {% end %}
+
 <!-- 
 The value of `attributes.content` will be displayed inside the `div` when inserting the block in the editor.
  -->
-エディターにブロックを挿入すると `div` の中に `attributes.content` の値が表示されます。 
-
-### className
-<!-- 
-This property returns the class name for the wrapper element. This is automatically added in the `save` method, but not on `edit`, as the root element may not correspond to what is _visually_ the main element of the block. You can request it to add it to the correct element in your function.
- -->
-`className` プロパティはラッパー要素のクラス名を返します。クラス名は `save` メソッドでは自動的に追加されますが、`edit` では追加されません。これはルートの要素が、ブロックのビジュアル部分を司るメインの要素と異なるかもしれないからです。関数内でどの要素に追加すべきかをリクエストできます。
-
-**ESNext**
-
-{% codetabs %}
-{% ESNext %}
-```js
-edit: ( { attributes, className } ) => {
-	return <div className={ className }>{ attributes.content }</div>;
-}
-```
-
-**ES5**
-
-{% ES5 %}
-```js
-edit: function( props ) {
-	return wp.element.createElement(
-		'div',
-		{ className: props.className },
-		props.attributes.content
-	);
-}
-```
-{% end %}
+エディターにブロックを追加すると、`attributes.content` の値は `div` 内部に表示されます。
 
 ### isSelected
 <!-- 
@@ -123,9 +176,11 @@ The isSelected property is an object that communicates whether the block is curr
 {% codetabs %}
 {% ESNext %}
 ```jsx
-edit: ( { attributes, className, isSelected } ) => {
+edit: ( { attributes, isSelected } ) => {
+	const blockProps = useBlockProps();
+
 	return (
-		<div className={ className }>
+		<div { ...blockProps }>
 			Your block.
 			{ isSelected &&
 				<span>Shows only when the block is selected.</span>
@@ -140,9 +195,11 @@ edit: ( { attributes, className, isSelected } ) => {
 {% ES5 %}
 ```js
 edit: function( props ) {
+	var blockProps = wp.blockEditor.useBlockProps();
+
 	return wp.element.createElement(
 		'div',
-		{ className: props.className },
+		blockProps,
 		[
 			'Your block.',
 			props.isSelected ? wp.element.createElement(
@@ -167,14 +224,16 @@ This function allows the block to update individual attributes based on user int
 {% codetabs %}
 {% ESNext %}
 ```jsx
-edit: ( { attributes, setAttributes, className, isSelected } ) => {
+edit: ( { attributes, setAttributes, isSelected } ) => {
+	const blockProps = useBlockProps();
+
 	// Simplify access to attributes
 	const { content, mySetting } = attributes;
 
 	// Toggle a setting when the user clicks the button
 	const toggleSetting = () => setAttributes( { mySetting: ! mySetting } );
 	return (
-		<div className={ className }>
+		<div { ...blockProps }>
 			{ content }
 			{ isSelected &&
 				<button onClick={ toggleSetting }>Toggle setting</button>
@@ -189,6 +248,8 @@ edit: ( { attributes, setAttributes, className, isSelected } ) => {
 {% ES5 %}
 ```js
 edit: function( props ) {
+	var blockProps = wp.blockEditor.useBlockProps();
+
 	// Simplify access to attributes
 	let content = props.attributes.content;
 	let mySetting = props.attributes.mySetting;
@@ -197,7 +258,7 @@ edit: function( props ) {
 	let toggleSetting = () => props.setAttributes( { mySetting: ! mySetting } );
 	return wp.element.createElement(
 		'div',
-		{ className: props.className },
+		blockProps,
 		[
 			content,
 			props.isSelected ? wp.element.createElement(
@@ -271,7 +332,9 @@ The `save` function defines the way in which the different attributes should be 
 {% ESNext %}
 ```jsx
 save: () => {
-	return <div> Your block. </div>;
+	const blockProps = useBlockProps.save();
+
+	return <div { ...blockProps }> Your block. </div>;
 }
 ```
 
@@ -280,9 +343,11 @@ save: () => {
 {% ES5 %}
 ```js
 save: function() {
+	var blockProps = wp.blockEditor.useBlockProps.save();
+
 	return wp.element.createElement(
 		'div',
-		null,
+		blockProps,
 		'Your block.'
 	);
 }
@@ -322,7 +387,18 @@ If left unspecified, the default implementation will save no markup in post cont
  -->
 特に指定しない場合、デフォルトの実装ではダイナミックブロックの投稿コンテンツにはマークアップは保存されず、代わりにブロックがサイトのフロントエンド側で表示された際に常に計算するよう延期されます。
 
+<!-- 
+### block wrapper props
+ -->
+### ブロックラッパー props
+
+<!-- 
+Like the `edit` function, when rendering static blocks, it's important to add the block props returned by `useBlockProps.save()` to the wrapper element of your block. This ensures that the block class name is rendered properly in addition to any HTML attribute injected by the block supports API.
+ -->
+`edit` 関数同様、静的ブロックのレンダリングの際には、ブロックのラッパー要素に `useBlockProps.save()` から返されるブロック props を追加することが重要です。これでブロックサポート API から外挿された任意の HTML 属性に加えて、ブロッククラス名が正しくレンダリングされます。
+
 ### attributes
+
 <!-- 
 As with `edit`, the `save` function also receives an object argument including attributes which can be inserted into the markup.
  -->
@@ -334,7 +410,9 @@ As with `edit`, the `save` function also receives an object argument including a
 {% ESNext %}
 ```jsx
 save: ( { attributes } ) => {
-	return <div>{ attributes.content }</div>;
+	const blockProps = useBlockProps.save();
+	
+	return <div { ...blockProps }>{ attributes.content }</div>;
 }
 ```
 
@@ -343,9 +421,11 @@ save: ( { attributes } ) => {
 {% ES5 %}
 ```js
 save: function( props ) {
+	var blockProps = wp.blockEditor.useBlockProps.save();
+
 	return wp.element.createElement(
 		'div',
-		null,
+		blockProps,
 		props.attributes.content
 	);
 }
@@ -382,23 +462,30 @@ attributes: {
 	content: {
 		type: 'string',
 		source: 'html',
-		selector: 'p'
+		selector: 'div'
 	}
 },
 
 edit: ( { attributes, setAttributes } ) => {
+	const blockProps = useBlockProps();
 	const updateFieldValue = ( val ) => {
 		setAttributes( { content: val } );
 	}
-	return <TextControl
-			label='My Text Field'
-			value={ attributes.content }
-			onChange={ updateFieldValue }
-		/>;
+	return (
+		<div { ...blockProps }>
+			<TextControl
+				label='My Text Field'
+				value={ attributes.content }
+				onChange={ updateFieldValue }
+			/>
+		</p>
+	);
 },
 
 save: ( { attributes } ) => {
-	return <p> { attributes.content } </p>;
+	const blockProps = useBlockProps.save();
+
+	return <div { ...blockProps }> { attributes.content } </div>;
 },
 ```
 
@@ -415,22 +502,30 @@ attributes: {
 },
 
 edit: function( props ) {
+	var blockProps = wp.blockEditor.useBlockProps();
 	var updateFieldValue = function( val ) {
 		props.setAttributes( { content: val } );
 	}
-	return wp.element.createElement(
-		wp.components.TextControl,
-		{
-			label: 'My Text Field',
-			value: props.attributes.content,
-			onChange: updateFieldValue,
 
-		}
+	return wp.element.createElement(
+		'div',
+		blockProps,
+		wp.element.createElement(
+			wp.components.TextControl,
+			{
+				label: 'My Text Field',
+				value: props.attributes.content,
+				onChange: updateFieldValue,
+
+			}
+		)
 	);
 },
 
 save: function( props ) {
-	return el( 'p', {}, props.attributes.content );
+	var blockProps = wp.blockEditor.useBlockProps.save();
+
+	return wp.element.createElement( 'div', blockProps, props.attributes.content );
 },
 ```
 
@@ -454,8 +549,6 @@ This example could be for a dynamic block, such as the [Latest Posts block](http
 
 {% codetabs %}
 {% ESNext %}
-
-<!-- 
 ```jsx
 attributes: {
 	postsToShow: {
@@ -464,13 +557,18 @@ attributes: {
 },
 
 edit: ( { attributes, setAttributes } ) => {
-	return <TextControl
-			label='Number Posts to Show'
-			value={ attributes.postsToShow }
-			onChange={ ( val ) => {
-				setAttributes( { postsToShow: parseInt( val ) } );
-			}},
-		}
+	const blockProps = useBlockProps();
+
+	return (
+		<div { ...blockProps }>
+			<TextControl
+				label='Number Posts to Show'
+				value={ attributes.postsToShow }
+				onChange={ ( val ) => {
+					setAttributes( { postsToShow: parseInt( val ) } );
+				}}
+			/>
+		</p>
 	);
 },
 
@@ -478,34 +576,9 @@ save: () => {
 	return null;
 }
 ```
- -->
-```jsx
-attributes: {
-	postsToShow: {
-		type: 'number',
-	}
-},
-
-edit: ( { attributes, setAttributes } ) => {
-	return <TextControl
-			label='Number Posts to Show'
-			value={ attributes.postsToShow }
-			onChange={ ( val ) => {
-				setAttributes( { postsToShow: parseInt( val ) } );
-			}}
-		/>;
-},
-
-save: () => {
-	return null;
-}
-```
-
-{% end %}
 
 **ES5**
 
-{% codetabs %}
 {% ES5 %}
 ```js
 attributes: {
@@ -515,15 +588,21 @@ attributes: {
 },
 
 edit: function( props ) {
-	return wp.element.createElement(
-		wp.components.TextControl,
-		{
-			label: 'Number Posts to Show',
-			value: props.attributes.postsToShow,
-			onChange: function( val ) {
-				props.setAttributes( { postsToShow: parseInt( val ) } );
-			},
-		}
+	var blockProps = wp.blockEditor.useBlockProps();
+	
+	return wp.element.createEleement( 
+		'div',
+		blockProps,
+		wp.element.createElement(
+			wp.components.TextControl,
+			{
+				label: 'Number Posts to Show',
+				value: props.attributes.postsToShow,
+				onChange: function( val ) {
+					props.setAttributes( { postsToShow: parseInt( val ) } );
+				},
+			}
+		)
 	);
 },
 

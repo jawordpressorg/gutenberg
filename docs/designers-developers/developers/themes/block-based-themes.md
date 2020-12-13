@@ -11,11 +11,11 @@
 <!-- 
 > Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. You can provide feedback in the weekly #core-editor chats where the latest progress of this effort will be shared and discussed, or async via Github issues.
 
-**Note:** In order to use these features, make sure to use a block-based theme.
+**Note:** To use these features, activate a theme that includes a `block-templates/index.html` file. This will signal to the block editor that the theme should use full-site editing features.
  -->
 > 早い段階で文書を共有する理由は、作業の様子を明らかにし、API を利用した実験からフィードバックを得るためです。フィードバックは、最新の進捗を共有、議論している #core-editor 週次ミーティングで行うか、または Github の issue を通して非同期に行えます。
 
-**注意:** この機能を使用するには、ブロックベーステーマを使用してください。
+**注意:** この機能を使用するには、`block-templates/index.html` ファイルを含むテーマを有効化してください。テーマはフルサイト編集機能を使用することをブロックエディターに通知します。
 
 <!-- 
 ## What is a block-based theme?

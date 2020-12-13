@@ -313,6 +313,91 @@ wp-env start --debug
 	"dockerComposeConfigPath": "/Users/$USERNAME/.wp-env/5a619d332a92377cd89feb339c67b833/docker-compose.yml",
 	...
 ```
+<!-- 
+## Using Xdebug
+ -->
+## Xdebug の使用
+
+<!-- 
+Xdebug is installed in the wp-env environment, but it is turned off by default. To enable Xdebug, you can use the `--xdebug` flag with the `wp-env start` command. Here is a reference to how the flag works:
+ -->
+wp-env 環境には Xdebug がインストールされていますが、デフォルトではオフになっています。Xdebug を有効にするには `wp-env start` コマンドの `--xdebug` フラグを使用します。以下ではフラグの動作について説明します。
+
+<!-- 
+```sh
+# Sets the Xdebug mode to "debug" (for step debugging):
+wp-env start --xdebug
+
+# Sets the Xdebug mode to "off":
+wp-env start
+
+# Enables each of the Xdebug modes listed:
+wp-env start --xdebug=profile,trace,debug
+```
+ -->
+
+```sh
+# Xdebug モードを "debug" に設定 (ステップデバッグ用)
+wp-env start --xdebug
+
+# Xdebug モードを "off" に設定
+wp-env start
+
+# リストしたそれぞれの Xdebug モードを有効
+wp-env start --xdebug=profile,trace,debug
+```
+
+<!-- 
+You can see a reference on each of the Xdebug modes and what they do in the [Xdebug documentation](https://xdebug.org/docs/all_settings#mode).
+ -->
+Xdebgu のモードと定義については [Xdebug ドキュメント](https://xdebug.org/docs/all_settings#mode) を参照してください。
+
+<!-- 
+### Xdebug IDE support
+ -->
+### Xdebug の IDE サポート
+
+<!-- 
+To connect to Xdebug from your IDE, you can use these IDE settings. This bit of JSON was tested for VS Code's `launch.json` format (which you can [learn more about here](https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes)) along with [this PHP Debug extension](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug). Its path mapping also points to a specific plugin -- you should update this to point to the source you are working with inside of the wp-env instance.
+
+You should only have to translate `port` and `pathMappings` to the format used by your own IDE.
+ -->
+IDE から Xdebug に接続するには以下の IDE 設定を使用できます。この JSON は VS Code の `launch.json` 形式 ([詳細についてはこちら](https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes)) と [PHP デバッグエクステンション](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) でテストされました。なお、パスマッピングは特定のプラグインを指しています。これを wp-env インスタンス内の作業中のソースコードを指すよう更新してください。
+
+`port` と `pathMappings` のみを IDE で使用する形式に変換する必要があります。
+
+```json
+{
+	"name": "Listen for XDebug",
+	"type": "php",
+	"request": "launch",
+	"port": 9003,
+	"pathMappings": {
+		"/var/www/html/wp-content/plugins/gutenberg": "${workspaceRoot}/"
+	}
+}
+```
+<!-- 
+Once your IDEs Xdebug settings have been enabled, you should just have to launch the debugger, put a breakpoint on any line of PHP code, and then refresh your browser!
+ -->
+IDE Xdebug 設定が有効になればあとはデバッガを起動し、PHP コードの任意の行にブレークポイントを置き、ブラウザをリフレッシュするだけです。
+
+<!-- 
+Here is a summary:
+
+1. Start wp-env with xdebug enabled: `wp-env start --xdebug`
+2. Install a suitable Xdebug extension for your IDE if it does not include one already.
+3. Configure the IDE debugger to use port `9003` and the correct source files in wp-env.
+4. Launch the debugger and put a breakpoint on any line of PHP code.
+5. Refresh the URL wp-env is running at and the breakpoint should trigger.
+ -->
+まとめ:
+
+1. Xdebug を有効化して wp-env を起動する: `wp-env start --xdebug`
+2. もしまだなら IDE 用に適切な Xdebug エクステンションをインストールする。
+3. IDE デバッガーがポート `9003` と wp-env 内の正しいソースファイルを使用するよう構成する。
+4. デバッガーを起動し、PHP コードの任意の行にブレークポイントを置く。
+5. wp-env の稼働する URL をリフレッシュすれば、ブレークポイントに達する。
 
 <!-- 
 ## Command reference
@@ -339,12 +424,20 @@ wp-env start
 Starts WordPress for development on port 8888 (override with WP_ENV_PORT) and
 tests on port 8889 (override with WP_ENV_TESTS_PORT). The current working
 directory must be a WordPress installation, a plugin, a theme, or contain a
-.wp-env.json file. After first install, use the '--update' flag to download updates
-to mapped sources and to re-apply WordPress configuration options.
+.wp-env.json file. After first install, use the '--update' flag to download
+updates to mapped sources and to re-apply WordPress configuration options.
 
 Options:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+  --debug    Enable debug output.                     [boolean] [default: false]
   --update   Download source updates and apply WordPress configuration.
                                                       [boolean] [default: false]
+  --xdebug   Enables Xdebug. If not passed, Xdebug is turned off. If no modes
+             are set, uses "debug". You may set multiple Xdebug modes by passing
+             them in a comma-separated list: `--xdebug=develop,coverage`. See
+             https://xdebug.org/docs/all_settings#mode for information about
+             Xdebug modes.                                              [string]
 ```
  -->
 ```sh

@@ -15,6 +15,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
+<<<<<<< HEAD
+=======
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [1, 2, 3, 4]
+
+
+>>>>>>> upstream/master
     steps:
      - name: CommentOut
        run: echo "workflow_was_comment_out"

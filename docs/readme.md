@@ -1,7 +1,7 @@
 <!-- 
 # Project Overview
  -->
-# プロジェク概要
+# プロジェクト概要
 
 <!-- 
 The Gutenberg project is transforming the way content is created on WordPress. A block editor was the first product launched creating a new methodology for working with content.
@@ -14,9 +14,9 @@ The Block Editor handbook provides documentation for designers and developers on
 「ブロックエディターハンドブック」はデザイナーや開発者向けのドキュメントです。エディターの拡張方法やプロジェクトへの貢献方法を解説します。ブロックエディターの使い方については [サポート内のブロックエディターに関する文書](https://ja.wordpress.org/support/article/wordpress-editor/) を参照してください。
 
 <!--
-![Gutenberg Demo](https://cldup.com/kZXGDcGPMU.gif)
+![Screenshot of the Gutenberg Editor, editing a post in WordPress](https://user-images.githubusercontent.com/1204802/100067796-fc3e8700-2e36-11eb-993b-6b80b4310b87.png)
 -->
-![ブロックエディターのデモ](https://cldup.com/kZXGDcGPMU.gif)
+![Gutenberg エディターのスクリーンショット。WordPress で投稿を編集している](https://user-images.githubusercontent.com/1204802/100067796-fc3e8700-2e36-11eb-993b-6b80b4310b87.png)
 
 <!--
 Using a system of Blocks to compose and format content, the new block-based editor is designed to create rich, flexible layouts for websites and digital products. Content is created in the unit of blocks instead of freeform text with inserted media, embeds and Shortcodes (there's a Shortcode block though).

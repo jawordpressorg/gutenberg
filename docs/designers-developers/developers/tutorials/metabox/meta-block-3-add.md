@@ -30,13 +30,15 @@ import { registerBlockType } from '@wordpress/blocks';
 import { TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
+import { useBlockProps } from '@wordpress/block-editor';
 
 registerBlockType( 'myguten/meta-block', {
 	title: 'Meta Block',
 	icon: 'smiley',
 	category: 'text',
 
-	edit( { className, setAttributes, attributes } ) {
+	edit( { setAttributes, attributes } ) {
+		const blockProps = useBlockProps();
 		const postType = useSelect(
 			( select ) => select( 'core/editor' ).getCurrentPostType(),
 			[]
@@ -52,7 +54,7 @@ registerBlockType( 'myguten/meta-block', {
 		}
 
 		return (
-			<div className={ className }>
+			<div { ...blockProps }>
 				<TextControl
 					label="Meta Block Field"
 					value={ metaFieldValue }
@@ -80,6 +82,7 @@ registerBlockType( 'myguten/meta-block', {
 	var TextControl = wp.components.TextControl;
 	var useSelect = wp.data.useSelect;
 	var useEntityProp = wp.coreData.useEntityProp;
+	var useBlockProps = wp.blockEditor.useBlockProps;
 
 	registerBlockType( 'myguten/meta-block', {
 		title: 'Meta Block',
@@ -87,8 +90,7 @@ registerBlockType( 'myguten/meta-block', {
 		category: 'text',
 
 		edit: function( props ) {
-			var className = props.className;
-
+			var blockProps = useBlockProps();
 			var postType = useSelect(
 				function( select ) {
 					return select( 'core/editor' ).getCurrentPostType();
@@ -118,7 +120,7 @@ registerBlockType( 'myguten/meta-block', {
 
 			return el(
 				'div',
-				{ className: className },
+				blockProps,
 				el( TextControl, {
 					label: 'Meta Block Field',
 					value: metaFieldValue,
@@ -164,3 +166,5 @@ You can now use the post meta data in a template, or another block. See next sec
 ![メタブロック](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/metabox/meta-block.png)
 
 投稿メタデータはテンプレートでも、あるいは別のブロックでも使用できます。次のセクションでは[投稿メタデータを使用します](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-4-use-data/)。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/metabox/meta-block-3-add.md)

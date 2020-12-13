@@ -93,9 +93,10 @@ Example 03 の完全なブロック定義を以下に示します。
 {% ESNext %}
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
+	apiVersion: 2,
 	title: 'Example: Editable (esnext)',
 	icon: 'universal-access-alt',
 	category: 'design',
@@ -113,20 +114,22 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	},
 	edit: ( props ) => {
 		const { attributes: { content }, setAttributes, className } = props;
+		const blockProps = useBlockProps();
 		const onChangeContent = ( newContent ) => {
 			setAttributes( { content: newContent } );
 		};
 		return (
 			<RichText
+				{ ...blockProps }
 				tagName="p"
-				className={ className }
 				onChange={ onChangeContent }
 				value={ content }
 			/>
 		);
 	},
 	save: ( props ) => {
-		return <RichText.Content tagName="p" value={ props.attributes.content } />;
+		const blockProps = useBlockProps.save();
+		return <RichText.Content { ...blockProps } tagName="p" value={ props.attributes.content } />;
 	},
 } );
 ```
@@ -134,11 +137,13 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 
 {% ES5 %}
 ```js
-( function( blocks, editor, element ) {
+( function( blocks, blockEditor, element ) {
 	var el = element.createElement;
-	var RichText = editor.RichText;◊
+	var RichText = blockEditor.RichText;
+	var useBlockProps = blockEditor.useBlockProps;
 
 	blocks.registerBlockType( 'gutenberg-examples/example-03-editable', {
+		apiVersion: 2,
 		title: 'Example: Editable',
 		icon: 'universal-access-alt',
 		category: 'design',
@@ -156,6 +161,7 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 			},
 		},
 		edit: function( props ) {
+			var blockProps = useBlockProps();
 			var content = props.attributes.content;
 			function onChangeContent( newContent ) {
 				props.setAttributes( { content: newContent } );
@@ -163,25 +169,28 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 
 			return el(
 				RichText,
-				{
+				Object.assign( blockProps, {
 					tagName: 'p',
-					className: props.className,
 					onChange: onChangeContent,
 					value: content,
-				}
+				} )
 			);
 		},
 
 		save: function( props ) {
-			return el( RichText.Content, {
-				tagName: 'p', value: props.attributes.content,
-			} );
+			var blockProps = useBlockProps.save();
+			return el( RichText.Content, Object.assign( blockProps, {
+				tagName: 'p', 
+				value: props.attributes.content,
+			} ) );
 		},
 	} );
 }(
 	window.wp.blocks,
-	window.wp.editor,
+	window.wp.blockEditor,
 	window.wp.element
 ) );
 ```
 {% end %}
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/introducing-attributes-and-editable-fields.md)

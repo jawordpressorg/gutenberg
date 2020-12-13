@@ -61,7 +61,7 @@ There are a number of core blocks using the RichText component. The JavaScript e
 {% ESNext %}
 ```js
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 registerBlockType( /* ... */, {
 	// ...
@@ -74,11 +74,13 @@ registerBlockType( /* ... */, {
 		},
 	},
 
-	edit( { className, attributes, setAttributes } ) {
+	edit( { attributes, setAttributes } ) {
+		const blockProps = useBlockProps();
+
 		return (
 			<RichText
+				{ ...blockProps }
 				tagName="h2" // The tag here is the element output and editable in the admin
-				className={ className }
 				value={ attributes.content } // Any existing content, either from the database or an attribute default
 				formattingControls={ [ 'bold', 'italic' ] } // Allow the content to be made bold or italic, but do not allow other formatting options
 				onChange={ ( content ) => setAttributes( { content } ) } // Store updated content as a block attribute
@@ -88,7 +90,9 @@ registerBlockType( /* ... */, {
 	},
 
 	save( { attributes } ) {
-		return <RichText.Content tagName="h2" value={ attributes.content } />; // Saves <h2>Content added in the editor...</h2> to the database for frontend display
+		const blockProps = useBlockProps.save();
+
+		return <RichText.Content { ...blockProps } tagName="h2" value={ attributes.content } />; // Saves <h2>Content added in the editor...</h2> to the database for frontend display
 	}
 } );
 ```
@@ -106,28 +110,73 @@ wp.blocks.registerBlockType( /* ... */, {
 	},
 
 	edit: function( props ) {
-		return wp.element.createElement( wp.editor.RichText, {
+		var blockProps = wp.blockEditor.useBlockProps();
+
+		return wp.element.createElement( wp.blockEditor.RichText, Object.assign( blockProps, {
 			tagName: 'h2',  // The tag here is the element output and editable in the admin
-			className: props.className,
 			value: props.attributes.content, // Any existing content, either from the database or an attribute default
 			formattingControls: [ 'bold', 'italic' ], // Allow the content to be made bold or italic, but do not allow other formatting options
 			onChange: function( content ) {
 				props.setAttributes( { content: content } ); // Store updated content as a block attribute
 			},
 			placeholder: __( 'Heading...' ), // Display this text before any content has been added by the user
-		} );
+		} ) );
 	},
 
 	save: function( props ) {
-		return wp.element.createElement( wp.editor.RichText.Content, {
+		var blockProps = wp.blockEditor.useBlockProps.save();
+
+		return wp.element.createElement( wp.blockEditor.RichText.Content, Object.assign( blockProps, {
 			tagName: 'h2', value: props.attributes.content // Saves <h2>Content added in the editor...</h2> to the database for frontend display
-		} );
+		} ) );
 	}
 } );
 ```
 {% end %}
  -->
 ## 例
+
+**ESNext**
+
+{% ESNext %}
+```js
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
+
+registerBlockType( /* ... */, {
+	// ...
+
+	attributes: {
+		content: {
+			type: 'string',
+			source: 'html',
+			selector: 'h2',
+		},
+	},
+
+	edit( { attributes, setAttributes } ) {
+		const blockProps = useBlockProps();
+
+		return (
+			<RichText
+				{ ...blockProps }
+				tagName="h2" // このタグは要素の出力。編集画面で編集可能
+				value={ attributes.content } // データベースから、または属性デフォルトからの任意の既存コンテンツ
+				formattingControls={ [ 'bold', 'italic' ] } // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
+				onChange={ ( content ) => setAttributes( { content } ) } // 更新したコンテンツはブロック属性として保存
+				placeholder={ __( 'Heading...' ) } // Display this text before any content has been added by the user
+			/>
+		);
+	},
+
+	save( { attributes } ) {
+		const blockProps = useBlockProps.save();
+
+		return <RichText.Content { ...blockProps } tagName="h2" value={ attributes.content } />; // フロントエンド表示用に <h2>ユーザーが入力したコンテンツ</h2> をデータベースに保存
+
+	}
+} );
+```
 
 **ES5**
 
@@ -146,62 +195,29 @@ wp.blocks.registerBlockType( /* ... */, {
 	},
 
 	edit: function( props ) {
-		return wp.element.createElement( wp.editor.RichText, {
+		var blockProps = wp.blockEditor.useBlockProps();
+
+		return wp.element.createElement( wp.blockEditor.RichText, Object.assign( blockProps, {
 			tagName: 'h2',  // このタグは要素の出力。編集画面で編集可能
-			className: props.className,
 			value: props.attributes.content, // データベースから、または属性デフォルトからの任意の既存コンテンツ
 			formattingControls: [ 'bold', 'italic' ], // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
 			onChange: function( content ) {
 				props.setAttributes( { content: content } ); // 更新したコンテンツはブロック属性として保存
 			},
 			placeholder: __( 'Heading...' ), // ユーザーに追加された任意のコンテツの前にこのテキストを表示
-		} );
+		} ) );
 	},
 
 	save: function( props ) {
-		return wp.element.createElement( wp.editor.RichText.Content, {
+		var blockProps = wp.blockEditor.useBlockProps.save();
+
+		return wp.element.createElement( wp.blockEditor.RichText.Content, Object.assign( blockProps, {
 			tagName: 'h2', value: props.attributes.content // 表示用に <h2>ユーザーが入力したコンテンツ</h2> をデータベースに保存
-		} );
+		} ) );
 	}
 } );
 ```
 
-**ESNext**
-
-{% ESNext %}
-```js
-import { registerBlockType } from '@wordpress/blocks';
-import { RichText } from '@wordpress/block-editor';
-
-registerBlockType( /* ... */, {
-	// ...
-
-	attributes: {
-		content: {
-			type: 'string',
-			source: 'html',
-			selector: 'h2',
-		},
-	},
-
-	edit( { className, attributes, setAttributes } ) {
-		return (
-			<RichText
-				tagName="h2" // このタグは要素の出力。編集画面で編集可能
-				className={ className }
-				value={ attributes.content } // データベースから、または属性デフォルトからの任意の既存コンテンツ
-				formattingControls={ [ 'bold', 'italic' ] } // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
-				onChange={ ( content ) => setAttributes( { content } ) } // 更新したコンテンツはブロック属性として保存
-				placeholder={ __( 'Heading...' ) } // Display this text before any content has been added by the user
-			/>
-		);
-	},
-
-	save( { attributes } ) {
-		return <RichText.Content tagName="h2" value={ attributes.content } />; // 表示用に <h2>ユーザーが入力したコンテンツ</h2> をデータベースに保存
-	}
-} );
-```
 {% end %}
 
 <!-- 
@@ -249,3 +265,5 @@ If you'd still like to use RichText, you can eliminate all of the formatting opt
 先に進む前に RichText コンポーネントが本当に必要か考え直してください。基本的な `input` や `textarea` 要素を使用したほうが良いかもしれません。フォーマットが一切必要ないならば、これらの HTML タグのほうが良いでしょう。
 
 それでも RichText が使いたければ、`formattingControls` プロパティに `formattingControls={ [] }` (ESNext の場合) を指定してすべてのフォーマットオプションを削除してください。この場合でもコードの追加、インライン画像、他のフォーマットオプションは残ります。心配は無用です。すぐに修正される既存のバグを見つけただけです。
+
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/richtext.md)
