@@ -15,7 +15,7 @@
 <!-- 
 This is documentation for the current direction and work in progress about how themes can hook into the various sub-systems that the Block Editor provides.
  -->
-この文書ではテーマがブロックエディターの提供するさまざまなサブシステムとどのように連携するのか、現在の方向性と進行中の作業について記述します。
+この文書ではテーマがブロックエディターの提供するさまざまなサブシステムとどのように連携するのか、その方向性と現在進行中の作業について記述します。
 
 <!-- 
 - Rationale
@@ -47,7 +47,7 @@ The Block Editor surface API has evolved at different velocities, and it's now a
 <!-- 
 This describes the current efforts to consolidate the various APIs into a single point – a `experimental-theme.json` file that should be located inside the root of the theme directory.
  -->
-この文書では現在行われているさざまな API を一箇所に集める努力、テーマディレクトリのルートに配置する `experimental-theme.json` ファイルについて説明します。
+この文書では現在行われている、さざまな API を一箇所に集める努力、テーマディレクトリのルートに配置する `experimental-theme.json` ファイルについて説明します。
 
 <!-- 
 ### Settings can be controlled per block
