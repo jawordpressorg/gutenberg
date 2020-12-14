@@ -155,6 +155,8 @@ settings セクションは以下の構造とデフォルト値を持ちます�
       },
       "typography": {
         "customFontSize": true, /* false to opt-out, as in add_theme_support( 'disable-custom-font-sizes' ) */
+        "customFontWeight": true, /* false to opt-out */
+        "customFontStyle": true, /* false to opt-out */
         "customLineHeight": false, /* true to opt-in, as in add_theme_support( 'custom-line-height' ) */
         "dropCap": true, /* false to opt-out */
         "fontFamilies": [ ... ], /* font family presets */
