@@ -5,7 +5,7 @@
 <!-- 
 The Gutenberg Project is not only building a better editor for WordPress, but also creating a platform to build upon. This platform consists of a set of JavaScript packages and tools that you can use in your web application. [View the list packages available on npm](https://www.npmjs.com/org/wordpress).
  -->
-Gutenberg プロジェクトは、より良い WordPress エディターを作るだけでなく、その上で構築するプラットフォームの作成を目指しています。プラットフォームは JavaScript パッケージとツールから成り、Web アプリケーションで利用することができます。[npm で利用可能なパッケージのリストを参照してください](https://www.npmjs.com/org/wordpress)。
+Gutenberg プロジェクトは、より良い WordPress エディターを作るだけでなく、その上で構築するプラットフォームの作成を目指しています。プラットフォームは JavaScript パッケージとツールから構成され、Web アプリケーションで利用できます。[npm で利用可能なパッケージのリストを参照してください](https://www.npmjs.com/org/wordpress)。
 
 <!-- 
 ## UI Components
@@ -100,8 +100,8 @@ The [`@wordpress/block-editor` package](https://developer.wordpress.org/block-ed
 
 You can learn more by reading the [tutorial "Building a custom block editor"](/docs/designers-developers/developers/platform/custom-block-editor/README.md).
  -->
-[`@wordpress/block-editor` package](https://developer.wordpress.org/block-editor/packages/packages-block-editor/) を使用するとスタンドアロンのブロックエディターを作成して使用することができます。
+[`@wordpress/block-editor` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-block-editor/) を使用するとスタンドアロンのブロックエディターを作成し、使用できます。
 
-詳細については [チュートリアル "Building a custom block editor"](https://developer.wordpress.org/block-editor/developers/platform/custom-block-editor/) を参照してください。
+詳細については [チュートリアル - カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/developers/platform/custom-block-editor/) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/tree/master/docs/designers-developers/developers/platform)
