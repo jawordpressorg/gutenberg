@@ -1,10 +1,20 @@
+<!-- 
 # Tutorial: building a custom block editor
+ -->
+# チュートリアル: カスタムブロックエディターの構築
 
+<!-- 
 This tutorial will step through the fundamentals of creating a custom instance
 of a "block editor" using the `@wordpress/block-editor` package.
+ -->
+このチュートリアルでは `@wordpress/block-editor` パッケージを使用した「ブロックエディター」カスタムインスタンス作成の基礎を順を追って説明します。
 
+<!-- 
 ## Table of Contents
+ -->
+## 目次
 
+<!-- 
 * [Introduction](#introduction).
 * [What we're going to be building](#what-were-going-to-be-building).
 * [Plugin setup and organization](#plugin-setup-and-organization).
@@ -16,23 +26,56 @@ of a "block editor" using the `@wordpress/block-editor` package.
 * [Reviewing the Sidebar](#reviewing-the-sidebar).
 * [Block Persistence](#block-persistence).
 * [Wrapping up](#wrapping-up).
+ -->
+* [はじめに](#introduction)
+* [何を構築するのか](#what-were-going-to-be-building)
+* [プラグインのセットアップと編成](#plugin-setup-and-organization)
+* [エディターの「コア」](#the-core-of-the-editor)
+* [管理画面のカスタムページ「ブロックエディター」の作成](#creating-the-custom-block-editor-page-in-wp-admin)
+* [カスタムブロックエディターの登録とレンダリング](#registering-and-rendering-our-custom-block-editor)
+* [`<Editor>` コンポーネントのレビュー](#reviewing-the-editor-component)
+* [カスタム `<BlockEditor>`](#the-custom-blockeditor)
+* [サイドバーのレビュー](#reviewing-the-sidebar)
+* [ブロックの永続性](#block-persistence)
+* [まとめ](#wrapping-up)
 
+<!-- 
 ## Introduction
-
+ -->
+## はじめに
+<!-- 
 The Gutenberg codebase is complex, with many packages and components, but at its core it is a tool for managing and editing blocks. Therefore, when working on the editor it is important to gain a better understanding of how block editing works at a _fundamental_ level.
+ -->
+Gutenberg のコードには多くのコンポーネントやパッケージが含まれていて複雑ですが、その中心はブロックを管理、編集するツールです。したがってエディターで作業する際、_基礎_ レベルでブロックの編集がどのように行われるのかを理解しておくことは重要です。
 
+<!-- 
 To do this, this tutorial will walk you through building a **fully functioning, __custom__ block editor "instance"** within WordPress, introducing you to the key packages and components along the way.
-
+ -->
+このチュートリアルでは WordPress 内で **完全に機能する__カスタム__ ブロックエディター「インスタンス」** の構築手順を見ながら、同時に主要なパッケージやコンポーネントを紹介します。
+<!-- 
 By the end of this article, you should have gained a good understanding of how the block editor works and some of the knowledge required to put together your own block editor instances.
+ -->
+この記事を読み終える頃にはブロックエディターの動作原理に対する深い理解と、独自のブロックエディターインスタンスを作成する際に必要な知識を得ているでしょう。
 
+<!-- 
 ## What we're going to be building
+ -->
+## 何を構築するのか
 
+<!-- 
 We're going to be creating an (almost) fully functioning Block Editor instance.
 
 ![alt text](https://wordpress.org/gutenberg/files/2020/03/editor.png "The Standalone Editor instance populated with example Blocks within a custom WP Admin page.")
+ -->
+今から (ほぼ) 完全に機能するブロックエディターインスタンスを作成します。
 
+![alt text](https://wordpress.org/gutenberg/files/2020/03/editor.png "カスタム WordPress 管理画面の中にサンプルのブロックを持つ、スタンドアロンエディターインスタンス")
+<!-- 
 This block editor will not be the same _Block Editor_ you are familiar with when creating `Post`s in WP Admin. Rather it will be an entirely custom instance which will live within a custom WP Admin page called (imaginatively) "Block Editor".
+ -->
+このブロックエディターは、WordPress 内で `投稿` を作成する際に見慣れた「ブロックエディター」と同じものではありません。WordPress 管理画面のカスタムページ (想像力豊かにも「ブロックエディター」という名前です) 内で動作する完全なるカスタムインスタンスです。
 
+<!-- 
 Our editor will have the following features:
 
 * Ability to add and edit all Core Blocks.
@@ -40,49 +83,113 @@ Our editor will have the following features:
 * _Basic_ block persistence between page reloads.
 
 With that in mind, let's start taking our first steps towards building this.
+ -->
+わたしたちのエディターには次の機能があります。
 
+* すべてのコアブロックの追加、編集
+* 親しみやすいビジュアルスタイルとメイン & サイドバーレイアウト
+* ページリロード間での_基本的な_ブロックの永続性
 
+以上を念頭にエディターの構築を目指して、最初のステップに進みましょう。
 
+<!-- 
 ## Plugin setup and organization
+ -->
+## プラグインのセットアップと編成
 
+<!-- 
 Our custom editor is going to be built as a WordPress Plugin. To keep things simple. we'll call this `Standalone Block Editor Demo` because that is what is does. Nice!
-
+ -->
+カスタムエディターは WordPress プラグインとして構築します。このプラグインをシンプルに `スタンドアロンブロックエディターデモ` と呼びましょう。名は体を現していますね、素晴らしい !
+<!-- 
 Let's take a look at our Plugin file structure:
 
 ![alt text](https://wordpress.org/gutenberg/files/2020/03/repo-files.png "Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.")
+ -->
+プラグインファイルの構造を見ます。
 
+![alt text](https://wordpress.org/gutenberg/files/2020/03/repo-files.png "プラグイン https://github.com/getdave/standalone-block-editor のファイル構造を示すスクリーンショット。")
+<!-- 
 Here's a brief summary of what's going on:
+ -->
+簡単に紹介します。
 
+<!-- 
 * `plugin.php` - standard Plugin "entry" file with comment meta data. Requires `init.php`.
 * `init.php` - handles the initialization of the main Plugin logic. We'll be spending a lot of time here.
 * `src/` (directory) - this is where our JavaScript (and CSS) source files will live. These files are _not_ directly enqueued by the Plugin.
 * `webpack.config.js` - a custom Webpack config extending the defaults provided by the `@wordpress/scripts` npm package to allow for custom CSS styles (via Sass).
+ -->
+* `plugin.php` - 標準的なプラグインの「入り口」ファイル。コメントメタデータ付き。`init.php` が必要。
+* `init.php` - プラグインのメインロジックの初期化を扱う。ここで多くの時間を費やす予定。
+* `src/` (ディレクトリ) - JavaScript と CSS ソースファイル置き場。これらのファイルは直接、プラグインによって _エンキューされない_ 。
+* `webpack.config.js` - カスタム Webpack 構成。`@wordpress/scripts` npm パッケージによって提供されるデフォルトを拡張し、Sass 経由のカスタム CSS スタイルを実現する。
 
+<!-- 
 The only item not shown above is the `build/` directory, which is where our _compiled_ JS and CSS files will be outputted by `@wordpress/scripts` ready to be enqueued by our Plugin.
+ -->
+上で紹介していない唯一の要素が `build/` ディレクトリです。ここには `@wordpress/scripts` で _コンパイルした_ JS と CSS ファイルが出力されプラグインからのエンキューを待ちます。
 
+<!-- 
 **Note:** throughout this tutorial, filename references will be placed in a comment at the top of each code snippet so you can follow along.
 
 With our basic file structure in place, we can now start looking at what package we're going to need.
+ -->
+**注意:** このチュートリアルを通してコード例の先頭のコメントにはファイル名が書かれています。適宜参照してください。
 
+ファイル構造を準備できたところで次に、必要なパッケージを見ていきましょう。
+
+<!-- 
 ## The "Core" of the Editor
+ -->
+## エディターの「コア」
 
+<!-- 
 Whilst the Gutenberg Editor is comprised of many moving parts, at it's core is the `@wordpress/block-editor` package.
 
 It's role is perhaps best summarized by its own `README` file:
+ -->
+Gutenberg エディターは多くの動作パーツから構成されますが、その中核は `@wordpress/block-editor` です。
 
+その役割をもっともよく表しているのは恐らく `README` ファイルでしょう。
+
+<!-- 
 > This module allows you to create and use standalone block editors.
+ -->
+> このモジュールを使用してスタンドアロンのブロックエディターを作成し使用することができます。
 
+<!-- 
 This is great and exactly what we need! Indeed, it is the main package we'll be using to create our custom block editor instance.
 
 However, before we can get to working with this package in code, we're going to need to create a home for our editor within WP Admin.
+ -->
+素晴らしい、まさにわたしたちが必要としていたものです ! 実際、この `@wordpress/block-editor` パッケージが、これからカスタムブロックエディターインスタンスの作成で使用するメインのパッケージです。
 
+しかし、このパッケージにコードレベルで取りかかる前にまず、わたしたちの管理画面内エディター用の場所を作成する必要があります。
+
+<!-- 
 ## Creating the custom "Block Editor" page in WP Admin
+ -->
+## 管理画面のカスタムページ「ブロックエディター」の作成
 
+<!-- 
 As a first step, we need to create a custom page within WP Admin.
+ -->
+最初のステップとして WordPress の管理画面内にカスタムページを作る必要があります。
 
+<!-- 
 **Note**: if you're already comfortable with the process of creating custom Admin pages in WordPress you might want to [skip ahead](#registering-and-rendering-our-custom-block-editor).
+ -->
+**注意**: すでに WordPress 管理画面のカスタムページ作成を知っている方は、[この節をスキップ](#registering-and-rendering-our-custom-block-editor) しても構いません。
 
+<!-- 
 ### Registering the Page
+-->
+### ページの登録
+
+<!-- 
+To do this we [register our custom admin page](https://developer.wordpress.org/reference/functions/add_menu_page/) using the standard WP `add_menu_page()` helper:
+ -->
 To do this we [register our custom admin page](https://developer.wordpress.org/reference/functions/add_menu_page/) using the standard WP `add_menu_page()` helper:
 
 ```php
@@ -97,11 +204,19 @@ add_menu_page(
     'dashicons-welcome-widgets-menus' // custom icon
 );
 ```
-
+<!-- 
 Note the reference to a function `getdave_sbe_render_block_editor` which is the function which we will use to render the contents of the admin page.
-
+ -->
+Note the reference to a function `getdave_sbe_render_block_editor` which is the function which we will use to render the contents of the admin page.
+<!-- 
 ### Adding the target HTML
+ -->
+### Adding the target HTML
+<!-- 
+As the block editor is a React powered application, we now need to output some HTML into our custom page into which the JavaScript can render the block editor.
 
+To do this we need to look at our `getdave_sbe_render_block_editor` function referenced in the step above.
+ -->
 As the block editor is a React powered application, we now need to output some HTML into our custom page into which the JavaScript can render the block editor.
 
 To do this we need to look at our `getdave_sbe_render_block_editor` function referenced in the step above.
@@ -120,13 +235,25 @@ function getdave_sbe_render_block_editor() {
 	<?php
 }
 ```
-
+<!-- 
 Here we simply output some basic placeholder HTML.
 
 Note that we've included an `id` attribute `getdave-sbe-block-editor`. Keep a note of that, a we'll be using it shortly.
+ -->
+Here we simply output some basic placeholder HTML.
 
+Note that we've included an `id` attribute `getdave-sbe-block-editor`. Keep a note of that, a we'll be using it shortly.
+<!-- 
 ### Enqueuing JavaScript and CSS
+ -->
+### Enqueuing JavaScript and CSS
+<!-- 
+With our target HTML in place we can now enqueue some JavaScript (as well as some CSS styles) so that they will run on our custom Admin page.
 
+To do this we hook into `admin_enqueue_scripts`.
+
+First, we need to make sure we only run our custom code on our own admin page, so at the top of our callback function let's exit early if the page doesn't match our page's identifier:
+ -->
 With our target HTML in place we can now enqueue some JavaScript (as well as some CSS styles) so that they will run on our custom Admin page.
 
 To do this we hook into `admin_enqueue_scripts`.
@@ -154,14 +281,23 @@ With this in place, we can then safely register our main JavaScript file using t
 
 wp_enqueue_script( $script_handle, $script_url, $script_asset['dependencies'], $script_asset['version'] );
 ```
-
+<!-- 
 To save time and space, the assignment of the `$script_` variables has been omitted. You can [review these here](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19).
-
+ -->
+To save time and space, the assignment of the `$script_` variables has been omitted. You can [review these here](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19).
+<!-- 
 Note that we register our script dependencies (`$script_asset['dependencies']`) as the 3rd argument - these deps are being
 dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
 [ensure that WordPress provided scripts are not included in the built
 bundle](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config).
-
+ -->
+Note that we register our script dependencies (`$script_asset['dependencies']`) as the 3rd argument - these deps are being
+dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
+[ensure that WordPress provided scripts are not included in the built
+bundle](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config).
+<!-- 
+We also need to register both our custom CSS styles and the WordPress default formatting library in order take advantage of some nice default styling:
+ -->
 We also need to register both our custom CSS styles and the WordPress default formatting library in order take advantage of some nice default styling:
 
 ```php
@@ -178,9 +314,15 @@ wp_enqueue_style(
     filemtime( __DIR__ . '/build/index.css' )
 );
 ```
-
+<!-- 
 ### Inlining the editor settings
+ -->
+### Inlining the editor settings
+<!-- 
+Looking at the `@wordpress/block-editor` package, we can see that it [accepts a settings object to configure the default settings for the editor](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS). These are available on the server side so we need to expose them for use within the JavaScript.
 
+To do this we [inline the settings object as JSON](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L48) assigned to the global `window.getdaveSbeSettings` object:
+ -->
 Looking at the `@wordpress/block-editor` package, we can see that it [accepts a settings object to configure the default settings for the editor](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS). These are available on the server side so we need to expose them for use within the JavaScript.
 
 To do this we [inline the settings object as JSON](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L48) assigned to the global `window.getdaveSbeSettings` object:
@@ -192,9 +334,17 @@ To do this we [inline the settings object as JSON](https://github.com/getdave/st
 $settings = getdave_sbe_get_block_editor_settings();
 wp_add_inline_script( $script_handle, 'window.getdaveSbeSettings = ' . wp_json_encode( $settings ) . ';' );
 ```
-
+<!-- 
 ## Registering and Rendering our custom block editor
+ -->
+## Registering and Rendering our custom block editor
+<!-- 
+With the PHP above in place to create our admin page, we’re now finally ready to use JavaScript to render a Block Editor into the page’s HTML.
 
+Let's open up our main `src/index.js` file.
+
+Here we first pull in required JS packages and import our CSS styles (note using Sass requires [extending the default `@wordpress/scripts` Webpack config](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/webpack.config.js#L13)).
+ -->
 With the PHP above in place to create our admin page, we’re now finally ready to use JavaScript to render a Block Editor into the page’s HTML.
 
 Let's open up our main `src/index.js` file.
@@ -211,9 +361,16 @@ import Editor from './editor';
 
 import './styles.scss';
 ```
-
+<!-- 
 Next, once the DOM is ready we run a function which:
-
+ -->
+Next, once the DOM is ready we run a function which:
+<!-- 
+* Grabs our editor settings from `window.getdaveSbeSettings` (inlined from PHP -
+  see above).
+* Registers all the Core Gutenberg Blocks using `registerCoreBlocks`.
+* Renders an `<Editor>` component into the waiting `<div>` on our custom Admin page.
+ -->
 * Grabs our editor settings from `window.getdaveSbeSettings` (inlined from PHP -
   see above).
 * Registers all the Core Gutenberg Blocks using `registerCoreBlocks`.
@@ -226,16 +383,30 @@ domReady( function() {
 	render( <Editor settings={ settings } />, document.getElementById( 'getdave-sbe-block-editor' ) );
 } );
 ```
-
+<!-- 
 **Note**: it is possible to render the editor from PHP without creating an unnecessary JS global. Check out [the Edit Site package in Gutenberg Core for an example of this](https://href.li/?https://github.com/WordPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135).
-
+ -->
+**Note**: it is possible to render the editor from PHP without creating an unnecessary JS global. Check out [the Edit Site package in Gutenberg Core for an example of this](https://href.li/?https://github.com/WordPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135).
+<!-- 
 ## Reviewing the `<Editor>` component
-
+ -->
+## Reviewing the `<Editor>` component
+<!-- 
 Let's take a closer look at the `<Editor>` component we saw being used above.
 
 Despite its name, this _is not_ the actual core of the block editor. Rather it is a _wrapper_ component we've created to contain the components which form the main body of our custom editor.
+ -->
+Let's take a closer look at the `<Editor>` component we saw being used above.
+
+Despite its name, this _is not_ the actual core of the block editor. Rather it is a _wrapper_ component we've created to contain the components which form the main body of our custom editor.
+<!-- 
+### Dependencies
+ -->
 
 ### Dependencies
+<!-- 
+The first thing we do inside `<Editor>` is to pull in some dependencies.
+ -->
 The first thing we do inside `<Editor>` is to pull in some dependencies.
 
 ```jsx
@@ -246,12 +417,21 @@ import Header from 'components/header';
 import Sidebar from 'components/sidebar';
 import BlockEditor from 'components/block-editor';
 ```
-
+<!-- 
 The most important of these are the internal components `BlockEditor` and `Sidebar`, which we will explore in greater detail shortly.
 
 The remaining components are largely static elements which form the layout and surrounding UI of the editor (eg: header and notice areas).
+ -->
+The most important of these are the internal components `BlockEditor` and `Sidebar`, which we will explore in greater detail shortly.
 
+The remaining components are largely static elements which form the layout and surrounding UI of the editor (eg: header and notice areas).
+<!-- 
 ### Editor Render
+ -->
+### Editor Render
+<!-- 
+With these components available we can proceed to define our `<Editor>` component.
+ -->
 With these components available we can proceed to define our `<Editor>` component.
 
 ```jsx
@@ -273,11 +453,26 @@ function Editor( { settings } ) {
 	);
 }
 ```
-
+<!-- 
 Here we are scaffolding the core of the editor's layout alongside a few specialised [context providers](https://reactjs.org/docs/context.html#contextprovider) which make particular functionality available throughout the component hierarchy.
 
 Let's examine these in more detail:
+ -->
+Here we are scaffolding the core of the editor's layout alongside a few specialised [context providers](https://reactjs.org/docs/context.html#contextprovider) which make particular functionality available throughout the component hierarchy.
 
+Let's examine these in more detail:
+<!-- 
+* `<SlotFillProvider>` - enables the use of the ["Slot/Fill"
+  pattern](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/docs/designers-developers/developers/slotfills/README.md) through our component tree.
+* `<DropZoneProvider>` - enables the use of [dropzones for drag and drop functionality](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone).
+* `<Notices>` - custom component. Provides a "snack bar" Notice that will be rendered if any messages are dispatched to `core/notices` store.
+* `<Header>` - renders the static title "Standalone Block Editor" at the top of the
+  editor UI.
+* `<BlockEditor>` - our custom block editor component. This is where things get
+  interesting. We'll focus a little more on this in a moment.
+* `<Popover.Slot />` - renders a slot into which `<Popover>`s can be rendered
+  using the Slot/Fill mechanic.
+ -->
 * `<SlotFillProvider>` - enables the use of the ["Slot/Fill"
   pattern](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/docs/designers-developers/developers/slotfills/README.md) through our component tree.
 * `<DropZoneProvider>` - enables the use of [dropzones for drag and drop functionality](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone).
@@ -289,7 +484,14 @@ Let's examine these in more detail:
 * `<Popover.Slot />` - renders a slot into which `<Popover>`s can be rendered
   using the Slot/Fill mechanic.
 
+<!-- 
 ### Keyboard Navigation
+ -->
+### Keyboard Navigation
+<!-- 
+With this basic component structure in place the only remaining thing left to do
+is wrap everything in [the `navigateRegions` HOC](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) to provide keyboard navigation between the different "regions" in the layout.
+ -->
 With this basic component structure in place the only remaining thing left to do
 is wrap everything in [the `navigateRegions` HOC](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) to provide keyboard navigation between the different "regions" in the layout.
 
@@ -298,9 +500,11 @@ is wrap everything in [the `navigateRegions` HOC](https://github.com/WordPress/g
 
 export default navigateRegions( Editor );
 ```
-
+<!-- 
 ## The custom `<BlockEditor>`
-
+ -->
+## The custom `<BlockEditor>`
+<!-- 
 Now we have a our core layouts and components in place, it's time to explore our
 custom implementation of the block editor itself.
 
@@ -310,8 +514,23 @@ Opening `src/components/block-editor/index.js` we see that this is the most
 complex of the components we have encountered thus far.
 
 There's a lot going on so let's break this down!
+ -->
+Now we have a our core layouts and components in place, it's time to explore our
+custom implementation of the block editor itself.
 
+The component for this is called `<BlockEditor>` and this is where the magic happens.
+
+Opening `src/components/block-editor/index.js` we see that this is the most
+complex of the components we have encountered thus far.
+
+There's a lot going on so let's break this down!
+<!-- 
 ### Understanding the render
+ -->
+### Understanding the render
+<!-- 
+To start, let's focus on what is being rendered by the `<BlockEditor>` component:
+ -->
 To start, let's focus on what is being rendered by the `<BlockEditor>` component:
 
 ```js
@@ -341,11 +560,23 @@ return (
     </div>
 );
 ```
-
+<!-- 
 The key components to focus on here are `<BlockEditorProvider>` and `<BlockList>`. Let's examine these.
-
+ -->
+The key components to focus on here are `<BlockEditorProvider>` and `<BlockList>`. Let's examine these.
+<!-- 
 ### Understanding the `<BlockEditorProvider>` component
+ -->
+### Understanding the `<BlockEditorProvider>` component
+<!-- 
+[`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. As we learnt earlier, it establishes a new block editing context for a new block editor.
 
+As a result, it is _fundamental_ to the entire goal of our project.
+
+The children of `<BlockEditorProvider>` comprise the UI for the block
+editor. These components then have access to data (via `Context`) which enables
+them to _render_ and _manage_ the Blocks and their behaviors within the editor.
+ -->
 [`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. As we learnt earlier, it establishes a new block editing context for a new block editor.
 
 As a result, it is _fundamental_ to the entire goal of our project.
@@ -364,13 +595,19 @@ them to _render_ and _manage_ the Blocks and their behaviors within the editor.
     settings={ settings } // editor "settings" object
 />
 ```
-
+<!-- 
 #### `BlockEditor` props
-
+ -->
+#### `BlockEditor` props
+<!-- 
 We can see that `<BlockEditorProvider>` accepts array of (parsed) block objects as its `value` prop and, when there's a change detected within the editor, calls the `onChange` and/or `onInput` handler prop (passing the new Blocks as a argument).
 
 Internally it does this by subscribing to the provided `registry` (via the [`withRegistryProvider` HOC](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider/index.js#L158)), listening to block change events, determining whether Block changing was persistent, and then calling the appropriate `onChange|Input` handler accordingly.
+ -->
+We can see that `<BlockEditorProvider>` accepts array of (parsed) block objects as its `value` prop and, when there's a change detected within the editor, calls the `onChange` and/or `onInput` handler prop (passing the new Blocks as a argument).
 
+Internally it does this by subscribing to the provided `registry` (via the [`withRegistryProvider` HOC](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider/index.js#L158)), listening to block change events, determining whether Block changing was persistent, and then calling the appropriate `onChange|Input` handler accordingly.
+<!-- 
 For the purposes of our simple project these features allow us to:
 
 * Store the array of current blocks in state as `blocks`.
@@ -378,19 +615,43 @@ For the purposes of our simple project these features allow us to:
   `updateBlocks(blocks)`.
 * Handle basic persistence of blocks into `localStorage` using `onChange`. This is [fired when block updates are considered
   "committed"](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/provider#onchange).
+ -->
+For the purposes of our simple project these features allow us to:
 
+* Store the array of current blocks in state as `blocks`.
+* Update the `blocks` state in memory on `onInput` by calling the hook setter
+  `updateBlocks(blocks)`.
+* Handle basic persistence of blocks into `localStorage` using `onChange`. This is [fired when block updates are considered
+  "committed"](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/provider#onchange).
+<!-- 
 It's also worth recalling that the component accepts a `settings` prop. This accepts the editor settings which we inlined as JSON within `init.php` earlier. This configures features such as custom colors, available image sizes and [much more](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS).
-
+ -->
+It's also worth recalling that the component accepts a `settings` prop. This accepts the editor settings which we inlined as JSON within `init.php` earlier. This configures features such as custom colors, available image sizes and [much more](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS).
+<!-- 
 ### Understanding the `<BlockList>` component
-
+ -->
+### Understanding the `<BlockList>` component
+<!-- 
 Alongside `<BlockEditorProvider>` the next most interesting component is [`<BlockList>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/index.js).
-
+ -->
+Alongside `<BlockEditorProvider>` the next most interesting component is [`<BlockList>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/index.js).
+<!-- 
 This is one of the most important components as it's role is to **render a list of Blocks into the editor**.
 
 It does this in part thanks to being placed as a child of `<BlockEditorProvider>` which affords it full access to all information about the state of the current Blocks in the editor.
+ -->
+This is one of the most important components as it's role is to **render a list of Blocks into the editor**.
 
+It does this in part thanks to being placed as a child of `<BlockEditorProvider>` which affords it full access to all information about the state of the current Blocks in the editor.
+<!-- 
 #### How does `BlockList` work?
+ -->
+#### How does `BlockList` work?
+<!-- 
+Under the hood `<BlockList>` relies on several other lower-level components in order to render the list of Blocks.
 
+The hierarchy of these components can be _approximated_ as follows:
+ -->
 Under the hood `<BlockList>` relies on several other lower-level components in order to render the list of Blocks.
 
 The hierarchy of these components can be _approximated_ as follows:
@@ -406,18 +667,35 @@ The hierarchy of these components can be _approximated_ as follows:
     </BlockListBlock>
 </BlockList>
 ```
+<!-- 
 Here's roughly how this works together to render our list of blocks:
-
+ -->
+Here's roughly how this works together to render our list of blocks:
+<!-- 
+* `<BlockList>` loops over all the Block clientIds and
+renders each via [`<BlockListBlock />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/block.js).
+* `<BlockListBlock />` in turn renders the individual "Block"
+via it's own subcomponent [`<BlockEdit>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/index.js).
+* Finally [the Block itself](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/edit.js) is rendered using the `Component` placeholder component.
+ -->
 * `<BlockList>` loops over all the Block clientIds and
 renders each via [`<BlockListBlock />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/block.js).
 * `<BlockListBlock />` in turn renders the individual "Block"
 via it's own subcomponent [`<BlockEdit>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/index.js).
 * Finally [the Block itself](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/edit.js) is rendered using the `Component` placeholder component.
 
+<!-- 
+These are some of the most complex and involved components within the `@wordpress/block-editor` package. That said, if you want to have a strong grasp of how the editor works at a fundamental level, I strongly advise making a study of these components. I leave this as an exercise for the reader!
+ -->
 These are some of the most complex and involved components within the `@wordpress/block-editor` package. That said, if you want to have a strong grasp of how the editor works at a fundamental level, I strongly advise making a study of these components. I leave this as an exercise for the reader!
 
+<!-- 
 ### Utility components in our custom block editor
-
+ -->
+### Utility components in our custom block editor
+<!-- 
+Jumping back to our own custom `<BlockEditor>` component, it is also worth noting the following "utility" components:
+ -->
 Jumping back to our own custom `<BlockEditor>` component, it is also worth noting the following "utility" components:
 
 ```js
@@ -432,16 +710,26 @@ Jumping back to our own custom `<BlockEditor>` component, it is also worth notin
     </WritingFlow>
 </div>
 ```
-
+<!-- 
 These provide other important elements of functionality for our editor instance.
-
+ -->
+These provide other important elements of functionality for our editor instance.
+<!-- 
+1. [`<BlockEditorKeyboardShortcuts />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/keyboard-shortcuts/index.js) - enables and usage of keyboard shortcuts within the editor.
+2. [`<WritingFlow>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/writing-flow/index.js) - handles selection, focus management and navigation across blocks.
+3. [`<ObserveTyping>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/observe-typing)- used to manage the editor's internal `isTyping` flag. This is used in various places, most commonly to show/hide the Block toolbar in response to typing.
+ -->
 1. [`<BlockEditorKeyboardShortcuts />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/keyboard-shortcuts/index.js) - enables and usage of keyboard shortcuts within the editor.
 2. [`<WritingFlow>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/writing-flow/index.js) - handles selection, focus management and navigation across blocks.
 3. [`<ObserveTyping>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/observe-typing)- used to manage the editor's internal `isTyping` flag. This is used in various places, most commonly to show/hide the Block toolbar in response to typing.
 
-
+<!-- 
 ## Reviewing the Sidebar
-
+ -->
+## Reviewing the Sidebar
+<!-- 
+Also within the render of our `<BlockEditor>`, is our `<Sidebar>` component.
+ -->
 Also within the render of our `<BlockEditor>`, is our `<Sidebar>` component.
 
 ```jsx
@@ -460,7 +748,9 @@ return (
     </div>
 );
 ```
-
+<!-- 
+This is used - alongside other things - to display advanced Block settings via the `<BlockInspector>` component.
+ -->
 This is used - alongside other things - to display advanced Block settings via the `<BlockInspector>` component.
 
 ```jsx
@@ -468,7 +758,11 @@ This is used - alongside other things - to display advanced Block settings via t
     <BlockInspector />
 </Sidebar.InspectorFill>
 ```
-
+<!-- 
+However, the keen-eyed readers amongst you will have already noted the presence
+of a `<Sidebar>` component within our `<Editor>` (`src/editor.js`) component's
+layout:
+ -->
 However, the keen-eyed readers amongst you will have already noted the presence
 of a `<Sidebar>` component within our `<Editor>` (`src/editor.js`) component's
 layout:
@@ -481,22 +775,44 @@ layout:
 <BlockEditor settings={ settings } />
 
 ```
-
+<!-- 
 Opening `src/components/sidebar/index.js` we see that this is in fact the
 component rendered within `<Editor>` above. However, the implementation utilises
 Slot/Fill to expose a `Fill` (`<Sidebar.InspectorFill>`) which we subsequently
 `import` and render inside of our `<BlockEditor>` component (see above).
-
+ -->
+Opening `src/components/sidebar/index.js` we see that this is in fact the
+component rendered within `<Editor>` above. However, the implementation utilises
+Slot/Fill to expose a `Fill` (`<Sidebar.InspectorFill>`) which we subsequently
+`import` and render inside of our `<BlockEditor>` component (see above).
+<!-- 
 With this in place, we then render `<BlockInspector />` as a child of the
 `Sidebar.InspectorFill`. This has the result of allowing us to keep
 `<BlockInspector>` within the React context of `<BlockEditorProvider>` whilst
 allowing it to be rendered into the DOM in a separate location (ie: in the `<Sidebar>`).
-
+ -->
+With this in place, we then render `<BlockInspector />` as a child of the
+`Sidebar.InspectorFill`. This has the result of allowing us to keep
+`<BlockInspector>` within the React context of `<BlockEditorProvider>` whilst
+allowing it to be rendered into the DOM in a separate location (ie: in the `<Sidebar>`).
+<!-- 
+This might seem overly complex, but it is required in order that
+`<BlockInspector>` can have access to information about the current Block.
+Without Slot/Fill this setup would be extremely difficult to achieve.
+ -->
 This might seem overly complex, but it is required in order that
 `<BlockInspector>` can have access to information about the current Block.
 Without Slot/Fill this setup would be extremely difficult to achieve.
 
-
+<!-- 
+Aside:
+[`<BlockInspector>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js)
+ itself actually renders a `Slot` for [`<InspectorControls>`](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inspector-controls
+). This is what allows you [render a `<InspectorControls>` component inside
+the `edit()` definition for your block](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-library/src/paragraph/edit.js#L127) and have
+it display within Gutenberg's sidebar. I recommend looking into this component
+in more detail.
+ -->
 Aside:
 [`<BlockInspector>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js)
  itself actually renders a `Slot` for [`<InspectorControls>`](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inspector-controls
@@ -505,23 +821,48 @@ the `edit()` definition for your block](https://github.com/WordPress/gutenberg/b
 it display within Gutenberg's sidebar. I recommend looking into this component
 in more detail.
 
+<!-- 
+And with that we have covered the render of our custom `<BlockEditor>`!
+ -->
 And with that we have covered the render of our custom `<BlockEditor>`!
 
+<!-- 
 ## Block Persistence
-
+ -->
+## Block Persistence
+<!-- 
 We've come a long way on our journey to create a custom block editor. But there is
 one major area left to touch upon - Block persistance; that is the act of having our
 Blocks saved and **available _between_ page refreshes**.
 
 ![alt text](https://wordpress.org/gutenberg/files/2020/03/block-persistance.gif "Screencapture showing added Blocks being restored between page refreshes.")
+ -->
+We've come a long way on our journey to create a custom block editor. But there is
+one major area left to touch upon - Block persistance; that is the act of having our
+Blocks saved and **available _between_ page refreshes**.
 
+![alt text](https://wordpress.org/gutenberg/files/2020/03/block-persistance.gif "Screencapture showing added Blocks being restored between page refreshes.")
+<!-- 
+As this is only an _experiment_ we've opted to utilise the browser's
+`localStorage` API to handle saving Block data. In a real-world scenario however
+you'd like choose a more reliable and robust system (eg: a database).
+
+That said, let's take a closer look at how we're handling saving our Blocks.
+ -->
 As this is only an _experiment_ we've opted to utilise the browser's
 `localStorage` API to handle saving Block data. In a real-world scenario however
 you'd like choose a more reliable and robust system (eg: a database).
 
 That said, let's take a closer look at how we're handling saving our Blocks.
 
+<!-- 
 ### Storing blocks in state
+ -->
+### Storing blocks in state
+<!-- 
+Opening `src/components/block-editor/index.js` we will notice we have created
+some state to store our Blocks as an array:
+ -->
 Opening `src/components/block-editor/index.js` we will notice we have created
 some state to store our Blocks as an array:
 
@@ -530,11 +871,20 @@ some state to store our Blocks as an array:
 
 const [ blocks, updateBlocks ] = useState( [] );
 ```
-
+<!-- 
+As mentioned earlier, `blocks` is passed to the "controlled" component `<BlockEditorProvider>` as its `value` prop. This "hydrates" it with an initial set of Blocks. Similarly, the `updateBlocks` setter is hooked up to the `onInput` callback on `<BlockEditorProvider>` which ensures that our block state is kept in sync with changes made to blocks within the editor.
+ -->
 As mentioned earlier, `blocks` is passed to the "controlled" component `<BlockEditorProvider>` as its `value` prop. This "hydrates" it with an initial set of Blocks. Similarly, the `updateBlocks` setter is hooked up to the `onInput` callback on `<BlockEditorProvider>` which ensures that our block state is kept in sync with changes made to blocks within the editor.
 
+<!-- 
+### Saving Block data
+ -->
 ### Saving Block data
 
+<!-- 
+If we now turn our attention to the `onChange` handler, we will notice it is
+hooked up to a function `persistBlocks()` which is defined as follows:
+ -->
 If we now turn our attention to the `onChange` handler, we will notice it is
 hooked up to a function `persistBlocks()` which is defined as follows:
 
@@ -546,12 +896,21 @@ function persistBlocks( newBlocks ) {
     window.localStorage.setItem( 'getdavesbeBlocks', serialize( newBlocks ) );
 }
 ```
-
+<!-- 
 This function accepts an array of "committed" block changes and calls the state
 setter `updateBlocks`. In addition to this however, it also stores the blocks
 within LocalStorage under the key `getdavesbeBlocks`. In order to achieve this
 the Block data is serialized into [Gutenberg "Block Grammar"](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks) format, meaning it can be safely stored as a string.
-
+ -->
+This function accepts an array of "committed" block changes and calls the state
+setter `updateBlocks`. In addition to this however, it also stores the blocks
+within LocalStorage under the key `getdavesbeBlocks`. In order to achieve this
+the Block data is serialized into [Gutenberg "Block Grammar"](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks) format, meaning it can be safely stored as a string.
+<!-- 
+If we open DeveloperTools and inspect our LocalStorage we will see serialized
+Block data stored and updated as changes occur within the editor. Below is an
+example of the format:
+ -->
 If we open DeveloperTools and inspect our LocalStorage we will see serialized
 Block data stored and updated as changes occur within the editor. Below is an
 example of the format:
@@ -565,9 +924,17 @@ example of the format:
 <p>This is an experiment to discover how easy (or otherwise) it is to create a standalone instance of the Block Editor in WPAdmin.</p>
 <!-- /wp:paragraph -->
 ```
-
+<!-- 
 ### Retrieving previous block data
+ -->
+### Retrieving previous block data
+<!-- 
+Having persistence in place is all well and good, but it's useless unless that
+data is retrieved and _restored_ within the editor upon each full page reload.
 
+Accessing data is a side effect, so naturally we reach for our old (new!?)
+friend the `useEffect` hook to handle this.
+ -->
 Having persistence in place is all well and good, but it's useless unless that
 data is retrieved and _restored_ within the editor upon each full page reload.
 
@@ -589,7 +956,15 @@ useEffect( () => {
     }
 }, [] );
 ```
+<!-- 
+In this handler, we:
 
+* Grab the serialized block data from local storage.
+* Convert the serialized blocks back to JavaScript objects using the `parse()`
+  utility.
+* Call the state setter `updateBlocks` causing the `blocks` value to be updated
+  in state to reflect the blocks retrieved from LocalStorage.
+ -->
 In this handler, we:
 
 * Grab the serialized block data from local storage.
@@ -598,20 +973,35 @@ In this handler, we:
 * Call the state setter `updateBlocks` causing the `blocks` value to be updated
   in state to reflect the blocks retrieved from LocalStorage.
 
+<!-- 
+As a result of these operations the controlled `<BlockEditorProvider>` component
+is updated with the blocks restored from LocalStorage causing the editor to
+show these blocks.
+
+Finally, for good measure we generate a notice - which will display in our `<Notice>` component as a "snackbar" notice - to indicate that the blocks have been restored.
+ -->
 As a result of these operations the controlled `<BlockEditorProvider>` component
 is updated with the blocks restored from LocalStorage causing the editor to
 show these blocks.
 
 Finally, for good measure we generate a notice - which will display in our `<Notice>` component as a "snackbar" notice - to indicate that the blocks have been restored.
 
+<!-- 
+## Wrapping up
+ -->
 ## Wrapping up
 
+<!-- 
 If you've made it this far then congratulations! I hope you now have a better understanding of how the block editor works under the hood.
 
 In addition, you've reviewed an working example of the code required to implement your own custom functioning block editor. This information should prove useful, especially as Gutenberg expands beyond editing just the `Post` and into Widgets, Full Site Editing and beyond!
 
 The full code for the custom functioning block editor we've just built is [available on Github](https://github.com/getdave/standalone-block-editor). I encourage you to download and try it out for yourself. Experiment, then and take things even further!
+ -->
+If you've made it this far then congratulations! I hope you now have a better understanding of how the block editor works under the hood.
 
+In addition, you've reviewed an working example of the code required to implement your own custom functioning block editor. This information should prove useful, especially as Gutenberg expands beyond editing just the `Post` and into Widgets, Full Site Editing and beyond!
 
+The full code for the custom functioning block editor we've just built is [available on Github](https://github.com/getdave/standalone-block-editor). I encourage you to download and try it out for yourself. Experiment, then and take things even further!
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)
