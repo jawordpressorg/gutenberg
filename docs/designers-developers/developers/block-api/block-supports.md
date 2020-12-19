@@ -589,30 +589,13 @@ supports: {
 ```
 
 <!-- 
-When the block declares support for a specific spacing property, the attributes definition is extended to include some attributes.
+When the block declares support for a specific spacing property, the attributes definition is extended to include the `style` attribute.
 
-- `style`: attribute of `object` type with no default assigned. This is added when `padding` support is declared. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+- `style`: attribute of `object` type with no default assigned. This is added when `padding` support is declared. It stores the custom values set by the user.
  -->
-ブロックが spacing プロパティのサポートを宣言すると、attributes の定義もいくつかの属性を含むよう拡張されます。
+ブロックが spacing プロパティのサポートを宣言すると、attributes の定義も `style` 属性を含むよう拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。`padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトスタイルを適用できます。
-
-```js
-attributes: {
-    style: {
-        type: 'object',
-        default: {
-            spacing: {
-                padding: {
-                    top: 'value',
-                    right: 'value',
-                    bottom: 'value',
-                    left: 'value'
-                }
-            }
-        }
-    }
-}
-```
+- `style`: デフォルトの割り当てのない `object` タイプの属性。`padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-supports.md)
+

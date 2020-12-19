@@ -10,7 +10,7 @@
  -->
 > **この機能は現在、実験中です**。「実験中」とは初期の実装であり、将来、大規模で後方互換性のない変更があることを意味します。
 >
-> 現在何が行われているかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。わたしたちはフィードバックを歓迎します。意見のある方は週次の #core-editor 会議で共有するか、非同期が好みであれば GitHub で issue やプルリクを作成してください。
+> 現在何が行われているかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。わたしたちはフィードバックを歓迎します。意見のある方は週次の #core-editor 会議で共有するか、非同期が良ければ GitHub で issue やプルリクを作成してください。
 
 <!-- 
 This is documentation for the current direction and work in progress about how themes can hook into the various sub-systems that the Block Editor provides.
@@ -481,9 +481,11 @@ These are the current typography properties supported by blocks:
 | Post Hierarchical Terms | - | Yes | - | - | Yes | - | - |
 | Post Tags | - | Yes | - | - | Yes | - | - |
 | Post Title | Yes | Yes | - | - | Yes | - | - |
+| Preformatted | - | Yes | - | - | - | - | - |
 | Site Tagline | Yes | Yes | - | - | Yes | - | - |
 | Site Title | Yes | Yes | - | - | Yes | - | - |
-| Verse | Yes | - | - | - | - | - | - |
+| Verse | Yes | Yes | - | - | - | - | - |
+
 <!-- 
 [1] The heading block represents 6 distinct HTML elements: H1-H6. It comes with selectors to target each individual element (ex: core/heading/h1 for H1, etc).
  -->
