@@ -7,7 +7,7 @@
 This tutorial will step through the fundamentals of creating a custom instance
 of a "block editor" using the `@wordpress/block-editor` package.
  -->
-このチュートリアルでは `@wordpress/block-editor` パッケージを使用した「ブロックエディター」カスタムインスタンス作成の基礎を順を追って説明します。
+このチュートリアルでは `@wordpress/block-editor` パッケージを使用して「ブロックエディター」カスタムインスタンスを作成する基礎を順に説明します。
 
 <!-- 
 ## Table of Contents
@@ -46,12 +46,12 @@ of a "block editor" using the `@wordpress/block-editor` package.
 <!-- 
 The Gutenberg codebase is complex, with many packages and components, but at its core it is a tool for managing and editing blocks. Therefore, when working on the editor it is important to gain a better understanding of how block editing works at a _fundamental_ level.
  -->
-Gutenberg のコードには多くのコンポーネントやパッケージが含まれていて複雑ですが、その中心はブロックを管理、編集するツールです。したがってエディターで作業する際、_基礎_ レベルでブロックの編集がどのように行われるのかを理解しておくことは重要です。
+Gutenberg のコードには多くのコンポーネントやパッケージが含まれていて複雑ですが、その中心はブロックを管理、編集するツールです。したがってエディターで作業する際、_基礎_ レベルでブロックの編集がどのように行われているのかを理解することは重要です。
 
 <!-- 
 To do this, this tutorial will walk you through building a **fully functioning, __custom__ block editor "instance"** within WordPress, introducing you to the key packages and components along the way.
  -->
-このチュートリアルでは WordPress 内で **完全に機能する__カスタム__ ブロックエディター「インスタンス」** の構築手順を見ながら、同時に主要なパッケージやコンポーネントを紹介します。
+これから WordPress 内で **完全に機能する__カスタム__ ブロックエディター「インスタンス」** の構築手順を見ながら、同時に主要なパッケージやコンポーネントを紹介します。
 <!-- 
 By the end of this article, you should have gained a good understanding of how the block editor works and some of the knowledge required to put together your own block editor instances.
  -->
@@ -86,9 +86,9 @@ With that in mind, let's start taking our first steps towards building this.
  -->
 わたしたちのエディターには次の機能があります。
 
-* すべてのコアブロックの追加、編集
-* 親しみやすいビジュアルスタイルとメイン & サイドバーレイアウト
-* ページリロード間での_基本的な_ブロックの永続性
+* すべてのコアブロックを追加、編集可能
+* おなじみのビジュアルスタイルとメイン & サイドバーレイアウト
+* ページリロード間での _基本的な_ ブロックの永続
 
 以上を念頭にエディターの構築を目指して、最初のステップに進みましょう。
 
@@ -112,7 +112,7 @@ Let's take a look at our Plugin file structure:
 <!-- 
 Here's a brief summary of what's going on:
  -->
-簡単に紹介します。
+簡単に紹介すると
 
 <!-- 
 * `plugin.php` - standard Plugin "entry" file with comment meta data. Requires `init.php`.
@@ -149,14 +149,14 @@ Whilst the Gutenberg Editor is comprised of many moving parts, at it's core is t
 
 It's role is perhaps best summarized by its own `README` file:
  -->
-Gutenberg エディターは多くの動作パーツから構成されますが、その中核は `@wordpress/block-editor` です。
+Gutenberg エディターは多くの動作パーツから構成されますが、中核は `@wordpress/block-editor` です。
 
 その役割をもっともよく表しているのは恐らく `README` ファイルでしょう。
 
 <!-- 
 > This module allows you to create and use standalone block editors.
  -->
-> このモジュールを使用してスタンドアロンのブロックエディターを作成し使用することができます。
+> このモジュールを使用してスタンドアロンのブロックエディターを作成し、使用することができます。
 
 <!-- 
 This is great and exactly what we need! Indeed, it is the main package we'll be using to create our custom block editor instance.
@@ -165,7 +165,7 @@ However, before we can get to working with this package in code, we're going to 
  -->
 素晴らしい、まさにわたしたちが必要としていたものです ! 実際、この `@wordpress/block-editor` パッケージが、これからカスタムブロックエディターインスタンスの作成で使用するメインのパッケージです。
 
-しかし、このパッケージにコードレベルで取りかかる前にまず、わたしたちの管理画面内エディター用の場所を作成する必要があります。
+しかし、パッケージにコードレベルで取りかかる前に、管理画面内にエディター用のスペースを作成する必要があります。
 
 <!-- 
 ## Creating the custom "Block Editor" page in WP Admin
@@ -180,7 +180,7 @@ As a first step, we need to create a custom page within WP Admin.
 <!-- 
 **Note**: if you're already comfortable with the process of creating custom Admin pages in WordPress you might want to [skip ahead](#registering-and-rendering-our-custom-block-editor).
  -->
-**注意**: すでに WordPress 管理画面のカスタムページ作成を知っている方は、[この節をスキップ](#registering-and-rendering-our-custom-block-editor) しても構いません。
+**注意**: すでに WordPress 管理画面のカスタムページ作成について詳しい方は、[この節をスキップ](#registering-and-rendering-our-custom-block-editor) してください。
 
 <!-- 
 ### Registering the Page
@@ -190,8 +190,8 @@ As a first step, we need to create a custom page within WP Admin.
 <!-- 
 To do this we [register our custom admin page](https://developer.wordpress.org/reference/functions/add_menu_page/) using the standard WP `add_menu_page()` helper:
  -->
-To do this we [register our custom admin page](https://developer.wordpress.org/reference/functions/add_menu_page/) using the standard WP `add_menu_page()` helper:
-
+ページの登録には標準の WordPress ヘルパー関数 `add_menu_page()` を使用して [管理画面カスタムページを登録](https://developer.wordpress.org/reference/functions/add_menu_page/) します。
+<!-- 
 ```php
 // init.php
 
@@ -204,22 +204,37 @@ add_menu_page(
     'dashicons-welcome-widgets-menus' // custom icon
 );
 ```
-<!-- 
+ --> 
+```php
+// init.php
+
+add_menu_page(
+    'Standalone Block Editor', // 表示されるページ名
+    'Block Editor', // メニューのラベル
+    'edit_posts', // 必要な権限
+    'getdavesbe', // ページのフック / スラッグ
+    'getdave_sbe_render_block_editor', // ページをレンダリングする関数
+    'dashicons-welcome-widgets-menus' // カスタムアイコン
+);
+```
+
+ <!-- 
 Note the reference to a function `getdave_sbe_render_block_editor` which is the function which we will use to render the contents of the admin page.
  -->
-Note the reference to a function `getdave_sbe_render_block_editor` which is the function which we will use to render the contents of the admin page.
+関数 `getdave_sbe_render_block_editor` への参照に注意してください。管理画面カスタムページのコンテンツをレンダリングする際にこの関数を使用します。
+
 <!-- 
 ### Adding the target HTML
  -->
-### Adding the target HTML
+### ターゲット HTML の追加
 <!-- 
 As the block editor is a React powered application, we now need to output some HTML into our custom page into which the JavaScript can render the block editor.
 
 To do this we need to look at our `getdave_sbe_render_block_editor` function referenced in the step above.
  -->
-As the block editor is a React powered application, we now need to output some HTML into our custom page into which the JavaScript can render the block editor.
+ブロックエディターは React を使用したアプリケーションですので、中に JavaScript がブロックエディターをレンダリングできるよう、カスタムページに HTML を出力する必要があります。
 
-To do this we need to look at our `getdave_sbe_render_block_editor` function referenced in the step above.
+上のステップで参照した `getdave_sbe_render_block_editor` を確認します。
 
 ```php
 // init.php
@@ -240,13 +255,15 @@ Here we simply output some basic placeholder HTML.
 
 Note that we've included an `id` attribute `getdave-sbe-block-editor`. Keep a note of that, a we'll be using it shortly.
  -->
-Here we simply output some basic placeholder HTML.
+ここでは単純に基本的なプレースホルダー HTML を出力します。
 
-Note that we've included an `id` attribute `getdave-sbe-block-editor`. Keep a note of that, a we'll be using it shortly.
+`id` 属性  `getdave-sbe-block-editor` を加えたことに注意し、すぐに使いますので覚えておいてください。
+
 <!-- 
 ### Enqueuing JavaScript and CSS
  -->
-### Enqueuing JavaScript and CSS
+### JavaScript と CSS のエンキュー
+
 <!-- 
 With our target HTML in place we can now enqueue some JavaScript (as well as some CSS styles) so that they will run on our custom Admin page.
 
@@ -254,12 +271,13 @@ To do this we hook into `admin_enqueue_scripts`.
 
 First, we need to make sure we only run our custom code on our own admin page, so at the top of our callback function let's exit early if the page doesn't match our page's identifier:
  -->
-With our target HTML in place we can now enqueue some JavaScript (as well as some CSS styles) so that they will run on our custom Admin page.
+ターゲット HTML を準備できたところで管理画面カスタムページで動作させる JavaScript と CSS スタイルをエンキューできます。 
 
-To do this we hook into `admin_enqueue_scripts`.
+これには `admin_enqueue_scripts` にフックします。
 
-First, we need to make sure we only run our custom code on our own admin page, so at the top of our callback function let's exit early if the page doesn't match our page's identifier:
+まずわたしたちの管理画面ページでのみ、カスタムコードが動作するよう確認が必要です。コールバック関数の先頭で、ページの識別子に合致しなければすぐに終了します。
 
+<!-- 
 ```php
 // init.php
 
@@ -273,8 +291,22 @@ function getdave_sbe_block_editor_init( $hook ) {
 
 add_action( 'admin_enqueue_scripts', 'getdave_sbe_block_editor_init' );
 ```
+ -->
+```php
+// init.php
 
-With this in place, we can then safely register our main JavaScript file using the standard WP `wp_enqueue_script` function:
+function getdave_sbe_block_editor_init( $hook ) {
+
+    // 正しいページでなければ終了
+	if ( 'toplevel_page_getdavesbe' !== $hook ) {
+		return;
+    }
+}
+
+add_action( 'admin_enqueue_scripts', 'getdave_sbe_block_editor_init' );
+```
+
+これで安全にメインの JavaScript ファイルを登録できます。標準の WordPress 関数 `wp_enqueue_script` を使用します。
 
 ```php
 // init.php
@@ -284,22 +316,22 @@ wp_enqueue_script( $script_handle, $script_url, $script_asset['dependencies'], $
 <!-- 
 To save time and space, the assignment of the `$script_` variables has been omitted. You can [review these here](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19).
  -->
-To save time and space, the assignment of the `$script_` variables has been omitted. You can [review these here](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19).
-<!-- 
-Note that we register our script dependencies (`$script_asset['dependencies']`) as the 3rd argument - these deps are being
-dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
-[ensure that WordPress provided scripts are not included in the built
-bundle](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config).
- -->
-Note that we register our script dependencies (`$script_asset['dependencies']`) as the 3rd argument - these deps are being
-dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
-[ensure that WordPress provided scripts are not included in the built
-bundle](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config).
-<!-- 
-We also need to register both our custom CSS styles and the WordPress default formatting library in order take advantage of some nice default styling:
- -->
-We also need to register both our custom CSS styles and the WordPress default formatting library in order take advantage of some nice default styling:
+時間とスペースの節約のため、`$script_` 変数の割り当ては省略しました。[ここで参照](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19) できます。
 
+<!-- 
+Note that we register our script dependencies (`$script_asset['dependencies']`) as the 3rd argument - these deps are being
+dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
+[ensure that WordPress provided scripts are not included in the built
+bundle](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config).
+ -->
+第3引数にスクリプトの依存 (`$script_asset['dependencies']`) を登録したことに注意してください。この依存は [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) を使用して動的に生成され、[WordPress 提供のスクリプトがビルドに含まれないことを保証します](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config)。
+
+<!-- 
+We also need to register both our custom CSS styles and the WordPress default formatting library in order take advantage of some nice default styling:
+ -->
+またデフォルトスタイルの良い部分を取り込むため、カスタム CSSスタイルと WordPress デフォルトフォーマットライブラリーの両方も登録する必要があります。
+
+<!-- 
 ```php
 // init.php
 
@@ -314,19 +346,36 @@ wp_enqueue_style(
     filemtime( __DIR__ . '/build/index.css' )
 );
 ```
+ -->
+```php
+// init.php
+
+// エディターデフォルトスタイル
+wp_enqueue_style( 'wp-format-library' );
+
+// カスタムスタイル
+wp_enqueue_style(
+    'getdave-sbe-styles', // ハンドル
+    plugins_url( 'build/index.css', __FILE__ ), // ブロックエディター CSS.
+    array( 'wp-edit-blocks' ), // この下に CSS を含むための依存
+    filemtime( __DIR__ . '/build/index.css' )
+);
+```
+
 <!-- 
 ### Inlining the editor settings
  -->
-### Inlining the editor settings
+### エディター設定のインライン化
 <!-- 
 Looking at the `@wordpress/block-editor` package, we can see that it [accepts a settings object to configure the default settings for the editor](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS). These are available on the server side so we need to expose them for use within the JavaScript.
 
 To do this we [inline the settings object as JSON](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L48) assigned to the global `window.getdaveSbeSettings` object:
  -->
-Looking at the `@wordpress/block-editor` package, we can see that it [accepts a settings object to configure the default settings for the editor](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS). These are available on the server side so we need to expose them for use within the JavaScript.
+`@wordpress/block-editor` パッケージを見ると、[エディターのデフォルト設定の構成に settings オブジェクトを受け取ること](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS) がわかります。これはサーバー側で利用可能のため、JavaScript 内での使用には外出しする必要があります。
 
-To do this we [inline the settings object as JSON](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L48) assigned to the global `window.getdaveSbeSettings` object:
+これには [settings オブジェクトを JSON としてインライン化](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L48) し、グローバルオブジェクト `window.getdaveSbeSettings` に割り当てます。
 
+<!-- 
 ```php
 // init.php
 
@@ -334,10 +383,20 @@ To do this we [inline the settings object as JSON](https://github.com/getdave/st
 $settings = getdave_sbe_get_block_editor_settings();
 wp_add_inline_script( $script_handle, 'window.getdaveSbeSettings = ' . wp_json_encode( $settings ) . ';' );
 ```
+ -->
+```php
+// init.php
+
+// エディター設定のインライン化
+$settings = getdave_sbe_get_block_editor_settings();
+wp_add_inline_script( $script_handle, 'window.getdaveSbeSettings = ' . wp_json_encode( $settings ) . ';' );
+```
+
 <!-- 
 ## Registering and Rendering our custom block editor
  -->
-## Registering and Rendering our custom block editor
+## カスタムブロックエディターの登録とレンダリング
+
 <!-- 
 With the PHP above in place to create our admin page, we’re now finally ready to use JavaScript to render a Block Editor into the page’s HTML.
 
@@ -345,11 +404,11 @@ Let's open up our main `src/index.js` file.
 
 Here we first pull in required JS packages and import our CSS styles (note using Sass requires [extending the default `@wordpress/scripts` Webpack config](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/webpack.config.js#L13)).
  -->
-With the PHP above in place to create our admin page, we’re now finally ready to use JavaScript to render a Block Editor into the page’s HTML.
+上の PHP で管理画面のページが作成できたので、ついに JavaScript を使用してページの HTML の中にブロックエディターをレンダリングできます。
 
-Let's open up our main `src/index.js` file.
+メインの `src/index.js` ファイルを開きましょう。
 
-Here we first pull in required JS packages and import our CSS styles (note using Sass requires [extending the default `@wordpress/scripts` Webpack config](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/webpack.config.js#L13)).
+ここではまず必要な JS パッケージを引き込み、CSS スタイルをインポートします。Sass を使用するには [デフォルトの `@wordpress/scripts` Webpack 構成の拡張](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/webpack.config.js#L13)) が必要なことに注意してください。
 
 ```js
 // src/index.js
@@ -364,17 +423,17 @@ import './styles.scss';
 <!-- 
 Next, once the DOM is ready we run a function which:
  -->
-Next, once the DOM is ready we run a function which:
+次に、DOM の準備ができたら、次の関数を実行します。
+
 <!-- 
 * Grabs our editor settings from `window.getdaveSbeSettings` (inlined from PHP -
   see above).
 * Registers all the Core Gutenberg Blocks using `registerCoreBlocks`.
 * Renders an `<Editor>` component into the waiting `<div>` on our custom Admin page.
  -->
-* Grabs our editor settings from `window.getdaveSbeSettings` (inlined from PHP -
-  see above).
-* Registers all the Core Gutenberg Blocks using `registerCoreBlocks`.
-* Renders an `<Editor>` component into the waiting `<div>` on our custom Admin page.
+* `window.getdaveSbeSettings` からエディターの設定を取得 (PHP からインラインで。上の例を参照)
+* `registerCoreBlocks` を使用してすべての Gutenberg コアブロックを登録
+* 管理画面カスタムページで口を開けて待っている `<div>` 内に `<Editor>` コンポーネントをレンダリング
 
 ```jsx
 domReady( function() {
@@ -383,31 +442,35 @@ domReady( function() {
 	render( <Editor settings={ settings } />, document.getElementById( 'getdave-sbe-block-editor' ) );
 } );
 ```
+
 <!-- 
 **Note**: it is possible to render the editor from PHP without creating an unnecessary JS global. Check out [the Edit Site package in Gutenberg Core for an example of this](https://href.li/?https://github.com/WordPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135).
  -->
-**Note**: it is possible to render the editor from PHP without creating an unnecessary JS global. Check out [the Edit Site package in Gutenberg Core for an example of this](https://href.li/?https://github.com/WordPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135).
+**注意**: 不要な JS グローバルを作成せずに PHP からえでぃたーをレンダリングすることは可能です。[Gutenberg コアの Edit Site パッケージ](https://href.li/?https://github.com/WordPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135) を参照してください。
+
 <!-- 
 ## Reviewing the `<Editor>` component
  -->
-## Reviewing the `<Editor>` component
+## `<Editor>` コンポーネントのレビュー
+
 <!-- 
 Let's take a closer look at the `<Editor>` component we saw being used above.
 
 Despite its name, this _is not_ the actual core of the block editor. Rather it is a _wrapper_ component we've created to contain the components which form the main body of our custom editor.
  -->
-Let's take a closer look at the `<Editor>` component we saw being used above.
+上で使用した `<Editor>` コンポーネントを詳しく見ていきます。
 
-Despite its name, this _is not_ the actual core of the block editor. Rather it is a _wrapper_ component we've created to contain the components which form the main body of our custom editor.
+その名前からブロックエディターの実際のコアに思えますが、_違います_。むしろ、カスタムエディター本体を形づくるコンポーネントを含む _ラッパー_ コンポーネントです。
+
 <!-- 
 ### Dependencies
  -->
+### 依存
 
-### Dependencies
 <!-- 
 The first thing we do inside `<Editor>` is to pull in some dependencies.
  -->
-The first thing we do inside `<Editor>` is to pull in some dependencies.
+`<Editor>` ではまず最初に依存を引き込みます。
 
 ```jsx
 // src/editor.js
@@ -422,17 +485,18 @@ The most important of these are the internal components `BlockEditor` and `Sideb
 
 The remaining components are largely static elements which form the layout and surrounding UI of the editor (eg: header and notice areas).
  -->
-The most important of these are the internal components `BlockEditor` and `Sidebar`, which we will explore in greater detail shortly.
+もっとも重要なものは内部コンポーネント `BlockEditor` と `Sidebar` です。これらについてはすぐに詳しく見ていきます。
 
-The remaining components are largely static elements which form the layout and surrounding UI of the editor (eg: header and notice areas).
+残りのコンポーネントはほぼ、エディターのレイアウトと周辺の UI を形作る静的な要素です (例: ヘッダーや通知エリア)。
+
 <!-- 
 ### Editor Render
  -->
-### Editor Render
+### Editor のレンダリング
 <!-- 
 With these components available we can proceed to define our `<Editor>` component.
  -->
-With these components available we can proceed to define our `<Editor>` component.
+コンポーネントが利用できるようになったので、`<Editor>` コンポーネントの定義に進めます。
 
 ```jsx
 // src/editor.js
@@ -458,9 +522,10 @@ Here we are scaffolding the core of the editor's layout alongside a few speciali
 
 Let's examine these in more detail:
  -->
-Here we are scaffolding the core of the editor's layout alongside a few specialised [context providers](https://reactjs.org/docs/context.html#contextprovider) which make particular functionality available throughout the component hierarchy.
+ここでエディターレイアウトのコアの雛形を自動生成しています。同時に、いくつかの特殊化した [コンテキストプロバイダ](https://reactjs.org/docs/context.html#contextprovider) も作成しており、これらはコンポーネント階層を介して特定の機能を利用可能にします。
 
-Let's examine these in more detail:
+詳細に見ていきます。
+
 <!-- 
 * `<SlotFillProvider>` - enables the use of the ["Slot/Fill"
   pattern](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/docs/designers-developers/developers/slotfills/README.md) through our component tree.
@@ -473,37 +538,36 @@ Let's examine these in more detail:
 * `<Popover.Slot />` - renders a slot into which `<Popover>`s can be rendered
   using the Slot/Fill mechanic.
  -->
-* `<SlotFillProvider>` - enables the use of the ["Slot/Fill"
-  pattern](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/docs/designers-developers/developers/slotfills/README.md) through our component tree.
-* `<DropZoneProvider>` - enables the use of [dropzones for drag and drop functionality](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone).
-* `<Notices>` - custom component. Provides a "snack bar" Notice that will be rendered if any messages are dispatched to `core/notices` store.
-* `<Header>` - renders the static title "Standalone Block Editor" at the top of the
-  editor UI.
-* `<BlockEditor>` - our custom block editor component. This is where things get
-  interesting. We'll focus a little more on this in a moment.
-* `<Popover.Slot />` - renders a slot into which `<Popover>`s can be rendered
-  using the Slot/Fill mechanic.
+* `<SlotFillProvider>` - コンポーネントツリーを介して ["Slot/Fill"
+  pattern](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/docs/designers-developers/developers/slotfills/README.md) を利用可能にします。
+* `<DropZoneProvider>` - [ドラッグアンドドロップのためドロップゾーン機能](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone) の使用を有効化します。
+* `<Notices>` - カスタムコンポーネント。"snack bar" 通知を提供します。`core/notices` ストアにメッセージがディスパッチされるとレンダリングされます。
+* `<Header>` - エディター UI の先頭に静的なタイトル "Standalone Block Editor" をレンダリングします。
+* `<BlockEditor>` - カスタムブロックエディターコンポーネント。ここが面白い場所です。すぐにもう少しフォーカスします。
+* `<Popover.Slot />` - Slot/Fill の仕組みを使用して `<Popover>` をレンダリングできるスロットをレンダリングします。
 
 <!-- 
 ### Keyboard Navigation
  -->
-### Keyboard Navigation
+### キーボードナビゲーション
+
 <!-- 
 With this basic component structure in place the only remaining thing left to do
 is wrap everything in [the `navigateRegions` HOC](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) to provide keyboard navigation between the different "regions" in the layout.
  -->
-With this basic component structure in place the only remaining thing left to do
-is wrap everything in [the `navigateRegions` HOC](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) to provide keyboard navigation between the different "regions" in the layout.
+基本的なコンポーネント構造ができたので、残るはすべてを [`navigateRegions` HOC](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) でラップし、レイアウト内の異なる「リージョン」間でのキーボードナビゲーションを提供します。
 
 ```jsx
 // src/editor.js
 
 export default navigateRegions( Editor );
 ```
+
 <!-- 
 ## The custom `<BlockEditor>`
  -->
-## The custom `<BlockEditor>`
+## カスタム `<BlockEditor>`
+
 <!-- 
 Now we have a our core layouts and components in place, it's time to explore our
 custom implementation of the block editor itself.
@@ -515,23 +579,22 @@ complex of the components we have encountered thus far.
 
 There's a lot going on so let's break this down!
  -->
-Now we have a our core layouts and components in place, it's time to explore our
-custom implementation of the block editor itself.
+コアのレイアウトとコンポーネントができたので、いよいよブロックエディターそのもののカスタム実装を探索します。
 
-The component for this is called `<BlockEditor>` and this is where the magic happens.
+このためのコンポーネントの名前が `<BlockEditor>`、魔法が起きる場所です。
 
-Opening `src/components/block-editor/index.js` we see that this is the most
-complex of the components we have encountered thus far.
+`src/components/block-editor/index.js` を開くと、これまでに見てきた中でもっとも複雑なコンポーネントであることがわかります。
 
-There's a lot going on so let's break this down!
+大量のことが起きていますので、分解して見ていきましょう。
+
 <!-- 
 ### Understanding the render
  -->
-### Understanding the render
+### レンダリングの理解
 <!-- 
 To start, let's focus on what is being rendered by the `<BlockEditor>` component:
  -->
-To start, let's focus on what is being rendered by the `<BlockEditor>` component:
+まずはじめに `<BlockEditor>` コンポーネントで何がレンダリングされるのかに焦点を当てましょう。
 
 ```js
 // src/components/block-editor/index.js
@@ -563,11 +626,13 @@ return (
 <!-- 
 The key components to focus on here are `<BlockEditorProvider>` and `<BlockList>`. Let's examine these.
  -->
-The key components to focus on here are `<BlockEditorProvider>` and `<BlockList>`. Let's examine these.
+ここで注目するコンポーネントは `<BlockEditorProvider>` と `<BlockList>` です。調べてみましょう。
+
 <!-- 
 ### Understanding the `<BlockEditorProvider>` component
  -->
-### Understanding the `<BlockEditorProvider>` component
+### `<BlockEditorProvider>` コンポーネントの理解
+
 <!-- 
 [`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. As we learnt earlier, it establishes a new block editing context for a new block editor.
 
@@ -577,14 +642,13 @@ The children of `<BlockEditorProvider>` comprise the UI for the block
 editor. These components then have access to data (via `Context`) which enables
 them to _render_ and _manage_ the Blocks and their behaviors within the editor.
  -->
-[`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. As we learnt earlier, it establishes a new block editing context for a new block editor.
+[`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) は階層の中でもっとも重要なコンポーネントの1つです。上で学んだように、新しいブロックエディターのために新しいブロック編集コンテキストを確立します。
 
-As a result, it is _fundamental_ to the entire goal of our project.
+結果として、このプロジェクトの最終ゴールの _基礎_ となります。
 
-The children of `<BlockEditorProvider>` comprise the UI for the block
-editor. These components then have access to data (via `Context`) which enables
-them to _render_ and _manage_ the Blocks and their behaviors within the editor.
+`<BlockEditorProvider>` の子はブロックエディターの UI を含みます。これらのコンポーネントは `Context` 経由でデータにアクセスし、エディター内でのブロックとその動作の _レンダリング_ と _管理_ を可能にします。
 
+<!-- 
 ```jsx
 // src/components/block-editor/index.js
 
@@ -595,10 +659,23 @@ them to _render_ and _manage_ the Blocks and their behaviors within the editor.
     settings={ settings } // editor "settings" object
 />
 ```
+ -->
+```jsx
+// src/components/block-editor/index.js
+
+<BlockEditorProvider
+    value={ blocks } // ブロックオブジェクトの配列
+    onInput={ updateBlocks } // ブロック更新を管理するハンドラ
+    onChange={ persistBlocks } // ブロック更新/永続化を管理するハンドラ
+    settings={ settings } // エディター settings オブジェクト
+/>
+```
+
 <!-- 
 #### `BlockEditor` props
  -->
 #### `BlockEditor` props
+
 <!-- 
 We can see that `<BlockEditorProvider>` accepts array of (parsed) block objects as its `value` prop and, when there's a change detected within the editor, calls the `onChange` and/or `onInput` handler prop (passing the new Blocks as a argument).
 
