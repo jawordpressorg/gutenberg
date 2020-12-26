@@ -4,11 +4,11 @@
 # テンプレート
 
 <!-- 
-A block template is defined as a list of block items. Such blocks can have predefined attributes, placeholder content, and be static or dynamic. Block templates allow to specify a default initial state for an editor session.
+A block template is defined as a list of block items. Such blocks can have predefined attributes, placeholder content, and be static or dynamic. Block templates allow specifying a default initial state for an editor session.
 
 The scope of templates include:
  -->
-ブロックテンプレートはブロックアイテムのリストとして定義されます。事前に定義された属性やプレースホルダーコンテンツを含めることができ、静的にも動的にもできます。ブロックテンプレートを使用するとエディターセッションのデフォルトの初期状態を指定できます。
+ブロックテンプレートはブロックアイテムのリストとして定義されます。定義済みの属性やプレースホルダーコンテンツを含めることができ、静的にも動的にもできます。ブロックテンプレートを使用して、エディターセッションのデフォルトの初期状態を指定できます。
 
 テンプレートの範囲は次のとおりです
 <!-- 
@@ -129,7 +129,7 @@ Sometimes the intention might be to lock the template on the UI so that the bloc
  -->
 ### ロック
 
-場合によっては、ブロックを操作できないように UI でテンプレートをロックすることが考えられます。 これは `template_lock` プロパティによって可能です。
+ブロックを操作できないように UI でテンプレートをロックしたい場合があります。これには `template_lock` プロパティを使用します。
 
 ```php
 function myplugin_register_template() {
@@ -154,6 +154,12 @@ add_action( 'init', 'myplugin_register_template' );
 
 - `all` - すべての操作を禁止します。新しいブロックの挿入、既存ブロックの移動、ブロックの削除はできません。
 - `insert` - 新しいブロックの挿入、ブロックの削除はできませんが、既存ブロックの移動はできます。
+
+<!-- 
+Lock settings can be inherited by InnerBlocks. If `templateLock` is not set in an InnerBlocks area, the locking of the parent InnerBlocks area is used. If the block is a top level block, the locking configuration of the current post type is used.
+ -->
+ロックの設定は InnerBlocks によって継承できます。`templateLock` が InnerBlocks 領域で設定されていなければ、親の InnerBlocks 領域のロックが使用されます。ブロックが最上位レベルのブロックであれば、現行の投稿タイプのロック構成が使用されます。
+
 <!-- 
 ## Nested Templates
  -->
