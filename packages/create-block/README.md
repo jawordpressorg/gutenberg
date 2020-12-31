@@ -238,7 +238,7 @@ It is also possible to override the default template configuration using the `de
 
 _Example:_
  -->
-`defaultValues` フィールドを使用するとデフォルトのテンプレート構成を上書きできます。
+`defaultValues` フィールドを使用してデフォルトのテンプレート構成を上書きできます。
 
 _例:_
 
@@ -256,8 +256,9 @@ module.exports = {
 <!-- 
 The following configurable variables are used with the template files. Template authors can change default values to use when users don't provide their data:
  -->
-テンプレートファイルでは以下の構成可能変数が使用されます。テンプレートの作者はユーザーが指定しなかった場合のデフォルト値を変更できます。
+テンプレートファイルでは以下の構成可能変数が使用されます。テンプレートの作者は、ユーザーが指定しない場合に使用されるデフォルト値を変更できます。
 
+<!-- 
 -   `apiVersion` (default: `2`)
 -   `slug` (no default)
 -   `namespace` (default: `'create-block'`)
@@ -274,6 +275,23 @@ The following configurable variables are used with the template files. Template 
 -   `editorScript` (default: `'file:./build/index.js'`)
 -   `editorStyle` (default: `'file:./build/index.css'`)
 -   `style` (default: `'file:./build/style-index.css'`)
+ -->
+-   `apiVersion` (デフォルト: `2`)
+-   `slug` (デフォルトなし)
+-   `namespace` (デフォルト: `'create-block'`)
+-   `title` (デフォルトなし)
+-   `description` (デフォルトなし)
+-   `dashicon` (デフォルトなし)
+-   `category` (デフォルト: `'widgets'`)
+-   `author` (デフォルト: `'The WordPress Contributors'`)
+-   `license` (デフォルト: `'GPL-2.0-or-later'`)
+-   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
+-   `version` (デフォルト: `'0.1.0'`)
+-   `wpScripts` (デフォルト: `true`)
+-   `npmDependencies` (デフォルト: `[]`) – [`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
+-   `editorScript` (デフォルト: `'file:./build/index.js'`)
+-   `editorStyle` (デフォルト: `'file:./build/index.css'`)
+-   `style` (デフォルト: `'file:./build/style-index.css'`)
 
 <!-- 
 ## WP-CLI
