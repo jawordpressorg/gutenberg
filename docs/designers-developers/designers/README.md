@@ -7,7 +7,4 @@ For those designing blocks and other block editor integrations, this documentati
 
 このドキュメントはブロックのデザインやブロックエディターとの統合について、美しく直感的なレイアウトを作成する方法を解説します。
 
-- [Block Design (ブロックデザイン)](https://developer.wordpress.org/block-editor/designers/block-design/)
-- [Patterns (パターン)](https://developer.wordpress.org/block-editor/designers/design-patterns/)
-- [Resources (リソース)](https://developer.wordpress.org/block-editor/designers/design-resources/)
-- [Animation (アニメーション)](https://developer.wordpress.org/block-editor/designers/animation/)
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/designers/README.md)
