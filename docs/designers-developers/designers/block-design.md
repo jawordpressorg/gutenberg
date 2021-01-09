@@ -312,7 +312,7 @@ The “Block” tab of the Settings Sidebar can contain additional block options
 <!-- 
 Because the Drop Cap feature is not necessary for the basic operation of the block, you can put it to the Block tab as optional configuration.
  -->
-ドロップキャップ (先頭を大文字にする) 機能はブロックの基本操作に必要ないため、オプションの構成としてブロックタブに配置しています。
+ドロップキャップ (先頭の文字を大きくする) 機能はブロックの基本操作に必要ないため、オプションの構成としてブロックタブに配置しています。
 
 <!-- 
 ### Consider mobile

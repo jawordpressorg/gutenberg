@@ -22,9 +22,10 @@ A development environment is a catch-all term for what you need setup on your co
 3. コードエディター
 
 <!-- 
-## Quickstart
+## Quick Start
  -->
 ## クイックスタート
+
 <!-- 
 Here is a summary of the guide. See each section for additional details and explanations.
  -->
@@ -40,12 +41,14 @@ Download and install [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm)
 [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) をダウンロードし、インストールします。
 
 ```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 ```
 <!-- 
 Quit and restart terminal
+Install the long-term support (lts) version of node.
  -->
 ターミナルを終了し、再起動します。
+node の 長期サポート版 (Long Term Support, LTS) をインストールします。
 
 ```
 nvm install --lts

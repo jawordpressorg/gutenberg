@@ -28,13 +28,9 @@ Block API の詳細については [ブロックエディターハンドブッ�
 <!-- 
 ## Quick start
 
-![Demo](https://make.wordpress.org/core/files/2020/02/74508276-f0648280-4efe-11ea-9cc0-a607b43d1bcf.gif)
-
 You just need to provide the `slug` which is the target location for scaffolded files and the internal block name.
  -->
 ## クイックスタート
-
-![デモ](https://make.wordpress.org/core/files/2020/02/74508276-f0648280-4efe-11ea-9cc0-a607b43d1bcf.gif)
 
 ひな形ファイルの保管場所となる `slug` と内部のブロック名を指定するだけで作成できます。
 
@@ -45,13 +41,13 @@ $ npm start
 ```
 
 <!-- 
-_(requires `node` version `10.0.0` or above, and `npm` version `6.9.0` or above)_
+_(requires `node` version `12.0.0` or above, and `npm` version `6.9.0` or above)_
 
-You don’t need to install or configure tools like [webpack](https://webpack.js.org), [Babel](https://babeljs.io) or [ESLint](https://eslint.org) yourself. They are preconfigured and hidden so that you can focus on the code.
+It creates a WordPress plugin that you need to [install manually](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
  -->
-_(`node` version `10.0.0` 以上、`npm` version `6.9.0` 以上が必要です)_
+_(`node` version `12.0.0` 以上、`npm` version `6.9.0` 以上が必要です)_
 
-[webpack](https://webpack.js.org) や [Babel](https://babeljs.io) や [ESLint](https://eslint.org) などのツールのインストールや構成は必要ありません。これらは裏側で自動的に構成されるため、ユーザーはコードに集中できます。
+[手動でのインストール](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation)が必要な WordPress プラグインを作成します。
 
 <!-- 
 ## Usage
@@ -67,8 +63,12 @@ $ npx @wordpress/create-block [options] [slug]
 ```
 
 <!-- 
+![Demo](https://user-images.githubusercontent.com/699132/103872910-4de15f00-50cf-11eb-8c74-67ca91a8c1a4.gif)
+
 `[slug]` is optional. When provided it triggers the quick mode where it is used as the block slug used for its identification, the output location for scaffolded files, and the name of the WordPress plugin. The rest of the configuration is set to all default values unless overridden with some of the options listed below.
 -->
+![デモ](https://user-images.githubusercontent.com/699132/103872910-4de15f00-50cf-11eb-8c74-67ca91a8c1a4.gif)
+
 `[slug]` はオプションです。指定するとクイックモードとなり、ブロックの slug として識別子、ひな形ファイルの出力先、WordPress プラグインの名前に使用されます。構成の残りは以下に挙げるオプションで上書きしない限り、すべてデフォルト値が設定されます。
 
 <!--
@@ -100,13 +100,10 @@ Options:
 ```
 
 <!-- 
-_Please note that `--version` and `--help` options don't work with `npm init`. You have to use `npx` instead, as presented in the examples._
-
 More examples:
  -->
-_注意: `--version` と `--help` オプションは `npm init` とは一緒に動作しません。代わりに `npx` を使用する必要があります。例を参照してください。_
-
 サンプル:
+
 <!-- 
 1. Interactive mode - without giving a project name, the script will run in interactive mode giving a chance to customize the important options before generating the files.
 
@@ -148,9 +145,9 @@ When you scaffold a block, you must provide at least a `slug` name, the `namespa
 ブロックのひな形を生成する際、少なくとも `slug` 名、通常は `theme` 名や `puglin` 名のどちらかと関連する `namespace`、そして `category` を指定する必要があります。多くの場合ブロックは、テーマでなくプラグインとペアにすることを推奨します。プラグインを使用していればテーマを変更されてもすべてのブロックが稼働するからです。
 
 <!-- 
-## Available Commands [ESNext template]
+## Available Commands
  -->
-## 使用可能なコマンド [ESNext テンプレート]
+## 使用可能なコマンド
 
 <!-- 
 When bootstrapped with the `esnext` template (or any external template with `wpScripts` flag enabled), you can run several commands inside the directory:
@@ -206,6 +203,11 @@ Updates WordPress packages to the latest version. [Learn more](/packages/scripts
 WordPress パッケージを最新版に更新 [詳細](https://developer.wordpress.org/block-editor/packages/scripts#packages-update)
 
 <!-- 
+_Note: You don’t need to install or configure tools like [webpack](https://webpack.js.org), [Babel](https://babeljs.io) or [ESLint](https://eslint.org) yourself. They are preconfigured and hidden so that you can focus on coding._
+ -->
+_注意: [webpack](https://webpack.js.org) や [Babel](https://babeljs.io) や [ESLint](https://eslint.org) などのツールのインストールや構成は必要ありません。これらは裏側で自動的に構成されるため、ユーザーはコードに集中できます。_
+
+<!-- 
 ## External Templates
  -->
 ## 外部テンプレート
@@ -219,22 +221,65 @@ Since version `0.19.0` it is possible to use external templates hosted on npm. T
 ### Template Configuration
  -->
 ### テンプレート構成
+
 <!-- 
 It is mandatory to provide the main file for the package that returns a configuration object. It must containing at least `templatesPath` field with the path pointing to the location where template files live (nested folders are also supported).
 
+It is mandatory to provide the main file (`index.js` by default) for the package that returns a configuration object. It must contain at least the `templatesPath` field.
+ -->
+構成オブジェクトを返すパッケージのメインファイル (デフォルトでは `index.js`) が必須です。少なくとも `templatesPath` フィールドを含む必要があります。
+
+<!-- 
+#### `templatesPath`
+ -->
+#### templatesPath
+
+<!-- 
+A mandatory field with the path pointing to the location where template files live (nested folders are also supported). All files without the `.mustache` extension will be ignored.
+ -->
+テンプレートファイルの場所を示すパスを指定する必須フィールド。ネストしたフォルダーもサポートされます。`.mustache` 拡張子のないすべてのファイルは無視されます。
+
+<!-- 
 _Example:_
  -->
-構成オブジェクトを返すパッケージのメインファイルが必須です。少なくとも `templatesPath` フィールドにテンプレートファイルの場所を示すパスを指定する必要があります。
-
 _例:_
 
 ```js
+const { join } = require( 'path' );
+
 module.exports = {
-	templatesPath: __dirname,
+	templatesPath: join( __dirname, 'templates' ),
 };
 ```
 <!-- 
-It is also possible to override the default template configuration using the `defaultValues` field.
+#### `assetsPath`
+ -->
+#### assetsPath
+
+<!-- 
+This setting is useful when your template scaffolds a block that uses static assets like images or fonts, which should not be processed. It provides the path pointing to the location where assets are located. They will be copied to the `assets` subfolder in the generated plugin.
+ -->
+この設定はテンプレートから雛形の生成時、ブロックが使用する画像やフォントなどの処理の必要のない静的なアセットを準備する場合に便利です。アセットのある場所を指すパスを指定します。アセットは生成されたプラグインの `assets` サブフォルダーにコピーされます。
+
+<!-- 
+_Example:_
+ -->
+_例:_
+
+```js
+const { join } = require( 'path' );
+
+module.exports = {
+	assetsPath: join( __dirname, 'assets' ),
+};
+```
+<!-- 
+#### `defaultValues`
+ -->
+#### defaultValues
+
+<!-- 
+It is possible to override the default template configuration using the `defaultValues` field.
 
 _Example:_
  -->

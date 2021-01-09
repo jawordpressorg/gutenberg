@@ -42,7 +42,7 @@ This is documentation for the current direction and work in progress about how t
 <!-- 
 The Block Editor surface API has evolved at different velocities, and it's now at a point where is showing some growing pains, specially in areas that affect themes. Examples of this are: the ability to [control the editor programmatically](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/), or [a block style system](https://github.com/WordPress/gutenberg/issues/9534) that facilitates user, theme, and core style preferences.
  -->
-ブロックエディター周辺の API は異なる速度で進化しており、今やこのことから発生する苦労は特にテーマに影響を与える部分で大きくなっています。例として [エディターのプログラム的な制御](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/)や、ユーザー、テーマ、コアスタイルの好みを取りまとめる[ブロックスタイルシステム](https://github.com/WordPress/gutenberg/issues/9534) があります。
+ブロックエディター周辺の API は異なる速度で進化しており、今やこのことから生じる苦労は、特にテーマに影響を与える部分で大きくなっています。例として [エディターのプログラム的な制御](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/)や、ユーザー、テーマ、コアスタイルの好みを取りまとめる[ブロックスタイルシステム](https://github.com/WordPress/gutenberg/issues/9534) があります。
 
 <!-- 
 This describes the current efforts to consolidate the various APIs into a single point – a `experimental-theme.json` file that should be located inside the root of the theme directory.
@@ -111,12 +111,14 @@ Every context has the same structure, divided in two sections: `settings` and `s
 {
   "some/context": {
     "settings": {
+      "border": [ ... ],
       "color": [ ... ],
       "custom": [ ... ],
       "spacing": [ ... ],
       "typography": [ ... ]
     },
     "styles": {
+      "border": { ... },
       "color": { ... },
       "typography": { ... }
     }
@@ -141,6 +143,9 @@ settings セクションは以下の構造とデフォルト値を持ちます�
 {
   "some/context": {
     "settings": {
+      "border": {
+        "customRadius": false /* true to opt-in */
+      },
       "color": {
         "custom": true, /* false to opt-out, as in add_theme_support('disable-custom-colors') */
         "customGradient": true, /* false to opt-out, as in add_theme_support('disable-custom-gradients') */
@@ -339,6 +344,9 @@ Each block declares which style properties it exposes. This has been coined as "
 {
   "some/context": {
     "styles": {
+      "border": {
+        "radius": "value"
+      },
       "color": {
         "background": "value",
         "gradient": "value",
