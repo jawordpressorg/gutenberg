@@ -65,8 +65,10 @@ add_action( 'enqueue_block_editor_assets', 'sidebar_plugin_script_enqueue' );
 <!-- 
 After installing and activating this plugin, there is a new icon resembling a tack in the top-right of the editor. Upon clicking it, the plugin's sidebar will be opened:
 
-![Sidebar Up and Running](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/sidebar-up-and-running.png)
+![Sidebar Up and Running](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/sidebar-up-and-running.png)
  -->
 プラグインをインストールし有効化すると、エディターの右上に新しい「ピン」アイコンが表示され、クリックするとプラグインのサイドバーが開きます。
 
-![サイドバーの起動](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/sidebar-up-and-running.png)
+![サイドバーの起動](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/sidebar-up-and-running.png)
+
+[説明](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)

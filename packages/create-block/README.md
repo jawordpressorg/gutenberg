@@ -83,6 +83,7 @@ Options:
 --category <name>            category name for the block
 --wp-scripts                 enable integration with `@wordpress/scripts` package
 --no-wp-scripts              disable integration with `@wordpress/scripts` package
+--wp-env                     enable integration with `@wordpress/env` package
 -h, --help                   output usage information
 ```
  -->
@@ -96,6 +97,7 @@ Options:
 --category <name>            ブロックのカテゴリー名
 --wp-scripts                 `@wordpress/scripts` パッケージとの統合を有効化
 --no-wp-scripts              `@wordpress/scripts` パッケージとの統合を無効化
+--wp-env                     `@wordpress/env` パッケージとの統合を有効化
 -h, --help                   使用方法の出力
 ```
 
@@ -223,8 +225,6 @@ Since version `0.19.0` it is possible to use external templates hosted on npm. T
 ### テンプレート構成
 
 <!-- 
-It is mandatory to provide the main file for the package that returns a configuration object. It must containing at least `templatesPath` field with the path pointing to the location where template files live (nested folders are also supported).
-
 It is mandatory to provide the main file (`index.js` by default) for the package that returns a configuration object. It must contain at least the `templatesPath` field.
  -->
 構成オブジェクトを返すパッケージのメインファイル (デフォルトでは `index.js`) が必須です。少なくとも `templatesPath` フィールドを含む必要があります。
@@ -316,6 +316,7 @@ The following configurable variables are used with the template files. Template 
 -   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
 -   `version` (default: `'0.1.0'`)
 -   `wpScripts` (default: `true`)
+-   `wpEnv` (default: `false`)
 -   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install).
 -   `editorScript` (default: `'file:./build/index.js'`)
 -   `editorStyle` (default: `'file:./build/index.css'`)
@@ -333,6 +334,7 @@ The following configurable variables are used with the template files. Template 
 -   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
 -   `version` (デフォルト: `'0.1.0'`)
 -   `wpScripts` (デフォルト: `true`)
+-   `wpEnv` (default: `false`)
 -   `npmDependencies` (デフォルト: `[]`) – [`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
 -   `editorScript` (デフォルト: `'file:./build/index.js'`)
 -   `editorStyle` (デフォルト: `'file:./build/index.css'`)

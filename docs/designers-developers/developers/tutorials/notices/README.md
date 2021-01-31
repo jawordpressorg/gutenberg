@@ -17,7 +17,7 @@ In the classic editor, notices hooked onto the `admin_notices` action can render
 
 In the classic editor, here's an example of the "Post draft updated" notice:
 
-![Post draft updated in the classic editor](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/notices/classic-editor-notice.png)
+![Post draft updated in the classic editor](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/notices/classic-editor-notice.png)
 
 Producing an equivalent "Post draft updated" notice would require code like this:
  -->
@@ -25,7 +25,7 @@ Producing an equivalent "Post draft updated" notice would require code like this
 
 クラシックエディターで投稿の下書きが更新された (Post draft updated) 際の通知の例です。
 
-![クラシックエディターの通知 - 投稿の下書きが更新された](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/notices/classic-editor-notice.png)
+![クラシックエディターの通知 - 投稿の下書きが更新された](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/notices/classic-editor-notice.png)
 
 同等の通知を実装したとすると、次のようなコードになります。
 
@@ -81,7 +81,7 @@ Importantly, the `admin_notices` hook allows a developer to render whatever HTML
 
 In the block editor, here's an example of the "Post published" notice:
 
-![Post published in the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/notices/block-editor-notice.png)
+![Post published in the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/notices/block-editor-notice.png)
 
 Producing an equivalent "Post published" notice would require code like this:
  -->
@@ -89,7 +89,7 @@ Producing an equivalent "Post published" notice would require code like this:
 
 ブロックエディターで投稿が公開された (Post published) 際の通知の例です。
 
-![ブロックエディターの通知 - 投稿が公開された](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/developers/tutorials/notices/block-editor-notice.png)
+![ブロックエディターの通知 - 投稿が公開された](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/notices/block-editor-notice.png)
 
 同等の通知を実装したとすると、次のようなコードになります。
 
@@ -167,3 +167,5 @@ For a full list of the available actions and selectors, refer to the [Notices Da
 ブロックエディターでは、通知の生成に関して完全な API が提供されています。どんな機能があるかを調べるには公式ドキュメントを参照してください。
 
 利用可能なアクションとセレクタの完全なリストは [Notices Data Handbook](https://developer.wordpress.org/block-editor/data/data-core-notices/) を参照してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/notices/README.md)

@@ -54,14 +54,14 @@ add_action( 'init', 'gutenberg_examples_01_register_block' );
 <!-- 
 Note the above example, shows using the [wp-scripts build step](/docs/designers-developers/developers/tutorials/javascript/js-build-setup/) that automatically sets dependencies and versions the file. 
 
-If you were using the ES5 code, you would specify `array( 'wp-blocks', 'wp-element' )` as the dependency array. See the [example 01](https://github.com/WordPress/gutenberg-examples/blob/master/01-basic/index.php) in Gutenberg Examples repository for full syntax.
+If you were using the ES5 code, you would specify `array( 'wp-blocks', 'wp-element' )` as the dependency array. See the [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) in Gutenberg Examples repository for full syntax.
 
 - __`wp-blocks`__ includes block type registration and related functions
 - __`wp-element`__ includes the [WordPress Element abstraction](/packages/element/README.md) for describing the structure of your blocks
  -->
 注意: 上の例では [wp-scripts ビルド手順](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/) を使用して自動的に依存性やファイルのバージョンを設定しています。 
 
-ES5 コードを使用する場合には、依存性の配列として `array( 'wp-blocks', 'wp-element' )` を指定してください。完全な構文については Gutenberg Examples リポジトリー内の [example 01](https://github.com/WordPress/gutenberg-examples/blob/master/01-basic/index.php) を参照してください。
+ES5 コードを使用する場合には、依存性の配列として `array( 'wp-blocks', 'wp-element' )` を指定してください。完全な構文については Gutenberg Examples リポジトリー内の [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) を参照してください。
 
 - __`wp-blocks`__ ブロックタイプの登録および関連する関数を含む
 - __`wp-element`__ ブロックの構造を記述する [WordPress Element abstraction](/packages/element/README.md) を含む
@@ -175,4 +175,4 @@ _この段階でエディター画面には `Hello World, step 1 (from the edito
 
 `edit` 関数と `save` 関数ではそれぞれエディターコンテキストでのブロックの構造と、保存されるコンテンツを記述します。この簡単な例では違いがはっきりしませんが、次のセクションでエディタープレビューでブロックのカスタマイズを行う際に、これらがどのように使用されるかを見ます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/writing-your-first-block-type.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/block-tutorial/writing-your-first-block-type.md)

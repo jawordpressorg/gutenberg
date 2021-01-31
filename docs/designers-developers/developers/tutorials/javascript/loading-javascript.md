@@ -9,9 +9,9 @@ With the plugin in place, you can add the code that loads the JavaScript. This m
 Add the following code to your `myguten-plugin.php` file:
 -->
 
-プラグインを準備したら、次に JavaScript をロードするコードを追加します。この方法はスクリプトをエンキューする標準的な WordPress のプロセスと同じです。[プラグインハンドブックのエンキューセクション](https://developer.wordpress.org/plugins/javascript/enqueuing/) を参照してください。
+プラグインを準備したら、JavaScript をロードするコードを追加できます。ここでの手順はスクリプトをエンキューする標準的な WordPress のプロセスに従います。[プラグインハンドブックのエンキューセクション](https://developer.wordpress.org/plugins/javascript/enqueuing/) を参照してください。
 
-`myguten-plugin.php` ファイルに次のコードを追加してください。
+`myguten-plugin.php` ファイルに次のコードを追加します。
 
 ```php
 function myguten_enqueue() {
@@ -28,7 +28,7 @@ The `enqueue_block_editor_assets` hook is used, which is called when the block e
 
 Create a file called `myguten.js` and add:
 -->
-`enqueue_block_editor_assets` フックが使用されています。このフックはブロックエディターがロードされる際に呼び出され、JavaScript ファイル `myguten.js` をエンキューします。
+`enqueue_block_editor_assets` フックを使用します。このフックはブロックエディターがロードされる際に呼び出され、JavaScript ファイル `myguten.js` をエンキューします。
 
 ファイル `myguten.js` を作成し、次のコードを追加してください。
 
@@ -48,12 +48,12 @@ We'll check the JavaScript console in your browser's Developer Tools, to see if 
 <!--
 If your code is registered and enqueued correctly, you should see a message in your console:
 
-![Console Log Message Success](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/js-tutorial-console-log-success.png)
+![Console Log Message Success](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/js-tutorial-console-log-success.png)
 
 -->
 コードが正しく登録されエンキューされると、コンソールにメッセージが表示されます。
 
-![成功した場合のコンソールログメッセージ](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/js-tutorial-console-log-success.png)
+![成功した場合のコンソールログメッセージ](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/js-tutorial-console-log-success.png)
 
 <!--
 **Note for Theme Developers:**  The above method of enqueuing is used for plugins. If you are extending the block editor for your theme there is a minor difference, you will use the `get_template_directory_uri()` function instead of `plugins_url()`. So for a theme, the enqueue example is:
@@ -82,3 +82,5 @@ This puts all the initial pieces in place for you to start extending the block e
 この時点で、ディレクトリ `wp-content/plugins/myguten-plugin` 内にプラグインがあり、PHP サーバーサイドコードの `myguten-plugin.php` と ブラウザーで動作する JavaScript コード `myguten.js` の2つのファイルで実装されます。
 
 これで必要な最初のパーツがすべてそろいました。ここからブロックエディターを拡張していきます。
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/loading-javascript.md)

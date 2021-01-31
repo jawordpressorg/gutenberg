@@ -8,7 +8,7 @@ Welcome to the Gutenberg Project Contributor Guide. This guide is here to help y
 
 Gutenberg is a sub-project of Core WordPress. Please see the [Core Contributor Handbook](https://make.wordpress.org/core/handbook/) for additional information.
 -->
-「Gutenberg プロジェクトコントリビューターガイド」へようこそ。このガイドではプロジェクトに関するセットアップの方法やコントリビューションの始め方を説明します。質問があれば WordPress Core Slack [参加はこちら](https://make.wordpress.org/chat/) の #core-editor チャンネルにお願いします。
+「Gutenberg プロジェクトコントリビューターガイド」へようこそ。このガイドでは、プロジェクトに関するセットアップの方法やコントリビューションの始め方を説明します。質問があれば WordPress Core Slack [参加はこちら](https://make.wordpress.org/chat/) の #core-editor チャンネルにお願いします。
 
 Gutenberg は WordPress コアのサブプロジェクトです。追加情報については [Core Contributor Handbook](https://make.wordpress.org/core/handbook/) を参照してください。
 
@@ -71,6 +71,8 @@ Gutenberg プロジェクトはコード管理と問題の追跡に Github を�
 ## ガイドライン
 
 <!--
-See the [Contributing Guidelines](https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTING.md) for the rules around contributing: This includes the code of conduct and licensing information.
+See the [Contributing Guidelines](https://github.com/WordPress/gutenberg/blob/HEAD/CONTRIBUTING.md) for the rules around contributing: This includes the code of conduct and licensing information.
 -->
-コントリビューションのルールについては [コントリビューションガイドライン](https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTING.md) を参照してください。このガイドラインには Code of conduct およびライセンス情報が含まれます。
+コントリビューションのルールについては [コントリビューションガイドライン](https://github.com/WordPress/gutenberg/blob/HEAD/CONTRIBUTING.md) を参照してください。このガイドラインには Code of conduct およびライセンス情報が含まれます。
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/readme.md)

@@ -85,50 +85,53 @@ By providing the block style properties in a structured way, the Block Editor ca
 ## 仕様
 
 <!-- 
-The `experimental-theme.json` file is divided into sections known as "contexts", that represent a different CSS selector. For example, the `core/paragraph` context maps to `p` while `core/group` maps to `.wp-block-group`. In general, one block will map to a single context as in the cases mentioned. There are cases where one block can generate multiple contexts (different CSS selectors). For example, the heading block generates six different contexts (`core/heading/h1`, `core/heading/h2`, etc), one for each different selector (h1, h2, etc).
+This specification is the same for the three different origins that use this format: core, themes, and users. Themes can override core's defaults by creating a file called `experimental-theme.json`. Users, via the site editor, will also be also to override theme's or core's preferences via an user interface that is being worked on.
  -->
-`experimental-theme.json` ファイルは「コンテキスト」と呼ばれる、異なる CSS セレクタを表すセクションに分けられます。たとえば  `core/paragraph` コンテキストは `p` にマップし、`core/group` は `.wp-block-group` にマップします。一般に1つのブロックは1つのコンテキストにマップしますが、1つのブロックが複数のコンテキスト (異なる CSS セレクタ) を生成できる場合もあります。たとえば「見出し」ブロックは6つの異なるコンテキスト (`core/heading/h1`、`core/heading/h2`、等) を生成し、それぞれ異なるセレクタ (h1、h2、等) に対応します。
+この仕様は、同じフォーマットを仕様する3つの異なる主体、「コア」「テーマ」「ユーザー」で共通です。テーマは、ファイル `experimental-theme.json` を作成することでコアのデフォルトを上書きできます。ユーザーもまた、開発中のユーザーインターフェース、サイトエディターを介して、テーマやコアの設定を上書きできます。
+
+<!-- 
+The `experimental-theme.json` file declares how a theme wants the editor configured (`settings`) as well as the style properties it sets (`styles`).
+ -->
+`experimental-theme.json` ファイルでは、テーマがどのようにエディターを構成したいか (`settings`)、そして、設定するスタイルプロパティ (`styles`) を宣言します。
 
 ```
 {
-  "global": { ... },
-  "core/paragraph": { ... },
-  "core/group": { ... },
-  "core/heading/h1": { ... },
-  "core/heading/h2": { ... },
-  "core/heading/h3": { ... },
-  "core/heading/h4": { ... },
-  "core/heading/h5": { ... },
-  "core/heading/h6": { ... }
+  "settings": { ... },
+  "styles": { ... }
 }
 ```
 <!-- 
-Every context has the same structure, divided in two sections: `settings` and `styles`. The `settings` are used to control the editor (enable/disable certain features, declare presets), taking over what was previously declared via `add_theme_support`. The `styles` will be used to create new style rules to be appended to a new stylesheet `global-styles-inline-css` enqueued in the front-end and post editor.
+Both settings and styles can contain subsections for any registered block. As a general rule, the names of these subsections will be the block names ― we call them "block selectors". For example, the paragraph block ―whose name is `core/paragraph`― can be addressed in the settings using the key (or "block selector") `core/paragraph`:
  -->
-すべてのコンテキストは同じ構造を持ち2つのセクション `settings` と `styles` に分かれます。`settings` はエディターの制御、たとえばある機能の有効化、無効化やプリセットの定義に使用され、`add_theme_support` での宣言よりも優先されます。`styles` は新しいスタイルシート `global-styles-inline-css` の末尾に追加される新しいスタイルルールの作成に使用されます。`global-styles-inline-css` はフロントエンドとエディターの両方でエンキューされます。
+任意の登録ブロックに対して settings も styles もサブセクションを含むことができます。一般的なルールとしてサブセクションの名前はブロック名で、これは「ブロックセレクタ」と呼ばれます。たとえば段落ブロック (名前は `core/paragraph`)は、settings 内ではキー (あるいは「ブロックセレクタ」) `core/paragraph` として処理されます。
 
 ```
-{
-  "some/context": {
-    "settings": {
-      "border": [ ... ],
-      "color": [ ... ],
-      "custom": [ ... ],
-      "spacing": [ ... ],
-      "typography": [ ... ]
-    },
-    "styles": {
-      "border": { ... },
-      "color": { ... },
-      "typography": { ... }
-    }
+{ 
+  "settings": {
+    "core/paragraph": { ... }
   }
 }
 ```
+
 <!-- 
-This structure is the same for the three different origins that exist: core, themes, and users. Themes can override core's defaults by creating a file called `experimental-theme.json`. Users, via the site editor, will also be also to override theme's or core's preferences via an user interface that is being worked on.
+There are a few cases in whiche a single block can represent different HTML markup. The heading block is one of these, as it represents h1 to h6 HTML elements. In these cases, the block will have as many block selectors as different markup variations ― `core/heading/h1`, `core/heading/h2`, etc, so they can be addressed separately:
  -->
-この構造は3つの異なる既存ソース、コア、テーマ、ユーザーで共通です。テーマはファイル `experimental-theme.json` を作成することでコアのデフォルトを上書きできます。ユーザーもまた開発中のユーザーインターフェース、サイトエディターを介してテーマやコアの設定を上書きできる予定です。
+単一ブロックが異なる HTML マークアップを表すケースがいくつかあります。見出しブロックはその一例で、h1 から h6 の HTML 要素を表します。この場合、見出しブロックは異なるマークアップ `core/heading/h1`、`core/heading/h2`、... と同じ数のブロックセレクタを持ち、それぞれ個別に処理します。
+
+```
+{ 
+  "styles": {
+    "core/heading/h1": { ... },
+    // ...
+    "core/heading/h6": { ... },
+  }
+}
+```
+
+<!-- 
+Additionally, there are two other block selectors: `root` and `defaults`. The `root` block selector represents the root of the site. The `defaults` block selector represents the defaults to be used by blocks if they don't declare anything.
+ -->
+また、さらに2つの別のブロックセレクタ `root` と `defaults` があります。`root` ブロックセレクタは、サイトのルートを表します。`defaults` ブロックセレクタは、何もせんげされなかった場合にブロックで使用されるデフォルトを表します。
 
 <!-- 
 ### Settings
@@ -141,8 +144,8 @@ settings セクションは以下の構造とデフォルト値を持ちます�
 
 ```
 {
-  "some/context": {
-    "settings": {
+  "settings": {
+    "some/block": {
       "border": {
         "customRadius": false /* true to opt-in */
       },
@@ -175,47 +178,71 @@ settings セクションは以下の構造とデフォルト値を持ちます�
   }
 }
 ```
-<!-- 
-To retain backward compatibility, `add_theme_support` declarations are retrofit in the proper categories. If a theme uses `add_theme_support('disable-custom-colors')`, it'll be the same as set `global.settings.color.custom` to `false`. If the `experimental-theme.json` contains any settings, these will take precedence over the values declared via `add_theme_support`.
- -->
-後方互換性のため `add_theme_support` の宣言は適切なカテゴリーに割り当てられます。テーマが `add_theme_support('disable-custom-colors')` を使用している場合、これは `global.settings.color.custom` に `false` を設定したことと同じです。`experimental-theme.json` の設定があれば、 `add_theme_support` で定義された値に優先します。
 
 <!-- 
-Settings can also be controlled by context, providing a more fine-grained control over what exists via `add_theme_support`. As an example, let's say that a theme author wants to enable custom colors for the paragraph block exclusively. This is how it'd be done:
+Each block can configure any of these settings separately, providing a more fine-grained control over what exists via `add_theme_support`.
  -->
-settings はまたコンテキストでも制御でき、既存の `add_theme_support` よりも詳細な制御が可能です。例えば、テーマ作者が「段落」
-ブロックのみでカスタムカラーを有効化したければ以下のようになります。
+それぞれのブロックは個別にこれらの設定を構成でき、既存の `add_theme_support` を介したものよりも、詳細な制御を行えます。
 
-```json
+<!-- 
+The block settings declared under the `defaults` block selector affect to all blocks, unless a particular block overwrites it. It's a way to provide inheritance and quickly configure all blocks at once. To retain backward compatibility, the existing `add_theme_support` declarations that configure the block editor are retrofit in the proper categories for the `defaults` section. If a theme uses `add_theme_support('disable-custom-colors')`, it'll be the same as set `settings.defaults.color.custom` to `false`. If the `experimental-theme.json` contains any settings, these will take precedence over the values declared via `add_theme_support`.
+ -->
+`defaults` ブロックセレクタの下で宣言されたブロック設定は、個別に上書きしない限り、すべてのブロックに影響します。継承のコンセプトを導入し、すべてのブロックを一度に迅速に構成できます。後方互換性のため、ブロックエディターを構成する既存の `add_theme_support` の宣言は、`defaults` セクションの適切なカテゴリーに割り当てられます。テーマが `add_theme_support('disable-custom-colors')` を使用している場合、これは `settings.defaults.color.custom` に `false` を設定したことと同じです。`experimental-theme.json` 内に設定があれば、 `add_theme_support` を介して宣言された値に優先します。
+
+<!-- 
+Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:
+ -->
+テーマ作者が段落ブロックのみにカスタムカラーを有効化したいとします。この場合、イカのようになります。
+
+<!-- 
+```
 {
-  "global": {
-    "settings": {
+  "settings": {
+    "defaults": {
       "color": {
-        "custom": false
+        "custom": false // Disable it for all blocks.
       }
-    }
-  },
-  "core/paragraph": {
-    "settings": {
+    },
+    "core/paragraph": {
       "color": {
-        "custom": true
+        "custom": true // Paragraph overrides the setting.
       }
     }
   }
+}
 ```
-<!-- 
-Note, however, that not all settings are relevant for all contexts and the blocks they represent. The settings section provides an opt-in/opt-out mechanism for themes, but it's the block's responsibility to add support for the features that are relevant to it. For example, if a block doesn't implement the `dropCap` feature, a theme can't enable it for such a block through `experimental-theme.json`.
  -->
-注意: ただし、すべての設定が既存のすべてのコンテキストやブロックに関連するわけではありません。settings セクションはテーマに対してオプトイン、オプトアウトの仕組みを提供しますが、関連する機能のサポートの追加はブロックの責任です。たとえばブロックが `dropCap` 機能を実装しなければ、テーマは `experimental-theme.json` を介して有効化できません。
+```
+{
+  "settings": {
+    "defaults": {
+      "color": {
+        "custom": false // すべてのブロックで無効化
+      }
+    },
+    "core/paragraph": {
+      "color": {
+        "custom": true // 段落ブロックは設定を上書き
+      }
+    }
+  }
+}
+```
+
+<!-- 
+Note, however, that not all settings are relevant for all blocks. The settings section provides an opt-in/opt-out mechanism for themes, but it's the block's responsibility to add support for the features that are relevant to it. For example, if a block doesn't implement the `dropCap` feature, a theme can't enable it for such a block through `experimental-theme.json`.
+ -->
+注意: ただし、すべての設定がすべてのブロックに関連するわけではありません。settings セクションはテーマに対してオプトイン、オプトアウトの仕組みを提供しますが、関連する機能のサポートの追加はブロックの責任です。たとえばブロックが `dropCap` 機能を実装しなければ、テーマは `experimental-theme.json` を介して有効化できません。
 
 <!-- 
 #### Presets
  -->
 #### プリセット
 <!-- 
-Presets are part of the settings section. At the moment, they only work within the `global` context. Each preset value will generate a CSS Custom Property that will be added to the new stylesheet, which follow this naming schema: `--wp--preset--{preset-category}--{preset-slug}`.
+Presets are part of the settings section. Each preset value will generate a CSS Custom Property that will be added to the new stylesheet, which follow this naming schema: `--wp--preset--{preset-category}--{preset-slug}`.
  -->
-プリセットは settings セクションの一部です。現在は `global` コンテキスト内でのみ動作します。各プリセット値は新しいスタイルシートに追加される CSS カスタムプロパティを生成します。CSS カスタムプロパティは命名スキーマ `--wp--preset--{preset-category}--{preset-slug}` に従います。
+プリセットは settings セクションの一部です。各プリセット値は新しいスタイルシートに追加される CSS カスタムプロパティを生成します。CSS カスタムプロパティは命名スキーマ `--wp--preset--{preset-category}--{preset-slug}` に従います。
+
 
 <!-- 
 For example, for this input:
@@ -224,8 +251,8 @@ For example, for this input:
 
 ```json
 {
-  "global": {
-    "settings": {
+  "settings": {
+    "defaults": {
       "color": {
         "palette": [
           {
@@ -265,9 +292,10 @@ For example, for this input:
 }
 ```
 <!-- 
-The output to be enqueued will be:
+The output will be:
  -->
-エンキューされる出力は次のようになります。
+出力は次のようになります。
+
 
 ```css
 :root {
@@ -280,18 +308,20 @@ The output to be enqueued will be:
 }
 ```
 <!-- 
-The goal is that presets can be defined using this format, although, right now, the name property (used in the editor) can't be translated from this file. For that reason, and to maintain backward compatibility, the presets declared via `add_theme_support` will also generate the CSS Custom Properties. If the `experimental-theme.json` contains any presets, these will take precedence over the ones declared via `add_theme_support`.
+To maintain backward compatibility, the presets declared via `add_theme_support` will also generate the CSS Custom Properties. If the `experimental-theme.json` contains any presets, these will take precedence over the ones declared via `add_theme_support`.
  -->
-最終的な目標はこの形式を使用したプリセットの定義ですが、現在はまだこのファイルからエディターで使用される name プロパティを翻訳できません。この理由と、後方互換性のため、`add_theme_support` を介して宣言されたプリセットもまた CSS カスタムプロパティを生成します。`experimental-theme.json` に含まれるプリセットは `add_theme_support` を介して宣言されたプリセットに優先します。
+後方互換性のため、`add_theme_support` を介して宣言されたプリセットもまた CSS カスタムプロパティを生成します。`experimental-theme.json` に含まれるプリセットは `add_theme_support` を介して宣言されたプリセットに優先します。
+
 <!-- 
 #### Free-form CSS Custom Properties
  -->
 #### 自由形式の CSS カスタムプロパティ
+
 <!-- 
-In addition to create CSS Custom Properties for the presets, the theme.json also allows for themes to create their own, so they don't have to be enqueued separately. Any values declared within the `settings.custom` section will be transformed to CSS Custom Properties following this naming schema: `--wp--custom--<variable-name>`.
+In addition to create CSS Custom Properties for the presets, the `experimental-theme.json` also allows for themes to create their own, so they don't have to be enqueued separately. Any values declared within the `settings.<some/block>.custom` section will be transformed to CSS Custom Properties following this naming schema: `--wp--custom--<variable-name>`.
  -->
-プリセット用の CSS カスタムプロパティの作成に加えてテーマは theme.json を使用して独自のプロパティを作成できます。別々にエンキューする必要はありません。`settings.custom` セクション内に定義された任意の値は、次の命名スキーマを持つ CSS カスタムプロパティに変換されます。
-`--wp--custom--<variable-name>`.
+プリセット用の CSS カスタムプロパティの作成に加えてテーマは `experimental-theme.json` を使用して独自のプロパティを作成できます。別々にエンキューする必要はありません。`settings.<some/block>.custom` セクション内に定義された任意の値は、命名スキーマ `--wp--custom--<variable-name>` を持つ CSS カスタムプロパティに変換されます。
+
 <!-- 
 For example, for this input:
  -->
@@ -299,8 +329,8 @@ For example, for this input:
 
 ```json
 {
-  "global": {
-    "settings": {
+  "settings": {
+    "defaults": {
       "custom": {
         "base-font": 16,
         "line-height": {
@@ -335,15 +365,16 @@ Note that, the name of the variable is created by adding `--` in between each ne
 ### Styles
  -->
 ### styles
-<!-- 
-Each block declares which style properties it exposes. This has been coined as "implicit style attributes" of the block. These properties are then used to automatically generate the UI controls for the block in the editor, as well as being available through the `experimental-theme.json` file for themes to target.
- -->
-各ブロックはどのスタイルプロパティを公開するかを宣言します。これはブロックの「暗黙のスタイル属性」と呼ばれます。これらのプロパティはエディター内でのブロックの UI コントロールを自動的に生成するために使用され、また `experimental-theme.json` ファイルを介してターゲットのテーマで利用できます。
 
+<!-- 
+Each block declares which style properties it exposes via the [block supports mechanism](../block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor, as well as being available through the `experimental-theme.json` file for themes to target.
+ -->
+各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用され、また `experimental-theme.json` ファイルを介してターゲットのテーマで利用できます。
+ 
 ```json
 {
-  "some/context": {
-    "styles": {
+  "styles": {
+    "some/block/selector": {
       "border": {
         "radius": "value"
       },
@@ -381,18 +412,21 @@ For example, an input like this:
 
 ```json
 {
-  "core/heading/h1": {
-    "styles": {
+  "styles": {
+    "root": {
+      "color": {
+        "text": "var(--wp--preset--color--primary)"
+      },
+    },
+    "core/heading/h1": {
       "color": {
         "text": "var(--wp--preset--color--primary)"
       },
       "typography": {
         "fontSize": "calc(1px * var(--wp--preset--font-size--huge))"
       }
-    }
-  },
-  "core/heading/h4": {
-    "styles": {
+    },
+    "core/heading/h4": {
       "color": {
         "text": "var(--wp--preset--color--secondary)"
       },
@@ -409,6 +443,9 @@ will append the following style rules to the stylesheet:
 次のスタイルルールをスタイルシート末尾に追加します。
 
 ```css
+:root {
+  color: var(--wp--preset--color--primary);
+}
 h1 {
   color: var(--wp--preset--color--primary);
   font-size: calc(1px * var(--wp--preset--font-size--huge));
@@ -419,6 +456,21 @@ h4 {
 }
 ```
 <!-- 
+The `defaults` block selector can't be part of the `styles` section and will be ignored if it's present. The `root` block selector will generate a style rule with the `:root` CSS selector.
+ -->
+`defaults` ブロックセレクタは、`styles` セクションの一部にはなれず、あっても無視されます。`root` ブロックセレクタはなることはできず、`:root` CSS セレクタと共にスタイルルールを生成します。
+
+<!-- 
+#### Border Properties
+ -->
+#### ボーダープロパティ
+
+| Block | Radius |
+| --- | --- |
+| Group | Yes |
+| Image | Yes |
+
+<!-- 
 #### Color Properties
  -->
 #### カラープロパティ
@@ -427,7 +479,7 @@ These are the current color properties supported by blocks:
  -->
 以下は現在、ブロックでサポートされる色プロパティです。
 
-| Context | Background | Gradient | Link | Text |
+| Block | Background | Gradient | Link | Text |
 | --- | --- | --- | --- | --- |
 | Global | Yes | Yes | Yes | Yes |
 | Columns | Yes | Yes | Yes | Yes |
@@ -448,6 +500,7 @@ These are the current color properties supported by blocks:
 | Post Title | Yes | Yes | - | Yes |
 | Site Tagline | Yes | Yes | - | Yes |
 | Site Title | Yes | Yes | - | Yes |
+| Social Links | Yes | - | - | Yes |
 | Template Part | Yes | Yes | Yes | Yes |
 <!-- 
 [1] The heading block represents 6 distinct HTML elements: H1-H6. It comes with selectors to target each individual element (ex: core/heading/h1 for H1, etc).
@@ -458,7 +511,7 @@ These are the current color properties supported by blocks:
  -->
 #### スペース関連のプラパティ
 
-| Context | Padding |
+| Block | Padding |
 | --- | --- |
 | Cover | Yes |
 | Group | Yes |
@@ -472,7 +525,7 @@ These are the current typography properties supported by blocks:
  -->
 以下は現在、ブロックでサポートされるタイポグラフィプロパティです。
 
-| Context | Font Family | Font Size | Font Style | Font Weight | Line Height | Text Decoration | Text Transform |
+| Block | Font Family | Font Size | Font Style | Font Weight | Line Height | Text Decoration | Text Transform |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Global | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
 | Code | - | Yes | - | - | - | - | - |
@@ -499,4 +552,4 @@ These are the current typography properties supported by blocks:
  -->
 [1] 「見出し」ブロックは6つの異なる HTML 要素、H1 から H6 を表します。それぞれ個別の要素をターゲットとするセレクタも付きます。たとえば H1 に対して core/heading/h1 等。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/themes/theme-json.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/themes/theme-json.md)

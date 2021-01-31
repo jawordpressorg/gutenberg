@@ -84,11 +84,11 @@ You can then add a scripts section to your package.json file, for example:
 <!-- 
 You can then use `npm run build` to build your project with all the default webpack settings already configured, likewise for formating and linting. The `start` command is used for development mode. See [the scripts package](https://www.npmjs.com/package/@wordpress/scripts) for full documentation.
 
-You can also play with the [Gutenberg Example #03](https://github.com/WordPress/gutenberg-examples/tree/master/03-editable-esnext) for a complete setup using the wp-scripts package.
+You can also play with the [Gutenberg Example #03](https://github.com/WordPress/gutenberg-examples/tree/HEAD/03-editable-esnext) for a complete setup using the wp-scripts package.
  -->
 これで `npm run build` と実行すると、構成済みのすべてのデフォルトの webpack 、たとえばフォーマットや lint を実行してプロジェクトをビルドします。`start` コマンドは開発モードで使用します。完全なドキュメントについては [スクリプトのパッケージ](https://www.npmjs.com/package/@wordpress/scripts) を参照してください。
 
-wp-scripts パッケージの使用法の完全な説明については[JavaScript ビルド環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/)を参照してください。
+wp-scripts パッケージを使用した完全なセットアップ方法については [Gutenberg Example #03](https://github.com/WordPress/gutenberg-examples/tree/HEAD/03-editable-esnext) を参照してください。
 
 <!-- 
 ## Block Editor
@@ -104,4 +104,4 @@ You can learn more by reading the [tutorial "Building a custom block editor"](/d
 
 詳細については [チュートリアル - カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/developers/platform/custom-block-editor/) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/tree/master/docs/designers-developers/developers/platform)
+[原文](https://github.com/WordPress/gutenberg/tree/HEAD/docs/designers-developers/developers/platform)

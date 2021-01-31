@@ -54,6 +54,8 @@ After you have updated both JavaScript and PHP files, go to the block editor and
 Add a quote block, and in the right sidebar under Styles, you will see your new Fancy Quote style listed.  
 
 Click the Fancy Quote to select and apply that style to your quote block:
+
+![Fancy Quote Style in Inspector](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/fancy-quote-in-inspector.png)
 -->
 JavaScript と PHP ファイルの両方を更新したら、ブロックエディターに移動し、新しい投稿を作成してください。
 
@@ -61,8 +63,7 @@ JavaScript と PHP ファイルの両方を更新したら、ブロックエデ�
 
 「Fancy Quote」をクリックして選択し、引用ブロックにスタイルを割り当ててください。
 
-![Fancy Quote Style in Inspector](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/fancy-quote-in-inspector.png)
-
+![インスペクター内の Fancy Quote スタイル](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/fancy-quote-in-inspector.png)
 
 <!--
 Even if you Preview or Publish the post you will not see a visible change. However, if you look at the source, you will see the `is-style-fancy-quote` class name is now attached to your quote block.
@@ -94,8 +95,10 @@ add_action( 'enqueue_block_assets', 'myguten_stylesheet' );
 <!--
 Now when you view in the editor and publish, you will see your Fancy Quote style, a delicious tomato color text:
 
-![Fancy Quote with Style](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/fancy-quote-with-style.png)
+![Fancy Quote with Style](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/fancy-quote-with-style.png)
 -->
 エディターで表示したり、公開して投稿を表示すると Fancy Quote スタイルを確認できます。テキストにデリシャスなトマト色が適用されています。 
 
-![Fancy Quote with Style](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/fancy-quote-with-style.png)
+![Fancy Quote スタイル](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/fancy-quote-with-style.png)
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/extending-the-block-editor.md)

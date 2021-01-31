@@ -60,10 +60,10 @@ var deprecated = [ v3, v2, v1 ];
 {% end %}
 
 <!-- 
-It is also recommended to keep [fixtures](https://github.com/WordPress/gutenberg/blob/master/packages/e2e-tests/fixtures/blocks/README.md) which contain the different versions of the block content to allow you to easily test that new deprecations and migrations are working across all previous versions of the block.
+It is also recommended to keep [fixtures](https://github.com/WordPress/gutenberg/blob/HEAD/packages/e2e-tests/fixtures/blocks/README.md) which contain the different versions of the block content to allow you to easily test that new deprecations and migrations are working across all previous versions of the block.
  -->
 
-また [fixtures](https://github.com/WordPress/gutenberg/blob/master/packages/e2e-tests/fixtures/blocks/README.md) の保持を推奨します。異なるバージョンのブロックコンテンツを含み、ブロックのすべての過去のバージョンに対して新しい非推奨プロセスと移行が動作することを簡単にテストできます。
+また [fixtures](https://github.com/WordPress/gutenberg/blob/HEAD/packages/e2e-tests/fixtures/blocks/README.md) の保持を推奨します。異なるバージョンのブロックコンテンツを含み、ブロックのすべての過去のバージョンに対して新しい非推奨プロセスと移行が動作することを簡単にテストできます。
 
 <!--
 Deprecations are defined on a block type as its `deprecated` property, an array of deprecation objects where each object takes the form:
@@ -393,8 +393,8 @@ In the example above we updated the block to use an inner Paragraph block with a
 上の例でブロックは title 属性の代わりにタイトルをもつ段落 innerBlock に更新しています。
 
 <!-- 
-*Above are example cases of block deprecation. For more, real-world examples, check for deprecations in the [core block library](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src). Core blocks have been updated across releases and contain simple and complex deprecations.*
+*Above are example cases of block deprecation. For more, real-world examples, check for deprecations in the [core block library](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src). Core blocks have been updated across releases and contain simple and complex deprecations.*
  -->
-*ここまでブロックの非推奨プロセスの例を挙げましたが、実際の使用例については [コアブロックライブラリー](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src) 内の非推奨を調べてください。コアブロックはリリース全体で更新されていて、簡単なものや複雑なものなど、さまざまな非推奨プロセスがあります。*
+*ここまでブロックの非推奨プロセスの例を挙げましたが、実際の使用例については [コアブロックライブラリー](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src) 内の非推奨を調べてください。コアブロックはリリース全体で更新されていて、簡単なものや複雑なものなど、さまざまな非推奨プロセスがあります。*
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-deprecation.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-deprecation.md)

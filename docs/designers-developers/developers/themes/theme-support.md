@@ -16,7 +16,6 @@ There are a few new concepts to consider when building themes:
 - **Editor Text Size Palette** - A default set of sizes is provided, but themes can register their own and optionally lock users into picking from preselected sizes.
 - **Responsive Embeds** - Themes must opt-in to responsive embeds.
 - **Frontend & Editor Styles** - To get the most out of blocks, theme authors will want to make sure Core styles look good and opt-in, or write their own styles to best fit their theme.
-- **Dark Mode** - If a Theme is a Dark Theme with a dark background containing light text, the theme author can opt-in to the Dark Mode.
 - **Block Tools** - Themes can opt-in to several block tools like line height, custom units.
 - **Core Block Patterns** - Themes can opt-out of the default block patterns.
  -->
@@ -24,7 +23,6 @@ There are a few new concepts to consider when building themes:
 - **エディターテキストサイズパレット** - テキストサイズのデフォルトセットを提供します。ただしテーマは独自のテキストサイズを登録したり、オブションでユーザーに設定されたサイズからのみ選択するよう強制できます。
 - **レスポンシブな埋め込みコンテンツ** - テーマが埋め込みコンテンツをレスポンシブ化するにはオプトインしなければなりません。
 - **フロントエンドとエディターのスタイル** - ブロックのスタイルを最大限活かすには、テーマ作者はコアのスタイルが適切であることを確認してオプトインするか、テーマに合う独自のスタイルを記述します。
-- **ダークモード** - テーマがダークな背景と明るい色のテキストを使用するダークテーマであれば、テーマ作者はダークモードをオプトインできます。
 - **ブロックツール** - テーマは「行の高さ」や「カスタムユニット」などいくつかのブロックツールをオプトインできます。
 - **コアのブロックパターン** - テーマはデフォルトのブロックパターンをオプトアウトできます。
 
@@ -464,24 +462,6 @@ You shouldn't need to change your editor styles too much; most themes can add th
 エディタースタイルの多くを変更する必要はありません。ほとんどのテーマは上のコードを追加することでクラシックエディターでもブロックエディターでも同じ結果を得られます。
 
 <!-- 
-### Dark backgrounds
- -->
-### ダークな背景
-<!-- 
-If your editor style relies on a dark background, you can add the following to adjust the color of the UI to work on dark backgrounds:
- -->
-エディタースタイルがダークな背景を採用している場合、以下のコードを使用してダークな背景でも動作するよう UI の色を調整できます
-
-```php
-add_theme_support( 'editor-styles' );
-add_theme_support( 'dark-editor-style' );
-```
-<!-- 
-Note you don't need to add `add_theme_support( 'editor-styles' );` twice, but that rule does need to be present for the `dark-editor-style` rule to work.
- -->
-注意: `add_theme_support( 'editor-styles' );` を2回追加する必要はありません。しかしルールとして `dark-editor-style` ルールが動作するには `add_theme_support( 'editor-styles' );` が必要です。
-
-<!-- 
 ### Enqueuing the editor style
  -->
 ### エディタースタイルのエンキュー
@@ -603,7 +583,9 @@ add_theme_support( 'responsive-embeds' );
 <!-- 
 Using the Gutenberg plugin (version 8.3 or later), some blocks can provide padding controls in the editor for users. This is off by default, and requires the theme to opt in by declaring support:
  -->
-Gutenberg プラグイン Version 8.3 以降を使用すると、ブロックはユーザーに対してパディングの制御を提供できます。この機能は標準で無効のため、テーマはサポートを宣言してオプトインする必要があります。
+いくつかのブロックはパディングの制御を持つことができます。この機能は標準で無効のため、テーマはサポートを宣言してオプトインする必要があります。
+
+Some blocks can have padding controls. This is off by default, and requires the theme to opt in by declaring support:
 
 ```php
 add_theme_support('custom-spacing');
@@ -647,4 +629,4 @@ a {
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/themes/theme-support.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/themes/theme-support.md)

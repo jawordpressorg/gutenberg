@@ -36,9 +36,10 @@ Your first step in debugging should be to check the JavaScript console for any e
 
 デバッグの最初のステップは JavaScript コンソールでのエラーの確認です。次の例では6行目で syntax error が発生しています。
 <!-- 
-![console error](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/js-tutorial-console-log-error.png)
+![console error](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/js-tutorial-console-log-error.png)
  -->
-![コンソールエラー](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/js-tutorial-console-log-error.png)
+![コンソールエラー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/js-tutorial-console-log-error.png)
+
 <!-- 
 ### Display your message in console log
  -->
@@ -113,10 +114,11 @@ JavaScript がロードされていることを確認するためにテストメ
 The console log will show an error if a dependency your JavaScript code uses has not been declared and loaded in the browser. In the JavaScript tutorial example, if `myguten.js` script is enqueued without declaring the `wp-blocks` dependency, the console log will show:
  -->
 JavaScript コードが使用する依存が宣言されていなかったり、ブラウザーにロードされていない場合、コンソールログにエラーが表示されます。JavaScript チュートリアルの例では、`wp-blocks` 依存の宣言無しに `myguten.js` スクリプトがエンキューされると、コンソールログにエラーが表示されます。
+
 <!-- 
-<img src="https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/js-tutorial-error-blocks-undefined.png" width=448 title="error wp.blocks is undefined"/>
+<img src="https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/js-tutorial-error-blocks-undefined.png" width=448 title="error wp.blocks is undefined"/>
  -->
-<img src="https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/js-tutorial-error-blocks-undefined.png" width=448 title="エラー wp.blocks が未定義"/>
+<img src="https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/js-tutorial-error-blocks-undefined.png" width=448 title="エラー wp.blocks が未定義"/>
 
 <!--
 You can correct by checking your `wp_enqueue_script` function includes all packages listed that are used:
@@ -135,4 +137,4 @@ For automated dependency management, it is recommended to [use wp-scripts to bui
  -->
 自動的な依存性の管理については、[wo-scripts を使用した JavaScript ビルド手順](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/) を推奨します。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/troubleshooting.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/troubleshooting.md)

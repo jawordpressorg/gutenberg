@@ -7,7 +7,7 @@ RichText is a component that allows developers to render a [`contenteditable` in
 
 The RichText component is extremely powerful because it provides built-in functionality you won't find in other components:
  -->
-開発者は RichText コンポーネントを使用して [`contenteditable` 入力](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) をレンダリングできます。ユーザーはブロックコンテンツを太字、斜体、リンク、その他のオプションでフォーマットできます。
+開発者は RichText コンポーネントを使用して [`contenteditable` 入力](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) をレンダーできます。ユーザーはブロックコンテンツを太字、斜体、リンク、その他のオプションでフォーマットできます。
 
 RickText コンポーネントは非常にパワフルで、他のコンポーネントにはない以下の組み込み機能があります。
 
@@ -28,11 +28,11 @@ Unlike other components that exist in the [Component Reference](/packages/compon
 <!-- 
 ## Property Reference
 
-For a list of the possible properties to pass your RichText component, [check out the component documentation on Github](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/rich-text/README.md).
+For a list of the possible properties to pass your RichText component, [check out the component documentation on Github](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md).
  -->
 ## プロパティリファレンス
 
-RickText コンポーネントに渡すことができるプロパティのリストについては [GitHub 内のコンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/rich-text/README.md)を参照してください。
+RickText コンポーネントに渡すことができるプロパティのリストについては [GitHub 内のコンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md)を参照してください。
 
 <!-- 
 ## Core Blocks Using the RichText Component
@@ -44,15 +44,15 @@ There are a number of core blocks using the RichText component. The JavaScript e
 多くのコアブロックが RickText コンポーネントを使用します。以下のリンク先の各ブロックの JavaScript の edit 関数はベストプラクティスとして、ブロック作成の際の参考になります。 
 
 <!-- 
-* **[Button](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/button/edit.js):** RichText is used to enter the button's text.
-* **[Heading](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/heading/edit.js):** RichText is used to enter the heading's text.
-* **[Quote](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/quote/edit.js):** RichText is used in two places, for both the quotation and citation text.
-* **[Search](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/search/edit.js):** RichText is used in two places, for both the label above the search field and the submit button text.
+* **[Button](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/button/edit.js):** RichText is used to enter the button's text.
+* **[Heading](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/heading/edit.js):** RichText is used to enter the heading's text.
+* **[Quote](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/quote/edit.js):** RichText is used in two places, for both the quotation and citation text.
+* **[Search](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/search/edit.js):** RichText is used in two places, for both the label above the search field and the submit button text.
  -->
-* **[Button](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/button/edit.js):** ボタンテキストの入力で使用します。
-* **[Heading](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/heading/edit.js):** 見出しテキストの入力で使用します。
-* **[Quote](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/quote/edit.js):** quotation と citation の２つの引用で使用します。
-* **[Search](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/search/edit.js):** 検索フィールドの上のラベルと「検索」ボタンテキストの2か所で使用します。
+* **[Button](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/button/edit.js):** ボタンテキストの入力で使用します。
+* **[Heading](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/heading/edit.js):** 見出しテキストの入力で使用します。
+* **[Quote](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/quote/edit.js):** quotation と citation の２つの引用で使用します。
+* **[Search](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/search/edit.js):** 検索フィールドの上のラベルと「検索」ボタンテキストの2か所で使用します。
 
 <!-- 
 ## Example
@@ -82,7 +82,7 @@ registerBlockType( /* ... */, {
 				{ ...blockProps }
 				tagName="h2" // The tag here is the element output and editable in the admin
 				value={ attributes.content } // Any existing content, either from the database or an attribute default
-				formattingControls={ [ 'bold', 'italic' ] } // Allow the content to be made bold or italic, but do not allow other formatting options
+				allowedFormats={ [ 'core/bold', 'core/italic' ] } // Allow the content to be made bold or italic, but do not allow other formatting options
 				onChange={ ( content ) => setAttributes( { content } ) } // Store updated content as a block attribute
 				placeholder={ __( 'Heading...' ) } // Display this text before any content has been added by the user
 			/>
@@ -115,7 +115,7 @@ wp.blocks.registerBlockType( /* ... */, {
 		return wp.element.createElement( wp.blockEditor.RichText, Object.assign( blockProps, {
 			tagName: 'h2',  // The tag here is the element output and editable in the admin
 			value: props.attributes.content, // Any existing content, either from the database or an attribute default
-			formattingControls: [ 'bold', 'italic' ], // Allow the content to be made bold or italic, but do not allow other formatting options
+			allowedFormats: [ 'core/bold', 'core/italic' ], // Allow the content to be made bold or italic, but do not allow other formatting options
 			onChange: function( content ) {
 				props.setAttributes( { content: content } ); // Store updated content as a block attribute
 			},
@@ -162,7 +162,7 @@ registerBlockType( /* ... */, {
 				{ ...blockProps }
 				tagName="h2" // このタグは要素の出力。編集画面で編集可能
 				value={ attributes.content } // データベースから、または属性デフォルトからの任意の既存コンテンツ
-				formattingControls={ [ 'bold', 'italic' ] } // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
+				allowedFormats={ [ 'core/bold', 'core/italic' ] } // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
 				onChange={ ( content ) => setAttributes( { content } ) } // 更新したコンテンツはブロック属性として保存
 				placeholder={ __( 'Heading...' ) } // Display this text before any content has been added by the user
 			/>
@@ -200,7 +200,7 @@ wp.blocks.registerBlockType( /* ... */, {
 		return wp.element.createElement( wp.blockEditor.RichText, Object.assign( blockProps, {
 			tagName: 'h2',  // このタグは要素の出力。編集画面で編集可能
 			value: props.attributes.content, // データベースから、または属性デフォルトからの任意の既存コンテンツ
-			formattingControls: [ 'bold', 'italic' ], // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
+			allowedFormats: [ 'core/bold', 'core/italic' ], // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
 			onChange: function( content ) {
 				props.setAttributes( { content: content } ); // 更新したコンテンツはブロック属性として保存
 			},
@@ -259,11 +259,12 @@ If the HTML tags from text formatting such as `<strong>` or `<em>` are being esc
 Before moving forward, consider if using the RichText component makes sense at all. Would it be better to use a basic `input` or `textarea` element? If you don't think any formatting should be possible, these HTML tags may make more sense.
 
 If you'd still like to use RichText, you can eliminate all of the formatting options by specifying the `formattingControls` property as `formattingControls={ [] }` (ESNext). It's possible you'll continue to see formatting options for adding code, an inline image or other formatting. Don't worry, you've found an existing bug that should be fixed soon.
+If you'd still like to use RichText, you can eliminate all of the formatting options by specifying the `withoutInteractiveFormatting` property.
  -->
 ### それでも予期しないフォーマットオプションが表示される
 
 先に進む前に RichText コンポーネントが本当に必要か考え直してください。基本的な `input` や `textarea` 要素を使用したほうが良いかもしれません。フォーマットが一切必要ないならば、これらの HTML タグのほうが良いでしょう。
 
-それでも RichText が使いたければ、`formattingControls` プロパティに `formattingControls={ [] }` (ESNext の場合) を指定してすべてのフォーマットオプションを削除してください。この場合でもコードの追加、インライン画像、他のフォーマットオプションは残ります。心配は無用です。すぐに修正される既存のバグを見つけただけです。
+それでも RichText が使いたければ、`withoutInteractiveFormatting` プロパティを指定することですべてのフォーマットオプションを削除できます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/richtext.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/richtext.md)

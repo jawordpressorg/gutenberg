@@ -5,13 +5,13 @@
 <!-- 
 When registering a block, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
  -->
-ブロックの登録では `edit` 関数と `save` 関数を使用してブロックがどのように動作し、操作、保存されるかのインターフェイスを提供します。
+ブロックの登録時、`edit` 関数と `save` 関数を使用して、ブロックがどのようにレンダー、操作、保存されるかのインターフェイスを提供します。
 
 ## edit
 <!-- 
 The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
  -->
-`edit` 関数はエディターのコンテキスト内でのブロックの構造を記述します。ブロックが使用される際、エディターがどのようにブロックをレンダリングするかを表します。
+`edit` 関数はエディターのコンテキスト内でのブロックの構造を記述します。ブロックが使用される際、エディターがどのようにブロックをレンダーするかを表します。
 
 **ESNext**
 
@@ -64,7 +64,7 @@ var blockSettings = {
 <!-- 
 The first thing to notice here is the use of the `useBlockProps` React hook on the block wrapper element. In the example above, the block wrapper renders a "div" in the editor, but in order for the Gutenberg editor to know how to manipulate the block, add any extra classNames that are needed for the block... the block wrapper element should apply props retrieved from the `useBlockProps` react hook call.
  -->
-ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に "div" をレンダリングしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。
+ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に "div" をレンダーしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。
 
 <!-- 
 If the element wrapper needs any extra custom HTML attributes, these need to be passed as an argument to the `useBlockProps` hook. For example to add a `my-random-classname` className to the wrapper, you can use the following code:
@@ -395,7 +395,7 @@ If left unspecified, the default implementation will save no markup in post cont
 <!-- 
 Like the `edit` function, when rendering static blocks, it's important to add the block props returned by `useBlockProps.save()` to the wrapper element of your block. This ensures that the block class name is rendered properly in addition to any HTML attribute injected by the block supports API.
  -->
-`edit` 関数同様、静的ブロックのレンダリングの際には、ブロックのラッパー要素に `useBlockProps.save()` から返されるブロック props を追加することが重要です。これでブロックサポート API から外挿された任意の HTML 属性に加えて、ブロッククラス名が正しくレンダリングされます。
+`edit` 関数同様、静的ブロックをレンダーする際は、ブロックのラッパー要素に `useBlockProps.save()` から返されるブロック props を追加することが重要です。これでブロックサポート API から外挿された任意の HTML 属性に加えて、ブロッククラス名が正しくレンダーされます。
 
 ### attributes
 
@@ -539,11 +539,11 @@ save: function( props ) {
 <!-- 
 Ideally, the attributes saved should be included in the markup. However, there are times when this is not practical, so if no attribute source is specified the attribute is serialized and saved to the block's comment delimiter.
 
-This example could be for a dynamic block, such as the [Latest Posts block](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/latest-posts/index.js), which renders the markup server-side. The save function is still required, however in this case it simply returns null since the block is not saving content from the editor.
+This example could be for a dynamic block, such as the [Latest Posts block](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/latest-posts/index.js), which renders the markup server-side. The save function is still required, however in this case it simply returns null since the block is not saving content from the editor.
  -->
 理想的には保存する属性はマークアップに含まれるべきですが、常に現実的ではありません。このため属性ソースが指定されない場合、属性はシリアライズされブロックのコメントデリミッターに保存されます。
 
-次の例は[「最近の投稿」ブロック](https://github.com/WordPress/gutenberg/blob/master/packages/block-library/src/latest-posts/index.js)のような、マークアップをサーバーサイドでレンダリングするダイナミックブロックになります。`save` 関数は依然として必要ですが、ブロックはエディターからコンテンツを保存していないため、この例では単純に null を返しています。
+次の例は[「最近の投稿」ブロック](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/latest-posts/index.js)のような、マークアップをサーバーサイドでレンダーするダイナミックブロックになります。`save` 関数は依然として必要ですが、ブロックはエディターからコンテンツを保存していないため、この例では単純に null を返しています。
 
 **ESNext**
 
@@ -700,4 +700,4 @@ Refer to the guide on [Deprecated Blocks](/docs/designers-developers/developers/
  -->
 [非推奨ブロック](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-deprecation.md) のガイドを参照して、意図したマークアップの変更に古いコンテンツを収容する方法を学習してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-edit-save.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-edit-save.md)

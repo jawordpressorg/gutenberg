@@ -10,7 +10,7 @@ There are two primary uses for dynamic blocks:
 
 1. Blocks where content should change even if a post has not been updated. One example from WordPress itself is the Latest Posts block. This block will update everywhere it is used when a new post is published.
  -->
-ダイナミックブロックはフロントエンドでレンダリングされる際に動的に構造とコンテンツを構築するブロックです。
+ダイナミックブロックはフロントエンドでレンダーされる際に動的に構造とコンテンツを構築するブロックです。
 
 ダイナミックブロックの代表的な使用例が2つあります。
 
@@ -38,7 +38,7 @@ Block attributes can be used for any content or setting you want to save for tha
 
 The following code example shows how to create a dynamic block that shows only the last post as a link.
  -->
-ブロックの HTML 表現も保存できます。サーバー側レンダリングコールバックを提供すると、この HTML はコールバックの出力で置換されますが、ブロックが無効化されたり、レンダリングコールバックが削除される場合には、レンダリングされます。
+ブロックの HTML 表現も保存できます。サーバー側レンダリングコールバックを提供すると、この HTML はコールバックの出力で置換されますが、ブロックが無効化されたり、レンダリングコールバックが削除される場合には、レンダーされます。
 
 ブロックの属性は、ブロックのために保存したい任意のコンテツや設定に対して使用できます。最初の最新の投稿ブロックの例では、フロントエンドに表示したい最新の投稿数を属性として保存できます。2番目の例では、フロントエンドで表示したい各コンテンツの部品、たとえば見出しテキスト、段落テキスト、画像、URLとして属性を使用できます。
 
@@ -193,7 +193,7 @@ There are a few things to notice:
  -->
 いくつか注意点があります。
 
-* 依然として `edit` 関数はエディターのコンテキストにおけるブロックの外観を表示します (レンダリングバージョンとまったく異なる場合もあります。これはブロック作者の好みによります)
+* 依然として `edit` 関数はエディターのコンテキストにおけるブロックの外観を表示します (レンダーバージョンとまったく異なる場合もあります。これはブロック作者の好みによります)
 * 組み込みの `save` 関数は `null` を返すだけです。これはレンダリングがサーバー側で実行されるためです。
 * サーバー側レンダリングは、ブロックとブロックの内部コンテンツを引数に取る関数で、ショートコードに似たマークアップを返します。
 
@@ -208,7 +208,7 @@ Gutenberg 2.8 added the [`<ServerSideRender>`](/packages/server-side-render/READ
 
 Gutenberg 2.8 は [`<ServerSideRender>`](/packages/components/src/server-side-render) ブロックを追加しました。JavaScript の代わりに PHP を使用してサーバー上でレンダリングを実行します。
 
-*サーバー側レンダリングはフォールバックです。常に JavaScript によるクライアントサイドレンダリングが好まれます。クライアントレンダリングは速く、エディターの操作性が高くなります).*
+*サーバー側レンダーはフォールバックです。常に JavaScript によるクライアントサイドレンダリングが好まれます。クライアントレンダリングは速く、エディターの操作性が高くなります).*
 
 **ESNext**
 
@@ -279,8 +279,8 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 {% end %}
 
 <!-- 
-Note that this code uses the `wp-server-side-render` package but not `wp-data`. Make sure to update the dependencies in the PHP code. You can use wp-scripts and ESNext setup for auto dependencies (see the [gutenberg-examples repo](https://github.com/WordPress/gutenberg-examples/tree/master/01-basic-esnext) for PHP code setup).
+Note that this code uses the `wp-server-side-render` package but not `wp-data`. Make sure to update the dependencies in the PHP code. You can use wp-scripts and ESNext setup for auto dependencies (see the [gutenberg-examples repo](https://github.com/WordPress/gutenberg-examples/tree/HEAD/01-basic-esnext) for PHP code setup).
  -->
-注意: このコードは `wp-server-side-render` パッケージを使用し、`wp-data` を使用しません。PHP コード内の依存性を更新してください。自動で依存性を設定するには wp-scripts と ESNext 設定を使用してください (PHP コード設定については [gutenberg-examples リポジトリー](https://github.com/WordPress/gutenberg-examples/tree/master/01-basic-esnext)を参照してください)。
+注意: このコードは `wp-server-side-render` パッケージを使用し、`wp-data` を使用しません。PHP コード内の依存性を更新してください。自動で依存性を設定するには wp-scripts と ESNext 設定を使用してください (PHP コード設定については [gutenberg-examples リポジトリー](https://github.com/WordPress/gutenberg-examples/tree/HEAD/01-basic-esnext)を参照してください)。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/block-tutorial/creating-dynamic-blocks.md)

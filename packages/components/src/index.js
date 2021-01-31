@@ -35,11 +35,18 @@ export { default as ColorIndicator } from './color-indicator';
 export { default as ColorPalette } from './color-palette';
 export { default as ColorPicker } from './color-picker';
 export { default as ComboboxControl } from './combobox-control';
+export {
+	Composite as __unstableComposite,
+	CompositeGroup as __unstableCompositeGroup,
+	CompositeItem as __unstableCompositeItem,
+	useCompositeState as __unstableUseCompositeState,
+} from './composite';
 export { default as CustomSelectControl } from './custom-select-control';
 export { default as Dashicon } from './dashicon';
 export { default as DateTimePicker, DatePicker, TimePicker } from './date-time';
 export { default as __experimentalDimensionControl } from './dimension-control';
 export { default as Disabled } from './disabled';
+export { DisclosureContent as __unstableDisclosureContent } from './disclosure';
 export { default as Draggable } from './draggable';
 export {
 	default as DropZone,
@@ -64,6 +71,7 @@ export { default as FormToggle } from './form-toggle';
 export { default as FormTokenField } from './form-token-field';
 export { default as __experimentalGradientPicker } from './gradient-picker';
 export { default as __experimentalCustomGradientPicker } from './custom-gradient-picker';
+export { default as __experimentalGrid } from './grid';
 export { default as Guide } from './guide';
 export { default as GuidePage } from './guide/page';
 export { default as Icon } from './icon';
@@ -122,7 +130,9 @@ export {
 	TreeGridItem as __experimentalTreeGridItem,
 } from './tree-grid';
 export { default as TreeSelect } from './tree-select';
+export { default as __experimentalTruncate } from './truncate';
 export { default as __experimentalUnitControl } from './unit-control';
+export { default as __experimentalView } from './view';
 export { default as VisuallyHidden } from './visually-hidden';
 export { default as IsolatedEventContainer } from './isolated-event-container';
 export {
@@ -148,3 +158,9 @@ export {
 } from './higher-order/with-focus-return';
 export { default as withNotices } from './higher-order/with-notices';
 export { default as withSpokenMessages } from './higher-order/with-spoken-messages';
+
+// Component System
+export {
+	__unstableWithNext,
+	__unstableComponentSystemProvider,
+} from './__next/context';

@@ -4,13 +4,13 @@
 # ネストしたブロック: InnerBlocks の使用
 
 <!--
-You can create a single block that nests other blocks using the [InnerBlocks](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inner-blocks/README.md) component. This is used in the Columns block, Social Links block, or any block you want to contain other blocks.
+You can create a single block that nests other blocks using the [InnerBlocks](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md) component. This is used in the Columns block, Social Links block, or any block you want to contain other blocks.
 
 Note: A single block can only contain one `InnerBlock` component.
 
 Here is the basic InnerBlocks usage.
  -->
-他のブロックをネストするブロックを作成するには [InnerBlocks](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inner-blocks/README.md) コンポーネントを使用します。このコンポーネントは「カラム」ブロックや「ソーシャルリンク」ブロックなど、他のブロックを含むブロックで使用されています。
+他のブロックをネストするブロックを作成するには [InnerBlocks](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md) コンポーネントを使用します。このコンポーネントは「カラム」ブロックや「ソーシャルリンク」ブロックなど、他のブロックを含むブロックで使用されています。
 
 注意: 単一のブロックは、1つの `InnerBlock` コンポーネントのみを含むことができます。
 
@@ -183,9 +183,10 @@ const MY_TEMPLATE = [
 {% end %}
 
 <!-- 
-Use the `templateLock` property to lock down the template. Using `all` locks the template complete, no changes can be made. Using `insert` prevents additional blocks to be inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
+Use the `templateLock` property to lock down the template. Using `all` locks the template complete, no changes can be made. Using `insert` prevents additional blocks to be inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
  -->
-`templateLock` プロパティを使用するとテンプレートをロックできます。テンプレートを完全にロックするには `all` を使用します。`insert` は追加ブロックのインサートを禁止しますが、既存のブロックは並べ替えられます。詳細については [templateLock のドキュメント](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inner-blocks/README.md#templatelock)を参照してください。
+`templateLock` プロパティを使用するとテンプレートをロックできます。テンプレートを完全にロックするには `all` を使用します。`insert` は追加ブロックのインサートを禁止しますが、既存のブロックは並べ替えられます。詳細については [templateLock のドキュメント](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock)を参照してください。
+
 
 <!-- 
 ### Post Template
@@ -213,13 +214,13 @@ add_action( 'init', function() {
 <!-- 
 ## Parent-Child InnerBlocks
 
-A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks. An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src/column).
+A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks. An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
 
 When defining a child block, use the `parent` block setting to define which block is the parent. This prevents the block showing in the inserter outside of the InnerBlock it is defined for.
  -->
 ## 親子 InnerBlocks
 
-InnerBloks を使用する一般的なパターンは InnerBlocks のみに含まれるカスタムブロックの作成です。この例として「カラム」ブロックがあります。「カラム」ブロックでは単一の親ブロック `columns` とその子ブロック `column` を作成します。親ブロックは子ブロックのみを許可するとして定義されます。[Column のコード](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src/column)を参照してください。
+InnerBloks を使用する一般的なパターンは InnerBlocks のみに含まれるカスタムブロックの作成です。この例として「カラム」ブロックがあります。「カラム」ブロックでは単一の親ブロック `columns` とその子ブロック `column` を作成します。親ブロックは子ブロックのみを許可するとして定義されます。[Column のコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
 
 子ブロックを定義する際に `parent` ブロック設定を使用して親ブロックを定義します。こうすると定義された InnerBlock の外側ではインサーターに表示されません。
 
@@ -233,4 +234,4 @@ export const settings = {
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md)

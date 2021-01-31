@@ -57,9 +57,9 @@ function myplugin_register_template() {
 add_action( 'init', 'myplugin_register_template' );
 ```
 <!-- 
-The following example in JavaScript creates a new block using [InnerBlocks](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) and templates, when inserted creates a set of blocks based off the template.
+The following example in JavaScript creates a new block using [InnerBlocks](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) and templates, when inserted creates a set of blocks based off the template.
  -->
-次の JavaScript の例では [InnerBlocks](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) とテンプレートを使用して新しいブロックを作成します。エディターに挿入されるとテンプレートに基づいて一連のブロックを作成します。
+次の JavaScript の例では [InnerBlocks](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) とテンプレートを使用して新しいブロックを作成します。エディターに挿入されるとテンプレートに基づいて一連のブロックを作成します。
 
 ```js
 const el = wp.element.createElement;
@@ -187,4 +187,4 @@ $template = array(
 	) )
 );
 ```
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-templates.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-templates.md)

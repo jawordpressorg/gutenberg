@@ -160,14 +160,14 @@ supports: {
 - Default value: null
 - Subproperties:
   - `background`: type `boolean`, default value `true`
-  - `gradient`: type `boolean`, default value `false`
+  - `gradients`: type `boolean`, default value `false`
   - `text`: type `boolean`, default value `true`
  -->
 - タイプ: `Object`
 - デフォルト値: null
 - サブプロパティ:
   - `background`: タイプ `boolean`, デフォルト値 `true`
-  - `gradient`: タイプ `boolean`, デフォルト値 `false`
+  - `gradients`: タイプ `boolean`, デフォルト値 `false`
   - `text`: タイプ `boolean`, デフォルト値 `true`
 
 <!-- 
@@ -189,7 +189,7 @@ Note that the `text` and `background` keys have a default value of `true`, so if
 ```js
 supports: {
     color: { // This also enables text and background UI controls.
-        gradient: true // Enable gradients UI control.
+        gradients: true // Enable gradients UI control.
     }
 }
 ```
@@ -197,7 +197,7 @@ supports: {
 ```js
 supports: {
     color: { // 同時にテキスト UI コントロールと背景 UI コントロールも有効化
-        gradient: true // グラデーション UI コントロールを有効化
+        gradients: true // グラデーション UI コントロールを有効化
     }
 }
 ```
@@ -211,7 +211,7 @@ It's possible to disable them individually:
 supports: {
     color: { // Text UI control is enabled.
         background: false, // Disable background UI control.
-        gradient: true // Enable gradients UI control.
+        gradients: true // Enable gradients UI control.
     }
 }
 ```
@@ -220,7 +220,7 @@ supports: {
 supports: {
     color: { // テキスト UI コントロールは有効
         background: false, // 背景 UI コントロールを無効化
-        gradient: true // グラデーション UI コントロールを有効化
+        gradients: true // グラデーション UI コントロールを有効化
     }
 }
 ```
@@ -262,9 +262,10 @@ attributes: {
 }
 ```
 <!-- 
-- When `gradient` support is declared: it'll be added a new `gradient` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
+- When `gradients` support is declared: it'll be added a new `gradient` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
  -->
-- `gradient` サポートを宣言すると、新しく `string` タイプの `gradient` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのグラデーションを適用できます。
+- `gradients` サポートを宣言すると、新しく `string` タイプの `gradients` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのグラデーションを適用できます。
+
 
 ```js
 attributes: {
@@ -597,5 +598,5 @@ When the block declares support for a specific spacing property, the attributes 
 
 - `style`: デフォルトの割り当てのない `object` タイプの属性。`padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-supports.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-supports.md)
 

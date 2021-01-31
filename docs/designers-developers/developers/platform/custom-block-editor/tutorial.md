@@ -98,9 +98,10 @@ With that in mind, let's start taking our first steps towards building this.
 ## プラグインのセットアップと構造
 
 <!-- 
-Our custom editor is going to be built as a WordPress Plugin. To keep things simple. we'll call this `Standalone Block Editor Demo` because that is what is does. Nice!
+Our custom editor is going to be built as a WordPress Plugin. To keep things simple. we'll call this `Standalone Block Editor Demo` because that is what it does. Nice!
  -->
 カスタムエディターは WordPress プラグインとして構築します。このプラグインをシンプルに `スタンドアロンブロックエディターデモ` と呼びましょう。名は体を現していますね、素晴らしい !
+
 <!-- 
 Let's take a look at our Plugin file structure:
 
@@ -693,13 +694,13 @@ For the purposes of our simple project these features allow us to:
 * Update the `blocks` state in memory on `onInput` by calling the hook setter
   `updateBlocks(blocks)`.
 * Handle basic persistence of blocks into `localStorage` using `onChange`. This is [fired when block updates are considered
-  "committed"](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/provider#onchange).
+  "committed"](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/provider#onchange).
  -->
 今回のシンプルなプロジェクトの目的のため、これらの機能により以下が可能です。
 
 * `blocks` として現行のブロックの配列を state に保存する
 * フックセッター `updateBlocks(blocks)` を呼び出して `onInput` でメモリー内の `blocks` state を更新する。
-* `onChange` を使用して `localStorage` 内にブロックの基本的な永続性を処理する。これは[ブロックの更新が「コミットされた」と考えられるときに発火します](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/provider#onchange)。
+* `onChange` を使用して `localStorage` 内にブロックの基本的な永続性を処理する。これは[ブロックの更新が「コミットされた」と考えられるときに発火します](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/provider#onchange)。
 <!-- 
 It's also worth recalling that the component accepts a `settings` prop. This accepts the editor settings which we inlined as JSON within `init.php` earlier. This configures features such as custom colors, available image sizes and [much more](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS).
  -->
@@ -904,13 +905,13 @@ Without Slot/Fill this setup would be extremely difficult to achieve.
 <!-- 
 Aside:
 [`<BlockInspector>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js)
- itself actually renders a `Slot` for [`<InspectorControls>`](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inspector-controls
+ itself actually renders a `Slot` for [`<InspectorControls>`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inspector-controls
 ). This is what allows you [render a `<InspectorControls>` component inside
 the `edit()` definition for your block](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-library/src/paragraph/edit.js#L127) and have
 it display within Gutenberg's sidebar. I recommend looking into this component
 in more detail.
  -->
-ところで [`<BlockInspector>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js) 自身は実際に [`<InspectorControls>`](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/inspector-controls) のために `Slot` をレンダーします。これで [ブロックの `edit()` 定義の中で `<InspectorControls>` コンポーネントをレンダーし](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-library/src/paragraph/edit.js#L127)、Gutenberg のサイドバーに表示できます。このコンポーネントを詳細に調べることを推奨します。
+ところで [`<BlockInspector>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js) 自身は実際に [`<InspectorControls>`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inspector-controls) のために `Slot` をレンダーします。これで [ブロックの `edit()` 定義の中で `<InspectorControls>` コンポーネントをレンダーし](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-library/src/paragraph/edit.js#L127)、Gutenberg のサイドバーに表示できます。このコンポーネントを詳細に調べることを推奨します。
 
 <!-- 
 And with that we have covered the render of our custom `<BlockEditor>`!
@@ -1082,4 +1083,4 @@ The full code for the custom functioning block editor we've just built is [avail
 
 これまで構築したカスタムで機能するブロックエディターの完全なコードは [Github から取得可能](https://github.com/getdave/standalone-block-editor) です。ダウンロードし、自分で動かしてみることをお勧めします。実験し、更にその先まで進みましょう !
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)

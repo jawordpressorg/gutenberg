@@ -1,6 +1,6 @@
 {
 	"name": "@wordpress/scripts",
-	"version": "12.6.1",
+	"version": "13.0.1",
 	"description": "Collection of reusable scripts for WordPress development.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
@@ -9,7 +9,7 @@
 		"gutenberg",
 		"scripts"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/master/packages/scripts/README.md",
+	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/WordPress/gutenberg.git",
@@ -51,6 +51,7 @@
 		"dir-glob": "^3.0.1",
 		"eslint": "^7.17.0",
 		"eslint-plugin-markdown": "^1.0.2",
+		"file-loader": "^6.2.0",
 		"ignore-emit-webpack-plugin": "^2.0.6",
 		"jest": "^26.6.3",
 		"jest-puppeteer": "^4.4.0",
@@ -61,7 +62,7 @@
 		"npm-package-json-lint": "^5.0.0",
 		"postcss-loader": "^3.0.0",
 		"prettier": "npm:wp-prettier@2.2.1-beta-1",
-		"puppeteer": "npm:puppeteer-core@3.0.0",
+		"puppeteer": "npm:puppeteer-core@5.5.0",
 		"read-pkg-up": "^1.0.1",
 		"resolve-bin": "^0.4.0",
 		"sass": "^1.26.11",

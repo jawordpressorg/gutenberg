@@ -95,9 +95,9 @@ Blocks are grouped into categories to help users browse and discover them.
 
 The core provided categories are:
 
--   common
--   formatting
--   layout
+-   text
+-   media
+-   design
 -   widgets
 -   embed
 
@@ -112,9 +112,9 @@ Plugins and Themes can also register [custom block categories](/docs/designers-d
 
 コアで提供されるカテゴリー一覧:
 
--   common  (一般ブロック)
--   formatting  (フォーマット)
--   layout  (レイアウト要素
+-   text  (テキスト)
+-   media  (メディア)
+-   design  (デザイン)
 -   widgets  (ウィジェット)
 -   embed  (埋め込み)
 
@@ -439,6 +439,7 @@ An object describing a variation defined for the block type can contain the foll
 -   `name` (type `string`) – The unique and machine-readable name.
 -   `title` (type `string`) – A human-readable variation title.
 -   `description` (optional, type `string`) – A detailed variation description.
+-   `category` (optional, type `string`) - A category classification, used in search interfaces to arrange block types by category.
 -   `icon` (optional, type `string` | `Object`) – An icon helping to visualize the variation. It can have the same shape as the block type.
 -   `isDefault` (optional, type `boolean`) – Indicates whether the current variation is the default one. Defaults to `false`.
 -   `attributes` (optional, type `Object`) – Values that override block attributes.
@@ -458,6 +459,7 @@ It's also possible to override the default block style variation using the `clas
 - `name` (type `string`) – 機械で識別可能な固有の名前
 - `title` (type `string`) – ユーザー向けのバリエーションのタイトル
 - `description` (オプション, type `string`) – 詳細なバリエーションの説明
+- `category` (オプション, type `string`) - カテゴリーの分類。検索インターフェース内で、ブロックタイプのカテゴリーごとの配置に使用される。
 - `icon` (オプション, type `String` | `Object`) – バリエーションの視覚化を助けるアイコン。ブロックタイプと同じ形でも良い。
 - `isDefault` (オプション, type `boolean`) – 現行のバリエーションがデフォルトかどうかを示すフラグ。デフォルトは `false`
 - `attributes` (オプション, type `Object`) – ブロック属性を上書きする値
@@ -514,7 +516,7 @@ Transforms provide rules for what a block can be transformed from and what it ca
 
 -   **Type:** `Array`
 <!-- 
-Blocks are able to be inserted into blocks that use [`InnerBlocks`](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) as nested content. Sometimes it is useful to restrict a block so that it is only available as a nested block. For example, you might want to allow an 'Add to Cart' block to only be available within a 'Product' block.
+Blocks are able to be inserted into blocks that use [`InnerBlocks`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) as nested content. Sometimes it is useful to restrict a block so that it is only available as a nested block. For example, you might want to allow an 'Add to Cart' block to only be available within a 'Product' block.
 
 Setting `parent` lets a block require that it is only available when nested within the specified blocks.
 
@@ -523,7 +525,7 @@ Setting `parent` lets a block require that it is only available when nested with
 parent: [ 'core/columns' ],
 ```
  -->
-ブロックは、ネストしたコンテンツとして [`InnerBlocks`](https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md) を使用するブロックの中に挿入することができます。ブロックをネストしたブロックとしてのみ利用可能に制限することが有用な場合もあります。たとえば「Add to Cart (カートに追加)」ブロックは、「Product (商品)」ブロック内でのみ利用可能にすることができます。
+ブロックは、ネストしたコンテンツとして [`InnerBlocks`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) を使用するブロックの中に挿入することができます。ブロックをネストしたブロックとしてのみ利用可能に制限することが有用な場合もあります。たとえば「Add to Cart (カートに追加)」ブロックは、「Product (商品)」ブロック内でのみ利用可能にすることができます。
 
 `parent` を設定したブロックは、特定のブロック内にネストした場合のみ利用可能になります。
 
@@ -589,4 +591,4 @@ registerBlockCollection( 'my-plugin', { title: 'My Plugin' } );
 registerBlockCollection( 'my-plugin', { title: 'My Plugin' } );
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-registration.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-registration.md)

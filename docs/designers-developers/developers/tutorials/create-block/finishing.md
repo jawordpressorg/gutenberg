@@ -46,10 +46,10 @@ Nested blocks, a block that contains additional blocks, is a common pattern used
 <!-- 
 One of the best sources for information and reference is the Block Editor itself, all the core blocks are built the same way. A good way to learn how things are done is to find a core block code that does something close to what you are interested in and then using the same approach for your own block.
 
-All core blocks source are in the [block library package on Github](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src).
+All core blocks source are in the [block library package on Github](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src).
  -->
 情報やリファレンスの中で最良のものの1つがブロックエディターのソースコード自身でしょう。すべてのコアブロックは同じ方法で構築されています。どのように実装されているのかを学ぶには自分の興味に近いコアブロックのコードを探し、同じアプローチを自分のブロックに対しても行うと良いでしょう。
 
-すべてのコアブロックのソースは [Github 上のブロックライブラリーパッケージ](https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src) にあります。
+すべてのコアブロックのソースは [Github 上のブロックライブラリーパッケージ](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src) にあります。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/finishing.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/finishing.md)

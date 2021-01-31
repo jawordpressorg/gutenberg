@@ -11,7 +11,7 @@ import {
 	__experimentalLibrary as Library,
 	__unstableUseEditorStyles as useEditorStyles,
 } from '@wordpress/block-editor';
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	InterfaceSkeleton,
@@ -26,6 +26,7 @@ import { __ } from '@wordpress/i18n';
 import Header from '../header';
 import WidgetAreasBlockEditorContent from '../widget-areas-block-editor-content';
 import useWidgetLibraryInsertionPoint from '../../hooks/use-widget-library-insertion-point';
+import { store as editWidgetsStore } from '../../store';
 
 const interfaceLabels = {
 	/* translators: accessibility text for the widgets screen top bar landmark region. */
@@ -40,19 +41,17 @@ function Interface( { blockEditorSettings } ) {
 	const isMobileViewport = useViewportMatch( 'medium', '<' );
 	const isHugeViewport = useViewportMatch( 'huge', '>=' );
 	const { setIsInserterOpened, closeGeneralSidebar } = useDispatch(
-		'core/edit-widgets'
+		editWidgetsStore
 	);
 	const { rootClientId, insertionIndex } = useWidgetLibraryInsertionPoint();
 
 	const { hasSidebarEnabled, isInserterOpened } = useSelect( ( select ) => ( {
 		hasSidebarEnabled: !! select(
 			interfaceStore
-		).getActiveComplementaryArea( 'core/edit-widgets' ),
-		isInserterOpened: !! select( 'core/edit-widgets' ).isInserterOpened(),
+		).getActiveComplementaryArea( editWidgetsStore ),
+		isInserterOpened: !! select( editWidgetsStore ).isInserterOpened(),
 	} ) );
-	const ref = useRef();
-
-	useEditorStyles( ref, blockEditorSettings.styles );
+	const editorStylesRef = useEditorStyles( blockEditorSettings.styles );
 
 	// Inserter and Sidebars are mutually exclusive
 	useEffect( () => {
@@ -73,7 +72,7 @@ function Interface( { blockEditorSettings } ) {
 
 	return (
 		<InterfaceSkeleton
-			ref={ ref }
+			ref={ editorStylesRef }
 			labels={ interfaceLabels }
 			header={ <Header /> }
 			secondarySidebar={

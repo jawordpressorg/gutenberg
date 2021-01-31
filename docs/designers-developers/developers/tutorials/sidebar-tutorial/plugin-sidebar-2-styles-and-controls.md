@@ -113,12 +113,14 @@ add_action( 'enqueue_block_assets', 'sidebar_plugin_style_enqueue' );
 <!-- 
 Reload the editor and open the sidebar:
 
-![Sidebar with style and controls](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/sidebar-style-and-controls.png)
+![Sidebar with style and controls](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/sidebar-style-and-controls.png)
 
 With the input control and the styling the sidebar looks nicer. This code doesn't let users to store or retrieve data just yet, so the next steps will focus on how to connect it to the meta block field.
  -->
 エディターをリロードし、サイドバーを開いてください。
 
-![スタイルとコントロールのあるサイドバー](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/assets/sidebar-style-and-controls.png)
+![スタイルとコントロールのあるサイドバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/sidebar-style-and-controls.png)
 
 入力コントロールとスタイルでサイドバーの見た目が良くなりました。ただしユーザーの入力したテキストはまだ保存も取得もされません。次のステップでどのようにメタブロックフィールドと接続するかに焦点を当てます。
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)

@@ -156,9 +156,9 @@ Blocks should have an identifying icon, ideally using a single color. Try to avo
 ブロックには認知しやすいアイコン、できれば単一色のアイコンを準備してください。既存のブロックで使用されているものと同じアイコンは避けてください。コアのブロックのアイコンは [マテリアルデザインアイコン](https://material.io/tools/icons/) に基づいています。 [Dashicons](https://developer.wordpress.org/resource/dashicons/) と共にスタイルのインスピレーションとして参考にしてください。
 
 <!-- 
-![A screenshot of the block library with concise block names](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/blocks-do.png)
+![A screenshot of the block library with concise block names](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/blocks-do.png)
  -->
-![簡潔なブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/blocks-do.png)
+![簡潔なブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/blocks-do.png)
 
 **Do:**
 <!-- 
@@ -167,9 +167,9 @@ Use concise block names.
 簡潔なブロック名を使用してください。
 
 <!-- 
-![A screenshot of the block library with long, multi-line block names](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/blocks-dont.png)
+![A screenshot of the block library with long, multi-line block names](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/blocks-dont.png)
  -->
-![長く、複数行に渡るブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/blocks-dont.png)
+![長く、複数行に渡るブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/blocks-dont.png)
 
 **Don't:**
 <!-- 
@@ -206,9 +206,9 @@ Stick to a single imperative sentence with an action + subject format. Examples:
 - Create a bulleted or numbered list. (番号無しリスト、または番号付きリストを作成します)
 
 <!-- 
-![A screenshot of a short block description](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-descriptions-do.png)
+![A screenshot of a short block description](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-descriptions-do.png)
  -->
-![スクリーンショット: ブロックの短い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-descriptions-do.png)
+![スクリーンショット: ブロックの短い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-descriptions-do.png)
 
 **Do:**
 <!-- 
@@ -217,9 +217,9 @@ Use a short, simple block description.
 ブロックの説明には短く、シンプルな文章を使用してください。
 
 <!-- 
-![A screenshot of a long block description that includes branding](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-descriptions-dont.png)
+![A screenshot of a long block description that includes branding](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-descriptions-dont.png)
  -->
-![スクリーンショット: ブランドの紹介を含むブロックの長い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-descriptions-dont.png)
+![スクリーンショット: ブランドの紹介を含むブロックの長い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-descriptions-dont.png)
 
 **Don't:**
 <!-- 
@@ -238,9 +238,9 @@ If your block requires a user to configure some options before you can display i
 ブロックで何かを表示する前にユーザーによるオプションの構成が必要な場合、手順を指示するプレースホルダー状態を提供してください。
 
 <!-- 
-![A screenshot of the Gallery block's placeholder](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/placeholder-do.png)
+![A screenshot of the Gallery block's placeholder](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/placeholder-do.png)
  -->
-![ギャラリーブロックのプレースホルダーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/placeholder-do.png)
+![ギャラリーブロックのプレースホルダーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/placeholder-do.png)
 
 **Do:**
 <!-- 
@@ -249,9 +249,9 @@ Provide an instructive placeholder state.
 手順を指示するプレースホルダー状態を提供してください。
 
 <!-- 
-![An example Gallery block placeholder but with intense, distracting colors and no instructions](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/placeholder-dont.png)
+![An example Gallery block placeholder but with intense, distracting colors and no instructions](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/placeholder-dont.png)
  -->
-![著しく目障りな色使いの上に説明のないギャラリーブロックプレースホルダーの例](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/placeholder-dont.png)
+![著しく目障りな色使いの上に説明のないギャラリーブロックプレースホルダーの例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/placeholder-dont.png)
 
 **Don't:**
 <!-- 
@@ -272,9 +272,9 @@ When selected, your block may surface additional options like input fields or bu
 ブロックが選択された場合、基本的な操作が必要な場合などでは特に、直接ブロックを構成する入力フィールドやボタンなどの追加オプションを表示できます。
 
 <!-- 
-![A Google Maps block with inline, always-accessible controls required for the block to function](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-controls-do.png)
+![A Google Maps block with inline, always-accessible controls required for the block to function](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-controls-do.png)
  -->
-![Google Maps ブロック。ブロックの機能に必要なコントロールがインラインで常にアクセス可能](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-controls-do.png)
+![Google Maps ブロック。ブロックの機能に必要なコントロールがインラインで常にアクセス可能](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-controls-do.png)
 
 **Do:**
 <!-- 
@@ -283,9 +283,9 @@ For controls that are essential for the operation of the block, provide them dir
 ブロックの操作に必須のコントロールについてはブロックの編集ビュー内に直接、配置してください。
 
 <!-- 
-![A Google Maps block with essential controls moved to the sidebar where they can be contextually hidden](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-controls-dont.png)
+![A Google Maps block with essential controls moved to the sidebar where they can be contextually hidden](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-controls-dont.png)
  -->
-![Google Maps ブロック。ブロックに必須のコントロールが、隠れる可能性のあるサイドバーに移動している。](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/block-controls-dont.png)
+![Google Maps ブロック。ブロックに必須のコントロールが、隠れる可能性のあるサイドバーに移動している。](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-controls-dont.png)
 
 **Don't:**
 <!-- 
@@ -304,9 +304,9 @@ The “Block” tab of the Settings Sidebar can contain additional block options
 設定サイドバーの「ブロック」タブには、追加のオプションや構成を配置できます。ただしユーザーはこのサイドバーを折り畳めること、そして決して使わないことを覚えておいてください。重要なオプションはサイドバーに配置すべきではありません。
 
 <!-- 
-![A screenshot of the Paragraph block's advanced settings in the sidebar](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/advanced-settings-do.png)
+![A screenshot of the Paragraph block's advanced settings in the sidebar](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/advanced-settings-do.png)
  -->
-![スクリーンショット: 段落ブロックのサイドバー内の高度な設定](https://raw.githubusercontent.com/WordPress/gutenberg/master/docs/designers-developers/designers/assets/advanced-settings-do.png)
+![スクリーンショット: 段落ブロックのサイドバー内の高度な設定](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/advanced-settings-do.png)
 
 **Do:**
 <!-- 
@@ -487,4 +487,4 @@ _Latest Posts is fully functional as soon as it’s inserted because it comes wi
  -->
 _最新の投稿は挿入すると完全に機能します。これはこの動作がデフォルトの正しい動作と考えられるためです。_
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/designers/block-design.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/designers/block-design.md)

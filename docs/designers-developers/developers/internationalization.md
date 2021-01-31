@@ -559,4 +559,13 @@ WordPress の導入環境を日本語にする必要があります。設定 > �
 
 言語を設定したら、新規投稿を作成し、ブロックを追加し、翻訳が使われていることを確認します。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/internationalization.md)
+<!-- 
+### Filtering Translations
+ -->
+### 翻訳のフィルタリング
+<!-- 
+The outputs of the translation functions (`__()`, `_x()`, `_n()`, and `_nx()`) are filterable, see [i18n Filters](/docs/designers-developers/developers/filters/i18n-filters.md) for full information.
+ -->
+翻訳関数 (`__()`, `_x()`, `_n()`, `_nx()`) の出力はフィルターできます。詳細については [i18n フィルター](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/filters/i18n-filters.md) を参照してください。
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/internationalization.md)
