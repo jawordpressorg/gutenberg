@@ -11,6 +11,7 @@
 ![Quick view of the block editor](https://make.wordpress.org/core/files/2021/01/quick-view-of-the-block-editor.png)
 
 **Legend :**
+
 1. Block Inserter
 2. Block editor content area
 3. Settings Sidebar
@@ -38,16 +39,14 @@ The Editor offers rich new value to users with visual, drag-and-drop creation to
 ブロックエディターはユーザーにリッチで新しい価値を届けます。ブロックエディターの機能としては、ビジュアルでドラッグアンドドロップ対応の作成ツール、最新のベンダーパッケージを使用したパワフルな開発拡張、再利用可能コンポーネント、カスタムブロックやカスタムブロックスタイル、プラグインを通じたエディターの変更、拡張が可能なリッチな API とフックがあります。
 
 <!-- 
+[Learn to use the block editor](https://wordpress.org/support/article/wordpress-editor/) to create media-rich posts and pages.
+ -->
+[ブロックエディターの使い方を学ぶ](https://ja.wordpress.org/support/article/wordpress-editor/) では、メディアリッチな投稿やページを作成できます。
+
+<!-- 
 ## Quick links
  -->
 ## クイックリンク
-
-<!-- 
-### [Create a Block Tutorial](/docs/designers-developers/developers/tutorials/create-block/readme.md)
-Learn how to create your first block for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all what you need to know to get started with the block editor.
- -->
-### [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/)
-WordPress ブロックエディターにおける初めてのブロックの作成方法を学習します。開発環境の構築から、ツール、新しい開発モデルの説明まで、このチュートリアルはブロックエディターでの開発に必要なすべてをカバーします。
 
 <!-- 
 ### [Develop for the block editor](https://developer.wordpress.org/block-editor/developers/)
@@ -55,6 +54,25 @@ Whether you want to extend the functionality of the block editor, or create a pl
  -->
 ### [ブロックエディターでの開発](https://ja.wordpress.org/team/handbook/block-editor/developers/)
 ブロックエディターの機能の拡張やプラグインの開発で必要となる基本コンセプト、ブロック API とアーキテクチャを説明します。
+
+<!-- 
+### Create a Block Tutorial
+ -->
+### ブロックの作成 チュートリアル
+
+<!-- 
+[Learn how to create your first block](/docs/designers-developers/developers/tutorials/create-block/readme.md) for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all what you need to know to get started with the block editor.
+ -->
+WordPress ブロックエディター用の[初めてのブロックの作成方法を学習します](/docs/designers-developers/developers/tutorials/create-block/readme.md)。開発環境の構築から、ツール、新しい開発モデルの説明まで、このチュートリアルはブロックエディターでの開発に必要なすべてをカバーします。
+
+<!-- 
+### Develop for the block editor
+ -->
+### ブロックエディターでの開発
+<!-- 
+Whether you want to extend the functionality of the block editor, or create a plugin based on it, [see the developer documentation](/docs/designers-developers/developers/README.md) to find all the information about the basic concepts you need to get started, the block editor APIs and its architecture.
+ -->
+ブロックエディターの機能の拡張やプラグインの開発で必要となる基本コンセプト、ブロック API、アーキテクチャに関するすべての情報については、[開発者ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/)を参照してください。
 
 <!-- 
 - [Gutenberg Architecture](/docs/architecture/readme.md)
@@ -74,11 +92,13 @@ Whether you want to extend the functionality of the block editor, or create a pl
 - [国際化](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/)
 
 <!-- 
-### [Contribute to the block editor](/docs/contributors/readme.md)
-Everything you need to know to start contributing to the block editor. Whether you are interested in the design, code, triage, documentation, support or internationalization of the block editor, you will find here guides to help you.
+### Contribute to the block editor
  -->
-### [ブロックエディターへの貢献](https://ja.wordpress.org/team/handbook/block-editor/contributors/)
-ブロックエディターへの貢献を始める場合に必要な情報です。ブロックエディターのデザイン、コード、トリアージュ、ドキュメント、サポート、国際化のどれに興味があっても必要なガイドを入手できます。
+### ブロックエディターへの貢献
+<!-- 
+Everything you need to know to [start contributing to the block editor](/docs/contributors/readme.md) . Whether you are interested in the design, code, triage, documentation, support or internationalization of the block editor, you will find here guides to help you.
+ -->
+[ブロックエディターへの貢献を始める](https://ja.wordpress.org/team/handbook/block-editor/contributors/)場合に必要な情報です。ブロックエディターのデザイン、コード、トリアージュ、ドキュメント、サポート、国際化のどれに興味があっても必要なガイドを入手できます。
 
 ## 問い合わせ先
 ブロックエディターハンドブックへのコメントは [Gutenberg GitHub リポジトリ](https://github.com/WordPress/gutenberg) へお願いします。

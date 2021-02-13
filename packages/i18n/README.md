@@ -54,7 +54,7 @@ _Parameters_
 
 -   _initialData_ `[LocaleData]`: Locale data configuration.
 -   _initialDomain_ `[string]`: Domain for which configuration applies.
--   _hooks_ `[ApplyFiltersInterface]`: Hooks implementation.
+-   _hooks_ `[Hooks]`: Hooks implementation.
 
 _Returns_
 
@@ -66,11 +66,74 @@ _パラメータ_
 
 -   _initialData_ `[LocaleData]`: ロケールデータ構成
 -   _initialDomain_ `[string]`: 構成を適用するドメイン
--   _hooks_ `[ApplyFiltersInterface]`: フックの実装
+-   _hooks_ `[Hooks]`: フックの実装
 
-_返り値_
+_戻り値_
 
 -   `I18n`: I18n インスタンス
+
+<a name="defaultI18n" href="#defaultI18n">#</a> **defaultI18n**
+
+<!-- 
+Default, singleton instance of `I18n`.
+ -->
+デフォルトの `I18n` のシングルトンインスタンス。
+
+<a name="getLocaleData" href="#getLocaleData">#</a> **getLocaleData**
+<!-- 
+Returns locale data by domain in a Jed-formatted JSON object shape.
+
+_Related_
+
+-   <http://messageformat.github.io/Jed/>
+
+_Parameters_
+
+-   _domain_ `[string]`: Domain for which to get the data.
+
+_戻り値_
+
+-   `LocaleData`: Locale data.
+ -->
+Jed 形式の JSON オブジェクト形でドメインのロケールデータを返す。
+
+_関連_
+
+-   <http://messageformat.github.io/Jed/>
+
+_パラメータ_
+
+-   _domain_ `[string]`: データを取得するドメイン。
+
+_戻り値_
+
+-   `LocaleData`: ロケールデータ。
+
+<a name="hasTranslation" href="#hasTranslation">#</a> **hasTranslation**
+<!-- 
+Check if there is a translation for a given string (in singular form).
+
+_Parameters_
+
+-   _single_ `string`: Singular form of the string to look up.
+-   _context_ `[string]`: Context information for the translators.
+-   _domain_ `[string]`: Domain to retrieve the translated text.
+
+_Returns_
+
+-   `boolean`: Whether the translation exists or not.
+ -->
+与えられた文字列の (単数形の) 翻訳があるかどうかをチェックする。
+
+_パラメータ_
+
+-   _single_ `string`: 検索する文字列の単数形。
+-   _context_ `[string]`: 翻訳のコンテキスト情報。
+-   _domain_ `[string]`: 翻訳テキストを取得するドメイン。
+
+_戻り値_
+
+-   `boolean`: 翻訳が存在するかどうか。
 
 <a name="isRTL" href="#isRTL">#</a> **isRTL**
 <!-- 
@@ -92,7 +155,7 @@ _Returns_
 RTL の反対、LTR (Left To Right、左から右) はその他の言語で使用されます。例えば英語 (`en`、`en-US`、`en-GB`等)、スペイン語 (`es`)、
 フランス語 (`fr`)、日本語 (`ja`) など。
 
-_返り値_
+_戻り値_
 
 -   `boolean`: ロケールが RTL かどうか
 
@@ -150,9 +213,31 @@ _パラメータ_
 -   _format_ `string`: 生成する文字列のフォーマット
 -   _args_ `...*`: フォーマットに適用する引数
 
-_返り値_
+_戻り値_
 
 -   `string`: フォーマットされた文字列
+
+<a name="subscribe" href="#subscribe">#</a> **subscribe**
+<!-- 
+Subscribes to changes of locale data
+
+_Parameters_
+
+-   _callback_ `SubscribeCallback`: Subscription callback
+
+_Returns_
+
+-   `UnsubscribeCallback`: Unsubscribe callback
+ -->
+ロケールデータの変更に対するサブスクライブ
+
+_パラメータ_
+
+-   _callback_ `SubscribeCallback`: サブスクリプションコールバック
+
+_戻り値_
+
+-   `UnsubscribeCallback`: サブスクライブ解除のコールバック
 
 <a name="_n" href="#_n">#</a> **\_n**
 <!-- 
@@ -187,7 +272,7 @@ _パラメータ_
 -   _number_ `number`: 単数形、複数形どちらのフォームを使うかを比較する数値
 -   _domain_ `[string]`: 翻訳テキストを取得するドメイン
 
-_返り値_
+_戻り値_
 
 -   `string`: 翻訳された単数形、または複数形のフォーム
 
@@ -226,7 +311,7 @@ _パラメータ_
 -   _context_ `string`: コンテキスト情報
 -   _domain_ `[string]`: 翻訳テキストを取得するドメイン
 
-_返り値_
+_戻り値_
 
 -   `string`: 翻訳された単数形、または複数形のフォーム
 
@@ -260,7 +345,7 @@ _パラメータ_
 -   _context_ `string`: コンテキスト情報
 -   _domain_ `[string]`: 翻訳テキストを取得するドメイン
 
-_返り値_
+_戻り値_
 
 -   `string`: コンテキストに応じて翻訳された文字列
 
@@ -292,7 +377,7 @@ _パラメータ_
 -   _text_ `string`: 翻訳するテキスト
 -   _domain_ `[string]`: 翻訳テキストを取得するドメイン
 
-_返り値_
+_戻り値_
 
 -   `string`: 翻訳されたテキスト
 
