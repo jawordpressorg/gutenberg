@@ -11,17 +11,17 @@
 <!-- 
 Blocks are an abstract unit for organizing and composing content, strung together to create content for a webpage.
  -->
-Blocks are an abstract unit for organizing and composing content, strung together to create content for a webpage.
+ブロックはコンテンツを整理し組み立てるための抽象的なユニットです。一緒に紐付けて Web ページ用のコンテンツを作成します。
 
 <!-- 
 Blocks are hierarchical in that a block can be a child of or parent to another block. For example, a two-column Columns block can be the parent block to multiple child blocks in each of its columns.
  -->
-Blocks are hierarchical in that a block can be a child of or parent to another block. For example, a two-column Columns block can be the parent block to multiple child blocks in each of its columns.
+ブロックは階層構造を取り、別のブロックの親にも子にもなれます。たとえば2カラムのカラムブロックは、各カラム内の子ブロックの親ブロックになります。
 
 <!-- 
 If it helps, you can think of blocks as a more graceful shortcode, with rich formatting tools for users to compose content. To this point, there is a new Block Grammar. Distilled, the block grammar is an HTML comment, either a self-closing tag or with a beginning tag and ending tag. In the main tag, depending on the block type and user customizations, there can be a JSON object. This raw form of the block is referred to as serialized.
  -->
-If it helps, you can think of blocks as a more graceful shortcode, with rich formatting tools for users to compose content. To this point, there is a new Block Grammar. Distilled, the block grammar is an HTML comment, either a self-closing tag or with a beginning tag and ending tag. In the main tag, depending on the block type and user customizations, there can be a JSON object. This raw form of the block is referred to as serialized.
+ブロックを、より洗練されたショートコードとして考えても良いでしょう。そこには、コンテンツを作成するユーザー向けの、リッチな整形ツールも付いています。この観点では、新しいブロック文法があります。端的に言えば、ブロック文法は、自身で閉じる自己完結型のタグか、開始タグと終了タグから成る、HTML コメントです。このブロックの生の形はシリアライズされたものとして参照されます。
 
 ```html
 <!-- wp:paragraph {"key": "value"} -->
@@ -70,9 +70,9 @@ Blocks can be limited or locked-in-place by Templates and custom code.
 - **Block Styles**
 - **Tutorial: Building A Custom Block**
  -->
-- **Block API**
-- **Block Styles**
-- **Tutorial: Building A Custom Block**
+- **ブロック API**
+- **ブロックスタイル**
+- **チュートリアル: ブロックの構築とカスタマイズ**
 
 <!-- 
 ## Block Categories
