@@ -68,7 +68,7 @@ Wondering where to input all this information? Read the next section :)
 
 ## Step 2: Analyze your plugin
 
-Each block in your plugin should have a corresponding `block.json` file. This file provides the Block Directory important information about your block. Along with being the place to store contextual information about your block like the: `name`, `description`, `keywords` and `category`, the `block.json` file stores the location of your block’s files.
+Each block in your plugin should have a corresponding `block.json` file with the [block metadata](/docs/designers-developers/developers/block-api/block-metadata.md). This file provides the Block Directory important information about your block. Along with being the place to store contextual information about your block like the: `name`, `description`, `keywords` and `category`, the `block.json` file stores the location of your block’s files.
 
 Block plugins submitted to the Block Directory can contain mutliple blocks only if they are children of a single parent/ancestor. There should only be one main block. For example, a list block can contain list-item blocks. Children blocks must set the `parent` property in their `block.json` file.
 
@@ -101,3 +101,5 @@ The `block.json` file also contains other important properties. Take a look at a
 The community is thankful for your contribution. It is time to submit your plugin.
 
 Go through [the block guidelines](https://github.com/WordPress/wporg-plugin-guidelines/blob/block-guidelines/blocks.md). Create a zip file of your block and go to the [block plugin validator](https://wordpress.org/plugins/developers/block-plugin-validator/) and upload your plugin.
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/submitting-to-block-directory.md)

@@ -303,14 +303,16 @@ The following configurable variables are used with the template files. Template 
  -->
 テンプレートファイルでは以下の構成可能変数が使用されます。テンプレートの作者は、ユーザーが指定しない場合に使用されるデフォルト値を変更できます。
 
-<!-- 
--   `apiVersion` (default: `2`)
+<!--
+-   `apiVersion` (default: `2`) - see https://make.wordpress.org/core/2020/11/18/block-api-version-2/.
 -   `slug` (no default)
 -   `namespace` (default: `'create-block'`)
--   `title` (no default)
--   `description` (no default)
--   `dashicon` (no default)
--   `category` (default: `'widgets'`)
+-   `title` (no default) - a display title for your block.
+-   `description` (no default) - a short description for your block.
+-   `dashicon` (no default) - an icon property thats makes it easier to identify a block, see https://developer.wordpress.org/resource/dashicons/.
+-   `category` (default: `'widgets'`) - blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, and `embed`.
+-   `attributes` (no default) - see https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/.
+-   `supports` (no default) - optional block extended support features, see https://developer.wordpress.org/block-editor/developers/block-api/block-supports/.
 -   `author` (default: `'The WordPress Contributors'`)
 -   `license` (default: `'GPL-2.0-or-later'`)
 -   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
@@ -322,13 +324,13 @@ The following configurable variables are used with the template files. Template 
 -   `editorStyle` (default: `'file:./build/index.css'`)
 -   `style` (default: `'file:./build/style-index.css'`)
  -->
--   `apiVersion` (デフォルト: `2`)
+-   `apiVersion` (デフォルト: `2`) - 参照 https://make.wordpress.org/core/2020/11/18/block-api-version-2/
 -   `slug` (デフォルトなし)
 -   `namespace` (デフォルト: `'create-block'`)
--   `title` (デフォルトなし)
--   `description` (デフォルトなし)
--   `dashicon` (デフォルトなし)
--   `category` (デフォルト: `'widgets'`)
+-   `title` (デフォルトなし) - ブロックの表示タイトル
+-   `description` (デフォルトなし) - ブロックの短い説明
+-   `dashicon` (デフォルトなし) - ブロックの識別を助けるアイコンプロパティ。参照 https://developer.wordpress.org/resource/dashicons/
+-   `category` (デフォルト: `'widgets'`) - ユーザーの参照と検索のため、ブロックはカテゴリーにグループ分けされる。コアで提供されるカテゴリーは、`text`、`media`、`design`、`widgets`、`embed`
 -   `author` (デフォルト: `'The WordPress Contributors'`)
 -   `license` (デフォルト: `'GPL-2.0-or-later'`)
 -   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`)

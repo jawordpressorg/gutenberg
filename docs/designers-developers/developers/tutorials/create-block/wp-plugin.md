@@ -5,7 +5,7 @@
 <!-- 
 A block is added to the block editor using a WordPress plugin. You can create your own plugin, and after installing and activating the plugin use the block. Let's first look at what makes up a WordPress plugin.
  -->
-ブロックは WordPress プラグインを介してブロックエディターに追加できます。ユーザーは自分のプラグインを作成し、インストール、有効化してブロックを使用できます。ここでは始めに WordPress プラグインの構成を見ていきます。
+ブロックは、WordPress プラグインを使用してブロックエディターに追加されます。ユーザーは自分のプラグインを作成し、インストール、有効化してブロックを使用できます。まずここでは最初に、WordPress プラグインの構成を見ていきます。
 
 <!-- 
 ## Plugin Details
@@ -162,65 +162,38 @@ To load the built script, so it is run within the editor, you need to tell WordP
 
 ```php
 function create_block_gutenpride_block_init() {
-	$dir = __DIR__;
-
-	$script_asset_path = "$dir/build/index.asset.php";
-	if ( ! file_exists( $script_asset_path ) ) {
-		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "create-block/gutenpride" block first.'
-		);
-	}
-	$index_js     = 'build/index.js';
-	$script_asset = require( $script_asset_path );
-	wp_register_script(
-		'create-block-gutenpride-block-editor',
-		plugins_url( $index_js, __FILE__ ),
-		$script_asset['dependencies'],
-		$script_asset['version']
-	);
-	wp_set_script_translations( 'create-block-gutenpride-block-editor', 'gutenpride' );
-
-	$editor_css = 'editor.css';
-	wp_register_style(
-		'create-block-gutenpride-block-editor',
-		plugins_url( $editor_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$editor_css" )
-	);
-
-	$style_css = 'style.css';
-	wp_register_style(
-		'create-block-gutenpride-block',
-		plugins_url( $style_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$style_css" )
-	);
-
-	register_block_type( 'create-block/gutenpride', array(
-		'apiVersion' => 2,
-		'editor_script' => 'create-block-gutenpride-block-editor',
-		'editor_style'  => 'create-block-gutenpride-block-editor',
-		'style'         => 'create-block-gutenpride-block',
-	) );
+	register_block_type_from_metadata( __DIR__ );
 }
 add_action( 'init', 'create_block_gutenpride_block_init' );
 ```
+
 <!-- 
-The build process creates a secondary asset file that contains the list of dependencies and a file version based on the timestamp, this is the `index.asset.php` file.
-
-The `wp_register_script` function registers a name, called the handle, and relates that name to the script file. The dependencies are used to specify if the script requires including other libraries. The version is specified so the browser will reload if the file changed.
+The `register_block_type_from_metadata` function registers the block we are going to create and specifies the `editor_script` file handle registered from the metadata provided in `block.json` file. So now when the editor loads it will load this script.
  -->
-ビルドプロセスは2つ目のアセットファイル `index.asset.php` を作成します。ファイルには依存性とタイムスタンプに基づくファイルバージョンのリストが含まれています。
+`register_block_type_from_metadata` 関数は、これから作成するブロックを登録し、`block.json` ファイルで提供されたメタデータから登録された `editor_script` ファイルハンドルを指定します。エディターがブロックをロードすると、このスクリプトをロードします。
 
-`wp_register_script` は「ハンドル」と呼ばれる名前を登録し、その名前をスクリプトファイルと関連付けます。他のライブラリーを含めスクリプトが必要であれば、指定に依存性が使用されます。ファイルが更新された場合にブラウザがリロードするよう、バージョンが指定されます。
+```json
+{
+	"apiVersion": 2,
+	"name": "create-block/gutenpride",
+	"title": "Gutenpride",
+	"editorScript": "file:./build/index.js"
+}
+```
+<!-- 
+For the `editorScript` provided in the block metadata, the build process creates a secondary asset file that contains the list of dependencies and a file version based on the timestamp, this is the `index.asset.php` file.
+ -->
+ブロックメタデータで提供される `editorScript` に対して、ビルドプロセスは2つ目のアセットファイル `index.asset.php` を作成します。ファイルには依存性とタイムスタンプに基づくファイルバージョンのリストが含まれています。
+
+<!-- 
+The `wp_register_script` function used internally registers a name, called the handle, and relates that name to the script file. The dependencies are used to specify if the script requires including other libraries. The version is specified so the browser will reload if the file changed.
+ -->
+内部で使用される `wp_register_script` は「ハンドル」と呼ばれる名前を登録し、その名前をスクリプトファイルと関連付けます。他のライブラリーを含めスクリプトが必要であれば、指定に依存性が使用されます。ファイルが更新された場合にブラウザがリロードするよう、バージョンが指定されます。
+
 <!-- 
 The `wp_set_script_translations` function tells WordPress to load translations for this script, if they exist. See more about [translations & internationalization.](/docs/designers-developers/developers/internationalization.md)
-
-The `register_block_type` function registers the block we are going to create and specifies the editor_script file handle registered. So now when the editor loads it will load this script.
  -->
 `wp_set_script_translations` 関数は WordPress に、もし存在するならスクリプトの翻訳をロードするよう伝えます。詳細については[翻訳と国際化](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/)を参照してください。
-
-`register_block_type` 関数はこれから作成するブロックを登録し、登録済みの editor_script ファイルハンドルを指定します。エディターがブロックをロードすると、このスクリプトをロードします。
 
 <!-- 
 With the above in place, create a new post to load the editor and check your plugin is in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
@@ -260,4 +233,4 @@ Next Section: [Anatomy of a Block](/docs/designers-developers/developers/tutoria
 
 次のセクション: [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/wp-plugin.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/wp-plugin.md)

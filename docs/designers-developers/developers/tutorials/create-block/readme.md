@@ -63,6 +63,7 @@ The create a block tutorials breaks down to the following sections.
 4. [Code Implementation](/docs/designers-developers/developers/tutorials/create-block/block-code.md)
 5. [Authoring Experience](/docs/designers-developers/developers/tutorials/create-block/author-experience.md)
 6. [Finishing Touches](/docs/designers-developers/developers/tutorials/create-block/finishing.md)
+7. [Share your Block with the World](/docs/designers-developers/developers/tutorials/create-block/submitting-to-block-directory.md)
  -->
 「ブロックの作成 チュートリアル」は以下のセクションに分かれます。
 
@@ -72,5 +73,6 @@ The create a block tutorials breaks down to the following sections.
 4. [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-code/)
 5. [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/author-experience/)
 6. [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/finishing/)
+7. [ブロックの共有](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/submitting-to-block-directory/)
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/readme.md)

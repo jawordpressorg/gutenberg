@@ -724,7 +724,7 @@ Blocks are able to provide base structural CSS styles, and themes can add styles
 
 Other features, like the new _wide_ and _full-wide_ alignment options, are simply CSS classes applied to blocks that offer this alignment. We are looking at how a theme can opt in to this feature, for example using `add_theme_support`.
 
-This is currently a work in progress and we recommend reviewing the [block based theme documentation](https://developer.wordpress.org/block-editor/tutorials/block-based-themes/) to learn more. 
+This is currently a work in progress and we recommend reviewing the [block based theme documentation](https://developer.wordpress.org/block-editor/tutorials/block-based-themes/) to learn more.
  -->
 ## ブロックスタイルはフロントエンドとバックエンドの両方でどのように動作しますか ?
 
@@ -733,6 +733,21 @@ This is currently a work in progress and we recommend reviewing the [block based
 その他の機能、例えば新しい_幅広_と_全幅_配置オプションは、ブロックに適用されて配置するだけの単純な CSS クラスです。現在、例えば `add_theme_support` を使ってテーマがこの機能にオプトインする方法を模索中です。
 
 現在も作業中です。詳細については[ブロックベーステーマのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-based-themes/)のレビューを推奨します。
+
+<!-- 
+## What are block variations? Are they the same as block styles?
+ -->
+## ブロックバリエーションとは何ですか ? ブロックスタイルと同じものですか ?
+
+<!-- 
+No, block variations are different versions of a single base block, sharing a similar functionality, but with slight differences in their implementation, or settings (attributes, InnerBlocks,etc). Block variations are transparent for users, and once there is a registered block variation, it will appear as a new block. For example, the `embed` block registers different block variations to embed content from specific providers.
+ -->
+違います。ブロックバリエーションは、単一のベースとなるブロックの異なるバージョンです。同じような機能を共有しますが、実装や設定 (属性、InnerBlock 等) は、かなり異なります。ブロックバリエーションをユーザーが意識することはなく、登録されたブロックバリエーションは新しいブロックとして出現します。たとえば `embed` ブロックは、複数の特定プロバイダーからのコンテンツを埋め込むために、異なるブロックバリエーションを登録します。
+
+<!-- 
+Meanwhile, [block styles](/docs/designers-developers/developers/filters/block-filters.md#block-style-variations) allow you to provide alternative styles to existing blocks, and they work by adding a className to the block’s wrapper. Once a block has registered block styles, a block style selector will appear in its sidebar so that users can choose among the different registered styles.
+ -->
+一方、[ブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-style-variations) を使用すると既存のブロックに代替のスタイルを提供できます。これは、ブロックのラッパーに classsName を追加することで動作します。ブロックに登録済みのブロックスタイルがあると、サイドバーにブロックスタイルセレクタが表示され、ユーザーは異なる登録済みスタイルを選択できます。
 
 <!-- 
 ## How do editor styles work?
@@ -897,4 +912,4 @@ The Editor is where most of the action happens in WordPress’s daily use, and i
 - [英語版リポジトリ](https://github.com/WordPress/gutenberg)
 - [日本語版リポジトリ](https://github.com/jawordpressorg/gutenberg)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/faq.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/faq.md)
