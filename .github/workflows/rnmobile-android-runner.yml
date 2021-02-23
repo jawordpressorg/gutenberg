@@ -19,7 +19,7 @@ jobs:
         ]
 
     steps:
-    - name: CommentOut
+     - name: CommentOut
        run: echo "workflow_was_comment_out"
 #     - name: checkout
 #       uses: actions/checkout@v2
