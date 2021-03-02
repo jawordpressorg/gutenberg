@@ -18,14 +18,14 @@ So you've created an awesome block? Care to share?
 2. Analyze your plugin
 3. Zip & Submit
  --> 
-1. ユーザーにあなたのブロックを理解してもらう
+1. ブロックを理解してもらう
 2. プラグインを解析する
 3. zip して、サブミットする
 
 <!-- 
 ## Step 1: Help users understand your block
  -->
-## ステップ1: ユーザーにあなたのブロックを理解してもらう
+## ステップ1: ブロックを理解してもらう
 <!-- 
 It is important to the Block Directory and our end users to provide easy to understand information on how your block was created.
  -->
