@@ -724,7 +724,7 @@ Blocks are able to provide base structural CSS styles, and themes can add styles
 
 Other features, like the new _wide_ and _full-wide_ alignment options, are simply CSS classes applied to blocks that offer this alignment. We are looking at how a theme can opt in to this feature, for example using `add_theme_support`.
 
-This is currently a work in progress and we recommend reviewing the [block based theme documentation](https://developer.wordpress.org/block-editor/tutorials/block-based-themes/) to learn more.
+This is currently a work in progress and we recommend reviewing the [block based theme documentation](https://developer.wordpress.org/block-editor/tutorials/block-based-theme/) to learn more.
  -->
 ## ブロックスタイルはフロントエンドとバックエンドの両方でどのように動作しますか ?
 
@@ -912,4 +912,4 @@ The Editor is where most of the action happens in WordPress’s daily use, and i
 - [英語版リポジトリ](https://github.com/WordPress/gutenberg)
 - [日本語版リポジトリ](https://github.com/jawordpressorg/gutenberg)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/faq.md)
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/faq.md)
