@@ -4,9 +4,9 @@
 # WordPress に組み込まれたバージョン
 
 <!-- 
-With each major release of WordPress a new version of Gutenberg is included. This has caused confusion over time as people have tried to figure out how to best debug problems and report bugs appropriately. To make this easier we have made this document to serve as a canonical list of the Gutenberg versions integrated into each major WordPress release. Of note, during the beta period of a WordPress release, additional bug fixes from later Gutenberg releases than those noted are added into the WordPress release where it is needed.
+With each major release of WordPress a new version of Gutenberg is included. This has caused confusion over time as people have tried to figure out how to best debug problems and report bugs appropriately. To make this easier we have made this document to serve as a canonical list of the Gutenberg versions integrated into each major WordPress release. Of note, during the beta period of a WordPress release, additional bug fixes from later Gutenberg releases than those noted are added into the WordPress release where it is needed. If you want details about what's in each Gutenberg release outside of the high level items shared as part of major WordPress releases, please review the [release notes shared on Make Core](https://make.wordpress.org/core/tag/gutenberg-new/).
  -->
-WordPress の各メジャーリリースには新しいバージョンの Gutenberg が含まれますが、このことは問題のデバッグや適切なバグレポートを検討する開発者に何度も混乱を招いてきました。この文書では問題の解決を助けるため WordPress の各メジャーリリースに取り込まれた Gutenberg のバージョンの履歴リストを掲載します。ただし WordPress リリースのベータ期間中、必要に応じてここに掲示したバージョンよりも新しい Gutenberg のバージョンから追加のバグフィックスを適用している場合があることに注意してください。
+WordPress の各メジャーリリースには新しいバージョンの Gutenberg が含まれますが、このことは問題のデバッグや適切なバグレポートを検討する開発者に何度も混乱を招いてきました。この文書では問題の解決を助けるため WordPress の各メジャーリリースに取り込まれた Gutenberg のバージョンの履歴リストを掲載します。ただし WordPress リリースのベータ期間中、必要に応じてここに掲示したバージョンよりも新しい Gutenberg のバージョンから追加のバグフィックスを適用している場合があることに注意してください。If you want details about what's in each Gutenberg release outside of the high level items shared as part of major WordPress releases, please review the [release notes shared on Make Core](https://make.wordpress.org/core/tag/gutenberg-new/).
 
 <!-- 
 If anything looks incorrect here, please bring it up in #core-editor in [WordPress.org slack](https://make.wordpress.org/chat/).
@@ -56,4 +56,4 @@ If anything looks incorrect here, please bring it up in #core-editor in [WordPre
 | 4.6.1              | 5.0.1             |
 | 4.6.1              | 5.0.0             |
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/versions-in-wordpress.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/versions-in-wordpress.md)

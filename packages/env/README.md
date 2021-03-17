@@ -703,14 +703,14 @@ _注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TEST
 | ----------------- | ----------------------------- | -------------------------------------------------------- |
 | Relative path     | `.<path>\|~<path>`            | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
 | Absolute path     | `/<path>\|<letter>:\<path>`   | `"/a/directory"`, `"C:\\a\\directory"`                   |
-| GitHub repository | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#master"`  |
+| GitHub repository | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`  |
 | ZIP File          | `http[s]://<host>/<path>.zip` | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
  -->
 | タイプ             | 形式                           | 例                                                       |
 | ----------------- | ----------------------------- | -------------------------------------------------------- |
 | 相対パス     | `.<path>|~<path>`             | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
 | 絶対パス     | `/<path>|<letter>:\<path>`    | `"/a/directory"`, `"C:\\a\\directory"`                   |
-| GitHub リポジトリ | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#master"`  |
+| GitHub リポジトリ | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`  |
 | ZIP ファイル          | `http[s]://<host>/<path>.zip` | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
 
 <!-- 
@@ -954,6 +954,6 @@ You can tell `wp-env` to use a specific PHP version for compatibility and testin
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/packages/env/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/packages/env/README.md)
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

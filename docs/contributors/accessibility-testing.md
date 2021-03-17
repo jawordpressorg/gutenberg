@@ -4,7 +4,7 @@ This is a guide on how to test accessibility on Gutenberg. This is a living docu
 
 ## Getting Started
 
-Make sure you have set up your local environment following the instructions on [Getting Started](/docs/contributors/getting-started.md).
+Make sure you have set up your local environment following the instructions on [Getting Started](/docs/contributors/code/getting-started-with-code-contribution.md).
 
 ## Keyboard Testing
 
@@ -63,3 +63,5 @@ While in the Gutenberg editor, with VoiceOver activated, you can press <kbd>Cont
 Prefer to select a region or another larger area to begin with instead of individual elements on the Rotor so you can better test the navigation within that region.
 
 Once you find the region you want to interact with, you can use <kbd>Control+Option</kbd> plus right or left arrow keys to move to the next or previous elements on the page. Then, follow the instructions that VoiceOver will announce.
+
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/accessibility-testing.md)
