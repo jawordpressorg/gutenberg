@@ -31,7 +31,7 @@ Note: The text portion is equivalent to `innerText` attribute of a DOM element. 
 
 ブロックがロードされると、ブロックのために保存されたコンテンツを探し、div タグを探し、text 部分を取り出し、コンテンツを `attributes.message` 変数に保存します。
 
-注意: text 部分は DOM 要素の `innerText` 属性と同じです。詳細および他の例については [ブロックの属性 ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/) を参照してください。
+注意: text 部分は DOM 要素の `innerText` 属性と同じです。詳細および他の例については [ブロックの属性 ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) を参照してください。
 
 <!-- 
 ## Edit and Save
@@ -42,7 +42,7 @@ The **attributes** are passed to the `edit` and `save` functions, along with a *
 
 The `attributes` is a JavaScript object containing the values of each attribute, or default values if defined. The `setAttributes` is a function to update an attribute.
  -->
-`edit` 関数と `save` 関数には、値を設定する **setAttributes** 関数と共に **attributes** が渡されます。この関数には追加のパラメータも渡すことができます。詳細については [Edit と Save ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/) を参照してください。
+`edit` 関数と `save` 関数には、値を設定する **setAttributes** 関数と共に **attributes** が渡されます。この関数には追加のパラメータも渡すことができます。詳細については [Edit と Save ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/) を参照してください。
 
 `attributes` は各属性の値、または存在するならデフォルト値を含む JavaScript オブジェクトです。`setAttributes` は属性を更新する関数です。
 
@@ -60,7 +60,7 @@ For our example block, the component we are going to use is the **TextControl** 
 
 The component is added similar to an HTML tag, setting a label, the `value` is set to the `attributes.message` and the `onChange` function uses the `setAttributes` to update the message attribute value.
  -->
-このチュートリアルのブロックは HTML テキスト入力フィールドに似た **TextControl** コンポーネントを使用します。[TextControl コンポーネント ドキュメント](https://developer.wordpress.org/block-editor/components/text-control/) を参照してください。[この Storybook でインタラクティブなコンポーネントセット](https://wordpress.github.io/gutenberg/) をブラウズできます。
+このチュートリアルのブロックは HTML テキスト入力フィールドに似た **TextControl** コンポーネントを使用します。[TextControl コンポーネント ドキュメント](https://developer.wordpress.org/block-editor/reference-guides/components/text-control/) を参照してください。[この Storybook でインタラクティブなコンポーネントセット](https://wordpress.github.io/gutenberg/) をブラウズできます。
 
 コンポーネントは HTML タグと同じように追加できます。ラベルを設定し、`value` に `attributes.message` をセットし、`onChange` 関数に `setAttributes` を使用して message 属性の値を更新します。
 <!-- 
@@ -109,6 +109,6 @@ Next Section: [Code Implementation](/docs/getting-started/tutorials/create-block
  -->
 `npm run build` を使用してブロックをリビルドし、エディターをリロードして、ブロックを追加してください。エディターでメッセージを入力し、保存し、投稿を表示してみてください。
 
-次のセクション: [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-code/)
+次のセクション: [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-code/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/attributes.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/attributes.md)

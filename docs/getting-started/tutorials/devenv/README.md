@@ -8,7 +8,7 @@ This guide is for setting up your local environment for JavaScript development f
 
 A development environment is a catch-all term for what you need setup on your computer to work. The three main pieces needed for our development environment are:
  -->
-このガイドでは WordPress やブロックエディターを拡張するプラグインやツールを作成可能な ローカル JavaScript 開発環境の構築方法について説明します。Gutenberg プロジェクトへのコントリビューションを検討している場合は、[開発入門ガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/getting-started/) 内の追加のドキュメントも参照してください。
+このガイドでは WordPress やブロックエディターを拡張するプラグインやツールを作成可能な ローカル JavaScript 開発環境の構築方法について説明します。Gutenberg プロジェクトへのコントリビューションを検討している場合は、[開発入門ガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) 内の追加のドキュメントも参照してください。
 
 「開発環境」とはコンピュータでの動作に必要セットアップ全体を指します。この開発環境では大きく3つのセットアップが必要です。
 
@@ -207,7 +207,7 @@ WordPress [wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-
 <!-- 
 The `wp-env` tool uses Docker to create a virtual machine to that runs the WordPress site. There are instructions available for installing Docker on [Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/), [all other versions of Windows](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script). If using Ubuntu, see our additional notes for [help installing Docker on Ubuntu](/docs/getting-started/tutorials/devenv/docker-ubuntu.md).
  -->
-`wp-env` ツールは Docker を使用して WordPress サイト実行用の仮想マシンを作成します。OS ごとのインストール手順は以下のリンクを参照してください。[Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/)、[その他のバージョンの Windows](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/)、[Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script)。Ubuntu を使用している場合は補足のドキュメント「[Ubuntu への Docker インストールヘルプ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/devenv/docker-ubuntu)」を参照してください。
+`wp-env` ツールは Docker を使用して WordPress サイト実行用の仮想マシンを作成します。OS ごとのインストール手順は以下のリンクを参照してください。[Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/)、[その他のバージョンの Windows](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/)、[Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script)。Ubuntu を使用している場合は補足のドキュメント「[Ubuntu への Docker インストールヘルプ](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/docker-ubuntu/)」を参照してください。
 
 <!-- 
 After you have installed Docker, go ahead and install the `wp-env` tool. This command will install the tool globally, which means you can run it from any directory:
@@ -417,4 +417,4 @@ Just as you confirmed the installation worked, you can confirm the uninstall wor
  -->
 インストール時と同じ手順で、アンインストールが正しく完了したことを確認できます。ターミナルを終了して再起動し、`npm -v`、`node -v`、`nvm -v` を実行してください。ターミナルにはエラー「command not found」(コマンドが見つかりません) が表示されます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/devenv/readme.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/devenv/README.md)

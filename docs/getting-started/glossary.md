@@ -72,4 +72,4 @@
 
 </dl>
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/glossary.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/glossary.md)

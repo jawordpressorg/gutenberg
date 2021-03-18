@@ -11,7 +11,7 @@ Here is the complete code for registering a block:
  -->
 WordPress ブロックエディターの「ブロック」は、一言で言えば、規定のプロパティ集合をもった JavaScript のオブジェクトです。
 
-**注意:** ブロックの開発では最新の JavaScript 標準に従った ESNext 構文を使用します。わからない場合は [ESNext 構文ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/esnext-js/) を参照してモダンな JavaScript 開発で使用される新しい構文に親しんでください。
+**注意:** ブロックの開発では最新の JavaScript 標準に従った ESNext 構文を使用します。わからない場合は [ESNext 構文ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/esnext-js/) を参照してモダンな JavaScript 開発で使用される新しい構文に親しんでください。
 
 以下はブロックを登録する完全なコードです。
 
@@ -48,7 +48,7 @@ The second parameter to the function is the block object. See the [block registr
  -->
 **registerBlockType** 関数の最初のパラメータはブロック名です。PHP ファイルで登録された名前と完全に一致する必要があります。 
 
-2番目のパラメータはブロックオブジェクトです。詳細な説明は [ブロックの登録ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/) を参照してください。
+2番目のパラメータはブロックオブジェクトです。詳細な説明は [ブロックの登録ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) を参照してください。
 <!-- 
 The **title** is the title of the block shown in the Inserter.
 
@@ -60,7 +60,7 @@ The **category** specified is a string and must be one of: "common, formatting, 
 
 **icon** はインサーターで表示されるアイコンです。icon プロパティは文字列として Dashicon の名前を取ります。[利用可能なアイコンリスト](https://developer.wordpress.org/resource/dashicons/) を参照してください。SVG オブジェクトを渡すこともできますが、ここでは簡単のために Dashicon 名を選択します。
 
-**category** には common、formatting、layout、widgets、embed のどれかの文字列を指定します。カスタムカテゴリーを作成することもできます。詳細については[ドキュメント](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#managing-block-categories)を参照してください。このチュートリアルではカテゴリーとして「widgets」を指定します。
+**category** には common、formatting、layout、widgets、embed のどれかの文字列を指定します。カスタムカテゴリーを作成することもできます。詳細については[ドキュメント](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#managing-block-categories)を参照してください。このチュートリアルではカテゴリーとして「widgets」を指定します。
 <!-- 
 The last two block object properties are **edit** and **save**, these are the key parts of a block. Both properties should be defined as functions.
 
@@ -98,6 +98,6 @@ Next Section: [Block Attributes](/docs/getting-started/tutorials/create-block/at
  -->
 これは国際化ラッパーで、文字列「Gutenpride」を翻訳することができます。2番目のパラメータ「gutenpride」はテキストドメインと呼ばれ、翻訳対象の文字列がどこから来たかのコンテキストを提供します。JavaScript の国際化はコアの WordPress の国際化プロセスと同じです。詳細については [WordPress の国際化 ドキュメント](https://developer.wordpress.org/plugins/internationalization/) を参照してください。
 
-次のセクション: [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-attributes/)
+次のセクション: [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-attributes/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/block-anatomy.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/block-anatomy.md)

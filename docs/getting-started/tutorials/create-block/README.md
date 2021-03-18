@@ -20,7 +20,7 @@ WordPress ブロックエディター用のはじめてのブロックを作り�
 <!-- 
 The first thing you need is a development environment and tools. This includes setting up your WordPress environment, Node, NPM, and your code editor. If you need help, see the [setting up your development environment documentation](/docs/getting-started/tutorials/devenv/README.md).
  -->
-最初に開発環境とツールが必要です。これには WordPress 環境、Node、NPM、コードエディターが含まれます。詳細は [開発環境のセットアップドキュメント](https://ja.wordpress.org/team/handbook/block-editor/tutorials/devenv/) を参照してください。
+最初に開発環境とツールが必要です。これには WordPress 環境、Node、NPM、コードエディターが含まれます。詳細は [開発環境のセットアップドキュメント](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/) を参照してください。
 
 <!-- 
 ## Quick Start
@@ -68,12 +68,12 @@ The create a block tutorials breaks down to the following sections.
  -->
 「ブロックの作成 チュートリアル」は以下のセクションに分かれます。
 
-1. [WordPress プラグイン](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/wp-plugin/)
-2. [Gutenberg Block の詳細](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
-3. [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/attributes/)
-4. [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-code/)
-5. [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/author-experience/)
-6. [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/finishing/)
-7. [ブロックの共有](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/submitting-to-block-directory/)
+1. [WordPress プラグイン](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/wp-plugin/)
+2. [Gutenberg Block の詳細](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-anatomy/)
+3. [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/attributes/)
+4. [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-code/)
+5. [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/author-experience/)
+6. [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/finishing/)
+7. [ブロックの共有](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/create-block/readme.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/README.md)

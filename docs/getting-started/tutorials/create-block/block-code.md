@@ -103,6 +103,6 @@ $editor_css = "build/index.css";
 <!-- 
 Next Section: [Authoring Experience](/docs/getting-started/tutorials/create-block/author-experience.md)
  -->
-次のセクション: [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/author-experience/)
+次のセクション: [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/author-experience/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/block-code.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/block-code.md)

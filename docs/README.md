@@ -49,13 +49,6 @@ The Editor offers rich new value to users with visual, drag-and-drop creation to
 ## クイックリンク
 
 <!-- 
-### [Develop for the block editor](https://developer.wordpress.org/block-editor/developers/)
-Whether you want to extend the functionality of the block editor, or create a plugin based on it, you will find here all the information about the basic concepts you need to get started, the block editor APIs and its architecture.
- -->
-### [ブロックエディターでの開発](https://ja.wordpress.org/team/handbook/block-editor/developers/)
-ブロックエディターの機能の拡張やプラグインの開発で必要となる基本コンセプト、ブロック API とアーキテクチャを説明します。
-
-<!-- 
 ### Create a Block Tutorial
  -->
 ### ブロックの作成 チュートリアル
@@ -63,7 +56,7 @@ Whether you want to extend the functionality of the block editor, or create a pl
 <!-- 
 [Learn how to create your first block](/docs/getting-started/tutorials/create-block/README.md) for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all what you need to know to get started with the block editor.
  -->
-WordPress ブロックエディター用の[初めてのブロックの作成方法を学習します](/docs/getting-started/tutorials/create-block/README.md)。開発環境の構築から、ツール、新しい開発モデルの説明まで、このチュートリアルはブロックエディターでの開発に必要なすべてをカバーします。
+WordPress ブロックエディター用の[初めてのブロックの作成方法を学習します](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)。開発環境の構築から、ツール、新しい開発モデルの説明まで、このチュートリアルはブロックエディターでの開発に必要なすべてをカバーします。
 
 <!-- 
 ### Develop for the block editor
@@ -73,7 +66,7 @@ WordPress ブロックエディター用の[初めてのブロックの作成方
 <!-- 
 Whether you want to extend the functionality of the block editor, or create a plugin based on it, [see the developer documentation](/docs/how-to-guides/README.md) to find all the information about the basic concepts you need to get started, the block editor APIs and its architecture.
  -->
-ブロックエディターの機能の拡張やプラグインの開発で必要となる基本コンセプト、ブロック API、アーキテクチャに関するすべての情報については、[開発者ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/)を参照してください。
+ブロックエディターの機能の拡張やプラグインの開発で必要となる基本コンセプト、ブロック API、アーキテクチャに関するすべての情報については、[開発者ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/)を参照してください。
 
 <!-- 
 - [Gutenberg Architecture](/docs/explanations/architecture/README.md)
@@ -84,13 +77,13 @@ Whether you want to extend the functionality of the block editor, or create a pl
 - [Block Editor Accessibility](/docs/reference-guides/accessibility.md)
 - [Internationalization](/docs/how-to-guides/internationalization.md)
  -->
-- [Gutenberg アーキテクチャ](https://ja.wordpress.org/team/handbook/block-editor/architecture/)
-- [ブロックスタイルバリエーション](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-style-variations)
-- [ブロックパターンの作成](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-patterns/)
-- [ブロックエディター対応のテーマ](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/)
-- [ブロック API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/)
-- [ブロックエディターのアクセシビリティ](https://ja.wordpress.org/team/handbook/block-editor/developers/accessibility/)
-- [国際化](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/)
+- [Gutenberg アーキテクチャ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/)
+- [ブロックスタイルバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/filters/block-filters/#block-style-variations)
+- [ブロックパターンの作成](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/)
+- [ブロックエディター対応のテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)
+- [ブロック API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/)
+- [ブロックエディターのアクセシビリティ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/accessibility/)
+- [国際化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/internationalization/)
 
 <!-- 
 ### Contribute to the block editor
@@ -123,4 +116,4 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 | @shizumi | @Shizumi |
 | @arm-band | @armband |
 
-[原文](https://github.com/WordPress/gutenberg/tree/HEAD/docs/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/README.md)

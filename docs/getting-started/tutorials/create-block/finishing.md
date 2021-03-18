@@ -16,7 +16,7 @@ The block editor provides a [components package](/packages/components/README.md)
 
 You can visually browse the components and what their implementation looks like using the Storybook tool published at [https://wordpress.github.io/gutenberg](https://wordpress.github.io/gutenberg).
  -->
-ブロックエディターでは [コンポーネントパッケージ](https://ja.wordpress.org/team/handbook/block-editor/components/) を提供しています。ブロックを作成する際に利用可能な多くのビルド済みコンポーネントが含まれています。
+ブロックエディターでは [コンポーネントパッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) を提供しています。ブロックを作成する際に利用可能な多くのビルド済みコンポーネントが含まれています。
 
 コンポーネントやその実装がどのように見えるかは [https://wordpress.github.io/gutenberg](https://wordpress.github.io/gutenberg で公開されている Storybook ツールを使用してビジュアルに確認できます。
 <!-- 
@@ -28,17 +28,17 @@ The **RichText component** allows for creating a richer input besides plain text
 
 The InspectorPanel (the settings on the right for a block) and Block Controls (toolbar controls) have a standard way to be implemented. See the [Block controls tutorial](/docs/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar.md) for additional information.
  -->
-**RichText コンポーネント** を使用すると通常のテキストだけでなく、太字、斜体、リンク、その他のインラインフォーマットも可能なリッチな入力フィールドを作成できます。このコンポーネントの使い方については [RichText リファレンス](https://ja.wordpress.org/team/handbook/block-editor/developers/richtext/) を参照してください。
+**RichText コンポーネント** を使用すると通常のテキストだけでなく、太字、斜体、リンク、その他のインラインフォーマットも可能なリッチな入力フィールドを作成できます。このコンポーネントの使い方については [RichText リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/richtext/) を参照してください。
 
-ブロックの右側にある設定 InspectorPanel と、ツールバーコントロールのブロックコントロールには標準の実装方法があります。追加の情報については [ブロックコントロール チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/block-controls-toolbar-and-sidebar/) を参照してください。
+ブロックの右側にある設定 InspectorPanel と、ツールバーコントロールのブロックコントロールには標準の実装方法があります。追加の情報については [ブロックコントロール チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/) を参照してください。
 <!-- 
 The [Sidebar tutorial](/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-0.md) is a good resource on how to create a sidebar for your plugin.
 
 Nested blocks, a block that contains additional blocks, is a common pattern used by various blocks such as Columns, Cover, and Social Links. The **InnerBlocks component** enables this functionality, see the [Using InnerBlocks documentation](/docs/how-to-guides/block-tutorial/nested-blocks-inner-blocks.md).
  -->
-プラグインのサイドバーを作成する際には [サイドバー チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/plugin-sidebar-0/) が良いリソースになります。
+プラグインのサイドバーを作成する際には [サイドバー チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/sidebar-tutorial/plugin-sidebar-0/) が良いリソースになります。
 
-追加のブロックを含むブロック「ネストしたブロック」はカラム、カバー、ソーシャルリンクなどさまざまなブロックで使用される共通パターンです。この機能を実装する **InnerBlocks コンポーネント** については [InnerBlocks の使用 ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/nested-blocks-inner-blocks/) を参照してください。
+追加のブロックを含むブロック「ネストしたブロック」はカラム、カバー、ソーシャルリンクなどさまざまなブロックで使用される共通パターンです。この機能を実装する **InnerBlocks コンポーネント** については [InnerBlocks の使用 ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) を参照してください。
 <!-- 
 ## How did they do that
  -->
@@ -52,4 +52,4 @@ All core blocks source are in the [block library package on Github](https://gith
 
 すべてのコアブロックのソースは [Github 上のブロックライブラリーパッケージ](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src) にあります。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/finishing.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/finishing.md)

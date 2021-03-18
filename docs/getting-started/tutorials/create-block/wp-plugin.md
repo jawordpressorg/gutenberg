@@ -86,7 +86,7 @@ Let's confirm the plugin is loaded and working.
 
 または
 
-(3B) `wp-env` を使用する場合は、まず[開発環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/devenv/) を参照してください。次に `gutenpride` ディレクトリ內部から以下を実行します。
+(3B) `wp-env` を使用する場合は、まず[開発環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/) を参照してください。次に `gutenpride` ディレクトリ內部から以下を実行します。
 
 ```sh
 wp-env start
@@ -193,7 +193,7 @@ The `wp_register_script` function used internally registers a name, called the h
 <!-- 
 The `wp_set_script_translations` function tells WordPress to load translations for this script, if they  exist. See more about [translations & internationalization.](/docs/how-to-guides/internationalization.md)
  -->
-`wp_set_script_translations` 関数は WordPress に、もし存在するならスクリプトの翻訳をロードするよう伝えます。詳細については[翻訳と国際化](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/)を参照してください。
+`wp_set_script_translations` 関数は WordPress に、もし存在するならスクリプトの翻訳をロードするよう伝えます。詳細については[翻訳と国際化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/internationalization/)を参照してください。
 
 <!-- 
 With the above in place, create a new post to load the editor and check your plugin is in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
@@ -219,7 +219,7 @@ For more info, see the build section of the [Getting Started with JavaScript tut
  -->
 `npm run start` を実行してください。watch プロセスが始まり、自動リビルドが行われます。`src/index.js` ファイルを更新するとビルドが始まります。ブロックエディターをリロードすると変更が反映されます。
 
-詳細についてはブロックエディターハンドブックの [JavaScript 入門チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/)のビルドセクションを参照してください。
+詳細についてはブロックエディターハンドブックの [JavaScript 入門チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/)のビルドセクションを参照してください。
 <!-- 
 ## Summary
  -->
@@ -231,6 +231,6 @@ Next Section: [Anatomy of a Block](/docs/getting-started/tutorials/create-block/
  -->
 この時点でプラグインを作成し有効化できました。`@wordpress/scripts` への依存性を含む package.json ではビルドとスクリプトの開始を定義しています。基本的なブロックが完成しエディターに追加できました。
 
-次のセクション: [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/block-anatomy/)
+次のセクション: [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-anatomy/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/wp-plugin.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/wp-plugin.md)

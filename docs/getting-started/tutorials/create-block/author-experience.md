@@ -187,6 +187,6 @@ export default function Edit( { attributes, className, setAttributes } ) {
 <!-- 
 Next Section: [Finishing Touches](/docs/getting-started/tutorials/create-block/finishing.md)
  -->
-次のセクション: [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/finishing/)
+次のセクション: [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/finishing/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/create-block/author-experience.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/author-experience.md)

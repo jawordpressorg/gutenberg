@@ -77,7 +77,7 @@ The editor focus started in early 2017 with the first three months spent designi
 <!-- 
 Gutenberg was first merged into [WordPress 5.0](https://wordpress.org/news/2018/12/bebo/) in December 2018. See [the versions in WordPress page](https://developer.wordpress.org/block-editor/principles/versions-in-wordpress/) for a complete list of Gutenberg plugin versions merged into WordPress core releases.
  -->
-Gutenberg は2018年12月にリリースされた [WordPress 5.0](https://wordpress.org/news/2018/12/bebo/) で初めて組み込まれました。WordPress 本体リリースに組み込まれた Gutenberg プラグインのバージョンの完全なリストについては「[Versions in WordPress](https://ja.wordpress.org/team/handbook/block-editor/principles/versions-in-wordpress/)」を参照してください。
+Gutenberg は2018年12月にリリースされた [WordPress 5.0](https://wordpress.org/news/2018/12/bebo/) で初めて組み込まれました。WordPress 本体リリースに組み込まれた Gutenberg プラグインのバージョンの完全なリストについては「[Versions in WordPress](https://ja.wordpress.org/team/handbook/block-editor/contributors/versions-in-wordpress/)」を参照してください。
 
 <!-- 
 ## What are “blocks” and why are we using them?
@@ -644,7 +644,7 @@ The best place to start is the [Create a Block Tutorial](https://developer.wordp
  -->
 ## 自分のブロックを作るには、どうすればよいですか ?
 
-もっとも良いスタート地点は [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/) です。
+もっとも良いスタート地点は [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/) です。
 
 <!-- 
 ## Does Gutenberg involve editing posts/pages in the front-end?
@@ -662,7 +662,7 @@ See the [Meta Box Tutorial](https://developer.wordpress.org/block-editor/tutoria
  -->
 ## Gutenberg は JavaScript で構築されていますが、過去のメタボックス (PHP) はどのように作動しますか ?
 
-新しいブロックエディターでのメタボックスの使用についての詳細は [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/) を参照してください。
+新しいブロックエディターでのメタボックスの使用についての詳細は [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/  https://developer.wordpress.org/block-editor/how-to-guides/metabox/) を参照してください。
 
 <!-- 
 ## How can plugins extend the Gutenberg UI?
@@ -671,7 +671,7 @@ The main extension point we want to emphasize is creating new blocks. Blocks are
  -->
 ## プラグインは Gutenberg UI をどうやって拡張できますか ?
 
-強調したいメインの拡張ポイントは新しいブロックの作成です。ブロックはプラグインを使用してブロックエディターに追加されます。入門としては [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/) を参照してください。
+強調したいメインの拡張ポイントは新しいブロックの作成です。ブロックはプラグインを使用してブロックエディターに追加されます。入門としては [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/handbook/create-block/) を参照してください。
 
 <!-- 
 ## Are Custom Post Types still supported?
@@ -697,7 +697,7 @@ Yes, it is supported. You can have multiple levels of nesting – blocks within 
  -->
 ## Gutenberg は入れ子のブロックをサポートしますか ?
 
-はい、サポートします。複数レベルの入れ子もサポートします。たとえばブロックの中のブロックの中のブロック。詳細については [チュートリアルのネストしたブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/nested-blocks-inner-blocks/) を参照してください。
+はい、サポートします。複数レベルの入れ子もサポートします。たとえばブロックの中のブロックの中のブロック。詳細については [チュートリアルのネストしたブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) を参照してください。
 
 <!-- 
 ## Does drag and drop work for rearranging blocks?
@@ -732,7 +732,7 @@ This is currently a work in progress and we recommend reviewing the [block based
 
 その他の機能、例えば新しい_幅広_と_全幅_配置オプションは、ブロックに適用されて配置するだけの単純な CSS クラスです。現在、例えば `add_theme_support` を使ってテーマがこの機能にオプトインする方法を模索中です。
 
-現在も作業中です。詳細については[ブロックベーステーマのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-based-themes/)のレビューを推奨します。
+現在も作業中です。詳細については[ブロックベーステーマのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-based-themes/)のレビューを推奨します。
 
 <!-- 
 ## What are block variations? Are they the same as block styles?
@@ -742,12 +742,12 @@ This is currently a work in progress and we recommend reviewing the [block based
 <!-- 
 No, [block variations](/docs/reference-guides/block-api/block-variations.md) are different versions of a single base block, sharing a similar functionality, but with slight differences in their implementation, or settings (attributes, InnerBlocks,etc). Block variations are transparent for users, and once there is a registered block variation, it will appear as a new block. For example, the `embed` block registers different block variations to embed content from specific providers.
  -->
-違います。[ブロックバリエーション](/docs/reference-guides/block-api/block-variations.md)は、単一のベースとなるブロックの異なるバージョンです。同じような機能を共有しますが、実装や設定 (属性、InnerBlock 等) は、かなり異なります。ブロックバリエーションをユーザーが意識することはなく、登録されたブロックバリエーションは新しいブロックとして出現します。たとえば `embed` ブロックは、複数の特定プロバイダーからのコンテンツを埋め込むために、異なるブロックバリエーションを登録します。
+違います。[ブロックバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/)は、単一のベースとなるブロックの異なるバージョンです。同じような機能を共有しますが、実装や設定 (属性、InnerBlock 等) は、かなり異なります。ブロックバリエーションをユーザーが意識することはなく、登録されたブロックバリエーションは新しいブロックとして出現します。たとえば `embed` ブロックは、複数の特定プロバイダーからのコンテンツを埋め込むために、異なるブロックバリエーションを登録します。
 
 <!-- 
 Meanwhile, [block styles](/docs/reference-guides/filters/block-filters.md#block-style-variations) allow you to provide alternative styles to existing blocks, and they work by adding a className to the block’s wrapper. Once a block has registered block styles, a block style selector will appear in its sidebar so that users can choose among the different registered styles.
  -->
-一方、[ブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-style-variations) を使用すると既存のブロックに代替のスタイルを提供できます。これは、ブロックのラッパーに classsName を追加することで動作します。ブロックに登録済みのブロックスタイルがあると、サイドバーにブロックスタイルセレクタが表示され、ユーザーは異なる登録済みスタイルを選択できます。
+一方、[ブロックスタイル](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#block-style-variations) を使用すると既存のブロックに代替のスタイルを提供できます。これは、ブロックのラッパーに classsName を追加することで動作します。ブロックに登録済みのブロックスタイルがあると、サイドバーにブロックスタイルセレクタが表示され、ユーザーは異なる登録済みスタイルを選択できます。
 
 <!-- 
 ## How do editor styles work?
@@ -767,7 +767,7 @@ add_action( 'enqueue_block_editor_assets', 'gutenbergtheme_editor_styles' );
 <!-- 
 *See:* [Editor Styles](/docs/how-to-guides/themes/theme-support.md#editor-styles)
  -->
-*参照:* [エディタースタイル](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#editor-styles)
+*参照:* [エディタースタイル](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#editor-styles)
 
 <!-- 
 ## Should I be concerned that Gutenberg will make my plugin obsolete?
@@ -874,7 +874,7 @@ We suggest you look at the [Gutenberg key concepts](/docs/getting-started/archit
 
 これはまた、ウィジェットや小さな投稿タイプ要素の再利用可能なパーツであるコンテンツストリームから本質的にブロックを分離してどこかに保存し、代わりにその場所へトークンリファレンスのみを保持するという[柔軟性を与えます](https://github.com/WordPress/gutenberg/issues/1516)。
 
-プロジェクトのこの部分がどのように動作するかをより深く理解するには、[Gutenberg キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/principles/key-concepts/)を参照してください。
+プロジェクトのこの部分がどのように動作するかをより深く理解するには、[Gutenberg キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/)を参照してください。
 
 <!-- 
 ## How can I parse the post content back out into blocks in PHP or JS?
@@ -912,4 +912,4 @@ The Editor is where most of the action happens in WordPress’s daily use, and i
 - [英語版リポジトリ](https://github.com/WordPress/gutenberg)
 - [日本語版リポジトリ](https://github.com/jawordpressorg/gutenberg)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/faq.md)
+[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/faq.md)
