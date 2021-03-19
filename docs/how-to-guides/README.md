@@ -7,7 +7,7 @@
 <!-- 
 # How-to Guides
  -->
-# ハウツーガイド
+# 開発ガイド
 
 <!--
 The new editor is highly flexible, like most of WordPress. You can build custom blocks, modify the editor's appearance, add special plugins, and much more.
