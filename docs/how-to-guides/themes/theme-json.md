@@ -61,6 +61,25 @@ This describes the current efforts to consolidate the various APIs related to st
 この文書では現在行われている、スタイルに関連するさまざまな API を一箇所に集める努力、テーマディレクトリのルートに配置する `experimental-theme.json` ファイルについて説明します。
 
 <!-- 
+### Global settings for the block editor
+ -->
+### Global settings for the block editor
+
+<!-- 
+Instead of the proliferation of theme support flags or alternative methods, the `experimental-theme.json` files provides a canonical way to define the settings of the block editor. These settings includes things like:
+ -->
+Instead of the proliferation of theme support flags or alternative methods, the `experimental-theme.json` files provides a canonical way to define the settings of the block editor. These settings includes things like:
+
+<!-- 
+ - What customization options should be made available or hidden from the user.
+ - What are the default colors, font sizes... available to the user.
+ - Defines the default layout of the editor. (widths and available alignments).
+ -->
+ - What customization options should be made available or hidden from the user.
+ - What are the default colors, font sizes... available to the user.
+ - Defines the default layout of the editor. (widths and available alignments).
+
+<!-- 
 ### Settings can be controlled per block
  -->
 ### 設定をブロックごとに制御できる
@@ -68,7 +87,13 @@ This describes the current efforts to consolidate the various APIs related to st
 <!-- 
 The Block Editor already allows the control of specific settings such as alignment, drop cap, presets available, etc. All of these work at the block level. By using the `experimental-theme.json` we aim to allow themes to control these at a block level.
  -->
+<!-- 
 ブロックエディターはすでに、配置、ドロップキャップ (先頭の文字を大きくする)、プリセット可能かどうかなどの特定の設定を制御できます。これらはすべてブロックレベルで動作します。`experimental-theme.json` を使用することで、これらの機能をテーマからでもブロックレベルで制御できるようにすることを目標としています。
+ -->
+<!-- 
+For more granularity, these settings also work at the block level in `experimental-theme.json`.
+ -->
+より詳細のため、これらの設定は `experimental-theme.json` 内のブロックレベルでも動作します。
 
 <!-- 
 Examples of what can be achieved are:
@@ -77,7 +102,7 @@ Examples of what can be achieved are:
 
 <!-- 
 - Use a particular preset for a block (e.g.: table) but the common one for the rest of blocks.
-- Enable font size UI controls for all blocks that support it but the headings block.
+- Enable font size UI controls for all blocks but the headings block.
 - etc.
  -->
 - あるブロック(例: テーブル)に対して特定のプリセットを使用するが、残りのブロックでは一般的なものを使用する。
@@ -260,7 +285,11 @@ settings セクションは以下の構造とデフォルト値を持ちます�
 ```
 {
   "settings": {
-    "some/block": {
+    "defaults": {
+      "layout": { /* Default layout to be used in the post editor */
+        "contentSize": "800px",
+        "wideSize": "1000px",
+      }
       "border": {
         "customRadius": false /* true to opt-in */
       },
@@ -480,10 +509,11 @@ Note that, the name of the variable is created by adding `--` in between each ne
 ### styles
 
 <!-- 
-Each block declares which style properties it exposes via the [block supports mechanism](../block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor, as well as being available through the `experimental-theme.json` file for themes to target.
+Each block declares which style properties it exposes via the [block supports mechanism](../block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor. Themes can use any style property via the `experimental-theme.json` for any block ― it's the theme's responsibility to verify that it works properly according to the block markup, etc.
  -->
-各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用され、また `experimental-theme.json` ファイルを介してターゲットのテーマで利用できます。
+各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用されます。テーマは `experimental-theme.json` を介して、任意のブロックのために、任意のスタイルプロパティを使用できます。ブロックマークアップ等に関して正しく動作するかどうかの検証は、テーマの責任です。
  
+
 ```json
 {
   "styles": {
@@ -574,101 +604,11 @@ The `defaults` block selector can't be part of the `styles` section and will be 
  -->
 `defaults` ブロックセレクタは、`styles` セクションの一部にはなれず、あっても無視されます。`root` ブロックセレクタはなることはできず、`:root` CSS セレクタと共にスタイルルールを生成します。
 
-<!-- 
-#### Border Properties
- -->
-#### ボーダープロパティ
-
-| Block | Color | Radius | Style | Width |
-| --- | --- | --- | --- | --- |
-| Group | Yes | Yes | Yes | Yes |
-| Image | Yes | - | - | - |
-
-<!-- 
-#### Color Properties
- -->
-#### カラープロパティ
-<!-- 
-These are the current color properties supported by blocks:
- -->
-以下は現在、ブロックでサポートされる色プロパティです。
-
-| Block | Background | Gradient | Link | Text |
-| --- | --- | --- | --- | --- |
-| Global | Yes | Yes | Yes | Yes |
-| Columns | Yes | Yes | Yes | Yes |
-| Group | Yes | Yes | Yes | Yes |
-| Heading [1] | Yes | - | Yes | Yes |
-| List | Yes | Yes | - | Yes |
-| Media & text | Yes | Yes | Yes | Yes |
-| Navigation | Yes | - | - | Yes |
-| Paragraph | Yes | - | Yes | Yes |
-| Post Author | Yes | Yes | Yes | Yes |
-| Post Comments | Yes | Yes | Yes | Yes |
-| Post Comments Count | Yes | Yes | - | Yes |
-| Post Comments Form | Yes | Yes | Yes | Yes |
-| Post Date | Yes | Yes | - | Yes |
-| Post Excerpt | Yes | Yes | Yes | Yes |
-| Post Hierarchical Terms | Yes | Yes | Yes | Yes |
-| Post Tags | Yes | Yes | Yes | Yes |
-| Post Title | Yes | Yes | - | Yes |
-| Site Tagline | Yes | Yes | - | Yes |
-| Site Title | Yes | Yes | - | Yes |
-| Template Part | Yes | Yes | Yes | Yes |
-<!-- 
-[1] The heading block represents 6 distinct HTML elements: H1-H6. It comes with selectors to target each individual element (ex: core/heading/h1 for H1, etc).
- -->
-[1] 「見出し」ブロックは6つの異なる HTML 要素、H1 から H6 を表します。それぞれ個別の要素をターゲットとするセレクタも付きます。たとえば H1 に対して core/heading/h1 等。
-<!-- 
-#### Spacing Properties
- -->
-#### スペース関連のプラパティ
-
-| Block | Padding |
-| --- | --- |
-| Cover | Yes |
-| Group | Yes |
-
-<!-- 
-#### Typography Properties
- -->
-#### タイポグラフィプロパティ
-<!-- 
-These are the current typography properties supported by blocks:
- -->
-以下は現在、ブロックでサポートされるタイポグラフィプロパティです。
-
-| Block | Font Family | Font Size | Font Style | Font Weight | Line Height | Text Decoration | Text Transform |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Global | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| Code | - | Yes | - | - | - | - | - |
-| Heading [1] | - | Yes | - | - | Yes | - | - |
-| List | - | Yes | - | - | - | - | - |
-| Navigation | Yes | Yes | Yes | Yes | - | Yes | Yes |
-| Paragraph | - | Yes | - | - | Yes | - | - |
-| Post Author | - | Yes | - | - | Yes | - | - |
-| Post Comments | - | Yes | - | - | Yes | - | - |
-| Post Comments Count | - | Yes | - | - | Yes | - | - |
-| Post Comments Form | - | Yes | - | - | Yes | - | - |
-| Post Date | - | Yes | - | - | Yes | - | - |
-| Post Excerpt | - | Yes | - | - | Yes | - | - |
-| Post Hierarchical Terms | - | Yes | - | - | Yes | - | - |
-| Post Tags | - | Yes | - | - | Yes | - | - |
-| Post Title | Yes | Yes | - | - | Yes | - | - |
-| Preformatted | - | Yes | - | - | - | - | - |
-| Site Tagline | Yes | Yes | - | - | Yes | - | - |
-| Site Title | Yes | Yes | - | - | Yes | - | Yes |
-| Verse | Yes | Yes | - | - | - | - | - |
-
-<!-- 
-[1] The heading block represents 6 distinct HTML elements: H1-H6. It comes with selectors to target each individual element (ex: core/heading/h1 for H1, etc).
- -->
-[1] 「見出し」ブロックは6つの異なる HTML 要素、H1 から H6 を表します。それぞれ個別の要素をターゲットとするセレクタも付きます。たとえば H1 に対して core/heading/h1 等。
-
-<!-- 
+<!--
 ### Other theme metadata
  -->
 ### その他のテーマのメタデータ
+
 <!-- 
 There's a growing need to add more theme metadata to the theme.json. This section lists those other fields:
  -->
