@@ -100,4 +100,6 @@ That's it. This is all that is necessary to make a custom format available in th
 
 タグが適用されるとブラウザ上ではすでに異なるスタイルで表示されたかもしれませんが、指定したスタイルを使用することもできます。[`registerFormatType`](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-rich-text/#registerFormatType) の `className` オプションを使用して新しい要素をクラス名で対象にできます。`className` が設定されると、新しい要素に追加されます。
 
-以上で、新しいエディターで利用可能なカスタムフォーマットについての説明は終了です。ここからは他の[チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/)を調べるか、ここで得た新しい知識を次のプラグインで試してみてください !
+以上で、新しいエディターで利用可能なカスタムフォーマットについての説明は終了です。ここからは他の[チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/)を調べるか、ここで得た新しい知識を次のプラグインで試してみてください !
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/format-api/3-apply-format.md)

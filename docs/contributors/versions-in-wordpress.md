@@ -56,4 +56,4 @@ If anything looks incorrect here, please bring it up in #core-editor in [WordPre
 | 4.6.1              | 5.0.1             |
 | 4.6.1              | 5.0.0             |
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/versions-in-wordpress.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/versions-in-wordpress.md)

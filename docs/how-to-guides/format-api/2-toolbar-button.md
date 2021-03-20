@@ -197,4 +197,4 @@ More advanced conditions can be used, e.g., only render the button depending on 
 
 もっと高度な条件を加えることも可能です。たとえばブロックの特定の属性に依存してボタンを表示するなど。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/format-api/2-toolbar-button.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/format-api/2-toolbar-button.md)

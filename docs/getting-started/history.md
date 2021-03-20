@@ -18,4 +18,4 @@ This includes a list of historical articles and influences on the Gutenberg proj
 - Suggested revised timeline: [https://make.wordpress.org/core/2017/08/11/revised-suggested-roadmap-for-gutenberg-and-customization/](https://make.wordpress.org/core/2017/08/11/revised-suggested-roadmap-for-gutenberg-and-customization/)
 - Discovering Gutenberg: [https://make.wordpress.org/core/2017/08/08/discovering-gutenberg-and-next-steps/](https://make.wordpress.org/core/2017/08/08/discovering-gutenberg-and-next-steps/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/history.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/history.md)

@@ -83,4 +83,4 @@ This puts all the initial pieces in place for you to start extending the block e
 
 これで必要な最初のパーツがすべてそろいました。ここからブロックエディターを拡張していきます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/loading-javascript.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/javascript/loading-javascript.md)

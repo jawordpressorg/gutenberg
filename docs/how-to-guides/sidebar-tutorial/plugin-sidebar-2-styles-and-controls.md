@@ -123,4 +123,4 @@ With the input control and the styling the sidebar looks nicer. This code doesn'
 
 入力コントロールとスタイルでサイドバーの見た目が良くなりました。ただしユーザーの入力したテキストはまだ保存も取得もされません。次のステップでどのようにメタブロックフィールドと接続するかに焦点を当てます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)

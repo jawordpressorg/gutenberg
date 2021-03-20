@@ -54,7 +54,7 @@ Blocks can be static or dynamic. Static blocks contain rendered content and an o
 
 Each block contains Attributes or configuration settings, which can be sourced from raw HTML in the content via meta or other customizable origins.
  -->
-ブロックは静的にも動的にもなります。静的ブロックに含まれるものは、レンダーされたコンテンツと、変更に基づいての再レンダーに使用される Attributes のオブジェクトです。動的ブロックで必要とされるものは、サーバーサイドデータと、投稿コンテンツが生成 (レンダリング) される間のレンダリングです。
+ブロックは静的にも動的にもなります。静的ブロックに含まれるものは、レンダーされたコンテンツと、変更に基づいての再レンダーに使用される Attributes のオブジェクトです。ダイナミックブロックで必要とされるものは、サーバーサイドデータと、投稿コンテンツが生成 (レンダリング) される間のレンダリングです。
 
 各ブロックは Attributes、または構成設定を含みます。これらは、メタ、または他のカスタマイズ可能な方法で、コンテンツ内の生の HTML から取得されます。
 
@@ -86,8 +86,8 @@ Given a block type, a block variation is a predefined set of its initial attribu
 - **[Block API](/docs/reference-guides/block-api/README.md)**
 - **[Tutorial: Building A Custom Block](/docs/getting-started/tutorials/create-block/README.md)**
  -->
-- **[ブロック API](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/)**
-- **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/)**
+- **[ブロック API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/)**
+- **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)**
 
 <!-- 
 ## Reusable Blocks
@@ -107,7 +107,7 @@ Any edits to a reusable block will appear on every other use of that block, savi
 <!-- 
 In technical details, reusable blocks are stored as a hidden post type (`wp_block`) and are dynamic blocks that "ref" or reference the `post_id` and return the `post_content` for that block.
  -->
-技術的には再利用可能ブロックは、隠し投稿タイプ `wp_block` として保存され、 `post_id` を参照して、ブロックの `post_content` を返す動的ブロックです。
+技術的には再利用可能ブロックは、隠し投稿タイプ `wp_block` として保存され、 `post_id` を参照して、ブロックの `post_content` を返すダイナミックブロックです。
 
 <!-- 
 ## Patterns
@@ -118,7 +118,7 @@ In technical details, reusable blocks are stored as a hidden post type (`wp_bloc
 A [block pattern](/docs/reference-guides/block-api/block-patterns.md) is a group of blocks that have been combined together creating a design pattern. These design patterns provide a starting point for building more advanced pages and layouts quickly. A block pattern can be as small as a single block or as large as a full page of content. Unlike reusable blocks, once a pattern is inserted it doesn't remain in sync with the original content as the blocks contained are meant to be edited and customized by the user. Underneath the surface, patterns are just regular blocks composed together. Themes can register patterns to offer users quick starting points with a design language familiar to that theme's aesthetics.
  -->
 
-[ブロックパターン](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-patterns/)は、一緒に組み合わせてデザインパターンを作成する、ブロックのグループです。このデザインパターンは高度なページやレイアウトを素早く作る、最初のスタート地点となります。ブロックパターンは、単一ブロックのような小さなものから、完全なページコンテンツのような大きなものまで可能です。再利用可能ブロックとは異なり、一度パターンが挿入されるとオリジナルのコンテンツとは同期せず、ブロック内のコンテンツのみがユーザーの編集やカスタマイズの対象となります。内部の実装から見るとパターンは、一緒に組み合わされた通常のブロックに過ぎません。テーマはパターンを登録することで、ユーザーにテーマの美しさに合わせたスタート地点を提供することができます。
+[ブロックパターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/)は、一緒に組み合わせてデザインパターンを作成する、ブロックのグループです。このデザインパターンは高度なページやレイアウトを素早く作る、最初のスタート地点となります。ブロックパターンは、単一ブロックのような小さなものから、完全なページコンテンツのような大きなものまで可能です。再利用可能ブロックとは異なり、一度パターンが挿入されるとオリジナルのコンテンツとは同期せず、ブロック内のコンテンツのみがユーザーの編集やカスタマイズの対象となります。内部の実装から見るとパターンは、一緒に組み合わされた通常のブロックに過ぎません。テーマはパターンを登録することで、ユーザーにテーマの美しさに合わせたスタート地点を提供することができます。
 
 <!-- 
 ## Templates (in progress)
@@ -128,7 +128,7 @@ A [block pattern](/docs/reference-guides/block-api/block-patterns.md) is a group
 <!-- 
 While the post editor concentrates on the content of a post, the [template](/docs/reference-guides/block-api/block-templates.md) editor allows declaring and editing an entire site using blocks, from header to footer. To support these efforts there's a collection of blocks that interact with different parts of a site (like the site title, description, logo, navigation, etc) as well as semantic areas like header, sidebar, and footer. Templates are broken down between templates (that describe a full page) and template parts (that describe reusable areas within a template). These templates and template parts can be composed together and registered by a theme. They are also entirely editable by users using the block editor. Customized templates are saved in a `wp_template` post type. Block templates include both static pages and dynamic ones, like archives, singular, home, 404, etc.
  -->
-投稿エディターが投稿のコンテンツを処理するように、[テンプレート](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-templates/)エディターを使用するとブロックを使用して、ヘッダーからフッターまで、サイト全体を宣言し、編集できます。この機能をサポートするため、サイトタイトル、説明、ロゴ、ナビゲーションなどのサイトの異なる場所、そしてヘッダー、サイドバー、フッターなどのセマンティック領域と通信するブロックのコレクションがあります。テンプレートは、ページ全体を表すテンプレートと、テンプレート内の再利用可能な領域を表すテンプレートパーツとに分解されます。これらのテンプレートとテンプレートパーツは一緒に組み合わされ、テーマにより登録されます。これらはまたブロックエディターを使用して完全に編集できます。カスタマイズされたテンプレートは `wp_template` 投稿タイプに保存されます。ブロックテンプレートは静的ページと動的ページの両方を含み、たとえば、archive、singular、home、404等があります。
+投稿エディターが投稿のコンテンツを処理するように、[テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/)エディターを使用するとブロックを使用して、ヘッダーからフッターまで、サイト全体を宣言し、編集できます。この機能をサポートするため、サイトタイトル、説明、ロゴ、ナビゲーションなどのサイトの異なる場所、そしてヘッダー、サイドバー、フッターなどのセマンティック領域と通信するブロックのコレクションがあります。テンプレートは、ページ全体を表すテンプレートと、テンプレート内の再利用可能な領域を表すテンプレートパーツとに分解されます。これらのテンプレートとテンプレートパーツは一緒に組み合わされ、テーマにより登録されます。これらはまたブロックエディターを使用して完全に編集できます。カスタマイズされたテンプレートは `wp_template` 投稿タイプに保存されます。ブロックテンプレートは静的ページと動的ページの両方を含み、たとえば、archive、singular、home、404等があります。
 
 <!-- 
 Note: custom post types can also be initialized with a starting `post_content` template that should not be confused with the theme template system described above.
@@ -144,4 +144,4 @@ Describes a set of configuration and default properties of blocks and their visu
  -->
 グローバルスタイルは、ブロックの構成やデフォルトプロパティ、ビジュアル表現のセットを記述します。グローバルスタイルは、ユーザーがサイトエディターにアクセスする際に使用する「インターフェース」と、[`theme.json` ファイル](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-json/) を介して実行される「構成システム」の2つから成ります。`theme.json` ファイルは通常であればさまざまな `add_theme_support` 呼び出しに散らばる構成要素の大部分を吸収し、エディターとの通信を簡素化し、以下の改良を目的とします。どの設定を有効化すべきか、どの属性がサポートされるか、テーマが特定のツール、たとえばカスタムカラーパレットを提供するかなどの宣言、そして、全体またはブロックごとに利用可能なデザインツール、ページで使用されるブロックに応じて関連する CSS のみをエンキューできる基盤。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/architecture/key-concepts.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/explanations/architecture/key-concepts.md)

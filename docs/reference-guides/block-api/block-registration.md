@@ -315,7 +315,7 @@ attributes: {
 <!-- 
 -   **See: [Attributes](/docs/reference-guides/block-api/block-attributes.md).**
  -->
--   **参照: [属性](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)**
+-   **参照: [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)**
 
 <!-- 
 #### example (optional)
@@ -500,7 +500,7 @@ variations: [
 <!--
 Supports contains as set of options to control features used in the editor. See the [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
  -->
-`supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-supports/) を参照してください。
+`supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) を参照してください。
 
 
 <!-- 
@@ -596,4 +596,4 @@ registerBlockCollection( 'my-plugin', { title: 'My Plugin' } );
 registerBlockCollection( 'my-plugin', { title: 'My Plugin' } );
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-registration.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-registration.md)

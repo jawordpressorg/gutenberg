@@ -234,4 +234,4 @@ export const settings = {
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md)

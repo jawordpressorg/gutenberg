@@ -27,7 +27,7 @@ The first method is to use Blocks to store extra data with a post. The data is s
 
 最初の方法はブロックを使用して外部データを投稿に保存します。メタボックスが情報を保存する場合と同じくデータは投稿メタフィールドに保存されます。
 
-* [投稿メタをブロックで保存](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-1-intro/)
+* [投稿メタをブロックで保存](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-1-intro/)
 
 <!-- 
 ## Sidebar Plugin
@@ -36,4 +36,6 @@ If you are interested in working with the post meta outside the editor, check ou
  -->
 ## サイドバープラグイン
 
-エディターの外部で投稿メタを操作したい場合は、[サイドバーチュートリアル](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/plugin-sidebar-0/)を参照してください。
+エディターの外部で投稿メタを操作したい場合は、[サイドバーチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/)を参照してください。
+
+[参考](https://github.com/WordPress/gutenberg/blob/HEAD/docs/how-to-guides/metabox/README.md)

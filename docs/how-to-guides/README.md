@@ -23,9 +23,9 @@ If you want to learn more about block creation, see the [Create a Block tutorial
 -->
 ## ブロックの作成
 
-エディターは「ブロック」であり、主な拡張 API は「ブロック API」です。ブロック API を使用してユーザーは静的ブロックやサーバー側でレンダリングされる[動的ブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは構造化されたコンテンツのため投稿メタにデータを保存できます。
+エディターは「ブロック」であり、主な拡張 API は「ブロック API」です。ブロック API を使用してユーザーは静的ブロックやサーバー側でレンダリングされる[ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは構造化されたコンテンツのため投稿メタにデータを保存できます。
 
-ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/) を参照してください。
+ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/) を参照してください。
 
 <!--
 ## Extending Blocks
@@ -66,7 +66,7 @@ See how the new editor [supports existing Meta Boxes](/docs/reference-guides/bac
 -->
 ## メタボックス
 
-PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/) を参照してください。
+PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) を参照してください。
 
 新しいエディターがどのように既存のメタボックスをサポートするかについては、[こちらの文書](https://developer.wordpress.org/block-editor/designers-developers/developers/backward-compatibility/meta-box/) を参照してください。
 
@@ -105,4 +105,4 @@ Customizing the parser is an advanced topic that you can learn more about in the
 
 パーサーのカスタマイズは高度なトピックになります。詳細については [パーサーの拡張](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/parser-filters/) セクションを参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/README.md)

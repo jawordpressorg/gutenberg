@@ -1083,4 +1083,4 @@ The full code for the custom functioning block editor we've just built is [avail
 
 これまで構築したカスタムで機能するブロックエディターの完全なコードは [Github から取得可能](https://github.com/getdave/standalone-block-editor) です。ダウンロードし、自分で動かしてみることをお勧めします。実験し、更にその先まで進みましょう !
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)

@@ -126,7 +126,7 @@ The `edit` function also receives a number of properties through an object argum
 <!-- 
 The `attributes` property surfaces all the available attributes and their corresponding values, as described by the `attributes` property when the block type was registered. See [attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for how to specify attribute sources.
  -->
-`attributes` プロパティはすべての利用可能な属性と対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティで記述されます。属性ソースを指定する方法については[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)を参照してください。
+`attributes` プロパティはすべての利用可能な属性と対応する値を表します。属性はブロックタイプ登録の際に `attributes` プロパティで記述されます。属性ソースを指定する方法については[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)を参照してください。
 
 <!-- 
 In this case, assuming we had defined an attribute of `content` during block registration, we would receive and use that value in our edit function:
@@ -375,13 +375,13 @@ If there is a need to have other information as part of the save, developers can
 _注意:_ `save` 関数は、呼び出し時に使用された属性にのみ依存する純粋関数でなければなりません。どのようなサイドイフェクトも与えられず、別のソースからの情報も取得できません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することはできません。
 これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「[妥当性検証 (Validation)](#validation))」を参照してください。
 保存の流れで他の情報が必要になった場合、開発者には2つの選択肢があります。
- - [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/) を使用してサーバー上で動的に必要な情報を取得する。
+ - [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) を使用してサーバー上で動的に必要な情報を取得する。
  - 外部の値を属性として保存し、変更があった場合にはブロックの `edit` 関数内で動的に更新する。
 
 <!-- 
 For [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md), the return value of `save` could represent a cached copy of the block's content to be shown only in case the plugin implementing the block is ever disabled.
  -->
-[ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/) の場合、`save` の戻り値は、ブロックを実装するプラグインが無効化された場合に表示されるブロックコンテンツの、キャッシュしたコピーを返すことができます。
+[ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、`save` の戻り値は、ブロックを実装するプラグインが無効化された場合に表示されるブロックコンテンツの、キャッシュしたコピーを返すことができます。
 
 <!-- 
 If left unspecified, the default implementation will save no markup in post content for the dynamic block, instead deferring this to always be calculated when the block is shown on the front of the site.
@@ -436,7 +436,7 @@ save: function( props ) {
 <!-- 
 When saving your block, you want to save the attributes in the same format specified by the attribute source definition. If no attribute source is specified, the attribute will be saved to the block's comment delimiter. See the [Block Attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
  -->
-ブロックを保存する際、属性は、属性ソース定義で指定した形式で保存されます。属性ソースが指定されていない場合、属性はブロックのコメントデリミッターに保存されます。詳細は [ブロック属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/) を参照してください。
+ブロックを保存する際、属性は、属性ソース定義で指定した形式で保存されます。属性ソースが指定されていない場合、属性はブロックのコメントデリミッターに保存されます。詳細は [ブロック属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) を参照してください。
 
 <!-- 
 ## Examples
@@ -446,7 +446,7 @@ When saving your block, you want to save the attributes in the same format speci
 <!-- 
 Here are a couple examples of using attributes, edit, and save all together.  For a full working example, see the [Introducing Attributes and Editable Fields](/docs/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields.md) section of the Block Tutorial.
  -->
-属性、`edit`、`save` を一緒に使用する例をいくつか挙げます。完全に動作するサンプルはブロックのチュートリアルの「[属性と編集可能フィールド](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/introducing-attributes-and-editable-fields/)」
+属性、`edit`、`save` を一緒に使用する例をいくつか挙げます。完全に動作するサンプルはブロックのチュートリアルの「[属性と編集可能フィールド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/)」
 
 <!-- 
 ### Saving Attributes to Child Elements
@@ -686,7 +686,7 @@ When a block is detected as invalid, a warning will be logged into your browser'
  -->
 デバッグを始める前に、上に記述された妥当性検証のステップと、ブロックが不正と検知されるプロセスについて理解してください。ブロックが不正となるのは再生成されたマークアップが投稿コンテンツ内の保存済みマークアップと合致しない場合です。したがって保存されたコンテンツからブロックの属性が正しくパースされなかった場合にしばしば発生します。
 
-[属性ソース](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)を使用している場合には、マークアップのソースの属性が期待したとおりに正しいタイプ (通常は `'string'` か `'number'`) で保存されていることを確認してください。
+[属性ソース](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)を使用している場合には、マークアップのソースの属性が期待したとおりに正しいタイプ (通常は `'string'` か `'number'`) で保存されていることを確認してください。
 
 ブロックの不正が検知されるとブラウザーの開発者ツールコンソールに警告が出力されます。警告にはマークアップの相違が発生した正確な場所の詳細が含まれます。期待したマークアップと実際のマークアップの違いを比較し、どこで問題が発生したかを調べてください。
 
@@ -700,4 +700,4 @@ Refer to the guide on [Deprecated Blocks](/docs/reference-guides/block-api/block
  -->
 [非推奨ブロック](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-deprecation.md) のガイドを参照して、意図したマークアップの変更に古いコンテンツを収容する方法を学習してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-edit-save.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-edit-save.md)

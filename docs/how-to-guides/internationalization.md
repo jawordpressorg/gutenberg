@@ -568,4 +568,4 @@ The outputs of the translation functions (`__()`, `_x()`, `_n()`, and `_nx()`) a
  -->
 翻訳関数 (`__()`, `_x()`, `_n()`, `_nx()`) の出力はフィルターできます。詳細については [i18n フィルター](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/filters/i18n-filters.md) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/internationalization.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/internationalization.md)

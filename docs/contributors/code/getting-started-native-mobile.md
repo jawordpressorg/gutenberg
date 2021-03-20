@@ -130,4 +130,4 @@ For a more detailed outline of the UI tests and how to get started writing one, 
 
 You might want to use Visual Studio Code as an editor. The project includes the configuration needed to use the above codestyle and linting tools automatically.
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/getting-started-native-mobile.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/getting-started-native-mobile.md)

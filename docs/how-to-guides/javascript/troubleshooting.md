@@ -105,7 +105,7 @@ If you do not see the file being loaded, double check the enqueue function is co
 <!-- 
 Add a test message to confirm your JavaScript is loading, add a `console.log("Here");` at the top of your code, and confirm the message is shown. If not, it is likely the file is not loading properly, [review the loading JavaScript page](/docs/how-to-guides/javascript/loading-javascript.md) for details on enqueuing JavaScript properly.
  -->
-JavaScript がロードされていることを確認するためにテストメッセージを追加してください。コードの先頭に `console.log("Here");` を追加し、メッセージが表示されることを確認します。表示されなければファイルが正しくロードされていません。「[JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/loading-javascript/)」を参照し、正しい JavaScript のエンキューについて確認してください。
+JavaScript がロードされていることを確認するためにテストメッセージを追加してください。コードの先頭に `console.log("Here");` を追加し、メッセージが表示されることを確認します。表示されなければファイルが正しくロードされていません。「[JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/)」を参照し、正しい JavaScript のエンキューについて確認してください。
 
 <!-- 
 ## Confirm all dependencies are loading
@@ -136,8 +136,8 @@ wp_enqueue_script(
 <!-- 
 For automated dependency management, it is recommended to [use wp-scripts to build step your JavaScript](/docs/how-to-guides/javascript/js-build-setup.md#dependency-management).
  -->
-自動的な依存性の管理については、[wo-scripts を使用した JavaScript ビルド手順](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/) を推奨します。
+自動的な依存性の管理については、[wo-scripts を使用した JavaScript ビルド手順](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/) を推奨します。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/troubleshooting.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/javascript/troubleshooting.md)
 
 

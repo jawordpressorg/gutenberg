@@ -35,13 +35,13 @@ WordPress 5.0 で導入されたブロックエディターは JavaScript で書
 
 ### 目次
 
-1. [裏側のプラグイン](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/plugins-background/)
-2. [JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/loading-javascript/)
-3. [ブロックエディターの拡張](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/extending-the-block-editor/)
-4. [トラブルシューティング](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/troubleshooting/)
-5. [JavaScript のバージョンとビルド手順](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/versions-and-building/)
-6. [コードのスコープ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/scope-your-code/)
-7. [JavaScript ビルド環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/js-build-setup/)
-8. [ESNext Syntax](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/esnext-js)
+1. [裏側のプラグイン](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/plugins-background/)
+2. [JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/)
+3. [ブロックエディターの拡張](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/extending-the-block-editor/)
+4. [トラブルシューティング](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/troubleshooting/)
+5. [JavaScript のバージョンとビルド手順](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/versions-and-building/)
+6. [コードのスコープ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/scope-your-code/)
+7. [JavaScript ビルド環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/)
+8. [ESNext Syntax](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/esnext-js)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/readme.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/javascript/README.md)

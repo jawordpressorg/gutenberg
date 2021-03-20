@@ -386,4 +386,4 @@ _戻り値_
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/packages/i18n/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/i18n/README.md)

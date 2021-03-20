@@ -88,7 +88,7 @@ registerBlockType( 'myplugin/template', {
 <!-- 
 See the [Meta Block Tutorial](/docs/how-to-guides/metabox/meta-block-5-finishing.md) for a full example of a template in use.
  -->
-テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-5-finishing/) を参照してください。
+テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-5-finishing/) を参照してください。
  
 <!-- 
 ## Custom Post types
@@ -187,4 +187,4 @@ $template = array(
 	) )
 );
 ```
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-templates.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-templates.md)

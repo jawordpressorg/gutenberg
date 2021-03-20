@@ -500,4 +500,4 @@ _Latest Posts is fully functional as soon as it’s inserted because it comes wi
  -->
 _最新の投稿は挿入すると完全に機能します。これはこの動作がデフォルトの正しい動作と考えられるためです。_
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/designers/block-design.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/designers/block-design.md)

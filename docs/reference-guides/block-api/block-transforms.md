@@ -558,7 +558,7 @@ A transformation of type `shortcode` is an object that takes the following param
  -->
 - **type** _(string)_: 文字列 `shortcode`。
 - **tag** _(string|array)_: この変換が動作可能なショートコードタグ、またはショートコードエイリアスのリスト。
-- **attributes** _(object)_: [block 構成オブジェクト](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/) で定義された属性の形に従い、ブロック属性がどこを source とするかを表したオブジェクト。特定の属性が `shortcode` キーを含む場合には関数であり、第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取り、ブロックのコメントを source とする属性の値を返さなければならない。
+- **attributes** _(object)_: [block 構成オブジェクト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) で定義された属性の形に従い、ブロック属性がどこを source とするかを表したオブジェクト。特定の属性が `shortcode` キーを含む場合には関数であり、第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取り、ブロックのコメントを source とする属性の値を返さなければならない。
 - **isMatch** _(function、オプション)_: [Shortcode API](https://codex.wordpress.org/Shortcode_API) ごとにショートコード属性を受け取り、ブール値を返すコールバック。`false` を返すとショートコードのブロックへの変換を適用しない。
 - **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 <!-- 
@@ -717,4 +717,4 @@ transforms: {
 ```
 {% end %}
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-transforms.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-transforms.md)

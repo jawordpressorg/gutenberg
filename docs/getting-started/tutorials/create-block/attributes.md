@@ -111,4 +111,4 @@ Next Section: [Code Implementation](/docs/getting-started/tutorials/create-block
 
 次のセクション: [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-code/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/attributes.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/tutorials/create-block/attributes.md)

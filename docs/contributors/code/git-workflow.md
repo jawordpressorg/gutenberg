@@ -138,4 +138,4 @@ git push
 
 The above commands will update your `trunk` branch from _upstream_. To update any other branch replace `trunk` with the respective branch name.
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/git-workflow.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/git-workflow.md)

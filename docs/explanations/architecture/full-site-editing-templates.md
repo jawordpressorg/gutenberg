@@ -45,4 +45,4 @@ That said, it is still important to keep track of where the template and templat
 
 In the future, we might consider allowing the user to mix template and template parts with different `theme` post meta values.
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/architecture/fse-templates.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/explanations/architecture/full-site-editing-templates.md)

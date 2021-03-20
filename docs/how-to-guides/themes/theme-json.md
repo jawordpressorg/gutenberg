@@ -482,7 +482,7 @@ Note that, the name of the variable is created by adding `--` in between each ne
 <!-- 
 Each block declares which style properties it exposes via the [block supports mechanism](../block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor, as well as being available through the `experimental-theme.json` file for themes to target.
  -->
-各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用され、また `experimental-theme.json` ファイルを介してターゲットのテーマで利用できます。
+各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用され、また `experimental-theme.json` ファイルを介してターゲットのテーマで利用できます。
  
 ```json
 {
@@ -842,4 +842,4 @@ A few notes about this process:
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/themes/theme-json.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-json.md)

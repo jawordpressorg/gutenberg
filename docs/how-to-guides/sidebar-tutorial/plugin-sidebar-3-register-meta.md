@@ -23,7 +23,7 @@ register_post_meta( 'post', 'sidebar_plugin_meta_block_field', array(
 <!-- 
 To make sure the field has been loaded, query the block editor [internal data structures](/docs/reference-guides/data/), also known as _stores_. Open your browser's console, and execute this piece of code:
  -->
-フィールドがロードされたことを確認するには、「ストア」と呼ばれるブロックエディターの[内部データ構造](https://ja.wordpress.org/team/handbook/block-editor/data/)を照会します。ブラウザーのコンソールを開き、次のコードを実行してください。
+フィールドがロードされたことを確認するには、「ストア」と呼ばれるブロックエディターの[内部データ構造](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/data/)を照会します。ブラウザーのコンソールを開き、次のコードを実行してください。
 
 ```js
 wp.data.select( 'core/editor' ).getCurrentPost().meta;
@@ -38,4 +38,4 @@ If the code returns `undefined` make sure your post type supports `custom-fields
  -->
 コードが `undefined` を返す場合、[投稿の登録時](https://developer.wordpress.org/reference/functions/register_post_type/#supports)または [add_post_type_support 関数](https://developer.wordpress.org/reference/functions/add_post_type_support/)で投稿タイプが `custom-fields` をサポートすることを確認してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-3-register-meta.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-3-register-meta.md)

@@ -14,7 +14,7 @@ If you are unfamiliar with how to work with WordPress plugins and JavaScript, yo
 
 WordPress の世界で「フォーマット」とは、[テキストレベルのセマンティクスでの HTML タグ](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary)を指します。選択したテキストに特別な意味を与えられます。たとえばこのチュートリアルでフォーマットツールバーにフックされるボタンは選択したテキストを [`<samp>` HTML タグ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp)でラップします。
 
-WordPress プラグインと javaScript に馴染みのない方はまず [JavaScript チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/)を参照してください。
+WordPress プラグインと javaScript に馴染みのない方はまず [JavaScript チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/)を参照してください。
 
 <!-- 
 ## Table of Contents
@@ -26,6 +26,8 @@ WordPress プラグインと javaScript に馴染みのない方はまず [JavaS
 2. [Add a button to the toolbar](/docs/how-to-guides/format-api/2-toolbar-button.md)
 3. [Apply the format when the button is clicked](/docs/how-to-guides/format-api/3-apply-format.md)
  -->
-1. [新しいフォーマットの登録 ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/1-register-format/)
-2. [ツールバーへのボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/2-toolbar-button/)
-3. [ボタンのクリックでフォーマットを適用する](https://ja.wordpress.org/team/handbook/block-editor/tutorials/format-api/3-apply-format/)
+1. [新しいフォーマットの登録 ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/1-register-format/)
+2. [ツールバーへのボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/2-toolbar-button/)
+3. [ボタンのクリックでフォーマットを適用する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/3-apply-format/)
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/format-api/README.md)

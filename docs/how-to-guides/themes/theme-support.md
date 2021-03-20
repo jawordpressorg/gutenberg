@@ -555,7 +555,7 @@ Further reading: [Applying Styles with Stylesheets](/docs/how-to-guides/block-tu
  -->
 テーマと合わせるためにこれらのエディターの幅を使用できます。`%` や `px` を含む任意の CSS 幅の単位を使用できます。
 
-[スタイルシートでのスタイルの適用](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/) も参照してください。
+[スタイルシートでのスタイルの適用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/applying-styles-with-stylesheets/) も参照してください。
 <!-- 
 ## Responsive embedded content
  -->
@@ -629,4 +629,4 @@ a {
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/themes/theme-support.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-support.md)

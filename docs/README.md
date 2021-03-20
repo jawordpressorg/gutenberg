@@ -116,4 +116,4 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 | @shizumi | @Shizumi |
 | @arm-band | @armband |
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/README.md)

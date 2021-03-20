@@ -246,4 +246,4 @@ multiple blocks of the same type are selected.
  -->
 ツールバーとサイドバー内の両方でレンダーされるブロックコントロールは、同じタイプの複数のブロックが選択された際にも使用されます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/block-tutorial/block-controls-toolbar-and-sidebar.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/block-tutorial/block-controls-toolbar-and-sidebar.md)

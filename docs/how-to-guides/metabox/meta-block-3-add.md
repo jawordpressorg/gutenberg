@@ -8,7 +8,7 @@ With the meta field registered in the previous step, next you will create a new 
 
 For this block, you will use the TextControl component, which is similar to an HTML input text field. For additional components, check out the [Component Reference](/packages/components/README.md).
  -->
-前のステップではメタフィールドを登録しました。このステップではユーザーにフィールド値を表示する新しいブロックを作成します。カスタムブロック作成の詳細については [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/) を参照してください。
+前のステップではメタフィールドを登録しました。このステップではユーザーにフィールド値を表示する新しいブロックを作成します。カスタムブロック作成の詳細については [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/) を参照してください。
 
 このブロックでは HTML インプットテキストフィールドに似た、TextControl コンポーネントを使用します。その他のコンポーネントについては [コンポーネント](https://ja.wordpress.org/team/handbook/block-editor/components/) を参照してください。
 
@@ -163,8 +163,8 @@ You can now use the post meta data in a template, or another block. See next sec
 
 これで投稿の下書きを編集し、メタブロックを追加できます。ブロックにはフィールドが表示され文字を入力することができます。下書き、あるいは公開状態で投稿を保存すると、投稿メタ値も保存されます。確認するには投稿の下書きを保存し再ロードします。リロードされたフォームには数値が入力されているはずです。データが保存されたことはデータベーステーブル `wp_postmeta` を調べ、新しい投稿 ID が新しいフィールドデータを含むことでも確認できます。
 
-![メタブロック](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/metabox/meta-block.png)
+![メタブロック](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/metabox/meta-block.png)
 
-投稿メタデータはテンプレートでも、あるいは別のブロックでも使用できます。次のセクションでは[投稿メタデータを使用します](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-4-use-data/)。
+投稿メタデータはテンプレートでも、あるいは別のブロックでも使用できます。次のセクションでは[投稿メタデータを使用します](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-4-use-data/)。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/metabox/meta-block-3-add.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/metabox/meta-block-3-add.md)

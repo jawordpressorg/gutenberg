@@ -29,3 +29,5 @@ The projects outlined above indicate areas of interest but not necessarily devel
 - 2019 Q1: Block Registry — First phase. Required for plugin directory "meta" project.
 - 2019 Q2: Modular Editor — Requirement for most of phase 2.
 - 2019 Q3: Block Areas.
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/roadmap.md)

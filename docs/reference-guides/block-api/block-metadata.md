@@ -68,7 +68,7 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 <!-- 
 The same file is also used when [submitting block to Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md).
  -->
-[ブロックディレクトリへブロックをサブミットする](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/submitting-to-block-directory/)際にも同じファイルが使用されます。
+[ブロックディレクトリへブロックをサブミットする](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)際にも同じファイルが使用されます。
 
 <!-- 
 ## Server-side registration
@@ -372,7 +372,7 @@ attributes (属性) は、ブロックに必要な構造化データを提供し
 <!-- 
 See the [the attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
  -->
-詳細については、[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/) を参照してください。
+詳細については、[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) を参照してください。
 
 ### Provides Context
 
@@ -397,7 +397,7 @@ Context provided for available access by descendants of blocks of this type, in 
 <!-- 
 See [the block context documentation](/docs/reference-guides/block-api/block-context.md) for more details.
  -->
-詳細については [ブロックコンテキストのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-context/) を参照してください。
+詳細については [ブロックコンテキストのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-context/) を参照してください。
 
 ```json
 {
@@ -430,7 +430,7 @@ Array of the names of context values to inherit from an ancestor provider.
 <!-- 
 See [the block context documentation](/docs/reference-guides/block-api/block-context.md) for more details.
  -->
-詳細については [ブロックコンテキストのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-context/) を参照してください。
+詳細については [ブロックコンテキストのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-context/) を参照してください。
 
 ```json
 {
@@ -456,7 +456,7 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 <!-- 
 It contains as set of options to control features used in the editor. See the [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
  -->
-エディターで使用される機能を制御するオプションのセットとして含みます。詳細については [サポートのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-supports/)) を参照してください。
+エディターで使用される機能を制御するオプションのセットとして含みます。詳細については [サポートのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)) を参照してください。
 
 
 ### Style Variations
@@ -524,7 +524,7 @@ It provides structured example data for the block. This data is used to construc
 <!-- 
 See the [the example documentation](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
  -->
-詳細については [ドキュメントの「example (オプション)」セクション](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/) を参照してください。
+詳細については [ドキュメントの「example (オプション)」セクション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) を参照してください。
 
 ### Editor Script
 
@@ -783,10 +783,10 @@ The following properties are going to be supported for backward compatibility re
 -   `merge` - undocumented as of today. Its role is to handle merging multiple blocks into one.
 -   `getEditWrapperProps` - undocumented as well. Its role is to inject additional props to the block edit's component wrapper.
  -->
--   `edit` - 詳細についてはドキュメント「[edit と save](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/)」を参照してください。
--   `save` - 詳細についてはドキュメント「[edit と save](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/)」を参照してください。
--   `transforms` - 詳細についてはドキュメント「[transforms](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/)」を参照してください。
--   `deprecated` - 詳細についてはドキュメント「[非推奨にするブロック](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-deprecation/)」を参照してください。
+-   `edit` - 詳細についてはドキュメント「[edit と save](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)」を参照してください。
+-   `save` - 詳細についてはドキュメント「[edit と save](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)」を参照してください。
+-   `transforms` - 詳細についてはドキュメント「[transforms](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/)」を参照してください。
+-   `deprecated` - 詳細についてはドキュメント「[非推奨にするブロック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/)」を参照してください。
 -   `merge` - 今日現在、ドキュメントされていません。役割としては、複数のブロックを1つにマージ処理します。
 -   `getEditWrapperProps` - 同様に、ドキュメントされていません。役割としては、ブロック編集のコンポーネントラッパーに追加の props を注入します。
 
@@ -827,6 +827,6 @@ wp.blocks.registerBlockType( 'my-block/name', {
 <!-- 
 In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should be still possible to register `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) and `register_block_type_from_metadata` functions on the server.
  -->
-WordPress にサポートされる [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) と `register_block_type_from_metadata` の両方を使用して `render_callback` プロパティを登録することは変わらず可能です。
+WordPress にサポートされる [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) と `register_block_type_from_metadata` の両方を使用して `render_callback` プロパティを登録することは変わらず可能です。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-metadata.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md)

@@ -38,7 +38,7 @@ This tutorial is up to date as of Gutenberg version 9.1.
  2. テーマの作成
  3. テンプレートとテンプレートパーツの作成
  4. experimental-theme.json - グローバルスタイル
- 5. [ブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-based-themes/block-based-themes-2-adding-blocks/)
+ 5. [ブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-based-themes/block-based-themes-2-adding-blocks/)
 
 <!-- 
 ## What is needed to create a block-based theme?
@@ -529,6 +529,6 @@ Below are the presets and styles combined:
 <!-- 
 ## [Adding blocks](/docs/how-to-guides/block-based-theme/block-based-themes-2-adding-blocks.md)
  -->
-## [ブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/block-based-themes/block-based-themes-2-adding-blocks/)
+## [ブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-based-themes/block-based-themes-2-adding-blocks/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-based-themes/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-based-theme/README.md)

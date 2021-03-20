@@ -202,7 +202,7 @@ The WordPress [wp-env package](https://www.npmjs.com/package/@wordpress/env) let
  -->
 コンピュータ上でローカルに WordPress を実行する方法にはいくつかあります。多少遅くはなりますが、クラウド上のコンピュータで開発することもできます。
 
-WordPress [wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-env/) を使用すると、追加の構成なしでプラグインやテーマのビルド用、テスト用のローカル WordPress 環境をセットアップできます。
+WordPress [wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) を使用すると、追加の構成なしでプラグインやテーマのビルド用、テスト用のローカル WordPress 環境をセットアップできます。
 
 <!-- 
 The `wp-env` tool uses Docker to create a virtual machine to that runs the WordPress site. There are instructions available for installing Docker on [Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/), [all other versions of Windows](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script). If using Ubuntu, see our additional notes for [help installing Docker on Ubuntu](/docs/getting-started/tutorials/devenv/docker-ubuntu.md).
@@ -229,7 +229,7 @@ wp-env --version
 <!-- 
 The `wp-env` script is used to create a Docker WordPress environment. You can use this script to start an environment with your plugin activated by running it from the directory containing your plugin. For example if you are following the create block tutorial, this would be in the generated directory like so:
  -->
-`wp-env` スクリプトを使用して Docker WordPress 環境を作成できます。プラグインを含むディレクトリからこのスクリプトを実行すると、プラグインを有効化した状態で環境を開始できます。たとえば「[ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/create-block/)」を試している場合、このディレクトリは以下のような生成されたディレクトリになります。
+`wp-env` スクリプトを使用して Docker WordPress 環境を作成できます。プラグインを含むディレクトリからこのスクリプトを実行すると、プラグインを有効化した状態で環境を開始できます。たとえば「[ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)」を試している場合、このディレクトリは以下のような生成されたディレクトリになります。
 
 ```sh
 npx @wordpress/create-block starter-block
@@ -239,7 +239,7 @@ wp-env start
 <!-- 
 You can access your environment in your browser at: [http://localhost:8888/](http://localhost:8888/), the default username is `admin` and default password is `password`. For more information controlling the Docker environment see the [@wordpress/env package readme](/packages/env/README.md).
  -->
-環境にはブラウザから [http://localhost:8888/](http://localhost:8888/) でアクセスできます。デフォルトのユーザー名は `admin`、パスワードは `password` です。Docker 環境の操作の詳細については [@wordpress/env パッケージドキュメント](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-env/)を参照してください。
+環境にはブラウザから [http://localhost:8888/](http://localhost:8888/) でアクセスできます。デフォルトのユーザー名は `admin`、パスワードは `password` です。Docker 環境の操作の詳細については [@wordpress/env パッケージドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)を参照してください。
 
 <!-- 
 When using the script while developing a single plugin, `wp-env start` can mount and activate the plugin automatically when run from the directory containing the plugin. Note: This also works for themes when run from the directory in which you are developing the theme.
@@ -264,7 +264,7 @@ If you run `wp-env start` from a directory that is not a plugin or theme, a gene
 <!-- 
 You can use the `.wp-env.json` configuration file to create an environment that works with multiple plugins and/or themes. See the [@wordpress/env package for additional details](/packages/env/README.md#wp-envjson).
  -->
-`.wp-env.json` 構成ファイルを使用すると複数のプラグインやテーマと動作する環境を作成できます。詳細については [@wordpress/env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-env/#wp-envjson)を参照してください。
+`.wp-env.json` 構成ファイルを使用すると複数のプラグインやテーマと動作する環境を作成できます。詳細については [@wordpress/env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/#wp-envjson)を参照してください。
 
 <!-- 
 #### Troubleshooting
@@ -417,4 +417,4 @@ Just as you confirmed the installation worked, you can confirm the uninstall wor
  -->
 インストール時と同じ手順で、アンインストールが正しく完了したことを確認できます。ターミナルを終了して再起動し、`npm -v`、`node -v`、`nvm -v` を実行してください。ターミナルにはエラー「command not found」(コマンドが見つかりません) が表示されます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/devenv/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/tutorials/devenv/README.md)

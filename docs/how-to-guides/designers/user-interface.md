@@ -149,4 +149,4 @@ The **Block Library** appears when someone inserts a block, whether via the tool
  -->
 ツールバーから、または、コンテンツ領域内のコンテキストとして、ブロックが挿入されると **ブロックライブラリ** が表示されます。内部でブロックは、折りたたみ可能なセクション内に配置されます。ブロックライブラリの検索バーは、ユーザーの入力に応じて自動でブロックのリストをフィルターします。ユーザーは **ブロックボタン** または **ブロック名** を選択することでブロックを選択できます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/designers/user-interface.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/designers/user-interface.md)

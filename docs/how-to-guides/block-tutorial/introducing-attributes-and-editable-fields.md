@@ -34,7 +34,7 @@ When registering a new block type, the `attributes` property describes the shape
 
 In the code snippet above, when loading the editor, the `content` value will be extracted from the HTML of the paragraph element in the saved post's markup.
  -->
-新しいブロックタイプを登録する際、`attributes` プロパティで `edit` 関数や `save` 関数で受け取る属性オブジェクトの形を記述します。それぞれの値はブロックのマークアップから希望の値を見つける [source 関数](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/) になります。
+新しいブロックタイプを登録する際、`attributes` プロパティで `edit` 関数や `save` 関数で受け取る属性オブジェクトの形を記述します。それぞれの値はブロックのマークアップから希望の値を見つける [source 関数](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) になります。
 
 上のコード例ではエディターのロード中に、保存された投稿のマークアップの中の paragraph 要素の HTML から `content` 値が取り出されます。
 
@@ -193,4 +193,4 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 ```
 {% end %}
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/block-tutorial/introducing-attributes-and-editable-fields.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields.md)

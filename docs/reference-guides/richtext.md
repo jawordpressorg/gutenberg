@@ -267,4 +267,4 @@ If you'd still like to use RichText, you can eliminate all of the formatting opt
 
 それでも RichText が使いたければ、`withoutInteractiveFormatting` プロパティを指定することですべてのフォーマットオプションを削除できます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/richtext.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/richtext.md)

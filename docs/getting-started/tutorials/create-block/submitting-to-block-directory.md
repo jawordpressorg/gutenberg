@@ -219,4 +219,4 @@ Go through [the block guidelines](https://github.com/WordPress/wporg-plugin-guid
  -->
 [ブロックガイドライン](https://github.com/WordPress/wporg-plugin-guidelines/blob/block-guidelines/blocks.md) をお読みください。ブロックの zip ファイルを作成し、[ブロックプラグインバリエーター](https://wordpress.org/plugins/developers/block-plugin-validator/) に移動し、プラグインをアップロードしてください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md)

@@ -77,9 +77,9 @@ Deprecations are defined on a block type as its `deprecated` property, an array 
 - `migrate` (Function, Optional): A function which, given the old attributes and inner blocks is expected to return either the new attributes or a tuple array of `[ attributes, innerBlocks ]` compatible with the block. As mentioned above, a deprecation's `migrate` will not be run if its `save` function does not return a valid block so you will need to make sure your migrations are available in all the deprecations where they are relevant.
 - `isEligible` (Function, Optional): A function which, given the attributes and inner blocks of the parsed block, returns true if the deprecation can handle the block migration even if the block is valid. This is particularly useful in cases where a block is technically valid even once deprecated, and requires updates to its attributes or inner blocks. This function is not called when the results of all previous deprecations' `save` functions were invalid.
  -->
-- `attributes` (Object): ブロックの非推奨形式の [attributes 定義](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-attributes/)。
-- `supports` (Object): ブロックの非推奨形式の [supports 定義](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-registration/)。
-- `save` (Function): ブロックの非推奨形式の [save の実装](https://ja.wordpress.org/team/handbook/block-editor/developers/block-api/block-edit-save/)。
+- `attributes` (Object): ブロックの非推奨形式の [attributes 定義](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)。
+- `supports` (Object): ブロックの非推奨形式の [supports 定義](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/)。
+- `save` (Function): ブロックの非推奨形式の [save の実装](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)。
 - `migrate` (Function、オプション): 古い属性と内部ブロックを指定すると、新しい属性、または、ブロックと互換性のある `[ attributes, innerBlocks ]` のタブル配列を返す関数。上で説明したように、非推奨プロセスの `save` 関数が正しいブロックを返さない場合、`migrate` は実行されません。したがって関連するすべての非推奨プロセスで移行が利用可能であることを確認する必要があります。
 - `isEligible` (Function、オプション): パースされたブロックの属性と内部ブロックを指定すると、ブロックが正しく (valid) ても、非推奨プロセスがブロック移行を処理できる場合に true を返す関数。この関数が特に有用なケースはブロックが非推奨となっても技術的には正しく、属性や内部ブロックの更新が必要な場合です。以前のすべての非推奨プロセスの `save` 関数が不正 (invalid) の場合にはこの関数は呼ばれません。
 
@@ -397,4 +397,4 @@ In the example above we updated the block to use an inner Paragraph block with a
  -->
 *ここまでブロックの非推奨プロセスの例を挙げましたが、実際の使用例については [コアブロックライブラリー](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src) 内の非推奨を調べてください。コアブロックはリリース全体で更新されていて、簡単なものや複雑なものなど、さまざまな非推奨プロセスがあります。*
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/block-api/block-deprecation.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-deprecation.md)

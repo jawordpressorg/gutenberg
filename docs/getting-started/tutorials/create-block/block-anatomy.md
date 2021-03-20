@@ -100,4 +100,4 @@ Next Section: [Block Attributes](/docs/getting-started/tutorials/create-block/at
 
 次のセクション: [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-attributes/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/block-anatomy.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/tutorials/create-block/block-anatomy.md)

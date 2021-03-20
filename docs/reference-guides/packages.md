@@ -67,10 +67,12 @@ import { PlainText }  from '@wordpress/block-editor';
 
 ## パッケージ一覧 (翻訳のあるもの)
 
-- [create-block](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-create-block/)
-- [env](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-env/)
-- [i18n](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-i18n/)
+- [create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/)
+- [env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)
+- [i18n](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-i18n/)
 
 完全なパッケージ一覧は原文およびその下のページを参照してください。
 
 https://developer.wordpress.org/block-editor/packages/
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/packages.md)

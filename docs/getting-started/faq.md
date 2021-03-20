@@ -662,7 +662,7 @@ See the [Meta Box Tutorial](https://developer.wordpress.org/block-editor/tutoria
  -->
 ## Gutenberg は JavaScript で構築されていますが、過去のメタボックス (PHP) はどのように作動しますか ?
 
-新しいブロックエディターでのメタボックスの使用についての詳細は [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/  https://developer.wordpress.org/block-editor/how-to-guides/metabox/) を参照してください。
+新しいブロックエディターでのメタボックスの使用についての詳細は [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) を参照してください。
 
 <!-- 
 ## How can plugins extend the Gutenberg UI?
@@ -671,7 +671,7 @@ The main extension point we want to emphasize is creating new blocks. Blocks are
  -->
 ## プラグインは Gutenberg UI をどうやって拡張できますか ?
 
-強調したいメインの拡張ポイントは新しいブロックの作成です。ブロックはプラグインを使用してブロックエディターに追加されます。入門としては [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/tutorials/handbook/create-block/) を参照してください。
+強調したいメインの拡張ポイントは新しいブロックの作成です。ブロックはプラグインを使用してブロックエディターに追加されます。入門としては [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/) を参照してください。
 
 <!-- 
 ## Are Custom Post Types still supported?
@@ -912,4 +912,4 @@ The Editor is where most of the action happens in WordPress’s daily use, and i
 - [英語版リポジトリ](https://github.com/WordPress/gutenberg)
 - [日本語版リポジトリ](https://github.com/jawordpressorg/gutenberg)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/faq.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/faq.md)

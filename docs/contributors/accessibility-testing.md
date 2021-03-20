@@ -64,4 +64,4 @@ Prefer to select a region or another larger area to begin with instead of indivi
 
 Once you find the region you want to interact with, you can use <kbd>Control+Option</kbd> plus right or left arrow keys to move to the next or previous elements on the page. Then, follow the instructions that VoiceOver will announce.
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/accessibility-testing.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/accessibility-testing.md)

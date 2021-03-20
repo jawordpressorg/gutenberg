@@ -75,4 +75,4 @@ See the [Contributing Guidelines](https://github.com/WordPress/gutenberg/blob/HE
 -->
 コントリビューションのルールについては [コントリビューションガイドライン](https://github.com/WordPress/gutenberg/blob/HEAD/CONTRIBUTING.md) を参照してください。このガイドラインには Code of conduct およびライセンス情報が含まれます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/readme.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/readme.md)

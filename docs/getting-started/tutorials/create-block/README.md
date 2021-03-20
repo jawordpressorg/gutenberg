@@ -31,7 +31,7 @@ The `@wordpress/create-block` package exists to create the necessary block scaff
 
 From your plugins directory, to create your block run:
  -->
-`@wordpress/create-block` パッケージはブロックを作成する際に必要なブロックのひな形を作成します。詳細については [create-block パッケージのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/packages/packages-create-block/)を参照してください。このクイックスタートは node や WordPress サイトを含む開発環境があることを仮定します。
+`@wordpress/create-block` パッケージはブロックを作成する際に必要なブロックのひな形を作成します。詳細については [create-block パッケージのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/)を参照してください。このクイックスタートは node や WordPress サイトを含む開発環境があることを仮定します。
 
 プラグイン用ディレクトリで次のコマンド実行してブロックを作成します。
 
@@ -76,4 +76,4 @@ The create a block tutorials breaks down to the following sections.
 6. [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/finishing/)
 7. [ブロックの共有](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/tutorials/create-block/README.md)

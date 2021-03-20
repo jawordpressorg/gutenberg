@@ -79,4 +79,4 @@ You can access all courses [here](https://learn.wordpress.org/).
 - [Intro to Gutenberg Block Development](https://learn.wordpress.org/workshop/intro-to-gutenberg-block-development/), Jonathan Bossenger (August 2020)
 - [Intro to Publishing with the Block Editor](https://learn.wordpress.org/workshop/intro-to-publishing-with-the-block-editor/), Erica Varlese (August 2020)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/outreach.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/outreach.md)

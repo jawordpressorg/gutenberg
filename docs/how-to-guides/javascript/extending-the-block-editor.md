@@ -46,7 +46,7 @@ See [Packages](/docs/reference-guides/packages.md) for list of available package
 -->
 `wp_enqueue_script()` 関数の最後の引数は依存の配列です。パッケージは `wp` 名前空間の下で利用可能になります。この例では `wp.blocks` を使用してブロックパッケージがエクスポートする項目、このケースでは `registerBlockStyle()` 関数にアクセスします。
 
-利用可能なパッケージとエクスポートするオブジェクトについては、[パッケージ](https://ja.wordpress.org/team/handbook/block-editor/packages/)を参照してください。
+利用可能なパッケージとエクスポートするオブジェクトについては、[パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/)を参照してください。
 
 <!--
 After you have updated both JavaScript and PHP files, go to the block editor and create a new post.
@@ -102,4 +102,4 @@ Now when you view in the editor and publish, you will see your Fancy Quote style
 
 ![Fancy Quote スタイル](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/fancy-quote-with-style.png)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/javascript/extending-the-block-editor.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/javascript/extending-the-block-editor.md)

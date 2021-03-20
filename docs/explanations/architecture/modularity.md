@@ -102,4 +102,4 @@ Structured this way, these packages can be used in a variety of combinations out
 
  - [Package Reference](/docs/reference-guides/packages.md)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/architecture/modularity.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/architecture/modularity.md)

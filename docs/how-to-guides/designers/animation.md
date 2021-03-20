@@ -93,4 +93,4 @@ The generic `Animate` component is used to animate different parts of the interf
  -->
 汎用的な `Animate` コンポーネントを使用すると、インターフェースの異なる部分をアニメーションできます。利用可能なアニメーションの詳細については [コンポーネントのドキュメント](https://developer.wordpress.org/block-editor/components/animate/) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/designers/animation.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/designers/animation.md)

@@ -954,6 +954,6 @@ You can tell `wp-env` to use a specific PHP version for compatibility and testin
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/packages/env/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/env/README.md)
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

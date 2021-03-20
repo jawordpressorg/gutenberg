@@ -8,7 +8,7 @@ The first step in the journey is to tell the editor that there is a new plugin t
 
 Add the following code to a JavaScript file called `plugin-sidebar.js` and save it within your plugin's directory:
  -->
-最初のステップではまずエディターに対して新しいプラグインが自身のサイドバーを持つことを伝えます。これには WordPress が提供する [registerPlugin](https://developer.wordpress.org/block-editor/packages/packages-plugins/)、[PluginSidebar](https://developer.wordpress.org/block-editor/packages/packages-edit-post/#pluginsidebar)、[createElement](https://developer.wordpress.org/block-editor/packages/packages-element/) ユーティリティを使用します。それぞれ `@wordpress/plugins`、 `@wordpress/edit-post`、`@wordpress/element` [パッケージ](https://ja.wordpress.org/team/handbook/block-editor/packages/)に含まれます
+最初のステップではまずエディターに対して新しいプラグインが自身のサイドバーを持つことを伝えます。これには WordPress が提供する [registerPlugin](https://developer.wordpress.org/block-editor/packages/packages-plugins/)、[PluginSidebar](https://developer.wordpress.org/block-editor/packages/packages-edit-post/#pluginsidebar)、[createElement](https://developer.wordpress.org/block-editor/packages/packages-element/) ユーティリティを使用します。それぞれ `@wordpress/plugins`、 `@wordpress/edit-post`、`@wordpress/element` [パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/)に含まれます
 
 次のコードを JavaScript ファイル `plugin-sidebar.js` に追加し、プラグインディレクトリに保存してください。
 
@@ -71,4 +71,4 @@ After installing and activating this plugin, there is a new icon resembling a ta
 
 ![サイドバーの起動](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
 
-[説明](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)
+[説明](https://github.com/WordPress/gutenberg/blob/HEAD/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)

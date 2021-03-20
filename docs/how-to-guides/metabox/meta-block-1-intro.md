@@ -16,9 +16,9 @@ Before starting this tutorial, you will need a plugin to hold your code. Please 
 
 このチュートリアルではユーザーに値の入力を求め投稿メタに保存するブロックを作成します。
 
-ブロックをインターフェースとみなす考え方の背景についてはハンドブックの [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/architecture/key-concepts/) を参照してください。
+ブロックをインターフェースとみなす考え方の背景についてはハンドブックの [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) を参照してください。
 
-チュートリアルを始める前にコードを囲むプラグインが必要です。プラグインの設定方法の詳細については[JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/)の最初の2つのステップを参照してください。
+チュートリアルを始める前にコードを囲むプラグインが必要です。プラグインの設定方法の詳細については[JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/)の最初の2つのステップを参照してください。
 
 <!-- 
 ## Table of Contents
@@ -31,9 +31,9 @@ Before starting this tutorial, you will need a plugin to hold your code. Please 
 3. [Use Post Meta Data](/docs/how-to-guides/metabox/meta-block-4-use-data.md)
 4. [Finishing Touches](/docs/how-to-guides/metabox/meta-block-5-finishing.md)
  -->
-1. [データフィールドの登録](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-2-register-meta/)
-2. [メタブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-3-add/)
-3. [投稿メタデータの使用 ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-4-use-data/)
-4. [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/tutorials/metabox/meta-block-5-finishing/)
+1. [データフィールドの登録](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-2-register-meta/)
+2. [メタブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-3-add/)
+3. [投稿メタデータの使用 ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-4-use-data/)
+4. [最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-5-finishing/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/how-to-guides/metabox/meta-block-1-intro.md) 
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/metabox/meta-block-1-intro.md) 

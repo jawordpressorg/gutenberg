@@ -11,12 +11,12 @@ ESNext はブラウザーのサポートする JavaScript よりも新しいバ�
 <!-- 
 See the [ESNext syntax documentation](/docs/how-to-guides/javascript/esnext-js.md) for explanation and examples about common code differences between standard JavaScript and ESNext.
  -->
-標準の JavaScript と ESNext との一般的なコードの違いに関する説明と例については [ESNext 構文ドキュメント](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) を参照してください。
+標準の JavaScript と ESNext との一般的なコードの違いに関する説明と例については [ESNext 構文ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/esnext-js/) を参照してください。
 
 <!-- 
 Let's set up your development environment to use these syntaxes, we'll cover development for your plugin to work with the Gutenberg project (ie: the block editor). If you want to develop on Gutenberg itself, see the [Getting Started](/docs/contributors/code/getting-started-with-code-contribution.md) documentation.
  -->
-これらの構文を使用する開発環境をセットアップしましょう。このドキュメントではブロックエディターを始めとする Gutenberg プロジェクトと一緒に動作するプラグインの開発方法について説明します。Gutenberg 自身の開発については [入門](https://developer.wordpress.org/block-editor/contributors/develop/getting-started/) を参照してください。
+これらの構文を使用する開発環境をセットアップしましょう。このドキュメントではブロックエディターを始めとする Gutenberg プロジェクトと一緒に動作するプラグインの開発方法について説明します。Gutenberg 自身の開発については [入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/getting-started-with-code-contribution/) を参照してください。
 
 <!-- 
 Browsers cannot interpret or run ESNext and JSX syntaxes, so we must use a transformation step to convert these syntaxes to code that browsers can understand.
@@ -79,7 +79,7 @@ If you are not using a package manager, see the [developer environment setup doc
 
 **Note:** The build tools and process occur on the command-line, so basic familiarity using a terminal application is required. Some text editors have a terminal built-in that is fine to use; Visual Studio Code and PhpStorm are two popular options.
  -->
-パッケージマネージャーをインストールしていない場合は、nvm を使用した Node のセットアップについて [開発環境セットアップドキュメント](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/devenv/readme.md) を参照するか、または公式 [Node.js ダウンロードページ](https://nodejs.org/en/download/) を参照してインストーラーとバイナリーを入手してください。
+パッケージマネージャーをインストールしていない場合は、nvm を使用した Node のセットアップについて [開発環境セットアップドキュメント](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/) を参照するか、または公式 [Node.js ダウンロードページ](https://nodejs.org/en/download/) を参照してインストーラーとバイナリーを入手してください。
 
 **注意:** ビルドツールやプロセスはコマンドライン上で動作するため、ターミナルアプリケーションの基本的な使い方は覚える必要があります。テキストエディターの中には便利なビルトインターミナル機能があるものもあります。Visual Studio Code と PhpStorm は人気のあるエディターです。
 
@@ -205,7 +205,7 @@ After the build finishes, you will see the built file created at `build/index.js
  -->
 これで次のコマンドでビルドを実行できます。 `npm run build`
 
-ビルドが終わるとファイル `build/index.js` が作成されます。このファイルは、通常の WordPress での JavaScript ファイルと同様に管理画面にエンキューできます。[このチュートリアルの JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/loading-javascript/)を参照してください。エディターにブロックがロードされます。
+ビルドが終わるとファイル `build/index.js` が作成されます。このファイルは、通常の WordPress での JavaScript ファイルと同様に管理画面にエンキューできます。[このチュートリアルの JavaScript のロード](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/)を参照してください。エディターにブロックがロードされます。
 
 <!-- 
 ## Development Mode
@@ -304,4 +304,4 @@ With a setup in place, the standard workflow is:
 3. 開発とテストの繰り返し
 4. リリースビルドの作成: `npm run build`
 
-[参照](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/js-build-setup.md)
+[参照](https://github.com/WordPress/gutenberg/blob/HEAD/docs/how-to-guides/javascript/js-build-setup.md)

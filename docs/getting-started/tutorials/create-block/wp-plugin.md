@@ -233,4 +233,4 @@ Next Section: [Anatomy of a Block](/docs/getting-started/tutorials/create-block/
 
 次のセクション: [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-anatomy/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/getting-started/tutorials/create-block/wp-plugin.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/tutorials/create-block/wp-plugin.md)

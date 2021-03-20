@@ -25,7 +25,7 @@ Producing an equivalent "Post draft updated" notice would require code like this
 
 クラシックエディターで投稿の下書きが更新された (Post draft updated) 際の通知の例です。
 
-![クラシックエディターの通知 - 投稿の下書きが更新された](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/notices/classic-editor-notice.png)
+![クラシックエディターの通知 - 投稿の下書きが更新された](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/notices/classic-editor-notice.png)
 
 同等の通知を実装したとすると、次のようなコードになります。
 
@@ -89,7 +89,7 @@ Producing an equivalent "Post published" notice would require code like this:
 
 ブロックエディターで投稿が公開された (Post published) 際の通知の例です。
 
-![ブロックエディターの通知 - 投稿が公開された](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/developers/tutorials/notices/block-editor-notice.png)
+![ブロックエディターの通知 - 投稿が公開された](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/notices/block-editor-notice.png)
 
 同等の通知を実装したとすると、次のようなコードになります。
 
@@ -153,7 +153,7 @@ JavaScript アプリケーションコード内から通知を生成する場合
 * `wp.data.dispatch('core/notices')` Notices パッケージによりブロックエディターのデータストアに登録された機能にアクセスします。
 * `createNotice()` Notices パッケージから提供される関数です。新しい通知を登録します。ブロックエディターはどの通知を出力するかを通知データストアから読み取ります。
 
-ブロックエディターにカスタム JavaScript をロードする方法が分からない場合は、[_JavaScript のロード_](https://ja.wordpress.org/team/handbook/block-editor/tutorials/javascript/loading-javascript/) チュートリアルを参照してください。
+ブロックエディターにカスタム JavaScript をロードする方法が分からない場合は、[_JavaScript のロード_](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/) チュートリアルを参照してください。
 
 <!-- 
 ## Learn More
@@ -168,4 +168,4 @@ For a full list of the available actions and selectors, refer to the [Notices Da
 
 利用可能なアクションとセレクタの完全なリストは [Notices Data Handbook](https://developer.wordpress.org/block-editor/data/data-core-notices/) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/tutorials/notices/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/notices/README.md)
