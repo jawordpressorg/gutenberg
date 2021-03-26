@@ -40,7 +40,7 @@ sprintf( _n( '%d hat', '%d hats', 4, 'text-domain' ), 4 );
 For a complete example, see the [Internationalization section of the Block Editor Handbook](https://developer.wordpress.org/block-editor/developers/internationalization/).
  -->
 
-完全なサンプルについては [ブロックエディターハンドブックの「国際化」](https://ja.wordpress.org/team/handbook/block-editor/developers/internationalization/) を参照してください。
+完全なサンプルについては [ブロックエディターハンドブックの「国際化」](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/internationalization/) を参照してください。
 
 ## API
 

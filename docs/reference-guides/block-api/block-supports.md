@@ -178,7 +178,7 @@ This value signals that a block supports some of the CSS style properties relate
 <!-- 
 The controls for background and text will source their colors from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), while the gradient's from `editor-gradient-presets` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets).
  -->
-背景とテキストのコントロールは色を `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-color-palettes) から、グラデーションは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-gradient-presets) から取得します。
+背景とテキストのコントロールは色を `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) から、グラデーションは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) から取得します。
 
 <!-- 
 Note that the `text` and `background` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
@@ -357,7 +357,7 @@ The values shown in this control are the ones declared by the theme via the `edi
 
 この値はブロックが font-size CSS スタイルプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
-このコントロール内に表示される値は `editor-font-sizes` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-font-sizes) でテーマが宣言したもの、または指定がなければデフォルトのものになります。
+このコントロール内に表示される値は `editor-font-sizes` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes) でテーマが宣言したもの、または指定がなければデフォルトのものになります。
 
 <!-- 
 ```js
@@ -479,7 +479,7 @@ supports: {
 - タイプ: `boolean`
 - デフォルト値: `false`
 
-この値はブロックが line-height CSS スタイルプロパティをサポートすることを通知します。サポートする場合、[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#supporting-custom-line-heights)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+この値はブロックが line-height CSS スタイルプロパティをサポートすることを通知します。サポートする場合、[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#supporting-custom-line-heights)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 ```js
 supports: {
@@ -580,7 +580,7 @@ supports: {
 - サブプロパティ:
   - `padding`: タイプ `boolean`, デフォルト値 `false`
 
-この値はブロックがスペースに関連する CSS スタイルプロパティをサポートすることを通知します。[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#cover-block-padding)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+この値はブロックがスペースに関連する CSS スタイルプロパティをサポートすることを通知します。[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#cover-block-padding)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 ```js
 supports: {

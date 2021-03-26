@@ -6,7 +6,7 @@
 <!-- 
 The purpose of [this tutorial](/docs/reference-guides/platform/custom-block-editor/tutorial.md) is to step through the fundamentals of creating a custom instance of a "block editor".
  -->
-[このチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/developers/platform/custom-block-editor/tutorial/)では「ブロックエディター」のカスタムインスタンスを作成する基礎を順に説明します。
+[このチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/tutorial/)では「ブロックエディター」のカスタムインスタンスを作成する基礎を順に説明します。
 
 <!-- 
 ![alt text](https://wordpress.org/gutenberg/files/2020/03/editor.png "The Standalone Editor instance populated with example Blocks within a custom WP Admin page.")
@@ -41,7 +41,7 @@ Note that it is not required to use ESNext to create blocks or extend the editor
 <!-- 
 * [Start custom block editor tutorial](/docs/reference-guides/platform/custom-block-editor/tutorial.md)
  -->
-* [カスタムブロックエディターチュートリアルを始める](https://ja.wordpress.org/team/handbook/block-editor/developers/platform/custom-block-editor/tutorial/)
+* [カスタムブロックエディターチュートリアルを始める](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/tutorial/)
 
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/platform/custom-block-editor/README.md)

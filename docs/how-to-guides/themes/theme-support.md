@@ -605,7 +605,7 @@ add_theme_support('experimental-link-color');
 <!-- 
 If a theme opts in, it should [define default link colors](https://developer.wordpress.org/block-editor/developers/themes/theme-json/#color-properties) in `experimental-theme.json` (or in its theme styles if no `experimental-theme.json` is present). For example:
  -->
-オプトインする場合、テーマは `experimental-theme.json` 内に、なければテーマスタイル内に [デフォルトのリンク色を定義する](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-json/#color-properties) 必要があります。
+オプトインする場合、テーマは `experimental-theme.json` 内に、なければテーマスタイル内に [デフォルトのリンク色を定義する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#color-properties) 必要があります。
 
 ```css
 {

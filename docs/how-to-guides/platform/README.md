@@ -102,6 +102,6 @@ You can learn more by reading the [tutorial "Building a custom block editor"](/d
  -->
 [`@wordpress/block-editor` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-block-editor/) を使用するとスタンドアロンのブロックエディターを作成し、使用できます。
 
-詳細については [チュートリアル - カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/developers/platform/custom-block-editor/) を参照してください。
+詳細については [チュートリアル - カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/tree/HEAD/docs/designers-developers/developers/platform)

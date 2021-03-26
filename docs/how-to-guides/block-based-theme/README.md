@@ -303,7 +303,7 @@ experimental-theme.json ファイルを使用することで以下が可能で�
 
 Create a file called `experimental-theme.json` and save it inside the main folder.
  -->
-[グローバルスタイルのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-json/)には利用可能なスタイルとスタイルの組み合わせの一覧があります。
+[グローバルスタイルのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)には利用可能なスタイルとスタイルの組み合わせの一覧があります。
 
 メインのフォルダー内に `experimental-theme.json` ファイルを作成してください。
 
@@ -423,7 +423,7 @@ CSS variables for font sizes are generated using the `editor-font-sizes` theme s
 https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes
  -->
 フォントサイズ用の CSS 変数は、`editor-font-sizes` テーマサポートを使用するか、グローバルプリセットに追加することで生成されます。
-https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-font-sizes
+https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes
 
 <!-- 
 If the theme does not add any custom font sizes, variables are created using the default sizes.

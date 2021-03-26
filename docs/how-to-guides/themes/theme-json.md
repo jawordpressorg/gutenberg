@@ -149,7 +149,7 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 <!-- 
 -   **Presets**: [color palettes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), [font sizes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes), or [gradients](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets) declared by the theme are converted to CSS Custom Properties and enqueued both the front-end and the editors.
  -->
-- **プリセット**: [カラーパレット](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-color-palettes)、[フォントサイズ](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-font-sizes)、[グラデーション](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-gradient-presets) をテーマで宣言すると、CSS カスタムプロパティに変換され、フロントエンドとエディターの両方にエンキューされます。
+- **プリセット**: [カラーパレット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes)、[フォントサイズ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes)、[グラデーション](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) をテーマで宣言すると、CSS カスタムプロパティに変換され、フロントエンドとエディターの両方にエンキューされます。
 
 **入力**
 {% codetabs %}
