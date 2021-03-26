@@ -8,6 +8,7 @@ import classnames from 'classnames';
  */
 import { AsyncModeProvider, useSelect } from '@wordpress/data';
 import { useRef, createContext, useState } from '@wordpress/element';
+import { useViewportMatch } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -19,6 +20,7 @@ import useInsertionPoint from './insertion-point';
 import BlockPopover from './block-popover';
 import { store as blockEditorStore } from '../../store';
 import { useScrollSelectionIntoView } from '../selection-scroll-into-view';
+import { usePreParsePatterns } from '../../utils/pre-parse-patterns';
 import { LayoutProvider, defaultLayout } from './layout';
 
 export const BlockNodes = createContext();
@@ -29,6 +31,28 @@ export default function BlockList( { className, __experimentalLayout } ) {
 	const [ blockNodes, setBlockNodes ] = useState( {} );
 	const insertionPoint = useInsertionPoint( ref );
 	useScrollSelectionIntoView( ref );
+	usePreParsePatterns();
+
+	const isLargeViewport = useViewportMatch( 'medium' );
+	const {
+		isTyping,
+		isOutlineMode,
+		isFocusMode,
+		isNavigationMode,
+	} = useSelect( ( select ) => {
+		const {
+			isTyping: _isTyping,
+			getSettings,
+			isNavigationMode: _isNavigationMode,
+		} = select( blockEditorStore );
+		const { outlineMode, focusMode } = getSettings();
+		return {
+			isTyping: _isTyping(),
+			isOutlineMode: outlineMode,
+			isFocusMode: focusMode,
+			isNavigationMode: _isNavigationMode(),
+		};
+	}, [] );
 
 	return (
 		<BlockNodes.Provider value={ blockNodes }>
@@ -38,7 +62,13 @@ export default function BlockList( { className, __experimentalLayout } ) {
 				ref={ ref }
 				className={ classnames(
 					'block-editor-block-list__layout is-root-container',
-					className
+					className,
+					{
+						'is-typing': isTyping,
+						'is-outline-mode': isOutlineMode,
+						'is-focus-mode': isFocusMode && isLargeViewport,
+						'is-navigate-mode': isNavigationMode,
+					}
 				) }
 			>
 				<SetBlockNodes.Provider value={ setBlockNodes }>

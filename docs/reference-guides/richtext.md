@@ -234,7 +234,7 @@ RichText コンポーネントを使用すると共通の問題がしばしば�
 
 In some cases the placeholder content on RichText can appear separate from the input where you would write your content. This is likely due to one of two reasons:
 
-1. You can't use an [inline HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements) as the RichText component. If your `tagName` property is using an inline element such as `span`, `a` or `code`, it needs to be changed to a [block-level element](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements).
+1. You can't have an element with the CSS `display` property set to `inline`. You will need to set it to `inline-block` or any other value.
 2. The `position` CSS property value for the element must be set to `relative` or `absolute` within the admin. If the styles within style.css or editor.css modify the `position` property value for this element, you may see issues with how it displays.
  -->
 ### プレースホルダーコンテンツが入力域と別の場所に表示される
@@ -242,6 +242,7 @@ In some cases the placeholder content on RichText can appear separate from the i
 RichText のプレースホルダーコンテンツが表示したい入力域とは別の場所に表示される場合があります。おそらく以下の2つのどちらかが原因でしょう。
 
 1. [インライン HTML 要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements) を RichText コンポーネントとして使用することはできません。`tagName` プロパティが `span`、`a`、`code` などのインライン要素を使用する場合は、[ブロックレベル要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements)に変更する必要があります。
+1. CSS `display` プロパティが `inline` に設定された要素を持つことはできません。`inline-block` は他の値を設定する必要があります。
 2. 要素の `position` CSS プロパティ値は編集画面内で `relative` または `absolute` に設定する必要があります。style.css または editor.css 内のスタイルがこの要素の `position` プロパティ値を変更すると、表示時に問題が発生する可能性があります。
 
 <!-- 
@@ -267,4 +268,4 @@ If you'd still like to use RichText, you can eliminate all of the formatting opt
 
 それでも RichText が使いたければ、`withoutInteractiveFormatting` プロパティを指定することですべてのフォーマットオプションを削除できます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/richtext.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/richtext.md)

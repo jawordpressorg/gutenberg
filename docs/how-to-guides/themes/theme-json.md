@@ -8,28 +8,28 @@
 >
 > Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. Please, be welcomed to share yours in the weekly #core-editor chats as well as async via the Github issues and Pull Requests.
  -->
-> **この機能は現在、実験中です**。「実験中」とは初期の実装であり、将来、大規模で後方互換性のない変更があることを意味します。
+> **この機能は現在、実験中です**。初期の実装であり、将来、大規模で後方互換性のない変更があるという意味で、「実験中」です。
 >
-> 現在何が行われているかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。わたしたちはフィードバックを歓迎します。意見のある方は週次の #core-editor 会議で共有するか、非同期が良ければ GitHub で issue やプルリクを作成してください。
+> 現在何を行っているのかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。フィードバックを歓迎します。意見のある方は週次の #core-editor 会議で共有するか、GitHub で issue やプルリクを作成してください。
 
 <!-- 
 This is documentation for the current direction and work in progress about how themes can hook into the various sub-systems that the Block Editor provides.
  -->
 この文書ではテーマがブロックエディターの提供するさまざまなサブシステムとどのように連携するのか、その方向性と現在進行中の作業について記述します。
 
-<!-- 
-- Rationale
-    - Settings can be controlled per block
-    - Some block styles are managed
-    - CSS Custom Properties: presets & custom
-- Specification
-    - Settings
-    - Styles
-    - Other theme metadata
-- FAQ
-  - The naming schema of CSS Custom Properties
-  - Why using -- as a separator?
-  - How settings under "custom" create new CSS Custom Properties
+<!--
+-   Rationale
+    -   Settings can be controlled per block
+    -   Some block styles are managed
+    -   CSS Custom Properties: presets & custom
+-   Specification
+    -   Settings
+    -   Styles
+    -   Other theme metadata
+-   FAQ
+    -   The naming schema of CSS Custom Properties
+    -   Why using -- as a separator?
+    -   How settings under "custom" create new CSS Custom Properties
 
  -->
 - 論拠
@@ -53,31 +53,31 @@ This is documentation for the current direction and work in progress about how t
 <!-- 
 The Block Editor API has evolved at different velocities and there are some growing pains, specially in areas that affect themes. Examples of this are: the ability to [control the editor programmatically](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/), or [a block style system](https://github.com/WordPress/gutenberg/issues/9534) that facilitates user, theme, and core style preferences.
  -->
-ブロックエディター API は異なる速度で進化しているため、特にテーマに影響を与える部分で苦痛に感じられる部分が大きくなっています。例として [エディターのプログラム的な制御](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/)や、ユーザー、テーマ、コアスタイルの好みを取りまとめる[ブロックスタイルシステム](https://github.com/WordPress/gutenberg/issues/9534) があります。
+ブロックエディター API は、さまざまな速度で進化しているため、苦痛に感じられる部分が大きくなってきました。これは特にテーマに影響する部分で顕著です。たとえば、[エディターのプログラム的な制御](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/)や、ユーザー、テーマ、コアスタイルの好みを取りまとめる[ブロックスタイルシステム](https://github.com/WordPress/gutenberg/issues/9534) などです。
 
 <!-- 
 This describes the current efforts to consolidate the various APIs related to styles into a single point – a `experimental-theme.json` file that should be located inside the root of the theme directory.
  -->
-この文書では現在行われている、スタイルに関連するさまざまな API を一箇所に集める努力、テーマディレクトリのルートに配置する `experimental-theme.json` ファイルについて説明します。
+この文書では、現在行われている、スタイルに関連するさまざまな API を一箇所に集める努力について、すなわち、テーマディレクトリのルートに配置する `experimental-theme.json` ファイルについて説明します。
 
 <!-- 
 ### Global settings for the block editor
  -->
-### Global settings for the block editor
+### ブロックエディターのグローバル設定
 
 <!-- 
 Instead of the proliferation of theme support flags or alternative methods, the `experimental-theme.json` files provides a canonical way to define the settings of the block editor. These settings includes things like:
  -->
-Instead of the proliferation of theme support flags or alternative methods, the `experimental-theme.json` files provides a canonical way to define the settings of the block editor. These settings includes things like:
+ブロックエディターの設定を定義する際、ネズミ算式に増えるテーマサポートフラグや代替方式の代わりに、`experimental-theme.json` ファイルでは理想の正しい方法が提供されます。例えば以下の設定が可能です。
 
 <!-- 
- - What customization options should be made available or hidden from the user.
- - What are the default colors, font sizes... available to the user.
- - Defines the default layout of the editor. (widths and available alignments).
+-   What customization options should be made available or hidden from the user.
+-   What are the default colors, font sizes... available to the user.
+-   Defines the default layout of the editor. (widths and available alignments).
  -->
- - What customization options should be made available or hidden from the user.
- - What are the default colors, font sizes... available to the user.
- - Defines the default layout of the editor. (widths and available alignments).
+-   ユーザーが利用可能なカスタマイズオプション。隠すカスタマイズオプション。
+-   ユーザーが利用可能なデフォルトの色、フォントサイズ、等々
+-   エディターのデフォルトレイアウトの定義。幅、利用可能な配置
 
 <!-- 
 ### Settings can be controlled per block
@@ -101,9 +101,9 @@ Examples of what can be achieved are:
 達成できることの例:
 
 <!-- 
-- Use a particular preset for a block (e.g.: table) but the common one for the rest of blocks.
-- Enable font size UI controls for all blocks but the headings block.
-- etc.
+-   Use a particular preset for a block (e.g.: table) but the common one for the rest of blocks.
+-   Enable font size UI controls for all blocks but the headings block.
+-   etc.
  -->
 - あるブロック(例: テーブル)に対して特定のプリセットを使用するが、残りのブロックでは一般的なものを使用する。
 - サポートするすべてのブロックでフォントサイズ UI コントロールを有効化するが、見出しブロックは除く。
@@ -125,8 +125,8 @@ Some of the advantages are:
 この方法の利点:
 
 <!-- 
-- Reduce the amount of CSS enqueued. 
-- Prevent specificity wars.
+-   Reduce the amount of CSS enqueued.
+-   Prevent specificity wars.
  -->
 - エンキューされる CSS の量を減らす。 
 - 「CSS 詳細度の戦い」を抑止する。
@@ -144,79 +144,86 @@ There are some areas of styling that would benefit from having shared values tha
 <!-- 
 To address this need, we've started to experiment with CSS Custom Properties, aka CSS Variables, in some places:
  -->
-To address this need, we've started to experiment with CSS Custom Properties, aka CSS Variables, in some places:
 このニーズを満たすためいくつかの場所で CSS カスタムプロパティの実験を始めました。なお、CSS カスタムプロパティは CSS 変数とも呼ばれます。
 
 <!-- 
-- **Presets**: [color palettes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), [font sizes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes), or [gradients](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets) declared by the theme are converted to CSS Custom Properties and enqueued both the front-end and the editors.
+-   **Presets**: [color palettes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), [font sizes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes), or [gradients](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets) declared by the theme are converted to CSS Custom Properties and enqueued both the front-end and the editors.
  -->
 - **プリセット**: [カラーパレット](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-color-palettes)、[フォントサイズ](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-font-sizes)、[グラデーション](https://ja.wordpress.org/team/handbook/block-editor/developers/themes/theme-support/#block-gradient-presets) をテーマで宣言すると、CSS カスタムプロパティに変換され、フロントエンドとエディターの両方にエンキューされます。
 
 **入力**
 {% codetabs %}
 {% Input %}
+
 ```json
 {
-  "settings": {
-    "defaults": {
-      "color": {
-        "palette": [
-          {
-            "name": "Black",
-            "slug": "black",
-            "color": "#000000"
-          },
-          {
-            "name": "White",
-            "slug": "white",
-            "color": "#ffffff"
-          }
-        ],
-      },
-    },
-  },
+	"settings": {
+		"defaults": {
+			"color": {
+				"palette": [
+					{
+						"name": "Black",
+						"slug": "black",
+						"color": "#000000"
+					},
+					{
+						"name": "White",
+						"slug": "white",
+						"color": "#ffffff"
+					}
+				]
+			}
+		}
+	}
 }
 ```
+
 **出力**
 {% Output %}
+
 ```css
 :root {
-  --wp--preset--color--black: #000000;
-  --wp--preset--color--white: #ffffff;
+	--wp--preset--color--black: #000000;
+	--wp--preset--color--white: #ffffff;
 }
 ```
+
 {% end %}
 
 <!-- 
-- **Custom properties**: there's also a mechanism to create your own CSS Custom Properties.
+-   **Custom properties**: there's also a mechanism to create your own CSS Custom Properties.
  -->
 - **カスタムプロパティ**: 自身の CSS カスタムプロパティを作成する仕組みもあります。
 
 **入力**
 {% codetabs %}
 {% Input %}
+
 ```json
 {
-  "settings": {
-    "defaults": {
-      "custom": {
-        "line-height": {
-          "body": 1.7,
-          "heading": 1.3
-        },
-      },
-    },
-  },
+	"settings": {
+		"defaults": {
+			"custom": {
+				"line-height": {
+					"body": 1.7,
+					"heading": 1.3
+				}
+			}
+		}
+	}
 }
 ```
+
 **出力**
 {% Output %}
+
 ```css
 :root {
-  --wp--custom--line-height--body: 1.7;
-  --wp--custom--line-height--heading: 1.3;
+	--wp--custom--line-height--body: 1.7;
+	--wp--custom--line-height--heading: 1.3;
 }
 ```
+
 {% end %}
 
 <!-- 
@@ -392,60 +399,73 @@ For example:
 **入力**
 {% codetabs %}
 {% Input %}
+
 ```json
 {
-  "settings": {
-    "defaults": {
-      "color": {
-        "palette": [
-          {
-            "slug": "strong-magenta",
-            "color": "#a156b4"
-          },
-          {
-            "slug": "very-dark-grey",
-            "color": "rgb(131, 12, 8)"
-          }
-        ],
-        "gradients": [
-          {
-            "slug": "blush-bordeaux",
-            "gradient": "linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%)"
-          },
-          {
-            "slug": "blush-light-purple",
-            "gradient": "linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%)"
-          },
-        ]
-      },
-      "typography": {
-        "fontSizes": [
-          {
-            "slug": "normal",
-            "size": 16
-          },
-          {
-            "slug": "big",
-            "size": 32
-          }
-        ]
-      }
-    }
-  }
+	"settings": {
+		"defaults": {
+			"color": {
+				"palette": [
+					{
+						"slug": "strong-magenta",
+						"color": "#a156b4"
+					},
+					{
+						"slug": "very-dark-grey",
+						"color": "rgb(131, 12, 8)"
+					}
+				],
+				"gradients": [
+					{
+						"slug": "blush-bordeaux",
+						"gradient": "linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%)"
+					},
+					{
+						"slug": "blush-light-purple",
+						"gradient": "linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%)"
+					}
+				]
+			},
+			"typography": {
+				"fontSizes": [
+					{
+						"slug": "normal",
+						"size": 16
+					},
+					{
+						"slug": "big",
+						"size": 32
+					}
+				]
+			}
+		}
+	}
 }
 ```
+
 **出力**
 {% Output %}
+
 ```css
 :root {
-  --wp--preset--color--strong-magenta: #a156b4;
-  --wp--preset--color--very-dark-gray: #444;
-  --wp--preset--font-size--big: 32;
-  --wp--preset--font-size--normal: 16;
-  --wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);
-  --wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);
+	--wp--preset--color--strong-magenta: #a156b4;
+	--wp--preset--color--very-dark-gray: #444;
+	--wp--preset--font-size--big: 32;
+	--wp--preset--font-size--normal: 16;
+	--wp--preset--gradient--blush-bordeaux: linear-gradient(
+		135deg,
+		rgb( 254, 205, 165 ) 0%,
+		rgb( 254, 45, 45 ) 50%,
+		rgb( 107, 0, 62 ) 100%
+	);
+	--wp--preset--gradient--blush-light-purple: linear-gradient(
+		135deg,
+		rgb( 255, 206, 236 ) 0%,
+		rgb( 152, 150, 240 ) 100%
+	);
 }
 ```
+
 {% end %}
 
 <!-- 
@@ -471,33 +491,38 @@ For example:
 **入力**
 {% codetabs %}
 {% Input %}
+
 ```json
 {
-  "settings": {
-    "defaults": {
-      "custom": {
-        "base-font": 16,
-        "line-height": {
-          "small": 1.2,
-          "medium": 1.4,
-          "large": 1.8
-        }
-      }
-    }
-  }
+	"settings": {
+		"defaults": {
+			"custom": {
+				"base-font": 16,
+				"line-height": {
+					"small": 1.2,
+					"medium": 1.4,
+					"large": 1.8
+				}
+			}
+		}
+	}
 }
 ```
+
 **出力**
 {% Output %}
+
 ```css
 :root {
-  --wp--custom--base-font: 16;
-  --wp--custom--line-height--small: 1.2;
-  --wp--custom--line-height--medium: 1.4;
-  --wp--custom--line-height--large: 1.8;
+	--wp--custom--base-font: 16;
+	--wp--custom--line-height--small: 1.2;
+	--wp--custom--line-height--medium: 1.4;
+	--wp--custom--line-height--large: 1.8;
 }
 ```
+
 {% end %}
+
 <!-- 
 Note that, the name of the variable is created by adding `--` in between each nesting level.
  -->
@@ -516,36 +541,36 @@ Each block declares which style properties it exposes via the [block supports me
 
 ```json
 {
-  "styles": {
-    "some/block/selector": {
-      "border": {
-        "radius": "value"
-      },
-      "color": {
-        "background": "value",
-        "gradient": "value",
-        "link": "value",
-        "text": "value"
-      },
-      "spacing": {
-        "padding": {
-          "top": "value",
-          "right": "value",
-          "bottom": "value",
-          "left": "value",
-        },
-      },
-      "typography": {
-        "fontFamily": "value",
-        "fontSize": "value",
-        "fontStyle": "value",
-        "fontWeight": "value",
-        "lineHeight": "value",
-        "textDecoration": "value",
-        "textTransform": "value"
-      }
-    }
-  }
+	"styles": {
+		"some/block/selector": {
+			"border": {
+				"radius": "value"
+			},
+			"color": {
+				"background": "value",
+				"gradient": "value",
+				"link": "value",
+				"text": "value"
+			},
+			"spacing": {
+				"padding": {
+					"top": "value",
+					"right": "value",
+					"bottom": "value",
+					"left": "value"
+				}
+			},
+			"typography": {
+				"fontFamily": "value",
+				"fontSize": "value",
+				"fontStyle": "value",
+				"fontWeight": "value",
+				"lineHeight": "value",
+				"textDecoration": "value",
+				"textTransform": "value"
+			}
+		}
+	}
 }
 ```
 <!-- 
@@ -555,48 +580,52 @@ For example:
 
 {% codetabs %}
 {% Input %}
+
 ```json
 {
-  "styles": {
-    "root": {
-      "color": {
-        "text": "var(--wp--preset--color--primary)"
-      },
-    },
-    "core/heading/h1": {
-      "color": {
-        "text": "var(--wp--preset--color--primary)"
-      },
-      "typography": {
-        "fontSize": "calc(1px * var(--wp--preset--font-size--huge))"
-      }
-    },
-    "core/heading/h4": {
-      "color": {
-        "text": "var(--wp--preset--color--secondary)"
-      },
-      "typography": {
-        "fontSize": "var(--wp--preset--font-size--normal)"
-      }
-    }
-  }
+	"styles": {
+		"root": {
+			"color": {
+				"text": "var(--wp--preset--color--primary)"
+			}
+		},
+		"core/heading/h1": {
+			"color": {
+				"text": "var(--wp--preset--color--primary)"
+			},
+			"typography": {
+				"fontSize": "calc(1px * var(--wp--preset--font-size--huge))"
+			}
+		},
+		"core/heading/h4": {
+			"color": {
+				"text": "var(--wp--preset--color--secondary)"
+			},
+			"typography": {
+				"fontSize": "var(--wp--preset--font-size--normal)"
+			}
+		}
+	}
 }
 ```
+
 **出力**
 {% Output %}
+
 ```css
 :root {
-  color: var(--wp--preset--color--primary);
+	color: var( --wp--preset--color--primary );
 }
 h1 {
-  color: var(--wp--preset--color--primary);
-  font-size: calc(1px * var(--wp--preset--font-size--huge));
+	color: var( --wp--preset--color--primary );
+	font-size: calc( 1px * var( --wp--preset--font-size--huge ) );
 }
 h4 {
-  color: var(--wp--preset--color--secondary);
-  font-size: calc(1px * var(--wp--preset--font-size--normal));
+	color: var( --wp--preset--color--secondary );
+	font-size: calc( 1px * var( --wp--preset--font-size--normal ) );
 }
 ```
+
 {% end %}
 
 <!-- 
@@ -615,32 +644,75 @@ There's a growing need to add more theme metadata to the theme.json. This sectio
 theme.json にはさらに多くのテーマのメタデータを追加するニーズがあります。このセクションでは、それら他のフィールドを挙げます。
 
 <!-- 
-**customTemplates**: within this field themes can list the custom templates present in the `block-templates` folder, the keys should match the custom template name. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
+**customTemplates**: within this field themes can list the custom templates present in the `block-templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
  -->
-**customTemplates**: このフィールド内に、テーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。キーはカスタムテンプレート名と同じ必要があります。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
+**customTemplates**: このフィールド内にテーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
 
 <!-- 
 ```json
 {
-  "customTemplates": {
-    "my-custom-template": {
-      "title": "The template title", /* Mandatory */
-      "postTypes": [ "page", "post", "my-cpt" ] /* Optional, will only apply to "page" by default. */
-    }
-  }
+	"customTemplates": [
+		{
+			"name": "my-custom-template" /* Mandatory */,
+			"title": "The template title" /* Mandatory, translatable */,
+			"postTypes": [
+				"page",
+				"post",
+				"my-cpt"
+			] /* Optional, will only apply to "page" by default. */
+		}
+	]
 }
 ```
  -->
 ```json
 {
-  "customTemplates": {
-    "my-custom-template": {
-      "title": "The template title", /* 必須 */
-      "postTypes": [ "page", "post", "my-cpt" ] /* オプション。デフォルトでは page のみに適用する。 */
-    }
-  }
+	"customTemplates": [
+		{
+			"name": "my-custom-template" /* 必須 */,
+			"title": "The template title" /* 必須、翻訳可能 */,
+			"postTypes": [
+				"page",
+				"post",
+				"my-cpt"
+			] /* オプション。デフォルトでは page のみに適用する。 */
+		}
+	]
 }
 ```
+<!-- 
+**templateParts**: within this field themes can list the template parts present in the `block-template-parts` folder. For example, for a template part named `my-template-part.html`, the `theme.json` can declare the area term for the template part entity which is responsible for rendering the corresponding block variation (Header block, Footer block, etc.) in the editor.  Defining this area term in the json will allow the setting to persist across all uses of that template part entity, as opposed to a block attribute that would only affect one block.  Defining area as a block attribute is not recommended as this is only used 'behind the scenes' to aid in bridging the gap between placeholder flows and entity creation.
+ -->
+**templateParts**: このフィールド内にテーマは、`block-template-parts` フォルダーにあるテンプレートパーツをリストできます。たとえば、テンプレートパーツ `my-template-part.html` に対して、`theme.json` は、テンプレートパーツのエンティティのための area タームを宣言できます。エンティティはエディター内で、対応するブロックバリエーション (ヘッダーブロック、フッターブロックなど) をレンダリングする責任があります。json 内で area タームを定義するとテンプレートパーツエンティティのすべての使用において設定を永続化できます。これは、ブロック属性が1つのブロックのみに影響するのとは対照的です。ブロック属性としての area 定義は推奨されません。これは「表舞台の裏側」で使用され、プレースホルダーフローとエンティティ作成のギャップの橋渡しを支援します。
+
+<!-- 
+Currently block variations exist for "header" and "footer" values of the area term, any other values and template parts not defined in the json will default to the general template part block.  Variations will be denoted by specific icons within the editor's interface, will default to the corresponding semantic HTML element for the wrapper (this can also be overridden by the `tagName` attribute set on the template part block), and will contextualize the template part allowing more custom flows in future editor improvements.
+ -->
+現在、ブロックバリエーションは、area タームの header と footer の値に対して存在し、その他の値や json で定義されていないテンプレートパーツは、一般のテンプレートパーツブロックがデフォルトとなります。バリエーションはエディターのインターフェース内で特定のアイコンで示され、デフォルトでラッパーの対応するセマンティック HTML 要素となり (これも、テンプレートパーツブロック上の `tagName` 属性セットで上書きできます)、将来のエディターの改良でカスタムフローの実現のためテンプレートパーツをコンテキスト化します。
+
+<!-- 
+```json
+{
+	"templateParts": [
+		{
+			"name": "my-template-part" /* Mandatory */,
+			"area": "header" /* Optional, will be set to 'uncategorized' by default and trigger no block variation */,
+		}
+	]
+}
+```
+ -->
+```json
+{
+	"templateParts": [
+		{
+			"name": "my-template-part" /* 必須 */,
+			"area": "header" /* オプション。デフォルトでは 'uncategorized' に設定され、ブロックバリエーションをトリガーしない */,
+		}
+	]
+}
+```
+
 <!-- 
 ## Frequently Asked Questions
  -->
@@ -660,33 +732,37 @@ One thing you may have noticed is the naming schema used for the CSS Custom Prop
 **Presets** such as `--wp--preset--color--black` can be divided into the following chunks:
  -->
 **プリセット** たとえば `--wp--preset--color--black` は次のように分割できます。
+
 <!-- 
-- `--wp`: prefix to namespace the CSS variable.
-- `preset `: indicates is a CSS variable that belongs to the presets.
-- `color`: indicates which preset category the variable belongs to. It can be `color`, `font-size`, `gradients`.
-- `black`: the `slug` of the particular preset value.
+-   `--wp`: prefix to namespace the CSS variable.
+-   `preset `: indicates is a CSS variable that belongs to the presets.
+-   `color`: indicates which preset category the variable belongs to. It can be `color`, `font-size`, `gradients`.
+-   `black`: the `slug` of the particular preset value.
  -->
 - `--wp`: CSS 変数の名前空間の接頭辞。
 - `preset`: プリセットに属する CSS 変数であることを示す。
 - `color`: 変数がどのプリセットカテゴリーに属するかを示す。`color`、`font-size`、`gradients` を指定可。
 - `black`: 特定のプリセット値の `slug` 。
+
 <!-- 
 **Custom** properties such as `--wp--custom--line-height--body`, which can be divided into the following chunks:
  -->
 **Custom** プロパティ `--wp--custom--line-height--body` は次のように分割できます。
+
 <!-- 
-- `--wp`: prefix to namespace the CSS variable.
-- `custom`: indicates is a "free-form" CSS variable created by the theme.
-- `line-height--body`: the result of converting the "custom" object keys into a string.
+-   `--wp`: prefix to namespace the CSS variable.
+-   `custom`: indicates is a "free-form" CSS variable created by the theme.
+-   `line-height--body`: the result of converting the "custom" object keys into a string.
  -->
 - `--wp`: CSS 変数の名前空間の接頭辞。
 - `custom`: テーマに作成された「自由形式」の CSS 変数であることを示す。
 - `line-height--body`: 「カスタム」オブジェクトキーを文字列に変換した結果。
+
 <!-- 
 The `--` as a separator has two functions:
 
-- Readibility, for human understanding. It can be thought as similar to the BEM naming schema, it separates "categories".
-- Parseability, for machine understanding. Using a defined structure allows machines to understand the meaning of the property `--wp--preset--color--black`: it's a value bounded to the color preset whose slug is "black", which then gives us room to do more things with them.
+-   Readibility, for human understanding. It can be thought as similar to the BEM naming schema, it separates "categories".
+-   Parseability, for machine understanding. Using a defined structure allows machines to understand the meaning of the property `--wp--preset--color--black`: it's a value bounded to the color preset whose slug is "black", which then gives us room to do more things with them.
  -->
 セパレータとしての `--` には2つの機能があります。
 
@@ -731,36 +807,40 @@ For example:
 **入力**
 {% codetabs %}
 {% Input %}
+
 ```json
 {
-  "settings": {
-    "defaults": {
-      "custom": {
-        "lineHeight": {
-          "body": 1.7
-        },
-        "font-primary": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif"
-      },
-    },
-  },
+	"settings": {
+		"defaults": {
+			"custom": {
+				"lineHeight": {
+					"body": 1.7
+				},
+				"font-primary": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif"
+			}
+		}
+	}
 }
 ```
+
 **出力**
 {% Output %}
+
 ```css
 :root {
-  --wp--custom--line-height--body: 1.7;
-  --wp--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+	--wp--custom--line-height--body: 1.7;
+	--wp--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif";
 }
 ```
+
 {% end %}
 
 <!-- 
 A few notes about this process:
 
-- `camelCased` keys are transformed into its `kebab-case` form, as to follow the CSS property naming schema. Example: `lineHeight` is transformed into `line-height`.
-- Keys at different depth levels are separated by `--`. That's why `line-height` and `body` are separated by `--`.
-- You shouldn't use `--` in the names of the keys within the `custom` object. Example, **don't do** this:
+-   `camelCased` keys are transformed into its `kebab-case` form, as to follow the CSS property naming schema. Example: `lineHeight` is transformed into `line-height`.
+-   Keys at different depth levels are separated by `--`. That's why `line-height` and `body` are separated by `--`.
+-   You shouldn't use `--` in the names of the keys within the `custom` object. Example, **don't do** this:
  -->
 このプロセスに対する注意:
 
@@ -770,15 +850,15 @@ A few notes about this process:
 
 ```json
 {
-  "settings": {
-    "defaults": {
-      "custom": {
-        "line--height": {
-          "body": 1.7
-        },
-      },
-    },
-  },
+	"settings": {
+		"defaults": {
+			"custom": {
+				"line--height": {
+					"body": 1.7
+				}
+			}
+		}
+	}
 }
 ```
 

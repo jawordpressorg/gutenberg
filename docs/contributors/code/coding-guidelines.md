@@ -1,6 +1,6 @@
 # Coding Guidelines
 
-This living document serves to prescribe coding guidelines specific to the Gutenberg project. Base coding guidelines follow the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/). The following sections outline additional patterns and conventions used in the Gutenberg project.
+This living document serves to prescribe coding guidelines specific to the Gutenberg project. Base coding guidelines follow the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/). The following sections outline additional patterns and conventions used in the Gutenberg project.
 
 ## CSS
 
@@ -476,4 +476,4 @@ The easiest way to use PHPCS is [local environment](/docs/contributors/code/gett
 
 If you prefer to install PHPCS locally, you should use `composer`. [Install `composer`](https://getcomposer.org/download/) on your computer, then run `composer install`. This will install `phpcs` and `WordPress-Coding-Standards` which you can then run via `composer lint`.
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/contributors/coding-guidelines.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/coding-guidelines.md)

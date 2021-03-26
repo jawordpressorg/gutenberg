@@ -310,7 +310,7 @@ The following configurable variables are used with the template files. Template 
 -   `title` (no default) - a display title for your block.
 -   `description` (no default) - a short description for your block.
 -   `dashicon` (no default) - an icon property thats makes it easier to identify a block, see https://developer.wordpress.org/resource/dashicons/.
--   `category` (default: `'widgets'`) - blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, and `embed`.
+-   `category` (default: `'widgets'`) - blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, `theme`, and `embed`.
 -   `attributes` (no default) - see https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/.
 -   `supports` (no default) - optional block extended support features, see https://developer.wordpress.org/block-editor/developers/block-api/block-supports/.
 -   `author` (default: `'The WordPress Contributors'`)
@@ -330,7 +330,7 @@ The following configurable variables are used with the template files. Template 
 -   `title` (デフォルトなし) - ブロックの表示タイトル
 -   `description` (デフォルトなし) - ブロックの短い説明
 -   `dashicon` (デフォルトなし) - ブロックの識別を助けるアイコンプロパティ。参照 https://developer.wordpress.org/resource/dashicons/
--   `category` (デフォルト: `'widgets'`) - ユーザーの参照と検索のため、ブロックはカテゴリーにグループ分けされる。コアで提供されるカテゴリーは、`text`、`media`、`design`、`widgets`、`embed`
+-   `category` (デフォルト: `'widgets'`) - ユーザーの参照と検索のため、ブロックはカテゴリーにグループ分けされる。コアで提供されるカテゴリーは、`text`、`media`、`design`、`widgets`、`theme`、`embed`
 -   `author` (デフォルト: `'The WordPress Contributors'`)
 -   `license` (デフォルト: `'GPL-2.0-or-later'`)
 -   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
@@ -351,6 +351,6 @@ Another way of making a developer’s life easier is to use [WP-CLI](https://wp-
 
 もう1つの開発者をラクにしてくれる方法が [WP-CLI](https://wp-cli.org) です。WP-CLI は WordPress に対する多くの操作をコマンドラインから実行できますが、その中の1つ `wp scaffold block` はこのツール、特に ES5 テンプレートの開始ラインとして使用されました。
 
-[原文](https://github.com/WordPress/gutenberg/tree/master/packages/create-block)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/create-block/README.md)
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

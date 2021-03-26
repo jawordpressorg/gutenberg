@@ -5,7 +5,7 @@
 <!-- 
 At its simplest, a block in the WordPress block editor is a JavaScript object with a specific set of properties.
 
-**Note:** Block development uses ESNext syntax, this refers to the latest JavaScript standard. If this is unfamiliar, I recommend reviewing the [ESNext syntax documentation](/docs/how-to-guides/javascript/esnext-js.md) to familiarize yourself with the newer syntax used in modern JavaScript development.
+**Note:** Block development uses ESNext syntax, this refers to the latest JavaScript standard. If this is unfamiliar, review the [ESNext syntax documentation](/docs/how-to-guides/javascript/esnext-js.md) to familiarize yourself with the newer syntax used in modern JavaScript development.
 
 Here is the complete code for registering a block:
  -->
@@ -54,13 +54,14 @@ The **title** is the title of the block shown in the Inserter.
 
 The **icon** is the icon shown in the Inserter. The icon property expects any Dashicon name as a string, see [list of available icons](https://developer.wordpress.org/resource/dashicons/). You can also provide an SVG object, but for now it's easiest to just pick a Dashicon name.
 
-The **category** specified is a string and must be one of: "common, formatting, layout, widgets, or embed". You can create your own custom category name, [see documentation for details](/docs/reference-guides/filters/block-filters.md#managing-block-categories). For this tutorial, I specified "widgets" as the category.
+The **category** specified is a string and must be one of: "common, formatting, layout, widgets, or embed". You can create your own custom category name, [see documentation for details](/docs/reference-guides/filters/block-filters.md#managing-block-categories).
  -->
 **title** はインサーターで表示されるブロックのタイトルです。
 
 **icon** はインサーターで表示されるアイコンです。icon プロパティは文字列として Dashicon の名前を取ります。[利用可能なアイコンリスト](https://developer.wordpress.org/resource/dashicons/) を参照してください。SVG オブジェクトを渡すこともできますが、ここでは簡単のために Dashicon 名を選択します。
 
-**category** には common、formatting、layout、widgets、embed のどれかの文字列を指定します。カスタムカテゴリーを作成することもできます。詳細については[ドキュメント](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#managing-block-categories)を参照してください。このチュートリアルではカテゴリーとして「widgets」を指定します。
+**category** には common、formatting、layout、widgets、embed のどれかの文字列を指定します。カスタムカテゴリーを作成することもできます。詳細については[ドキュメント](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#managing-block-categories)を参照してください。
+
 <!-- 
 The last two block object properties are **edit** and **save**, these are the key parts of a block. Both properties should be defined as functions.
 

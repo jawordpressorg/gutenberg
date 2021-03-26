@@ -26,7 +26,7 @@ git clone https://github.com/WordPress/gutenberg.git
 Note that the commands described here should be run in the top-level directory of the cloned project. Before running the demo app, you need to download and install the project dependencies. This is done via the following command:
 
 ```
-nvm install --latest-npm
+nvm install
 npm ci
 ```
 
@@ -130,4 +130,4 @@ For a more detailed outline of the UI tests and how to get started writing one, 
 
 You might want to use Visual Studio Code as an editor. The project includes the configuration needed to use the above codestyle and linting tools automatically.
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/getting-started-native-mobile.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/getting-started-native-mobile.md)

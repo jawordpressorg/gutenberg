@@ -205,6 +205,7 @@ The core provided categories are:
 -   media
 -   design
 -   widgets
+-   theme
 -   embed
 
 <!-- 
