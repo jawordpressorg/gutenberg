@@ -36,7 +36,7 @@ The following sections will walk you through the existing block APIs:
 - [ブロック変換](https://ja.wordpress.org/team/handbook/developers/block-api/block-transforms)
 - [テンプレート](https://ja.wordpress.org/team/handbook/developers/block-api/block-templates/)
 - [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/)
-- [ブロックバリエーション](/docs/reference-guides/block-api/block-variations.md)
+- [ブロックバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/)
 - [ブロックパターン](https://ja.wordpress.org/team/handbook/developers/block-api/block-patterns/)
 - [アノテーション](https://ja.wordpress.org/team/handbook/developers/block-api/block-annotations/)
 - [バージョン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/versions/)

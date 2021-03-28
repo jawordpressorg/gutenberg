@@ -772,7 +772,7 @@ The `--` as a separator has two functions:
 <!-- 
 ### Why using `--` as a separator?
  -->
-### なぜ、セパレータとして、「--」を使用するのか ?
+### なぜ、セパレータとして、`--` (2つのハイフン) を使用するのですか ?
 <!-- 
 We could have used any other separator, such as a single `-`.
 
@@ -780,7 +780,7 @@ However, that'd have been problematic, as it'd have been impossible to tell how 
 
 By reserving `--` as a category separator and let theme authors use `-` for word-boundaries, the naming is clearer: `--wp--custom--line-height--template-header`.
  -->
-他のセパレータ、たとえば `-` を使うこともできました。
+他のセパレータ、たとえば `-` (単一のハイフン)を使うこともできました。
 
 しかし、これは問題で、例えば `--wp-custom-line-height-template-header` をどのように変換してオブジェクトに戻すのか伝えることは不可能です。変数名に `-` を使わないよう作者に強制するしかありません。
 
@@ -789,7 +789,7 @@ By reserving `--` as a category separator and let theme authors use `-` for word
 <!-- 
 ### How settings under "custom" create new CSS Custom Properties
  -->
-### 「custom」下の設定は、どのように新しい CSS カスタムプロパティとなるのか ?
+### 「custom」下の設定は、どのように新しい CSS カスタムプロパティを作成しますか ?
 
 <!-- 
 The algorithm to create CSS Variables out of the settings under the "custom" key works this way:
