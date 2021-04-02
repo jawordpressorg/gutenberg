@@ -91,6 +91,26 @@ See the [Meta Block Tutorial](/docs/how-to-guides/metabox/meta-block-5-finishing
 テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-5-finishing/) を参照してください。
  
 <!-- 
+## Block Attributes
+ -->
+## ブロック属性
+
+<!-- 
+To find a comprehensive list of all block attributes that you can define in a template, consult the block's `block.json` file, and look at the `attributes` and `supports` values.
+ -->
+テンプレートで定義可能な、すべてのブロック属性の網羅的なリストが必要であれば、ブロックの `block.json` ファイルの `attributes` と `supports` の値を調べてください。
+
+<!-- 
+For example, [packages/block-library/src/heading/block.json](https://github.com/WordPress/gutenberg/blob/c62ccd80c7c6abb85740cf8745439029bf0f4d35/packages/block-library/src/heading/block.json#L5-L25) shows that the block has a `level` attribute, and supports the `anchor` parameter.
+ -->
+ 例えば、[packages/block-library/src/heading/block.json](https://github.com/WordPress/gutenberg/blob/c62ccd80c7c6abb85740cf8745439029bf0f4d35/packages/block-library/src/heading/block.json#L5-L25) では、ブロックに `level` 属性があり、`anchor` パラメータをサポートすることがわかります。
+
+<!-- 
+If you don't have the Gutenberg plugin installed, you can find `block.json` files inside `wp-includes/blocks/heading/block.json`.
+ -->
+Gutenberg プラグインをインストールしていなければ、`block.json` ファイルは `wp-includes/blocks/heading/block.json` で見つかります。
+
+<!-- 
 ## Custom Post types
 
 A custom post type can register its own template during registration:

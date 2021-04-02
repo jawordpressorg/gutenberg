@@ -62,9 +62,9 @@ var blockSettings = {
 ### ブロックラッパー props
 
 <!-- 
-The first thing to notice here is the use of the `useBlockProps` React hook on the block wrapper element. In the example above, the block wrapper renders a "div" in the editor, but in order for the Gutenberg editor to know how to manipulate the block, add any extra classNames that are needed for the block... the block wrapper element should apply props retrieved from the `useBlockProps` react hook call.
+The first thing to notice here is the use of the `useBlockProps` React hook on the block wrapper element. In the example above, the block wrapper renders a "div" in the editor, but in order for the Gutenberg editor to know how to manipulate the block, add any extra classNames that are needed for the block... the block wrapper element should apply props retrieved from the `useBlockProps` react hook call. The block wrapper element should be a native DOM element, like `<div>` and `<table>`, or a React component that forwards any additional props to native DOM elements. Using a `<Fragment>` or `<ServerSideRender>` component, for instance, would be invalid.
  -->
-ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に "div" をレンダーしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。
+ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に "div" をレンダーしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。ブロックラッパー要素はネイティブの DOM 要素、例えば `<div>` や `<table>` か、または、任意の追加 props をネイティブの DOM 要素にフォワードする React コンポーネントでなければなりません。たとえば、`<Fragment>` や `<ServerSideRender>` コンポーネントは使用できません。
 
 <!-- 
 If the element wrapper needs any extra custom HTML attributes, these need to be passed as an argument to the `useBlockProps` hook. For example to add a `my-random-classname` className to the wrapper, you can use the following code:

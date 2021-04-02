@@ -111,6 +111,24 @@ To encourage third-party developers to adopt the new APIs instead, we can use th
 サードパーティの開発者が古い API を使用した場合には、[**deprecated**](https://developer.wordpress.org/block-editor/packages/packages-deprecated/) ヘルパーを使用して非推奨を伝えるメッセージを表示し代替の API を提案できます。
 
 <!-- 
+Make it more clear when the feature was deprecated. Use the `since` and `plugin` options of the helper method.
+ -->
+機能が非推奨になった時期をよりクリアにできます。支援メソッドの `since` と `plugin` オプションを使用してください。
+
+<!-- 
+Example:
+ -->
+例:
+
+```js
+deprecated( 'wp.components.ClipboardButton', {
+	since: '10.3',
+	plugin: 'Gutenberg',
+	alternative: 'wp.compose.useCopyToClipboard',
+} );
+```
+
+<!-- 
 ## Dev Notes
  -->
 ## Dev Notes (開発ノート)
@@ -142,3 +160,5 @@ Dev Notes (開発ノート) とは WordPress のリリースに先立ち [make/c
 * WordPress 次期リリースの最初のベータが公開される際に、そのリリースのコードにマージされた PR のうちラベル **Needs Dev Note** の付いた PR のリストを作成する。
 * PR ごとに Dev Notes を書き、WordPress リリースリードと協調して Dev Notes を公開する。
 * PR の Dev Notes が公開されたら、ラベル **Needs Dev Note** を PR から削除する。
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/backward-compatibility/README.md)

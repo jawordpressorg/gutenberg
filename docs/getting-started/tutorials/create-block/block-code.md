@@ -15,45 +15,54 @@ Note: The color may not work with all browsers until they support the proper col
 ## Load Font File
  -->
 ## フォントファイルのロード
+
 <!-- 
-Download and extract the font from the Type with Pride site, and copy it to your plugin directory naming it `gilbert-color.otf`. To load the font file, we need to add CSS using standard WordPress enqueue, [see Including CSS & JavaScript documentation](https://developer.wordpress.org/themes/basics/including-css-javascript/).
+Download and extract the font from the Type with Pride site, and copy it in the `src` directory of your plugin naming it `gilbert-color.otf`. To load the font file, we need to add CSS using standard WordPress enqueue, [see Including CSS & JavaScript documentation](https://developer.wordpress.org/themes/basics/including-css-javascript/).
 
-In the `gutenpride.php` file, the enqueue process is already setup from the generated script, so `editor.css` and `style.css` files are loaded using:
+In the `gutenpride.php` file, the enqueue process is already setup from the generated script, so `index.css` and `style-index.css` files are loaded using:
  -->
-Type with Pride のサイトからフォントをダウンロードし解凍し、プラグインのディレクトリに `gilbert-color.otf` という名前でコピーしてください。フォントファイルをロードするには WordPress 標準のエンキューを使用してフォントファイルをロードする必要があります。[Including CSS & JavaScript ドキュメント](https://developer.wordpress.org/themes/basics/including-css-javascript/) を参照してください。
+Type with Pride のサイトからフォントをダウンロードし解凍し、プラグインの `src` ディレクトリに `gilbert-color.otf` という名前でコピーしてください。フォントファイルをロードするには WordPress 標準のエンキューを使用してフォントファイルをロードする必要があります。[Including CSS & JavaScript ドキュメント](https://developer.wordpress.org/themes/basics/including-css-javascript/) を参照してください。
 
-`gutenpride.php` ファイルにはすでに生成されたスクリプトからのエンキュープロセスが設定されています。以下のコードで `editor.css` ファイルと `style.css` ファイルがロードされます。
+`gutenpride.php` ファイルにはすでに生成されたスクリプトからのエンキュープロセスが設定されています。以下のコードで `index.css` ファイルと `style-index.css` ファイルがロードされます。
+
 
 ```php
-register_block_type( 'create-block/gutenpride', array(
-	'apiVersion' => 2,
-    'editor_script' => 'create-block-gutenpride-block-editor',
-    'editor_style'  => 'create-block-gutenpride-block-editor',
-    'style'         => 'create-block-gutenpride-block',
-) );
+function create_block_gutenpride_block_init() {
+	register_block_type_from_metadata( __DIR__ );
+}
+add_action( 'init', 'create_block_gutenpride_block_init' );
 ```
+
 <!-- 
-The `editor_style` and `style` parameters refer to the files that match the handles in the `wp_register_style` functions.
-
-Note: the `editor_style` loads only within the editor, and after the `style`. The `style` CSS loads in both the editor and front-end — published post view.
+This function handles that all style en js files in the `build` folder get handles that are passed on to the `wp_register_style` function.
  -->
-`editor_style` と `style` パラメータは `wp_register_style` 関数のハンドルにマッチするファイルを参照します。
+This function handles that all style en js files in the `build` folder get handles that are passed on to the `wp_register_style` function.
 
-注意: `editor_style` は、`style` のあとに、エディター内でのみロードされます。`style` CSS はエディターとフロントエンドの両方でロードされます。ここでフロントエンドとは公開された投稿の表示画面を指します。
+<!-- 
+The `build/index.css` is compiled from `src/editor.scss` and loads only within the editor, and after the `style-index.css`.
+ -->
+`build/index.css` は、`src/editor.scss` からコンパイルされ、エディター内でのみ `style-index.css` 後にロードします。
+
+<!-- 
+The `build/style-index.css` is compiled from `src/style.scss` and loads in both the editor and front-end — published post view.
+ -->
+`build/style-index.css` は `src/style.scss` からコンパイルされ、エディターと、公開された投稿のビューであるフロントエンドの両方にロードします。
+
 <!-- 
 ## Add CSS Style for Block
  -->
 ## ブロックへの CSS スタイルの追加
+
 <!-- 
-We only need to add the style to `style.css` since it will show while editing and viewing the post. Edit the style.css to add the following.
+We only need to add the style to `build/style-index.css` since it will show while editing and viewing the post. Edit the `src/style.scss` to add the following.
 
 Note: the block classname is prefixed with `wp-block`. The `create-block/gutenpride` is converted to the classname `.wp-block-create-block-gutenpride`.
  -->
-`style.css` は編集中にも、投稿の表示中にも使用されるため、こちらにのみスタイルを追加します。style.css を編集し以下のコードを追加してください。
+`build/style-index.css` にのみスタイルを追加すれば十分です。なぜなら、編集中にも、投稿の表示中にも表示するためです。`src/style.scss` を編集し、以下のコードを追加してください。
 
 注意: ブロックのクラス名には接頭辞 `wp-block` が付きます。`create-block/gutenpride` はクラス名 `.wp-block-create-block-gutenpride` に変換されます。
 
-```css
+```scss
 @font-face {
 	font-family: Gilbert;
 	src: url( gilbert-color.otf );
@@ -65,41 +74,12 @@ Note: the block classname is prefixed with `wp-block`. The `create-block/gutenpr
 	font-size: 64px;
 }
 ```
+
 <!-- 
-After updating, reload the post and refresh the browser. If you are using a browser that supports color fonts (Firefox) then you will see it styled.
+After updating, rebuild the block using `npm run build` then reload the post and refresh the browser. If you are using a browser that supports color fonts (Firefox) then you will see it styled.
  -->
-更新後、投稿をリロードしブラウザーを更新してください。Firefox などのカラーフォントをサポートするブラウザーを使用するとスタイルが当たったことが分かります。
-<!-- 
-## Use Sass for Style (optional)
- -->
-## Sass を使用したスタイル (オプション)
-<!-- 
-The wp-scripts package provides support for using the Sass/Scss languages, to generate CSS, added in @wordpress/scripts v9.1.0. See the [Sass language site](https://sass-lang.com/) to learn more about Sass.
+更新後、`npm run build` を使用してブロックをリビルドし、投稿をリロードし、ブラウザーを更新してください。Firefox などのカラーフォントをサポートするブラウザーを使用するとスタイルが当たったことが分かります。
 
-To use Sass, you need to import a `editor.scss` or `style.scss` in the `index.js` JavaScript file and it will build and output the generated file in the build directory. Note: You need to update the enqueing functions in PHP to load from the correct location.
-
-Add the following imports to **index.js**:
- -->
-wp-scripts パッケージは CSS 生成のために Sass/Scss 言語サポートを提供します。@wordpress/scripts v9.1.0 で追加されました。Sass についての詳細は [Sass language サイト](https://sass-lang.com/) を参照してください。
-
-Sass を使用するには `index.js` JavaScript ファイルで `editor.scss` または `style.scss` をインポートする必要があります。ビルドで生成されたファイルは build ディレクトリーに出力されます。注意: PHP のエンキュー関数を更新して正しい場所からロードする必要があります。
-
-**index.js** に次のインポートを追加してください。
-
-```js
-import '../editor.scss';
-
-import Edit from './edit';
-import save from './save';
-```
-<!-- 
-Update **gutenpride.php** to enqueue from generated file location:
- -->
-**gutenpride.php** を更新して生成したファイルの場所からエンキューしてください。
-
-```php
-$editor_css = "build/index.css";
-```
 <!-- 
 Next Section: [Authoring Experience](/docs/getting-started/tutorials/create-block/author-experience.md)
  -->

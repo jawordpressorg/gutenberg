@@ -61,26 +61,17 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 			alignment: 'right',
 		},
 	},
-	edit: ( props ) => {
-		const {
-			attributes: {
-				content,
-				alignment,
-			},
-		} = props;
-
-		const blockProps = useBlockProps();
-
+	edit: ( {attributes, setAttributes} ) => {
 		const onChangeContent = ( newContent ) => {
-			props.setAttributes( { content: newContent } );
+			setAttributes( { content: newContent } );
 		};
 
 		const onChangeAlignment = ( newAlignment ) => {
-			props.setAttributes( { alignment: newAlignment === undefined ? 'none' : newAlignment } );
+			setAttributes( { alignment: newAlignment === undefined ? 'none' : newAlignment } );
 		};
 
 		return (
-			<div {...blockProps}>
+			<div {...useBlockProps()}>
 				{
 					<BlockControls>
 						<AlignmentToolbar
@@ -105,9 +96,9 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 		return (
 			<div {...blockProps}>
 				<RichText.Content
-					className={ `gutenberg-examples-align-${ props.attributes.alignment }` }
+					className={ `gutenberg-examples-align-${ attributes.alignment }` }
 					tagName="p"
-					value={ props.attributes.content }
+					value={ attributes.content }
 				/>
 			</div>
 		);
@@ -151,7 +142,6 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 		edit: function( props ) {
 			var content = props.attributes.content;
 			var alignment = props.attributes.alignment;
-			var blockProps = useBlockProps();
 
 			function onChangeContent( newContent ) {
 				props.setAttributes( { content: newContent } );
@@ -162,8 +152,8 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 			}
 
 			return el( 
-				'div', 
-				blockProps, 
+				'div',
+				useBlockProps(), 
 				el(
 					BlockControls,
 					{ key: 'controls' },
@@ -216,8 +206,11 @@ Note that `BlockControls` is only visible when the block is currently selected a
 注意: `BlockControls` はブロックがエディターのビジュアルモードで選択されている場合のみ表示されます。HTML 編集モードでは表示されません。
 
 <!-- 
-## Inspector
+## Settings Sidebar
+ -->
+## 設定サイドバー
 
+<!-- 
 ![Screenshot of the inspector panel focused on the settings for a Paragraph block](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/inspector.png)
 
 The Settings Sidebar is used to display less-often-used settings or settings that require more screen space. The Settings Sidebar should be used for **block-level settings only**.
@@ -228,8 +221,6 @@ The Block Tab is shown in place of the Document Tab when a block is selected.
 
 Similar to rendering a toolbar, if you include an `InspectorControls` element in the return value of your block type's `edit` function, those controls will be shown in the Settings Sidebar region.
  -->
-## インスペクター
-
 ![Paragraph ブロックの設定でフォーカスのあるインスペクターパネル](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/inspector.png)
 
 設定サイドバーはあまり使わない設定や大きなスペースが必要な設定で使用します。設定サイドバーは**ブロックレベル設定でのみ**使用してください。
@@ -241,9 +232,96 @@ Similar to rendering a toolbar, if you include an `InspectorControls` element in
 ツールバーのレンダーと同様、ブロックタイプの `edit` 関数の戻り値に `InspectorControls` 要素を追加すると、それらのコントロールは設定サイドバー領域に表示されます。
 
 <!-- 
+The following example adds 2 color palettes to the sidebar, one for the text color and one for the background color.
+ -->
+次の例では、サイドバーに2色のパレットを追加します。1つはテキスト色、もう1つは背景色です。
+
+```jsx
+import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { TextControl } from '@wordpress/components';
+
+import {
+	useBlockProps,
+	ColorPalette,
+	InspectorControls,
+} from '@wordpress/block-editor';
+
+registerBlockType( 'create-block/gutenpride', {
+	apiVersion: 2,
+	attributes: {
+		message: {
+			type: 'string',
+			source: 'text',
+			selector: 'div',
+			default: '', // empty default
+		},
+		bg_color: { type: 'string', default: '#000000' },
+		text_color: { type: 'string', default: '#ffffff' },
+	},
+	edit: ( { attributes, setAttributes } ) => {
+		const onChangeBGColor = ( hexColor ) => {
+			setAttributes( { bg_color: hexColor } );
+		};
+
+		const onChangeTextColor = ( hexColor ) => {
+			setAttributes( { text_color: hexColor } );
+		};
+
+		return (
+			<div { ...useBlockProps() }>
+				<InspectorControls key="settting">
+					<div id="gutenpride-controlls">
+						<fieldset>
+							<legend className="blocks-base-control__label">
+								{ __( 'Background color', 'gutenpride' ) }
+							</legend>
+							<ColorPalette // Element Tag for Gutenberg standard colour selector
+								onChange={ onChangeBGColor } // onChange event callback
+							/>
+						</fieldset>
+						<fieldset>
+							<legend className="blocks-base-control__label">
+								{ __( 'Text color', 'gutenpride' ) }
+							</legend>
+							<ColorPalette // Element Tag for Gutenberg standard colour selector
+								onChange={ onChangeTextColor } // onChange event callback
+							/>
+						</fieldset>
+					</div>
+				</InspectorControls>
+				<TextControl
+					value={ attributes.message }
+					onChange={ ( val ) => setAttributes( { message: val } ) }
+					style={ {
+						backgroundColor: attributes.bg_color,
+						color: attributes.text_color,
+					} }
+				/>
+			</div>
+		);
+	},
+	save: ( { attributes } ) => {
+		return (
+			<div
+				{ ...useBlockProps.save() }
+				style={ {
+					backgroundColor: attributes.bg_color,
+					color: attributes.text_color,
+				} }
+			>
+				{ attributes.message }
+			</div>
+		);
+	},
+} );
+
+```
+
+<!-- 
 Block controls rendered in both the toolbar and sidebar will also be used when
 multiple blocks of the same type are selected.
  -->
 ツールバーとサイドバー内の両方でレンダーされるブロックコントロールは、同じタイプの複数のブロックが選択された際にも使用されます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/block-tutorial/block-controls-toolbar-and-sidebar.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar.md)

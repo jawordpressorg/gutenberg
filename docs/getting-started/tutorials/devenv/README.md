@@ -85,11 +85,11 @@ You will have a full WordPress site installed, navigate to: http://localhost:888
 <!-- 
 **3. Code Editor**
 
-You can use any text editor to write code. For example, Visual Studio Code](https://code.visualstudio.com/) is a popular open-source editor. You can follow instructions on their site to install it for your OS.
+You can use any text editor to write code. For example, [Visual Studio Code](https://code.visualstudio.com/) is a popular open-source editor. You can follow instructions on their site to install it for your OS.
  -->
 **3. コードエディター**
 
-コードはどのテキストエディターでも書くことができます。たとえば Visual Studio Code](https://code.visualstudio.com/) は人気のオープンソースエディターです。インストールする場合はサイト上の OS ごとの説明に従ってください。
+コードはどのテキストエディターでも書くことができます。たとえば [Visual Studio Code](https://code.visualstudio.com/) は人気のオープンソースエディターです。インストールする場合はサイト上の OS ごとの説明に従ってください。
 
 <!-- 
 ## Node Development Tools

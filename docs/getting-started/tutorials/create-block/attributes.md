@@ -12,22 +12,29 @@ For this block tutorial, we want to allow the user to type in a message that we 
 このチュートリアルのブロックではユーザーがメッセージを入力でき、公開された投稿ではスタイリングされて表示されます。したがってユーザーのメッセージを保持する **message** 属性を追加する必要があります。以下のコードは属性タイプを string、ソースをセレクター内のテキスト、セレクターを `div` タグとした **message** 属性を定義します。
 
 ```js
-attributes: {
-    message: {
-        type: 'string',
-        source: 'text',
-        selector: 'div',
-    },
-},
+registerBlockType( 'create-block/gutenpride', {
+	apiVersion: 2,
+	attributes: {
+		message: {
+			type: 'string',
+			source: 'text',
+			selector: 'div',
+			default: '', // empty default
+		},
+	},
+	// other settings, like the save and edit functions.
+} );
 ```
 <!-- 
 Add this to the `index.js` file within the `registerBlockType` function. The `attributes` are at the same level as the title and description fields.
+
+Add this to the `index.js` file within the `registerBlockType` function. The `attributes` are at the same level as the _edit_ and _save_ fields.
 
 When the block loads it will look at the saved content for the block, look for the div tag, take the text portion, and store the content in an `attributes.message` variable.
 
 Note: The text portion is equivalent to `innerText` attribute of a DOM element. For more details and other examples see the [Block Attributes documentation](/docs/reference-guides/block-api/block-attributes.md).
  -->
-このコードを `index.js` ファイルの `registerBlockType` 関数内に追加してください。`attributes` は title や description フィールドと同じレベルです。
+このコードを `index.js` ファイルの `registerBlockType` 関数内に追加してください。`attributes` は _edit_ や _save_ フィールドと同じレベルです。
 
 ブロックがロードされると、ブロックのために保存されたコンテンツを探し、div タグを探し、text 部分を取り出し、コンテンツを `attributes.message` 変数に保存します。
 
@@ -37,12 +44,13 @@ Note: The text portion is equivalent to `innerText` attribute of a DOM element. 
 ## Edit and Save
  -->
 ## Edit と Save
+
 <!-- 
-The **attributes** are passed to the `edit` and `save` functions, along with a **setAttributes** function to set the values. Additional parameters are also passed in to this functions, see [the edit/save documentation](/docs/reference-guides/block-api/block-edit-save.md) for more details.
+The **attributes** are passed to the `edit` and `save` functions, along with a **setAttributes** function to set the values. Additional parameters are also passed in to these functions, see [the edit/save documentation](/docs/reference-guides/block-api/block-edit-save.md) for more details.
 
 The `attributes` is a JavaScript object containing the values of each attribute, or default values if defined. The `setAttributes` is a function to update an attribute.
  -->
-`edit` 関数と `save` 関数には、値を設定する **setAttributes** 関数と共に **attributes** が渡されます。この関数には追加のパラメータも渡すことができます。詳細については [Edit と Save ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/) を参照してください。
+`edit` 関数と `save` 関数には、値を設定する **setAttributes** 関数と共に **attributes** が渡されます。これらの関数には追加のパラメータも渡すことができます。詳細については [Edit と Save ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/) を参照してください。
 
 `attributes` は各属性の値、または存在するならデフォルト値を含む JavaScript オブジェクトです。`setAttributes` は属性を更新する関数です。
 
@@ -77,18 +85,20 @@ edit.js ファイルと save.js ファイルを以下のように更新し、既
 **edit.js** ファイル:
 
 ```js
-import { TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useBlockProps } from '@wordpress/block-editor';
+import { TextControl } from '@wordpress/components';
+import './editor.scss';
 
-export default function Edit( { attributes, className, setAttributes } ) {
+export default function Edit( { attributes, setAttributes } ) {
 	return (
-		<div className={ className }>
-			<TextControl
-				label={ __( 'Message', 'gutenpride' ) }
-				value={ attributes.message }
-				onChange={ ( val ) => setAttributes( { message: val } ) }
-			/>
-		</div>
+			<div { ...useBlockProps() }>
+				<TextControl
+						label={ __( 'Message', 'gutenpride' ) }
+						value={ attributes.message }
+						onChange={ ( val ) => setAttributes( { message: val } ) }
+				/>
+			</div>
 	);
 }
 ```
@@ -98,8 +108,11 @@ export default function Edit( { attributes, className, setAttributes } ) {
 **save.js** ファイル:
 
 ```jsx
-export default function Save( { attributes, className } ) {
-	return <div className={ className }>{ attributes.message }</div>;
+import { __ } from '@wordpress/i18n';
+import { useBlockProps } from '@wordpress/block-editor';
+
+export default function save( { attributes } ) {
+	return <div { ...useBlockProps.save() }>{ attributes.message }</div>;
 }
 ```
 <!-- 

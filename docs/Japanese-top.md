@@ -7,6 +7,14 @@
 ## 変更履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/4/3
+- 「[ブロックの作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)」 - コード部分の更新。block.json の使用など ([#30353](https://github.com/WordPress/gutenberg/pull/30353))
+- 「[後方互換性](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/backward-compatibility/)」 - since と plugin 追加
+- 「[ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/)」 - 設定サイドバーのサンプル追加
+- 「[edit と save](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)」 - ブロックラッパー props に注記を追加 ([#30315](https://github.com/WordPress/gutenberg/pull/30315))
+- 「[テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/)」 - 「ブロック属性」追加
+- 「[RickText](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/richtext/)」 - 「エディター内で特定のフォーマットを無効化する」追加
+
 2021/3/28
 - 「[ブロックバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/)」 - 翻訳
 

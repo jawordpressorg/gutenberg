@@ -377,9 +377,9 @@ The most basic unit of the editor. The Paragraph block is a simple input field.
 ### プレースホルダー:
 
 <!-- 
-- Simple placeholder text that reads “Start writing or type / to choose a block”. The placeholder disappears when the block is selected.
+- Simple placeholder text that reads “Type / to choose a block”. The placeholder disappears when the block is selected.
  -->
-- シンプルなプレースホルダーテキスト「文章を入力、または / でブロックを選択」が表示されます。ブロックを選択するとプレースホルダーは消えます。
+- シンプルなプレースホルダーテキスト「「/」を入力して、ブロックを選択」が表示されます。ブロックを選択するとプレースホルダーは消えます。
 
 <!-- 
 ### Selected state:
@@ -500,4 +500,4 @@ _Latest Posts is fully functional as soon as it’s inserted because it comes wi
  -->
 _最新の投稿は挿入すると完全に機能します。これはこの動作がデフォルトの正しい動作と考えられるためです。_
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/designers/block-design.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/designers/block-design.md)

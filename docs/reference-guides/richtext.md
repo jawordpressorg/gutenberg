@@ -240,8 +240,9 @@ In some cases the placeholder content on RichText can appear separate from the i
 ### プレースホルダーコンテンツが入力域と別の場所に表示される
 
 RichText のプレースホルダーコンテンツが表示したい入力域とは別の場所に表示される場合があります。おそらく以下の2つのどちらかが原因でしょう。
-
+<!-- 
 1. [インライン HTML 要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements) を RichText コンポーネントとして使用することはできません。`tagName` プロパティが `span`、`a`、`code` などのインライン要素を使用する場合は、[ブロックレベル要素](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements)に変更する必要があります。
+ -->
 1. CSS `display` プロパティが `inline` に設定された要素を持つことはできません。`inline-block` は他の値を設定する必要があります。
 2. 要素の `position` CSS プロパティ値は編集画面内で `relative` または `absolute` に設定する必要があります。style.css または editor.css 内のスタイルがこの要素の `position` プロパティ値を変更すると、表示時に問題が発生する可能性があります。
 
@@ -267,5 +268,29 @@ If you'd still like to use RichText, you can eliminate all of the formatting opt
 先に進む前に RichText コンポーネントが本当に必要か考え直してください。基本的な `input` や `textarea` 要素を使用したほうが良いかもしれません。フォーマットが一切必要ないならば、これらの HTML タグのほうが良いでしょう。
 
 それでも RichText が使いたければ、`withoutInteractiveFormatting` プロパティを指定することですべてのフォーマットオプションを削除できます。
+
+<!-- 
+If you want to limit the formats allowed, you can specify using `allowedFormats` property in your code, see the example above or [the component documentation](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md#allowedformats-array) for details.
+ -->
+利用可能なフォーマットを制限するには、コード内で `allowedFormats` プロパティを使用して指定してください。サンプルについては上の例、または詳細について [コンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md#allowedformats-array) を参照してください。
+
+<!-- 
+### Disable Specific Format Types in Editor
+ -->
+### エディター内で特定のフォーマットを無効化する
+
+<!-- 
+The RichText component uses formats to display inline elements, for example images within the paragraph block.  If you just want to disable a format from the editor, you can use the `unregisterFormatType` function.  For example to disable inline images, use:
+ -->
+RichText コンポーネントはフォーマットを使用してインライン要素を表示します。例: 段落ブロック内の画像。エディターから単にフォーマットを無効化する場合は、`unregisterFormatType` 関数を使えます。たとえばインライン画像を無効化するには、
+
+```
+wp.richText.unregisterFormatType( 'core/image' );
+```
+
+<!-- 
+To apply, you would need to enqueue the above script in your plugin or theme. See the JavaScript tutorial for [how to load JavaScript in WordPress](https://developer.wordpress.org/block-editor/tutorials/javascript/loading-javascript/).
+ -->
+適用するには、プラグインやテーマで上のスクリプトをエンキューする必要があります。JavaScript チュートリアルの「[WordPress で JavaScript をロードする方法](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/)」を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/richtext.md)

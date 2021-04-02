@@ -4,6 +4,11 @@
 # サイドバーの起動
 
 <!-- 
+_Note: this tutorial covers a custom sidebar, Adding controls to the sidebar is covered in [Block Toolbar and Settings Sidebar](/docs/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar.md)_
+ -->
+_注意: このチュートリアルではカスタムサイドバーを扱います。サイドバーにコントロールを追加する詳細については、[ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/) を参照してください。_
+
+<!-- 
 The first step in the journey is to tell the editor that there is a new plugin that will have its own sidebar. You can do so by using the [registerPlugin](/packages/plugins/README.md), [PluginSidebar](/packages/edit-post/README.md#pluginsidebar), and [createElement](/packages/element/README.md) utilities provided by WordPress, to be found in the `@wordpress/plugins`, `@wordpress/edit-post`, and `@wordpress/element` [packages](/docs/reference-guides/packages.md), respectively.
 
 Add the following code to a JavaScript file called `plugin-sidebar.js` and save it within your plugin's directory:
@@ -71,4 +76,4 @@ After installing and activating this plugin, there is a new icon resembling a ta
 
 ![サイドバーの起動](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
 
-[説明](https://github.com/WordPress/gutenberg/blob/HEAD/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)
+[説明](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)
