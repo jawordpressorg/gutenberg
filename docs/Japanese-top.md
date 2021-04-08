@@ -4,8 +4,11 @@
 
 ブロックエディターの使い方については、[サポート内のブロックエディターに関する文書](https://ja.wordpress.org/support/article/wordpress-editor/)を参照してください。
 
-## 変更履歴
+## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
+
+2021/4/8
+- 最新版と同期
 
 2021/4/3
 - 「[ブロックの作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)」 - コード部分の更新。block.json の使用など ([#30353](https://github.com/WordPress/gutenberg/pull/30353))
