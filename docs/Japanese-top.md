@@ -8,7 +8,12 @@
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
 2021/4/8
-- 最新版と同期
+- 最新版と同期。リンクの修正のみ
+- --- 以下、英語版のみ
+- [Block library](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/README.md) - `frontend.js` 追加 [#30341](https://github.com/WordPress/gutenberg/pull/30341)
+- [Panel](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/panel/README.md) - PanelRow の ref [#30298](https://github.com/WordPress/gutenberg/pull/30298)
+- [DOM](https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/README.md) - Element -> Node [#30412](https://github.com/WordPress/gutenberg/pull/30412)
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - bundle CSS modules [#29182](https://github.com/WordPress/gutenberg/pull/29182)
 
 2021/4/3
 - 「[ブロックの作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)」 - コード部分の更新。block.json の使用など ([#30353](https://github.com/WordPress/gutenberg/pull/30353))
