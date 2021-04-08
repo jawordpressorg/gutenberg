@@ -7,7 +7,7 @@ The basic block is in place, the next step is to add styles to the block. Feel f
 
 Note: The color may not work with all browsers until they support the proper color font properly, but the font itself still loads and styles. See [colorfonts.wtf](https://www.colorfonts.wtf/) for browser support and details on color fonts.
  -->
-基本的なブロックが作成できたので、次にスタイルを追加します。ここでは主に外部リソースの作成とロードを紹介しますが、好みで自由にスタイルを適用できます。まず [Type with Pride](https://www.typewithpride.com/) から色付きの gilbert カラーフォントをロードします。
+基本的なブロックが作成できたので、次にスタイルを追加します。ここでは主に外部リソースの作成とロードを紹介しますが、好みで自由にスタイルを適用してください。まず [Type with Pride](https://www.typewithpride.com/) から色付きの gilbert カラーフォントをロードします。
 
 注意: ブラウザーによってはカラーフォントを適切にサポートしておらず、すべてのブラウザーでカラーフォントが動作しないかもしれません。ただしフォント自体はロードされスタイルが当たっています。ブラウザーサポートとカラーフォントの詳細については [colorfonts.wtf](https://www.colorfonts.wtf/) を参照してください。
 
@@ -34,9 +34,9 @@ add_action( 'init', 'create_block_gutenpride_block_init' );
 ```
 
 <!-- 
-This function handles that all style en js files in the `build` folder get handles that are passed on to the `wp_register_style` function.
+This function checks the `block.json` file for js and css files, and will pass them on to [enqueue](https://developer.wordpress.org/themes/basics/including-css-javascript/) these files, so they are loaded on the appropriate pages.
  -->
-This function handles that all style en js files in the `build` folder get handles that are passed on to the `wp_register_style` function.
+この関数は `block.json` ファイルをチェックし、JavaScript や CSS ファイルが適切なページでロードされるよう [enqueue](https://developer.wordpress.org/themes/basics/including-css-javascript/) に渡します。
 
 <!-- 
 The `build/index.css` is compiled from `src/editor.scss` and loads only within the editor, and after the `style-index.css`.

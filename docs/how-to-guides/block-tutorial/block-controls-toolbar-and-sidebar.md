@@ -6,7 +6,7 @@
 <!-- 
 To simplify block customization and ensure a consistent experience for users, there are a number of built-in UI patterns to help generate the editor preview. Like with the `RichText` component covered in the previous chapter, the `wp.editor` global includes a few other common components to render editing interfaces. In this chapter, we'll explore toolbars and the block inspector.
  -->
-ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与えるため、エディタープレビュー生成を支援する多数の組み込み UI パターンがあります。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には編集インターフェースをレンダーする、その他の共通コンポーネントがいくつか含まれています。このセクションではツールバーとブロックインスペクターを見ていきます。
+ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与える多数の組み込み UI パターンがあります。エディターのプレビュー生成を支援します。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には、編集インターフェースをレンダーする、その他の共通コンポーネントがいくつか含まれています。このセクションでは、ツールバーとブロックインスペクターを見ていきます。
 
 <!-- 
 ## Block Toolbar
@@ -19,7 +19,7 @@ You can also customize the toolbar to include controls specific to your block ty
  -->
 ## ブロックツールバー
 
-![ブロックエディター内部で Paragraph ブロックに適用されたリッチテキストツールバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/toolbar-text.png)
+![ブロックエディター内部で段落ブロックに適用されたリッチテキストツールバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/toolbar-text.png)
 
 ユーザーがブロックを選択するとブロックの上のツールバーに複数のコントロールボタンが表示されます。エディターがブロックを他のタイプに変換できる場合、またはフォーカスを得た要素が RichText コンポーネントの場合、ブロックレベルコントロールのいくつかは自動的に表示されます。
 
@@ -221,7 +221,7 @@ The Block Tab is shown in place of the Document Tab when a block is selected.
 
 Similar to rendering a toolbar, if you include an `InspectorControls` element in the return value of your block type's `edit` function, those controls will be shown in the Settings Sidebar region.
  -->
-![Paragraph ブロックの設定でフォーカスのあるインスペクターパネル](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/inspector.png)
+![段落ブロックの設定でフォーカスのあるインスペクターパネル](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/inspector.png)
 
 設定サイドバーはあまり使わない設定や大きなスペースが必要な設定で使用します。設定サイドバーは**ブロックレベル設定でのみ**使用してください。
 
@@ -270,8 +270,8 @@ registerBlockType( 'create-block/gutenpride', {
 
 		return (
 			<div { ...useBlockProps() }>
-				<InspectorControls key="settting">
-					<div id="gutenpride-controlls">
+				<InspectorControls key="setting">
+					<div id="gutenpride-controls">
 						<fieldset>
 							<legend className="blocks-base-control__label">
 								{ __( 'Background color', 'gutenpride' ) }

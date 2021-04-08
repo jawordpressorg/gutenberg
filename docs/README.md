@@ -74,7 +74,7 @@ Whether you want to extend the functionality of the block editor, or create a pl
 - [Creating Block Patterns](/docs/reference-guides/block-api/block-patterns.md)
 - [Theming for the Block Editor](/docs/how-to-guides/themes/README.md)
 - [Block API Reference](/docs/reference-guides/block-api/README.md)
-- [Block Editor Accessibility](/docs/reference-guides/accessibility.md)
+- [Block Editor Accessibility](/docs/how-to-guides/accessibility.md)
 - [Internationalization](/docs/how-to-guides/internationalization.md)
  -->
 - [Gutenberg アーキテクチャ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/)
@@ -82,7 +82,7 @@ Whether you want to extend the functionality of the block editor, or create a pl
 - [ブロックパターンの作成](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/)
 - [ブロックエディター対応のテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)
 - [ブロック API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/)
-- [ブロックエディターのアクセシビリティ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/accessibility/)
+- [ブロックエディターのアクセシビリティ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/accessibility/)
 - [国際化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/internationalization/)
 
 <!-- 
