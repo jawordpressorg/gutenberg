@@ -87,7 +87,7 @@ Setup states, sometimes referred to as "placeholders", can be used to walk users
 <!-- 
 ![An example of an image block’s setup state on a grey background](https://make.wordpress.org/design/files/2021/03/docs__gallery-setup-state.png)
  -->
-![「画像」ブロックの例。セットアップ状態が灰色の背景で表示されている。](https://make.wordpress.org/design/files/2018/12/gallery-setup.png)
+![「画像」ブロックの例。セットアップ状態が灰色の背景で表示されている。](https://make.wordpress.org/design/files/2021/03/docs__gallery-setup-state.png)
 
 <!-- 
 A setup state is **not** necessary if:
@@ -189,9 +189,10 @@ Blocks should have an identifying icon, ideally using a single color. Try to avo
 <!-- 
 ![A screenshot of the block library with concise block names](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/blocks-do.png)
  -->
-![簡潔なブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/blocks-do.png)
+![簡潔なブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/blocks-do.png)
 
 **Do:**
+
 <!-- 
 Use concise block names.
  -->
@@ -200,7 +201,7 @@ Use concise block names.
 <!-- 
 ![A screenshot of the block library with long, multi-line block names](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/blocks-dont.png)
  -->
-![長く、複数行に渡るブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/blocks-dont.png)
+![長く、複数行に渡るブロック名を持つブロックライブラリーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/blocks-dont.png)
 
 **Don't:**
 <!-- 
@@ -229,7 +230,7 @@ Stick to a single imperative sentence with an action + subject format. Examples:
 - Start with the building block of all narrative.
 - Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.
 - Create a bulleted or numbered list.
- -->
+-->
 「アクション + 主語」の形で単一の命令的な文章にしてください (英語の場合)
 
 - Start with the building block of all narrative. (すべての物語の構成要素から始めます)
@@ -239,7 +240,7 @@ Stick to a single imperative sentence with an action + subject format. Examples:
 <!-- 
 ![A screenshot of a short block description](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-descriptions-do.png)
  -->
-![スクリーンショット: ブロックの短い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-descriptions-do.png)
+![スクリーンショット: ブロックの短い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-descriptions-do.png)
 
 **Do:**
 <!-- 
@@ -250,7 +251,7 @@ Use a short, simple block description.
 <!-- 
 ![A screenshot of a long block description that includes branding](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-descriptions-dont.png)
  -->
-![スクリーンショット: ブランドの紹介を含むブロックの長い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-descriptions-dont.png)
+![スクリーンショット: ブランドの紹介を含むブロックの長い説明の例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-descriptions-dont.png)
 
 **Don't:**
 <!-- 
@@ -271,7 +272,7 @@ If your block requires a user to configure some options before you can display i
 <!-- 
 ![A screenshot of the Gallery block's placeholder](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/placeholder-do.png)
  -->
-![ギャラリーブロックのプレースホルダーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/placeholder-do.png)
+![ギャラリーブロックのプレースホルダーのスクリーンショット](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/placeholder-do.png)
 
 **Do:**
 <!-- 
@@ -282,7 +283,7 @@ Provide an instructive placeholder state.
 <!-- 
 ![An example Gallery block placeholder but with intense, distracting colors and no instructions](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/placeholder-dont.png)
  -->
-![著しく目障りな色使いの上に説明のないギャラリーブロックプレースホルダーの例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/placeholder-dont.png)
+![著しく目障りな色使いの上に説明のないギャラリーブロックプレースホルダーの例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/placeholder-dont.png)
 
 **Don't:**
 <!-- 
@@ -295,17 +296,18 @@ Avoid branding and relying on the title alone to convey instructions.
 ### 選択済みの状態と、未選択の状態
 <!-- 
 When unselected, your block should preview its content as closely to the front-end output as possible.
-
-When selected, your block may surface additional options like input fields or buttons to configure the block directly, especially when they are necessary for basic operation.
- -->
+-->
 ブロックの選択が解除された場合、できる限りフロントエンドの出力に近い形で、コンテンツをプレビュー表示してください。
 
+<!--
+When selected, your block may surface additional options like input fields or buttons to configure the block directly, especially when they are necessary for basic operation.
+ -->
 ブロックが選択された場合、基本的な操作が必要な場合などでは特に、直接ブロックを構成する入力フィールドやボタンなどの追加オプションを表示できます。
 
 <!-- 
 ![A Google Maps block with inline, always-accessible controls required for the block to function](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-controls-do.png)
  -->
-![Google Maps ブロック。ブロックの機能に必要なコントロールがインラインで常にアクセス可能](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-controls-do.png)
+![Google Maps ブロック。ブロックの機能に必要なコントロールがインラインで常にアクセス可能](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-controls-do.png)
 
 **Do:**
 <!-- 
@@ -316,7 +318,7 @@ For controls that are essential for the operation of the block, provide them dir
 <!-- 
 ![A Google Maps block with essential controls moved to the sidebar where they can be contextually hidden](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-controls-dont.png)
  -->
-![Google Maps ブロック。ブロックに必須のコントロールが、隠れる可能性のあるサイドバーに移動している。](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/block-controls-dont.png)
+![Google Maps ブロック。ブロックに必須のコントロールが、隠れる可能性のあるサイドバーに移動している。](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/block-controls-dont.png)
 
 **Don't:**
 <!-- 
@@ -337,7 +339,7 @@ The “Block” tab of the Settings Sidebar can contain additional block options
 <!-- 
 ![A screenshot of the Paragraph block's advanced settings in the sidebar](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/advanced-settings-do.png)
  -->
-![スクリーンショット: 段落ブロックのサイドバー内の高度な設定](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/designers/assets/advanced-settings-do.png)
+![スクリーンショット: 段落ブロックのサイドバー内の高度な設定](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/designers/assets/advanced-settings-do.png)
 
 **Do:**
 <!-- 
