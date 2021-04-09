@@ -40,11 +40,20 @@ Basic block settings won’t always make sense in the context of the placeholder
  -->
 常にプレースホルダー / コンテンツ UI のコンテキストが基本のブロック設定で有効とは限りません。ブロックの機能に対して2番目に重要と思われるオプションは、ブロックツールバーに配置してください。ブロックツールバーもまた非常にコンテキスト指向であり、すべての画像サイズで表示されます。1点、ブロックツールバーで注意すべき制約はアイコンベースの UI であることです。ブロックツールバーに挿入するコントロールは、アイコンやアイコングループを通して効果的にコミュニケーションする必要があります。
 
+<!--
 ### Group Block Toolbar controls with related items
+-->
+### ブロックツールバーの制御を関連する要素でグループ化
 
+<!--
 The Block Toolbar groups controls in segments, hierarchically. The first segment contains block type controls, such as the block switcher, the drag handle, and the mover control. The second group contains common and specific block tools that affect the entire block, followed by inline formatting, and the "More" menu. Optionally "Meta" or "Other" groups can separate some tools in their own segment.
+-->
+ブロックツールバーは階層的に区分してグループ化しています。最初の区分はブロックの変換といったブロックタイプの制御や、ドラッグなどの動きの制御がまとめられています。第2グループには、ブロック全体に影響を与える共通のブロックツールと特定のブロックツールがあり、続いてインラインフォーマット、「その他」メニューがあります。オプションで「Meta」または「Other」グループは、いくつかのツールを独自のセグメントに分けることができます。
 
+<!--
 ![A screenshot showing examples of block toolbar segment groupings.](https://make.wordpress.org/design/files/2021/03/docs_block-toolbar-structure.png)
+-->
+![ツールバーのグループ化の例を示すスクリーンショット](https://make.wordpress.org/design/files/2021/03/docs_block-toolbar-structure.png)
 
 <!-- 
 ### The Settings Sidebar should only be used for advanced, tertiary controls
@@ -133,11 +142,20 @@ In most cases, a block’s setup state is only shown once and then further custo
  -->
 ## Do (推奨) と Don't (非推奨)
 
+<!--
 ### Block Toolbar
+-->
+### ブロックツールバー
 
+<!--
 Group toolbar controls in logical segments. Don't add a segment for each.
+-->
+ツールバーの制御を論理的な区分にまとめてください。それぞれに区分を追加しないでください。
 
+<!--
 ![A screenshot comparing a block toolbar with good vs. bad toolbar segment groupings.](https://make.wordpress.org/design/files/2021/03/docs__block-toolbar-do-dont.png)
+-->
+![ブロックツールバーのグループ化の良い例と悪い例を比較したスクリーンショット](https://make.wordpress.org/design/files/2021/03/docs__block-toolbar-do-dont.png)
 
 <!-- 
 ### Block Identification
