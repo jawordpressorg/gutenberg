@@ -21,7 +21,6 @@ jobs:
         steps:
           - name: CommentOut
             run: echo "workflow_was_comment_out"
-#
 #            - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
 #
 #            - name: Use Node.js 14.x
@@ -45,7 +44,6 @@ jobs:
 #
 #            - name: Install WordPress
 #              run: |
-#                  chmod -R 767 ./ # TODO: Possibly integrate in wp-env
 #                  npm run wp-env start
 #
 #            - name: Running the tests

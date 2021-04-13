@@ -8,14 +8,20 @@
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
 2021/4/13
-- [データフローとデータフォーマット](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/) - 翻訳
+- 「[データフローとデータフォーマット](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/)」 - 翻訳
+- 「[ブロックベーステーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-based-themes/)」 - 「クラシックテーマ」追加
+- --- 以下、未訳分で変更に気がついたもの
+- [LICENSE](https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md) - GPL と Mozilla Public License のデュアルライセンスにする準備 [#30383](https://github.com/WordPress/gutenberg/pull/30383)
+- [release.md](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/release.md) - npm publishing process の整理   
+- [create-compiler](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/create-styles/create-compiler/README.md) - 新規追加。新スタイルシステム用 [#30503](https://github.com/WordPress/gutenberg/issues/30503)
+- [create-style-system](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/create-styles/create-style-system/README.md) - 同上
 
 2021/4/9
-- [ブロックのデザイン](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/designers/block-design/) - ブロックツールバー [#29816](https://github.com/WordPress/gutenberg/pull/29816)
+- 「[ブロックのデザイン](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/designers/block-design/)」 - ブロックツールバー追加 [#29816](https://github.com/WordPress/gutenberg/pull/29816)
 
 2021/4/8
 - 最新版と同期。タイポ、リンクの修正等
-- --- 参考までに以下、日本語版のないドキュメントでの変更
+- --- 以下、未訳分で変更に気がついたもの
 - [Block library](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/README.md) - `frontend.js` 追加 [#30341](https://github.com/WordPress/gutenberg/pull/30341)
 - [Panel](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/panel/README.md) - PanelRow の ref [#30298](https://github.com/WordPress/gutenberg/pull/30298)
 - [DOM](https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/README.md) - Element -> Node [#30412](https://github.com/WordPress/gutenberg/pull/30412)

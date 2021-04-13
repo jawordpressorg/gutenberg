@@ -215,7 +215,26 @@ As we're still early in the process, the number of blocks specifically dedicated
 <!-- 
 One of the most important aspects of themes (if not the most important) is the styling. While initially you'll be able to provide styles and enqueue them using the same hooks themes have always used, the [Global Styles](/docs/how-to-guides/themes/theme-json.md) effort will provide a scaffolding for adding many theme styles in the future.
  -->
-テーマのもっとも重要、あるいは重要な要素の1つはスタイリングです。当面はスタイルを準備し、テーマが通常行うのと同じフックを使用してエンキューできますが、将来的には開発中の「[グローバルスタイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)」で多くのテーマスタイルを追加するひな形が提供されます。
+テーマのもっとも重要な要素の1つ、あるいはテーマのもっとも重要な要素は、スタイリングです。当分の間は、準備したスタイルを、テーマが通常行うのと同じフックを使用してエンキューできますが、将来的には開発中の「[グローバルスタイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)」で多くのテーマスタイルを追加するひな形が提供される予定です。
+
+<!-- 
+## Classic Themes
+ -->
+## クラシックテーマ
+
+<!-- 
+Users of classic themes can also build custom block templates and use theme in their Pages and Custom Post Types that supports Page Templates.
+ -->
+クラシックテーマのユーザーもカスタムブロックテンプレートを構築し、ページテンプレートをサポートする固定ページやカスタム投稿タイプで使用できます。
+
+<!-- 
+Theme authors can opt-out of this feature by removing the `block-templates` theme support in their `functions.php` file.
+ -->
+テーマ作者がこの機能をオプトアウトするには、`functions.php` ファイルで `block-templates` テーマサポートを削除してください。
+
+```php
+remove_theme_support( 'block-templates' );
+```
 
 <!--
 ## Resources
