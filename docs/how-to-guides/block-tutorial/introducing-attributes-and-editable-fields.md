@@ -1,4 +1,4 @@
-<!-- 
+<!--
 # Introducing Attributes and Editable Fields
 
 The example blocks so far are still not very interesting because they lack options to customize the appearance of the message. In this section, we will implement a RichText field allowing the user to specify their own message. Before doing so, it's important to understand how the state of a block (its "attributes") is maintained and changed over time.
@@ -7,10 +7,10 @@ The example blocks so far are still not very interesting because they lack optio
 
 これまでに作ったサンプルブロックはメッセージを変更できないため、あまり面白くありませんでした。このセクションでは RichText フィールドを実装して、ユーザーが好きなメッセージを指定できるようにします。実装の前に、まず重要な、ブロックの状態である「属性」がどのように管理され、どのように変更されるかを理解しましょう。
 
-<!-- 
+<!--
 ## Attributes
 
-Until now, the `edit` and `save` functions have returned a simple representation of a paragraph element. We also learned how these functions are responsible for _describing_ the structure of the block's appearance. If the user changes a block, this structure may need to change. To achieve this, the state of a block is maintained throughout the editing session as a plain JavaScript object, and when an update occurs, the `edit` function is invoked again. Put another way: __the output of a block is a function of its attributes__.
+Until now, the `edit` and `save` functions have returned a simple representation of a paragraph element. We also learned how these functions are responsible for _describing_ the structure of the block's appearance. If the user changes a block, this structure may need to change. To achieve this, the state of a block is maintained throughout the editing session as a plain JavaScript object, and when an update occurs, the `edit` function is invoked again. Put another way: **the output of a block is a function of its attributes**.
 
 One challenge of maintaining the representation of a block as a JavaScript object is that we must be able to extract this object again from the saved content of a post. This is achieved with the block type's `attributes` property:
  -->
@@ -29,7 +29,7 @@ One challenge of maintaining the representation of a block as a JavaScript objec
 		},
 	},
 ```
-<!-- 
+<!--
 When registering a new block type, the `attributes` property describes the shape of the attributes object you'd like to receive in the `edit` and `save` functions. Each value is a [source function](/docs/reference-guides/block-api/block-attributes.md) to find the desired value from the markup of the block.
 
 In the code snippet above, when loading the editor, the `content` value will be extracted from the HTML of the paragraph element in the saved post's markup.
@@ -38,7 +38,7 @@ In the code snippet above, when loading the editor, the `content` value will be 
 
 上のコード例ではエディターのロード中に、保存された投稿のマークアップの中の paragraph 要素の HTML から `content` 値が取り出されます。
 
-<!-- 
+<!--
 ## Components and the `RichText` Component
 
 Earlier examples used the `createElement` function to create DOM nodes, but it's also possible to encapsulate this behavior into "components". This abstraction helps you share common behaviors and hide complexity in self-contained units.
@@ -70,7 +70,7 @@ wp_register_script(
 	$asset_file['version']
 );
 ```
-<!-- 
+<!--
 Do not forget to also update the `editor_script` handle in `register_block_type` to `gutenberg-examples-03-esnext`.
 
 Implementing this behavior as a component enables you as the block implementer to be much more granular about editable fields. Your block may not need `RichText` at all, or it may need many independent `RichText` elements, each operating on a subset of the overall block state.
@@ -91,6 +91,7 @@ Example 03 の完全なブロック定義を以下に示します。
 
 {% codetabs %}
 {% ESNext %}
+
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
@@ -113,7 +114,11 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 		},
 	},
 	edit: ( props ) => {
-		const { attributes: { content }, setAttributes, className } = props;
+		const {
+			attributes: { content },
+			setAttributes,
+			className,
+		} = props;
 		const blockProps = useBlockProps();
 		const onChangeContent = ( newContent ) => {
 			setAttributes( { content: newContent } );
@@ -129,15 +134,21 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	},
 	save: ( props ) => {
 		const blockProps = useBlockProps.save();
-		return <RichText.Content { ...blockProps } tagName="p" value={ props.attributes.content } />;
+		return (
+			<RichText.Content
+				{ ...blockProps }
+				tagName="p"
+				value={ props.attributes.content }
+			/>
+		);
 	},
 } );
 ```
 **ES5**
-
 {% ES5 %}
+
 ```js
-( function( blocks, blockEditor, element ) {
+( function ( blocks, blockEditor, element ) {
 	var el = element.createElement;
 	var RichText = blockEditor.RichText;
 	var useBlockProps = blockEditor.useBlockProps;
@@ -160,7 +171,7 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 				content: 'Hello World',
 			},
 		},
-		edit: function( props ) {
+		edit: function ( props ) {
 			var blockProps = useBlockProps();
 			var content = props.attributes.content;
 			function onChangeContent( newContent ) {
@@ -177,20 +188,20 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 			);
 		},
 
-		save: function( props ) {
+		save: function ( props ) {
 			var blockProps = useBlockProps.save();
-			return el( RichText.Content, Object.assign( blockProps, {
-				tagName: 'p', 
-				value: props.attributes.content,
-			} ) );
+			return el(
+				RichText.Content,
+				Object.assign( blockProps, {
+					tagName: 'p',
+					value: props.attributes.content,
+				} )
+			);
 		},
 	} );
-}(
-	window.wp.blocks,
-	window.wp.blockEditor,
-	window.wp.element
-) );
+} )( window.wp.blocks, window.wp.blockEditor, window.wp.element );
 ```
+
 {% end %}
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields.md)

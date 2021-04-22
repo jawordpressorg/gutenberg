@@ -1,9 +1,9 @@
-<!-- 
+<!--
 # Meta Boxes
  -->
 # メタボックス
 
-<!-- 
+<!--
 Prior to the block editor, custom meta boxes were used to extend the editor. With the new editor there are new ways to extend, giving more power to the developer and a better experience for the authors. Porting older custom meta boxes to one of these new methods is encouraged as to create a more unified and consistent experience for those using the editor.
 
 The new block editor does support most existing meta boxes, see [this backward compatibility article](/docs/reference-guides/backward-compatibility/meta-box.md) for more support details .
@@ -16,20 +16,20 @@ Here are two mini-tutorials for creating similar functionality to meta boxes in 
 
 以下の2つの簡単なチュートリアルではブロックエディター内でメタボックスと同じ機能を作成します。
 
-<!-- 
+<!--
 ## Use Blocks to Store Meta
 
 The first method is to use Blocks to store extra data with a post. The data is stored in a post meta field, similar to how meta boxes store information.
 
-* [Store Post Meta with a Block](/docs/how-to-guides/metabox/meta-block-1-intro.md)
+-   [Store Post Meta with a Block](/docs/how-to-guides/metabox/meta-block-1-intro.md)
  -->
 ## ブロックを使用したメタ情報の保存
 
 最初の方法はブロックを使用して外部データを投稿に保存します。メタボックスが情報を保存する場合と同じくデータは投稿メタフィールドに保存されます。
 
-* [投稿メタをブロックで保存](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-1-intro/)
+- [投稿メタをブロックで保存](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-1-intro/)
 
-<!-- 
+<!--
 ## Sidebar Plugin
 
 If you are interested in working with the post meta outside the editor, check out the [Sidebar Tutorial](/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-0.md/).

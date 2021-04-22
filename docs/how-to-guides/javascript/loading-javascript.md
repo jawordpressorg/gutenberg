@@ -56,7 +56,7 @@ If your code is registered and enqueued correctly, you should see a message in y
 ![成功した場合のコンソールログメッセージ](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/js-tutorial-console-log-success.png)
 
 <!--
-**Note for Theme Developers:**  The above method of enqueuing is used for plugins. If you are extending the block editor for your theme there is a minor difference, you will use the `get_template_directory_uri()` function instead of `plugins_url()`. So for a theme, the enqueue example is:
+**Note for Theme Developers:** The above method of enqueuing is used for plugins. If you are extending the block editor for your theme there is a minor difference, you will use the `get_template_directory_uri()` function instead of `plugins_url()`. So for a theme, the enqueue example is:
 -->
 **テーマ開発者への注意:**  上のエンキュー方法はプラグインのものです。テーマ用にブロックエディターを拡張する場合は若干異なり `plugins_url()` の代わりに `get_template_directory_uri()` 関数を使用します。テーマの場合のエンキュー例を以下に示します。
 

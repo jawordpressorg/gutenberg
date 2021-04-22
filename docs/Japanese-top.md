@@ -7,12 +7,23 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/4/21
+- 全体 - prettier による文書整形。[#30715](https://github.com/WordPress/gutenberg/pull/30715)
+- 「[git workflow](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/git-workflow/)」 - ブランチ名の推奨プレフィックスに fix を追加 [#30953](https://github.com/WordPress/gutenberg/pull/30953)
+- 「[release](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/release/)」 - prod -> latest [#30866](https://github.com/WordPress/gutenberg/pull/30866)
+- 「[readme](https://ja.wordpress.org/team/handbook/block-editor/handbook/)」など - ブロックスタイルバリエーション -> ブロックスタイル [#30911](https://github.com/WordPress/gutenberg/pull/30911)
+- 「[開発環境](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/)」 - その他の Windows での docker 入手元
+- 「[ブロックバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/)」など - ドキュメント中のブロックスタイルバリエーション -> ブロックスタイル [#30911](https://github.com/WordPress/gutenberg/pull/30911)
+- [create-block など](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - wp-scripts format-js -> wp-scripts format [#30240](https://github.com/WordPress/gutenberg/pull/30240)
+- [env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - Xdebug は PHP 7.2 以上のみ [#30651](https://github.com/WordPress/gutenberg/pull/30651)
+- [i18n](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-i18n/) - resetLocaleData追加 [#30419](https://github.com/WordPress/gutenberg/pull/30419)
+
 2021/4/13
 - 「[データフローとデータフォーマット](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/)」 - 翻訳
 - 「[ブロックベーステーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-based-themes/)」 - 「クラシックテーマ」追加
 - --- 以下、未訳分で変更に気がついたもの
 - [LICENSE](https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md) - GPL と Mozilla Public License のデュアルライセンスにする準備 [#30383](https://github.com/WordPress/gutenberg/pull/30383)
-- [release.md](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/release.md) - npm publishing process の整理   
+- [release.md](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/release.md) - npm publishing process の整理
 - [create-compiler](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/create-styles/create-compiler/README.md) - 新規追加。新スタイルシステム用 [#30503](https://github.com/WordPress/gutenberg/issues/30503)
 - [create-style-system](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/create-styles/create-style-system/README.md) - 同上
 
@@ -47,7 +58,7 @@
 - 「[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)」 -  [supports の概念を変更し、規定を削除](https://github.com/WordPress/gutenberg/pull/29941)
 
 2021/3/16
-- 全体 - [ハンドブックの再構成](https://make.wordpress.org/core/2021/03/12/block-editor-handbook-restructuring-project-update-march-12/) を日本語版にも反映  
+- 全体 - [ハンドブックの再構成](https://make.wordpress.org/core/2021/03/12/block-editor-handbook-restructuring-project-update-march-12/) を日本語版にも反映
 - 全体 - GitHub リポジトリのメインブランチ名が[「master」から「trunk」に](https://github.com/WordPress/gutenberg/issues/27741)
 
 

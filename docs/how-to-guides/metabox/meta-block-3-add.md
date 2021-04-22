@@ -1,9 +1,9 @@
-<!-- 
+<!--
 # Create Meta Block
  -->
 # メタブロックの作成
 
-<!-- 
+<!--
 With the meta field registered in the previous step, next you will create a new block used to display the field value to the user. See the [Block Tutorial](/docs/how-to-guides/block-tutorial/README.md) for a deeper understanding of creating custom blocks.
 
 For this block, you will use the TextControl component, which is similar to an HTML input text field. For additional components, check out the [Component Reference](/packages/components/README.md).
@@ -12,7 +12,7 @@ For this block, you will use the TextControl component, which is similar to an H
 
 このブロックでは HTML インプットテキストフィールドに似た、TextControl コンポーネントを使用します。その他のコンポーネントについては [コンポーネント](https://ja.wordpress.org/team/handbook/block-editor/components/) を参照してください。
 
-<!-- 
+<!--
 The hook `useEntityProp` can be used by the blocks to get or change meta values.
 
 Add this code to your JavaScript file (this tutorial will call the file `myguten.js`):
@@ -25,6 +25,7 @@ Add this code to your JavaScript file (this tutorial will call the file `myguten
 
 {% codetabs %}
 {% ESNext %}
+
 ```js
 import { registerBlockType } from '@wordpress/blocks';
 import { TextControl } from '@wordpress/components';
@@ -43,14 +44,10 @@ registerBlockType( 'myguten/meta-block', {
 			( select ) => select( 'core/editor' ).getCurrentPostType(),
 			[]
 		);
-		const [ meta, setMeta ] = useEntityProp(
-			'postType',
-			postType,
-			'meta'
-		);
-		const metaFieldValue = meta['myguten_meta_block_field'];
+		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
+		const metaFieldValue = meta[ 'myguten_meta_block_field' ];
 		function updateMetaValue( newValue ) {
-			setMeta( { ...meta, 'myguten_meta_block_field': newValue } );
+			setMeta( { ...meta, myguten_meta_block_field: newValue } );
 		}
 
 		return (
@@ -73,10 +70,10 @@ registerBlockType( 'myguten/meta-block', {
 ```
 
 **ES5**
-
 {% ES5 %}
+
 ```js
-( function( wp ) {
+( function ( wp ) {
 	var el = wp.element.createElement;
 	var registerBlockType = wp.blocks.registerBlockType;
 	var TextControl = wp.components.TextControl;
@@ -89,32 +86,21 @@ registerBlockType( 'myguten/meta-block', {
 		icon: 'smiley',
 		category: 'text',
 
-		edit: function( props ) {
+		edit: function ( props ) {
 			var blockProps = useBlockProps();
-			var postType = useSelect(
-				function( select ) {
-					return select( 'core/editor' ).getCurrentPostType();
-				},
-				[]
-			);
-			var entityProp = useEntityProp(
-				'postType',
-				postType,
-				'meta'
-			);
+			var postType = useSelect( function ( select ) {
+				return select( 'core/editor' ).getCurrentPostType();
+			}, [] );
+			var entityProp = useEntityProp( 'postType', postType, 'meta' );
 			var meta = entityProp[ 0 ];
 			var setMeta = entityProp[ 1 ];
 
-			var metaFieldValue = meta['myguten_meta_block_field'];
+			var metaFieldValue = meta[ 'myguten_meta_block_field' ];
 			function updateMetaValue( newValue ) {
 				setMeta(
-					Object.assign(
-						{},
-						meta,
-						{
-							'myguten_meta_block_field': newValue,
-						}
-					)
+					Object.assign( {}, meta, {
+						myguten_meta_block_field: newValue,
+					} )
 				);
 			}
 
@@ -131,14 +117,15 @@ registerBlockType( 'myguten/meta-block', {
 
 		// No information saved to the block
 		// Data is saved to post meta via attributes
-		save: function() {
+		save: function () {
 			return null;
 		},
 	} );
 } )( window.wp );
 ```
+
 {% end %}
-<!-- 
+<!--
 **Important:** Before you test, you need to enqueue your JavaScript file and its dependencies. Note the WordPress packages used above are `wp.element`, `wp.blocks`, `wp.components`, `wp.data`, and `wp.coreData`. Each of these need to be included in the array of dependencies. Update the `myguten-meta-block.php` file adding the enqueue function:
  -->
 **重要:** テストの前に JavaScript ファイルと依存性をエンキューする必要があります。上の例では WordPress パッケージ `wp.element`、`wp.blocks`、`wp.components`、`wp.data`、`wp.coreData` が使われていることに注意してください。それぞれを依存性の配列に含める必要があります。`myguten-meta-block.php` ファイルを更新してエンキュー関数を加えてください。
@@ -153,7 +140,7 @@ function myguten_enqueue() {
 }
 add_action( 'enqueue_block_editor_assets', 'myguten_enqueue' );
 ```
-<!-- 
+<!--
 You can now edit a draft post and add a Meta Block to the post. You will see your field that you can type a value in. When you save the post, either as a draft or published, the post meta value will be saved too. You can verify by saving and reloading your draft, the form will still be filled in on reload.
 
 ![Meta Block](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/metabox/meta-block.png)

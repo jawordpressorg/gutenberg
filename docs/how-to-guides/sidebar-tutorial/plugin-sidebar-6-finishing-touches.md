@@ -13,7 +13,7 @@ The first step is to convert the functions `mapSelectToProps` and `mapDispatchTo
 最初のステップとして関数 `mapSelectToProps` と `mapDispatchToProps` を無名関数にして、それぞれ `withSelect` と `withData` に直接渡します。
 
 ```js
-( function( wp ) {
+( function ( wp ) {
 	var registerPlugin = wp.plugins.registerPlugin;
 	var PluginSidebar = wp.editPost.PluginSidebar;
 	var el = wp.element.createElement;
@@ -21,50 +21,50 @@ The first step is to convert the functions `mapSelectToProps` and `mapDispatchTo
 	var withSelect = wp.data.withSelect;
 	var withDispatch = wp.data.withDispatch;
 
-	var MetaBlockField = function( props ) {
+	var MetaBlockField = function ( props ) {
 		return el( Text, {
 			label: 'Meta Block Field',
 			value: props.metaFieldValue,
-			onChange: function( content ) {
+			onChange: function ( content ) {
 				props.setMetaFieldValue( content );
 			},
 		} );
-	}
+	};
 
-	var MetaBlockFieldWithData = withSelect( function( select ) {
+	var MetaBlockFieldWithData = withSelect( function ( select ) {
 		return {
-			metaFieldValue: select( 'core/editor' )
-				.getEditedPostAttribute( 'meta' )
-				[ 'sidebar_plugin_meta_block_field' ],
-		}
+			metaFieldValue: select( 'core/editor' ).getEditedPostAttribute(
+				'meta'
+			)[ 'sidebar_plugin_meta_block_field' ],
+		};
 	} )( MetaBlockField );
 
-	var MetaBlockFieldWithDataAndActions = withDispatch(
-		function( dispatch ) {
-			return {
-				setMetaFieldValue: function( value ) {
-					dispatch( 'core/editor' ).editPost(
-						{ meta: { sidebar_plugin_meta_block_field: value } }
-					);
-				}
-			}
-		}
-	)( MetaBlockFieldWithData );
+	var MetaBlockFieldWithDataAndActions = withDispatch( function ( dispatch ) {
+		return {
+			setMetaFieldValue: function ( value ) {
+				dispatch( 'core/editor' ).editPost( {
+					meta: { sidebar_plugin_meta_block_field: value },
+				} );
+			},
+		};
+	} )( MetaBlockFieldWithData );
 
 	registerPlugin( 'my-plugin-sidebar', {
-		render: function() {
-			return el( PluginSidebar,
+		render: function () {
+			return el(
+				PluginSidebar,
 				{
 					name: 'my-plugin-sidebar',
 					icon: 'admin-post',
 					title: 'My plugin sidebar',
 				},
-				el( 'div',
+				el(
+					'div',
 					{ className: 'plugin-sidebar-content' },
 					el( MetaBlockFieldWithDataAndActions )
 				)
 			);
-		}
+		},
 	} );
 } )( window.wp );
 ```
@@ -74,7 +74,7 @@ Next, merge `MetaBlockField`, `MetaBlockFieldWithData`, and `MetaBlockFieldWithD
 次に `MetaBlockField`、`MetaBlockFieldWithData`、`MetaBlockFieldWithDataAndActions` を1つの関数 `MetaBlockField` にマージし、 `div` 要素に渡します。`@wordpress/compose` パッケージから連結用の関数 `compose` が使用されています。忘れずに PHP スクリプトの依存配列に `wp-compose` を追加してください。
 
 ```js
-( function( wp ) {
+( function ( wp ) {
 	var registerPlugin = wp.plugins.registerPlugin;
 	var PluginSidebar = wp.editPost.PluginSidebar;
 	var el = wp.element.createElement;
@@ -84,46 +84,48 @@ Next, merge `MetaBlockField`, `MetaBlockFieldWithData`, and `MetaBlockFieldWithD
 	var compose = wp.compose.compose;
 
 	var MetaBlockField = compose(
-		withDispatch( function( dispatch ) {
+		withDispatch( function ( dispatch ) {
 			return {
-				setMetaFieldValue: function( value ) {
-					dispatch( 'core/editor' ).editPost(
-						{ meta: { sidebar_plugin_meta_block_field: value } }
-					);
-				}
-			}
+				setMetaFieldValue: function ( value ) {
+					dispatch( 'core/editor' ).editPost( {
+						meta: { sidebar_plugin_meta_block_field: value },
+					} );
+				},
+			};
 		} ),
-		withSelect( function( select ) {
+		withSelect( function ( select ) {
 			return {
-				metaFieldValue: select( 'core/editor' )
-					.getEditedPostAttribute( 'meta' )
-					[ 'sidebar_plugin_meta_block_field' ],
-			}
+				metaFieldValue: select( 'core/editor' ).getEditedPostAttribute(
+					'meta'
+				)[ 'sidebar_plugin_meta_block_field' ],
+			};
 		} )
-	)( function( props ) {
+	)( function ( props ) {
 		return el( Text, {
 			label: 'Meta Block Field',
 			value: props.metaFieldValue,
-			onChange: function( content ) {
+			onChange: function ( content ) {
 				props.setMetaFieldValue( content );
 			},
 		} );
 	} );
 
 	registerPlugin( 'my-plugin-sidebar', {
-		render: function() {
-			return el( PluginSidebar,
+		render: function () {
+			return el(
+				PluginSidebar,
 				{
 					name: 'my-plugin-sidebar',
 					icon: 'admin-post',
 					title: 'My plugin sidebar',
 				},
-				el( 'div',
+				el(
+					'div',
 					{ className: 'plugin-sidebar-content' },
 					el( MetaBlockField )
 				)
 			);
-		}
+		},
 	} );
 } )( window.wp );
 ```
@@ -134,17 +136,14 @@ Finally, extract the meta field name (`sidebar_plugin_meta_block_field`) from th
 
 ```js
 // ...
-var MetaBlockFieldWithData = withSelect(
-	function( select, props ) {
-		console.log( props.metaFieldName );
-	}
-)( MetaBlockField );
+var MetaBlockFieldWithData = withSelect( function ( select, props ) {
+	console.log( props.metaFieldName );
+} )( MetaBlockField );
 
 // ...
-	el(
-		MetaBlockFieldWithData,
-		{ metaFieldName: 'sidebar_plugin_meta_block_field' }
-	)
+el( MetaBlockFieldWithData, {
+	metaFieldName: 'sidebar_plugin_meta_block_field',
+} );
 // ...
 ```
 <!-- 
@@ -153,7 +152,7 @@ Notice how the `metaFieldName` can be accessed within `withSelect`. Let's change
 `withSelect` 内でどのように `metaFieldName` にアクセスできるかに注意してください。この利点を活かす形でコードを変更してみましょう。
 
 ```js
-( function( wp ) {
+( function ( wp ) {
 	var registerPlugin = wp.plugins.registerPlugin;
 	var PluginSidebar = wp.editPost.PluginSidebar;
 	var el = wp.element.createElement;
@@ -163,48 +162,50 @@ Notice how the `metaFieldName` can be accessed within `withSelect`. Let's change
 	var compose = wp.compose.compose;
 
 	var MetaBlockField = compose(
-		withDispatch( function( dispatch, props ) {
+		withDispatch( function ( dispatch, props ) {
 			return {
-				setMetaFieldValue: function( value ) {
-					dispatch( 'core/editor' ).editPost(
-						{ meta: { [ props.fieldName ]: value } }
-					);
-				}
-			}
+				setMetaFieldValue: function ( value ) {
+					dispatch( 'core/editor' ).editPost( {
+						meta: { [ props.fieldName ]: value },
+					} );
+				},
+			};
 		} ),
-		withSelect( function( select, props ) {
+		withSelect( function ( select, props ) {
 			return {
-				metaFieldValue: select( 'core/editor' )
-					.getEditedPostAttribute( 'meta' )
-					[ props.fieldName ],
-			}
+				metaFieldValue: select( 'core/editor' ).getEditedPostAttribute(
+					'meta'
+				)[ props.fieldName ],
+			};
 		} )
-	)( function( props ) {
+	)( function ( props ) {
 		return el( Text, {
 			label: 'Meta Block Field',
 			value: props.metaFieldValue,
-			onChange: function( content ) {
+			onChange: function ( content ) {
 				props.setMetaFieldValue( content );
 			},
 		} );
 	} );
 
 	registerPlugin( 'my-plugin-sidebar', {
-		render: function() {
-			return el( PluginSidebar,
+		render: function () {
+			return el(
+				PluginSidebar,
 				{
 					name: 'my-plugin-sidebar',
 					icon: 'admin-post',
 					title: 'My plugin sidebar',
 				},
-				el( 'div',
+				el(
+					'div',
 					{ className: 'plugin-sidebar-content' },
-					el( MetaBlockField,
-						{ fieldName: 'sidebar_plugin_meta_block_field' }
-					)
+					el( MetaBlockField, {
+						fieldName: 'sidebar_plugin_meta_block_field',
+					} )
 				)
 			);
-		}
+		},
 	} );
 } )( window.wp );
 ```

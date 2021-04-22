@@ -1,19 +1,19 @@
-<!-- 
+<!--
 # Block Variations
  -->
 # ブロックバリエーション
 
-<!-- 
+<!--
 Block Variations is the API that allows a block to have similar versions of it, but all these versions share some common functionality. Each block variation is differentiated from the others by setting some initial attributes or inner blocks. Then at the time when a block is inserted these attributes and/or inner blocks are applied.
  -->
 ブロックは、ブロックバリエーション API を使用して、共通の機能を共有する自身の類似バージョンを作成できます。各ブロックバリエーションは、初期属性やインナーブロックの設定により他と区別されます。ブロックが挿入されると、これらの属性やインナーブロックが適用されます。
 
-<!-- 
+<!--
 A great way to understand this API better is by using the `embed` block as an example. The numerous existing variations for embed (WordPress, Youtube, etc..) share the same functionality for editing, saving, and so on, but their basic difference is the `providerNameSlug` attribute's value, which defines the provider that needs to be used.
  -->
 この API を理解する一番良い方法は、例として `embed` ブロックを考えることでしょう。埋め込みブロックの数多くの既存のバリエーション (WordPress、YouTube、など) は、編集、保存など同じ機能を共有しますが、使用の際に必要なプロバイダーを定義する `providerNameSlug` 属性値が異なります。
 
-<!-- 
+<!--
 By default, all variations will show up in the Inserter in addition to the regular block type item. However, setting the `isDefault` flag for any of the variations listed will override the regular block type in the Inserter.
  -->
 デフォルトではインサーター内に、通常のブロックタイプ項目に加えてすべてのバリエーションが表示されます。リストされた任意のバリエーションに `isDefault` フラグを設定すると、インサーター内の標準のブロックタイプを上書きします。
@@ -44,12 +44,12 @@ variations: [
 ],
 ```
 
-<!-- 
+<!--
 An object describing a variation defined for the block type can contain the following fields:
  -->
 ブロックタイプのバリエーションを記述するオブジェクトには次のフィールドを指定できます。
 
-<!-- 
+<!--
 -   `name` (type `string`) – The unique and machine-readable name.
 -   `title` (type `string`) – A human-readable variation title.
 -   `description` (optional, type `string`) – A detailed variation description.
@@ -82,16 +82,15 @@ An object describing a variation defined for the block type can contain the foll
 - `keywords` (オプション, type `string[]`) - 翻訳可能な語句の配列。ユーザーがバリエーションを検索しやすくする。
 - `isActive` (オプション, type `Function`) - ブロックの属性とバリエーションの属性を取り、バリエーションが有効かどうかを決定する関数。ただしこの関数は、すべてのブロックの属性に基づいて動的に合致するものを探そうとはしません。これは多くの場合、意味のない属性があるためです。たとえば `embed` ブロックでは `providerNameSlug` 属性の値のみに注目します。
 
-<!-- 
-The main difference between style variations and block variations is that a style variation just applies a `css class` to the block, so it can be styled in an alternative way. If we want to apply initial attributes or inner blocks, we fall in block variation territory. 
+<!--
+The main difference between block styles and block variations is that a block style just applies a CSS class to the block, so it can be styled in an alternative way. If we want to apply initial attributes or inner blocks, we fall in block variation territory.
  -->
-スタイルバリエーションとブロックバリエーションの主な違いとして、スタイルバリエーションはブロックに `css class` を適用するのみ、すなわち、代替のスタイルを適用するのみの点が異なります。初期属性やインナーブロックを適用したければ、ブロックバリエーションのテリトリーとなります。
+ブロックスタイルとブロックバリエーションの主な違いとして、ブロックスタイルはブロックに CSS クラスを適用するのみ、すなわち、代替のスタイルを適用するのみの点が異なります。初期属性やインナーブロックを適用したければ、ブロックバリエーションのテリトリーとなります。
 
-<!-- 
-It's also possible to override the default block style variation using the `className` attribute when defining block variations.
+<!--
+It's also possible to override the default block style using the `className` attribute when defining block variations.
  -->
-またブロックバリエーションを定義する際、`className` 属性を使用してデフォルトのブロックスタイルバリエーションを上書きできます。
-
+またブロックバリエーションを定義する際、`className` 属性を使用してデフォルトのブロックスタイルを上書きできます。
 
 ```js
 variations: [
@@ -107,22 +106,22 @@ variations: [
 ],
 
 ```
-<!-- 
+<!--
 It's worth mentioning that setting the `isActive` property can be useful for cases you want to use information from the block variation, after a block's creation. For example, this API is used in `useBlockDisplayInformation` hook to fetch and display proper information on places like the `BlockCard` or `Breadcrumbs` components.
  -->
 ヒント: `isActive` プロパティの設定は、ブロック作成後にブロックバリエーションからの情報を使用する場合に有用です。たとえば、`BlockCard` や `Breadcrumbs` コンポーネントのように、この API は `useBlockDisplayInformation` ブック内で使用され、その場で適切な情報を取得し、表示します。
 
-<!-- 
+<!--
 Block variations can be declared during a block's registration by providing the `variations` key with a proper array of variations, as defined above. In addition, there are ways to register and unregister a `block variation` for a block, after its registration.
  -->
 ブロックバリエーションはブロックの登録の際に、上で見たような `variations` キーと適切なバリエーションの配列を渡すことで宣言できます。また、ブロックの登録後に、`block variation` を登録、登録解除する方法もあります。
 
-<!-- 
+<!--
 To add a block variation use `wp.blocks.registerBlockVariation()`.
  -->
 ブロックバリエーションを追加するには、`wp.blocks.registerBlockVariation()` を使用してください。
 
-<!-- 
+<!--
 _Example:_
  -->
 _例:_
@@ -130,16 +129,16 @@ _例:_
 ```js
 wp.blocks.registerBlockVariation( 'core/embed', {
 	name: 'custom',
-	attributes: { providerNameSlug: 'custom' }
+	attributes: { providerNameSlug: 'custom' },
 } );
 ```
 
-<!-- 
+<!--
 To remove a block variation use `wp.blocks.unregisterBlockVariation()`.
  -->
 ブロックバリエーションを削除するには、`wp.blocks.unregisterBlockVariation()` を使用してください。
 
-<!-- 
+<!--
 _Example:_
  -->
 _例:_

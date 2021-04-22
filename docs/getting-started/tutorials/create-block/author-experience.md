@@ -32,8 +32,8 @@ export default function Edit( { attributes, className, setAttributes } ) {
 	return (
 		<div { ...useBlockProps() }>
 			<Placeholder
-				label={__( 'Gutenpride Block', 'gutenpride' )}
-				instructions={__( 'Add your message', 'gutenpride' )}
+				label={ __( 'Gutenpride Block', 'gutenpride' ) }
+				instructions={ __( 'Add your message', 'gutenpride' ) }
 			>
 				<TextControl
 					value={ attributes.message }
@@ -67,20 +67,21 @@ This can be used inside a block to control what shows when a parameter is set or
 この構文をブロック内で使用してパラメータのあるなしで何を表示するか制御できます。単純なコードでは `message` がセットされていればそれを、セットされていなければフォーム要素を表示できます。
 
 ```jsx
-	return (
-		<div {...useBlockProps()}>
-			{ attributes.message ?
-				<div>Message: { attributes.message }</div> :
-				<div>
-					<p>No Message.</p>
-					<TextControl
-						value={ attributes.message }
-						onChange={ ( val ) => setAttributes( { message: val } ) }
-					/>
-				</div>
-			}
-		</div>
-	);
+return (
+	<div { ...useBlockProps() }>
+		{ attributes.message ? (
+			<div>Message: { attributes.message }</div>
+		) : (
+			<div>
+				<p>No Message.</p>
+				<TextControl
+					value={ attributes.message }
+					onChange={ ( val ) => setAttributes( { message: val } ) }
+				/>
+			</div>
+		) }
+	</div>
+);
 ```
 <!-- 
 There is a problem with the above, if we only use the `attributes.message` check, as soon as we type in the text field it would disappear since the message would then be set to a value. So we need to pair with an additional `isSelected` parameter.
@@ -113,7 +114,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function Edit( { attributes, isSelected, setAttributes } ) {
 	return (
-			<div {...useBlockProps()}>
+		<div { ...useBlockProps() }>
 			{ attributes.message && ! isSelected ? (
 				<div>{ attributes.message }</div>
 			) : (
@@ -177,13 +178,11 @@ import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
 	return (
-			<TextControl
-					{ ...useBlockProps() }
-					value={ attributes.message }
-					onChange={ ( val ) =>
-							setAttributes( { message: val } )
-					}
-			/>
+		<TextControl
+			{ ...useBlockProps() }
+			value={ attributes.message }
+			onChange={ ( val ) => setAttributes( { message: val } ) }
+		/>
 	);
 }
 ```

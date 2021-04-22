@@ -21,9 +21,9 @@ API を簡単に確認するには、ブロックエディターで書式を含�
 
 ```js
 wp.data.dispatch( 'core/annotations' ).addAnnotation( {
-	source: "my-annotations-plugin",
-	blockClientId: wp.data.select( 'core/editor' ).getBlockOrder()[0],
-	richTextIdentifier: "content",
+	source: 'my-annotations-plugin',
+	blockClientId: wp.data.select( 'core/editor' ).getBlockOrder()[ 0 ],
+	richTextIdentifier: 'content',
 	range: {
 		start: 50,
 		end: 100,
@@ -69,9 +69,9 @@ It is also possible to annotate a block completely. In that case just provide th
 
 ```js
 wp.data.dispatch( 'core/annotations' ).addAnnotation( {
-	source: "my-annotations-plugin",
-	blockClientId: wp.data.select( 'core/editor' ).getBlockOrder()[0],
-	selector: "block",
+	source: 'my-annotations-plugin',
+	blockClientId: wp.data.select( 'core/editor' ).getBlockOrder()[ 0 ],
+	selector: 'block',
 } );
 ```
 <!-- 

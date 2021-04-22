@@ -1,13 +1,13 @@
-<!-- 
+<!--
 # Getting started
  -->
 # はじめに
-<!-- 
+<!--
 **Gutenberg** is a codename for a whole new paradigm in WordPress site building and publishing, that aims to revolutionize the entire publishing experience as much as Gutenberg did the printed word. The project is right now in the second phase of a four-phase process that will touch every piece of WordPress -- Editing, **Customization** (which includes Full Site Editing, Block Patterns, Block Directory and Block based themes), Collaboration, and Multilingual -- and is focused on a new editing experience, the block editor (which is the topic of the current documentation).
  -->
 **Gutenberg** は WordPress サイト構築およびパブリッシングにおけるまったく新しいパラダイムのコードネームです。Gutenberg プロジェクトは、[グーテンベルク](https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%8F%E3%83%8D%E3%82%B9%E3%83%BB%E3%82%B0%E3%83%BC%E3%83%86%E3%83%B3%E3%83%99%E3%83%AB%E3%82%AF)が印刷業界に果たした影響と同じように、パブリッシング体験全体の革新を目的とします。プロジェクトは現在、WordPress のあらゆる部分を対象とする4つのフェーズ、「編集」「**カスタマイゼーション**」(これにはフルサイト編集、ブロックパターン、ブロックディレクトリ、ブロックベーステーマが含まれます)「コラボレーション」「マルチリンガル」のうち2番めのフェーズにあり、新しい編集体験、「ブロックエディター」にフォーカスしています。
 
-<!-- 
+<!--
 ![Quick view of the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/assets/quick-view-of-the-block-editor.png)
 
 **Legend :**
@@ -38,58 +38,59 @@ The Editor offers rich new value to users with visual, drag-and-drop creation to
 -->
 ブロックエディターはユーザーにリッチで新しい価値を届けます。ブロックエディターの機能としては、ビジュアルでドラッグアンドドロップ対応の作成ツール、最新のベンダーパッケージを使用したパワフルな開発拡張、再利用可能コンポーネント、カスタムブロックやカスタムブロックスタイル、プラグインを通じたエディターの変更、拡張が可能なリッチな API とフックがあります。
 
-<!-- 
+<!--
 [Learn to use the block editor](https://wordpress.org/support/article/wordpress-editor/) to create media-rich posts and pages.
  -->
 [ブロックエディターの使い方を学ぶ](https://ja.wordpress.org/support/article/wordpress-editor/) では、メディアリッチな投稿やページを作成できます。
 
-<!-- 
+<!--
 ## Quick links
  -->
 ## クイックリンク
 
-<!-- 
+<!--
 ### Create a Block Tutorial
  -->
 ### ブロックの作成 チュートリアル
 
-<!-- 
+<!--
 [Learn how to create your first block](/docs/getting-started/tutorials/create-block/README.md) for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all what you need to know to get started with the block editor.
  -->
 WordPress ブロックエディター用の[初めてのブロックの作成方法を学習します](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)。開発環境の構築から、ツール、新しい開発モデルの説明まで、このチュートリアルはブロックエディターでの開発に必要なすべてをカバーします。
 
-<!-- 
+<!--
 ### Develop for the block editor
  -->
 ### ブロックエディターでの開発
 
-<!-- 
+<!--
 Whether you want to extend the functionality of the block editor, or create a plugin based on it, [see the developer documentation](/docs/how-to-guides/README.md) to find all the information about the basic concepts you need to get started, the block editor APIs and its architecture.
  -->
 ブロックエディターの機能の拡張やプラグインの開発で必要となる基本コンセプト、ブロック API、アーキテクチャに関するすべての情報については、[開発者ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/)を参照してください。
 
-<!-- 
-- [Gutenberg Architecture](/docs/explanations/architecture/README.md)
-- [Block Style Variations](/docs/reference-guides/filters/block-filters.md#block-style-variations)
-- [Creating Block Patterns](/docs/reference-guides/block-api/block-patterns.md)
-- [Theming for the Block Editor](/docs/how-to-guides/themes/README.md)
-- [Block API Reference](/docs/reference-guides/block-api/README.md)
-- [Block Editor Accessibility](/docs/how-to-guides/accessibility.md)
-- [Internationalization](/docs/how-to-guides/internationalization.md)
+<!--
+-   [Gutenberg Architecture](/docs/explanations/architecture/README.md)
+-   [Block Styles](/docs/reference-guides/filters/block-filters.md#block-styles)
+-   [Creating Block Patterns](/docs/reference-guides/block-api/block-patterns.md)
+-   [Theming for the Block Editor](/docs/how-to-guides/themes/README.md)
+-   [Block API Reference](/docs/reference-guides/block-api/README.md)
+-   [Block Editor Accessibility](/docs/how-to-guides/accessibility.md)
+-   [Internationalization](/docs/how-to-guides/internationalization.md)
  -->
 - [Gutenberg アーキテクチャ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/)
-- [ブロックスタイルバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/filters/block-filters/#block-style-variations)
+- [ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/filters/block-filters/#block-styles)
 - [ブロックパターンの作成](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/)
 - [ブロックエディター対応のテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)
 - [ブロック API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/)
 - [ブロックエディターのアクセシビリティ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/accessibility/)
 - [国際化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/internationalization/)
 
-<!-- 
+<!--
 ### Contribute to the block editor
  -->
 ### ブロックエディターへの貢献
-<!-- 
+
+<!--
 Everything you need to know to [start contributing to the block editor](/docs/contributors/README.md) . Whether you are interested in the design, code, triage, documentation, support or internationalization of the block editor, you will find here guides to help you.
  -->
 [ブロックエディターへの貢献を始める](https://ja.wordpress.org/team/handbook/block-editor/contributors/)場合に必要な情報です。ブロックエディターのデザイン、コード、トリアージュ、ドキュメント、サポート、国際化のどれに興味があっても必要なガイドを入手できます。

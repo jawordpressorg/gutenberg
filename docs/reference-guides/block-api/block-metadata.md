@@ -1,14 +1,14 @@
-<!-- 
+<!--
 # Block Type Metadata
  -->
 # ブロックタイプメタデータ
 
-<!-- 
+<!--
 To register a new block type using metadata that can be shared between codebase that uses JavaScript and PHP, start by creating a `block.json` file. This file:
  -->
 JavaScript コードと PHP コードベース間で共有可能なメタデータを使用して、新しいブロックタイプを登録できます。これにはまず `block.json` ファイルを作成します。`block.json` ファイルは、
 
-<!-- 
+<!--
 -   Gives a name to the block type.
 -   Defines some important metadata about the registered block type (title, category, icon, description, keywords).
 -   Defines the attributes of the block type.
@@ -19,7 +19,7 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 -   ブロックタイプの属性を定義します。
 -   ブロックタイプのすべてのスクリプトとスタイルを登録します。
 
-<!-- 
+<!--
 **Example:**
  -->
 **例:**
@@ -65,27 +65,27 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 }
 ```
 
-<!-- 
+<!--
 The same file is also used when [submitting block to Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md).
  -->
 [ブロックディレクトリへブロックをサブミットする](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)際にも同じファイルが使用されます。
 
-<!-- 
+<!--
 ## Server-side registration
  -->
 ## サーバーサイドでの登録
 
-<!-- 
+<!--
 There is also [`register_block_type_from_metadata`](https://developer.wordpress.org/reference/functions/register_block_type_from_metadata/) function that aims to simplify the block type registration on the server from metadata stored in the `block.json` file.
  -->
 また [`register_block_type_from_metadata`](https://developer.wordpress.org/reference/functions/register_block_type_from_metadata/) 関数を使用すると、サーバーで `block.json` ファイル内に保存されたメタデータから簡単にブロックタイプを登録できます。
 
-<!-- 
+<!--
 This function takes two params:
  -->
 `register_block_type_from_metadata` 関数は2つの引数を取ります。
 
-<!-- 
+<!--
 -   `$path` (`string`) – path to the folder where the `block.json` file is located or full path to the metadata file if named differently.
 -   `$args` (`array`) – an optional array of block type arguments. Default value: `[]`. Any arguments may be defined. However, the one described below is supported by default:
     -   `$render_callback` (`callable`) – callback used to render blocks of this block type.
@@ -94,12 +94,12 @@ This function takes two params:
 -   `$args` (`array`) – ブロックタイプ引数のオプション配列。デフォルト値は `[]`。任意の引数を定義可。ただし、以下はデフォルトでサポートされる。
     -   `$render_callback` (`callable`) – このブロックタイプのブロックをレンダーする際に使用されるコールバック。
 
-<!-- 
+<!--
 It returns the registered block type (`WP_Block_Type`) on success or `false` on failure.
  -->
 関数は、成功すると登録されたブロックタイプ (`WP_Block_Type`)、失敗すると `false` を返します。
 
-<!-- 
+<!--
 **Example:**
  -->
 **例:**
@@ -113,19 +113,19 @@ register_block_type_from_metadata(
 );
 ```
 
-<!-- 
+<!--
 ## Block API
  -->
 ## ブロック API
 
-<!-- 
+<!--
 This section describes all the properties that can be added to the `block.json` file to define the behavior and metadata of block types.
  -->
 このセクションでは、`block.json` ファイルに追加可能な、ブロックタイプの振る舞いとメタデータを定義するすべてのプロパティを紹介します。
 
 ### Name
 
-<!-- 
+<!--
 -   Type: `string`
 -   Required
 -   Localized: No
@@ -140,7 +140,7 @@ This section describes all the properties that can be added to the `block.json` 
 { "name": "core/heading" }
 ```
 
-<!-- 
+<!--
 The name for a block is a unique string that identifies a block. Names have to be structured as `namespace/block-name`, where namespace is the name of your plugin or theme.
 
 **Note:** A block name can only contain lowercase alphanumeric characters, dashes, and at most one forward slash to designate the plugin-unique namespace prefix. It must begin with a letter.
@@ -155,7 +155,7 @@ The name for a block is a unique string that identifies a block. Names have to b
 
 ### Title
 
-<!-- 
+<!--
 -   Type: `string`
 -   Required
 -   Localized: Yes
@@ -170,14 +170,14 @@ The name for a block is a unique string that identifies a block. Names have to b
 { "title": "Heading" }
 ```
 
-<!-- 
+<!--
 This is the display title for your block, which can be translated with our translation functions. The block inserter will show this name.
  -->
 ブロックの表示タイトルです。翻訳関数で翻訳できます。ブロックインサーターはこの名前を表示します。
 
 ### Category
 
-<!-- 
+<!--
 -   Type: `string`
 -   Required
 -   Localized: No
@@ -191,12 +191,12 @@ This is the display title for your block, which can be translated with our trans
 ```json
 { "category": "text" }
 ```
-<!-- 
+<!--
 Blocks are grouped into categories to help users browse and discover them.
  -->
 ブロックは、ユーザーの視認性と検索のしやすさのため、カテゴリーにグループ分けできます。
 
-<!-- 
+<!--
 The core provided categories are:
  -->
 コアの提供するカテゴリーは以下です。
@@ -208,7 +208,7 @@ The core provided categories are:
 -   theme
 -   embed
 
-<!-- 
+<!--
 Plugins and Themes can also register [custom block categories](/docs/reference-guides/filters/block-filters.md#managing-block-categories).
 
 An implementation should expect and tolerate unknown categories, providing some reasonable fallback behavior (e.g. a "text" category).
@@ -219,7 +219,7 @@ An implementation should expect and tolerate unknown categories, providing some 
 
 ### Parent
 
-<!-- 
+<!--
 -   Type: `string[]`
 -   Optional
 -   Localized: No
@@ -238,7 +238,7 @@ An implementation should expect and tolerate unknown categories, providing some 
 
 ### Icon
 
-<!-- 
+<!--
 -   Type: `string`
 -   Optional
 -   Localized: No
@@ -253,19 +253,19 @@ An implementation should expect and tolerate unknown categories, providing some 
 { "icon": "smile" }
 ```
 
-<!-- 
+<!--
 An icon property should be specified to make it easier to identify a block. These can be any of WordPress' Dashicons (slug serving also as a fallback in non-js contexts).
  -->
 ブロックを識別しやすくするために icon プロパティを指定してください。任意の WordPress Dashicons を指定できます。またスラッグは 非 js コンテキストでのフォールバックとなります。
 
-<!-- 
+<!--
 **Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/src/svg/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
  -->
 **注意:** このプロパティはまた、クライアントサイドで、SVG 要素のソースで上書きすることもできます。加えて、このプロパティは背景色や前景色を含むオブジェクトとして、 JavaScript で定義できます。この色は、たとえばインサーター内で表示される場合にアイコンと一緒に使用されます。カスタム SVG アイコンは自動で [wp.primitives.SVG](/packages/primitives/src/svg/README.md) コンポーネントにラップされ、アクセシビリティ属性 (aria-hidden、role、focusable) が追加されます。
 
 ### Description
 
-<!-- 
+<!--
 -   Type: `string`
 -   Optional
 -   Localized: Yes
@@ -281,14 +281,14 @@ An icon property should be specified to make it easier to identify a block. Thes
 	"description": "Introduce new sections and organize content to help visitors"
 }
 ```
-<!-- 
+<!--
 This is a short description for your block, which can be translated with our translation functions. This will be shown in the block inspector.
  -->
 ブロックの簡潔な説明です。翻訳関数で翻訳できます。ブロックインスペクターで表示されます。
 
 ### Keywords
 
-<!-- 
+<!--
 -   Type: `string[]`
 -   Optional
 -   Localized: Yes
@@ -305,14 +305,14 @@ This is a short description for your block, which can be translated with our tra
 { "keywords": [ "keyword1", "keyword2" ] }
 ```
 
-<!-- 
+<!--
 Sometimes a block could have aliases that help users discover it while searching. For example, an image block could also want to be discovered by photo. You can do so by providing an array of unlimited terms (which are translated).
  -->
 ブロックは、検索性の向上のため別名を持つことができます。たとえば、画像ブロックを「写真」でも検索できるようになります。語句は何個でも配列内に指定でき、翻訳の対象です。
 
 ### Text Domain
 
-<!-- 
+<!--
 -   Type: `string`
 -   Optional
 -   Localized: No
@@ -327,14 +327,14 @@ Sometimes a block could have aliases that help users discover it while searching
 { "textdomain": "my-plugin" }
 ```
 
-<!-- 
+<!--
 The [gettext](https://www.gnu.org/software/gettext/) text domain of the plugin/block. More information can be found in the [Text Domain](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains) section of the [How to Internationalize your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) page.
  -->
 プラグインブロックの [gettext](https://www.gnu.org/software/gettext/) テキストドメイン。詳細については「[プラグインの国際化](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)」の「[テキストドメイン](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains)」セクションを参照してください。
 
 ### Attributes
 
-<!-- 
+<!--
 -   Type: `object`
 -   Optional
 -   Localized: No
@@ -365,19 +365,19 @@ The [gettext](https://www.gnu.org/software/gettext/) text domain of the plugin/b
 }
 ```
 
-<!-- 
+<!--
 Attributes provide the structured data needs of a block. They can exist in different forms when they are serialized, but they are declared together under a common interface.
  -->
 attributes (属性) は、ブロックに必要な構造化データを提供します。シリアライズされる際には異なる形式で存在できますが、共通インターフェースの下で一緒に宣言されます。
 
-<!-- 
+<!--
 See the [the attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
  -->
 詳細については、[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) を参照してください。
 
 ### Provides Context
 
-<!-- 
+<!--
 -   Type: `object`
 -   Optional
 -   Localized: No
@@ -390,12 +390,12 @@ See the [the attributes documentation](/docs/reference-guides/block-api/block-at
 -   プロパティ: `providesContext`
 -   デフォルト: `{}`
 
-<!-- 
+<!--
 Context provided for available access by descendants of blocks of this type, in the form of an object which maps a context name to one of the block's own attribute.
  -->
 このタイプのブロックの子孫ブロックによる、利用可能なアクセスのために提供されるコンテキスト。形式は、コンテキスト名をブロック自身の属性とマップするオブジェクト。
 
-<!-- 
+<!--
 See [the block context documentation](/docs/reference-guides/block-api/block-context.md) for more details.
  -->
 詳細については [ブロックコンテキストのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-context/) を参照してください。
@@ -410,7 +410,7 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 
 ### Context
 
-<!-- 
+<!--
 -   Type: `string[]`
 -   Optional
 -   Localized: No
@@ -423,12 +423,12 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 -   プロパティ: `usesContext`
 -   デフォルト: `[]`
 
-<!-- 
+<!--
 Array of the names of context values to inherit from an ancestor provider.
  -->
 先祖のプロバイダから継承するコンテキスト値の名前の配列
 
-<!-- 
+<!--
 See [the block context documentation](/docs/reference-guides/block-api/block-context.md) for more details.
  -->
 詳細については [ブロックコンテキストのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-context/) を参照してください。
@@ -441,7 +441,7 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 
 ### Supports
 
-<!-- 
+<!--
 -   Type: `object`
 -   Optional
 -   Localized: No
@@ -454,15 +454,15 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 -   プロパティ: `supports`
 -   デフォルト: `{}`
 
-<!-- 
+<!--
 It contains as set of options to control features used in the editor. See the [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
  -->
 エディターで使用される機能を制御するオプションのセットとして含みます。詳細については [サポートのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)) を参照してください。
 
 
-### Style Variations
+### Block Styles
 
-<!-- 
+<!--
 -   Type: `array`
 -   Optional
 -   Localized: Yes (`label` only)
@@ -484,19 +484,20 @@ It contains as set of options to control features used in the editor. See the [t
 }
 ```
 
-<!-- 
-Block styles can be used to provide alternative styles to block. It works by adding a class name to the block's wrapper. Using CSS, a theme developer can target the class name for the style variation if it is selected.
+<!--
+Block styles can be used to provide alternative styles to block. It works by adding a class name to the block's wrapper. Using CSS, a theme developer can target the class name for the block style if it is selected.
  -->
-ブロックスタイルを使用すると、ブロックに代替のスタイルを与えられます。ブロックのラッパーにクラス名が追加されます。テーマ開発者は CSS を使用して、選択された際のスタイルのバリエーションのターゲットにこのクラス名を指定できます。
+ブロックスタイルを使用すると、ブロックに代替のスタイルを与えられます。ブロックのラッパーにクラス名が追加されます。テーマ開発者は CSS を使用して、選択された際のブロックスタイルのターゲットにこのクラス名を指定できます。
 
-<!-- 
-Plugins and Themes can also register [custom block style](/docs/reference-guides/filters/block-filters.md#block-style-variations) for existing blocks.
+<!--
+Plugins and Themes can also register [custom block style](/docs/reference-guides/filters/block-filters.md#block-styles) for existing blocks.
  -->
-プラグインやテーマはまた既存のブロックに対して、[カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-style-variations) を登録できます。
+プラグインやテーマはまた既存のブロックに対して、[カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-styles) を登録できます。
+
 
 ### Example
 
-<!-- 
+<!--
 -   Type: `object`
 -   Optional
 -   Localized: No
@@ -517,19 +518,19 @@ Plugins and Themes can also register [custom block style](/docs/reference-guides
 }
 ```
 
-<!-- 
+<!--
 It provides structured example data for the block. This data is used to construct a preview for the block to be shown in the Inspector Help Panel when the user mouses over the block.
  -->
 ブロックに構造化されたサンプルデータを提供します。このデータはブロックのプレビューを構築する際に使用され、インスペクターヘルプパネルでユーザーがブロックの上にマウスを移動すると表示されます。
 
-<!-- 
+<!--
 See the [the example documentation](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
  -->
 詳細については [ドキュメントの「example (オプション)」セクション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) を参照してください。
 
 ### Editor Script
 
-<!-- 
+<!--
 -   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
 -   Optional
 -   Localized: No
@@ -544,14 +545,14 @@ See the [the example documentation](/docs/reference-guides/block-api/block-regis
 { "editorScript": "file:./build/index.js" }
 ```
 
-<!-- 
+<!--
 Block type editor script definition. It will only be enqueued in the context of the editor.
  -->
 ブロックタイプエディタースクリプト定義。エディターのコンテキスト内でのみエンキューされます。
 
 ### Script
 
-<!-- 
+<!--
 -   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
 -   Optional
 -   Localized: No
@@ -566,14 +567,14 @@ Block type editor script definition. It will only be enqueued in the context of 
 { "script": "file:./build/script.js" }
 ```
 
-<!-- 
+<!--
 Block type frontend script definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
  -->
 ブロックタイプフロントエンドスクリプト定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
 
 ### Editor Style
 
-<!-- 
+<!--
 -   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
 -   Optional
 -   Localized: No
@@ -588,14 +589,14 @@ Block type frontend script definition. It will be enqueued both in the editor an
 { "editorStyle": "file:./build/index.css" }
 ```
 
-<!-- 
+<!--
 Block type editor style definition. It will only be enqueued in the context of the editor.
  -->
 ブロックタイプエディタースタイル定義。エディターのコンテキスト内でのみエンキューされます。
 
 ### Style
 
-<!-- 
+<!--
 -   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
 -   Optional
 -   Localized: No
@@ -610,22 +611,22 @@ Block type editor style definition. It will only be enqueued in the context of t
 { "style": "file:./build/style.css" }
 ```
 
-<!-- 
+<!--
 Block type frontend style definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
  -->
 ブロックタイプフロントエンドスタイル定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
 
-<!-- 
+<!--
 ## Assets
  -->
 ## アセット
 
-<!-- 
+<!--
 ### `WPDefinedAsset`
  -->
 ### WPDefinedAsset
 
-<!-- 
+<!--
 The `WPDefinedAsset` type is a subtype of string, where the value represents a path to a JavaScript or CSS file relative to where `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
 
 An alternative would be a script or style handle name referencing a registered asset using WordPress helpers.
@@ -633,12 +634,12 @@ An alternative would be a script or style handle name referencing a registered a
 `WPDefinedAsset` タイプは string のサブタイプです。値は、`block.json` ファイルの場所から JavaScript ファイルや CSS ファイルへの相対パスで表します。提供されるパスには、接頭辞 `file:` を付ける必要があります。この方法は npm のパッケージの[ローカルパス](https://docs.npmjs.com/files/package.json#local-paths) を扱う方法に基づいています。
 
 代わりに WordPress ヘルパーを使用して登録されたアセットを参照する、スクリプトハンドル名やスタイルハンドル名も使用できます。
-<!-- 
+<!--
 **Example:**
  -->
 **例:**
 
-<!-- 
+<!--
 In `block.json`:
  -->
 `block.json` 内
@@ -650,22 +651,22 @@ In `block.json`:
 }
 ```
 
-<!-- 
+<!--
 In the context of WordPress, when a block is registered with PHP, it will automatically register all scripts and styles that are found in the `block.json` file and use file paths rather than asset handles.
  -->
 WordPress のコンテキストで、PHP でブロックを登録すると、`block.json` ファイル内に見つかるすべてのスクリプトとスタイルは自動的に登録され、アセットハンドルでなくファイルパスが使用されます。
 
-<!-- 
+<!--
 That's why, the `WPDefinedAsset` type has to offer a way to mirror also the shape of params necessary to register scripts and styles using [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) and [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/), and then assign these as handles associated with your block using the `script`, `style`, `editor_script`, and `editor_style` block type registration settings.
  -->
 `WPDefinedAsset` タイプがミラーする方法だけでなく、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) と [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) を使用してスクリプトとスタイルを登録する際に必要なパラメータも提供する必要があるのはこのためです。ブロックタイプ登録設定 `script`、`style`、`editor_script`、`editor_style` を使用して、ブロックに関連付けられたハンドルとして割り当てます。
 
-<!-- 
+<!--
 It's possible to provide an object which takes the following shape:
  -->
 次の形式を取るオブジェクトを提供することができます。
 
-<!-- 
+<!--
 -   `handle` (`string`) - the name of the script. If omitted, it will be auto-generated.
 -   `dependencies` (`string[]`) - an array of registered script handles this script depends on. Default value: `[]`.
 -   `version` (`string`|`false`|`null`) - string specifying the script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If the version is set to `false`, a version number is automatically added equal to current installed WordPress version. If set to `null`, no version is added. Default value: `false`.
@@ -674,12 +675,12 @@ It's possible to provide an object which takes the following shape:
 -   `dependencies` (`string[]`) - このスクリプトが依存する、登録されたスクリプトのハンドルの配列。デフォルト値: `[]`。
 -   `version` (`string`|`false`|`null`) - スクリプトのバージョン番号を指定する文字列。バージョンを指定すると、番号は URL にクエリ文字列として追加されます。これはキャッシュを避けるためです。`false` に設定すると、バージョン番号は自動的に、現在インストールされている WordPress のバージョンが追加されます。`null` に設定すると、バージョンは追加されません。デフォルト値: `false`。
 
-<!-- 
+<!--
 The definition is stored inside separate PHP file which ends with `.asset.php` and is located next to the JS/CSS file listed in `block.json`. WordPress will automatically detect this file through pattern matching. This option is the preferred one as it is expected it will become an option to auto-generate those asset files with `@wordpress/scripts` package.
  -->
 定義は、個別の PHP ファイル内に保存されます。ファイル名の最後は `.asset.php` で、`block.json` にリストされた JavaScript や CSS ファイルの隣に配置されます。WordPress は自動的にこのファイルをパターンマッチで検知します。`@wordpress/scripts` パッケージでこれらのアセットファイルを自動生成するオプションになると期待されるため、このオプションが好まれます。
 
-<!-- 
+<!--
 **Example:**
  -->
 **例:**
@@ -690,7 +691,7 @@ build/
 └─ index.asset.php
 ```
 
-<!-- 
+<!--
 In `block.json`:
  -->
 `block.json` 内
@@ -699,7 +700,7 @@ In `block.json`:
 { "editorScript": "file:./build/index.js" }
 ```
 
-<!-- 
+<!--
 In `build/index.asset.php`:
  -->
 `build/index.asset.php` 内
@@ -715,17 +716,17 @@ return array(
 	'version'      => '3be55b05081a63d8f9d0ecb466c42cfd',
 );
 ```
-<!-- 
+<!--
 ## Internationalization
  -->
 ## 国際化
 
-<!-- 
+<!--
 WordPress string discovery automatically will translate fields marked in the documentation as translatable using the `textdomain` property when specified in the `block.json` file. In that case, localized properties will be automatically wrapped in `_x` function calls on the backend of WordPress when executing `register_block_type_from_metadata`. These translations are added as an inline script to the `wp-block-library` script handle in WordPress core or to the plugin's script handle.
  -->
 WordPress 文字列ディスカバリは自動的に、翻訳可能とマークされたドキュメント内のフィールドを翻訳します。マークには `block.json` ファイル内の `textdomain` プロパティを使用します。このとき、ローカライズされるプロパティは、WordPress のバックエンドで`register_block_type_from_metadata` 実行時に、自動的に `_x` 関数でラップされます。これらの翻訳はインラインスクリプトとして WordPress コアの `wp-block-library` スクリプトハンドル、またはプラグインのスクリプトハンドルに追加されます。
 
-<!-- 
+<!--
 **Example:**
  -->
 **例:**
@@ -739,7 +740,7 @@ WordPress 文字列ディスカバリは自動的に、翻訳可能とマーク�
 }
 ```
 
-<!-- 
+<!--
 The way `register_block_type_from_metadata` processes translatable values is roughly equivalent to:
  -->
 `register_block_type_from_metadata` プロセスの働きにより、翻訳可能な値は、およそ次のようになります。
@@ -753,17 +754,17 @@ $metadata = array(
 );
 ```
 
-<!-- 
+<!--
 Implementation follows the existing [get_plugin_data](https://codex.wordpress.org/Function_Reference/get_plugin_data) function which parses the plugin contents to retrieve the plugin’s metadata, and it applies translations dynamically.
  -->
 実装は既存の [get_plugin_data](https://codex.wordpress.org/Function_Reference/get_plugin_data) 関数に従い、プラグインのコンテンツをパースしてプラグインのメタデータを取得し、動的に翻訳を適用します。
 
-<!-- 
+<!--
 ## Backward Compatibility
  -->
 ## 後方互換性
 
-<!-- 
+<!--
 The existing registration mechanism (both server side and frontend) will continue to work, it will serve as low-level implementation detail for the `block.json` based registration.
 
 Once all details are ready, Core Blocks will be migrated iteratively and third-party blocks will see warnings appearing in the console to encourage them to refactor the block registration API used.
@@ -776,7 +777,7 @@ The following properties are going to be supported for backward compatibility re
 
 次のプロパティは後方互換性のため、クライアントサイドのみでサポートされる予定です。将来的にはこのうちのいくつかが代替の API で置換されるかもしれません。
 
-<!-- 
+<!--
 -   `edit` - see the [Edit and Save](/docs/reference-guides/block-api/block-edit-save.md) documentation for more details.
 -   `save` - see the [Edit and Save](/docs/reference-guides/block-api/block-edit-save.md) documentation for more details.
 -   `transforms` - see the [Transforms](/docs/reference-guides/block-api/block-registration.md#transforms-optional) documentation for more details.
@@ -791,12 +792,12 @@ The following properties are going to be supported for backward compatibility re
 -   `merge` - 今日現在、ドキュメントされていません。役割としては、複数のブロックを1つにマージ処理します。
 -   `getEditWrapperProps` - 同様に、ドキュメントされていません。役割としては、ブロック編集のコンポーネントラッパーに追加の props を注入します。
 
-<!-- 
+<!--
 **Example**:
  -->
 **例**:
 
-<!-- 
+<!--
 ```js
 wp.blocks.registerBlockType( 'my-block/name', {
 	edit: function () {
@@ -825,7 +826,7 @@ wp.blocks.registerBlockType( 'my-block/name', {
 } );
 ```
 
-<!-- 
+<!--
 In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should be still possible to register `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) and `register_block_type_from_metadata` functions on the server.
  -->
 WordPress にサポートされる [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) と `register_block_type_from_metadata` の両方を使用して `render_callback` プロパティを登録することは変わらず可能です。

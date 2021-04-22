@@ -12,32 +12,34 @@ To visualize and edit the meta field value you'll use an input component. The `@
 メタフィールド値の表示や編集には入力コンポーネントを使用します。`@wordpress/components` パッケージには再利用可能な多くのコンポーネントがあり、特に [TextControl](https://developer.wordpress.org/block-editor/components/text-control/) は入力フィールドの作成を目的とします。
 
 ```js
-( function( wp ) {
+( function ( wp ) {
 	var registerPlugin = wp.plugins.registerPlugin;
 	var PluginSidebar = wp.editPost.PluginSidebar;
 	var el = wp.element.createElement;
 	var Text = wp.components.TextControl;
 
 	registerPlugin( 'my-plugin-sidebar', {
-		render: function() {
-			return el( PluginSidebar,
+		render: function () {
+			return el(
+				PluginSidebar,
 				{
 					name: 'my-plugin-sidebar',
 					icon: 'admin-post',
 					title: 'My plugin sidebar',
 				},
-				el( 'div',
+				el(
+					'div',
 					{ className: 'plugin-sidebar-content' },
 					el( Text, {
 						label: 'Meta Block Field',
 						value: 'Initial value',
-						onChange: function( content ) {
+						onChange: function ( content ) {
 							console.log( 'content changed to ', content );
 						},
 					} )
 				)
 			);
-		}
+		},
 	} );
 } )( window.wp );
 ```
@@ -46,8 +48,8 @@ Update the `plugin-sidebar.js` with this new code. Notice that it uses a new uti
 
 It introduces a few changes from the previous section:
 
-* Added the CSS class `plugin-sidebar-content` to the `div` element to be able to add some styles.
-* Substituted the raw _Meta field_ text with a `TextControl` component wrapped within the `div` element.
+-   Added the CSS class `plugin-sidebar-content` to the `div` element to be able to add some styles.
+-   Substituted the raw _Meta field_ text with a `TextControl` component wrapped within the `div` element.
 
 With the new CSS class available you can now give the sidebar a bit of breath. Create a new file in your plugin directory called `plugin-sidebar.css` with the following contents:
  -->

@@ -1,9 +1,9 @@
-<!-- 
+<!--
 # SlotFills Reference
  -->
 # SlotFill リファレンス
 
-<!-- 
+<!--
 Slot and Fill are components that have been exposed to allow developers to inject items into some predefined places in the Gutenberg admin experience.
 Please see the [SlotFill component docs](https://wordpress.org/gutenberg/handbook/reference-guides/components/slot-fill/) for more details.
 
@@ -14,12 +14,12 @@ Slot と Fill は外部に公開されているコンポーネントです。開
 
 SlotFill を使用するには [@wordpress/plugins](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-plugins/) API を使用して項目を注入するプラグインを登録する必要があります。
 
-<!-- 
+<!--
 ## Usage overview
  -->
 ## 基本的な使用方法
 
-<!-- 
+<!--
 In order to access the SlotFills, we need to do four things:
 
 1. Import the `registerPlugin` method from `wp.plugins`.
@@ -51,12 +51,12 @@ const PluginPostStatusInfoTest = () => (
 
 registerPlugin( 'post-status-info-test', { render: PluginPostStatusInfoTest } );
 ```
-<!-- 
+<!--
 ## How do they work?
  -->
 ## どのように動作するか ?
 
-<!-- 
+<!--
 SlotFills are created using `createSlotFill`. This creates two components, `Slot` and `Fill` which are then used to create a new component that is exported on the `wp.plugins` global.
 
 **Definition of the `PluginPostStatusInfo` SlotFill** ([see core code](https://github.com/WordPress/gutenberg/blob/HEAD/packages/edit-post/src/components/sidebar/plugin-post-status-info/index.js#L54))
@@ -79,9 +79,7 @@ export const { Fill, Slot } = createSlotFill( 'PluginPostStatusInfo' );
 
 const PluginPostStatusInfo = ( { children, className } ) => (
 	<Fill>
-		<PanelRow className={ className }>
-			{ children }
-		</PanelRow>
+		<PanelRow className={ className }>{ children }</PanelRow>
 	</Fill>
 );
 
@@ -89,7 +87,7 @@ PluginPostStatusInfo.Slot = Slot;
 
 export default PluginPostStatusInfo;
 ```
-<!-- 
+<!--
 This new Slot is then exposed in the editor. The example below is from core and represents the Status & visibility panel.
 
 As we can see, the `<PluginPostStatusInfo.Slot>` is wrapping all of the items that will appear in the panel.
@@ -129,35 +127,35 @@ const PostStatus = ( { isOpened, onTogglePanel } ) => (
 	</PanelBody>
 );
 ```
-<!-- 
+<!--
 ## Currently available SlotFills and examples
  -->
 ## 現在利用可能な SlotFill とサンプル
 
-<!-- 
+<!--
 The following SlotFills are available in the `edit-post` package. Please refer to the individual items below for usage and example details:
 
-* [MainDashboardButton](/docs/reference-guides/slotfills/main-dashboard-button.md)
-* [PluginBlockSettingsMenuItem](/docs/reference-guides/slotfills/plugin-block-settings-menu-item.md)
-* [PluginDocumentSettingPanel](/docs/reference-guides/slotfills/plugin-document-setting-panel.md)
-* [PluginMoreMenuItem](/docs/reference-guides/slotfills/plugin-more-menu-item.md)
-* [PluginPostPublishPanel](/docs/reference-guides/slotfills/plugin-post-publish-panel.md)
-* [PluginPostStatusInfo](/docs/reference-guides/slotfills/plugin-post-status-info.md)
-* [PluginPrePublishPanel](/docs/reference-guides/slotfills/plugin-pre-publish-panel.md)
-* [PluginSidebar](/docs/reference-guides/slotfills/plugin-sidebar.md)
-* [PluginSidebarMoreMenuItem](/docs/reference-guides/slotfills/plugin-sidebar-more-menu-item.md)
+-   [MainDashboardButton](/docs/reference-guides/slotfills/main-dashboard-button.md)
+-   [PluginBlockSettingsMenuItem](/docs/reference-guides/slotfills/plugin-block-settings-menu-item.md)
+-   [PluginDocumentSettingPanel](/docs/reference-guides/slotfills/plugin-document-setting-panel.md)
+-   [PluginMoreMenuItem](/docs/reference-guides/slotfills/plugin-more-menu-item.md)
+-   [PluginPostPublishPanel](/docs/reference-guides/slotfills/plugin-post-publish-panel.md)
+-   [PluginPostStatusInfo](/docs/reference-guides/slotfills/plugin-post-status-info.md)
+-   [PluginPrePublishPanel](/docs/reference-guides/slotfills/plugin-pre-publish-panel.md)
+-   [PluginSidebar](/docs/reference-guides/slotfills/plugin-sidebar.md)
+-   [PluginSidebarMoreMenuItem](/docs/reference-guides/slotfills/plugin-sidebar-more-menu-item.md)
  -->
 
 `edit-post` パッケージでは以下の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
 
-* [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button.md)
-* [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)
-* [PluginDocumentSettingPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-document-setting-panel/)
-* [PluginMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-more-menu-item/)
-* [PluginPostPublishPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-post-publish-panel/)
-* [PluginPostStatusInfo](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-post-status-info/)
-* [PluginPrePublishPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-pre-publish-panel/)
-* [PluginSidebar](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar/)
-* [PluginSidebarMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar-more-menu-item/)
+- [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button.md)
+- [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)
+- [PluginDocumentSettingPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-document-setting-panel/)
+- [PluginMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-more-menu-item/)
+- [PluginPostPublishPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-post-publish-panel/)
+- [PluginPostStatusInfo](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-post-status-info/)
+- [PluginPrePublishPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-pre-publish-panel/)
+- [PluginSidebar](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar/)
+- [PluginSidebarMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar-more-menu-item/)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/slotfills/README.md)

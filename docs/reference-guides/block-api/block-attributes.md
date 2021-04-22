@@ -1,13 +1,13 @@
-<!-- 
+<!--
 # Attributes
  -->
 # 属性
-<!-- 
+<!--
 ## Type Validation
  -->
 ## タイプの妥当性検証
 
-<!-- 
+<!--
 The only required field for an attribute is the `type` field. It indicates the type of data that is stored within the attribute.
 
 Accepted values in the `type` field MUST be one of the following:
@@ -16,24 +16,24 @@ Accepted values in the `type` field MUST be one of the following:
 
 `type` フィールドに指定する値は以下でなければなりません。
 
-* null
-* boolean
-* object
-* array
-* number
-* string
-* integer
-<!-- 
+-   null
+-   boolean
+-   object
+-   array
+-   number
+-   string
+-   integer
+<!--
 See [WordPress's REST API documentation](https://developer.wordpress.org/rest-api/extending-the-rest-api/schema/) for additional details.
  -->
 詳細については [WordPress REST API ドキュメント](https://developer.wordpress.org/rest-api/extending-the-rest-api/schema/) を参照してください。
 
-<!-- 
+<!--
 ## Common Sources
  -->
 ## 一般的なソース
 
-<!-- 
+<!--
 Attribute sources are used to define how the block attribute values are extracted from saved post content. They provide a mechanism to map from the saved markup to a JavaScript representation of a block.
 
 If no attribute source is specified, the attribute will be saved to (and read from) the block's [comment delimiter](/docs/getting-started/architecture/key-concepts.md#delimiters-and-parsing-expression-grammar).
@@ -42,7 +42,7 @@ If no attribute source is specified, the attribute will be saved to (and read fr
 
 属性ソースを指定しない場合、属性はブロックの [コメントデリミッター](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/key-concepts.md#delimiters-and-parsing-expression-grammar) に保存され、ロード時に読み出されます。
 
-<!-- 
+<!--
 The keys specified in the attributes source object are named as you see fit. The result of the attribute source definition is assigned as a value to each key.
 
 If no selector argument is specified, the source definition runs against the block's root node. If a selector argument is specified, it will run against the specified element(s) contained within the block.
@@ -51,7 +51,7 @@ If no selector argument is specified, the source definition runs against the blo
 
 `selector` 引数がない場合、ソース定義はブロックのルートノードに対して実行されます。`selector` 引数がある場合はブロック内に含まれる `selector` で指定された要素に対して実行されます。
 
-<!-- 
+<!--
 The selector specified can be an HTML tag, or anything queryable such as a class or id attribute, see examples below.
 
 Under the hood, attribute sources are a superset of the functionality provided by [hpq](https://github.com/aduth/hpq), a small library used to parse and query HTML markup into an object shape.
@@ -60,11 +60,12 @@ Under the hood, attribute sources are a superset of the functionality provided b
 
 実装から見た場合、属性ソースは [hpq](https://github.com/aduth/hpq) が提供する機能の上位セットとなる小さなライブラリーです。HTML マークアップをパースし、オブジェクト形式にクエリーします。
 
-<!-- 
+<!--
 ### `attribute`
  -->
 ### attribute
-<!-- 
+
+<!--
 Use `attribute` to extract the value of an attribute from markup.
 
 _Example_: Extract the `src` attribute from an image found in the block's markup.
@@ -84,7 +85,7 @@ _例_: ブロックのマークアップ内の画像から `src` 属性を取り
 }
 // { "url": "https://lorempixel.com/1200/800/" }
 ```
-<!-- 
+<!--
 Most attributes from markup will be of type `string`. Numeric attributes in HTML are still stored as strings, and are not converted automatically.
  -->
 マークアップのほとんどの属性タイプは `string` です。HTML の数字の属性も文字列として保存され自動では変換されません。
@@ -101,7 +102,7 @@ Most attributes from markup will be of type `string`. Numeric attributes in HTML
 // { "width": "50" }
 ```
 
-<!-- 
+<!--
 The only exception is when checking for the existence of an attribute (for example, the `disabled` attribute on a `button`). In that case type `boolean` can be used and the stored value will be a boolean.
  -->
 例外は `button` の `disabled` 属性のような、属性の存在を確認する場合です。この場合にはタイプ `boolean` を使うことができ保存した値も boolean になります。
@@ -117,11 +118,11 @@ The only exception is when checking for the existence of an attribute (for examp
 }
 // { "disabled": true }
 ```
-<!-- 
+<!--
 ### `text`
  -->
 ### text
-<!-- 
+<!--
 Use `text` to extract the inner text from markup.
  -->
 マークアップから内部のテキストを取り出すには `text` を使用します。
@@ -136,7 +137,7 @@ Use `text` to extract the inner text from markup.
 }
 // { "content": "The inner text of the figcaption element" }
 ```
-<!-- 
+<!--
 Another example, using `text` as the source, and using `.my-content` class as the selector to extract text:
  -->
 次の例では source として `text`、selector として `.my-content` クラスを使用してテキストを抽出しています。
@@ -151,12 +152,12 @@ Another example, using `text` as the source, and using `.my-content` class as th
 }
 // { "content": "The inner text of .my-content class" }
 ```
-<!-- 
+<!--
 ### `html`
  -->
 ### html
 
-<!-- 
+<!--
 Use `html` to extract the inner HTML from markup.
  -->
 マークアップから内部の HTML を取り出すには `html` を使用します。
@@ -171,7 +172,7 @@ Use `html` to extract the inner HTML from markup.
 }
 // { "content": "The inner text of the <strong>figcaption</strong> element" }
 ```
-<!-- 
+<!--
 Use the `multiline` property to extract the inner HTML of matching tag names for the use in `RichText` with the `multiline` prop.
  -->
 `RickText` 内から複数のタグ名に合致する內部 HTML を取り出すには `multiline` プロパティを使用してください。
@@ -187,12 +188,12 @@ Use the `multiline` property to extract the inner HTML of matching tag names for
 }
 // { "content": "<p>First line</p><p>Second line</p>" }
 ```
-<!-- 
+<!--
 ### `query`
  -->
 ### query
 
-<!-- 
+<!--
 Use `query` to extract an array of values from markup. Entries of the array are determined by the selector argument, where each matched element within the block will have an entry structured corresponding to the second argument, an object of attribute sources.
 
 _Example_: Extract `src` and `alt` from each image element in the block's markup.
@@ -231,7 +232,7 @@ _例_: ブロックのマークアップ内の各画像要素から `src` と `a
 
 ## meta
 
-<!-- 
+<!--
 Attributes may be obtained from a post's meta rather than from the block's representation in saved post content. For this, an attribute is required to specify its corresponding meta key under the `meta` key:
  -->
 属性は保存された投稿コンテンツ内のブロック表現からだけでなく、投稿のメタ情報からも取り出すこともできます。このとき属性は 対応するメタキーを `meta` キーに指定する必要があります。
@@ -245,7 +246,7 @@ attributes: {
 	},
 },
 ```
-<!-- 
+<!--
 From here, meta attributes can be read and written by a block using the same interface as any attribute:
  -->
 メタ属性は任意の属性と同じインターフェースを使用してブロックから読み書きできます。
@@ -253,6 +254,7 @@ From here, meta attributes can be read and written by a block using the same int
 **ESNext**
 {% codetabs %}
 {% ESNext %}
+
 ```js
 edit( { attributes, setAttributes } ) {
 	function onChange( event ) {
@@ -264,8 +266,8 @@ edit( { attributes, setAttributes } ) {
 ```
 
 **ES5**
-
 {% ES5 %}
+
 ```js
 edit: function( props ) {
 	function onChange( event ) {
@@ -278,12 +280,13 @@ edit: function( props ) {
 	} );
 },
 ```
+
 {% end %}
-<!-- 
+<!--
 ### Considerations
  -->
 ### 考慮点
-<!-- 
+<!--
 By default, a meta field will be excluded from a post object's meta. This can be circumvented by explicitly making the field visible:
  -->
 デフォルトではメタフィールドは投稿オブジェクトのメタから除外されます。これを回避するにはフィールドを明示的に見えるようにします。
@@ -296,11 +299,11 @@ function gutenberg_my_block_init() {
 }
 add_action( 'init', 'gutenberg_my_block_init' );
 ```
-<!-- 
+<!--
 Furthermore, be aware that WordPress defaults to:
 
-- not treating a meta datum as being unique, instead returning an array of values;
-- treating that datum as a string.
+-   not treating a meta datum as being unique, instead returning an array of values;
+-   treating that datum as a string.
 
 If either behavior is not desired, the same `register_post_meta` call can be complemented with the `single` and/or `type` parameters as follows:
  -->
@@ -322,12 +325,12 @@ function gutenberg_my_block_init() {
 }
 add_action( 'init', 'gutenberg_my_block_init' );
 ```
-<!-- 
+<!--
 If you'd like to use an object or an array in an attribute, you can register a `string` attribute type and use JSON as the intermediary. Serialize the structured data to JSON prior to saving, and then deserialize the JSON string on the server. Keep in mind that you're responsible for the integrity of the data; make sure to properly sanitize, accommodate missing data, etc.
  -->
 引数にオブジェクトまたは配列を使用したい場合には `string` 属性タイプを登録し JSON を中継役に使用します。まず構造化データを JSON にシリアライズして保存し、サーバー側で JSON 文字列をデシリアライズします。このときデータの整合性に責任があることに注意してください。適切なサニタイズや失われたデータの調節などが必要です。
 
-<!-- 
+<!--
 Lastly, make sure that you respect the data's type when setting attributes, as the framework does not automatically perform type casting of meta. Incorrect typing in block attributes will result in a post remaining dirty even after saving (_cf._ `isEditedPostDirty`, `hasEditedAttributes`). For instance, if `authorCount` is an integer, remember that event handlers may pass a different kind of data, thus the value should be cast explicitly:
  -->
 最後に属性を設定する差にはデータのタイプを尊重してください。なぜならフレームワークは自動でメタの型変換を実行しないためです。ブロック属性の誤った型は保存した後も投稿を dirty のままにします (_参照_ `isEditedPostDirty`、`hasEditedAttributes`)。たとえば `authorCount` が integer なら、イベントハンドラは異なる種類のdataを渡す可能性があるため、値を明示的に型変換する必要があります。

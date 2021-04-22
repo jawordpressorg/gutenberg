@@ -1,25 +1,25 @@
-<!-- 
+<!--
 # Block Registration
  -->
 # ブロックの登録
-<!-- 
+<!--
 ## `registerBlockType`
 
 -   **Type:** `Function`
  -->
 ## registerBlockType 関数
-<!-- 
+<!--
 Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`wp-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
  -->
 すべてのブロックの作成は、新しいブロックタイプ定義の登録から始まります。登録には [`wp-blocks` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-blocks/#registerBlockType) の `registerBlockType` 関数を使用します。関数はブロック名とブロック構成オブジェクトの2つの引数を取ります。
-<!-- 
+<!--
 ### Block Name
  -->
 ### ブロック名
 
 -   **Type:** `String`
 
-<!-- 
+<!--
 The name for a block is a unique string that identifies a block. Names have to be structured as `namespace/block-name`, where namespace is the name of your plugin or theme.
 
 ```js
@@ -34,7 +34,7 @@ registerBlockType( 'my-plugin/book', {} );
 registerBlockType( 'my-plugin/book', {} );
 ```
 
-<!-- 
+<!--
 _Note:_ A block name can only contain lowercase alphanumeric characters and dashes, and must begin with a letter.
 
 _Note:_ This name is used on the comment delimiters as `<!-- wp:my-plugin/book -->
@@ -44,7 +44,7 @@ _注意:_ ブロック名には英小文字、数字、ダッシュのみを使�
 
 _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plugin/book -->` のように使用されます。コアで提供されるブロックはシリアライズの際に名前空間が削除されます。
 
-<!-- 
+<!--
 ### Block Configuration
  -->
 ### ブロック構成
@@ -58,7 +58,7 @@ _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plu
 #### title
 
 -   **Type:** `String`
-<!-- 
+<!--
 This is the display title for your block, which can be translated with our translation functions. The block inserter will show this name.
 
 ```js
@@ -72,13 +72,13 @@ title: __( 'Book' );
 // データオブジェクト
 title: __( 'Book' );
 ```
-<!-- 
+<!--
 #### description (optional)
  -->
 #### description (オプション)
 
 -   **Type:** `String`
-<!-- 
+<!--
 This is a short description for your block, which can be translated with our translation functions. This will be shown in the Block Tab in the Settings Sidebar.
  -->
 ブロックの簡単な説明。翻訳関数を使用して翻訳できます。「設定」サイドバーの「ブロック」タブで表示されます。
@@ -90,7 +90,7 @@ description: __( 'Block showing a Book card.' );
 #### category
 
 -   **Type:** `String` [ common | formatting | layout | widgets | embed ]
-<!-- 
+<!--
 Blocks are grouped into categories to help users browse and discover them.
 
 The core provided categories are:
@@ -126,13 +126,13 @@ category: 'widgets',
 ```
 
 プラグインとテーマは [カスタムブロックカテゴリー](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#managing-block-categories) を登録することもできます。
-<!-- 
+<!--
 #### icon (optional)
  -->
 #### icon (オプション)
 
 -   **Type:** `String` | `Object`
-<!-- 
+<!--
 An icon property should be specified to make it easier to identify a block. These can be any of [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/), or a custom `svg` element.
 
 ```js
@@ -152,7 +152,7 @@ icon: 'book-alt',
 // ブロックにカスタム svg を指定
 icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 ```
-<!-- 
+<!--
 **Note:** Custom SVG icons are automatically wrapped in the [`wp.primitives.SVG` component](/packages/primitives/src/svg/) to add accessibility attributes (`aria-hidden`, `role`, and `focusable`).
 
 An object can also be passed as icon, in this case, icon, as specified above, should be included in the src property.
@@ -165,7 +165,7 @@ Besides src the object can contain background and foreground colors, this colors
 
 src 以外にオブジェクトは背景色と前景色を設定できます。ここで指定した色はインサーターの中など適切な場面でアイコンの背景色や前景色として使用されます。
 
-<!-- 
+<!--
 ```js
 icon: {
 	// Specifying a background color to appear with the icon e.g.: in the inserter.
@@ -187,13 +187,13 @@ icon: {
 	src: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 } ,
 ```
-<!-- 
+<!--
 #### keywords (optional)
  -->
 #### keywords (オプション)
 
 -   **Type:** `Array`
-<!-- 
+<!--
 Sometimes a block could have aliases that help users discover it while searching. For example, an `image` block could also want to be discovered by `photo`. You can do so by providing an array of terms (which can be translated).
 
 ```js
@@ -202,21 +202,21 @@ Sometimes a block could have aliases that help users discover it while searching
 keywords: [ __( 'image' ), __( 'photo' ), __( 'pics' ) ],
 ```
  -->
-ブロックには、ユーザーが検索する際に見つけやすいよう別名を設定できます。たとえば `image` ブロックは、`photo` でも見つけられれるようになります。検索後の配列を指定してください。検索後は翻訳可能です。 
+ブロックには、ユーザーが検索する際に見つけやすいよう別名を設定できます。たとえば `image` ブロックは、`photo` でも見つけられれるようになります。検索後の配列を指定してください。検索後は翻訳可能です。
 
 ```js
 // キーワードで別名をつけてブロックを発見しやすくする
 // キーワードは翻訳可能。翻訳すればロケールに関わらず動作する
 keywords: [ __( 'image' ), __( 'photo' ), __( 'pics' ) ],
 ```
-<!-- 
+<!--
 #### styles (optional)
  -->
 #### styles (オプション)
 
 -   **Type:** `Array`
-<!-- 
-Block styles can be used to provide alternative styles to block. It works by adding a class name to the block’s wrapper. Using CSS, a theme developer can target the class name for the style variation if it is selected.
+<!--
+Block styles can be used to provide alternative styles to block. It works by adding a class name to the block’s wrapper. Using CSS, a theme developer can target the class name for the block style if it is selected.
 
 ```js
 // Register block styles.
@@ -238,9 +238,9 @@ styles: [
 ],
 ```
 
-Plugins and Themes can also register [custom block style](/docs/reference-guides/filters/block-filters.md#block-style-variations) for existing blocks.
+Plugins and Themes can also register [custom block style](/docs/reference-guides/filters/block-filters.md#block-styles) for existing blocks.
  -->
-ブロックスタイルを使用してブロックに代替のスタイルを与えられます。ブロックスタイルはブロックのラッパーにクラス名を追加することで動作します。テーマ開発者は該当のクラス名をターゲットに CSS を使用して、選択された際のスタイルのバリエーションを指定できます。
+ブロックスタイルを使用してブロックに代替のスタイルを与えられます。ブロックスタイルはブロックのラッパーにクラス名を追加することで動作します。テーマ開発者は該当のクラス名をターゲットに CSS を使用して、選択された際のブロックスタイルを指定できます。
 
 ```js
 // ブロックスタイルの登録
@@ -262,15 +262,15 @@ styles: [
 ],
 ```
 
-プラグインやテーマは既存のブロックに対して [カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-style-variations) を登録することもできます。
+プラグインやテーマは既存のブロックに対して [カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-styles) を登録することもできます。
 
-<!-- 
+<!--
 #### attributes (optional)
  -->
 #### attributes (オプション)
 
 -   **Type:** `Object`
-<!-- 
+<!--
 Attributes provide the structured data needs of a block. They can exist in different forms when they are serialized, but they are declared together under a common interface.
 
 ```js
@@ -314,18 +314,18 @@ attributes: {
 	},
 },
 ```
-<!-- 
+<!--
 -   **See: [Attributes](/docs/reference-guides/block-api/block-attributes.md).**
  -->
 -   **参照: [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)**
 
-<!-- 
+<!--
 #### example (optional)
  -->
 #### example (オプション)
 
 -   **Type:** `Object`
-<!-- 
+<!--
 Example provides structured example data for the block. This data is used to construct a preview for the block to be shown in the Inspector Help Panel when the user mouses over the block.
 
 The data provided in the example object should match the attributes defined. For example:
@@ -358,7 +358,7 @@ example: {
 
 `example` が定義されていない場合、プレビューは表示されません。属性が定義されていない場合にもプレビューを表示するには、空の `example` オブジェクト `example: {}` を設定します。
 
-<!-- 
+<!--
 It's also possible to extend the block preview with inner blocks via `innerBlocks`. For example:
  -->
 また `innerBlocks` を使用したインナーブロックでブロックプレビューを拡張することもできます。
@@ -382,7 +382,7 @@ example: {
 },
 ```
 
-<!-- 
+<!--
 It's also possible to define the width of the preview container in pixels via `viewportWidth`. For example:
  -->
 また `viewportWidth` を使用してプレビューコンテナの幅をピクセル単位で定義することもできます。
@@ -395,18 +395,19 @@ example: {
 	viewportWidth: 800
 },
 ```
-<!-- 
+<!--
 #### variations (optional)
  -->
 #### variations (オプション)
 
 -   **Type:** `Object[]`
-<!-- 
-Similarly to how the block's style variations can be declared, a block type can define block variations that the user can pick from. The difference is that, rather than changing only the visual appearance, this field provides a way to apply initial custom attributes and inner blocks at the time when a block is inserted. See the [Block Variations API](/docs/reference-guides/block-api/block-variations.md) for more details.
+<!--
+Similarly to how the block's styles can be declared, a block type can define block variations that the user can pick from. The difference is that, rather than changing only the visual appearance, this field provides a way to apply initial custom attributes and inner blocks at the time when a block is inserted. See the [Block Variations API](/docs/reference-guides/block-api/block-variations.md) for more details.
  -->
-ブロックタイプは、ブロックスタイルバリエーションの宣言と同様に、ユーザーが選択可能なブロックバリエーションを定義できます。違いとしてはビジュアルな見た目を変更するだけでなく、ブロックが挿入された際の初期カスタム属性とインナーブロックの適用方法を提供します。詳細については [ブロックバリエーション API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
+ブロックタイプは、ブロックスタイルの宣言と同様に、ユーザーが選択可能なブロックバリエーションを定義できます。違いとしてはビジュアルな見た目を変更するだけでなく、ブロックが挿入された際の初期カスタム属性とインナーブロックの適用方法を提供します。詳細については [ブロックバリエーション API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
 
-<!-- 
+
+<!--
 #### supports (optional)
 -->
 #### supports (オプション)
@@ -418,24 +419,24 @@ Supports contains as set of options to control features used in the editor. See 
 `supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) を参照してください。
 
 
-<!-- 
+<!--
 #### transforms (optional)
  -->
 #### transforms (オプション)
 
 -   **Type:** `Object`
-<!-- 
+<!--
 Transforms provide rules for what a block can be transformed from and what it can be transformed to. A block can be transformed from another block, a shortcode, a regular expression, a file or a raw DOM node. Take a look at the [Block Transforms API](/docs/reference-guides/block-api/block-transforms.md) for more info about each available transformation.
  -->
 `transform` は、何をブロックに変換できるのか、またブロックは何に変換できるのかのルールを提供します。ブロックは、別のブロック、ショートコード、正規表現、ファイル、生の DOM ノードから変換できます。利用可能な個々の変換の詳細については [ブロック変換 API](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-transforms.md) を参照してください。
 
-<!-- 
+<!--
 #### parent (optional)
  -->
 #### parent (オプション)
 
 -   **Type:** `Array`
-<!-- 
+<!--
 Blocks are able to be inserted into blocks that use [`InnerBlocks`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) as nested content. Sometimes it is useful to restrict a block so that it is only available as a nested block. For example, you might want to allow an 'Add to Cart' block to only be available within a 'Product' block.
 
 Setting `parent` lets a block require that it is only available when nested within the specified blocks.
@@ -454,18 +455,18 @@ parent: [ 'core/columns' ],
 parent: [ 'core/columns' ],
 ```
 
-<!-- 
+<!--
 ## Block Collections
  -->
 ## ブロックコレクション
 
-<!-- 
+<!--
 ## `registerBlockCollection`
 
 -   **Type:** `Function`
  -->
 ## registerBlockCollection 関数
-<!-- 
+<!--
 Blocks can be added to collections, grouping together all blocks from the same origin
 
 `registerBlockCollection` takes two parameters, `namespace` and an object of settings including `title` and `icon`.
@@ -478,7 +479,7 @@ Blocks can be added to collections, grouping together all blocks from the same o
 ### Namespace
 
 -   **Type:** `String`
-<!-- 
+<!--
 This should match the namespace declared in the block name; the name of your plugin or theme.
  -->
 ブロック名で定義された namespace と合致する必要があります。プラグインやテーマの名前です。
@@ -488,7 +489,7 @@ This should match the namespace declared in the block name; the name of your plu
 #### Title
 
 -   **Type:** `String`
-<!-- 
+<!--
 This will display in the block inserter section, which will list all blocks in this collection.
  -->
 コレクション内のすべてのブロックをリストするブロックインサーターセクションにタイトルを表示します。
@@ -496,7 +497,7 @@ This will display in the block inserter section, which will list all blocks in t
 #### Icon
 
 -   **Type:** `Object`
-<!-- 
+<!--
 (Optional) An icon to display alongside the title in the block inserter.
 
 ```js

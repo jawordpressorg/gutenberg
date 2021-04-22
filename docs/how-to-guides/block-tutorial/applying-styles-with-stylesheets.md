@@ -1,9 +1,9 @@
-<!-- 
+<!--
 # Applying Styles From a Stylesheet
  -->
 # スタイルシートによるスタイルの適用
 
-<!-- 
+<!--
 In the previous step, the block had applied its own styles by an inline `style` attribute. While this might be adequate for very simple components, you will quickly find that it becomes easier to write your styles by extracting them to a separate stylesheet file.
 
 The editor will automatically generate a class name for each block type to simplify styling. It can be accessed from the object argument passed to the edit and save functions. In step 2, we will create a stylesheet to use that class name.
@@ -17,6 +17,7 @@ The editor will automatically generate a class name for each block type to simpl
 
 {% codetabs %}
 {% ESNext %}
+
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
@@ -35,22 +36,30 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	edit() {
 		const blockProps = useBlockProps();
 
-		return <p { ...blockProps }>Hello World, step 2 (from the editor, in green).</p>;
+		return (
+			<p { ...blockProps }>
+				Hello World, step 2 (from the editor, in green).
+			</p>
+		);
 	},
 
 	save() {
 		const blockProps = useBlockProps.save();
 
-		return <p { ...blockProps }>Hello World, step 2 (from the frontend, in red).</p>;
+		return (
+			<p { ...blockProps }>
+				Hello World, step 2 (from the frontend, in red).
+			</p>
+		);
 	},
 } );
 ```
 
 **ES5**
-
 {% ES5 %}
+
 ```js
-( function( blocks, element, blockEditor ) {
+( function ( blocks, element, blockEditor ) {
 	var el = element.createElement;
 
 	blocks.registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
@@ -59,7 +68,7 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 		icon: 'universal-access-alt',
 		category: 'design',
 		example: {},
-		edit: function( props ) {
+		edit: function ( props ) {
 			var blockProps = blockEditor.useBlockProps();
 			return el(
 				'p',
@@ -67,7 +76,7 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 				'Hello World, step 2 (from the editor, in green).'
 			);
 		},
-		save: function() {
+		save: function () {
 			var blockProps = blockEditor.useBlockProps.save();
 			return el(
 				'p',
@@ -76,20 +85,17 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 			);
 		},
 	} );
-}(
-	window.wp.blocks,
-	window.wp.element,
-	window.wp.blockEditor,
-) );
+} )( window.wp.blocks, window.wp.element, window.wp.blockEditor );
 ```
+
 {% end %}
 
-<!-- 
+<!--
 The class name is generated using the block's name prefixed with `wp-block-`, replacing the `/` namespace separator with a single `-`.
  -->
 クラス名はブロック名の前に `wp-block-` を付け、名前空間セパレーター `/` を `-` で置換して生成されます。
 
-<!-- 
+<!--
 ## Enqueueing Editor and Front end Assets
 
 Like scripts, you need to enqueue your block's styles. As explained in the section before, you use the `editor_style` handle for styles only relevant in the editor, and the `style` handle for common styles applied both in the editor and the front of your site.
@@ -114,7 +120,7 @@ Let's move on into code. Create a file called `editor.css`:
 	padding: 20px;
 }
 ```
-<!-- 
+<!--
 And a new `style.css` file containing:
  -->
 新しい `style.css` ファイルは以下を含みます。
@@ -127,7 +133,7 @@ And a new `style.css` file containing:
 	padding: 20px;
 }
 ```
-<!-- 
+<!--
 Configure your plugin to use these new styles:
  -->
 新しいスタイルを使用するようにプラグインを構成します。
@@ -164,7 +170,7 @@ function gutenberg_examples_02_register_block() {
 	wp_style_add_data( 'gutenberg-examples-02', 'path', dirname( __FILE__ ) . '/style.css' );
 
 	register_block_type( 'gutenberg-examples/example-02-stylesheets', array(
-		'apiVersion' => 2,
+		'api_version' => 2,
 		'style' => 'gutenberg-examples-02',
 		'editor_style' => 'gutenberg-examples-02-editor',
 		'editor_script' => 'gutenberg-examples-02',

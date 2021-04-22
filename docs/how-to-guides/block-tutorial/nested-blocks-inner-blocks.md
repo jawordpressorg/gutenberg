@@ -1,4 +1,4 @@
-<!-- 
+<!--
 # Nested Blocks: Using InnerBlocks
  -->
 # ネストしたブロック: InnerBlocks の使用
@@ -20,6 +20,7 @@ Here is the basic InnerBlocks usage.
 
 {% codetabs %}
 {% ESNext %}
+
 ```js
 import { registerBlockType } from '@wordpress/blocks';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
@@ -50,10 +51,10 @@ registerBlockType( 'gutenberg-examples/example-06', {
 ```
 
 **ES5**
-
 {% ES5 %}
+
 ```js
-( function( blocks, element, blockEditor ) {
+( function ( blocks, element, blockEditor ) {
 	var el = element.createElement;
 	var InnerBlocks = blockEditor.InnerBlocks;
 	var useBlockProps = blockEditor.useBlockProps;
@@ -62,35 +63,24 @@ registerBlockType( 'gutenberg-examples/example-06', {
 		title: 'Example: Inner Blocks',
 		category: 'design',
 
-		edit: function() {
+		edit: function () {
 			var blockProps = useBlockProps();
 
-			return el(
-				'div',
-				blockProps,
-				el( InnerBlocks )
-			);
+			return el( 'div', blockProps, el( InnerBlocks ) );
 		},
 
-		save: function() {
+		save: function () {
 			var blockProps = useBlockProps.save();
 
-			return el(
-				'div',
-				blockProps,
-				el( InnerBlocks.Content )
-			);
+			return el( 'div', blockProps, el( InnerBlocks.Content ) );
 		},
 	} );
-} (
-	window.wp.blocks,
-	window.wp.element,
-	window.wp.blockEditor,
-) );
+} )( window.wp.blocks, window.wp.element, window.wp.blockEditor );
 ```
+
 {% end %}
 
-<!-- 
+<!--
 ## Allowed Blocks
 
 Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in your InnerBlock. This restricts the blocks that can be included only to those listed, all other blocks will not show in the inserter.
@@ -102,12 +92,10 @@ Using the `ALLOWED_BLOCKS` property, you can define the set of blocks allowed in
 ```js
 const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
 //...
-<InnerBlocks
-	allowedBlocks={ ALLOWED_BLOCKS }
-/>
+<InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } />;
 ```
 
-<!-- 
+<!--
 ## Orientation
 
 By default, `InnerBlocks` expects its blocks to be shown in a vertical list. A valid use-case is to style InnerBlocks to appear horizontally. When blocks are styled in such a way, the `orientation` prop can be used to indicate a horizontal layout:
@@ -117,9 +105,7 @@ By default, `InnerBlocks` expects its blocks to be shown in a vertical list. A v
 `InnerBlocks` はデフォルトでは縦のリストとしてブロックが表示されることを期待していますが、横に並べて使用することもできます。ブロックを横に並べる場合は、horizontal レイアウトを示すために `orientation` プロパティを使用してください。
 
 ```js
-<InnerBlocks
-	orientation="horizontal"
-/>
+<InnerBlocks orientation="horizontal" />
 ```
 <!--
 Specifying this prop will result in the block movers being shown horizontally, and also ensure drag and drop works correctly.
@@ -139,6 +125,7 @@ template プロパティを使用して、InnerBlocks コンポーネントが�
 
 {% codetabs %}
 {% ESNext %}
+
 ```js
 const MY_TEMPLATE = [
 	[ 'core/image', {} ],
@@ -159,8 +146,8 @@ const MY_TEMPLATE = [
 ```
 
 **ES5**
-
 {% ES5 %}
+
 ```js
 const MY_TEMPLATE = [
 	[ 'core/image', {} ],
@@ -180,15 +167,16 @@ const MY_TEMPLATE = [
 		);
 	},
 ```
+
 {% end %}
 
-<!-- 
+<!--
 Use the `templateLock` property to lock down the template. Using `all` locks the template complete, no changes can be made. Using `insert` prevents additional blocks to be inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
  -->
 `templateLock` プロパティを使用するとテンプレートをロックできます。テンプレートを完全にロックするには `all` を使用します。`insert` は追加ブロックのインサートを禁止しますが、既存のブロックは並べ替えられます。詳細については [templateLock のドキュメント](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock)を参照してください。
 
 
-<!-- 
+<!--
 ### Post Template
 
 Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks.
@@ -211,7 +199,7 @@ add_action( 'init', function() {
 } );
 ```
 
-<!-- 
+<!--
 ## Parent-Child InnerBlocks
 
 A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks. An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
@@ -231,7 +219,7 @@ export const settings = {
 	icon,
 	description: __( 'A single column within a columns block.' ),
 	//...
-}
+};
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/block-tutorial/nested-blocks-inner-blocks.md)

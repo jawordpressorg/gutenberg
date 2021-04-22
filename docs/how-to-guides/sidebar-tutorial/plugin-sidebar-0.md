@@ -1,18 +1,18 @@
-<!-- 
+<!--
 # Creating a Sidebar for Your Plugin
  -->
 # プラグイン用サイドバーの作成
 
-<!-- 
+<!--
 This tutorial starts with you having an existing plugin setup and ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/how-to-guides/javascript/) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
 
- In the next sections, you're going to create a custom sidebar for a plugin that contains a text control so the user can update a value that is stored in the `post_meta` table.
+In the next sections, you're going to create a custom sidebar for a plugin that contains a text control so the user can update a value that is stored in the `post_meta` table.
  -->
 このチュートリアルはすでにプラグインがあると仮定し、PHP と JavaScript のコードを追加していきます。WordPress プラグインの入門、ブロックエディター拡張プラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) チュートリアルを参照してください。
 
 次のセクション以降でプラグイン用のカスタムサイドバーを作成します。サイドバーにはテキストコントロールがあり、ユーザーは値を更新でき、値は `post_meta` テーブルに保存されます。
 
-<!-- 
+<!--
 1. [Get a sidebar up and running](/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-1-up-and-running.md)
 2. [Tweak the sidebar style and add controls](/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)
 3. [Register a new meta field](/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-3-register-meta.md)

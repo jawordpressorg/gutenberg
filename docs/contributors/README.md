@@ -20,15 +20,15 @@ Gutenberg は WordPress コアのサブプロジェクトです。追加情報�
 <!--
 Find the section below based on what you are looking to contribute:
 
-- **Code?** See the [developer section](/docs/contributors/code/README.md).
+-   **Code?** See the [developer section](/docs/contributors/code/README.md).
 
-- **Design?** See the [design section](/docs/contributors/design/README.md).
+-   **Design?** See the [design section](/docs/contributors/design/README.md).
 
-- **Documentation?** See the [documentation section](/docs/contributors/documentation/README.md)
+-   **Documentation?** See the [documentation section](/docs/contributors/documentation/README.md)
 
-- **Triage Support?** See the [triaging issues section](/docs/contributors/triage.md)
+-   **Triage Support?** See the [triaging issues section](/docs/contributors/triage.md)
 
-- **Internationalization?** See the [localizing and translating section](/docs/contributors/localizing.md)
+-   **Internationalization?** See the [localizing and translating section](/docs/contributors/localizing.md)
 -->
 
 コントリビューションしたい内容に応じたセクションに進んでください。
@@ -51,11 +51,11 @@ Find the section below based on what you are looking to contribute:
 <!--
 The Gutenberg project uses Github for managing code and tracking issues. Please see the following sections for the project methodologies using Github.
 
-- [Issue Management](/docs/contributors/repository-management.md#issues)
+-   [Issue Management](/docs/contributors/repository-management.md#issues)
 
-- [Pull Requests](/docs/contributors/repository-management.md#pull-requests)
+-   [Pull Requests](/docs/contributors/repository-management.md#pull-requests)
 
-- [Teams and Projects](/docs/contributors/repository-management.md#teams)
+-   [Teams and Projects](/docs/contributors/repository-management.md#teams)
 -->
 Gutenberg プロジェクトはコード管理と問題の追跡に Github を使用します。Github を使用したプロジェクトのプロセスについては次のセクションを参照してください。
 

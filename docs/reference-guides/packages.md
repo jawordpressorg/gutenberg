@@ -35,7 +35,6 @@ After the dependency is declared, you can access the module in your JavaScript c
 
 ```js
 const { PlainText } = wp.editor;
-
 ```
 
 <!--
@@ -62,7 +61,7 @@ Once installed, you can access the component in your code using:
 一度インストールすれば、コード内で次のようにコンポーネントにアクセスできます。
 
 ```js
-import { PlainText }  from '@wordpress/block-editor';
+import { PlainText } from '@wordpress/block-editor';
 ```
 
 ## パッケージ一覧 (翻訳のあるもの)

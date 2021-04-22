@@ -1,20 +1,20 @@
-<!-- 
+<!--
 # Block Patterns
  -->
 # ブロックパターン
-<!-- 
+<!--
 Block Patterns are predefined block layouts, ready to insert and tweak.
  -->
 ブロックパターンは事前に定義されたブロックレイアウトです。挿入すればすぐに使えます。
 
-<!-- 
+<!--
 ## Block Patterns Registration
  -->
 ## ブロックパターンの登録
 
 ### register_block_pattern
 
-<!-- 
+<!--
 The editor comes with a list of built-in block patterns. Theme and plugin authors can register addition custom block patterns using the `register_block_pattern` function.
 
 The `register_block_pattern` function receives the name of the pattern as the first argument and an array describing properties of the pattern as the second argument.
@@ -22,22 +22,23 @@ The `register_block_pattern` function receives the name of the pattern as the fi
 エディターには組み込みのブロックパターンのリストが付属します。テーマやプラグインの作者は `register_block_pattern` 関数を使用して追加のカスタムブロックパターンを登録できます。
 
 `register_block_pattern` 関数は第1引数としてパターンの名前、第2引数としてパターンを説明するプロパティの配列を取ります。
-<!-- 
+<!--
 The properties of the block pattern include:
- - `title` (required): A human-readable title for the pattern.
- - `content` (required): Raw HTML content for the pattern.
- - `description`: A visually hidden text used to describe the pattern in the inserter. A description is optional but it is strongly encouraged when the title does not fully describe what the pattern does.
- - `categories`: An array of pattern categories used to group block patterns. Block patterns can be shown on multiple categories.
- - `keywords`: An array of aliases or keywords that help users discover the pattern while searching.
- - `viewportWidth`: An integer specifying the width of the pattern in the inserter.
+-   `title` (required): A human-readable title for the pattern.
+-   `content` (required): Raw HTML content for the pattern.
+-   `description`: A visually hidden text used to describe the pattern in the inserter. A description is optional but it is strongly encouraged when the title does not fully describe what the pattern does.
+-   `categories`: An array of pattern categories used to group block patterns. Block patterns can be shown on multiple categories.
+-   `keywords`: An array of aliases or keywords that help users discover the pattern while searching.
+-   `viewportWidth`: An integer specifying the width of the pattern in the inserter.
  -->
 ブロックパターンのプロパティを以下に示します。
- - `title` (必須): 表示されるパターンのタイトル。
- - `content` (必須): パターンの生の HTML コンテンツ。
- - `description`: インスペクター内でパターンの記述に使用される非表示のテキスト。オプションだがタイトルで十分にブロックの動作を表せない場合は強く推奨。
- - `categories`: ブロックパターンのグループ化に使用されるブロックカテゴリーの配列。ブロックパターンは複数のカテゴリーに分けて表示できる。
- - `keywords`: 検索の際に役立つ別名またはキーワードの配列。
- - `viewportWidth`: インサーター内でのパターンの幅を指定する整数
+- `title` (必須): 表示されるパターンのタイトル。
+- `content` (必須): パターンの生の HTML コンテンツ。
+- `description`: インスペクター内でパターンの記述に使用される非表示のテキスト。オプションだがタイトルで十分にブロックの動作を表せない場合は強く推奨。
+- `categories`: ブロックパターンのグループ化に使用されるブロックカテゴリーの配列。ブロックパターンは複数のカテゴリーに分けて表示できる。
+- `keywords`: 検索の際に役立つ別名またはキーワードの配列。
+- `viewportWidth`: インサーター内でのパターンの幅を指定する整数
+
 
 ```php
 register_block_pattern(
@@ -51,7 +52,7 @@ register_block_pattern(
 ```
 
 ### unregister_block_pattern
-<!-- 
+<!--
 `unregister_block_pattern` allows unregistering a pattern previously registered on the server using `register_block_pattern`.
 
 The function's argument is the registered name of the pattern.
@@ -67,26 +68,27 @@ The following code sample unregisters the style named 'my-plugin/my-awesome-patt
 ```php
 unregister_block_pattern( 'my-plugin/my-awesome-pattern' );
 ```
-<!-- 
+<!--
 ## Block Pattern Categories
  -->
 ## ブロックパターンカテゴリー
-<!-- 
+<!--
 Block patterns can be grouped using categories. The block editor comes with bundled categories you can use on your custom block patterns. You can also register your own pattern categories.
  -->
 ブロックパターンはカテゴリーを使用してグループ分けできます。ブロックエディターにはカスタムブロックパターンでも利用可能な組み込みのカテゴリーが付属します。独自のパターンカテゴリーを登録することもできます。
 
 ### register_block_pattern_category
-<!-- 
+<!--
 The `register_block_pattern_category` function receives the name of the category as the first argument and an array describing properties of the category as the second argument.
 
 The properties of the pattern categories include:
- - `label` (required): A human-readable label for the pattern category.
+-   `label` (required): A human-readable label for the pattern category.
  -->
 `register_block_pattern_category` 関数は第1引数としてカテゴリーの名前、第2引数としてカテゴリーを説明するプロパティの配列を取ります。
 
 パターンカテゴリーのプロパティを以下に示します。
- - `label` (必須): 表示されるパターンカテゴリーの名前。
+- `label` (必須): 表示されるパターンカテゴリーの名前。
+
 
 ```php
 register_block_pattern_category(
@@ -96,7 +98,7 @@ register_block_pattern_category(
 ```
 
 ### unregister_block_pattern_category
-<!-- 
+<!--
 `unregister_block_pattern_category` allows unregistering a pattern category.
 
 The function's argument is the name of the pattern category to unregister.
