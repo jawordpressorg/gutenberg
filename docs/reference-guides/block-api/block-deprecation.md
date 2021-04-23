@@ -1,5 +1,5 @@
 <!--
-# Deprecated Blocks
+# Deprecation
  -->
 # 非推奨にするブロック
 

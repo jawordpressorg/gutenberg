@@ -1,7 +1,7 @@
 <!--
-# Block Type Metadata
+# Metadata
  -->
-# ブロックタイプメタデータ
+# メタデータ
 
 <!--
 To register a new block type using metadata that can be shared between codebase that uses JavaScript and PHP, start by creating a `block.json` file. This file:

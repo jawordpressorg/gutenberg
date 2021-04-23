@@ -1,7 +1,8 @@
 <!--
-# Block Supports
+# Supports
  -->
-# ブロックサポート
+# サポート
+
 <!--
 Block Supports is the API that allows a block to declare features used in the editor.
  -->
@@ -163,25 +164,28 @@ supports: {
 -   Default value: null
 -   Subproperties:
     -   `background`: type `boolean`, default value `true`
+    -   `duotone`: type `string`, default value undefined
     -   `gradients`: type `boolean`, default value `false`
     -   `text`: type `boolean`, default value `true`
  -->
 - タイプ: `Object`
 - デフォルト値: null
 - サブプロパティ:
-  - `background`: タイプ `boolean`, デフォルト値 `true`
-  - `gradients`: タイプ `boolean`, デフォルト値 `false`
-  - `text`: タイプ `boolean`, デフォルト値 `true`
+    -   `background`: タイプ `boolean`, デフォルト値 `true`
+    -   `duotone`: タイプ `string`, デフォルト値なし
+    -   `gradients`: タイプ `boolean`, デフォルト値 `false`
+    -   `text`: タイプ `boolean`, デフォルト値 `true`
 
 <!--
-This value signals that a block supports some of the CSS style properties related to color. When it does, the block editor will show UI controls for the user to set their values.
+This value signals that a block supports some of the properties related to color. When it does, the block editor will show UI controls for the user to set their values.
  -->
-この値はブロックが色に関連する CSS スタイルプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+この値はブロックが色に関連するプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 <!--
 The controls for background and text will source their colors from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), while the gradient's from `editor-gradient-presets` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets).
  -->
-背景とテキストのコントロールは色を `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) から、グラデーションは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) から取得します。
+<!-- 背景とテキストのコントロールは色を `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) から、グラデーションは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) から取得します。
+ -->
 
 <!--
 Note that the `text` and `background` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
@@ -231,66 +235,427 @@ supports: {
 <!--
 When the block has support for a specific color property, the attributes definition is extended to include some attributes.
  -->
+<!--
 ブロックが color プロパティをサポートすると、attributes の定義もいくつかの属性を含むよう拡張されます。
+ -->
 
 <!--
 -   `style`: attribute of `object` type with no default assigned. This is added when any of support color properties are declared. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
  -->
+<!--
 - `style`: デフォルトの割り当てのない `object` タイプの属性。任意の color プロパティのサポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトスタイルを適用できます。
+ -->
 
+### color.background
+
+<!--
+This property adds UI controls which allow the user to apply a solid background color to a block.
+ -->
+このプロパティは UI コントロールを追加します。ユーザーは UI コントロールを使用してブロックに背景色を適用できます。
+
+<!--
+When color support is declared, this property is enabled by default (along with text), so simply setting color will enable background color.
+ -->
+color サポートを宣言すると、background プロパティは text プロパティと共に自動で有効化されます。このため単に color を設定すれば、背景色は有効化されます。
+
+<!--
 ```js
-attributes: {
-    style: {
-        type: 'object',
-        default: {
-            color: {
-                background: 'value',
-                gradient: 'value',
-                text: 'value'
-            }
-        }
+supports: {
+    color: true // Enable both background and text
+}
+```
+ -->
+```js
+supports: {
+    color: true // background と text の両方を有効化
+}
+```
+
+<!--
+To disable background support while keeping other color supports enabled, set to `false`.
+ -->
+他の color サポートは有効化しながら background サポートを無効化するには、`false` を設定します。
+
+<!--
+```js
+supports: {
+    color: {
+        // Disable background support. Text color support is still enabled.
+        background: false
     }
 }
 ```
+ -->
+```js
+supports: {
+    color: {
+        // background サポートを無効化。テキスト色のサポートは引き続き有効
+        background: false
+    }
+}
+```
+
 <!--
 -   When `background` support is declared: it'll be added a new `backgroundColor` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default background color by specifying its own attribute with a default e.g.:
  -->
+<!--
 - `background` サポートを宣言すると、新しく `string` タイプの `backgroundColor` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトの背景色を適用できます。
+ -->
+<!--
+When the block declares support for `color.background`, the attributes definition is extended to include two new attributes: `backgroundColor` and `style`:
+ -->
+ブロックが `color.background` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `backgroundColor` と `style` が含まれます。
 
+<!--
+- `backgroundColor`: attribute of `string` type with no default assigned.
+ -->
+- `backgroundColor`: タイプ `string` の属性。デフォルト値なし。
+
+<!--
+  When a user chooses from the list of preset background colors, the preset slug is stored in the `backgroundColor` attribute.
+ -->
+  プリセットのリストからユーザーが背景色を選択すると、プリセットのスラッグが `backgroundColor` 属性に保存されます。
+
+<!--
+  Background color presets are sourced from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes).
+ -->
+  背景色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) がソースです。
+
+<!--
+  The block can apply a default preset background color by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのプリセット背景色を適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      backgroundColor: {
+          type: 'string',
+          default: 'some-preset-background-slug',
+      }
+  }
+  ```
+
+<!--
+- `style`: attribute of `object` type with no default assigned.
+ -->
+- `style`: タイプ `object` の属性。デフォルト値なし。
+
+<!--
+  When a custom background color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.background` attribute.
+ -->
+  カスタムカラーピッカーを使用するなどして、カスタム背景色を選択すると、カスタムカラー値が `style.color.background` 属性に保存されます。
+
+<!--
+  The block can apply a default custom background color by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのカスタム背景色を適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      style: {
+          type: 'object',
+          default: {
+              color: {
+                  background: '#aabbcc',
+              }
+          }
+      }
+  }
+  ```
+
+### color.__experimentalDuotone
+
+<!--
+This property adds UI controls which allow to apply a duotone filter to a block or part of a block.
+ -->
+このプロパティは UI コントロールを追加します。ブロック、またはブロックの一部にデュオトーンフィルターを適用できます。
+
+<!--
+The parent selector is automatically added much like nesting in Sass/SCSS (however, the `&` selector is not supported).
+ -->
+親のセレクタが、Sass/SCSS でのネストのように自動で追加されます (しかし、`&` セレクタはサポートされません)。
+
+<!--
 ```js
-attributes: {
-    backgroundColor: {
-        type: 'string',
-        default: 'some-value',
+supports: {
+    color: {
+        // Apply the filter to the same selector in both edit and save.
+        __experimentalDuotone: '> .duotone-img, > .duotone-video',
+
+        // Default values must be disabled if you don't want to use them with duotone.
+        background: false,
+        text: false
     }
 }
 ```
+ -->
+```js
+supports: {
+    color: {
+        // edit と save 両方の同じセレクタにフィルターを適用する。
+        __experimentalDuotone: '> .duotone-img, > .duotone-video',
+
+        // デュオトーンと一緒にデフォルト値を使いたくない場合は、無効化する必要がある
+        background: false,
+        text: false
+    }
+}
+```
+
+<!--
+Duotone presets are sourced from `color.duotone` in [theme.json](https://developer.wordpress.org/block-editor/developers/themes/theme-json/).
+ -->
+デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
+
+<!--
+When the block declares support for `color.duotone`, the attributes definition is extended to include the attribute `style`:
+ -->
+ブロックが `color.duotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
+
+<!--
+- `style`: attribute of `object` type with no default assigned.
+ -->
+- `style`: タイプ `object` の属性。デフォルト値なし。
+
+<!--
+  The block can apply a default duotone color by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのデュオトーンカラーを適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      style: {
+          type: 'object',
+          default: {
+              color: {
+                  duotone: [
+                      '#FFF',
+                      '#000
+                  ]
+              }
+          }
+      }
+  }
+  ```
+
+### color.gradients
+
 <!--
 -   When `gradients` support is declared: it'll be added a new `gradient` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
  -->
+<!--
 - `gradients` サポートを宣言すると、新しく `string` タイプの `gradients` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのグラデーションを適用できます。
+ -->
 
+<!--
+This property adds UI controls which allow the user to apply a gradient background to a block.
+ -->
+このプロパティは UI コントロールを追加します。ユーザーは UI コントロールを使用して、ブロックにグラデーション背景を適用できます。
+
+<!--
 ```js
-attributes: {
-    gradient: {
-        type: 'string',
-        default: 'some-value',
+supports: {
+    color: {
+        gradient: true,
+
+        // Default values must be disabled if you don't want to use them with gradient.
+        background: false,
+        text: false
     }
 }
 ```
+ -->
+```js
+supports: {
+    color: {
+        gradient: true,
+
+        // グラデーションと一緒にデフォルト値を使いたくない場合は、無効化する必要がある
+        background: false,
+        text: false
+    }
+}
+```
+
+<!--
+Gradient presets are sourced from `editor-gradient-presets` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets).
+ -->
+グラデーションプリセットは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) がソースです。
+
+<!--
+When the block declares support for `color.gradient`, the attributes definition is extended to include two new attributes: `gradient` and `style`:
+ -->
+ブロックが `color.gradient` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `gradient` と `style` が含まれます。
+
+<!--
+- `gradient`: attribute of `string` type with no default assigned.
+ -->
+- `gradient`: タイプ `string` の属性。デフォルト値なし。
+
+<!--
+  When a user chooses from the list of preset gradients, the preset slug is stored in the `gradient` attribute.
+ -->
+  プリセットのリストからユーザーがグラデーションを選択すると、プリセットのスラッグが `gradient` 属性に保存されます。
+
+<!--
+  The block can apply a default preset gradient by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのグラデーションプリセットを適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      gradient: {
+          type: 'string',
+          default: 'some-preset-gradient-slug',
+      }
+  }
+  ```
+
+<!--
+- `style`: attribute of `object` type with no default assigned.
+ -->
+- `style`: タイプ `object` の属性。デフォルト値なし。
+
+<!--
+  When a custom gradient is selected (i.e. using the custom gradient picker), the custom gradient value is stored in the `style.color.gradient` attribute.
+ -->
+  カスタムグラデーションピッカーを使用するなどして、カスタムグラデーションを選択すると、カスタムグラデーション値が `style.color.gradient` 属性に保存されます。
+
+<!--
+  The block can apply a default custom gradient by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのカスタムグラデーションを適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      style: {
+          type: 'object',
+          default: {
+              color: {
+                  background: 'linear-gradient(135deg,rgb(170,187,204) 0%,rgb(17,34,51) 100%)',
+              }
+          }
+      }
+  }
+  ```
+
+### color.text
+
 <!--
 -   When `text` support is declared: it'll be added a new `textColor` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
  -->
+<!--
 - `text` サポートを宣言すると、新しく `string` タイプの `textColor` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのテキスト色を適用できます。
+ -->
 
+<!--
+This property adds block controls which allow the user to set text color in a block.
+ -->
+このプロパティはブロックコントロールを追加します。ユーザーはブロックコントロールを使用してブロックのテキスト色を設定できます。
+
+<!--
+When color support is declared, this property is enabled by default (along with background), so simply setting color will enable text color.
+ -->
+color サポートを宣言すると、text プロパティは background プロパティと共に自動で有効化されます。このため単に color を設定すれば、テキスト色は有効化されます。
+
+<!--
 ```js
-attributes: {
-    textColor: {
-        type: 'string',
-        default: 'some-value',
+supports: {
+    color: true // Enable both text and background
+}
+```
+ -->
+```js
+supports: {
+    color: true // text と background の両方を有効化
+}
+```
+
+<!--
+To disable text color support while keeping other color supports enabled, set to `false`.
+ -->
+他の color サポートは有効化しながら text サポートを無効化するには、`false` を設定します。
+
+<!--
+```js
+supports: {
+    color: {
+        // Disable text color support. Background support is still enabled.
+        text: false
     }
 }
 ```
+ -->
+```js
+supports: {
+    color: {
+        // text サポートを無効化。背景色のサポートは引き続き有効
+        text: false
+    }
+}
+```
+
+<!--
+Text color presets are sourced from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes).
+ -->
+テキスト色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) がソースです。
+
+<!--
+When the block declares support for `color.text`, the attributes definition is extended to include two new attributes: `textColor` and `style`:
+ -->
+ブロックが `color.text` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `textColor` と `style` が含まれます。
+
+<!--
+- `textColor`: attribute of `string` type with no default assigned.
+ -->
+- `textColor`: タイプ `string` の属性。デフォルト値なし。
+
+<!--
+  When a user chooses from the list of preset text colors, the preset slug is stored in the `textColor` attribute.
+ -->
+  プリセットのリストからユーザーがテキスト色を選択すると、プリセットのスラッグが `textColor` 属性に保存されます。
+
+<!--
+  The block can apply a default preset text color by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのプリセットテキスト色を適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      textColor: {
+          type: 'string',
+          default: 'some-preset-text-color-slug',
+      }
+  }
+  ```
+
+<!--
+- `style`: attribute of `object` type with no default assigned.
+ -->
+- `style`: タイプ `object` の属性。デフォルト値なし。
+
+<!--
+  When a custom text color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.text` attribute.
+ -->
+  カスタムカラーピッカーを使用するなどして、カスタムテキスト色を選択すると、カスタムカラー値が `style.color.gradient` 属性に保存されます。
+
+<!--
+  The block can apply a default custom text color by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのカスタムテキスト色を適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      style: {
+          type: 'object',
+          default: {
+              color: {
+                  text: '#aabbcc',
+              }
+          }
+      }
+  }
+  ```
 
 ## customClassName
 

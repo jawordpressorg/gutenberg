@@ -2,6 +2,7 @@
 # Theme Support
  -->
 # テーマサポート
+
 <!--
 The new Blocks include baseline support in all themes, enhancements to opt-in to and the ability to extend and customize.
 
@@ -92,6 +93,12 @@ The block editor allows themes to opt-in to slightly more opinionated styles for
 ```php
 add_theme_support( 'wp-block-styles' );
 ```
+
+<!--
+You can see the CSS that will be included in the [block library theme file](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss).
+ -->
+[ブロックライブラリーテーマファイル](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss)内で、含まれる CSS を参照できます。
+
 <!--
 ### Wide Alignment:
  -->

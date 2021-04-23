@@ -259,9 +259,9 @@ In `index.html`, include the template parts by adding two HTML comments.
 2つの HTML コメントを追加することで `index.html` にテンプレートパーツを含めます。
 
 <!--
-The HTML comments starts with `wp:template-part` which is the name of the template-part block type. Inside the curly brackets are two keys and their values: The slug of the template part, and the theme name.
+The HTML comments starts with `wp:template-part` which is the name of the template-part block type. Inside the curly brackets are two keys and their values: The slug of the template part, and the theme text domain.
  -->
-HTML コメントは `wp:template-part` で始めます。これは template-part ブロックタイプの名前です。中括弧の中には2つのキーと値、テンプレートパーツのスラッグとテーマ名を含めます。
+HTML コメントは `wp:template-part` で始めます。これは template-part ブロックタイプの名前です。中括弧の中には2つのキーと値、テンプレートパーツのスラッグとテーマのテキストドメインを含めます。
 
 ```
 <!-- wp:template-part {"slug":"header","theme":"myfirsttheme"} /-->
@@ -269,11 +269,11 @@ HTML コメントは `wp:template-part` で始めます。これは template-par
 <!-- wp:template-part {"slug":"footer","theme":"myfirsttheme"} /-->
 ```
 <!--
-If you used a different theme name, adjust the value for the theme key.
+If you used a different theme name, adjust the value for the theme text domain.
 
 Eventually, you will be able to create and combine templates and template parts directly in the site editor.
  -->
-テーマ名を変えるには theme キーの値に指定してください。
+テーマ名を変えるにはテーマのテキストドメインの値に指定してください。
 
 将来的にはテンプレートやテンプレートパーツを直接サイトエディターで作成し、組み合わせできるようになります。
 

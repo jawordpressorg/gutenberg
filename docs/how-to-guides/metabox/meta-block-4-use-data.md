@@ -58,4 +58,4 @@ register_block_type( 'core/paragraph', array(
 ) );
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/metabox/meta-block-4-use-data.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/metabox/meta-block-4-use-data.md)

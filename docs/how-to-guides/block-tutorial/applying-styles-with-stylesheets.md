@@ -179,4 +179,4 @@ function gutenberg_examples_02_register_block() {
 add_action( 'init', 'gutenberg_examples_02_register_block' );
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-tutorial/applying-styles-with-stylesheets.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/applying-styles-with-stylesheets.md)

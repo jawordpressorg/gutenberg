@@ -1,17 +1,31 @@
 <!--
-# Block Registration
+# Registration
  -->
-# ブロックの登録
+# 登録
+
+<!--
+Block registration API reference.
+ -->
+ブロック登録 API リファレンス
+
+<!--
+**Note:** You can use the functions documented on this page, but a flexible method to register new block types is to use the block.json metadata file. See [metadata documentation for complete information](/docs/reference-guides/block-api/block-metadata.md).
+ -->
+**注意:** このページで紹介する関数を使用しても新しいブロックタイプは登録できますが、block.json メタデータファイルを使用した方がフレキシブルです。メタデータの完全な情報については、[こちらのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/)を参照してください。
+
+
 <!--
 ## `registerBlockType`
-
--   **Type:** `Function`
  -->
 ## registerBlockType 関数
+
+-   **Type:** `Function`
+
 <!--
 Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`wp-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
  -->
 すべてのブロックの作成は、新しいブロックタイプ定義の登録から始まります。登録には [`wp-blocks` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-blocks/#registerBlockType) の `registerBlockType` 関数を使用します。関数はブロック名とブロック構成オブジェクトの2つの引数を取ります。
+
 <!--
 ### Block Name
  -->

@@ -1,7 +1,8 @@
 <!--
-# Block Patterns
+# Patterns
  -->
-# ブロックパターン
+# パターン
+
 <!--
 Block Patterns are predefined block layouts, ready to insert and tweak.
  -->

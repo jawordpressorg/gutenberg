@@ -1,7 +1,7 @@
 <!--
-# Block Context
+# Context
  -->
-# ブロックコンテキスト
+# コンテキスト
 
 <!--
 Block context is a feature which enables ancestor blocks to provide values which can be consumed by descendent blocks within its own hierarchy. Those descendent blocks can inherit these values without resorting to hard-coded values and without an explicit awareness of the block which provides those values.
@@ -218,4 +218,4 @@ export default function save( props ) {
 
 ![Block Context Example](https://user-images.githubusercontent.com/8876600/93000215-c8570380-f561-11ea-9bd0-0b2bd0ca1752.png)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-context.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-context.md)
