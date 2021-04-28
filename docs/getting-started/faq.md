@@ -725,6 +725,7 @@ Blocks are able to provide base structural CSS styles, and themes can add styles
 Other features, like the new _wide_ and _full-wide_ alignment options, are simply CSS classes applied to blocks that offer this alignment. We are looking at how a theme can opt in to this feature, for example using `add_theme_support`.
 
 This is currently a work in progress and we recommend reviewing the [block based theme documentation](/docs/how-to-guides/block-based-theme/README.md) to learn more.
+This is currently a work in progress and we recommend reviewing the [block based theme documentation](/docs/how-to-guides/themes/block-theme-overview.md) to learn more.
  -->
 ## ブロックスタイルはフロントエンドとバックエンドの両方でどのように動作しますか ?
 
@@ -732,7 +733,7 @@ This is currently a work in progress and we recommend reviewing the [block based
 
 その他の機能、例えば新しい_幅広_と_全幅_配置オプションは、ブロックに適用されて配置するだけの単純な CSS クラスです。現在、例えば `add_theme_support` を使ってテーマがこの機能にオプトインする方法を模索中です。
 
-現在も作業中です。詳細については[ブロックベーステーマのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-based-themes/)のレビューを推奨します。
+現在も作業中です。詳細については[ブロックベーステーマのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview)のレビューを推奨します。
 
 <!--
 ## What are block variations? Are they the same as block styles?

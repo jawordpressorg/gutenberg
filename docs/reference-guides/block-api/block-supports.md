@@ -317,7 +317,7 @@ When the block declares support for `color.background`, the attributes definitio
   プリセットのリストからユーザーが背景色を選択すると、プリセットのスラッグが `backgroundColor` 属性に保存されます。
 
 <!--
-  Background color presets are sourced from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes).
+  Background color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
  -->
   背景色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) がソースです。
 
@@ -403,7 +403,7 @@ supports: {
 ```
 
 <!--
-Duotone presets are sourced from `color.duotone` in [theme.json](https://developer.wordpress.org/block-editor/developers/themes/theme-json/).
+Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/theme-json.md).
  -->
 デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
 
@@ -478,7 +478,7 @@ supports: {
 ```
 
 <!--
-Gradient presets are sourced from `editor-gradient-presets` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets).
+Gradient presets are sourced from `editor-gradient-presets` [theme support](/docs/how-to-guides/themes/theme-support.md#block-gradient-presets).
  -->
 グラデーションプリセットは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) がソースです。
 
@@ -596,9 +596,10 @@ supports: {
 ```
 
 <!--
-Text color presets are sourced from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes).
+Text color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
  -->
 テキスト色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) がソースです。
+
 
 <!--
 When the block declares support for `color.text`, the attributes definition is extended to include two new attributes: `textColor` and `style`:
@@ -719,7 +720,7 @@ supports: {
 
 This value signals that a block supports the font-size CSS style property. When it does, the block editor will show an UI control for the user to set its value.
 
-The values shown in this control are the ones declared by the theme via the `editor-font-sizes` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes), or the default ones if none is provided.
+The values shown in this control are the ones declared by the theme via the `editor-font-sizes` [theme support](/docs/how-to-guides/themes/theme-support.md#block-font-sizes), or the default ones if none is provided.
  -->
 - タイプ: `boolean`
 - デフォルト値: `false`
@@ -936,7 +937,7 @@ supports: {
 -   Subproperties:
     -   `padding`: type `boolean`, default value `false`
 
-This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/how-to-guides/themes/theme-support.md##cover-block-padding).
+This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#cover-block-padding).
 
 ```js
 supports: {

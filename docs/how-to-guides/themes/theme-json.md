@@ -1,16 +1,40 @@
 <!--
 # Themes & Block Editor: experimental theme.json
  -->
+<!--
 # テーマとブロックエディター: theme.json (実験レベル)
-
+ -->
 <!--
 > **These features are still experimental**. “Experimental” means this is an early implementation subject to drastic and breaking changes.
 >
 > Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. Please, be welcomed to share yours in the weekly #core-editor chats as well as async via the Github issues and Pull Requests.
  -->
+<!--
 > **この機能は現在、実験中です**。初期の実装であり、将来、大規模で後方互換性のない変更があるという意味で、「実験中」です。
 >
 > 現在何を行っているのかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。フィードバックを歓迎します。意見のある方は週次の #core-editor 会議で共有するか、GitHub で issue やプルリクを作成してください。
+ -->
+<!--
+# Global Settings (theme.json)
+ -->
+# グローバル設定 (theme.json)
+
+<!--
+<div class="callout callout-alert">
+ -->
+<!--
+These features are still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
+ -->
+> この機能は現在、実験中です。初期の実装であり、将来、大規模で後方互換性のない変更があるという意味で、「実験中」です。
+
+<!--
+Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. Please share your feedback in the weekly #core-editor or #fse-outreach-experiment channels in Slack, or async in GitHub issues.
+ -->
+> 現在何を行っているのかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。フィードバックを Slack の週次の #core-editor または #fse-outreach-experiment チャンネルで共有するか、非同期に GitHub で issue を作成してください。
+
+<!--
+</div>
+ -->
 
 <!--
 This is documentation for the current direction and work in progress about how themes can hook into the various sub-systems that the Block Editor provides.
@@ -147,7 +171,7 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 このニーズを満たすためいくつかの場所で CSS カスタムプロパティの実験を始めました。なお、CSS カスタムプロパティは CSS 変数とも呼ばれます。
 
 <!--
--   **Presets**: [color palettes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), [font sizes](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes), or [gradients](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets) declared by the theme are converted to CSS Custom Properties and enqueued both the front-end and the editors.
+-   **Presets**: [color palettes](/docs/how-to-guides/themes/theme-support.md#block-color-palettes), [font sizes](/docs/how-to-guides/themes/theme-support.md#block-font-sizes), or [gradients](/docs/how-to-guides/themes/theme-support.md#block-gradient-presets) declared by the theme are converted to CSS Custom Properties and enqueued both the front-end and the editors.
  -->
 - **プリセット**: [カラーパレット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes)、[フォントサイズ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes)、[グラデーション](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) をテーマで宣言すると、CSS カスタムプロパティに変換され、フロントエンドとエディターの両方にエンキューされます。
 

@@ -1,17 +1,33 @@
 <!--
 # Creating a block-based theme
  -->
+<!--
 # ブロックベーステーマの作成
+ -->
 <!--
 The purpose of this tutorial is to show how to create a basic block based theme
 and help theme developers transition to full site editing.
 
-You will learn about the required files, how to combine templates and template parts,
-how to add presets for global styles, and how to add blocks and export the templates in the site editor.
+You will learn about the required files, how to combine templates and template parts, how to add presets for global styles, and how to add blocks and export the templates in the site editor.
  -->
+<!--
 このチュートリアルの目的は基本的なブロックベーステーマの作り方の紹介と、テーマ開発者の「フルサイト編集 (full site editing)」への移行の支援です。
+ -->
+<!--
+# Create a block theme
+ -->
+# ブロックテーマの作成
 
+<!--
+The purpose of this tutorial is to show how to create a block theme and help theme developers transition to full site editing.
+ -->
+このチュートリアルではブロックテーマの作り方を紹介し、テーマ開発者の「フルサイト編集 (full site editing)」への移行を支援します。
+
+<!--
+You will learn about the required files, how to combine templates and template parts, how to add presets for global styles, and how to add blocks and export the templates in the site editor.
+ -->
 このチュートリアルでは、ブロックベーステーマに必要なファイルの一覧、テンプレートとテンプレートパーツの組み合わせ、グローバルスタイルへのプリセットの追加、サイトエディターでのブロックの追加とテンプレートのエクスポートについて学びます。
+
 <!--
 Full site editing is an experimental feature and the workflow in this tutorial is likely to change.
  -->
@@ -28,39 +44,35 @@ This tutorial is up to date as of Gutenberg version 9.1.
 ## 目次
 
 <!--
-1.  [What is needed to create a block-based theme?](/docs/how-to-guides/block-based-themes/README.md#what-is-needed-to-create-a-block-based-theme)
-2.  [Creating the theme](/docs/how-to-guides/block-based-themes/README.md#creating-the-theme)
-3.  [Creating the templates and template parts](/docs/how-to-guides/block-based-themes/README.md#creating-the-templates-and-template-parts)
-4.  [experimental-theme.json - Global styles](/docs/how-to-guides/block-based-themes/README.md#experimental-theme-json-global-styles)
-5.  [Adding blocks](/docs/how-to-guides/block-based-themes/block-based-themes-2-adding-blocks.md)
+1.  [What is needed to create a block-theme?](#what-is-needed-to-create-a-block-theme)
+2.  [Creating the theme](#creating-the-theme)
+3.  [Creating the templates and template parts](#creating-the-templates-and-template-parts)
+4.  [experimental-theme.json - Global styles](#experimental-theme-json-global-styles)
  -->
  1. ブロックベーステーマを作成するには何が必要か ?
  2. テーマの作成
  3. テンプレートとテンプレートパーツの作成
  4. experimental-theme.json - グローバルスタイル
- 5. [ブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-based-themes/block-based-themes-2-adding-blocks/)
 
 <!--
-## What is needed to create a block-based theme?
+## What is needed to create a block theme?
  -->
-## ブロックベーステーマを作成するには何が必要か ?
+## ブロックテーマを作成するには何が必要か ?
 
 <!--
-To use a block based theme you need to have Gutenberg installed and full site editing must be enabled.
-
-Full site editing can be enabled from the Gutenberg experiments menu in the WordPress admin area.
+To use a block theme you need to use the Gutenberg plugin.
  -->
-ブロックベーステーマを使用するには Gutenberg をインストールし、「フルサイト編集」を有効化する必要があります。「フルサイト編集」は WordPress 管理画面の「Gutenberg」->「実験中」メニューから有効化できます。
+ブロックテーマを使用するには Gutenberg プラグインを使用する必要があります。
 
 <!--
-A block-based theme is built using HTML templates and template parts. Templates are the main files used in the [template hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/), for example index, single or archive. Templates can optionally include structural template parts, for example a header, footer or sidebar.
+A block theme is built using HTML templates and template parts. Templates are the main files used in the [template hierarchy](https://developer.wordpress.org/themes/basics/template-hierarchy/), for example index, single or archive. Templates can optionally include structural template parts, for example a header, footer or sidebar.
  -->
-ブロックベーステーマは HTML テンプレートとテンプレートパーツから構成されています。テンプレートは[テンプレート階層](https://developer.wordpress.org/themes/basics/template-hierarchy/)内で使用されるメインのファイルで、たとえば index、single、archive などがあります。テンプレートはオプションで、ヘッダー、フッター、サイドバーなどの構造化テンプレートパーツを含むことができます。
+ブロックテーマは HTML テンプレートとテンプレートパーツから構成されています。テンプレートは[テンプレート階層](https://developer.wordpress.org/themes/basics/template-hierarchy/)内で使用されるメインのファイルで、たとえば index、single、archive などがあります。テンプレートはオプションで、ヘッダー、フッター、サイドバーなどの構造化テンプレートパーツを含むことができます。
 
 <!--
-Each template or template part contains the [block grammar](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks), the HTML, for the selected blocks. The block HTML is generated in and exported from the **site editor**. It can also be added to the theme's HTML files manually.
+Each template or template part contains the [block grammar](/docs/explanations/architecture/key-concepts/), the HTML, for the selected blocks. The block HTML is generated in and exported from the **site editor**. It can also be added to the theme's HTML files manually.
  -->
-各テンプレート、テンプレートパーツは、選択したブロックの HTML、[ブロック文法](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks)を含みます。ブロック HTML は **サイトエディター** で生成し、エクスポートします。手動でテーマの HTML ファイルに追加することもできます。
+各テンプレート、テンプレートパーツは、選択したブロックの [ブロック文法](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/)、すなわち HTML を含みます。ブロック HTML は **サイトエディター** で生成し、エクスポートします。手動でテーマの HTML ファイルに追加することもできます。
 
 <!--
 ### Required files and file structure
@@ -68,9 +80,9 @@ Each template or template part contains the [block grammar](https://developer.wo
 ### 必要なファイルとファイル構造
 
 <!--
-A block based theme requires an `index.php` file, an index template file, a `style.css` file, and a `functions.php` file.
+A block theme requires an `index.php` file, an index template file, a `style.css` file, and a `functions.php` file.
  -->
-ブロックベーステーマには index テンプレートファイルの `index.php` ファイル、スタイル用 `style.css` ファイル、`functions.php` ファイルが必要です。
+ブロックテーマには index テンプレートファイルの `index.php` ファイル、スタイル用 `style.css` ファイル、`functions.php` ファイルが必要です。
 
 <!--
 The theme may optionally include an [experimental-theme.json file](/docs/how-to-guides/themes/theme-json.md) to manage global styles. You decide what additional templates and template parts to include in your theme.
@@ -153,13 +165,13 @@ _You no longer need to add theme support for the title tag. It is already enable
 
 https://developer.wordpress.org/themes/basics/theme-functions/#what-is-functions-php
 
-https://developer.wordpress.org/block-editor/developers/themes/theme-support/
+https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/
  -->
 _タイトルタグのテーマサポートの追加は不要です。すでにフルサイト編集では有効化されています。_
 
 [What is functions.php?](https://developer.wordpress.org/themes/basics/theme-functions/#what-is-functions-php)
 
-[Theme Support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/)
+[テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/)
 
 ```php
 <?php
@@ -299,7 +311,7 @@ experimental-theme.json ファイルを使用することで以下が可能で�
 - 個別ブロックタイプのスタイルの設定
 
 <!--
-[The documentation for global styles contains a list of available block and style combinations.](https://developer.wordpress.org/block-editor/developers/themes/theme-json/)
+[The documentation for global styles contains a list of available block and style combinations.](/docs/how-to-guides/themes/theme-json.md)
 
 Create a file called `experimental-theme.json` and save it inside the main folder.
  -->
@@ -420,7 +432,7 @@ Block styles are separate from global styles. Add the code after the globals, bu
 <!--
 CSS variables for font sizes are generated using the `editor-font-sizes` theme support or by adding a global preset.
 
-https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-font-sizes
+https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#block-font-sizes
  -->
 フォントサイズ用の CSS 変数は、`editor-font-sizes` テーマサポートを使用するか、グローバルプリセットに追加することで生成されます。
 https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes
@@ -529,6 +541,8 @@ Below are the presets and styles combined:
 <!--
 ## [Adding blocks](/docs/how-to-guides/block-based-theme/block-based-themes-2-adding-blocks.md)
  -->
+<!--
 ## [ブロックの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-based-themes/block-based-themes-2-adding-blocks/)
-
+ -->
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-based-theme/README.md)
+
