@@ -7,14 +7,17 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/4/29
+- [モジュール性](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/modularity/) - 翻訳
+
 2021/4/28
-- 「[テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)」以下 - ブロックベーステーマ(block based theme) を ブロックテーマ (block theme) に。「テーマ」セクション以下を再編 [#31167](https://github.com/WordPress/gutenberg/pull/31167)
+- 「[テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)」セクション以下 - 再編。ブロックベーステーマ(block based theme) を ブロックテーマ (block theme) に。[#31167](https://github.com/WordPress/gutenberg/pull/31167)
 - [Full Site Editing](https://ja.wordpress.org/team/handbook/block-editor/handbook/full-site-editing/) - 新規追加
 - --- 以下、未訳分で変更に気がついたもの
 - [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - Simplify Insertion point [#30301](https://github.com/WordPress/gutenberg/pull/30301)
 - [Block Editor](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor) - Apply a StyleProvider around fills that can be used inside the iframe [#31073](https://github.com/WordPress/gutenberg/pull/31073)
 - [DOM](https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/README.md) - Fix RTL issues [#31159](https://github.com/WordPress/gutenberg/pull/31159)
-- 削除 - button, button-group, tooltip-button
+- 削除 - packages/components/src/ui 下の button, button-group, tooltip-button
 
 2021/4/23
 - [API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/) 以下 - 文書タイトルを整理し、アルファベット順に [#30980](https://github.com/WordPress/gutenberg/pull/30980)

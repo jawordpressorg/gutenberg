@@ -11,12 +11,12 @@
 <!--
 A block editor post is the proper block-aware representation of a post: a collection of semantically consistent descriptions of what each block is and what its essential data is. This representation only ever exists in memory. It is the [chase](<https://en.wikipedia.org/wiki/Chase_(printing)>) in the typesetter's workshop, ever-shifting as [sorts](<https://en.wikipedia.org/wiki/Sort_(typesetting)>) are attached and repositioned.
  -->
-「ブロックエディターの投稿」(block editor post)は、メモリーの中だけに存在する、ブロックを意識した投稿の一表現です。各ブロックが何であり、そのブロックの重要なデータが何であるかを、意味的な一貫性をもって記述したコレクションです。例えれば活版印刷における[枠](<https://en.wikipedia.org/wiki/Chase_(printing)>)であり、[活字](<https://en.wikipedia.org/wiki/Sort_(typesetting)>)を追加したり、並べ替えることで常に変化します。
+「ブロックエディターの投稿」(block editor post)は、ブロックを意識した投稿の一表現です。メモリーの中だけに存在し、各ブロックが何で、そのブロックの重要なデータが何かを、意味的な一貫性をもって記述したコレクションです。例えれば、活版印刷における[枠](<https://en.wikipedia.org/wiki/Chase_(printing)>)であり、[活字](<https://en.wikipedia.org/wiki/Sort_(typesetting)>)の追加や並べ替えで常に変化します。
 
 <!--
 A block editor post is not the artifact it produces, namely the `post_content`. The latter is the printed page, optimized for the reader but retaining its invisible markings for later editing.
  -->
-「ブロックエディターの投稿」は、ブロックエディターの生成物である `post_content` とは異なります。先の例で言えば `post_content` は印刷されたページであり読者に最適化されていますが、「ブロックエディターの投稿」には、後の編集のための見えないマーキングが含まれます。
+「ブロックエディターの投稿」は、ブロックエディターの生成物である `post_content` とは異なります。先の例で言えば `post_content` は印刷されたページであり読者に最適化されますが、「ブロックエディターの投稿」には、後の編集のための見えないマーキングが含まれます。
 
 <!--
 The input and output of the block editor is a tree of block objects with the current format:
