@@ -7,6 +7,15 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/5/9
+- 全体 - IE11 非サポートと Node.js >=12 [#31270](https://github.com/WordPress/gutenberg/pull/31270)
+- 「[テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)」セクション以下 - experimental-theme.json を theme.json に [#29981](https://github.com/WordPress/gutenberg/pull/29981)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - ドキュメント改定 [#31507](https://github.com/WordPress/gutenberg/pull/31507)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - 要素レベルスタイル等 [#29891](https://github.com/WordPress/gutenberg/issues/29891)
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - registerBlockTypeFromMetadata API  [#30293](https://github.com/WordPress/gutenberg/pull/30293)
+- [ブロックパターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - ドキュメント改定 [#31060](https://github.com/WordPress/gutenberg/pull/31060)
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - spacing の sides サポート [#30607](https://github.com/WordPress/gutenberg/pull/30607)
+
 2021/4/29
 - [モジュール性](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/modularity/) - 翻訳
 
