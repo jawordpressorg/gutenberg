@@ -935,20 +935,22 @@ supports: {
 -   Type: `Object`
 -   Default value: null
 -   Subproperties:
-    -   `padding`: type `boolean`, default value `false`
+    -   `padding`: type `boolean` or `array`, default value `false`
 
 This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#cover-block-padding).
 
 ```js
 supports: {
-    padding: true, // Enable padding color UI control.
+    spacing: {
+        padding: true, // Enable padding UI control.
+    }
 }
 ```
  -->
 - タイプ: `Object`
 - デフォルト値: null
 - サブプロパティ:
-  - `padding`: タイプ `boolean`, デフォルト値 `false`
+  - `padding`: タイプ `boolean` または `array`, デフォルト値 `false`
 
 この値はブロックがスペースに関連する CSS スタイルプロパティをサポートすることを通知します。[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#cover-block-padding)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
@@ -968,4 +970,27 @@ When the block declares support for a specific spacing property, the attributes 
 
 - `style`: デフォルトの割り当てのない `object` タイプの属性。`padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。
 
+<!--
+```js
+supports: {
+    spacing: {
+        padding: [ 'top', 'bottom' ], // Enable padding for arbitrary sides.
+    }
+}
+```
+ -->
+```js
+supports: {
+    spacing: {
+        padding: [ 'top', 'bottom' ], // 任意のサイドのパディングを有効化する。
+    }
+}
+```
+
+<!--
+A spacing property may define an array of allowable sides that can be configured. When arbitrary sides are defined only UI controls for those sides are displayed.
+ -->
+spacing プロパティは構成可能なサイドの配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/block-api/block-supports.md)
+

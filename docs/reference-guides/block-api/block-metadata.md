@@ -724,7 +724,13 @@ return array(
 <!--
 WordPress string discovery automatically will translate fields marked in the documentation as translatable using the `textdomain` property when specified in the `block.json` file. In that case, localized properties will be automatically wrapped in `_x` function calls on the backend of WordPress when executing `register_block_type_from_metadata`. These translations are added as an inline script to the `wp-block-library` script handle in WordPress core or to the plugin's script handle.
  -->
+<!--
 WordPress 文字列ディスカバリは自動的に、翻訳可能とマークされたドキュメント内のフィールドを翻訳します。マークには `block.json` ファイル内の `textdomain` プロパティを使用します。このとき、ローカライズされるプロパティは、WordPress のバックエンドで`register_block_type_from_metadata` 実行時に、自動的に `_x` 関数でラップされます。これらの翻訳はインラインスクリプトとして WordPress コアの `wp-block-library` スクリプトハンドル、またはプラグインのスクリプトハンドルに追加されます。
+ -->
+<!--
+WordPress string discovery system can automatically translate fields marked in this document as translatable. First, you need to set the `textdomain` property in the `block.json` file that provides block metadata.
+ -->
+WordPress 文字列ディスカバリシステムは、このドキュメントで翻訳可能とマークされたフィールドを自動的に翻訳します。まずブロックメタデータを提供する `block.json` ファイル内で `textdomain` プロパティを設定する必要があります。
 
 <!--
 **Example:**
@@ -740,17 +746,24 @@ WordPress 文字列ディスカバリは自動的に、翻訳可能とマーク�
 }
 ```
 
+### PHP
+
 <!--
-The way `register_block_type_from_metadata` processes translatable values is roughly equivalent to:
+In PHP, localized properties will be automatically wrapped in `_x` function calls on the backend of WordPress when executing `register_block_type_from_metadata`. These translations get added as an inline script to the plugin's script handle or to the `wp-block-library` script handle in WordPress core.
  -->
-`register_block_type_from_metadata` プロセスの働きにより、翻訳可能な値は、およそ次のようになります。
+PHP では、ローカライズされるプロパティは、WordPress のバックエンドで`register_block_type_from_metadata` 実行時に、自動的に `_x` 関数でラップされます。これらの翻訳はインラインスクリプトとしてプラグインのスクリプトハンドル、または WordPress コアの `wp-block-library` スクリプトハンドルに追加されます。
+
+<!--
+The way `register_block_type_from_metadata` processes translatable values is roughly equivalent to the following code snippet:
+ -->
+`register_block_type_from_metadata` プロセスの働きにより、翻訳可能な値は、およそ次のコードスニペットのようになります。
 
 ```php
 <?php
 $metadata = array(
 	'title'       => _x( 'My block', 'block title', 'my-plugin' ),
 	'description' => _x( 'My block is fantastic!', 'block description', 'my-plugin' ),
-	'keywords'    => array( _x( 'fantastic', 'block keywords', 'my-plugin' ) ),
+	'keywords'    => array( _x( 'fantastic', 'block keyword', 'my-plugin' ) ),
 );
 ```
 
@@ -758,6 +771,29 @@ $metadata = array(
 Implementation follows the existing [get_plugin_data](https://codex.wordpress.org/Function_Reference/get_plugin_data) function which parses the plugin contents to retrieve the plugin’s metadata, and it applies translations dynamically.
  -->
 実装は既存の [get_plugin_data](https://codex.wordpress.org/Function_Reference/get_plugin_data) 関数に従い、プラグインのコンテンツをパースしてプラグインのメタデータを取得し、動的に翻訳を適用します。
+
+### JavaScript
+
+<!--
+In JavaScript, you need to use `registerBlockTypeFromMetadata` method from `@wordpress/blocks` package to process loaded block metadata. All localized properties get automatically wrapped in `_x` (from `@wordpress/i18n` package) function calls similar to how it works in PHP.
+ -->
+JavaScript では、ロードされたブロックメタデータを処理するには、`@wordpress/blocks` パッケージから `registerBlockTypeFromMetadata` メソッドを使用する必要があります。すべてのローカライズされたプロパティは自動的に `@wordpress/i18n` パッケージの `_x` 関数呼び出しでラップされます。これは PHP での動作と同様です。
+
+<!--
+**Example:**
+ -->
+**例:**
+
+```js
+import { registerBlockTypeFromMetadata } from '@wordpress/blocks';
+import Edit from './edit';
+import metadata from './block.json';
+
+registerBlockTypeFromMetadata( metadata, {
+	edit: Edit,
+	// ...other client-side settings
+} );
+```
 
 <!--
 ## Backward Compatibility

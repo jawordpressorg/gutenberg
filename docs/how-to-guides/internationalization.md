@@ -222,7 +222,9 @@ Common functions available, these mirror their PHP counterparts are:
 -   `_n( '%s Comment', '%s Comments', numberOfComments, 'my-text-domain' )` - Translate and retrieve the singular or plural form based on the supplied number.
 -   `_x( 'Default', 'block style', 'my-text-domain' )` - Translate a certain string with some additional context.
 
-**Note:** Every string displayed to the user should be wrapped in an i18n function.
+<div class="callout callout-alert">
+<strong>Note:</strong> Every string displayed to the user should be wrapped in an i18n function.
+</div>
  -->
 利用可能な一般的な関数を挙げます。これらは PHP 関数のミラーです。
 

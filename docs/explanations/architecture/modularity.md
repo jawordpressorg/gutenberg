@@ -207,7 +207,7 @@ Structured this way, these packages can be used in a variety of combinations out
 -   `@wordpress/block-editor` could be used independently from WordPress, or with a completely different save mechanism. For example, it could be used for a comments editor for posts of a site.
  -->
 -   「サイトエディター」や「ウィジェットエディター」の場合でも、`@wordpress/edit-site` パッケージまたは `@wordpress/edit-widgets` パッケージは、`@wordpress/edit-post` に対する場合と同様に実装できます。
--   `@wordpress/editor` は、「再利用可能ブロック」の実装でも使用できます。なぜなら、本質的には投稿タイプ `wp_block` に関連付けられた、ネストしたブロックエディターだからです。
+-   `@wordpress/editor` は、「再利用ブロック」の実装でも使用できます。なぜなら、本質的には投稿タイプ `wp_block` に関連付けられた、ネストしたブロックエディターだからです。
 -   `@wordpress/block-editor` は WordPress とは独立して、あるいは完全に異なる保存メカニズムで使用できます。たとえば、サイトの投稿のコメントエディターとして使用できます。
 
 <!--

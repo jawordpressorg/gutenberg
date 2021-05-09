@@ -47,12 +47,12 @@ This tutorial is up to date as of Gutenberg version 9.1.
 1.  [What is needed to create a block-theme?](#what-is-needed-to-create-a-block-theme)
 2.  [Creating the theme](#creating-the-theme)
 3.  [Creating the templates and template parts](#creating-the-templates-and-template-parts)
-4.  [experimental-theme.json - Global styles](#experimental-theme-json-global-styles)
+4.  [theme.json - Global styles](#theme-json-global-styles)
  -->
  1. ブロックベーステーマを作成するには何が必要か ?
  2. テーマの作成
  3. テンプレートとテンプレートパーツの作成
- 4. experimental-theme.json - グローバルスタイル
+ 4. theme.json - グローバルスタイル
 
 <!--
 ## What is needed to create a block theme?
@@ -85,9 +85,9 @@ A block theme requires an `index.php` file, an index template file, a `style.css
 ブロックテーマには index テンプレートファイルの `index.php` ファイル、スタイル用 `style.css` ファイル、`functions.php` ファイルが必要です。
 
 <!--
-The theme may optionally include an [experimental-theme.json file](/docs/how-to-guides/themes/theme-json.md) to manage global styles. You decide what additional templates and template parts to include in your theme.
+The theme may optionally include an [theme.json file](/docs/how-to-guides/themes/theme-json.md) to manage global styles. You decide what additional templates and template parts to include in your theme.
  -->
-テーマはグローバルなスタイルを管理する experimental-theme.json ファイルをオプションで含むこともできます。さらにテーマには追加のテンプレートやテンプレートパーツを含めることができます。
+テーマはグローバルなスタイルを管理する [theme.json ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)をオプションで含むこともできます。さらにテーマには追加のテンプレートやテンプレートパーツを含めることができます。
 
 <!--
 Templates are placed inside the `block-templates` folder, and template parts are placed inside the `block-template-parts` folder:
@@ -99,7 +99,7 @@ theme
 |__ style.css
 |__ functions.php
 |__ index.php
-|__ experimental-theme.json
+|__ theme.json
 |__ block-templates
 	|__ index.html
 	|__ single.html
@@ -290,14 +290,14 @@ Eventually, you will be able to create and combine templates and template parts 
 将来的にはテンプレートやテンプレートパーツを直接サイトエディターで作成し、組み合わせできるようになります。
 
 <!--
-### Experimental-theme.json - Global styles
+### theme.json - Global styles
  -->
-### experimental-theme.json - グローバルスタイル
+### theme.json - グローバルスタイル
 
 <!--
-The purpose of the `experimental-theme.json` file is to make it easier to style blocks by setting defaults.
+The purpose of the `theme.json` file is to make it easier to style blocks by setting defaults.
  -->
-`experimental-theme.json` ファイルはブロックのスタイルにデフォルトを設定し、ブロックのスタイルを支援します。
+`theme.json` ファイルはブロックのスタイルにデフォルトを設定し、ブロックのスタイルを支援します。
 
 <!--
 It is used to:
@@ -305,7 +305,7 @@ It is used to:
 -   Set global styles.
 -   Set styles for individual block types.
  -->
-experimental-theme.json ファイルを使用することで以下が可能です。
+theme.json ファイルを使用することで以下が可能です。
 - CSS 変数 (または CSS カスタムプロパティとも呼ばれる) の作成。CSS 変数はフロントエンドでも、エディター内でもブロックのスタイルに使用されます。
 - グローバルスタイルの設定
 - 個別ブロックタイプのスタイルの設定
@@ -313,11 +313,11 @@ experimental-theme.json ファイルを使用することで以下が可能で�
 <!--
 [The documentation for global styles contains a list of available block and style combinations.](/docs/how-to-guides/themes/theme-json.md)
 
-Create a file called `experimental-theme.json` and save it inside the main folder.
+Create a file called `theme.json` and save it inside the main folder.
  -->
 [グローバルスタイルのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)には利用可能なスタイルとスタイルの組み合わせの一覧があります。
 
-メインのフォルダー内に `experimental-theme.json` ファイルを作成してください。
+メインのフォルダー内に `theme.json` ファイルを作成してください。
 
 <!--
 CSS variables are generated using **Global presets**. The variables are added to the `:root` on the front, and to the `.editor-styles-wrapper` class in the editor.
@@ -327,11 +327,11 @@ CSS 変数は **グローバルプリセット** を使用して生成されま�
 <!--
 Styles that are added to the themes `style.css` file or an editor style sheet are loaded after global styles.
 
-Add the following global presets to the `experimental-theme.json` file:
+Add the following global presets to the `theme.json` file:
  -->
 テーマの `style.css` やエディターのスタイルシートに追加されたスタイルは、グローバルスタイルの後でロードされます。
 
-`experimental-theme.json` ファイルに次のグローバルプリセットを追加してください。
+`theme.json` ファイルに次のグローバルプリセットを追加してください。
 
 ```
 {

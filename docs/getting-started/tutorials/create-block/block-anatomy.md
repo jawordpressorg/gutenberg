@@ -3,14 +3,16 @@
  -->
 # ブロックの詳細
 <!--
-At its simplest, a block in the WordPress block editor is a json object with a specific set of properties.
+At its simplest, a block in the WordPress block editor is a JSON object with a specific set of properties.
 
-**Note:** Block development uses ESNext syntax, this refers to the latest JavaScript standard. If this is unfamiliar, review the [ESNext syntax documentation](/docs/how-to-guides/javascript/esnext-js.md) to familiarize yourself with the newer syntax used in modern JavaScript development.
+<div class="callout callout-info">
+<strong>Note:</strong> Block development uses ESNext syntax, this refers to the latest JavaScript standard. If this is unfamiliar, review the <a href="/docs/how-to-guides/javascript/esnext-js.md">ESNext syntax documentation</a> to familiarize yourself with the newer syntax.
+</div>
 
 Here is the complete code for registering a block:
 The javascript part is done in the `src/index.js` file.
  -->
-WordPress ブロックエディターの「ブロック」は、一言で言えば、規定のプロパティ集合をもった Json オブジェクトです。
+WordPress ブロックエディターの「ブロック」は、一言で言えば、規定のプロパティ集合をもった JSON オブジェクトです。
 
 **注意:** ブロックの開発では最新の JavaScript 標準に従った ESNext 構文を使用します。わからない場合は [ESNext 構文ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/esnext-js/) を参照してモダンな JavaScript 開発で使用される新しい構文に親しんでください。
 

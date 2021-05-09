@@ -25,9 +25,9 @@ npm install @wordpress/components --save
 ```
 
 <!--
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods. Learn more about it in [Babel docs](https://babeljs.io/docs/en/next/caveats)._
--->
-_このパッケージは、コードが **ES2015+** 環境で実行されることを仮定しています。IE の低いバージョンのように ES2015+ を一部、あるいはまったくサポートしない環境で使用するには、[core-js](https://github.com/zloirock/core-js) または [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) を使用してサポートを追加してください。詳細については [Babel docs](https://babeljs.io/docs/en/next/caveats) を参照してください。_
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for ES2015+ such as IE browsers then using [core-js](https://github.com/zloirock/core-js) will add polyfills for these methods._
+ -->
+_このパッケージは、コードが **ES2015+** 環境で実行されることを仮定しています。IE ブラウザのように ES2015+ を一部、あるいはまったくサポートしない環境で使用するには、[core-js](https://github.com/zloirock/core-js) を使用してこれらのメソッドの polyfill を追加してください。_
 
 <!--
 ## Usage
@@ -62,6 +62,7 @@ WordPress 以外のプロジェクトの場合は、直接 `build-style/style.cs
 
 原文およびその下のページを参照してください。
 
-https://developer.wordpress.org/block-editor/components/
+https://developer.wordpress.org/block-editor/reference-guides/components/
 
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/README.md)
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

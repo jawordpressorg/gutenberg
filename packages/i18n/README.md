@@ -21,9 +21,9 @@ Install the module:
 npm install @wordpress/i18n --save
 ```
 <!--
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods. Learn more about it in [Babel docs](https://babeljs.io/docs/en/next/caveats)._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for ES2015+ such as IE browsers then using [core-js](https://github.com/zloirock/core-js) will add polyfills for these methods._
  -->
-_このパッケージはコードが **ES2015+** 環境で実行されることを仮定します。ES2015+ を一部、またはまったくサポートしない環境、たとえば IE の古いバージョンで実行する場合は [core-js](https://github.com/zloirock/core-js) または [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) を使用することでサポートを追加できます。詳細については [Babel のドキュメント](https://babeljs.io/docs/en/next/caveats) を参照してください。_
+_このパッケージは、コードが **ES2015+** 環境で実行されることを仮定しています。IE ブラウザのように ES2015+ を一部、あるいはまったくサポートしない環境で使用するには、[core-js](https://github.com/zloirock/core-js) を使用してこれらのメソッドの polyfill を追加してください。_
 
 <!--
 ## Usage

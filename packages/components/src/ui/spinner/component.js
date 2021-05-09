@@ -1,14 +1,10 @@
 /**
- * External dependencies
- */
-import { get } from '@wp-g2/styles';
-
-/**
  * Internal dependencies
  */
 import { BarsView, BarsWrapperView, ContainerView } from './styles';
 import { BASE_SIZE, WRAPPER_SIZE } from './utils';
 import { contextConnect, useContextSystem } from '../context';
+import { COLORS } from '../../utils/colors-values';
 
 /* eslint-disable jsdoc/valid-types */
 /**
@@ -25,7 +21,7 @@ import { contextConnect, useContextSystem } from '../context';
  */
 function Spinner( props, forwardedRef ) {
 	const {
-		color = get( 'colorText' ),
+		color = COLORS.black,
 		size = BASE_SIZE,
 		...otherProps
 	} = useContextSystem( props, 'Spinner' );
@@ -67,7 +63,7 @@ function Spinner( props, forwardedRef ) {
  *
  * @example
  * ```jsx
- * import { Spinner } from `@wp-g2/components/ui`;
+ * import { Spinner } from `@wordpress/components/ui`;
  *
  * function Example() {
  * 	return (

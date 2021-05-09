@@ -1,7 +1,8 @@
 /**
  * Internal dependencies
  */
-import { space } from './space';
+import { space } from '../ui/utils/space';
+import { COLORS } from './colors-values';
 
 const CONTROL_HEIGHT = '30px';
 const CARD_PADDING_X = space( 3 );
@@ -9,6 +10,10 @@ const CARD_PADDING_Y = space( 3 );
 
 export default {
 	colorDivider: 'rgba(0, 0, 0, 0.1)',
+	colorScrollbarThumb: 'rgba(0, 0, 0, 0.2)',
+	colorScrollbarThumbHover: 'rgba(0, 0, 0, 0.5)',
+	colorScrollbarTrack: 'rgba(0, 0, 0, 0.04)',
+	elevationIntensity: 1,
 	radiusBlockUi: '2px',
 	borderWidth: '1px',
 	borderWidthFocus: '1.5px',
@@ -36,8 +41,21 @@ export default {
 	cardBorderRadius: '2px',
 	cardPaddingX: CARD_PADDING_X,
 	cardPaddingY: CARD_PADDING_Y,
-	cardPadding: `${ CARD_PADDING_X }, ${ CARD_PADDING_Y }`,
+	cardPadding: `${ CARD_PADDING_X } ${ CARD_PADDING_Y }`,
 	cardHeaderFooterPaddingY: space( 1 ),
 	cardHeaderHeight: '44px',
+	surfaceBackgroundColor: COLORS.white,
+	surfaceBackgroundSubtleColor: '#F3F3F3',
+	surfaceBackgroundTintColor: '#F5F5F5',
 	surfaceBorderColor: 'rgba(0, 0, 0, 0.1)',
+	surfaceBorderBoldColor: 'rgba(0, 0, 0, 0.15)',
+	surfaceBorderSubtleColor: 'rgba(0, 0, 0, 0.05)',
+	surfaceBackgroundTertiaryColor: COLORS.white,
+	surfaceColor: COLORS.white,
+	transitionDuration: '200ms',
+	transitionDurationFast: '160ms',
+	transitionDurationFaster: '120ms',
+	transitionDurationFastest: '100ms',
+	transitionTimingFunction: 'cubic-bezier(0.08, 0.52, 0.52, 1)',
+	transitionTimingFunctionControl: 'cubic-bezier(0.12, 0.8, 0.32, 1)',
 };

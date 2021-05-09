@@ -340,13 +340,17 @@ As an example for the regular font size, a theme may provide the following class
 }
 ```
 <!--
-**Note:** The slugs `default` and `custom` are reserved and cannot be used by themes.
+<div class="callout callout-info">
+<strong>Note:</strong> The slugs `default` and `custom` are reserved and cannot be used by themes.
+</div>
  -->
 **注意:** スラッグ `default` と `custom` は予約済みのため、テーマでは使えません。
+
 <!--
 ### Disabling custom font sizes
  -->
 ### カスタムフォントサイズの無効化
+
 <!--
 Themes can disable the ability to set custom font sizes with the following code:
  -->
@@ -606,34 +610,31 @@ add_theme_support('custom-spacing');
 ## Experimental — Link color control
  -->
 ## 実験中の機能 - リンク色の制御
+
 <!--
-Using the Gutenberg plugin (version 8.3 or later), link color control is available to the Paragraph, Heading, Group, Columns, and Media & Text blocks. This is off by default, and requires the theme to opt in by declaring support:
+Using the Gutenberg plugin (version 8.3 or later), link color control is available to a number of blocks including Paragraph, Heading, Group, Columns, and Media & Text blocks. This is off by default, and requires the theme to opt in by declaring support:
  -->
-Gutenberg プラグイン Version 8.3 以上を使用すると、「段落」「見出し」「グループ」「カラム」「メディアとテキスト」ブロックのリンク色を制御できます。デフォルトでは無効のため、テーマはサポートを宣言してオプトインする必要があります。
+Gutenberg プラグイン Version 8.3 以上を使用すると、「段落」「見出し」「グループ」「カラム」「メディアとテキスト」など多くのブロックのリンク色を制御できます。デフォルトでは無効のため、テーマはサポートを宣言してオプトインする必要があります。
 
 ```php
 add_theme_support('experimental-link-color');
 ```
 <!--
 If a theme opts in, it should [define default link colors](/docs/how-to-guides/themes/theme-json.md#color-properties) in `experimental-theme.json` (or in its theme styles if no `experimental-theme.json` is present). For example:
- -->
-オプトインする場合、テーマは `experimental-theme.json` 内に、なければテーマスタイル内に [デフォルトのリンク色を定義する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#color-properties) 必要があります。
 
+ If a theme opts in, it can [define link colors](/docs/how-to-guides/themes/theme-json.md#color-properties) by using the `theme.json`. If the theme doesn't use the `theme.json` it can configure the color of links by settings the value of the `--wp--style--color--link` CSS Custom Property such as:
+ -->
+オプトインする場合、テーマは `theme.json` を使用して [リンク色を定義](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#color-properties) できます。`theme.json` を使用せずにリンク色を構成するには、CSS カスタムプロパティ `--wp--style--color--link` を使用します。
 
 ```css
-{
-    "global": {
-        "styles": {
-            "color": {
-                "link": "hotpink"
-            }
-        }
-    }
+:root {
+	--wp--style--color--link: <value>;
 }
 ```
 <!--
 If the theme styles the link color in its stylesheets (editor and front-end), it should ensure it maps to the `--wp--style--color--link` CSS variable:
  -->
+<!--
 テーマがエディター、フロントエンドの両方のスタイルシートでリンクの色をスタイリングする場合、`--wp--style--color--link` CSS 変数にマップしてください。
 
 ```css
@@ -641,5 +642,12 @@ a {
 	color: var( --wp--style--color--link );
 }
 ```
+ -->
+
+<!--
+The framework will take care of enqueing the necessary rules for this to work. Whether or not the theme supports `theme.json` the presets will also be enqueued as CSS Custom Properties, so themes can also use `--wp--style--color-link: var(--wp--preset--color--<color-slug>)`. See [the docs](/docs/how-to-guides/themes/theme-json.md#color-properties) for details.
+ -->
+この動作に必要なルールのエンキューはフレームワークが実施します。テーマの `theme.json` のサポートの有無に関わらず、プリセットも CSS カスタムプロパティとしてエンキューされます。またテーマは `--wp--style--color-link: var(--wp--preset--color--<color-slug>)` も使えます。詳細については [ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json#color-properties) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-support.md)
+

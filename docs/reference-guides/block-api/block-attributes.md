@@ -230,7 +230,17 @@ _例_: ブロックのマークアップ内の各画像要素から `src` と `a
 // }
 ```
 
-## meta
+<!--
+## Meta (deprecated)
+ -->
+## meta (非推奨)
+<!--
+<div class="callout callout-alert">
+Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="/block-editor/how-to-guides/metabox/meta-block-3-add/">Create Meta Block how-to</a>.
+</div>
+ -->
+**注意**
+投稿の meta から属性を取得できますが、meta 属性ソースは非推奨です。代わりに <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider と関連するフック API</a> を使用してください。「<a href="https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-3-add/">メタブロックの作成</a>」も参照してください。
 
 <!--
 Attributes may be obtained from a post's meta rather than from the block's representation in saved post content. For this, an attribute is required to specify its corresponding meta key under the `meta` key:
