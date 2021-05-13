@@ -74,7 +74,7 @@ Documentation is shared early to surface what’s being worked on and invite fee
 <!--
 A block theme is a WordPress theme with templates entirely composed of blocks so that in addition to the post content of the different post types (pages, posts, ...), the block editor can also be used to edit all areas of the site: headers, footers, sidebars, etc.
  -->
-「ブロックテーマ」は、完全にブロックで構成されたテンプレートを持つ WordPress テーマです。「page」「post」など異なる投稿タイプのコンテンツに加え、サイトのすべてのエリア、ヘッダー、フッター、サイドバー等をブロックエディターで編集できます。
+「ブロックテーマ」は WordPress テーマの一種で、完全にブロックで構成されたテンプレートを持ちます。「page」や「post」などの異なる投稿タイプのコンテンツに加え、サイトのすべてのエリア、ヘッダー、フッター、サイドバー等をブロックエディターで編集できます。
 
 <!--
 ## What is the structure of a block theme?
@@ -84,7 +84,7 @@ A block theme is a WordPress theme with templates entirely composed of blocks so
 <!--
 A very simple block theme is structured like so:
  -->
-非常にシンプルなブロックテーマは次のような構造になります。
+非常にシンプルなブロックテーマは次のような構造です。
 
 ```
 theme
@@ -106,7 +106,7 @@ theme
 <!--
 The difference with existing WordPress themes is that the different templates in the template hierarchy, and template parts, are block templates instead of php files. In addition, this example includes a [`theme.json`](/docs/how-to-guides/themes/theme-json.md) file for some styles.
  -->
-既存の WordPress テーマとの違いは、テンプレート階層内の異なるテンプレート、およびテンプレートパーツがこれまでの PHP ファイルでなく、「ブロックテンプレート」である点です。更にこの例ではいくつかのスタイルのために [`theme.json`](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) ファイルが含まれています。
+既存の WordPress テーマと異なり、テンプレート階層内の異なるテンプレート、およびテンプレートパーツは、これまでの PHP ファイルでなく、「ブロックテンプレート」です。更にこの例では、いくつかのスタイル設定に [`theme.json`](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) ファイルを含みます。
 
 <!--
 ## What is a block template?
@@ -118,7 +118,7 @@ A block template is made up of a list of blocks. Any WordPress block can be used
 
 Here's an example of a block template:
  -->
-「ブロックテンプレート」は、一連のブロックから構成されます。あらゆる WordPress ブロックをブロックテンプレート内で使用できます。また、テンプレートは、「テンプレートパーツ」を使用してコンテンツの一部を再利用できます。たとえば、すべてのブロックテンプレートに、個別のテンプレートパート `header.html` から同じヘッダーを含めることができます。
+「ブロックテンプレート」は、一連のブロックから構成されます。ブロックテンプレート内では、あらゆる WordPress ブロックを使用できます。また、テンプレートは、「テンプレートパーツ」を使用してコンテンツの一部を再利用できます。たとえば、すべてのブロックテンプレートに、個別のテンプレートパート `header.html` から同じヘッダーを含めることができます。
 
 以下はブロックテンプレートの例です:
 

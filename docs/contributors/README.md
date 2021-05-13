@@ -49,7 +49,7 @@ Find the section below based on what you are looking to contribute:
 ### リポジトリー管理
 
 <!--
-The Gutenberg project uses Github for managing code and tracking issues. Please see the following sections for the project methodologies using Github.
+The Gutenberg project uses GitHub for managing code and tracking issues. Please see the following sections for the project methodologies using GitHub.
 
 -   [Issue Management](/docs/contributors/repository-management.md#issues)
 
@@ -57,7 +57,7 @@ The Gutenberg project uses Github for managing code and tracking issues. Please 
 
 -   [Teams and Projects](/docs/contributors/repository-management.md#teams)
 -->
-Gutenberg プロジェクトはコード管理と問題の追跡に Github を使用します。Github を使用したプロジェクトのプロセスについては次のセクションを参照してください。
+Gutenberg プロジェクトはコード管理と問題の追跡に GitHub を使用します。GitHub を使用したプロジェクトのプロセスについては次のセクションを参照してください。
 
 - [問題管理](https://developer.wordpress.org/block-editor/contributors/repository-management/#issues)
 

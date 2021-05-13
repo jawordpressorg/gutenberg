@@ -935,6 +935,7 @@ supports: {
 -   Type: `Object`
 -   Default value: null
 -   Subproperties:
+    -   `margin`: type `boolean` or `array`, default value `false`
     -   `padding`: type `boolean` or `array`, default value `false`
 
 This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#cover-block-padding).
@@ -942,6 +943,7 @@ This value signals that a block supports some of the CSS style properties relate
 ```js
 supports: {
     spacing: {
+        margin: true,  // Enable margin UI control.
         padding: true, // Enable padding UI control.
     }
 }
@@ -950,31 +952,34 @@ supports: {
 - タイプ: `Object`
 - デフォルト値: null
 - サブプロパティ:
-  - `padding`: タイプ `boolean` または `array`, デフォルト値 `false`
+    -   `margin`: タイプ `boolean` または `array`, デフォルト値 `false`
+    -   `padding`: タイプ `boolean` または `array`, デフォルト値 `false`
 
 この値はブロックがスペースに関連する CSS スタイルプロパティをサポートすることを通知します。[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#cover-block-padding)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 ```js
 supports: {
     spacing: {
-        padding: true, // padding 色 UI コントロールを有効化
+        margin: true,  // margin UI コントロールを有効化
+        padding: true, // padding UI コントロールを有効化
 }
 ```
 
 <!--
 When the block declares support for a specific spacing property, the attributes definition is extended to include the `style` attribute.
 
--   `style`: attribute of `object` type with no default assigned. This is added when `padding` support is declared. It stores the custom values set by the user.
+-   `style`: attribute of `object` type with no default assigned. This is added when `margin` or `padding` support is declared. It stores the custom values set by the user.
  -->
 ブロックが spacing プロパティのサポートを宣言すると、attributes の定義も `style` 属性を含むよう拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。`padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。
+- `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。
 
 <!--
 ```js
 supports: {
     spacing: {
-        padding: [ 'top', 'bottom' ], // Enable padding for arbitrary sides.
+        margin: [ 'top', 'bottom' ], // Enable margin for arbitrary sides.
+        padding: true,               // Enable padding for all sides.
     }
 }
 ```
@@ -982,7 +987,8 @@ supports: {
 ```js
 supports: {
     spacing: {
-        padding: [ 'top', 'bottom' ], // 任意のサイドのパディングを有効化する。
+        margin: [ 'top', 'bottom' ], // 任意のサイドのマージンを有効化する。
+        padding: true,               // すべてのサイドのパディングを有効化する。
     }
 }
 ```

@@ -7,6 +7,18 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/5/13
+- 「[ウィジェット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/)」セクション - 新規 (未訳)
+- [ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) - 新規 (未訳)
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - margin block サポート追加 [#30608](https://github.com/WordPress/gutenberg/pull/30608)
+- [Glossary](https://ja.wordpress.org/team/handbook/block-editor/handbook/glossary/) - フルサイト編集系追加
+- --- 以下、未訳分で変更に気がついたもの
+- [Spacer](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/spacer) - 新規
+- [ToolbarDropdownMenu](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/toolbar-dropdown-menu) - 新規
+- [block-editor](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor) - useSetting [#31587](https://github.com/WordPress/gutenberg/pull/31587)
+- [compose](https://github.com/WordPress/gutenberg/tree/trunk/packages/compose) - Add types useAsyncList [#31523](https://github.com/WordPress/gutenberg/pull/31523)
+- [dom](https://github.com/WordPress/gutenberg/tree/trunk/packages/dom) - Add types useConstrainedTabbing [#31548](https://github.com/WordPress/gutenberg/pull/31548)
+
 2021/5/9
 - 全体 - IE11 非サポートと Node.js >=12 [#31270](https://github.com/WordPress/gutenberg/pull/31270)
 - 「[テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/)」セクション以下 - experimental-theme.json を theme.json に [#29981](https://github.com/WordPress/gutenberg/pull/29981)
