@@ -8,7 +8,7 @@
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
 2021/5/13
-- 「[ウィジェット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/)」セクション - 新規 (未訳)
+- 「[ウィジェット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/)」セクション以下 - 新規
 - [ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) - 新規 (未訳)
 - [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - margin block サポート追加 [#30608](https://github.com/WordPress/gutenberg/pull/30608)
 - [Glossary](https://ja.wordpress.org/team/handbook/block-editor/handbook/glossary/) - フルサイト編集系追加
