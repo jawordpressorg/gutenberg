@@ -66,7 +66,7 @@ add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
 <!--
 For more advanced uses, you may supply your own function. In this example, the Widgets Block Editor is disabled for a specific user.
  -->
-スキルのあるユーザーは独自の関数を作成できます。この例では、特定のユーザーのウィジェットブロックエディターを無硬化します。
+スキルのあるユーザーは独自の関数を作成できます。この例では、特定のユーザーのウィジェットブロックエディターを無効化します。
 
 ```php
 function example_use_widgets_block_editor( $use_widgets_block_editor ) {
