@@ -4,13 +4,13 @@
 # スタイルシートによるスタイルの適用
 
 <!--
-In the previous step, the block had applied its own styles by an inline `style` attribute. While this might be adequate for very simple components, you will quickly find that it becomes easier to write your styles by extracting them to a separate stylesheet file.
-
-The editor will automatically generate a class name for each block type to simplify styling. It can be accessed from the object argument passed to the edit and save functions. In step 2, we will create a stylesheet to use that class name.
+In the [previous section](/docs/how-to-guides/block-tutorial/writing-your-first-block-type.md), the block had applied its own styles by an inline `style` attribute. While this might be adequate for very simple components, you will quickly find that it becomes easier to write your styles by extracting them to a separate stylesheet file.
  -->
-
 前のステップでブロックはインラインの `style` 属性でスタイルを適用しました。シンプルなコンポーネントであればこの方法でも構いませんが、スタイルは別のスタイルシートファイルに書いたほうが便利です。
 
+<!--
+The editor will automatically generate a class name for each block type to simplify styling. It can be accessed from the object argument passed to the edit and save functions. In this section, we will create a stylesheet to use that class name.
+ -->
 各ブロックタイプで簡単にスタイルできるようエディターは自動的にクラス名を生成します。クラス名は edit 関数、save 関数に渡される object 引数でアクセスできます。このステップではクラス名を使用するスタイルシートを作成します。
 
 **ESNext**
@@ -24,31 +24,25 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	apiVersion: 2,
-
 	title: 'Example: Stylesheets',
-
 	icon: 'universal-access-alt',
-
 	category: 'design',
-
 	example: {},
-
 	edit() {
 		const blockProps = useBlockProps();
 
 		return (
 			<p { ...blockProps }>
-				Hello World, step 2 (from the editor, in green).
+				Hello World (from the editor, in green).
 			</p>
 		);
 	},
-
 	save() {
 		const blockProps = useBlockProps.save();
 
 		return (
 			<p { ...blockProps }>
-				Hello World, step 2 (from the frontend, in red).
+				Hello World (from the frontend, in red).
 			</p>
 		);
 	},
@@ -73,7 +67,7 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 			return el(
 				'p',
 				blockProps,
-				'Hello World, step 2 (from the editor, in green).'
+				'Hello World (from the editor, in green).'
 			);
 		},
 		save: function () {
@@ -81,7 +75,7 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 			return el(
 				'p',
 				blockProps,
-				'Hello World, step 2 (from the frontend, in red).'
+				'Hello World (from the frontend, in red).'
 			);
 		},
 	} );

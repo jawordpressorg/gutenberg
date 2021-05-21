@@ -36,10 +36,11 @@ From your plugins directory, to create your block run:
 プラグイン用ディレクトリで次のコマンド実行してブロックを作成します。
 
 ```sh
-npx @wordpress/create-block starter-block
+npx @wordpress/create-block gutenpride
 ```
+
 <!-- 
-The above command creates a new directory called `starter-block`, installs the necessary files, and builds the block plugin. If you want an interactive mode that prompts you for details, run the command without the `starter-block` name.
+The above command creates a new directory called `gutenpride`, installs the necessary files, and builds the block plugin. If you want an interactive mode that prompts you for details, run the command without the `gutenpride` name.
 
 You now need to activate the plugin from inside wp-admin plugins page.
 
