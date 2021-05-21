@@ -15,7 +15,7 @@ There is more than one way to add blocks to the theme files:
 テーマファイルにブロックを追加するには1つ以上の方法があります。
 
 - サイトエディターでブロックを追加、編集し、エクスポートする。
-- 主導で HTML ファイルにブロック HTML とコメントを追加する。
+- 手動で HTML ファイルにブロック HTML とコメントを追加する。
 
 <!--
 ## Working with blocks and templates in the site editor
