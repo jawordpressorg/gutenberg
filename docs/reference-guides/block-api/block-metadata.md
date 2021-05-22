@@ -777,7 +777,7 @@ Implementation follows the existing [get_plugin_data](https://codex.wordpress.or
 <!--
 In JavaScript, you can use `registerBlockType` method from `@wordpress/blocks` package and pass the metadata object loaded from `block.json` as the first param. All localized properties get automatically wrapped in `_x` (from `@wordpress/i18n` package) function calls similar to how it works in PHP.
  -->
-JavaScript では、ロードされたブロックメタデータを処理するには、`@wordpress/blocks` パッケージから `registerBlockTypeFromMetadata` メソッドを使用する必要があります。すべてのローカライズされたプロパティは自動的に `@wordpress/i18n` パッケージの `_x` 関数呼び出しでラップされます。これは PHP での動作と同様です。
+JavaScript では `@wordpress/blocks` パッケージから `registerBlockType` を使用し、第1引数に `block.json` からロードされたブロックメタデータオブジェクトを渡すことができます。すべてのローカライズされたプロパティは自動的に `@wordpress/i18n` パッケージの `_x` 関数呼び出しでラップされます。これは PHP での動作と同様です。
 
 <!--
 **Example:**

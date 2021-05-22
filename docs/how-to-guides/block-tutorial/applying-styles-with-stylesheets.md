@@ -6,12 +6,12 @@
 <!--
 In the [previous section](/docs/how-to-guides/block-tutorial/writing-your-first-block-type.md), the block had applied its own styles by an inline `style` attribute. While this might be adequate for very simple components, you will quickly find that it becomes easier to write your styles by extracting them to a separate stylesheet file.
  -->
-前のステップでブロックはインラインの `style` 属性でスタイルを適用しました。シンプルなコンポーネントであればこの方法でも構いませんが、スタイルは別のスタイルシートファイルに書いたほうが便利です。
+[前のセクション](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/)でブロックはインラインの `style` 属性でスタイルを適用しました。シンプルなコンポーネントであればこの方法でも構いませんが、スタイルは別のスタイルシートファイルに書いたほうが便利です。
 
 <!--
 The editor will automatically generate a class name for each block type to simplify styling. It can be accessed from the object argument passed to the edit and save functions. In this section, we will create a stylesheet to use that class name.
  -->
-各ブロックタイプで簡単にスタイルできるようエディターは自動的にクラス名を生成します。クラス名は edit 関数、save 関数に渡される object 引数でアクセスできます。このステップではクラス名を使用するスタイルシートを作成します。
+各ブロックタイプで簡単にスタイルできるようエディターは自動的にクラス名を生成します。クラス名は edit 関数、save 関数に渡される object 引数でアクセスできます。このセクションではクラス名を使用するスタイルシートを作成します。
 
 **ESNext**
 

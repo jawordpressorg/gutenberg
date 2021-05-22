@@ -1,4 +1,7 @@
+<!--
 # Full Site Editing Templates
+ -->
+# フルサイト編集テンプレート
 
 ## Template and template part flows
 

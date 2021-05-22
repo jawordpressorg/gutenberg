@@ -6,7 +6,7 @@
 <!--
 At the highest level, the vision of Full Site Editing is to provide a collection of features that bring the familiar experience and extendability of blocks to all parts of your site rather than just post and pages. You can think of Full Site Editing as the umbrella project name for various sub-projects within Gutenberg that make this vision possible. Projects under Full Site Editing (FSE) include everything from the Site Editor, Global Styles, numerous Site/Post/Page specific blocks, Query block, Navigation block, Templates, and block themes. What follows are brief descriptions of the major pieces with more details found [here](https://github.com/WordPress/gutenberg/issues/24551):
  -->
-「フルサイト編集」(Full Site Editing、FSEとも) の大きな目標として、投稿やページだけでなくサイト内のあらゆる部分に、ブロックの使い慣れた体験と拡張性をもたらす機能を提供します。フルサイト編集は、このビジョンを実現する Gutenberg 内の様々なサブプロジェクトを包括するプロジェクト名とも考えられます。フルサイト編集プロジェクトには、サイトエディター、グローバルスタイル、多数のサイト、投稿、ページ固有のブロック、クエリブロック、ナビゲーションブロック、テンプレート、ブロックテーマなどがあります。主要な機能を簡単に説明します。詳細については、[こちら](https://github.com/WordPress/gutenberg/issues/24551)を参照してください。
+「フルサイト編集」(Full Site Editing、FSEとも) の大きな目標は、投稿やページだけでなくサイト内のあらゆる部分に対する、ブロックの使い慣れた体験と拡張性をもたらす機能の提供です。フルサイト編集は、このビジョンを実現する Gutenberg 内の様々なサブプロジェクトを包括したプロジェクト名とも考えられます。フルサイト編集プロジェクトには、サイトエディター、グローバルスタイル、多数のサイト、投稿、ページ固有のブロック、クエリブロック、ナビゲーションブロック、テンプレート、ブロックテーマなどがあります。主要な機能を簡単に説明します。詳細については、[こちら](https://github.com/WordPress/gutenberg/issues/24551)を参照してください。
 
 <!--
 - Site Editor: the cohesive experience that allows you to directly edit and navigate between various templates, template parts, styling options, and more.
@@ -19,8 +19,8 @@ At the highest level, the vision of Full Site Editing is to provide a collection
 - Query Block: a new block that replicates the classic WP_Query and allows for further customization with additional functionality.
  -->
 - サイトエディター: 様々なテンプレート、テンプレートパーツ、スタイルオプションなどを直接編集し、ナビゲートする、一体化した体験
-- テンプレート編集: 投稿やページが使用するテンプレートを編集、変更、作成できる、規模を小さくしたダイレクト編集体験
-- ブロックテーマ: ブロックで構成されたテンプレートを使用して構築されたテーマのフルサイト編集対応。詳細は後述。
+- テンプレート編集: 投稿やページが使用するテンプレートを直接、編集、変更、作成する、コンパクトな編集体験
+- ブロックテーマ: ブロックで構成されたテンプレートを使用して構築されたテーマのフルサイト編集への対応。詳細は後述。
 - スタイリング: 3つのレベル (「ローカルブロック」、「テーマのデフォルト」、「グローバルな変更」)でスタイルの変更を可能にする機能
 - テーマブロック: テンプレートタグを使用した従来のテンプレートで可能なすべてを実現する新しいブロック (例: 投稿者ブロック)
 - ブラウジング: テンプレートやページなどサイト編集体験における様々なエンティティ間を移動する機能

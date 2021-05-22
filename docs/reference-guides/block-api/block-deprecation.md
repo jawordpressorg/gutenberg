@@ -1,7 +1,7 @@
 <!--
 # Deprecation
  -->
-# 非推奨にするブロック
+# 非推奨プロセス
 
 <!--
 When updating static blocks markup and attributes, block authors need to consider existing posts using the old versions of their block. To provide a good upgrade path, you can choose one of the following strategies:

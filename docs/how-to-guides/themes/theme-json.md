@@ -317,7 +317,7 @@ This field describes the format of the `theme.json` file and it's used to detect
 <!--
 The settings section has the following structure:
  -->
-settings セクションは以下の構造とデフォルト値を持ちます。
+settings セクションは以下の構造を持ちます。
 
 ```json
 {
@@ -383,8 +383,9 @@ Each block can configure any of these settings separately, providing a more fine
 <!--
 To retain backward compatibility, the existing `add_theme_support` declarations that configure the block editor are retrofit in the proper categories for the top-level section. For example, if a theme uses `add_theme_support('disable-custom-colors')`, it'll be the same as setting `settings.color.custom` to `false`. If the `theme.json` contains any settings, these will take precedence over the values declared via `add_theme_support`. This is the complete list of equivalences:
  -->
-後方互換性のため、ブロックエディターを構成する既存の `add_theme_support` の宣言は、トップレベルのセクションの適切なカテゴリーに割り当てられます。たとえば、テーマが `add_theme_support('disable-custom-colors')` を使用している場合、これは `settings.color.custom` に `false` を設定したことと同じです。`theme.json` 内に設定があれば、 `add_theme_support` を介して宣言された値に優先します。
+後方互換性のため、ブロックエディターを構成する既存の `add_theme_support` の宣言は、トップレベルのセクションの適切なカテゴリーに割り当てられます。たとえば、テーマが `add_theme_support('disable-custom-colors')` を使用している場合、これは `settings.color.custom` に `false` を設定したことと同じです。`theme.json` 内に設定があれば、 `add_theme_support` を介して宣言された値に優先します。以下は、完全な対応リストです。
 
+<!--
 | add_theme_support           | theme.json setting                                        |
 | --------------------------- | --------------------------------------------------------- |
 | `custom-line-height`        | Set `typography.customLineHeight`to `false`.              |
@@ -397,6 +398,19 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-font-sizes`         | Provide the list of font size via `typography.fontSizes`. |
 | `editor-gradient-presets`   | Provide the list of gradients via `color.gradients`.      |
 | `experimental-link-color`   | Set `color.link` to `true`.                               |
+ -->
+| add_theme_support           | theme.json 設定                                        |
+| --------------------------- | --------------------------------------------------------- |
+| `custom-line-height`        | `typography.customLineHeight` に `false` を設定       |
+| `custom-spacing`            | `spacing.customPadding` に `true` を設定            |
+| `custom-units`              | `spacing.units` で単位のリストを渡す            |
+| `disable-custom-colors`     | `color.custom` に `false` を設定                       |
+| `disable-custom-font-sizes` | `typography.customFontSize` に `false` を設定           |
+| `disable-custom-gradients`  | `color.customGradient` に `false` を設定               |
+| `editor-color-palette`      | `color.palette` で色のリストを渡す     |
+| `editor-font-sizes`         | `typography.fontSizes` でフォントサイズのリストを渡す |
+| `editor-gradient-presets`   | `color.gradients` でグラデーションのリストを渡す      |
+| `experimental-link-color`   | `color.link` に `true` を設定                  |
 
 <!--
 Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:
@@ -967,7 +981,7 @@ h3 {
 The `defaults` block selector can't be part of the `styles` section and will be ignored if it's present. The `root` block selector will generate a style rule with the `:root` CSS selector.
  -->
 `defaults` ブロックセレクタは、`styles` セクションの一部にはなれず、あっても無視されます。`root` ブロックセレクタはなることはできず、`:root` CSS セレクタと共にスタイルルールを生成します。
- 
+
 <!--
 ### Other theme metadata
  -->
@@ -990,11 +1004,15 @@ Within this field themes can list the custom templates present in the `block-tem
  -->
 このフィールド内にテーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
 
+<!--
 - name: mandatory.
 - title: mandatory, translatable.
 - postTypes: optional, only applies to the `page` by default.
+ -->
+- name: 必須
+- title: 必須。翻訳可能
+- postTypes: オプション。デフォルトでは `page` のみに適用
 
-<!--
 ```json
 {
     "version": 1,
@@ -1007,22 +1025,6 @@ Within this field themes can list the custom templates present in the `block-tem
 				"post",
 				"my-cpt"
 			]
-		}
-	]
-}
-```
- -->
-```json
-{
-	"customTemplates": [
-		{
-			"name": "my-custom-template" /* 必須 */,
-			"title": "The template title" /* 必須、翻訳可能 */,
-			"postTypes": [
-				"page",
-				"post",
-				"my-cpt"
-			] /* オプション。デフォルトでは page のみに適用する。 */
 		}
 	]
 }
@@ -1040,10 +1042,13 @@ Currently block variations exist for "header" and "footer" values of the area te
  -->
 現在、ブロックバリエーションは、area タームの header と footer の値に対して存在し、その他の値や json で定義されていないテンプレートパーツは、一般のテンプレートパーツブロックがデフォルトとなります。バリエーションはエディターのインターフェース内で特定のアイコンで示され、デフォルトでラッパーの対応するセマンティック HTML 要素となり (これも、テンプレートパーツブロック上の `tagName` 属性セットで上書きできます)、将来のエディターの改良でカスタムフローの実現のためテンプレートパーツをコンテキスト化します。
 
+<!--
 - name: mandatory.
 - area: optional, will be set to `uncategorized` by default and trigger no block variation.
+ -->
+- name: 必須
+- area: オプション。デフォルトでは `uncategorized` に設定され、ブロックバリエーションをトリガーしない
 
-<!--
 ```json
 {
     "version": 1,
@@ -1051,17 +1056,6 @@ Currently block variations exist for "header" and "footer" values of the area te
 		{
 			"name": "my-template-part",
 			"area": "header"
-		}
-	]
-}
-```
- -->
-```json
-{
-	"templateParts": [
-		{
-			"name": "my-template-part" /* 必須 */,
-			"area": "header" /* オプション。デフォルトでは 'uncategorized' に設定され、ブロックバリエーションをトリガーしない */,
 		}
 	]
 }

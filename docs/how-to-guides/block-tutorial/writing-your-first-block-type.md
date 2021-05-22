@@ -160,7 +160,10 @@ registerBlockType( 'gutenberg-examples/example-01-basic-esnext', {
 
 <!--
 _By now you should be able to see `Hello World (from the editor).` in the admin side and `Hello World (from the frontend).` on the frontend side._
+ -->
+_この段階でエディター画面には `Hello World (from the editor).`、投稿を表示すると `Hello World (from the frontend).` と表示されます。_
 
+<!--
 Once a block is registered, you should immediately see that it becomes available as an option in the editor inserter dialog, using values from `title`, `icon`, and `category` to organize its display. You can choose an icon from any included in the built-in [Dashicons icon set](https://developer.wordpress.org/resource/dashicons/), or provide a [custom svg element](/docs/reference-guides/block-api/block-registration.md#icon-optional).
 
 A block name must be prefixed with a namespace specific to your plugin. This helps prevent conflicts when more than one plugin registers a block with the same name. In this example, the namespace is `gutenberg-examples`.
@@ -169,8 +172,6 @@ Block names _must_ include only lowercase alphanumeric characters or dashes and 
 
 The `edit` and `save` functions describe the structure of your block in the context of the editor and the saved content respectively. While the difference is not obvious in this simple example, in the following sections we'll explore how these are used to enable customization of the block in the editor preview.
  -->
-_この段階でエディター画面には `Hello World, step 1 (from the editor).`、投稿を表示すると `Hello World, step 1 (from the frontend).` と表示されます。_
-
 いったんブロックが登録されるとすぐにエディター挿入ダイアログのオプションとして利用可能になります。また `title`、`icon`、`category` の値を使用していることがわかります。アイコンは組み込みの [Dashicons アイコンセット](https://developer.wordpress.org/resource/dashicons/) から選択するか、[カスタム SVG 要素](https://developer.wordpress.org/block-editor/designers-developers/developers/block-api/block-registration/#icon-optional) を指定できます。
 
 ブロック名はプラグイン専用の名前空間をプレフィックスに付ける必要があります。こうすることで2つ以上のプラグインが同じ名前でブロックを登録しても衝突を避けられます。この例では名前空間は `gutenberg-examples` です。

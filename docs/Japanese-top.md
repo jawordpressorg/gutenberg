@@ -7,6 +7,14 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/5/22
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - add_theme_supportとの対応表追加 [#32040](https://github.com/WordPress/gutenberg/pull/32040)
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - registerBlockTypeFromMetadata 削除 [#32030](https://github.com/WordPress/gutenberg/pull/32030)
+- --- 以下、未訳分で変更に気がついたもの
+- [コードコントリビューション](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/getting-started-with-code-contribution/) - wp-env での MySQL 接続 [#31975](https://github.com/WordPress/gutenberg/pull/31975)
+- [VisuallyHidden](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/ui/visually-hidden) - 新規
+- [RickText](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text) - e2e test fix [#31864](https://github.com/WordPress/gutenberg/pull/31864)
+
 2021/5/19
 - [ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) - 翻訳
 - [フルサイト編集](https://ja.wordpress.org/team/handbook/block-editor/handbook/full-site-editing/) - 翻訳
@@ -135,3 +143,4 @@
 | @miminari | @mimitips |
 | @shizumi | @Shizumi |
 | @arm-band | @armband |
+| @kurudrive | @kurudrive |
