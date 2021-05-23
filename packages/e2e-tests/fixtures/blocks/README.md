@@ -12,12 +12,12 @@
 This directory contains sets of fixture files that are used to test the parsing
 and serialization logic.
 -->
-このディレクトリには、構文解析とシリアル化のロジックをテストするためのフィクスチャ・ファイルのセットが含まれています。
+このディレクトリには、構文解析とシリアル化のロジックをテストするためのフィクスチャファイルのセットが含まれています。
 
 <!--
 Each test is made up of four fixture files:
 -->
-各テストは4つのフィクスチャ・ファイルから構成されています:
+各テストは4つのフィクスチャファイルから構成されています:
 
 <!--
 1. `fixture-name.html`: The initial post content.
@@ -33,9 +33,9 @@ Each test is made up of four fixture files:
    simulates opening and re-saving a post.
 -->
 1. `fixture-name.html`: 元の投稿コンテンツ。
-2. `fixture-name.parsed.json`: このコンテンツに対する PEG パーサーの **期待される** 出力（ JS と PHP の両方のバージョンのパーサーでの **実際の** 出力に対してチェックされる )。
+2. `fixture-name.parsed.json`: このコンテンツに対する PEG パーサーの **期待される** 出力 （JS と PHP の両方のバージョンのパーサーでの **実際の** 出力に対してチェックされる)。
 3. `fixture-name.json`: 投稿コンテンツ内のブロックの **期待される** 表現と、その属性およびネストされたコンテンツ。このファイルのコンテンツは、 **実際の** ブロックオブジェクトと比較されます。
-4. `fixture-name.serialized.html`: 解析されたブロックオブジェクトに対して `serialize` を呼び出したときの **期待される** 結果。このファイルの内容は、 **実際の** 再シリアライズされたポストの内容と比較されます。この最後のステップでは、記事を開いて保存し直すことをシミュレートします。
+4. `fixture-name.serialized.html`: 解析されたブロックオブジェクトに対して `serialize` を呼び出したときの **期待される** 結果。このファイルの内容は、 **実際の** 再シリアライズされた投稿の内容と比較されます。この最後のステップでは、記事を開いて保存し直すことをシミュレートします。
 
 <!--
 Every block is required to have at least one such set of fixture files to test
@@ -141,8 +141,7 @@ npm run fixtures:regenerate test/integration/full-content/full-content.test.js
 After regenerating fixtures, check the diff (using git/github) to check that the changes were expected
 and the block is still valid (`isValid` is `true`).
 -->
-フィクスチャを再生成した後、（git または github を使用して）差分を確認してください。期待する変更になっているか、ブロックが有効か（`isValid` が `true` か）を確認します。
-
+フィクスチャを再生成した後、(git または github を使用して) 差分を確認してください。期待する変更になっているか、ブロックが有効か (`isValid` が `true` か) を確認します。
 <!--
 ## Related
 -->
