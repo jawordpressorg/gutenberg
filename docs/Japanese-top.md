@@ -7,6 +7,10 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/5/23
+- [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - 翻訳
+- [fixtures/blocks](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/fixtures-blocks/) - 翻訳
+
 2021/5/22
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - add_theme_supportとの対応表追加 [#32040](https://github.com/WordPress/gutenberg/pull/32040)
 - [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - registerBlockTypeFromMetadata 削除 [#32030](https://github.com/WordPress/gutenberg/pull/32030)
