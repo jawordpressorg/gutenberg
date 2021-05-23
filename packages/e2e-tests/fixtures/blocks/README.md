@@ -1,4 +1,7 @@
+<!--
 # Full post content test fixtures
+-->
+# すべての投稿コンテンツのテストのフィクスチャ
 
 <!--
 ## Introduction
@@ -39,8 +42,7 @@ Every block is required to have at least one such set of fixture files to test
 the parsing and serialization of that block. Additionally, each deprecation for
 a block should also have a fixture.
 -->
-すべてのブロックは、そのブロックの解析とシリアライズをテストするために、少なくとも一つのフィクスチャファイルのセットを持つ必要があります。
-フィクスチャファイルが必要です。さらに、ブロックの各非推奨プロセス（deprecation）もフィクスチャを持つ必要があります。
+すべてのブロックは、そのブロックの解析とシリアライズをテストするために、少なくとも一つのフィクスチャファイルのセットを持つ必要があります。さらに、ブロックの各非推奨プロセス（deprecation）もフィクスチャを持つ必要があります。
 
 <!--
 These fixtures must be named like
@@ -65,47 +67,91 @@ recurring in the future.
 -->
 理想的には、ブロックのすべての重要な属性や機能がこの方法でテストされるべきです。テストケースの追加という形での新たな貢献をいつでも歓迎します。これは、バグを特定し、将来の再発を防ぐための素晴らしい方法です。
 
+<!--
 ## Creating Fixtures
+-->
+## フィクスチャの作成
 
+<!--
 When adding a new fixtures, only the first file above (1, e.g. `core__image.html`) needs
 to be created manually, the other files are generated from this first file.
+-->
+新しいフィクスチャを追加する時は上記の最初のファイル（ 1, 例`core__image.html`）のみを手動で作成する必要があり、他のファイルはこの最初のファイルから生成されます。
 
+<!--
 To create the first file:
+-->
+最初のファイルを作成するには：
 
+<!--
 1. Create a file with the correct name in this folder.
 2. Add the block to an new post in the editor.
 3. Toggle the block attributes to desired settings for the test.
 4. Switch to the code editor view and copy the block markup.
 5. Paste the markup into the file you created at step 1.
+-->
+1. このフォルダ内に正しい名前でファイルを作成します。
+2. エディタで新しい投稿にブロックを追加します。
+3. ブロックの属性をテストしたい設定に切り替えます。
+4. コードエディタに切り替えて、ブロックのマークアップを確認しコピーします。
+5. ステップ1で作成したファイルにマークアップを貼り付けます。
 
+<!--
 Next, to generate files (2) through (4) run the following command from the root of the
 project:
+-->
+次に、2から4のファイルを生成するために、次のコマンドをプロジェクトのルートで走らせます:
 
 ```sh
-npm run fixtures:regenerate test/integration/full-content/full-content.test.js
+ run fixtures:regenerate test/integration/full-content/full-content.test.js
 ```
 
+<!--
 When using this command, please be sure to manually verify that the
 contents of the `.json` and `.serialized.html` files are as expected.
+-->
+このコマンドを使用する際には、必ず手動で `.json` と `.serialized.html` ファイルの内容が期待通りであることを確認してください。
 
+<!--
 In particular, check that the `isValid` property is `true`, and that
 the attributes are serialized correctly.
+-->
+特に、`isValid` プロパティが `true` であることと、属性が正しくシリアル化されていることを確認してください。
 
+<!--
 ## Updating Fixtures
+-->
+## フィクスチャの更新
 
+<!--
 The process for updating fixtures for existing tests is similar to that for creating them:
+-->
+既存のテストのためのフィクスチャの更新プロセスは作成手順と似ています:
 
+<!--
 Run the command to regenerate the files:
+-->
+ファイルを再生成するコマンドを実行します:
 
 ```sh
 npm run fixtures:regenerate test/integration/full-content/full-content.test.js
 ```
 
+<!--
 After regenerating fixtures, check the diff (using git/github) to check that the changes were expected
 and the block is still valid (`isValid` is `true`).
+-->
+フィクスチャを再生成した後、（git または github を使用して）差分を確認してください。期待する変更になっているか、ブロックが有効か（`isValid` が `true` か）を確認します。
 
+<!--
 ## Related
+-->
+## 関連
 
+<!--
 See the
 [`full-content.test.js`](../../../../test/integration/full-content/full-content.test.js)
 test file for the code that runs these tests.
+-->
+これらのテストを実行するコードである [`full-content.test.js`](../../../../test/integration/full-content/full-content.test.js)　テストファイルを参照してください。
+<!--
