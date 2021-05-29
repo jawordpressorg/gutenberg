@@ -7,6 +7,20 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/5/29
+- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - 改定 (翻訳中) [#31269](https://github.com/WordPress/gutenberg/pull/31269)
+- [RickText](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text) - 削除 inline display warning [#32013](https://github.com/WordPress/gutenberg/pull/32013)
+- --- 以下、未訳分で変更に気がついたもの
+- [Babel Preset Default](https://github.com/WordPress/gutenberg/tree/trunk/packages/babel-preset-default) - 追加 polyfill [#31279](https://github.com/WordPress/gutenberg/pull/31279)
+- [Color Higher-Order Component and Hook](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/colors) - 削除 __experimentalUseColors hook [#31438](https://github.com/WordPress/gutenberg/pull/31438)
+- [BaseField](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/base-field) - 新規
+- [BoxControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/box-control)など多数 - Mark all experimental components [#32147](https://github.com/WordPress/gutenberg/pull/32147)
+- [ButtonGroup](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/button-group)など多数 - deprecate isPrimary, isSecondary, isTertiary and isLink [#31713](https://github.com/WordPress/gutenberg/pull/31713)
+- [Tooltip](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/tooltip) - 追加 native block inserter onboarding tooltip [#32001](https://github.com/WordPress/gutenberg/pull/32001)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/tree/trunk/packages/e2e-test-utils) - errors caused by adding widgets to core [#32176](https://github.com/WordPress/gutenberg/pull/32176)
+- [Edit navigation](https://github.com/WordPress/gutenberg/tree/trunk/packages/edit-navigation) - ドキュメントの改良 [#31891](https://github.com/WordPress/gutenberg/pull/31891)
+
+
 2021/5/23
 - [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - 翻訳
 - [fixtures/blocks](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/fixtures-blocks/) - 翻訳
