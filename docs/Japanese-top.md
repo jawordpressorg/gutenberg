@@ -7,8 +7,11 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/6/10
+- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - 翻訳
+
 2021/5/29
-- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - 改定 (翻訳中) [#31269](https://github.com/WordPress/gutenberg/pull/31269)
+- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - 改定 [#31269](https://github.com/WordPress/gutenberg/pull/31269)
 - [RickText](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text) - 削除 inline display warning [#32013](https://github.com/WordPress/gutenberg/pull/32013)
 - --- 以下、未訳分で変更に気がついたもの
 - [Babel Preset Default](https://github.com/WordPress/gutenberg/tree/trunk/packages/babel-preset-default) - 追加 polyfill [#31279](https://github.com/WordPress/gutenberg/pull/31279)
