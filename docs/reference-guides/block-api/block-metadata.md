@@ -76,21 +76,21 @@ The same file is also used when [submitting block to Block Directory](/docs/gett
 ## サーバーサイドでの登録
 
 <!--
-There is also [`register_block_type_from_metadata`](https://developer.wordpress.org/reference/functions/register_block_type_from_metadata/) function that aims to simplify the block type registration on the server from metadata stored in the `block.json` file.
+The [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) function that aims to simplify the block type registration on the server, can read metadata stored in the `block.json` file.
  -->
-また [`register_block_type_from_metadata`](https://developer.wordpress.org/reference/functions/register_block_type_from_metadata/) 関数を使用すると、サーバーで `block.json` ファイル内に保存されたメタデータから簡単にブロックタイプを登録できます。
+[`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) 関数を使用すると、サーバーで `block.json` ファイル内に保存されたメタデータから簡単にブロックタイプを登録できます。
 
 <!--
-This function takes two params:
+This function takes two params relevant in this context (`$block_type` accepts more types and variants):
  -->
-`register_block_type_from_metadata` 関数は2つの引数を取ります。
+この関数は、このコンテキストに関連する2つのパラメータを取ります (`$block_type` は、より多くのタイプやバリアントを受け入れます）。
 
 <!--
--   `$path` (`string`) – path to the folder where the `block.json` file is located or full path to the metadata file if named differently.
+-   `$block_type` (`string`) – path to the folder where the `block.json` file is located or full path to the metadata file if named differently.
 -   `$args` (`array`) – an optional array of block type arguments. Default value: `[]`. Any arguments may be defined. However, the one described below is supported by default:
     -   `$render_callback` (`callable`) – callback used to render blocks of this block type.
  -->
--   `$path` (`string`) – `block.json` ファイルのあるフォルダーへのパス、または、名前が異なる場合、メタデータファイルへのフルパス。
+-   `$block_type` (`string`) – `block.json` ファイルのあるフォルダーへのパス、または、名前が異なる場合、メタデータファイルへのフルパス。
 -   `$args` (`array`) – ブロックタイプ引数のオプション配列。デフォルト値は `[]`。任意の引数を定義可。ただし、以下はデフォルトでサポートされる。
     -   `$render_callback` (`callable`) – このブロックタイプのブロックをレンダーする際に使用されるコールバック。
 
@@ -105,7 +105,7 @@ It returns the registered block type (`WP_Block_Type`) on success or `false` on 
 **例:**
 
 ```php
-register_block_type_from_metadata(
+register_block_type(
 	__DIR__ . '/notice',
 	array(
 		'render_callback' => 'render_block_core_notice',
@@ -749,14 +749,15 @@ WordPress 文字列ディスカバリシステムは、このドキュメント�
 ### PHP
 
 <!--
-In PHP, localized properties will be automatically wrapped in `_x` function calls on the backend of WordPress when executing `register_block_type_from_metadata`. These translations get added as an inline script to the plugin's script handle or to the `wp-block-library` script handle in WordPress core.
+In PHP, localized properties will be automatically wrapped in `_x` function calls on the backend of WordPress when executing `register_block_type`. These translations get added as an inline script to the plugin's script handle or to the `wp-block-library` script handle in WordPress core.
  -->
-PHP では、ローカライズされるプロパティは、WordPress のバックエンドで`register_block_type_from_metadata` 実行時に、自動的に `_x` 関数でラップされます。これらの翻訳はインラインスクリプトとしてプラグインのスクリプトハンドル、または WordPress コアの `wp-block-library` スクリプトハンドルに追加されます。
+PHP では、ローカライズされるプロパティは、WordPress のバックエンドで `register_block_type` 実行時に、自動的に `_x` 関数でラップされます。これらの翻訳はインラインスクリプトとしてプラグインのスクリプトハンドル、または WordPress コアの `wp-block-library` スクリプトハンドルに追加されます。
 
 <!--
-The way `register_block_type_from_metadata` processes translatable values is roughly equivalent to the following code snippet:
+The way `register_block_type` processes translatable values is roughly equivalent to the following code snippet:
  -->
-`register_block_type_from_metadata` プロセスの働きにより、翻訳可能な値は、およそ次のコードスニペットのようになります。
+`register_block_type` プロセスの働きにより、翻訳可能な値は、およそ次のコードスニペットのようになります。
+
 
 ```php
 <?php
@@ -833,9 +834,10 @@ The following properties are going to be supported for backward compatibility re
  -->
 **例**:
 
-<!--
 ```js
-wp.blocks.registerBlockType( 'my-block/name', {
+import { registerBlockType } from '@wordpress/blocks';
+
+registerBlockType( 'my-plugin/block-name', {
 	edit: function () {
 		// Edit definition goes here.
 	},
@@ -847,24 +849,12 @@ wp.blocks.registerBlockType( 'my-block/name', {
 	},
 } );
 ```
- -->
-```js
-wp.blocks.registerBlockType( 'my-block/name', {
-	edit: function () {
-		// edit 定義がここに来ます。
-	},
-	save: function () {
-		// save 定義がここに来ます。
-	},
-	getEditWrapperProps: function () {
-		// 実装がここに来ます。
-	},
-} );
-```
 
 <!--
 In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should be still possible to register `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) and `register_block_type_from_metadata` functions on the server.
+In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should be still possible to register `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) function on the server.
  -->
-WordPress にサポートされる [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) と `register_block_type_from_metadata` の両方を使用して `render_callback` プロパティを登録することは変わらず可能です。
+WordPress にサポートされる [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) 関数を使用して `render_callback` プロパティを登録することは変わらず可能です。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md)
+

@@ -14,7 +14,7 @@ The new Widgets Editor is a WordPress feature which upgrades widget areas to all
 新しいウィジェットエディターは、WordPress の新しい機能です。ウィジェットエリアをアップグレードし、ウィジェットと一緒にブロックを使用できます。使い慣れた WordPress ブロックエディタを使用した、新しいウィジェット管理体験を実現します。
 
 <!--
-You can access the new Widgets Editor by navigating to Appearance → Widgets or Appearance → Cusomize → Widgets and choose a widget area.
+You can access the new Widgets Editor by navigating to Appearance → Widgets or Appearance → Customize → Widgets and choose a widget area.
  -->
 新しいウィジェットエディターにアクセスするには「外観」 > 「ウィジェット」、または、「外観」 > 「カスタマイズ」 > 「ウィジェット」でウィジェットエリアを選択します。
 

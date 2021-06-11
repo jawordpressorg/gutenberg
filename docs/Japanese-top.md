@@ -7,6 +7,18 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/6/11
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - register_block_type_from_metadata -> registerBlockType [#32582](https://github.com/WordPress/gutenberg/pull/32582)
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - color.duotone -> color.__experimentalDuotone [#32440](https://github.com/WordPress/gutenberg/pull/32440)
+- --- 以下、未訳分で変更に気がついたもの
+- [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/getting-started-native-mobile/) - iOS シミュレータ更新 [#32383](https://github.com/WordPress/gutenberg/pull/32383)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/release/) - リリース記事プロセス更新 [#32429](https://github.com/WordPress/gutenberg/pull/32429)
+- [Block Editor](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor) - preset スラッグからのクラス生成 (#32352)(https://github.com/WordPress/gutenberg/pull/32352)
+- [Block Breadcrumb](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/block-breadcrumb) - rootLabelText prop 追加 [#32528](https://github.com/WordPress/gutenberg/pull/32528)
+- [BoxControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/box-control) - allowReset, resetValues [#32345](https://github.com/WordPress/gutenberg/pull/32345)
+- [Notice](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/notice) - createInfoNotice の onDismiss オプション [#32338](https://github.com/WordPress/gutenberg/pull/32338)
+- [Compose](https://github.com/WordPress/gutenberg/tree/trunk/packages/compose) - useThrottle に types、typecheck に useFocusOutside [#32170](https://github.com/WordPress/gutenberg/pull/32170)
+
 2021/6/10
 - [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - 翻訳
 
@@ -43,7 +55,7 @@
 
 2021/5/13
 - 「[ウィジェット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/)」セクション以下 - 新規
-- [ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) - 新規 (未訳)
+- [ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) - 新規
 - [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - margin block サポート追加 [#30608](https://github.com/WordPress/gutenberg/pull/30608)
 - [Glossary](https://ja.wordpress.org/team/handbook/block-editor/handbook/glossary/) - フルサイト編集系追加
 - --- 以下、未訳分で変更に気がついたもの

@@ -58,7 +58,7 @@ _Parameters_
 
 _Returns_
 
--   `I18n`: I18n instance
+-   `I18n`: I18n instance.
  -->
 i18n インスタンスを作成する。
 

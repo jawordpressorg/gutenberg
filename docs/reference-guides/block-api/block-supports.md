@@ -164,7 +164,7 @@ supports: {
 -   Default value: null
 -   Subproperties:
     -   `background`: type `boolean`, default value `true`
-    -   `duotone`: type `string`, default value undefined
+    -   `__experimentalDuotone`: type `string`, default value undefined
     -   `gradients`: type `boolean`, default value `false`
     -   `text`: type `boolean`, default value `true`
  -->
@@ -172,7 +172,7 @@ supports: {
 - デフォルト値: null
 - サブプロパティ:
     -   `background`: タイプ `boolean`, デフォルト値 `true`
-    -   `duotone`: タイプ `string`, デフォルト値なし
+    -   `__experimentalDuotone`: タイプ `string`, デフォルト値なし
     -   `gradients`: タイプ `boolean`, デフォルト値 `false`
     -   `text`: タイプ `boolean`, デフォルト値 `true`
 
@@ -408,9 +408,9 @@ Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-gu
 デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
 
 <!--
-When the block declares support for `color.duotone`, the attributes definition is extended to include the attribute `style`:
+When the block declares support for `color.__experimentalDuotone`, the attributes definition is extended to include the attribute `style`:
  -->
-ブロックが `color.duotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
+ブロックが `color.__experimentalDuotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
 
 <!--
 - `style`: attribute of `object` type with no default assigned.
@@ -430,7 +430,7 @@ When the block declares support for `color.duotone`, the attributes definition i
               color: {
                   duotone: [
                       '#FFF',
-                      '#000
+                      '#000'
                   ]
               }
           }
