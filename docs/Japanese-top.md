@@ -7,6 +7,9 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/6/14
+- [フルサイト編集テンプレート](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/full-site-editing-templates/) - 翻訳
+
 2021/6/11
 - [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - register_block_type_from_metadata -> registerBlockType [#32582](https://github.com/WordPress/gutenberg/pull/32582)
 - [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - color.duotone -> color.__experimentalDuotone [#32440](https://github.com/WordPress/gutenberg/pull/32440)
