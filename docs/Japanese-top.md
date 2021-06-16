@@ -7,6 +7,9 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/6/16
+^ [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - 翻訳
+
 2021/6/14
 - [フルサイト編集テンプレート](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/full-site-editing-templates/) - 翻訳
 
