@@ -23,9 +23,9 @@ jobs:
                 node: ['14']
 
         steps:
-          - name: CommentOut
-            run: echo "workflow_was_comment_out"
-#            - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+            - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+            - name: CommentOut
+              run: echo "workflow_was_comment_out"
 #
 #            - name: Use desired version of NodeJS
 #              uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea # v2.1.5
@@ -78,7 +78,9 @@ jobs:
 #              run: TEST_RN_PLATFORM=ios npm run native device-tests:local  ${{ matrix.native-test-name }}
 #
 #            - name: Prepare build cache
-#              run: rm packages/react-native-editor/ios/build/GutenbergDemo/Build/Products/Release-iphonesimulator/GutenbergDemo.app/main.jsbundle
+#              run: |
+#                  rm packages/react-native-editor/ios/build/GutenbergDemo/Build/Products/Release-iphonesimulator/GutenbergDemo.app/main.jsbundle
+#                  rm -rf packages/react-native-editor/ios/build/GutenbergDemo/Build/Products/Release-iphonesimulator/GutenbergDemo.app/assets
 #
 #            - uses: actions/upload-artifact@e448a9b857ee2131e752b06002bf0e093c65e571 # v2.2.2
 #              if: always()

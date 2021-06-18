@@ -9,6 +9,15 @@
 
 2021/6/18
 - [自動化テスト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/automated-testing/) - 翻訳
+- [レガシーウィジェットブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/legacy-widget-block/) - show_instance_in_rest の変更 [#32726](https://github.com/WordPress/gutenberg/pull/32726), 他のブロックエディターでの利用 [#32501](https://github.com/WordPress/gutenberg/pull/32501)
+- --- 以下、未訳分で変更に気がついたもの
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - Performance Audit セクションの改良 [#32770](https://github.com/WordPress/gutenberg/pull/32770)
+- [API Fetch](https://github.com/WordPress/gutenberg/blob/trunk/packages/api-fetch/README.md) - Abort 処理の修正 [#32530](https://github.com/WordPress/gutenberg/pull/32530)
+- [BoxControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/box-control/README.md) - splitOnAxis [#32610](https://github.com/WordPress/gutenberg/pull/32610)
+- [RadioControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/radio-control/README.md) - hideLabelFromVision [#32414](https://github.com/WordPress/gutenberg/pull/32414)
+- [Compose](https://github.com/WordPress/gutenberg/blob/trunk/packages/compose/README.md) - Add types to useDialog, useFocusOnMount [#32676](https://github.com/WordPress/gutenberg/pull/32676), withSafeTimeout [#32674](https://github.com/WordPress/gutenberg/pull/32674)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/tree/trunk/packages/e2e-test-utils) - user mention テスト [#32697](https://github.com/WordPress/gutenberg/pull/32697)
+- [Readable JS assets WebPack Plugin](https://github.com/WordPress/gutenberg/blob/trunk/packages/readable-js-assets-webpack-plugin/README.md) - 新規
 
 2021/6/16
 - [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - 翻訳
@@ -21,7 +30,7 @@
 - [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - color.duotone -> color.__experimentalDuotone [#32440](https://github.com/WordPress/gutenberg/pull/32440)
 - --- 以下、未訳分で変更に気がついたもの
 - [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/getting-started-native-mobile/) - iOS シミュレータ更新 [#32383](https://github.com/WordPress/gutenberg/pull/32383)
-- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/release/) - リリース記事プロセス更新 [#32429](https://github.com/WordPress/gutenberg/pull/32429)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - リリース記事プロセス更新 [#32429](https://github.com/WordPress/gutenberg/pull/32429)
 - [Block Editor](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor) - preset スラッグからのクラス生成 (#32352)(https://github.com/WordPress/gutenberg/pull/32352)
 - [Block Breadcrumb](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/block-breadcrumb) - rootLabelText prop 追加 [#32528](https://github.com/WordPress/gutenberg/pull/32528)
 - [BoxControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/box-control) - allowReset, resetValues [#32345](https://github.com/WordPress/gutenberg/pull/32345)
