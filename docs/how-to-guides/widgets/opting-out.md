@@ -27,7 +27,7 @@ For example, a theme may have the following PHP code in `functions.php`.
 function example_theme_support() {
 	remove_theme_support( 'widgets-block-editor' );
 }
-add_action( 'after_setup_theme', example_theme_support' );
+add_action( 'after_setup_theme', 'example_theme_support' );
 ```
 
 <!--
@@ -52,8 +52,9 @@ With this plugin installed, the Widgets Block Editor can be toggled on and off b
 
 <!--
 the `gutenberg_use_widgets_block_editor` filter controls whether or not the Widgets Block Editor is enabled.
+the `use_widgets_block_editor` filter controls whether or not the Widgets Block Editor is enabled.
  -->
-`gutenberg_use_widgets_block_editor` フィルターは、ウィジェットブロックエディターの有効、無効を制御できます。
+`use_widgets_block_editor` フィルターは、ウィジェットブロックエディターの有効、無効を制御できます。
 
 <!--
 For example, a site administrator may include the following PHP code in a mu-plugin to disable the Widgets Block Editor.
@@ -61,8 +62,9 @@ For example, a site administrator may include the following PHP code in a mu-plu
 たとえば、サイト管理者は mu-plugin に次の PHP コードを挿入して、ウィジェットブロックエディターを無効化できます。
 
 ```php
-add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
+add_filter( 'use_widgets_block_editor', '__return_false' );
 ```
+
 <!--
 For more advanced uses, you may supply your own function. In this example, the Widgets Block Editor is disabled for a specific user.
  -->
@@ -75,7 +77,7 @@ function example_use_widgets_block_editor( $use_widgets_block_editor ) {
 	}
 	return $use_widgets_block_editor;
 }
-add_filter( 'gutenberg_use_widgets_block_editor', 'example_use_widgets_block_editor' );
+add_filter( 'use_widgets_block_editor', 'example_use_widgets_block_editor' );
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/widgets/opting-out.md)

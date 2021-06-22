@@ -7,6 +7,13 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/6/22
+- [ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/) - ESnext コード更新 [#32422](https://github.com/WordPress/gutenberg/pull/32422)
+- [従来のウィジェットエディターに戻す](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/opting-out/) - フィルター 'gutenberg_use_widgets_block_editor' -> 'use_widgets_block_editor'[#32759](https://github.com/WordPress/gutenberg/pull/32759)
+- --- 以下、未訳分で変更に気がついたもの
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - wp-env のあるなしを追記
+- [Card](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/card/card) など - g2 実装への更新 [#32566](https://github.com/WordPress/gutenberg/pull/32566)
+
 2021/6/18
 - [自動化テスト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/automated-testing/) - 翻訳
 - [レガシーウィジェットブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/legacy-widget-block/) - show_instance_in_rest の変更 [#32726](https://github.com/WordPress/gutenberg/pull/32726), 他のブロックエディターでの利用 [#32501](https://github.com/WordPress/gutenberg/pull/32501)
