@@ -173,6 +173,11 @@ These are packages used in development mode to help developers with daily tasks 
 ## editor パッケージ
 
 <!--
+![Post Editor Modules Architecture](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/explanations/architecture/assets/modules.png)
+ -->
+![投稿エディターモジュールアーキテクチャ](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/explanations/architecture/assets/modules.png)
+
+<!--
 ### What's the difference between the different editor packages? What's the purpose of each package?
  -->
 ### 異なる editor パッケージの違いは何ですか ? 各パッケージの目的は何ですか ?

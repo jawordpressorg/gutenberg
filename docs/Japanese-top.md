@@ -7,6 +7,17 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/7/2
+- [モジュール性](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/modularity/) - パッケージの関連図追加 [#32921](https://github.com/WordPress/gutenberg/pull/32921)
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - color.link 追加 [#32936](https://github.com/WordPress/gutenberg/pull/32936)
+- --- 以下、未訳分で変更に気がついたもの
+- [Link Control](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/link-control) - Unlinkボタンの追加 [#32541](https://github.com/WordPress/gutenberg/pull/32541)
+- [Block library](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library) - block view scripts 処理の統一 [#32814](https://github.com/WordPress/gutenberg/pull/32814)
+- [Customize Widgets](https://github.com/WordPress/gutenberg/tree/trunk/packages/customize-widgets) - 技術実装詳細追加 [#33026](https://github.com/WordPress/gutenberg/pull/33026)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/tree/trunk/packages/e2e-test-utils) - createUser, deleteUser 拡張 [#33067](https://github.com/WordPress/gutenberg/pull/33067)
+- [redux-routine](https://github.com/WordPress/gutenberg/tree/trunk/packages/redux-routine) - 型追加 [#21313](https://github.com/WordPress/gutenberg/pull/21313)
+- [ServerSideRender](https://github.com/WordPress/gutenberg/tree/trunk/packages/server-side-render) - placeholder props 変更 [#33030](https://github.com/WordPress/gutenberg/pull/33030)
+
 2021/6/22
 - [ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/) - ESnext コード更新 [#32422](https://github.com/WordPress/gutenberg/pull/32422)
 - [従来のウィジェットエディターに戻す](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/widgets/opting-out/) - フィルター 'gutenberg_use_widgets_block_editor' -> 'use_widgets_block_editor'[#32759](https://github.com/WordPress/gutenberg/pull/32759)

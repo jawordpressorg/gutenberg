@@ -166,6 +166,7 @@ supports: {
     -   `background`: type `boolean`, default value `true`
     -   `__experimentalDuotone`: type `string`, default value undefined
     -   `gradients`: type `boolean`, default value `false`
+    -   `link`: type `boolean`, default value `false`
     -   `text`: type `boolean`, default value `true`
  -->
 - タイプ: `Object`
@@ -174,6 +175,7 @@ supports: {
     -   `background`: タイプ `boolean`, デフォルト値 `true`
     -   `__experimentalDuotone`: タイプ `string`, デフォルト値なし
     -   `gradients`: タイプ `boolean`, デフォルト値 `false`
+    -   `link`: タイプ `boolean`, デフォルト値 `false`
     -   `text`: タイプ `boolean`, デフォルト値 `true`
 
 <!--
@@ -189,8 +191,9 @@ The controls for background and text will source their colors from the `editor-c
 
 <!--
 Note that the `text` and `background` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
+Note that the `background` and `text` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
  -->
-注意: `text` キーと `background` キーのデフォルト値は `true` です。`color` プロパティを宣言するとこれらも有効化されます。
+注意: `background` キーと`text` キーのデフォルト値は `true` です。`color` プロパティを宣言するとこれらも有効化されます。
 
 <!--
 ```js
@@ -261,7 +264,7 @@ color サポートを宣言すると、background プロパティは text プロ
 <!--
 ```js
 supports: {
-    color: true // Enable both background and text
+    color: true // Enables background and text
 }
 ```
  -->
@@ -539,6 +542,90 @@ When the block declares support for `color.gradient`, the attributes definition 
   }
   ```
 
+### color.link
+
+<!--
+This property adds block controls which allow the user to set link color in a block, link color is disabled by default.
+ -->
+このプロパティは、ユーザーがブロック内のリンクの色を設定できるブロックコントロールを追加します。デフォルトではリンクの色は無効です。
+
+
+```js
+supports: {
+    color: true // Enables only background and text
+}
+```
+<!--
+To enable link color support, set to `true`.
+ -->
+リンクの色のサポートを有効にするには、`true` に設定します。
+
+```js
+supports: {
+    color: {
+        link: true
+    }
+}
+```
+<!--
+Link color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
+ -->
+リンクの色のプリセットは、`editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes)をソースとしています。
+
+<!--
+When the block declares support for `color.link`, the attributes definition is extended to include two new attributes: `linkColor` and `style`:
+ -->
+ブロックが `color.link` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `linkColor` と `style` が追加されます。
+
+<!--
+- `linkColor`: attribute of `string` type with no default assigned.
+ -->
+- `linkColor`: `string` 型の属性で、デフォルトは割り当てられていません。
+
+<!--
+  When a user chooses from the list of preset link colors, the preset slug is stored in the `linkColor` attribute.
+
+  The block can apply a default preset text color by specifying its own attribute with a default e.g.:
+ -->
+  ユーザーがプリセットのリンクの色のリストから選択すると、プリセットのスラッグが `linkColor` 属性に格納されます。
+
+  ブロックにデフォルトのプリセットのテキスト色を適用するには、自身の属性にデフォルトを指定します。例:
+
+  ```js
+  attributes: {
+      linkColor: {
+          type: 'string',
+          default: 'some-preset-link-color-slug',
+      }
+  }
+  ```
+<!--
+- `style`: attribute of `object` type with no default assigned.
+ -->
+- `style`: `object` 型の属性で、デフォルトは割り当てられていません。
+
+<!--
+  When a custom link color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.link` attribute.
+
+  The block can apply a default custom link color by specifying its own attribute with a default e.g.:
+ -->
+  カスタム色ピッカーを使用するなどして、カスタムリンクの色が選択されると、カスタム色の値が `style.color.link` 属性に格納されます。
+
+  ブロックにデフォルトのカスタムリンクの色を適用するには、自身の属性をデフォルトで指定します。
+
+  ```js
+  attributes: {
+      style: {
+          type: 'object',
+          default: {
+              color: {
+                  link: '#ff0000',
+              }
+          }
+      }
+  }
+  ```
+
 ### color.text
 
 <!--
@@ -561,13 +648,13 @@ color サポートを宣言すると、text プロパティは background プロ
 <!--
 ```js
 supports: {
-    color: true // Enable both text and background
+    color: true // Enables background and text, but not link.
 }
 ```
  -->
 ```js
 supports: {
-    color: true // text と background の両方を有効化
+    color: true // background と text を有効化。link は有効化しない。
 }
 ```
 
@@ -580,7 +667,7 @@ To disable text color support while keeping other color supports enabled, set to
 ```js
 supports: {
     color: {
-        // Disable text color support. Background support is still enabled.
+        // Disable text color support.
         text: false
     }
 }
@@ -589,7 +676,7 @@ supports: {
 ```js
 supports: {
     color: {
-        // text サポートを無効化。背景色のサポートは引き続き有効
+        // text サポートを無効化。
         text: false
     }
 }
