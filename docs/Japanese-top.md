@@ -7,6 +7,24 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/7/9
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - 「実験」を削除。5.8コアと Gutenberg プラグインの違いを明記  [#33131](https://github.com/WordPress/gutenberg/pull/33131)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - リンク色の変更 [#33162](https://github.com/WordPress/gutenberg/pull/33162)
+- [WordPress プラグイン](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/wp-plugin/) - register_block_type_from_metadata -> register_block_type [#33252](https://github.com/WordPress/gutenberg/pull/33252)
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - apiVersion [#33249](https://github.com/WordPress/gutenberg/pull/33249), クライアント側の登録 [#33252](https://github.com/WordPress/gutenberg/pull/33252)
+- [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-code/) - register_block_type_from_metadata -> register_block_type [#33252](https://github.com/WordPress/gutenberg/pull/33252)
+- 以下、未訳分で変更に気がついたもの
+- [Block Filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/block-filters.md) - Registration 追加、media.crossOrigin 削除  [#33252](https://github.com/WordPress/gutenberg/pull/33252)
+- [Editor Filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/editor-filters.md) - media.crossOrigin 追加 [#33252](https://github.com/WordPress/gutenberg/pull/33252)
+- [Admin Manifest](https://github.com/WordPress/gutenberg/tree/trunk/packages/admin-manifest) - 新規
+- [InspectorControls](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/inspector-controls) - PanelBody 追加 [#33227](https://github.com/WordPress/gutenberg/pull/33227)
+- [Blocks](https://github.com/WordPress/gutenberg/tree/trunk/packages/blocks) - registerBlockTypeFromMetadata 削除 [#33258](https://github.com/WordPress/gutenberg/pull/33258)
+- [ColorPicker](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/color-picker) など - withState 削除 [#33259](https://github.com/WordPress/gutenberg/pull/33259)
+- [Flyout](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/flyout/flyout/README.md) - 新規
+- [BottomSheetSelectControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/mobile/bottom-sheet-select-control) - icon 追加 [#31963](https://github.com/WordPress/gutenberg/pull/31963)
+- [SearchControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/search-control) - 新規
+
+
 2021/7/2
 - [モジュール性](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/modularity/) - パッケージの関連図追加 [#32921](https://github.com/WordPress/gutenberg/pull/32921)
 - [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - color.link 追加 [#32936](https://github.com/WordPress/gutenberg/pull/32936)

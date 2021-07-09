@@ -50,7 +50,7 @@ The Gutenberg codebase is complex, with many packages and components, but at its
 Gutenberg のコードには多くのコンポーネントやパッケージが含まれていて複雑ですが、その中心はブロックを管理、編集するツールです。このためエディター上で作業する際、ブロックの編集がどのように行われているのかを _基礎_ レベルで理解することは重要です。
 
 <!--
-To do this, this tutorial will walk you through building a **fully functioning, **custom** block editor "instance"** within WordPress, introducing you to the key packages and components along the way.
+To do this, this tutorial will walk you through building a **fully functioning, _custom_ block editor "instance"** within WordPress, introducing you to the key packages and components along the way.
  -->
 このチュートリアルでは理解の助けになるよう、WordPress 内で **完全に機能するカスタムブロックエディター「インスタンス」** の構築手順を説明しながら、同時に主要なパッケージやコンポーネントを紹介します。
 
@@ -67,11 +67,13 @@ By the end of this article, you should have gained a good understanding of how t
 <!--
 We're going to be creating an (almost) fully functioning Block Editor instance.
 
-![alt text](https://wordpress.org/gutenberg/files/2020/03/editor.png 'The Standalone Editor instance populated with example Blocks within a custom WP Admin page.')
+![The Standalone Editor instance populated with example Blocks within a custom WP Admin page](https://wordpress.org/gutenberg/files/2020/03/editor.png)
  -->
 今から (ほぼ) 完全に機能するブロックエディターインスタンスを作成します。
 
-![alt text](https://wordpress.org/gutenberg/files/2020/03/editor.png "カスタム WordPress 管理画面の中にサンプルのブロックを持つ、スタンドアロンエディターインスタンス")
+![カスタム WordPress 管理画面の中にサンプルのブロックを持つ、スタンドアロンエディターインスタンス](https://wordpress.org/gutenberg/files/2020/03/editor.png)
+
+
 <!--
 This block editor will not be the same _Block Editor_ you are familiar with when creating `Post`s in WP Admin. Rather it will be an entirely custom instance which will live within a custom WP Admin page called (imaginatively) "Block Editor".
  -->

@@ -174,7 +174,7 @@ This is the canonical list of keyboard shortcuts:
 			<td><kbd>⇧</kbd><kbd>⌘</kbd><kbd>,</kbd></td>
 		</tr>
 		<tr>
-			<td>Open the block navigation menu.</td>
+			<td>Open the list view menu.</td>
 			<td><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd></td>
 			<td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>O</kbd></td>
 		</tr>
@@ -253,7 +253,7 @@ This is the canonical list of keyboard shortcuts:
 			<td><kbd>⇧</kbd><kbd>⌘</kbd><kbd>,</kbd></td>
 		</tr>
 		<tr>
-			<td>ブロック移動メニュー表示</td>
+			<td>リストビューメニュー表示</td>
 			<td><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd></td>
 			<td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>O</kbd></td>
 		</tr>

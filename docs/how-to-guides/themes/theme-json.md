@@ -9,13 +9,15 @@
 <!--
 These features are still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
  -->
+<!--
 > この機能は現在、実験中です。初期の実装であり、将来、大規模で後方互換性のない変更があるという意味で、「実験中」です。
-
+ -->
 <!--
 Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. Please share your feedback in the weekly #core-editor or #fse-outreach-experiment channels in Slack, or async in GitHub issues.
  -->
+<!--
 > 現在何を行っているのかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。フィードバックを Slack の週次の #core-editor または #fse-outreach-experiment チャンネルで共有するか、非同期に GitHub で issue を作成してください。
-
+ -->
 <!--
 </div>
  -->
@@ -23,7 +25,13 @@ Documentation has been shared early to surface what’s being worked on and invi
 <!--
 This is documentation for the current direction and work in progress about how themes can hook into the various sub-systems that the Block Editor provides.
  -->
+<!--
 この文書ではテーマがブロックエディターの提供するさまざまなサブシステムとどのように連携するのか、その方向性と現在進行中の作業について記述します。
+ -->
+<!--
+WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file. This page documents its format.
+ -->
+WordPress 5.8では、エディタを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されます。このメカニズムは、きめ細かい制御を可能にし、将来の WordPress リリースでのスタイル管理の、最初のステップとなる `theme.json` ファイルを導入します。このページでは、`theme.json` ファイルのフォーマットについて説明します。
 
 <!--
 - Rationale
@@ -303,21 +311,92 @@ Additionally, there are two other block selectors: `root` and `defaults`. The `r
 <!--
 ### Version
  -->
-### Version
+### version
 
 <!--
-This field describes the format of the `theme.json` file and it's used to detect different versions and migrate them to the latest format.
+This field describes the format of the `theme.json` file. The current and only version is 1.
  -->
-This field describes the format of the `theme.json` file and it's used to detect different versions and migrate them to the latest format.
+このフィールドは、`theme.json` ファイルのフォーマットを表します。現在の唯一のバージョンは1です。
+
+<!--
+WordPress 5.8 will ignore the contents of any `theme.json` whose version is not equals to the current. Should the Gutenberg plugin need it, it'll update the version and will add the corresponding migration mechanisms from older versions.
+ -->
+WordPress 5.8 は、現行バージョンと異なる `theme.json` の内容を無視します。Gutenberg プラグインは必要があれば、バージョンを更新し、古いバージョンからの移行メカニズムを追加します。
 
 <!--
 ### Settings
  -->
 ### settings
+
+<!--
+<div class="callout callout-alert">
+The Gutenberg plugin extends the settings available from WordPress 5.8, so they can be used with other WordPress versions and they go through a maturation process before being ported to core.
+
+The tabs below show WordPress 5.8 supported settings and the ones supported by the Gutenberg plugin.
+</div>
+ -->
+> Gutenberg プラグインは、WordPress 5.8で利用可能な設定を拡張しています。このため、他のバージョンの WordPress でも利用でき、コアに移植される前に機能の成熟プロセスを経ます。
+>
+> 次のセクションでは、WordPress 5.8でサポートされる設定と、Gutenberg プラグインでサポートされる設定を示します。
+
 <!--
 The settings section has the following structure:
  -->
 settings セクションは以下の構造を持ちます。
+
+<!--
+{% codetabs %}
+{% WordPress %}
+ -->
+**WordPress**
+
+```json
+{
+	"version": 1,
+	"settings": {
+		"color": {
+			"custom": true,
+			"customGradient": true,
+			"duotone": [],
+			"gradients": [],
+			"link": false,
+			"palette": []
+		},
+		"custom": {},
+		"layout": {
+			"contentSize": "800px",
+			"wideSize": "1000px"
+		},
+		"spacing": {
+			"customMargin": false,
+			"customPadding": false,
+			"units": [ "px", "em", "rem", "vh", "vw" ]
+		},
+		"typography": {
+			"customFontSize": true,
+			"customLineHeight": false,
+			"dropCap": true,
+			"fontSizes": []
+		},
+		"blocks": {
+			"core/paragraph": {
+				"color": {},
+				"custom": {},
+				"layout": {},
+				"spacing": {},
+				"typography": {}
+			},
+			"core/heading": {},
+			"etc": {}
+		}
+	}
+}
+```
+
+<!--
+{% Gutenberg %}
+ -->
+**Gutenberg**
 
 ```json
 {
@@ -374,6 +453,9 @@ settings セクションは以下の構造を持ちます。
 }
 ```
 
+<!--
+{% end %}
+  -->
 <!--
 Each block can configure any of these settings separately, providing a more fine-grained control over what exists via `add_theme_support`. The settings declared at the top-level affect to all blocks, unless a particular block overwrites it. It's a way to provide inheritance and configure all blocks at once.
  -->
@@ -620,7 +702,6 @@ body {
 .wp-block-group.has-white-border-color { border-color: #444 !important; }
 
 ```
-
 {% end %}
 
 <!--
@@ -704,9 +785,92 @@ Note that the name of the variable is created by adding `--` in between each nes
 ### styles
 
 <!--
+<div class="callout callout-alert">
+The Gutenberg plugin extends the styles available from WordPress 5.8, so they can be used with other WordPress versions and they go through a maturation process before being ported to core.
+
+The tabs below show WordPress 5.8 supported styles and the ones supported by the Gutenberg plugin.
+</div>
+-->
+> Gutenberg プラグインは、WordPress 5.8で利用可能なスタイルを拡張しています。このため、他のバージョンの WordPress でも利用でき、コアに移植される前に機能の成熟プロセスを経ます。
+>
+> 次のセクションでは、WordPress 5.8でサポートされるスタイルと、Gutenberg プラグインでサポートされるスタイルを示します。
+
+<!--
 Each block declares which style properties it exposes via the [block supports mechanism](../block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor. Themes can use any style property via the `theme.json` for any block ― it's the theme's responsibility to verify that it works properly according to the block markup, etc.
  -->
 各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用されます。テーマは `theme.json` を介して、任意のブロックのために、任意のスタイルプロパティを使用できます。ブロックマークアップ等に関して正しく動作するかどうかの検証は、テーマの責任です。
+
+<!--
+{% codetabs %}
+{% WordPress %}
+ -->
+**WordPress**
+
+```json
+{
+	"version": 1,
+	"styles": {
+		"color": {
+			"background": "value",
+			"gradient": "value",
+			"text": "value"
+		},
+		"spacing": {
+			"margin": {
+				"top": "value",
+				"right": "value",
+				"bottom": "value",
+				"left": "value"
+			},
+			"padding": {
+				"top": "value",
+				"right": "value",
+				"bottom": "value",
+				"left": "value"
+			}
+		},
+		"typography": {
+			"fontSize": "value",
+			"lineHeight": "value"
+		},
+		"elements": {
+			"link": {
+				"color": {},
+				"spacing": {},
+				"typography": {}
+			},
+			"h1": {},
+			"h2": {},
+			"h3": {},
+			"h4": {},
+			"h5": {},
+			"h6": {}
+		},
+		"blocks": {
+			"core/group": {
+				"color": {},
+				"spacing": {},
+				"typography": {},
+				"elements": {
+					"link": {},
+					"h1": {},
+					"h2": {},
+					"h3": {},
+					"h4": {},
+					"h5": {},
+					"h6": {}
+				}
+			},
+			"etc": {}
+		}
+	}
+}
+```
+
+<!--
+{% Gutenberg %}
+ -->
+**Gutenberg**
 
 ```json
 {
@@ -751,7 +915,7 @@ Each block declares which style properties it exposes via the [block supports me
 				"border": {},
 				"color": {},
 				"spacing": {},
-				"typography": {},
+				"typography": {}
 			},
 			"h1": {},
 			"h2": {},
@@ -776,11 +940,15 @@ Each block declares which style properties it exposes via the [block supports me
 					"h6": {}
 				}
 			},
-            "etc": {}
+			"etc": {}
 		}
 	}
 }
 ```
+<!--
+{% end%}
+ -->
+
 <!--
 ### Top-level styles
  -->
@@ -1000,6 +1168,13 @@ theme.json にはさらに多くのテーマのメタデータを追加するニ
 ### customTemplates
 
 <!--
+<div class="callout callout-alert">
+This field is only allowed when the Gutenberg plugin is active. In WordPress 5.8 will be ignored.
+</div>
+ -->
+> このフィールドは、Gutenberg プラグインが有効な場合にのみ許可されます。WordPress 5.8では無視されます。
+
+<!--
 Within this field themes can list the custom templates present in the `block-templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
  -->
 このフィールド内にテーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
@@ -1031,6 +1206,13 @@ Within this field themes can list the custom templates present in the `block-tem
 ```
 
 ### templateParts
+
+<!--
+<div class="callout callout-alert">
+This field is only allowed when the Gutenberg plugin is active. In WordPress 5.8 will be ignored.
+</div>
+ -->
+> このフィールドは、Gutenberg プラグインが有効な場合にのみ許可されます。WordPress 5.8では無視されます。
 
 <!--
 Within this field themes can list the template parts present in the `block-template-parts` folder. For example, for a template part named `my-template-part.html`, the `theme.json` can declare the area term for the template part entity which is responsible for rendering the corresponding block variation (Header block, Footer block, etc.) in the editor. Defining this area term in the json will allow the setting to persist across all uses of that template part entity, as opposed to a block attribute that would only affect one block. Defining area as a block attribute is not recommended as this is only used 'behind the scenes' to aid in bridging the gap between placeholder flows and entity creation.

@@ -1,26 +1,26 @@
-<!-- 
+<!--
 # WordPress Plugin
  -->
 # WordPress プラグイン
-<!-- 
+<!--
 A block is added to the block editor using a WordPress plugin. You can create your own plugin, and after installing and activating the plugin use the block. Let's first look at what makes up a WordPress plugin.
  -->
-ブロックは、WordPress プラグインを使用してブロックエディターに追加されます。ユーザーは自分のプラグインを作成し、インストール、有効化してブロックを使用できます。まずここでは最初に、WordPress プラグインの構成を見ていきます。
+ブロックは WordPress プラグインを使用してブロックエディターに追加されます。ユーザーは自分のプラグインを作成し、インストール、有効化してブロックを使用できます。ここではまず、WordPress プラグインの構成から見ていきます。
 
-<!-- 
+<!--
 ## Plugin Details
  -->
 ## プラグインの詳細
-<!-- 
+<!--
 A WordPress plugin is a set of files within the site's `wp-content/plugins` directory. For our tutorial, we will use the `@wordpress/create-block` package to generate the necessary plugin files.
  -->
-「WordPress プラグイン」の実体は Web サイトの `wp-content/plugins` ディレクトリ内にあるファイルの集合体です。このチュートリアルでは `@wordpress/create-block` パッケージを使用して必要とされるプラグインファイルを生成します。
+「WordPress プラグイン」の実体は Web サイトの `wp-content/plugins` ディレクトリ内にあるファイルの集合体です。このチュートリアルでは `@wordpress/create-block` パッケージを使用して、必要なプラグインファイルを生成します。
 
-<!-- 
+<!--
 ### Switch to Working Directory
  -->
 ### ワーキングディレクトリへの切り替え
-<!-- 
+<!--
 (1A) If you do not plan to use `wp-env`, change to your local WordPress plugin directory. For example in Local it is: `~\Local Sites\mywp\wp-content\plugins`
 
 -or-
@@ -32,11 +32,11 @@ A WordPress plugin is a set of files within the site's `wp-content/plugins` dire
 または
 
 (1B) `wp-env start` を使う場合、任意のプロジェクト用ディレクトリから始めることができます。`wp-env` がサイトのプラグインディレクトリにマッピングしてくれます。
-<!-- 
+<!--
 ### Generate Plugin Files
  -->
 ### プラグインファイルの生成
-<!-- 
+<!--
 (2) Once in the right directory for your environment, the next step is to run the following command to generate plugin files:
  -->
 (2) 環境の適切なディレクトリに移動後、次のコマンドを実行してプラグインファイルを生成します。
@@ -45,7 +45,7 @@ A WordPress plugin is a set of files within the site's `wp-content/plugins` dire
 npx @wordpress/create-block gutenpride
 cd gutenpride
 ```
-<!-- 
+<!--
 A new directory `gutenpride` is created with all the necessary plugin files. This tutorial will walk through and explain the plugin files, please explore and become familiar with them also.
 
 The main plugin file created is the PHP file `gutenpride.php`, at the top of this file is the Plugin Header comment block that defines the plugin.
@@ -67,11 +67,11 @@ The main plugin file created is the PHP file `gutenpride.php`, at the top of thi
  * @package         create-block
  */
 ```
-<!-- 
+<!--
 ### Start WordPress
  -->
 ### WordPress の起動
-<!-- 
+<!--
 Let's confirm the plugin is loaded and working.
 
 (3A) If you are using Local, or other environment confirm your WordPress site is started.
@@ -91,18 +91,18 @@ Let's confirm the plugin is loaded and working.
 ```sh
 wp-env start
 ```
-<!-- 
+<!--
 This will start your local WordPress site and use the current directory as your plugin directory. In your browser, go to http://localhost:8888/wp-admin/ and login, the default username is "admin" and password is "password", no quotes.
  -->
 ローカルで WordPress を起動し、カレントディレクトリをプラグインディレクトリとして使用します。ブラウザから http://localhost:8888/wp-admin/ にアクセスしてログインします。デフォルトユーザー名は「admin」、パスワードは「password」です。
 
 
-<!-- 
+<!--
 ### Confirm Plugin Installed
  -->
 ### Plugin のインストールの確認
 
-<!-- 
+<!--
 The generated plugin should now be listed on the Plugins admin page in your WordPress install. Switch WorPress to the plugins page and activate.
 
 For more on creating a WordPress plugin see [Plugin Basics](https://developer.wordpress.org/plugins/plugin-basics/), and [Plugin Header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) for explanation and additional fields you can include in your plugin header.
@@ -111,11 +111,11 @@ For more on creating a WordPress plugin see [Plugin Basics](https://developer.wo
 
 WordPress プラグイン作成の詳細については [Plugin Basics](https://developer.wordpress.org/plugins/plugin-basics/) を参照してください。またプラグインヘッダーのフィールドの説明、追加可能なフィールドについては [Plugin Header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) を参照してください。
 
-<!-- 
+<!--
 ## package.json
  -->
 ## package.json
-<!-- 
+<!--
 The `package.json` file defines the JavaScript properties for your project. This is a standard file used by NPM for defining properties and scripts it can run, the file and process is not specific to WordPress.
 
 A `package.json` file was created with the create script, this defines the dependecies and scripts needed. You can install dependencies. The only initial dependency is the `@wordpress/scripts` package that bundles the tools and configurations needed to build blocks.
@@ -134,7 +134,7 @@ In `package.json`, there is a `scripts` property that defines what command to ru
     "start": "wp-scripts start"
   },
 ```
-<!-- 
+<!--
 These scripts are run by using: `npm run build` or `npm run start`
 
 Use `npm run build` for running once to create a "production" build. This compresses the code down so it downloads faster, but makes it harder to read using browser tools—good for final deployment but not while developing.
@@ -142,7 +142,7 @@ Use `npm run build` for running once to create a "production" build. This compre
 これらのスクリプトは `npm run build` または `npm run start` で実行されます。
 
 `npm run build` は1度実行すると「production ビルド」(製品ビルド) を作成します。コードを圧縮しダウンロード時間を短くしますが、このためにブラウザツールを使用してコードを読むことが難しくなります。最終の配布用としては有用ですが開発では適しません。
-<!-- 
+<!--
 Use `npm run start` for creating a "development" build, this does not compress the code so it is easier to read using browser tools, plus [source maps](https://developer.mozilla.org/en-US/docs/Tools/Debugger/How_to/Use_a_source_map) that make debugging easier. Additionally, development build will start a watch process that waits and watches for changes to the file and will rebuild each time it is saved; so you don't have to run the command for each change.
 
 By default, the build scripts looks for `src/index.js` for the JavaScript file to build and will save the built file to `build/index.js`. In the upcoming sections, we will look closer at that script, but first let's make sure it is loaded in WordPress.
@@ -151,26 +151,26 @@ By default, the build scripts looks for `src/index.js` for the JavaScript file t
 
 デフォルトではビルドスクリプトはビルドする JavaScript ファイルとして `src/index.js` を探し、ビルドしたファイルを `build/index.js` に保存します。次のセクションではスクリプトの詳細を確認しますが、まず WordPress にロードされていることを確認しましょう。
 
-<!-- 
+<!--
 ## Plugin to Load Script
  -->
 ## スクリプトをロードするプラグイン
-<!-- 
+<!--
 To load the built script, so it is run within the editor, you need to tell WordPress about the script. This done in the init action in the `gutenpride.php` file.
  -->
 エディター内で動作するようビルドしたスクリプトをロードするには、WordPress に対してスクリプトにことを伝える必要があります。これは `gutenpride.php` ファイル内の init アクションで行います。
 
 ```php
 function create_block_gutenpride_block_init() {
-	register_block_type_from_metadata( __DIR__ );
+	register_block_type( __DIR__ );
 }
 add_action( 'init', 'create_block_gutenpride_block_init' );
 ```
 
-<!-- 
-The `register_block_type_from_metadata` function registers the block we are going to create and specifies the `editor_script` file handle registered from the metadata provided in `block.json` file. So now when the editor loads it will load this script.
+<!--
+The `register_block_type` function registers the block we are going to create and specifies the editor script handle registered from the metadata provided in `block.json` file with the `editorScript` field. So now when the editor loads it will load this script.
  -->
-`register_block_type_from_metadata` 関数は、これから作成するブロックを登録し、`block.json` ファイルで提供されたメタデータから登録された `editor_script` ファイルハンドルを指定します。エディターがブロックをロードすると、このスクリプトをロードします。
+`register_block_type` 関数は、これから作成するブロックを登録し、`block.json` ファイルの `editorScript` フィールドのメタデータで登録されたエディタースクリプトハンドルを指定します。エディターがブロックをロードすると、このスクリプトをロードします。
 
 ```json
 {
@@ -189,31 +189,31 @@ The `register_block_type_from_metadata` function registers the block we are goin
 	"style": "file:./build/style-index.css"
 }
 ```
-<!-- 
+<!--
 For the `editorScript` provided in the block metadata, the build process creates a secondary asset file that contains the list of dependencies and a file version based on the timestamp, this is the `index.asset.php` file.
  -->
 ブロックメタデータで提供される `editorScript` に対して、ビルドプロセスは2つ目のアセットファイル `index.asset.php` を作成します。ファイルには依存性とタイムスタンプに基づくファイルバージョンのリストが含まれています。
 
-<!-- 
+<!--
 The `wp_register_script` function used internally registers a name, called the handle, and relates that name to the script file. The dependencies are used to specify if the script requires including other libraries. The version is specified so the browser will reload if the file changed.
  -->
 内部で使用される `wp_register_script` は「ハンドル」と呼ばれる名前を登録し、その名前をスクリプトファイルと関連付けます。他のライブラリーを含めスクリプトが必要であれば、指定に依存性が使用されます。ファイルが更新された場合にブラウザがリロードするよう、バージョンが指定されます。
 
-<!-- 
+<!--
 The `wp_set_script_translations` function tells WordPress to load translations for this script, if they  exist. See more about [translations & internationalization.](/docs/how-to-guides/internationalization.md)
  -->
 `wp_set_script_translations` 関数は WordPress に、もし存在するならスクリプトの翻訳をロードするよう伝えます。詳細については[翻訳と国際化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/internationalization/)を参照してください。
 
-<!-- 
+<!--
 With the above in place, create a new post to load the editor and check your plugin is in the inserter. You can use `/` to search, or click the box with the [+] and search for "Gutenpride" to find the block.
  -->
 すべてを終えたら新しい投稿を作成してエディターを開始し、インサーターにブロックが追加されていることを確認してください。検索には `/` を使うか、[+] のボックスをクリックして「Gutenpride」を検索し、ブロックを見つけてください。
 
-<!-- 
+<!--
 ## Troubleshooting
  -->
 ## トラブルシューティング
-<!-- 
+<!--
 It is a good skill to learn and get comfortable using the web console. This is where JavaScript errors are shown and a nice way to test out snippets of JavaScript. See [Firefox Developer Tools documentation](https://developer.mozilla.org/en-US/docs/Tools).
 
 To open the developer tools in Firefox, use the menu selecting Web Developer : Toggle Tools, on Chrome, select More Tools -> Developers Tools. For both browsers, the keyboard shortcut on Windows is Ctrl+Shift+I, or on Mac Cmd+Shift+I. On Windows & Linux, the F12 key also works. You can then click Console to view logs.
@@ -221,7 +221,7 @@ To open the developer tools in Firefox, use the menu selecting Web Developer : T
 Web コンソールの使い方を学び親しみましょう。Web コンソールでは JavaScript のエラーを表示したり、JavaScript のスニペットをテストできます。[Firefox 開発ツールドキュメント](https://developer.mozilla.org/ja/docs/Tools)を参照してください。
 
 FireFox で開発ツールを開くにはメニューの「Web 開発」>「開発ツールを表示」を選択してください。Chrome では「その他のツール」>「デベロッパーツール」です。両方のブラウザともキーボードショートカットは Windows では Ctrl+Shift+I、Mac では Cmd+Shift+I です。Windows や Linux であれば F12 キーでも開きます。ログを参照するには「コンソール」をクリックしてください。
-<!-- 
+<!--
 Try running `npm run start` that will start the watch process for automatic rebuilds. If you then make an update to `src/index.js` file, you will see the build run, and if you reload the WordPress editor you'll see the change.
 
 For more info, see the build section of the [Getting Started with JavaScript tutorial](/docs/how-to-guides/javascript/js-build-setup.md) in the Block Editor Handbook.
@@ -229,16 +229,16 @@ For more info, see the build section of the [Getting Started with JavaScript tut
 `npm run start` を実行してください。watch プロセスが始まり、自動リビルドが行われます。`src/index.js` ファイルを更新するとビルドが始まります。ブロックエディターをリロードすると変更が反映されます。
 
 詳細についてはブロックエディターハンドブックの [JavaScript 入門チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/)のビルドセクションを参照してください。
-<!-- 
+<!--
 ## Summary
  -->
 ## まとめ
-<!-- 
-Hopefully, at this point, you have your plugin created and activated. We have the package.json with the `@wordpress/scripts` dependency, that defines the build and start scripts. The basic block is in place and can be added to the editor.
+<!--
+Hopefully, at this point, you have your plugin created and activated. We have the `package.json` with the `@wordpress/scripts` dependency, that defines the build and start scripts. The basic block is in place and can be added to the editor.
 
 Next Section: [Anatomy of a Block](/docs/getting-started/tutorials/create-block/block-anatomy.md)
  -->
-この時点でプラグインを作成し有効化できました。`@wordpress/scripts` への依存性を含む package.json ではビルドとスクリプトの開始を定義しています。基本的なブロックが完成しエディターに追加できました。
+この時点でプラグインを作成し有効化できました。`@wordpress/scripts` への依存性を含む `package.json` ではビルドとスクリプトの開始を定義しています。基本的なブロックが完成しエディターに追加できました。
 
 次のセクション: [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/block-anatomy/)
 

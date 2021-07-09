@@ -10,9 +10,9 @@ Block registration API reference.
 
 <!--
 **Note:** You can use the functions documented on this page, but a flexible method to register new block types is to use the block.json metadata file. See [metadata documentation for complete information](/docs/reference-guides/block-api/block-metadata.md).
+**Note:** You can use the functions documented on this page to register a block on the client-side only, but a flexible method to register new block types is to use the `block.json` metadata file. See [metadata documentation for complete information](/docs/reference-guides/block-api/block-metadata.md).
  -->
-**注意:** このページで紹介する関数を使用しても新しいブロックタイプは登録できますが、block.json メタデータファイルを使用した方がフレキシブルです。メタデータの完全な情報については、[こちらのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/)を参照してください。
-
+**注意:** このページで紹介する関数を使用しても、クライアント側でのみブロックを登録できますが、block.json メタデータファイルを使用した方がフレキシブルです。メタデータの完全な情報については、[こちらのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/)を参照してください。
 
 <!--
 ## `registerBlockType`

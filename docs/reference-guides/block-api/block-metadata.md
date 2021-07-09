@@ -6,18 +6,25 @@
 <!--
 To register a new block type using metadata that can be shared between codebase that uses JavaScript and PHP, start by creating a `block.json` file. This file:
  -->
+<!--
 JavaScript コードと PHP コードベース間で共有可能なメタデータを使用して、新しいブロックタイプを登録できます。これにはまず `block.json` ファイルを作成します。`block.json` ファイルは、
-
+ -->
 <!--
 -   Gives a name to the block type.
 -   Defines some important metadata about the registered block type (title, category, icon, description, keywords).
 -   Defines the attributes of the block type.
 -   Registers all the scripts and styles for your block type.
  -->
+<!--
 -   ブロックタイプに名前を付与します。
 -   登録されるブロックタイプの重要なメタデータを定義します。例: title、category、icon、description、keywords
 -   ブロックタイプの属性を定義します。
 -   ブロックタイプのすべてのスクリプトとスタイルを登録します。
+ -->
+<!--
+Starting in WordPress 5.8 release, we encourage using the `block.json` metadata file as the canonical way to register block types. Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
+ -->
+WordPress 5.8 リリースから、ブロックタイプを登録する標準の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
 
 <!--
 **Example:**
@@ -68,12 +75,50 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 <!--
 The same file is also used when [submitting block to Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md).
  -->
+<!--
 [ブロックディレクトリへブロックをサブミットする](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)際にも同じファイルが使用されます。
-
+ -->
 <!--
 ## Server-side registration
  -->
+<!--
 ## サーバーサイドでの登録
+ -->
+
+<!--
+## Benefits using the metadata file
+ -->
+## メタデータファイルの利点
+
+<!--
+The block definition allows code sharing between JavaScript, PHP, and other languages when processing block types stored as JSON, and registering blocks with the `block.json` metadata file provides multiple benefits on top of it.
+ -->
+ブロック定義は、JSON として格納されたブロックタイプを処理する際に、JavaScript や PHP などの言語間でのコードの共有を可能にします。さらに、メタデータファイル `block.json` を使用したブロックの登録には、以下のような複数のメリットがあります。
+
+<!--
+From a performance perspective, when themes support lazy loading assets, blocks registered with `block.json` will have their asset enqueuing optimized out of the box. The frontend CSS and JavaScript assets listed in the `style` or `script` properties will only be enqueued when the block is present on the page, resulting in reduced page sizes.
+ -->
+まずパフォーマンスの観点では、テーマが遅延ロードアセットをサポートする場合、`block.json` で登録されたブロックは、標準でアセットのエンキューが最適化されます。`style` や `script` プロパティにリストされたフロントエンドの CSS や JavaScript アセットは、ブロックがページ上に存在するときにのみエンキューされ、結果的にページサイズが小さくなります。
+
+<!--
+Furthermore, because the [Block Type REST API Endpoint](https://developer.wordpress.org/rest-api/reference/block-types/) can only list blocks registered on the server, registering blocks server-side is recommended; using the `block.json` file simplifies this registration.
+ -->
+さらに、[ブロックタイプ REST API エンドポイント](https://developer.wordpress.org/rest-api/reference/block-types/)では、サーバー上で登録されたブロックしか一覧できないため、サーバーサイドでブロックを登録することが推奨されます。`block.json`ファイルを使用すると、この登録が簡単になります。
+
+<!--
+Last, but not least, the [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to [submit your block(s) to the Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md), all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
+ -->
+最後に、[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。[ブロックディレクトリに自分のブロックを登録する](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)場合、ブロックディレクトリに認識させるには、プラグインに含まれるすべてのブロックに `block.json` ファイルが必要です。
+
+<!--
+## Block registration
+ -->
+## ブロックの登録
+
+<!--
+### PHP (server-side)
+ -->
+### PHP (サーバー側)
 
 <!--
 The [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) function that aims to simplify the block type registration on the server, can read metadata stored in the `block.json` file.
@@ -114,6 +159,65 @@ register_block_type(
 ```
 
 <!--
+### JavaScript (client-side)
+ -->
+### JavaScript (クライアント側)
+
+<!--
+When the block is registered on the server, you only need to register the client-side settings on the client using the same block’s name.
+ -->
+サーバーでブロックを登録した場合、クライアントではクライアント側設定を同じブロック名で登録するだけで構いません。
+
+<!--
+**Example:**
+ -->
+**例:**
+
+```js
+registerBlockType( 'my-plugin/notice', {
+	edit: Edit,
+	// ...other client-side settings
+} );
+```
+
+<!--
+Although registering the block also on the server with PHP is still recommended for the reasons above, if you want to register it only client-side you can now use `registerBlockType` method from `@wordpress/blocks` package to register a block type using the metadata loaded from `block.json` file.
+ -->
+上述の理由により、PHP を使用してサーバー上にもブロックを登録することが推奨されていますが、クライアントサイドだけでブロックを登録する場合は、`@wordpress/blocks` パッケージの `registerBlockType` メソッドを使用して、`block.json` ファイルから読み込んだメタデータでブロックタイプを登録できます。
+
+<!--
+The function takes two params:
+ -->
+関数は2つの引数を取ります。
+
+<!--
+-   `$blockNameOrMetadata` (`string`|`Object`) – block type name (supported previously) or the metadata object loaded from the `block.json` file with a bundler (e.g., webpack) or a custom Babel plugin.
+-   `$settings` (`Object`) – client-side block settings.
+ -->
+-   `$blockNameOrMetadata` (`string`|`Object`) – ブロックタイプ名 (以前からサポート済み)、または、webpack などのバンドラーやカスタム Babel プラグインで、`block.json`ファイルからロードされたメタデータオブジェクトです。
+-   `$settings` (`Object`) – クライアント側のブロックの設定。
+
+<!--
+It returns the registered block type (`WPBlock`) on success or `undefined` on failure.
+ -->
+関数は、成功すると登録されたブロックタイプ (`WPBlock`)、失敗すると `undefined` を返します。
+
+<!--
+**Example:**
+ -->
+**例:**
+
+```js
+import { registerBlockType } from '@wordpress/blocks';
+import Edit from './edit';
+import metadata from './block.json';
+
+registerBlockType( metadata, {
+	edit: Edit,
+	// ...other client-side settings
+} );
+```
+<!--
 ## Block API
  -->
 ## ブロック API
@@ -122,6 +226,35 @@ register_block_type(
 This section describes all the properties that can be added to the `block.json` file to define the behavior and metadata of block types.
  -->
 このセクションでは、`block.json` ファイルに追加可能な、ブロックタイプの振る舞いとメタデータを定義するすべてのプロパティを紹介します。
+
+### API Version
+
+<!--
+-   Type: `number`
+-   Optional
+-   Localized: No
+-   Property: `apiVersion`
+-   Default: `1`
+ -->
+-   型: `number`
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `apiVersion`
+-   デフォルト: `1`
+
+```json
+{ "apiVersion": 2 }
+```
+
+<!--
+The version of the Block API used by the block. The most recent version is `2` and it was introduced in WordPress 5.6.
+ -->
+ブロックが使用するBlock APIのバージョン。最新のバージョンは `2` で、WordPress 5.6 で導入されました。
+
+<!--
+See the [the API versions documentation](/docs/reference-guides/block-api/block-api-versions.md) for more details.
+ -->
+詳細については [API バージョンのドキュメント](/docs/reference-guides/block-api/block-api-versions.md) を参照してください。
 
 ### Name
 

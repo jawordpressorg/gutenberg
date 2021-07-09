@@ -8,7 +8,7 @@ The new Blocks include baseline support in all themes, enhancements to opt-in to
 
 There are a few new concepts to consider when building themes:
  -->
-新しいブロックにはすべてのテーマで有効な基本サポートやオプトイン可能なオプションがあり拡張やカスタマイズが可能です。
+新しいブロックにはすべてのテーマで有効な基本サポートや、オプトイン可能なオプション、拡張やカスタマイズ可能な機能があります。
 
 テーマを構築する際は、以下の新しいコンセプトを検討してください。
 
@@ -607,28 +607,57 @@ Some blocks can have padding controls. This is off by default, and requires the 
 add_theme_support('custom-spacing');
 ```
 <!--
-## Experimental — Link color control
+## Link color control
  -->
-## 実験中の機能 - リンク色の制御
+## リンク色の制御
 
 <!--
 Using the Gutenberg plugin (version 8.3 or later), link color control is available to a number of blocks including Paragraph, Heading, Group, Columns, and Media & Text blocks. This is off by default, and requires the theme to opt in by declaring support:
  -->
+<!--
 Gutenberg プラグイン Version 8.3 以上を使用すると、「段落」「見出し」「グループ」「カラム」「メディアとテキスト」など多くのブロックのリンク色を制御できます。デフォルトでは無効のため、テーマはサポートを宣言してオプトインする必要があります。
 
 ```php
 add_theme_support('experimental-link-color');
+ -->
+
+<!--
+Link support has been made stable as part of WordPress 5.8. It's `false` by default and themes can enable it via the [theme.json file](./theme-json.md):
+ -->
+link サポートは WordPress 5.8の一部として安定動作します。デフォルトは `false` ですが、テーマは [theme.json ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) を通して有効化できます。
+
+```json
+{
+	"version": 1,
+	"settings": {
+		"color": {
+			"link": true
+		}
+	}
+}
 ```
 <!--
 If a theme opts in, it should [define default link colors](/docs/how-to-guides/themes/theme-json.md#color-properties) in `experimental-theme.json` (or in its theme styles if no `experimental-theme.json` is present). For example:
 
  If a theme opts in, it can [define link colors](/docs/how-to-guides/themes/theme-json.md#color-properties) by using the `theme.json`. If the theme doesn't use the `theme.json` it can configure the color of links by settings the value of the `--wp--style--color--link` CSS Custom Property such as:
  -->
+<!--
 オプトインする場合、テーマは `theme.json` を使用して [リンク色を定義](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#color-properties) できます。`theme.json` を使用せずにリンク色を構成するには、CSS カスタムプロパティ `--wp--style--color--link` を使用します。
+ -->
+
+<!--
+> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support('experimental-link-color')` would also work. This fallback would be removed when the Gutenberg plugin requires WordPress 5.8 as the minimum version.
+ -->
+> 代替として、Gutenberg プラグインが有効な場合は、古いレガシーサポートである `add_theme_support('experimental-link-color')` も機能します。このフォールバックは、Gutenberg プラグインのサポートするバージョンが WordPress 5.8 以上になった時点で削除されます。
+
+<!--
+When the user sets the link color of a block, a new style will be added in the form of:
+ -->
+ユーザーがブロックのリンク色を設定すると、新しいスタイルが追加されます。
 
 ```css
-:root {
-	--wp--style--color--link: <value>;
+.wp-elements-<uuid> a {
+	color: <link-color> !important;
 }
 ```
 <!--
@@ -647,7 +676,24 @@ a {
 <!--
 The framework will take care of enqueing the necessary rules for this to work. Whether or not the theme supports `theme.json` the presets will also be enqueued as CSS Custom Properties, so themes can also use `--wp--style--color-link: var(--wp--preset--color--<color-slug>)`. See [the docs](/docs/how-to-guides/themes/theme-json.md#color-properties) for details.
  -->
+<!--
 この動作に必要なルールのエンキューはフレームワークが実施します。テーマの `theme.json` のサポートの有無に関わらず、プリセットも CSS カスタムプロパティとしてエンキューされます。またテーマは `--wp--style--color-link: var(--wp--preset--color--<color-slug>)` も使えます。詳細については [ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json#color-properties) を参照してください。
+ -->
+<!--
+where
+ -->
+このとき
+
+<!--
+- `<uuid>` is a random number
+- `<link-color>` is either `var(--wp--preset--color--slug)` (if the user selected a preset value) or a raw color value (if the user selected a custom value)
+ -->
+- `<uuid>` は、ランダムな番号です
+- `<link-color>` は、`var(--wp--preset--color--slug)` (プリセット値が選択された場合)、または、生のカラー値 (カスタム値が選択された場合) です。
+
+<!--
+The block will get attached the class `.wp-elements-<uuid>`.
+ -->
+このブロックには、クラス `.wp-elements-<uuid>` が付けられます。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-support.md)
-
