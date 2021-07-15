@@ -497,7 +497,7 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 <!--
 Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:
  -->
-テーマ作者が段落ブロックのみにカスタムカラーを有効化したいとします。この場合、イカのようになります。
+テーマ作者が段落ブロックのみにカスタムカラーを有効化したいとします。この場合、以下のようになります。
 
 ```json
 {
