@@ -7,6 +7,16 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/7/16
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - customDuotone 追加 [#33295](https://github.com/WordPress/gutenberg/pull/33295)、add_theme_support との後方互換性、settings 例の追加 [#33421](https://github.com/WordPress/gutenberg/pull/33421)
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - version 追加 [#33075](https://github.com/WordPress/gutenberg/pull/33075)
+- 以下、未訳分で変更に気がついたもの
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - リリース後のワークフロー追加 [#33328](https://github.com/WordPress/gutenberg/pull/33328)
+- [Folder Structure](https://ja.wordpress.org/team/handbook/block-editor/contributors/folder-structure/) - tools フォルダー追加 [#33281](https://github.com/WordPress/gutenberg/pull/33281)
+- [Block Filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/block-filters.md) - allowed_block_types_all 追加 [#33262](https://github.com/WordPress/gutenberg/pull/33262)
+- [Editor Filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/editor-filters.md) - block_editor_settings -> block_editor_settings_all [#33262](https://github.com/WordPress/gutenberg/pull/33262)
+- [SegementedControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/segmented-control/README.md) - SegmentedControl 追加 [#31937](https://github.com/WordPress/gutenberg/pull/31937)
+
 2021/7/9
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - 「実験」を削除。5.8コアと Gutenberg プラグインの違いを明記  [#33131](https://github.com/WordPress/gutenberg/pull/33131)
 - [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - リンク色の変更 [#33162](https://github.com/WordPress/gutenberg/pull/33162)

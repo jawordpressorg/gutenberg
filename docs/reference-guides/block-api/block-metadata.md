@@ -41,6 +41,7 @@ WordPress 5.8 リリースから、ブロックタイプを登録する標準の
 	"icon": "star",
 	"description": "Shows warning, error or success notices…",
 	"keywords": [ "alert", "message" ],
+	"version": "1.0.3",
 	"textdomain": "my-plugin",
 	"attributes": {
 		"message": {
@@ -442,6 +443,30 @@ This is a short description for your block, which can be translated with our tra
 Sometimes a block could have aliases that help users discover it while searching. For example, an image block could also want to be discovered by photo. You can do so by providing an array of unlimited terms (which are translated).
  -->
 ブロックは、検索性の向上のため別名を持つことができます。たとえば、画像ブロックを「写真」でも検索できるようになります。語句は何個でも配列内に指定でき、翻訳の対象です。
+
+### Version
+
+<!--
+-   Type: `string`
+-   Optional
+-   Localized: No
+-   Property: `version`
+-   Since: `5.8.0`
+ -->
+-   型: `string`
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `version`
+-   Since: `5.8.0`
+
+```json
+{ "version": "1.0.3" }
+```
+
+<!--
+The current version number of the block, such as 1.0 or 1.0.3. It's similar to how plugins are versioned. This field might be used with block assets to control cache invalidation, and when the block author omits it, then the installed version of WordPress is used instead.
+ -->
+ブロックの現在のバージョン番号。例: 1.0、1.0.3。プラグインのバージョン管理と同様です。このフィールドは、ブロックアセットでキャッシュの無効化の制御に使用される場合があり、ブロック作者がこれを省略すると、代わりにインストールされたWordPressのバージョンが使用されます。
 
 ### Text Domain
 

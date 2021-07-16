@@ -42,8 +42,10 @@ WordPress 5.8では、エディタを構成する[新しいメカニズム](http
 - Specification
     - version
     - settings
+        - Backward compatibility with add_theme_support
         - Presets
         - Custom
+        - Setting examples
     - styles
         - Top-level
         - Block-level
@@ -64,8 +66,10 @@ WordPress 5.8では、エディタを構成する[新しいメカニズム](http
 - 仕様
     - version
     - settings
+	    - add_theme_support との後方互換性
         - プリセット
         - カスタム
+		- 例
     - styles
         - トップレベル
         - ブロックレベル
@@ -356,6 +360,7 @@ settings セクションは以下の構造を持ちます。
 	"settings": {
 		"color": {
 			"custom": true,
+			"customDuotone": true,
 			"customGradient": true,
 			"duotone": [],
 			"gradients": [],
@@ -410,6 +415,7 @@ settings セクションは以下の構造を持ちます。
 		},
 		"color": {
 			"custom": true,
+			"customDuotone": true,
 			"customGradient": true,
 			"duotone": [],
 			"gradients": [],
@@ -461,6 +467,15 @@ Each block can configure any of these settings separately, providing a more fine
  -->
 それぞれのブロックは個別にこれらの設定を構成でき、既存の `add_theme_support` を介したものよりも、詳細な制御を行えます。トップレベルで宣言されたブロック設定は、個別に上書きしない限り、すべてのブロックに影響します。継承のコンセプトを導入し、すべてのブロックを一度に構成できます。
 
+<!--
+Note, however, that not all settings are relevant for all blocks. The settings section provides an opt-in/opt-out mechanism for themes, but it's the block's responsibility to add support for the features that are relevant to it. For example, if a block doesn't implement the `dropCap` feature, a theme can't enable it for such a block through `theme.json`.
+ -->
+注意: ただし、すべての設定がすべてのブロックに関連するわけではありません。settings セクションはテーマに対してオプトイン、オプトアウトの仕組みを提供しますが、関連する機能のサポートの追加はブロックの責任です。たとえばブロックが `dropCap` 機能を実装しなければ、テーマは `theme.json` を介して有効化できません。
+
+<!--
+#### Backward compatibility with add_theme_support
+ -->
+#### add_theme_support との後方互換性
 
 <!--
 To retain backward compatibility, the existing `add_theme_support` declarations that configure the block editor are retrofit in the proper categories for the top-level section. For example, if a theme uses `add_theme_support('disable-custom-colors')`, it'll be the same as setting `settings.color.custom` to `false`. If the `theme.json` contains any settings, these will take precedence over the values declared via `add_theme_support`. This is the complete list of equivalences:
@@ -497,8 +512,10 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 <!--
 Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:
  -->
+<!--
 テーマ作者が段落ブロックのみにカスタムカラーを有効化したいとします。この場合、以下のようになります。
-
+ -->
+<!--
 ```json
 {
 	"version": 1,
@@ -516,11 +533,7 @@ Let's say a theme author wants to enable custom colors only for the paragraph bl
 	}
 }
 ```
-
-<!--
-Note, however, that not all settings are relevant for all blocks. The settings section provides an opt-in/opt-out mechanism for themes, but it's the block's responsibility to add support for the features that are relevant to it. For example, if a block doesn't implement the `dropCap` feature, a theme can't enable it for such a block through `theme.json`.
  -->
-注意: ただし、すべての設定がすべてのブロックに関連するわけではありません。settings セクションはテーマに対してオプトイン、オプトアウトの仕組みを提供しますが、関連する機能のサポートの追加はブロックの責任です。たとえばブロックが `dropCap` 機能を実装しなければ、テーマは `theme.json` を介して有効化できません。
 
 <!--
 #### Presets
@@ -774,10 +787,107 @@ body {
 {% end %}
 
 <!--
-Note that, the name of the variable is created by adding `--` in between each nesting level.
 Note that the name of the variable is created by adding `--` in between each nesting level and `camelCase` fields are transformed to `kebab-case`.
  -->
 注意: 変数名は各ネストレベルの間に `--` を追加し、`camelCase` フィールドは `kebab-case` に変換して作成されます。
+
+<!--
+#### Settings examples
+ -->
+#### settings の例
+
+<!--
+- Enable custom colors only for the paragraph block:
+ -->
+- 段落ブロックのみにカスタム色を有効化
+
+```json
+{
+	"version": 1,
+	"settings": {
+		"color": {
+			"custom": false
+		},
+		"blocks": {
+			"core/paragraph": {
+				"color": {
+					"custom": true
+				}
+			}
+		}
+	}
+}
+```
+
+- ボタンブロックの枠の角丸を無効化 (現在、枠はプラグインでのみ利用可能)
+
+```json
+{
+	"version": 1,
+	"settings": {
+		"core/button": {
+			"border": {
+				"customRadius": false
+			}
+		}
+	}
+}
+```
+
+- グループブロックのみに他と異なるパレットを設定
+
+```json
+{
+	"version": 1,
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "black",
+					"color": "#000000",
+					"name": "Black"
+				},
+				{
+					"slug": "white",
+					"color": "#FFFFFF",
+					"name": "White"
+				},
+				{
+					"slug": "red",
+					"color": "#FF0000",
+					"name": "Red"
+				},
+				{
+					"slug": "green",
+					"color": "#00FF00",
+					"name": "Green"
+				},
+				{
+					"slug": "blue",
+					"color": "#0000FF",
+					"name": "Blue"
+				}
+			]
+		},
+		"core/group": {
+			"color": {
+				"palette": [
+					{
+						"slug": "black",
+						"color": "#000000",
+						"name": "Black"
+					},
+					{
+						"slug": "white",
+						"color": "#FFF",
+						"name": "White"
+					}
+				]
+			}
+		}
+	}
+}
+```
 
 <!--
 ### Styles
@@ -946,7 +1056,7 @@ Each block declares which style properties it exposes via the [block supports me
 }
 ```
 <!--
-{% end%}
+{% end %}
  -->
 
 <!--

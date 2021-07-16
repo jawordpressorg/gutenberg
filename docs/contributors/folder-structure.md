@@ -124,6 +124,13 @@ The following snippet explains how the Gutenberg repository is structured omitti
     │   Configuration for the Gutenberg Mobile unit tests.
     │
     └── test/unit
-        Configuration for the Packages unit tests.
+    │   Configuration for the Packages unit tests.
+    │
+    └── tools/eslint
+    │   Configuration files for the ESLint linter.
+    │
+    └── tools/webpack
+    │   Configuration files for the webpack build.
+
 
 [原文](https://github.com/WordPress/gutenberg/blob/master/docs/architecture/folder-structure.md)
