@@ -7,6 +7,10 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/7/17
+- [コードによるコントリビューション](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/) - 翻訳
+
+
 2021/7/16
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - customDuotone 追加 [#33295](https://github.com/WordPress/gutenberg/pull/33295)、add_theme_support との後方互換性、settings 例の追加 [#33421](https://github.com/WordPress/gutenberg/pull/33421)
 - [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - version 追加 [#33075](https://github.com/WordPress/gutenberg/pull/33075)
