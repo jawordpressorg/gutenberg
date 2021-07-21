@@ -11,7 +11,7 @@ Gutenberg プロジェクトにコードでコントリビュートする方法�
 <!--
 ## Discussions
 -->
-## 議論
+## ディスカッション
 
 <!--
 The [Make WordPress Core blog](https://make.wordpress.org/core/) is the primary spot for the latest information around WordPress development: including announcements, product goals, meeting notes, meeting agendas, and more.
