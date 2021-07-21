@@ -7,9 +7,14 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+
+2021/7/21
+- [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - 翻訳
+- 以下、未訳分で変更に気がついたもの
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - ポイントリリースの記述追加 [#33546](https://github.com/WordPress/gutenberg/pull/33546)
+
 2021/7/17
 - [コードによるコントリビューション](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/) - 翻訳
-
 
 2021/7/16
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - customDuotone 追加 [#33295](https://github.com/WordPress/gutenberg/pull/33295)、add_theme_support との後方互換性、settings 例の追加 [#33421](https://github.com/WordPress/gutenberg/pull/33421)
