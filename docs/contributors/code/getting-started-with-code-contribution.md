@@ -222,7 +222,9 @@ To access the MySQL database on the `wp-env` instance you will first need the co
 <!--
 > MySQL is listening on port {MYSQL_PORT_NUMBER}
 -->
-> MySQL is listening on port {MYSQL_PORT_NUMBER}
+```
+MySQL is listening on port {MYSQL_PORT_NUMBER}
+```
 
 <!--
 4. Copy / make a note of this port number (note this will change each time `wp-env` restarts).
