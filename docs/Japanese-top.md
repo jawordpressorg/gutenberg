@@ -7,6 +7,12 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/7/31
+- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - ブロック名の変更 query -> query loop[#33382](https://github.com/WordPress/gutenberg/pull/33382)
+- 以下、未訳分で変更に気がついたもの
+- [ItemGroup](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/item-group/item-group), [Item](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/item-group/item): 新規
+- [NumberControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/number-control) - 空の許可 [#33485](https://github.com/WordPress/gutenberg/pull/33485)
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - 非推奨 getAuthors [#33725](https://github.com/WordPress/gutenberg/pull/33725)
 
 2021/7/21
 - [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - 翻訳

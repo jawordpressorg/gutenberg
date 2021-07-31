@@ -150,27 +150,27 @@ git push -u origin update/my-branch
 <!--
 Do not make a new pull request for updates; by pushing your change to your repository it will update the same PR. In this sense, the PR is a pointer on the WordPress Gutenberg repository to your copy. So when you update your copy, the PR is also updated.
 -->
-更新に新しいプルリクエストを作成しないでください。変更をリポジトリにプッシュすることで、同じプルリクエストが更新されます。この意味で、プルリクエストは、WordPress Gutenberg リポジトリ上のコピーへのポインタです。コピーを更新すると、プルリクエストも更新されます。
+更新に新しいプルリクエストを作成しないでください。変更をリポジトリにプッシュすれば、同じプルリクエストが更新されます。この意味で、プルリクエストは、WordPress Gutenberg リポジトリ上のコピーへのポインタです。コピーを更新すれば、プルリクエストも更新されます。
 
 <!--
 That’s it! Once approved and merged, your change will be incorporated into the main repository. 🎉
 -->
-That’s it! Once approved and merged, your change will be incorporated into the main repository. 🎉
+これで完了です。承認されてマージされると、変更がメインのリポジトリに組み込まれます。 🎉
 
 <!--
 ## Branch Naming
 -->
-## Branch Naming
+## ブランチの名前付け
 
 <!--
 You should name your branches using a prefixes and short description, like this: `[type]/[change]`.
 -->
-You should name your branches using a prefixes and short description, like this: `[type]/[change]`.
+ブランチの名前は、接頭辞と短い説明を使用して `[タイプ]/[変更]` のように命名してください。
 
 <!--
 Suggested prefixes:
 -->
-Suggested prefixes:
+推奨される接頭辞
 
 <!--
 -   `add/` = add a new feature
@@ -179,16 +179,16 @@ Suggested prefixes:
 -   `remove/` = remove an existing feature
 -   `fix/` = fix an existing issue
 -->
--   `add/` = add a new feature
--   `try/` = experimental feature, "tentatively add"
--   `update/` = update an existing feature
--   `remove/` = remove an existing feature
--   `fix/` = fix an existing issue
+-   `add/` = 新機能の追加
+-   `try/` = 実験的な機能、一時的な追加
+-   `update/` = 既存機能の更新
+-   `remove/` = 既存機能の削除
+-   `fix/` = 既存の問題の修正
 
 <!--
 For example, `add/gallery-block` means you're working on adding a new gallery block.
 -->
-For example, `add/gallery-block` means you're working on adding a new gallery block.
+例えば、`add/gallery-block` は、新しいギャラリーブロックの追加を意味します。
 
 <!--
 ## Keeping Your Branch Up To Date

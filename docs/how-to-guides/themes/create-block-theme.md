@@ -24,9 +24,9 @@ Full site editing is an experimental feature, and the workflow in this tutorial 
 「フルサイト編集」は実験中の機能のため、以下の手順も変わる可能性があります。
 
 <!--
-This tutorial is up to date as of Gutenberg version 10.6.
+This tutorial is up to date with Gutenberg version 11.0.0.
  -->
-このチュートリアルは Gutenberg Version 10.6 時点の最新です。
+このチュートリアルは Gutenberg Version 11.0 時点の最新です。
 
 <!--
 ## Table of Contents
@@ -386,10 +386,10 @@ Confirm that the checkboxes are correct and save all three.
 
 <!--
 The template editing mode is a way to edit the website without the complexity of the site editor interface.
-It is more limited than the site editor because you can not create, select or navigate between templates in this view.
+It is more limited than the site editor because you can not select or navigate between templates in this view.
  -->
 テンプレート編集モードは、サイトエディターの複雑なインターフェースを使わずにサイトを編集する方法です。
-このモードはサイトエディターよりも制限され、テンプレートの作成、選択、テンプレート間の移動ができません。
+このモードはサイトエディターよりも制限され、テンプレートの選択、テンプレート間の移動ができません。
 
 <!--
 You access the template editing mode via the block editor.
@@ -449,10 +449,10 @@ Saved templates have precedence over theme files. To use the updated theme files
 
 <!--
 Now the theme has a basic site header and footer, but it does not display any content.
-To create a list of posts, you will use the query and query loop blocks.
+To create a list of posts, you will use the query loop and post template blocks.
  -->
 これで、テーマに基本的なサイトのヘッダーとフッターができましたが、コンテンツは表示されません。
-投稿のリストを作成するには、クエリブロックとクエリループブロックを使用します。
+投稿のリストを作成するには、クエリループブロックと投稿テンプレートブロックを使用します。
 
 <!--
 Whether you are using the site editor or editing theme files directly, open the index template.
@@ -493,11 +493,11 @@ If you are using one of the editors, change the element from `<div>` to `<main>`
 エディターを使用している場合は、ブロック設定のサイドバーにある「高度な設定」で、要素を `<div>` から `<main>` に変更してください。
 
 <!--
-Add a query block inside the group.
-When you place a query block in the editor, the query loop is used as an inner block and you have the option to start with an empty loop or include selected post blocks like a post title and featured image.
+Add a query loop block inside the group.
+When you place a query loop block in the editor, the post template is used as an inner block and you have the option to start with an empty loop or include selected post blocks like a post title and featured image.
  -->
-グループ内にクエリブロックを追加します。
-エディタでクエリブロックを配置すると、クエリループが内側のブロックとして使用され、空のループから始めるか、記事タイトルやアイキャッチ画像などの選択した記事ブロックを含めるかを選択できます。
+グループ内にクエリループブロックを追加します。
+エディタでクエリループブロックを配置すると、投稿テンプレートが内側のブロックとして使用され、空のループから始めるか、記事タイトルやアイキャッチ画像などの選択した記事ブロックを含めるかを選択できます。
 
 <!--
 Example markup:
@@ -506,26 +506,26 @@ Example markup:
 
 ```html
 <!-- wp:query -->
-<div class="wp-block-query"><!-- wp:query-loop -->
+<div class="wp-block-query"><!-- wp:post-template -->
 <!-- wp:post-title /-->
 <!-- wp:post-date /-->
 <!-- wp:post-excerpt /-->
-<!-- /wp:query-loop --></div>
+<!-- /wp:post-template --></div>
 <!-- /wp:query -->
 ```
 
 <!--
-The query pagination block can only be used inside the query. Place it inside the query, but outside the loop:
+The query pagination block can only be used inside the query loop. Place it inside the query, but outside the post template:
  -->
-クエリページネーションブロックは、クエリの内部でのみ使用できます。クエリの内側、ループの外側に配置してください。
+クエリページネーションブロックは、クエリループの内部でのみ使用できます。クエリの内側、投稿テンプレートの外側に配置してください。
 
 ```html
 <!-- wp:query -->
-<div class="wp-block-query"><!-- wp:query-loop -->
+<div class="wp-block-query"><!-- wp:post-template -->
 <!-- wp:post-title /-->
 <!-- wp:post-date /-->
 <!-- wp:post-excerpt /-->
-<!-- /wp:query-loop -->
+<!-- /wp:post-template -->
 
 <!-- wp:query-pagination -->
 <div class="wp-block-query-pagination">
@@ -786,9 +786,9 @@ To enable link colors, add a `color` setting and set `link` to true:
 ```
 
 <!--
-To enable padding and custom spacing units, include a setting for spacing:
+To enable padding, margin and custom spacing units, include a setting for spacing:
  -->
-パディングやカスタムスペーシングユニットを有効にするには、spacing の設定を含めます。
+パディングやマージン、カスタムスペーシングユニットを有効にするには、spacing の設定を含めます。
 
 ```json
 {
@@ -805,6 +805,7 @@ To enable padding and custom spacing units, include a setting for spacing:
 		},
 		"spacing": {
 			"customPadding": true,
+			"customMargin": true,
 			"units": [ "px", "em", "rem", "vh", "vw" ]
 		}
 	}
