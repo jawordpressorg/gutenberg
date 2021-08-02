@@ -6,7 +6,7 @@
 <!--
 This documentation is intended to help you get started using git with Gutenberg. Git is a powerful source code management tool; to learn git deeply, check out the [Pro Git book](https://git-scm.com/book/en/v2) available free online under CC BY-NC-SA 3.0 license.
 -->
-このドキュメントは、Gutenberg で git を使うためのガイドです。git は強力なソースコード管理ツールです。git を深く学ぶには、[Pro Git book (日本語版)](https://git-scm.com/book/ja/v2) を参照してください。CC BY-NC-SA 3.0 ライセンスの下、オンラインで無料で入手できます。
+このドキュメントは Gutenberg で git を使うためのガイドです。git は強力なソースコード管理ツールです。git を深く学ぶには、[Pro Git book (日本語版)](https://git-scm.com/book/ja/v2) を参照してください。CC BY-NC-SA 3.0 ライセンスの下、オンラインで無料で入手できます。
 
 <!--
 If you are unfamiliar with using git, it is worthwhile to explore and play with it. Try out the [git tutorial](https://git-scm.com/docs/gittutorial) as well as the [git user manual](https://git-scm.com/docs/user-manual) for help getting started.
@@ -50,12 +50,12 @@ An overview of the process for contributors is:
 <!--
 See the [repository management document](/docs/contributors/repository-management.md) for additional information on how the Gutenberg project uses GitHub.
 -->
-Gutenberg プロジェクトで GitHub をどのように使用しているかについての追加の情報は、ドキュメント「[リポジトリ管理](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management)」を参照してください。
+Gutenberg プロジェクトにおける GitHub の使用に関する追加情報は、ドキュメント「[リポジトリ管理](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management)」を参照してください。
 
 <!--
 ## Git Workflow Walkthrough
 -->
-## Git ワークフローのウォークスルー
+## Git ワークフローの概要
 
 <!--
 The workflow for code and documentation is the same, since both are managed in GitHub. You can watch a [video walk-through of contributing documentation](https://wordpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/) and the accompanying [slides for contributing to Gutenberg](https://mkaz.blog/wordpress/contribute-documentation-to-gutenberg/).
@@ -193,32 +193,32 @@ For example, `add/gallery-block` means you're working on adding a new gallery bl
 <!--
 ## Keeping Your Branch Up To Date
 -->
-## Keeping Your Branch Up To Date
+## ブランチを最新に保つ
 
 <!--
 When many different people are working on a project simultaneously, pull requests can go stale quickly. A "stale" pull request is one that is no longer up to date with the main line of development, and it needs to be updated before it can be merged into the project.
 -->
-When many different people are working on a project simultaneously, pull requests can go stale quickly. A "stale" pull request is one that is no longer up to date with the main line of development, and it needs to be updated before it can be merged into the project.
+さまざまな人が同時にプロジェクトで作業すると、プルリクエストがすぐに古くなります。「古い」プルリクエストとは、開発のメインラインの最新版から遅れたものに対する変更を指し、これはプロジェクトにマージする前に更新する必要があります。
 
 <!--
 There are two ways to do this: merging and rebasing. In Gutenberg, the recommendation is to rebase. Rebasing means rewriting your changes as if they're happening on top of the main line of development. This ensures the commit history is always clean and linear. Rebasing can be performed as many times as needed while you're working on a pull request. **Do share your work early on** by opening a pull request and keeping your history rebase as you progress.
 -->
-There are two ways to do this: merging and rebasing. In Gutenberg, the recommendation is to rebase. Rebasing means rewriting your changes as if they're happening on top of the main line of development. This ensures the commit history is always clean and linear. Rebasing can be performed as many times as needed while you're working on a pull request. **Do share your work early on** by opening a pull request and keeping your history rebase as you progress.
+これには、マージとリベースの2つの方法があります。Gutenberg では、リベースを推奨しています。リベースとは、あたかも開発のメインラインの最新版に対して変更したかのように、あなたの変更を書き換える方法です。リベースではコミットの履歴が常に美しく、直線的です。リベースは、プルリクエストでの作業中に何度でも実行できます。**作業内容はできる限り早い段階で共有してください**。それにはプルリクエストを作成し、履歴をリベースしながら作業を進めていきます。
 
 <!--
 The main line of development is known as the `trunk` branch. If you have a pull-request branch that cannot be merged into `trunk` due to a conflict (this can happen for long-running pull requests), then in the course of rebasing you'll have to manually resolve any conflicts in your local copy. Learn more in [section _Perform a rebase_](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#perform-a-rebase) of _How to Rebase a Pull Request_.
 -->
-The main line of development is known as the `trunk` branch. If you have a pull-request branch that cannot be merged into `trunk` due to a conflict (this can happen for long-running pull requests), then in the course of rebasing you'll have to manually resolve any conflicts in your local copy. Learn more in [section _Perform a rebase_](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#perform-a-rebase) of _How to Rebase a Pull Request_.
+開発のメインラインは `trunk` ブランチとして知られています。競合のために `trunk` にマージできないプルリクエストブランチがある場合 (これは、長期間作業中のプルリクエストで起こります)、リベースの過程でローカルコピーの競合を手動で解決する必要があります。詳細については _How to Rebase a Pull Request_ の [_Perform a rebase_](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#perform-a-rebase) セクションを参照してください。
 
 <!--
 Once you have resolved any conflicts locally you can update the pull request with `git push --force-with-lease`. Using the `--force-with-lease` parameter is important to guarantee that you don't accidentally overwrite someone else's work.
 -->
-Once you have resolved any conflicts locally you can update the pull request with `git push --force-with-lease`. Using the `--force-with-lease` parameter is important to guarantee that you don't accidentally overwrite someone else's work.
+ローカルでの競合の解決跡は、`git push --force-with-lease` で、プルリクエストを更新できます。force-with-lease`パラメータは、他の人の作業を誤って上書きしないようにするために重要です。
 
 <!--
 To sum it up, you need to fetch any new changes in the repository, rebase your branch on top of `trunk`, and push the result back to the repository. These are the corresponding commands:
 -->
-To sum it up, you need to fetch any new changes in the repository, rebase your branch on top of `trunk`, and push the result back to the repository. These are the corresponding commands:
+まとめると、リポジトリの新しい変更を取得し、`trunk` の上に自分のブランチをリベースし、結果をリポジトリにプッシュする必要があります。対応するコマンドは以下のとおりです。
 
 ```sh
 git fetch
@@ -229,17 +229,17 @@ git push --force-with-lease origin your-branch-name
 <!--
 ## Keeping Your Fork Up To Date
 -->
-## Keeping Your Fork Up To Date
+## フォークを最新に保つ
 
 <!--
 Working on pull request starts with forking the Gutenberg repository, your separate working copy. Which can easily go out of sync as new pull requests are merged into the main repository. Here your working repository is a `fork` and the main Gutenberg repository is `upstream`. When working on new pull request you should always update your fork before you do `git checkout -b my-new-branch` to work on a feature or fix.
 -->
-Working on pull request starts with forking the Gutenberg repository, your separate working copy. Which can easily go out of sync as new pull requests are merged into the main repository. Here your working repository is a `fork` and the main Gutenberg repository is `upstream`. When working on new pull request you should always update your fork before you do `git checkout -b my-new-branch` to work on a feature or fix.
+プルリクエストの作業は、まず Gutenberg リポジトリのフォークから始まります。これが作業用コピーですが、メインリポジトリで新しいプルリクエストがマージされると、簡単に同期が失われます。ここで、作業用リポジトリをフォーク、Gutenberg のメインリポジトリを `upstream` とします。新しいプルリクエストで、機能や修正を行うための `git checkout -b my-new-branch` を実行する前に、必ずフォークを更新してください。
 
 <!--
 You will need to add an `upstream` remote in order to keep your fork updated.
 -->
-You will need to add an `upstream` remote in order to keep your fork updated.
+自分のフォークを最新に保つには、リモート `upstream` を追加する必要があります。
 
 ```sh
 git remote add upstream https://github.com/WordPress/gutenberg.git
@@ -253,7 +253,7 @@ upstream	https://github.com/WordPress/gutenberg.git (push)
 <!--
 To sync your fork, you first need to fetch the upstream changes and merge them into your local copy:
 -->
-To sync your fork, you first need to fetch the upstream changes and merge them into your local copy:
+フォークを同期するには、まず upstream の変更を取得し、ローカルコピーにマージする必要があります。
 
 ```sh
 git fetch upstream
@@ -264,7 +264,7 @@ git merge upstream/trunk
 <!--
 Once your local copy is updated, push your changes to update your fork on GitHub:
 -->
-Once your local copy is updated, push your changes to update your fork on GitHub:
+ローカルコピーが更新されたら、変更をプッシュしてGitHub上のフォークを更新します。
 
 ```
 git push
@@ -273,6 +273,6 @@ git push
 <!--
 The above commands will update your `trunk` branch from _upstream_. To update any other branch replace `trunk` with the respective branch name.
 -->
-The above commands will update your `trunk` branch from _upstream_. To update any other branch replace `trunk` with the respective branch name.
+上のコマンドは、_upstream_ の `trunk` ブランチを更新します。他のブランチを更新するには、`trunk` をそれぞれのブランチ名で置き換えてください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/git-workflow.md)

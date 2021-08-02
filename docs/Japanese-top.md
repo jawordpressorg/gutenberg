@@ -7,6 +7,9 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/8/2
+- [Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow/) - 翻訳
+
 2021/7/31
 - [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - ブロック名の変更 query -> query loop[#33382](https://github.com/WordPress/gutenberg/pull/33382)
 - 以下、未訳分で変更に気がついたもの
