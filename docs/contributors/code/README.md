@@ -52,6 +52,7 @@ Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find 
 -   [Managing Packages](/docs/contributors/code/managing-packages.md) documents the process for managing the npm packages.
 -   [Gutenberg Release Process](/docs/contributors/code/release.md) - a checklist for the different types of releases for the Gutenberg project.
 -   [React Native mobile Gutenberg](/docs/contributors/code/native-mobile.md) - a guide on the React Native based mobile Gutenberg editor.
+-   [React Native Integration Test Guide](/docs/contributors/code/native-mobile-integration-test-guide.md) - a guide on creating integration tests for the Gutenberg Mobile editor.
 -->
 -   [入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution) - 開発環境のセットアップ方法について説明します。テストサイトや開発ツールの提案も含みます。
 -   [Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow) - pull requests を使用してコードの変更をデプロイする git プロセスについて説明します。
@@ -61,5 +62,6 @@ Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find 
 -   [パッケージの管理](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/managing-packages) - npm パッケージの管理プロセスについて説明します。
 -   [Gutenberg リリースプロセス](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release) - Gutenberg プロジェクトの異なるリリースタイプのためのチェックリスト
 -   [React Native モバイル Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/native-mobile) - React Native ベースのモバイル Gutenbrg エディターについて説明します。
+-   [React Native 統合テストガイド](https://github.com/jawordpressorg/gutenberg/tree/trunk/docs/contributors/code/native-mobile-integration-test-guide.md) - Gutenberg モバイルエディターの統合テスト作成ガイド
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/develop.md)

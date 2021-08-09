@@ -272,7 +272,7 @@ One of the most important aspects of themes (if not the most important) is the s
 ## クラシックテーマ
 
 <!--
-Users of classic themes can also build custom block templates and use theme in their Pages and Custom Post Types that supports Page Templates.
+Users of classic themes can also build custom block templates and use them in their Pages and Custom Post Types that support Page Templates.
  -->
 クラシックテーマのユーザーもカスタムブロックテンプレートを構築し、ページテンプレートをサポートする固定ページやカスタム投稿タイプで使用できます。
 

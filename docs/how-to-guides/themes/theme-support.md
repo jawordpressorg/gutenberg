@@ -46,23 +46,23 @@ To opt-in for one of these features, call `add_theme_support` in the `functions.
 function mytheme_setup_theme_supported_features() {
 	add_theme_support( 'editor-color-palette', array(
 		array(
-			'name' => esc_attr__( 'strong magenta', 'themeLangDomain' ),
-			'slug' => 'strong-magenta',
+			'name'  => esc_attr__( 'strong magenta', 'themeLangDomain' ),
+			'slug'  => 'strong-magenta',
 			'color' => '#a156b4',
 		),
 		array(
-			'name' => esc_attr__( 'light grayish magenta', 'themeLangDomain' ),
-			'slug' => 'light-grayish-magenta',
+			'name'  => esc_attr__( 'light grayish magenta', 'themeLangDomain' ),
+			'slug'  => 'light-grayish-magenta',
 			'color' => '#d0a5db',
 		),
 		array(
-			'name' => esc_attr__( 'very light gray', 'themeLangDomain' ),
-			'slug' => 'very-light-gray',
+			'name'  => esc_attr__( 'very light gray', 'themeLangDomain' ),
+			'slug'  => 'very-light-gray',
 			'color' => '#eee',
 		),
 		array(
-			'name' => esc_attr__( 'very dark gray', 'themeLangDomain' ),
-			'slug' => 'very-dark-gray',
+			'name'  => esc_attr__( 'very dark gray', 'themeLangDomain' ),
+			'slug'  => 'very-dark-gray',
 			'color' => '#444',
 		),
 	) );
@@ -171,23 +171,23 @@ Different blocks have the possibility of customizing colors. The block editor pr
 ```php
 add_theme_support( 'editor-color-palette', array(
 	array(
-		'name' => esc_attr__( 'strong magenta', 'themeLangDomain' ),
-		'slug' => 'strong-magenta',
+		'name'  => esc_attr__( 'strong magenta', 'themeLangDomain' ),
+		'slug'  => 'strong-magenta',
 		'color' => '#a156b4',
 	),
 	array(
-		'name' => esc_attr__( 'light grayish magenta', 'themeLangDomain' ),
-		'slug' => 'light-grayish-magenta',
+		'name'  => esc_attr__( 'light grayish magenta', 'themeLangDomain' ),
+		'slug'  => 'light-grayish-magenta',
 		'color' => '#d0a5db',
 	),
 	array(
-		'name' => esc_attr__( 'very light gray', 'themeLangDomain' ),
-		'slug' => 'very-light-gray',
+		'name'  => esc_attr__( 'very light gray', 'themeLangDomain' ),
+		'slug'  => 'very-light-gray',
 		'color' => '#eee',
 	),
 	array(
-		'name' => esc_attr__( 'very dark gray', 'themeLangDomain' ),
-		'slug' => 'very-dark-gray',
+		'name'  => esc_attr__( 'very dark gray', 'themeLangDomain' ),
+		'slug'  => 'very-dark-gray',
 		'color' => '#444',
 	),
 ) );
@@ -604,7 +604,7 @@ Using the Gutenberg plugin (version 8.3 or later), some blocks can provide paddi
 Some blocks can have padding controls. This is off by default, and requires the theme to opt in by declaring support:
 
 ```php
-add_theme_support('custom-spacing');
+add_theme_support( 'custom-spacing' );
 ```
 <!--
 ## Link color control
@@ -646,9 +646,9 @@ If a theme opts in, it should [define default link colors](/docs/how-to-guides/t
  -->
 
 <!--
-> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support('experimental-link-color')` would also work. This fallback would be removed when the Gutenberg plugin requires WordPress 5.8 as the minimum version.
+> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support( 'experimental-link-color' )` would also work. This fallback would be removed when the Gutenberg plugin requires WordPress 5.8 as the minimum version.
  -->
-> 代替として、Gutenberg プラグインが有効な場合は、古いレガシーサポートである `add_theme_support('experimental-link-color')` も機能します。このフォールバックは、Gutenberg プラグインのサポートするバージョンが WordPress 5.8 以上になった時点で削除されます。
+> 代替として、Gutenberg プラグインが有効な場合は、古いレガシーサポートである `add_theme_support( 'experimental-link-color' )` も機能します。このフォールバックは、Gutenberg プラグインのサポートするバージョンが WordPress 5.8 以上になった時点で削除されます。
 
 <!--
 When the user sets the link color of a block, a new style will be added in the form of:

@@ -7,6 +7,14 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/8/9
+- 以下、未訳分で変更に気がついたもの
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - モバイルテストとの統合 [#33657](https://github.com/WordPress/gutenberg/pull/33657)、[#33833](https://github.com/WordPress/gutenberg/pull/33833)
+- [Compose](https://github.com/WordPress/gutenberg/tree/trunk/packages/compose) - インサーターでのブロック検索の改良 [#33868](https://github.com/WordPress/gutenberg/pull/33868)
+- [ServerSideRender](https://github.com/WordPress/gutenberg/tree/trunk/packages/server-side-render) - 例の追加 [#33738](https://github.com/WordPress/gutenberg/pull/33738)
+- [React Native 統合テストガイド](https://github.com/jawordpressorg/gutenberg/tree/trunk/docs/contributors/code/native-mobile-integration-test-guide.md) - 新規
+
+
 2021/8/2
 - [Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow/) - 翻訳
 

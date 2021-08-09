@@ -906,7 +906,7 @@ The tabs below show WordPress 5.8 supported styles and the ones supported by the
 > 次のセクションでは、WordPress 5.8でサポートされるスタイルと、Gutenberg プラグインでサポートされるスタイルを示します。
 
 <!--
-Each block declares which style properties it exposes via the [block supports mechanism](../block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor. Themes can use any style property via the `theme.json` for any block ― it's the theme's responsibility to verify that it works properly according to the block markup, etc.
+Each block declares which style properties it exposes via the [block supports mechanism](/docs/reference-guides/block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor. Themes can use any style property via the `theme.json` for any block ― it's the theme's responsibility to verify that it works properly according to the block markup, etc.
  -->
 各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用されます。テーマは `theme.json` を介して、任意のブロックのために、任意のスタイルプロパティを使用できます。ブロックマークアップ等に関して正しく動作するかどうかの検証は、テーマの責任です。
 
