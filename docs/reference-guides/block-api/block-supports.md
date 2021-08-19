@@ -1081,9 +1081,9 @@ supports: {
 ```
 
 <!--
-A spacing property may define an array of allowable sides that can be configured. When arbitrary sides are defined only UI controls for those sides are displayed.
+A spacing property may define an array of allowable sides that can be configured. When arbitrary sides are defined only UI controls for those sides are displayed. Axial sides are defined with the `vertical` and `horizontal` terms, and display a single UI control for each axial pair (for example, `vertical` controls both the top and bottom sides). A spacing property may support arbitrary individual sides **or** axial sides, but not a mix of both.
  -->
-spacing プロパティは構成可能なサイドの配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。
+spacing プロパティは構成可能なサイドの配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。軸方向のサイドは `vertical` と `horizontal` で定義され、軸方向のペアごとに1つの UI コントロールが表示されます (例えば、`vertical` は上辺と下辺の両方を制御します)。spacing プロパティは、任意の個別のサイド、**または**、軸方向のサイドをサポートできますが、両方を混ぜることはできません。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/block-api/block-supports.md)
 
