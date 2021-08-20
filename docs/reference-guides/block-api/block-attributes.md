@@ -280,7 +280,7 @@ Under the hood, attribute sources are a superset of the functionality provided b
 <!--
 To summarize, the `source` determines where data is stored in your content, and the `type` determines what that data is. To reduce the amount of data stored it is usually better to store as much data as possible within HTML rather than as attributes within the comment delimiter.
  -->
-まとめると、`source` はコンテンツのどこにデータが保存されるかを決定し、`type` はそのデータが何であるかを決定します。保存されるデータの量を減らすには、通常、できるだけ多くのデータを、コメントデリミタ内の属性としてではなく、HTML 内に保存してください。
+まとめると、`source` はコンテンツのどこにデータが保存されるかを決定し、`type` はそのデータが何であるかを決定します。保存されるデータの量を減らすには、通常、できるだけ多くのデータを、コメントデリミタ内の属性としてではなく、HTML 内に保存した方がよいでしょう。
 
 <!--
 ### `attribute`
