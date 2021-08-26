@@ -70,7 +70,7 @@ The Legacy Widget block will display a preview of the widget when the Legacy Wid
 レガシーウィジェットブロックは、選択されていない場合、ウィジェットのプレビューを表示します。
 
 <!--
-A "No preview available." message is automatically shown by the Legacy Widget block when the widget's `widget()` function does not render anytihng or only renders empty HTML elements.
+A "No preview available." message is automatically shown by the Legacy Widget block when the widget's `widget()` function does not render anything or only renders empty HTML elements.
  -->
 ウィジェットの `widget()` 関数が何もレンダーしない、または、空の HTML 要素しかレンダーしない場合、レガシーウィジェットブロックは、自動的にメッセージ「プレビューが利用できません。」を表示します。
 

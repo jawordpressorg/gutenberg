@@ -1040,7 +1040,7 @@ To add custom font sizes, create a new section called `typography` under `settin
 `fontSizes` は `add_theme_support( 'editor-font-sizes' )` と同等です。
 
 ```json
-"typograhy": {
+"typography": {
 	"fontSizes": [
 	]
 }
@@ -1061,7 +1061,7 @@ The keys used by `fontSizes` are:
 - `name` エディターで表示される名前
 
 ```json
-"typograhy": {
+"typography": {
 	"fontSizes": [
 		{
 			"slug": "normal",

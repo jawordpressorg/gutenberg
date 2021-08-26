@@ -2,6 +2,17 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2021/8/26
+- [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - debug in vscode [#29788](https://github.com/WordPress/gutenberg/pull/29788)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - block spacing gap 追加 [#33812](https://github.com/WordPress/gutenberg/pull/33812)
+- 以下、未訳分で変更に気がついたもの
+- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - 非推奨 receiveBlocks [#34241](https://github.com/WordPress/gutenberg/pull/34241) & [#34326](https://github.com/WordPress/gutenberg/pull/34326)
+- [The Editor’s UI Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-edit-post.md) -  修正 togglePinnedPluginItem [#34155](https://github.com/WordPress/gutenberg/pull/34155)、toggleFeature [#34154](https://github.com/WordPress/gutenberg/pull/34154)
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - unstableGalleryWithImageBlocks 追加 [#25940](https://github.com/WordPress/gutenberg/pull/25940)
+- [InspectorControls](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/inspector-controls/README.md) - blockツールバーのグループ [#34069](https://github.com/WordPress/gutenberg/pull/34069)
+- [MediaPlaceHolder](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/media-placeholder/README.md) - handleUpload 追加 [#25940](https://github.com/WordPress/gutenberg/pull/25940)
+- [MoreMenuDropdown](https://github.com/WordPress/gutenberg/blob/trunk/packages/interface/src/components/more-menu-dropdown/README.md) - as 追加 [#34135](https://github.com/WordPress/gutenberg/pull/34135)
+
 2021/8/19
 - [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) - 概要、デフォルト値、例の追加 [#33880](https://github.com/WordPress/gutenberg/pull/33880)
 - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - axial padding [#33859](https://github.com/WordPress/gutenberg/pull/33859)

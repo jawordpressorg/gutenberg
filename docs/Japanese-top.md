@@ -7,6 +7,17 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/8/26
+- [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - debug in vscode [#29788](https://github.com/WordPress/gutenberg/pull/29788)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - block spacing gap 追加 [#33812](https://github.com/WordPress/gutenberg/pull/33812)
+- 以下、未訳分で変更に気がついたもの
+- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - 非推奨 receiveBlocks [#34241](https://github.com/WordPress/gutenberg/pull/34241) & [#34326](https://github.com/WordPress/gutenberg/pull/34326)
+- [The Editor’s UI Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-edit-post.md) -  修正 togglePinnedPluginItem [#34155](https://github.com/WordPress/gutenberg/pull/34155)、toggleFeature [#34154](https://github.com/WordPress/gutenberg/pull/34154)
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - unstableGalleryWithImageBlocks 追加 [#25940](https://github.com/WordPress/gutenberg/pull/25940)
+- [InspectorControls](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/inspector-controls/README.md) - blockツールバーのグループ [#34069](https://github.com/WordPress/gutenberg/pull/34069)
+- [MediaPlaceHolder](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/media-placeholder/README.md) - handleUpload 追加 [#25940](https://github.com/WordPress/gutenberg/pull/25940)
+- [MoreMenuDropdown](https://github.com/WordPress/gutenberg/blob/trunk/packages/interface/src/components/more-menu-dropdown/README.md) - as 追加 [#34135](https://github.com/WordPress/gutenberg/pull/34135)
+
 2021/8/19
 - [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) - 概要、デフォルト値、例の追加 [#33880](https://github.com/WordPress/gutenberg/pull/33880)
 - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - axial padding [#33859](https://github.com/WordPress/gutenberg/pull/33859)
@@ -25,13 +36,6 @@
 - [Data](https://github.com/WordPress/gutenberg/tree/trunk/packages/data) - batch 追加 [#34046](https://github.com/WordPress/gutenberg/pull/34046)
 - [MoreMenuDropdown](https://github.com/WordPress/gutenberg/tree/trunk/packages/interface/src/components/more-menu-dropdown) - 新規
 - [MoreMenuFeatureToggle](https://github.com/WordPress/gutenberg/tree/trunk/packages/interface/src/components/more-menu-feature-toggle) - 新規
-
-2021/8/9
-- 以下、未訳分で変更に気がついたもの
-- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - モバイルテストとの統合 [#33657](https://github.com/WordPress/gutenberg/pull/33657)、[#33833](https://github.com/WordPress/gutenberg/pull/33833)
-- [Compose](https://github.com/WordPress/gutenberg/tree/trunk/packages/compose) - インサーターでのブロック検索の改良 [#33868](https://github.com/WordPress/gutenberg/pull/33868)
-- [ServerSideRender](https://github.com/WordPress/gutenberg/tree/trunk/packages/server-side-render) - 例の追加 [#33738](https://github.com/WordPress/gutenberg/pull/33738)
-- [React Native 統合テストガイド](https://github.com/jawordpressorg/gutenberg/tree/trunk/docs/contributors/code/native-mobile-integration-test-guide.md) - 新規
 
 [以前の変更履歴](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)
 
