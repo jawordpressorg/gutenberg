@@ -2,6 +2,16 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2021/9/5
+- [バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) - scope の block に BlockVariationPicker のコメント [#34455](https://github.com/WordPress/gutenberg/pull/34455)
+- 以下、未訳分で変更に気がついたもの
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - React Testing Library 使用 [#34423](https://github.com/WordPress/gutenberg/pull/34423)
+- [The Editor’s UI Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-edit-post.md) - initializeMetaBoxes 追加 [#30617](https://github.com/WordPress/gutenberg/pull/30617)
+- [Block Variation Picker](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/block-variation-picker/README.md) - block スコープの記述 [#34455](https://github.com/WordPress/gutenberg/pull/34455)
+- [Navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigation/README.md) - CSS class の記述追加 [#34344](https://github.com/WordPress/gutenberg/pull/34344)
+- [Edit navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/edit-navigation/README.md) - block-based モードは一時無効化 [#34444](https://github.com/WordPress/gutenberg/pull/34444)
+- [URL](https://github.com/WordPress/gutenberg/blob/trunk/packages/url/README.md) - getFilename 追加 [#34313](https://github.com/WordPress/gutenberg/pull/34313)
+
 2021/8/26
 - [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - debug in vscode [#29788](https://github.com/WordPress/gutenberg/pull/29788)
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - block spacing gap 追加 [#33812](https://github.com/WordPress/gutenberg/pull/33812)

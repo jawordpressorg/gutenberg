@@ -61,7 +61,7 @@ An object describing a variation defined for the block type can contain the foll
 -   `example` (optional, type `Object`) – Example provides structured data for the block preview. You can set to `undefined` to disable the preview shown for the block type.
 -   `scope` (optional, type `WPBlockVariationScope[]`) - the list of scopes where the variation is applicable. When not provided, it defaults to `block` and `inserter`. Available options:
     -   `inserter` - Block Variation is shown on the inserter.
-    -   `block` - Used by blocks to filter specific block variations. Mostly used in Placeholder patterns like `Columns` block.
+    -   `block` - Used by blocks to filter specific block variations. `Columns` and `Query Loop` blocks have such variations and are passed to the [experimental BlockVariationPicker](/packages/block-editor/src/components/block-variation-picker/README.md) component, which is handling the displaying of variations and the ability to select one from them.
     -   `transform` - Block Variation will be shown in the component for Block Variations transformations.
 -   `keywords` (optional, type `string[]`) - An array of terms (which can be translated) that help users discover the variation while searching.
 -   `isActive` (optional, type `Function|string[]`) - This can be a function or an array of block attributes. Function that accepts a block's attributes and the variation's attributes and determines if a variation is active. This function doesn't try to find a match dynamically based on all block's attributes, as in many cases some attributes are irrelevant. An example would be for `embed` block where we only care about `providerNameSlug` attribute's value. We can also use a `string[]` to tell which attributes should be compared as a shorthand. Each attributes will be matched and the variation will be active if all of them are matching.
@@ -77,7 +77,7 @@ An object describing a variation defined for the block type can contain the foll
 - `example` (オプション, type `Object`) – ブロックプレビューの例を提供する構造化データ。`undefined` を設定するとブロックタイプに表示するプレビューを無効化できる。
 - `scope` (オプション, type `WPBlockVariationScope[]`) - バリエーションを適用できるスコープのリスト。指定しない場合のデフォルトは `block` と `inserter`。利用可能なオプション:
 	- `inserter` - ブロックバリエーションはインサーターに表示される。
-	- `block` - 特定のブロックバリエーションをフィルターするためにブロックから使用される。ほとんどの場合、`Columns` ブロックのように Placeholder パターンで使用される。
+	- `block` - 特定のブロックバリエーションをフィルタリングするためにブロックで使用される。`Columns` ブロックと `Query Loop` ブロックにこのバリエーションがあり、[experimental BlockVariationPicker](/packages/block-editor/src/components/block-variation-picker/README.md)コンポーネントに渡される。このコンポーネントはバリエーションの表示やその中から1つを選択する機能を処理する、
 	- `transform` - ブロックバリエーションはブロックバリエーション変換のコンポーネント内で表示される。
 - `keywords` (オプション, type `string[]`) - 翻訳可能な語句の配列。ユーザーがバリエーションを検索しやすくする。
 - `isActive` (オプション, type `Function|string[]`) - 関数、または、ブロック属性の配列。関数の場合、ブロックの属性とバリエーションの属性を取り、バリエーションが有効かどうかを決定する。ただしこの関数は、すべてのブロックの属性に基づいて動的に合致するものを探そうとはしません。これは多くの場合、意味のない属性があるためです。たとえば `embed` ブロックでは `providerNameSlug` 属性の値のみに注目します。また簡単に、どの属性を比較すべきか伝えるために `string[]` も使えます。すべてが合致するなら、各属性も合致し、バリエーションも有効です。
