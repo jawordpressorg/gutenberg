@@ -26,8 +26,10 @@ npm install @wordpress/components --save
 
 <!--
 _This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for ES2015+ such as IE browsers then using [core-js](https://github.com/zloirock/core-js) will add polyfills for these methods._
+
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](/packages/babel-preset-default#polyfill) in your code._
  -->
-_このパッケージは、コードが **ES2015+** 環境で実行されることを仮定しています。IE ブラウザのように ES2015+ を一部、あるいはまったくサポートしない環境で使用するには、[core-js](https://github.com/zloirock/core-js) を使用してこれらのメソッドの polyfill を追加してください。_
+_このパッケージは、コードが **ES2015+** 環境で実行されることを仮定しています。その言語機能や API の一部のみ、または、まったくサポートしない環境で使用するには、コードに [`@wordpress/babel-preset-default` の polyfill](https://github.com/WordPress/gutenberg/tree/trunk/packages/babel-preset-default#polyfill) を含めてください。_
 
 <!--
 ## Usage
@@ -60,9 +62,18 @@ WordPress 以外のプロジェクトの場合は、直接 `build-style/style.cs
 
 ## コンポーネント一覧
 
-原文およびその下のページを参照してください。
+[原文およびその下のページ](https://developer.wordpress.org/block-editor/reference-guides/components/)を参照してください。
 
-https://developer.wordpress.org/block-editor/reference-guides/components/
+<br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+
+<!--
+## Contributing
+ -->
+## コントリビューティング
+
+<!--
+See [CONTRIBUTING.md](/packages/components/CONTRIBUTING.md) for the contributing guidelines for the `@wordpress/components` package.
+ -->
+`@wordpress/components` パッケージへのコントリビュートのガイドラインの詳細については [CONTRIBUTING.md](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/README.md)
-<br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

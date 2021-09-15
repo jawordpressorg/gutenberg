@@ -6,7 +6,7 @@
 <!--
 Block Transforms is the API that allows a block to be transformed _from_ and _to_ other blocks, as well as _from_ other entities. Existing entities that work with this API include shortcodes, files, regular expressions, and raw DOM nodes.
  -->
-「ブロック変換 (Block Transforms)」API はあるブロックを別のブロックに変換したり、エンティティからブロックに変換します。この API が動作する既存エンティティにはショートコード、ファイル、正規表現、生の DOM ノードがあります。
+「ブロック変換 (Block Transforms)」API は、あるブロックを別のブロックに変換したり、エンティティからブロックに変換したりします。この API が動作する既存エンティティには、ショートコード、ファイル、正規表現、生の DOM ノードがあります。
 
 <!--
 ## Transform direction: `to` and `from`
@@ -78,14 +78,14 @@ A transformation of type `block` is an object that takes the following parameter
 -   **type** _(string)_: the value `block`.
 -   **blocks** _(array)_: a list of known block types. It also accepts the wildcard value (`"*"`), meaning that the transform is available to _all_ block types (eg: all blocks can transform into `core/group`).
 -   **transform** _(function)_: a callback that receives the attributes and inner blocks of the block being processed. It should return a block object or an array of block objects.
--   **isMatch** _(function, optional)_: a callback that receives the block attributes and should return a boolean. Returning `false` from this function will prevent the transform from being available and displayed as an option to the user.
+-   **isMatch** _(function, optional)_: a callback that receives the block attributes as the first argument and the block object as the second argument and should return a boolean. Returning `false` from this function will prevent the transform from being available and displayed as an option to the user.
 -   **isMultiBlock** _(boolean, optional)_: whether the transformation can be applied when multiple blocks are selected. If true, the `transform` function's first parameter will be an array containing each selected block's attributes, and the second an array of each selected block's inner blocks. False by default.
 -   **priority** _(number, optional)_: controls the priority with which a transformation is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `block`。
 - **blocks** _(array)_: 既知のブロックタイプ。ワイルドカード値 (`"*"`) も指定でき、この場合 _すべての_ ブロックタイプで変換可能であることを意味する (例: すべてのブロックは `core/group` に変換できる)。
 - **transform** _(function)_: 処理されるブロックの属性とインナーブロックを受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
-- **isMatch** _(function、オプション)_: ブロックの属性を受け取り、ブール値を返すコールバック。`false` を返すと可能な変換を行わず、ユーザーにオプションを表示する。
+- **isMatch** _(function、オプション)_: 第1引数にブロックの属性、第2引数にブロックオブジェクトを受け取り、ブール値を返すコールバック。`false` を返すと可能な変換を行わず、ユーザーにオプションを表示する。
 - **isMultiBlock** _(boolean、オプション)_: 複数のブロックを選択している場合に変換を適用可能かどうか。true であれば `transform` 関数の最初のパラメータは選択した各ブロックの属性の配列、2番目のパラメータは選択した各ブロックのインナーブロックの配列になる。デフォルトは false。
 - **priority** _(number、オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 

@@ -414,13 +414,15 @@ settings セクションは以下の構造を持ちます。
 			"customWidth": false
 		},
 		"color": {
+			"background": true,
 			"custom": true,
 			"customDuotone": true,
 			"customGradient": true,
 			"duotone": [],
 			"gradients": [],
 			"link": false,
-			"palette": []
+			"palette": [],
+			"text": true
 		},
 		"custom": {},
 		"layout": {

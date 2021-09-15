@@ -46,36 +46,26 @@ Now that the field is available in the editor store, it can be surfaced to the U
 ```
 <!--
 Now you can focus solely on the `MetaBlockField` component. The goal is to initialize it with the value of `sidebar_plugin_meta_block_field`, but also to keep it updated when that value changes.
-
-WordPress has [some utilities to work with data](/packages/data/README.md) from the stores. The first you're going to use is [withSelect](/packages/data/README.md#withselect-mapselecttoprops-function-function), whose signature is:
  -->
 こここからは `MetaBlockField` コンポーネントのみに集中できます。ゴールは `sidebar_plugin_meta_block_field` 値による初期化と、同時に値が変更された場合の更新の維持です。
 
-WordPress にはエディタストアからの[データを操作するユーティリティ](https://developer.wordpress.org/block-editor/packages/packages-data/)がいくつかありますが、最初に使用するのは恐らく [withSelect](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-data/#withselect-mapselecttoprops-function-function) でしょう。シグニチャーは以下です。
-
 <!--
-```js
-withSelect()();
-// a function that takes `select` as input
-// and returns an object containing data
-// a function that takes the previous data as input
-// and returns a component
-```
+WordPress has [some utilities to work with data](/packages/data/README.md) from the stores. The first you're going to use is [useSelect](/packages/data/README.md#useselect).
  -->
-```js
-withSelect(
-	// `select` を入力として取り、
-	// データを含むオブジェクトを返す関数
-)(
-	// 上のデータを入力として取り、
-	// コンポーネントを返す関数
-);
-```
+WordPress にはエディタストアからの[データを操作するユーティリティ](https://developer.wordpress.org/block-editor/packages/packages-data/)がいくつかありますが、最初に使用するのは恐らく [useSelect](https://github.com/WordPress/gutenberg/blob/trunk/packages/data/README.md#useselect) でしょう。
+
 
 <!--
 `withSelect` is used to pass data to other components, and update them when the original data changes. Let's update the code to use it:
  -->
+<!--
 `withSelect` はデータを他のコンポーネントに渡し、オリジナルのデータの変更を反映するために使用されます。コードを以下のように更新します。
+ -->
+
+<!--
+The `useSelect` is used to fetch data for the current component and update it when the original data changes. Let's update the code to use it:
+ -->
+`useSelect` は、現在のコンポーネントのデータの取得や、元のデータが変更された際のデータの更新に使用されます。`useSelect` を使用してコードを更新します。
 
 ```js
 ( function ( wp ) {
@@ -83,29 +73,21 @@ withSelect(
 	var PluginSidebar = wp.editPost.PluginSidebar;
 	var el = wp.element.createElement;
 	var Text = wp.components.TextControl;
-	var withSelect = wp.data.withSelect;
+	var useSelect = wp.data.useSelect;
 
-	var mapSelectToProps = function ( select ) {
-		return {
-			metaFieldValue: select( 'core/editor' ).getEditedPostAttribute(
-				'meta'
-			)[ 'sidebar_plugin_meta_block_field' ],
-		};
-	};
+	var MetaBlockField = function () {
+		var metaFieldValue = useSelect( function ( select ) {
+			return select( 'core/editor' ).getEditedPostAttribute( 'meta' )[ 'sidebar_plugin_meta_block_field' ];
+		}, [] );
 
-	var MetaBlockField = function ( props ) {
 		return el( Text, {
 			label: 'Meta Block Field',
-			value: props.metaFieldValue,
+			value: metaFieldValue,
 			onChange: function ( content ) {
 				console.log( 'content has changed to ', content );
 			},
 		} );
 	};
-
-	var MetaBlockFieldWithData = withSelect( mapSelectToProps )(
-		MetaBlockField
-	);
 
 	registerPlugin( 'my-plugin-sidebar', {
 		render: function () {
@@ -119,7 +101,7 @@ withSelect(
 				el(
 					'div',
 					{ className: 'plugin-sidebar-content' },
-					el( MetaBlockFieldWithData )
+					el( MetaBlockField )
 				)
 			);
 		},
@@ -128,15 +110,14 @@ withSelect(
 ```
 
 <!--
-Copy this code to the JavaScript file. Note that it now uses the `wp.data.withSelect` utility to be found in the `@wordpress/data` package. Go ahead and add `wp-data` as a dependency in the PHP script.
+Copy this code to the JavaScript file. Note that it now uses the `wp.data.useSelect` utility to be found in the `@wordpress/data` package. Go ahead and add `wp-data` as a dependency in the PHP script.
  -->
-このコードを JavaScript ファイルにコピーしてください。ここで `@wordpress/data` パッケージにある `wp.data.withSelect` ユーティリティを使用していることに注意してください。PHP スクリプトの依存性に `wp-data` を追加してください。
+このコードを JavaScript ファイルにコピーしてください。ここで `@wordpress/data` パッケージにある `wp.data.useSelect` ユーティリティを使用していることに注意してください。PHP スクリプトの依存性に `wp-data` を追加してください。
 
 <!--
 This is how the code changes from the previous section:
 
--   The `MetaBlockField` function has now a `props` argument as input. It contains the data object returned by the `mapSelectToProps` function, which it uses to initialize its value property.
--   The component rendered within the `div` element was also updated, the plugin now uses `MetaBlockFieldWithData`. This will be updated every time the original data changes.
+-   The `MetaBlockField` component will be updated every time the original data changes.
 -   [getEditedPostAttribute](/docs/reference-guides/data/data-core-editor.md#geteditedpostattribute) is used to retrieve data instead of [getCurrentPost](/docs/reference-guides/data/data-core-editor.md#getcurrentpost) because it returns the most recent values of the post, including user editions that haven't been yet saved.
  -->
 前のセクションからコードは以下のように変わりました。

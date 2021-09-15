@@ -7,6 +7,30 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/9/16
+- withSelect -> useSelect [#34549](https://github.com/WordPress/gutenberg/pull/34549)
+  - [ツールバーへのボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/2-toolbar-button/)
+  - [入力コントロールの初期化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/plugin-sidebar-4-initialize-input/)
+  - [入力コントロールの変更でメタフィールドを更新する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/plugin-sidebar-5-update-meta/)
+  - [ダイナミックブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)
+- [サイドバー - 最後の仕上げ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/plugin-sidebar-6-finishing-touches/) - 削除
+- 個別ブロックのロック [#32457](https://github.com/WordPress/gutenberg/pull/32457)
+  - [テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/)
+  - [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - text 追加 [#34420](https://github.com/WordPress/gutenberg/pull/34420)
+- 以下、未訳分で変更に気がついたもの
+- [Raw Handling (Paste)](https://github.com/WordPress/gutenberg/blob/trunk/packages/blocks/src/api/raw-handling/readme.md) - 貼り付けてもリンク内のIDを保持 [#31107](https://github.com/WordPress/gutenberg/pull/31107)
+- [Components Contributing](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) - 改定 [#33960](https://github.com/WordPress/gutenberg/pull/33960)
+- [BottomSheet Header](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/mobile/bottom-sheet/nav-bar) - 新規
+- [BottomSheetSubSheet](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/mobile/bottom-sheet/sub-sheet) - ナビゲーションヘッダーのリファクタリング [#34309](https://github.com/WordPress/gutenberg/pull/34309)
+- injection サポート [#34632](https://github.com/WordPress/gutenberg/pull/34632)
+  - [ToolsPanelHeader](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tools-panel/tools-panel-header/README.md)
+  - [ToolsPanelItem](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tools-panel/tools-panel-item/README.md)
+  - [ToolsPanelHeader](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tools-panel/tools-panel-header/README.md)
+- [DOM](https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/README.md) - mayUseScroll 削除
+- [Keyboard Shortcuts](https://github.com/WordPress/gutenberg/tree/trunk/packages/keyboard-shortcuts) - ShortcutProvider 追加 [#34539](https://github.com/WordPress/gutenberg/pull/34539)
+- [Keycodes](https://github.com/WordPress/gutenberg/tree/trunk/packages/keycodes) - HOME、END、PAGEUP、PAGEDOWN 追加 [#34508](https://github.com/WordPress/gutenberg/pull/34508)
+
 2021/9/5
 - [バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) - scope の block に BlockVariationPicker のコメント [#34455](https://github.com/WordPress/gutenberg/pull/34455)
 - 以下、未訳分で変更に気がついたもの
@@ -16,17 +40,6 @@
 - [Navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigation/README.md) - CSS class の記述追加 [#34344](https://github.com/WordPress/gutenberg/pull/34344)
 - [Edit navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/edit-navigation/README.md) - block-based モードは一時無効化 [#34444](https://github.com/WordPress/gutenberg/pull/34444)
 - [URL](https://github.com/WordPress/gutenberg/blob/trunk/packages/url/README.md) - getFilename 追加 [#34313](https://github.com/WordPress/gutenberg/pull/34313)
-
-2021/8/26
-- [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - debug in vscode [#29788](https://github.com/WordPress/gutenberg/pull/29788)
-- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - block spacing gap 追加 [#33812](https://github.com/WordPress/gutenberg/pull/33812)
-- 以下、未訳分で変更に気がついたもの
-- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - 非推奨 receiveBlocks [#34241](https://github.com/WordPress/gutenberg/pull/34241) & [#34326](https://github.com/WordPress/gutenberg/pull/34326)
-- [The Editor’s UI Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-edit-post.md) -  修正 togglePinnedPluginItem [#34155](https://github.com/WordPress/gutenberg/pull/34155)、toggleFeature [#34154](https://github.com/WordPress/gutenberg/pull/34154)
-- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - unstableGalleryWithImageBlocks 追加 [#25940](https://github.com/WordPress/gutenberg/pull/25940)
-- [InspectorControls](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/inspector-controls/README.md) - blockツールバーのグループ [#34069](https://github.com/WordPress/gutenberg/pull/34069)
-- [MediaPlaceHolder](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/media-placeholder/README.md) - handleUpload 追加 [#25940](https://github.com/WordPress/gutenberg/pull/25940)
-- [MoreMenuDropdown](https://github.com/WordPress/gutenberg/blob/trunk/packages/interface/src/components/more-menu-dropdown/README.md) - as 追加 [#34135](https://github.com/WordPress/gutenberg/pull/34135)
 
 [以前の変更履歴](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)
 

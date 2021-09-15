@@ -143,11 +143,11 @@ add_action( 'init', 'myplugin_register_book_post_type' );
 ```
 
 <!--
-### Locking
+## Locking
 
 Sometimes the intention might be to lock the template on the UI so that the blocks presented cannot be manipulated. This is achieved with a `template_lock` property.
  -->
-### ロック
+## ロック
 
 ブロックを操作できないように UI でテンプレートをロックしたい場合があります。これには `template_lock` プロパティを使用します。
 
@@ -179,6 +179,44 @@ _オプション_
 Lock settings can be inherited by InnerBlocks. If `templateLock` is not set in an InnerBlocks area, the locking of the parent InnerBlocks area is used. If the block is a top level block, the locking configuration of the current post type is used.
  -->
 ロックの設定は InnerBlocks によって継承できます。`templateLock` が InnerBlocks 領域で設定されていなければ、親の InnerBlocks 領域のロックが使用されます。ブロックが最上位レベルのブロックであれば、現行の投稿タイプのロック構成が使用されます。
+
+<!--
+## Individual block locking
+ -->
+## 個別のブロックのロック
+
+<!--
+Alongside template level locking, you can lock individual blocks; you can do this using a `lock` attribute on the attributes level. Block-level lock takes priority over the `templateLock` feature. Currently, you can lock moving and removing blocks.
+ -->
+テンプレートレベルのロックと同時に、個々のブロックをロックできます。これには属性レベルの `lock` 属性を使用します。ブロックレベルのロックは、`templateLock` 機能よりも優先されます。現在、ブロックの移動と削除をロックできます。
+
+<!--
+**Block-level locking is an experimental feature that may be removed or change anytime.**
+ -->
+**ブロックレベルのロックは実験的な機能であり、削除または変更される可能性があります。**
+
+```js
+attributes: {
+  // Prevent a block from being moved or removed.
+  lock: {
+    remove: true,
+    move: true,
+  }
+}
+```
+<!--
+_Options:_
+-   `remove` — Locks the ability of a block from being removed.
+-   `move` — Locks the ability of a block from being moved.
+ -->
+_オプション:_
+-   `remove` — ブロックの削除をロック
+-   `move` — ブロックの移動をロック
+
+<!--
+You can use this with `templateLock` to lock all blocks except a single block by using `false` in `remove` or `move`.
+ -->
+この機能を `templateLock` と一緒に使用して、`remove` や `move` に `false` を指定することで、1つのブロックを除いてすべてのブロックをロックできます。
 
 <!--
 ## Nested Templates
