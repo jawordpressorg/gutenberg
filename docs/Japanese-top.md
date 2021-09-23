@@ -61,6 +61,7 @@
 | @ixkaito | @ixkaito |
 | @ryo-utsunomiya | |
 | @mypacecreator | @mypacecreator |
+| @takepo | @taisuke |
 | @atachibana | @atachibana |
 | @miminari | @mimitips |
 | @shizumi | @Shizumi |
