@@ -7,6 +7,27 @@
 ## 更新履歴
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/10/2
+- [開発環境](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/) - Node と nvm のバージョンを更新 [#35125](https://github.com/WordPress/gutenberg/pull/35125)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - development インスタンスでのプラグイン、テーマのインストール方法追加 [#35064](https://github.com/WordPress/gutenberg/pull/35064)
+- [E2E Tests](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-tests/README.md) - workspaceRoot -> workspaceFolder [#34887](https://github.com/WordPress/gutenberg/pull/34887)
+- 以下、未訳分で変更に気がついたもの
+- [ClipboardButton](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/clipboard-button/README.md) - 改定 [#34711](https://github.com/WordPress/gutenberg/pull/34711)
+- [The Post Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-editor.md) - Autosave系とgetBlocksForSerialization 削除 [#34537](https://github.com/WordPress/gutenberg/pull/34537)
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - getPxFromCssUnit 追加 [#34720](https://github.com/WordPress/gutenberg/pull/34720)
+- [Link Control](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/link-control/README.md) - 文書改定 [#35199](https://github.com/WordPress/gutenberg/pull/35199)
+- [Components Contributing](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) - README サンプル追加 [#34847](https://github.com/WordPress/gutenberg/pull/34847)
+- [Dropdown](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/dropdown/README.md) - 文書改定 [#34861](https://github.com/WordPress/gutenberg/pull/34861)
+- [Item](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/item-group/item/README.md) - isActive 削除、onClick 使用 [#35152](https://github.com/WordPress/gutenberg/pull/35152)
+- [MenuItem](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/menu-item/README.md) - iconPosition 追加 [#34710](https://github.com/WordPress/gutenberg/pull/34710)
+- [BottomSheet NavBar](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/mobile/bottom-sheet/nav-bar/README.md) - 文書改定 [#34751](https://github.com/WordPress/gutenberg/pull/34751)
+- [NavigatorProvider](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigator/navigator-provider/README.md) - 新規
+- [NavigatorScreen](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigator/navigator-screen/README.md) - 新規
+- [RangeControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/range-control/README.md) - shiftStep 追加 [#35020](https://github.com/WordPress/gutenberg/pull/35020)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - createMenu, deleteAllMenus 追加 [#34869](https://github.com/WordPress/gutenberg/pull/34869)
+- [Edit navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/edit-navigation/README.md) - 修正と改定 [#34682](https://github.com/WordPress/gutenberg/pull/34682)、[#35035](https://github.com/WordPress/gutenberg/pull/35035)
+- [Block-based navigation editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/edit-navigation/docs/user-documentation.md) - 新規
+
 2021/9/16
 - withSelect -> useSelect [#34549](https://github.com/WordPress/gutenberg/pull/34549)
   - [ツールバーへのボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/2-toolbar-button/)

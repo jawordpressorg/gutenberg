@@ -41,7 +41,7 @@ Download and install [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm)
 [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) をダウンロードし、インストールします。
 
 ```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
 <!--
 Quit and restart terminal
@@ -126,7 +126,7 @@ Run the following on the command-line to install nvm:
 nvm をインストールするには次のコマンドを実行します。
 
 ```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
 <!--
 Note: On macOS, the required developer tools are not installed by default, if not already installed you may be prompted to download the install.
