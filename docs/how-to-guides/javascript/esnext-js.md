@@ -107,7 +107,7 @@ There are even more ways to shorten code, but you don't want to take it too far 
 <!-- 
 The [import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) is used to import variables or functions from an exported file. You can use destructuring on imports, for example:
  -->
-[インポート文](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/import) を使用するとエクスポートされたファイルから編集や関数をインポートできます。インポートの分割を使用できます。たとえば
+[インポート文](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/import) を使用するとエクスポートされたファイルから変数や関数をインポートできます。インポートの分割を使用できます。たとえば
 
 ```js
 import { TextControl } from '@wordpress/components';
