@@ -19,14 +19,14 @@ Additionally, the ESNext code examples in the handbook include [JSX syntax](http
  -->
 「ESNext」は JavaScript の特定のバージョンを意味しません。Next が表すとおり「動的」に、次の任意の言語定義を意味します。「ESNext」の機能は新しい機能や提唱された機能のためブラウザの中にはまだ実装していないものもあります。このためすべてのブラウザーで動作する構文にコードを変換する、追加のビルド手順が必要です。Webpack や Babel はこの変換を実行するツールです。
 
-さらに、このハンドブックの ESNext コード例は、HTML と JavaScripto を混ぜた [JSX 構文](https://reactjs.org/docs/introducing-jsx.html) を含みます。JSX を使用するとマークアップコードの読み書きが楽になりますが、互換コードに変換するビルド手順が必要です。
+さらに、このハンドブックの ESNext コード例は、HTML と JavaScript を混ぜた [JSX 構文](https://reactjs.org/docs/introducing-jsx.html) を含みます。JSX を使用するとマークアップコードの読み書きが楽になりますが、互換コードに変換するビルド手順が必要です。
 
 <!-- 
 For simplicity, the JavaScript tutorial uses the ES5 definition, without JSX. This code can run straight in your browser and does not require an additional build step. In many cases, it is perfectly fine to follow the same approach for simple plugins or experimenting. As your codebase grows in complexity it might be a good idea to switch to ESNext. You will find the majority of code and documentation across the block editor uses ESNext.
 
 See the [JavaScript Build Setup documentation](/docs/how-to-guides/javascript/js-build-setup.md) for setting up a development environment using ESNext syntax.
  -->
-簡素化のため JavaScript チュートリアルでは ES5 定義を使用します。JSX は使用しません。ES5 のコードは追加のビルド手順を必要とせずブラウザーでそのまま動作します。多くの場合、単純なプラグインや実験であれば同様のアプローチで問題ないでしょう。そして、コードが大きく複雑になった際に ESNext に切り替えるのも良い考えです。ブロックエディターの大部分のコードやドキュメントは EXNext を使用します。
+簡素化のため JavaScript チュートリアルでは ES5 定義を使用します。JSX は使用しません。ES5 のコードは追加のビルド手順を必要とせずブラウザーでそのまま動作します。多くの場合、単純なプラグインや実験であれば同様のアプローチで問題ないでしょう。そして、コードが大きく複雑になった際に ESNext に切り替えるのも良い考えです。ブロックエディターの大部分のコードやドキュメントは ESNext を使用します。
 
 ESNext 構文を使用する開発環境をセットアップする方法については [JavaScript ビルド手順のドキュメント](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/javascript/js-build-setup/) を参照してください。
 
