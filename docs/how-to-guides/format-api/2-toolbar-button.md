@@ -77,7 +77,7 @@ Let's check that everything is working as expected. Reload the post/page and sel
  -->
 期待どおりに動作するかを確認します。投稿やページをリロードしテキストブロックを選択してください。フォーマットツールバーに新しいボタンが追加されています。[editor-code ダッシュアイコン](https://developer.wordpress.org/resource/dashicons/#editor-code) を使用し、title に設定したテキストがホバーします。
 
-![カスタムボタンのツールバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/toolbar-with-custom-button.png)
+![カスタムボタンのツールバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/toolbar-with-custom-button.png)
 
 <!--
 You may also want to check that upon clicking the button the `toggle format` message is shown in your browser's console.
