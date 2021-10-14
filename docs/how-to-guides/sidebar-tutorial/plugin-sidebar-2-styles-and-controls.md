@@ -121,7 +121,7 @@ With the input control and the styling the sidebar looks nicer. This code doesn'
  -->
 エディターをリロードし、サイドバーを開いてください。
 
-![スタイルとコントロールのあるサイドバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/designers-developers/assets/sidebar-style-and-controls.png)
+![スタイルとコントロールのあるサイドバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-style-and-controls.png)
 
 入力コントロールとスタイルでサイドバーの見た目が良くなりました。ただしユーザーの入力したテキストはまだ保存も取得もされません。次のステップでどのようにメタブロックフィールドと接続するかに焦点を当てます。
 
