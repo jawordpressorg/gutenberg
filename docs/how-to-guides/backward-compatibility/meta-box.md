@@ -79,4 +79,4 @@ Most PHP meta boxes should continue to work in the block editor, but some meta b
 
 Please also note that if your plugin triggers a PHP warning or notice to be output on the page, this will cause the HTML document type (`<!DOCTYPE html>`) to be output incorrectly. This will cause the browser to render using "Quirks Mode", which is a compatibility layer that gets enabled when the browser doesn't know what type of document it is parsing. The block editor is not meant to work in this mode, but it can _appear_ to be working just fine. If you encounter issues such as _meta boxes overlaying the editor_ or other layout issues, please check the raw page source of your document to see that the document type definition is the first thing output on the page. There will also be a warning in the JavaScript console, noting the issue.
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/backward-compatibility/meta-box.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/backward-compatibility/meta-box.md)

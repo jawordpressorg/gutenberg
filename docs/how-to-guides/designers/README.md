@@ -7,4 +7,4 @@ For those designing blocks and other block editor integrations, this documentati
 
 このドキュメントはブロックのデザインやブロックエディターとの統合について、美しく直感的なレイアウトを作成する方法を解説します。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/designers/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/designers/README.md)

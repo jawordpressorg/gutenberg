@@ -124,4 +124,4 @@ If you have questions, please don’t hesitate to ask in the #design channel on 
  -->
 質問があれば、お気軽に WordPress コミュニティ Slack の #design チャンネルで質問ください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/designers/design-resources.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/designers/design-resources.md)

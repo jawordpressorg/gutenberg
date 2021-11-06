@@ -46,5 +46,5 @@ Note that it is not required to use ESNext to create blocks or extend the editor
  -->
 - [カスタムブロックエディターチュートリアルを始める](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/tutorial/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/platform/custom-block-editor/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/platform/custom-block-editor/README.md)
 

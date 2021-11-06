@@ -13,7 +13,7 @@ Update `my-custom-format.js` with this new code:
 
 ここまではまだカスタムボタンをクリックしても選択したテキストは変化せず、コンソールにメッセージが表示されるだけです。これから実装していきます。
 
-[rich-text パッケージ](https://developer.wordpress.org/block-editor/packages/packages-rich-text/) にはフォーマット関連のユーティリティー [applyFormat](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-rich-text/#applyFormat)、[removeFormat](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-rich-text/#removeFormat)、[toggleFormat](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-rich-text/#toggleFormat) があります。
+[rich-text パッケージ](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md) にはフォーマット関連のユーティリティー [applyFormat](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#applyFormat)、[removeFormat](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#removeFormat)、[toggleFormat](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#toggleFormat) があります。
 
 この例で適用するフォーマットの `<samp>` タグは、選択したテキストがタグを持つか持たないかの2つの状態を取ります。したがって `toggleFormat` プリミティブを使えば良さそうです。
 
@@ -98,7 +98,7 @@ Your browser may have already displayed the selection differently once the tag w
 That's it. This is all that is necessary to make a custom format available in the new editor. From here, you may want to check out other [tutorials](/docs/getting-started/tutorials/) or apply your new knowledge to your next plugin!
  -->
 
-タグが適用されるとブラウザ上ではすでに異なるスタイルで表示されたかもしれませんが、指定したスタイルを使用することもできます。[`registerFormatType`](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-rich-text/#registerFormatType) の `className` オプションを使用して新しい要素をクラス名で対象にできます。`className` が設定されると、新しい要素に追加されます。
+タグが適用されるとブラウザ上ではすでに異なるスタイルで表示されたかもしれませんが、指定したスタイルを使用することもできます。[`registerFormatType`](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#registerFormatType) の `className` オプションを使用して新しい要素をクラス名で対象にできます。`className` が設定されると、新しい要素に追加されます。
 
 以上で、新しいエディターで利用可能なカスタムフォーマットについての説明は終了です。ここからは他の[チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/)を調べるか、ここで得た新しい知識を次のプラグインで試してみてください !
 

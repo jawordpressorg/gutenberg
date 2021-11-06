@@ -102,4 +102,4 @@ You can learn more by reading the [tutorial "Building a custom block editor"](/d
 
 詳細については [チュートリアル - カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/tree/HEAD/docs/designers-developers/developers/platform)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/platform/README.md)

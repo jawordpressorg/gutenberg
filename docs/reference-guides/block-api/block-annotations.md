@@ -96,4 +96,4 @@ The text annotation is controlled by the `start` and `end` properties. Simple `s
  -->
 テキストアノテーションは `start` プロパティと `end` プロパティで制御されます。単純に求めた `start` と `end` では HTML で正しく動作しません。`rich-text` 内部構造内のオフセットを想定しているためです。便宜上、すべての HTML タグが削除されたと仮定してアノテーションの`start` と `end` を算出すると良いでしょう。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-annotations.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-annotations.md)

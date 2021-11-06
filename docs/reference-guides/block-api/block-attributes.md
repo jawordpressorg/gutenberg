@@ -198,26 +198,10 @@ _例_: `enum` の例
 ```
 
 <!--
-## Common Sources
- -->
-<!--
-## 一般的なソース
- -->
-<!--
 ## Value Source
  -->
 ## 値のソース
 
-<!--
-Attribute sources are used to define how the block attribute values are extracted from saved post content. They provide a mechanism to map from the saved markup to a JavaScript representation of a block.
-
-If no attribute source is specified, the attribute will be saved to (and read from) the block's [comment delimiter](/docs/getting-started/architecture/key-concepts.md#delimiters-and-parsing-expression-grammar).
- -->
-<!--
-「属性ソース」は保存された投稿コンテンツからどのようにブロックの属性値を取り出すかを定義します。属性ソースは、保存済みのマークアップからブロックの JavaScript 表現をマップする方法を提供します。
-
-属性ソースを指定しない場合、属性はブロックの [コメントデリミッター](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/key-concepts.md#delimiters-and-parsing-expression-grammar) に保存され、ロード時に読み出されます。
- -->
 <!--
 Attribute sources are used to define how the attribute values are extracted from saved post content. They provide a mechanism to map from the saved markup to a JavaScript representation of a block.
 

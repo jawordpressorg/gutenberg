@@ -301,4 +301,4 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 -   `wp.data.select( 'selector', ...args )` removed. Please use `wp.data.select( reducerKey' ).*` instead.
 -   `wp.blocks.MediaUploadButton` component removed. Please use `wp.blocks.MediaUpload` component instead.
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/backward-compatibility/deprecations.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/backward-compatibility/deprecations.md)

@@ -111,7 +111,7 @@ attributes: {
 <!--
 This property allows to enable [wide alignment](/docs/how-to-guides/themes/theme-support.md#wide-alignment) for your theme. To disable this behavior for a single block, set this flag to `false`.
  -->
-このプロパティを使用するとテーマの [幅広揃え](/docs/designers-developers/developers/themes/theme-support.md#wide-alignment) を有効化できます。単一ブロックに対してこの機能を無効化するにはこのフラグに `false` を設定してください。
+このプロパティを使用するとテーマの [幅広揃え](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#wide-alignment) を有効化できます。単一ブロックに対してこの機能を無効化するにはこのフラグに `false` を設定してください。
 
 <!--
 ```js
@@ -1085,5 +1085,5 @@ A spacing property may define an array of allowable sides that can be configured
  -->
 spacing プロパティは構成可能なサイドの配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。軸方向のサイドは `vertical` と `horizontal` で定義され、軸方向のペアごとに1つの UI コントロールが表示されます (例えば、`vertical` は上辺と下辺の両方を制御します)。spacing プロパティは、任意の個別のサイド、**または**、軸方向のサイドをサポートできますが、両方を混ぜることはできません。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/block-api/block-supports.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-supports.md)
 

@@ -249,4 +249,4 @@ function my_plugin_unregister_my_pattern_categories() {
 add_action( 'init', 'my_plugin_unregister_my_pattern_categories' );
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-patterns.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-patterns.md)

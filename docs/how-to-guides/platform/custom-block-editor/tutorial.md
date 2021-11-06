@@ -549,7 +549,7 @@ Let's examine these in more detail:
     using the Slot/Fill mechanic.
  -->
 - `<SlotFillProvider>` - コンポーネントツリーを介して [「Slot/Fill」
-  pattern](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/docs/designers-developers/developers/slotfills/README.md) を利用可能にします。
+  パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/slotfills/) を利用可能にします。
 - `<DropZoneProvider>` - [ドラッグアンドドロップのためドロップゾーン機能](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone) の使用を有効化します。
 - `<Notices>` - カスタムコンポーネント。「スナックバー」型通知 (一瞬出てきて、すぐに消える通知) を提供します。`core/notices` ストアにメッセージがディスパッチされるとレンダーされます。
 - `<Header>` - エディター UI の先頭に静的なタイトル「Standalone Block Editor」をレンダーします。
@@ -1100,4 +1100,4 @@ The full code for the custom functioning block editor we've just built is [avail
 
 これまで構築したカスタムで機能するブロックエディターの完全なコードは [Github から取得可能](https://github.com/getdave/standalone-block-editor) です。ダウンロードし、自分で動かしてみることをお勧めします。実験し、更にその先まで進みましょう !
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/platform/custom-block-editor/tutorial.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/platform/custom-block-editor/tutorial.md)

@@ -1,10 +1,10 @@
 <!--
 # Developer Documentation
 -->
-<!-- 
+<!--
 # 開発者ドキュメント
  -->
-<!-- 
+<!--
 # How-to Guides
  -->
 # 開発ガイド
@@ -38,7 +38,7 @@ Learn more in the [Block Filters](/docs/reference-guides/filters/block-filters.m
 
 フィルターを使用して既存のブロックの振る舞いを変更したり完全に削除することができます。
 
-詳細は [ブロックフィルター](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/block-filters/) セクションを参照してください。
+詳細は [ブロックフィルター](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/block-filters.md) セクションを参照してください。
 
 <!--
 ## Extending the Editor UI
@@ -53,9 +53,9 @@ You can also filter certain aspects of the editor; this is documented on the [Ed
 
 エディター UI の拡張は `registerPlugin` API で可能です。すべてのプラグインの UI 要素を1箇所で定義できます。
 
-詳細については [プラグイン](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-plugins/) および [投稿の編集](https://developer.wordpress.org/block-editor/designers-developers/developers/packages/packages-edit-post/) セクションを参照してください。
+詳細については [Plugins](https://github.com/WordPress/gutenberg/blob/trunk/packages/plugins/README.md) および [Edit Post](https://github.com/WordPress/gutenberg/tree/trunk/packages/edit-post) セクションを参照してください。
 
-エディターのいくつかの部分はフィルタリングできます。詳細については [エディターフィルター](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/editor-filters/) ページを参照してください。
+エディターのいくつかの部分はフィルタリングできます。詳細については [Editor Filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/editor-filters.md) ページを参照してください。
 
 <!--
 ## Meta Boxes
@@ -68,9 +68,9 @@ See how the new editor [supports existing Meta Boxes](/docs/reference-guides/bac
 
 PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) を参照してください。
 
-新しいエディターがどのように既存のメタボックスをサポートするかについては、[こちらの文書](https://developer.wordpress.org/block-editor/designers-developers/developers/backward-compatibility/meta-box/) を参照してください。
+新しいエディターがどのように既存のメタボックスをサポートするかについては、[こちらの文書](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/backward-compatibility/meta-box/) を参照してください。
 
-<!-- 
+<!--
 ## Theme Support
 
 By default, blocks provide their styles to enable basic support for blocks in themes without any change. Themes can add/override these styles, or rely on defaults.
@@ -81,7 +81,7 @@ There are some advanced block features which require opt-in support in the theme
 
 ブロックにはデフォルトでスタイルが提供され、カスタマイズなしでもテーマ内で適切に表示されます。テーマはこのスタイルを追加したり上書きしたり、あるいはデフォルトのままにしておくことができます。
 
-テーマ内でのオプトインサポートが必要な高度なブロック機能があります。[テーマサポート](https://developer.wordpress.org/block-editor/designers-developers/developers/themes/theme-support/) を参照してください。
+テーマ内でのオプトインサポートが必要な高度なブロック機能があります。[テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) を参照してください。
 
 <!--
 ## Autocomplete
@@ -90,7 +90,7 @@ Autocompleters within blocks may be extended and overridden. Learn more about th
 -->
 ## オートコンプリート
 
-ブロック内のオートコンプリートは拡張したり、上書きできます。詳細については [オートコンプリート](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/autocomplete-filters/) フィルターを参照してください。
+ブロック内のオートコンプリートは拡張したり、上書きできます。詳細については [Autocomplete](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/autocomplete-filters.md) フィルターを参照してください。
 
 <!--
 ## Block Parsing and Serialization
@@ -103,6 +103,6 @@ Customizing the parser is an advanced topic that you can learn more about in the
 
 エディター内のテキストは、`post_content` への保存とエディターでの表示との間でいくつかの異なるステージを経由します。ブロック自体はメモリー内に存在するデータ構造のため、データベース内の保存形式との間でパースやシリアライゼーションが必要です。
 
-パーサーのカスタマイズは高度なトピックになります。詳細については [パーサーの拡張](https://developer.wordpress.org/block-editor/designers-developers/developers/filters/parser-filters/) セクションを参照してください。
+パーサーのカスタマイズは高度なトピックになります。詳細については [パーサーの拡張](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/parser-filters.md) セクションを参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/README.md)

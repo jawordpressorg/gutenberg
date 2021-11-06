@@ -10,9 +10,9 @@ Please see the [SlotFill component docs](https://wordpress.org/gutenberg/handboo
 In order to use them, we must leverage the [@wordpress/plugins](https://wordpress.org/gutenberg/handbook/reference-guides/packages/packages-plugins/) api to register a plugin that will inject our items.
  -->
 Slot と Fill は外部に公開されているコンポーネントです。開発者は Gutenberg 管理画面内の事前定義された場所に項目を注入できます。
-詳細については [SlotFill コンポーネントのドキュメント](https://wordpress.org/gutenberg/handbook/designers-developers/developers/components/slot-fill/)を参照してください。
+詳細については [SlotFill コンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/slot-fill/README.md)を参照してください。
 
-SlotFill を使用するには [@wordpress/plugins](https://wordpress.org/gutenberg/handbook/designers-developers/developers/packages/packages-plugins/) API を使用して項目を注入するプラグインを登録する必要があります。
+SlotFill を使用するには [@wordpress/plugins](https://github.com/WordPress/gutenberg/tree/trunk/packages/plugins) API を使用して項目を注入するプラグインを登録する必要があります。
 
 <!--
 ## Usage overview
@@ -158,4 +158,4 @@ The following SlotFills are available in the `edit-post` package. Please refer t
 - [PluginSidebar](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar/)
 - [PluginSidebarMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-sidebar-more-menu-item/)
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/slotfills/README.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/slot-fill/README.md)

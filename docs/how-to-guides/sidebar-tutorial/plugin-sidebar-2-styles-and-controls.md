@@ -1,8 +1,8 @@
-<!-- 
+<!--
 # Tweak the sidebar style and add controls
  -->
 # サイドバースタイルの調整とコントロールの追加
-<!-- 
+<!--
 After the sidebar is up and running, the next step is to fill it up with the necessary components and basic styling.
 
 To visualize and edit the meta field value you'll use an input component. The `@wordpress/components` package contains many components available for you to reuse, and, specifically, the [TextControl](/packages/components/src/text-control/README.md) is aimed at creating an input field:
@@ -43,7 +43,7 @@ To visualize and edit the meta field value you'll use an input component. The `@
 	} );
 } )( window.wp );
 ```
-<!-- 
+<!--
 Update the `plugin-sidebar.js` with this new code. Notice that it uses a new utility called `wp.components` from the `@wordpress/components` package. Go ahead and add it as `wp-components` in the PHP dependencies array.
 
 It introduces a few changes from the previous section:
@@ -67,7 +67,7 @@ With the new CSS class available you can now give the sidebar a bit of breath. C
 	padding: 16px;
 }
 ```
-<!-- 
+<!--
 For WordPress to load this stylesheet in the editor and front-end, you need to tell it to enqueue it by using the [enqueue_block_editor_assets](https://developer.wordpress.org/reference/hooks/enqueue_block_editor_assets/) action hook.
 
 After those changes, the PHP code should look like this:
@@ -112,7 +112,7 @@ function sidebar_plugin_style_enqueue() {
 }
 add_action( 'enqueue_block_assets', 'sidebar_plugin_style_enqueue' );
 ```
-<!-- 
+<!--
 Reload the editor and open the sidebar:
 
 ![Sidebar with style and controls](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-style-and-controls.png)
@@ -125,4 +125,4 @@ With the input control and the styling the sidebar looks nicer. This code doesn'
 
 入力コントロールとスタイルでサイドバーの見た目が良くなりました。ただしユーザーの入力したテキストはまだ保存も取得もされません。次のステップでどのようにメタブロックフィールドと接続するかに焦点を当てます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/tutorials/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-2-styles-and-controls.md)

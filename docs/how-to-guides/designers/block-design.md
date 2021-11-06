@@ -222,7 +222,7 @@ Every block should include a description that clearly explains the block's funct
 <!--
 You can add a description by using the description attribute in the [registerBlockType function](/docs/reference-guides/block-api/block-registration.md).
  -->
-説明は [registerBlockType 関数](/docs/designers-developers/developers/block-api/block-registration.md) の description 属性を使用して追加できます。
+説明は [registerBlockType 関数](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) の description 属性を使用して追加できます。
 
 <!--
 Stick to a single imperative sentence with an action + subject format. Examples:
@@ -364,7 +364,7 @@ Check how your block looks, feels, and works on as many devices and screen sizes
 <!--
 Check how your block looks with [dark backgrounds](/docs/how-to-guides/themes/theme-support.md#dark-backgrounds) in the editor.
  -->
-ブロックがエディターの [ダークモード](/docs/designers-developers/developers/themes/theme-support.md#dark-backgrounds) でどのように見えるか確認してください。
+ブロックがエディターの [ダークモード](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#dark-backgrounds) でどのように見えるか確認してください。
 
 <!--
 ## Examples

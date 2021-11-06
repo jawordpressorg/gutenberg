@@ -124,7 +124,7 @@ This is how the code changes from the previous section:
 
 - `MetaBlockField` 関数は入力として `props` 引数を取るようになりました。引数は `mapSelectToProps` 関数から返されたデータオブジェクトを含み、value プロパティの初期化に使用されます。
 -  `div` 要素内にレンダリングされていたコンポーネントも更新され、プラグインは `MetaBlockFieldWithData` を使用します。オリジナルデータが変更されるたびに更新されます。
-- [getCurrentPost](https://developer.wordpress.org/block-editor/designers-developers/developers/data/data-core-editor/#getcurrentpost) の代わりに [getEditedPostAttribute](/docs/designers-developers/developers/data/data-core-editor.md#geteditedpostattribute) を使用してデータを取得します。まだ保存されていないユーザーが編集中のものも含め最新の値が返されます。
+- [getCurrentPost](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-editor.md#getcurrentpost) の代わりに [getEditedPostAttribute](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-editor.md#geteditedpostattribute) を使用してデータを取得します。まだ保存されていないユーザーが編集中のものも含め最新の値が返されます。
 
 <!--
 Update the code and open the sidebar. The input's content is no longer `Initial value` but a void string. Users can't type values yet, but let's check that the component is updated if the value in the store changes. Open the browser's console, execute

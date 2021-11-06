@@ -712,6 +712,6 @@ When a block is detected as invalid, a warning will be logged into your browser'
 <!--
 Refer to the guide on [Deprecated Blocks](/docs/reference-guides/block-api/block-deprecation.md) to learn more about how to accommodate legacy content in intentional markup changes.
  -->
-[非推奨ブロック](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-deprecation.md) のガイドを参照して、意図したマークアップの変更に古いコンテンツを収容する方法を学習してください。
+[ブロックの非推奨プロセス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/) のガイドを参照して、意図したマークアップの変更に古いコンテンツを収容する方法を学習してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-edit-save.md)

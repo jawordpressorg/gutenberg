@@ -172,7 +172,7 @@ Block names _must_ include only lowercase alphanumeric characters or dashes and 
 
 The `edit` and `save` functions describe the structure of your block in the context of the editor and the saved content respectively. While the difference is not obvious in this simple example, in the following sections we'll explore how these are used to enable customization of the block in the editor preview.
  -->
-いったんブロックが登録されるとすぐにエディター挿入ダイアログのオプションとして利用可能になります。また `title`、`icon`、`category` の値を使用していることがわかります。アイコンは組み込みの [Dashicons アイコンセット](https://developer.wordpress.org/resource/dashicons/) から選択するか、[カスタム SVG 要素](https://developer.wordpress.org/block-editor/designers-developers/developers/block-api/block-registration/#icon-optional) を指定できます。
+いったんブロックが登録されるとすぐにエディター挿入ダイアログのオプションとして利用可能になります。また `title`、`icon`、`category` の値を使用していることがわかります。アイコンは組み込みの [Dashicons アイコンセット](https://developer.wordpress.org/resource/dashicons/) から選択するか、[カスタム SVG 要素](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/#icon-optional) を指定できます。
 
 ブロック名はプラグイン専用の名前空間をプレフィックスに付ける必要があります。こうすることで2つ以上のプラグインが同じ名前でブロックを登録しても衝突を避けられます。この例では名前空間は `gutenberg-examples` です。
 

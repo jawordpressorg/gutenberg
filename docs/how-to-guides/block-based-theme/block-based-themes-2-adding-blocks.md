@@ -118,4 +118,4 @@ Saved templates and template parts can be exported as a partial theme from the T
  -->
 保存されたテンプレートとテンプレーtパーツはサイトエディターの「ツール」メニューから部分テーマとしてエクスポートできます。次に、ブロック HTML コードを編集するテーマにコピーできます。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/block-based-themes/block-based-themes-2-adding-blocks.md)
+[原文](https://github.com/WordPress/gutenberg/blob/master/docs/how-to-guides/themes/create-block-theme/block-based-themes-2-adding-blocks.md)

@@ -42,22 +42,22 @@ In the Block Inserter (the accordion-sorted, popup modal that shows a site's ava
 
 Reusable blocks is a block (or multiple blocks) that you can insert, modify, repeatable piece of content.
 
-The content and style of a reusable block is intended to be consistent wherever it is used. 
+The content and style of a reusable block is intended to be consistent wherever it is used.
 
-Examples of reusable blocks include a block consisting of a heading whose content and a custom color that would be appear on multiple pages of the site and sidebar widgets that would appear on every page (widgets are planned to be available, but not yet possible, in Gutenberg). 
+Examples of reusable blocks include a block consisting of a heading whose content and a custom color that would be appear on multiple pages of the site and sidebar widgets that would appear on every page (widgets are planned to be available, but not yet possible, in Gutenberg).
 
-Any edits to a reusable block will appear on every other use of that block, saving time from having to make the same edit on different posts. 
+Any edits to a reusable block will appear on every other use of that block, saving time from having to make the same edit on different posts.
 
-Reusable blocks are stored as a hidden post type (wp_block) and are dynamic blocks that "ref" or reference the post_id and return the post_content for that block. 
+Reusable blocks are stored as a hidden post type (wp_block) and are dynamic blocks that "ref" or reference the post_id and return the post_content for that block.
 
-The same reusable block can be used across different post types (e.g. post and page). 
+The same reusable block can be used across different post types (e.g. post and page).
 
 If you need to create a structure (a block consisting of heading, paragraph, and list) that is very similar across multiple posts but the content is slightly different across those pages or posts, you can do the following to minimize the amount of duplicate work to do:
 
 1. create a 'skeleton' that will have shared characteristics (e.g. the same color background, font size)
 1. save this as a reusable block.
 1. Then, on other pages/posts:
-1. Within the block editor: insert the reusable block 
+1. Within the block editor: insert the reusable block
 1. Open the block's properties (three dots)
 and "convert to regular block"; the block is no longer 'reusable' and all edits to this block will only appear on this page/post.
 
@@ -162,4 +162,4 @@ In summary, the Gutenberg workflow parses the saved document to an in-memory tre
 
 The workflow process relies on a serialization/parser pair to persist posts. Hypothetically, the post data structure could be stored using a plugin or retrieved from a remote JSON file to be converted to the block tree.
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/key-concepts.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/explanations/architecture/key-concepts.md)

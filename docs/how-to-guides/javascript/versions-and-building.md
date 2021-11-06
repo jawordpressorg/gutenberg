@@ -1,4 +1,4 @@
-<!-- 
+<!--
 # JavaScript Versions and Build Step
  -->
 # JavaScript のバージョンとビルド手順
@@ -12,7 +12,7 @@ ES5 code is compatible with WordPress's minimum [target for browser support](htt
 
 ES5 コードは WordPress でサポートする[ブラウザーの最小要件](https://make.wordpress.org/core/handbook/best-practices/browser-support/) と互換です。
 
-<!-- 
+<!--
 "ESNext" doesn't refer to a specific version of JavaScript, but is "dynamic" and refers to the next language definitions, whatever they might be. Because some browsers won't support these features yet (because they're new or proposed), an extra build step is required to transform the code to a syntax that works in all browsers. Webpack and babel are the tools that perform this transformation step.
 
 Additionally, the ESNext code examples in the handbook include [JSX syntax](https://reactjs.org/docs/introducing-jsx.html), a syntax that blends HTML and JavaScript. JSX makes it easier to read and write markup code, but does require a build step to transform into compatible code.
@@ -21,19 +21,19 @@ Additionally, the ESNext code examples in the handbook include [JSX syntax](http
 
 さらに、このハンドブックの ESNext コード例は、HTML と JavaScript を混ぜた [JSX 構文](https://reactjs.org/docs/introducing-jsx.html) を含みます。JSX を使用するとマークアップコードの読み書きが楽になりますが、互換コードに変換するビルド手順が必要です。
 
-<!-- 
+<!--
 For simplicity, the JavaScript tutorial uses the ES5 definition, without JSX. This code can run straight in your browser and does not require an additional build step. In many cases, it is perfectly fine to follow the same approach for simple plugins or experimenting. As your codebase grows in complexity it might be a good idea to switch to ESNext. You will find the majority of code and documentation across the block editor uses ESNext.
 
 See the [JavaScript Build Setup documentation](/docs/how-to-guides/javascript/js-build-setup.md) for setting up a development environment using ESNext syntax.
  -->
 簡素化のため JavaScript チュートリアルでは ES5 定義を使用します。JSX は使用しません。ES5 のコードは追加のビルド手順を必要とせずブラウザーでそのまま動作します。多くの場合、単純なプラグインや実験であれば同様のアプローチで問題ないでしょう。そして、コードが大きく複雑になった際に ESNext に切り替えるのも良い考えです。ブロックエディターの大部分のコードやドキュメントは ESNext を使用します。
 
-ESNext 構文を使用する開発環境をセットアップする方法については [JavaScript ビルド手順のドキュメント](https://developer.wordpress.org/block-editor/designers-developers/developers/tutorials/javascript/js-build-setup/) を参照してください。
+ESNext 構文を使用する開発環境をセットアップする方法については [JavaScript ビルド手順のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/) を参照してください。
 
-<!-- 
+<!--
 See the [ESNext syntax documentation](/docs/how-to-guides/javascript/esnext-js.md) for explanation and examples about common code differences between standard JavaScript and ESNext.
  -->
-標準の JavaScript と ESNext との一般的なコードの違いに関する説明と例については [ESNext 構文ドキュメント](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/esnext-js.md) を参照してください。
+標準の JavaScript と ESNext との一般的なコードの違いに関する説明と例については [ESNext 構文ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/esnext-js/) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/tutorials/javascript/versions-and-building.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/javascript/versions-and-building.md)
 

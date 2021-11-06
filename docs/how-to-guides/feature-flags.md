@@ -183,4 +183,4 @@ The aim here is to avoid introducing any complexity that could result in webpack
 
 webpack のミニファイが呼ばれないコードを削除できるよう、コードに複雑性を持ち込まないようにするためです。詳細については上の「呼ばれないコードの削除」セクションを参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/feature-flags.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/feature-flags.md)

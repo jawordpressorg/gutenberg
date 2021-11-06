@@ -552,6 +552,6 @@ WordPress の導入環境を日本語にする必要があります。設定 > �
 <!--
 The outputs of the translation functions (`__()`, `_x()`, `_n()`, and `_nx()`) are filterable, see [i18n Filters](/docs/reference-guides/filters/i18n-filters.md) for full information.
  -->
-翻訳関数 (`__()`, `_x()`, `_n()`, `_nx()`) の出力はフィルターできます。詳細については [i18n フィルター](https://github.com/WordPress/gutenberg/blob/HEAD/docs/designers-developers/developers/filters/i18n-filters.md) を参照してください。
+翻訳関数 (`__()`, `_x()`, `_n()`, `_nx()`) の出力はフィルターできます。詳細については [i18n フィルター](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/i18n-filters.md) を参照してください。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/designers-developers/developers/internationalization.md)
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/internationalization.md)
