@@ -83,13 +83,17 @@ jobs:
 
             - name: Archive debug artifacts (screenshots, HTML snapshots)
               uses: actions/upload-artifact@e448a9b857ee2131e752b06002bf0e093c65e571 # v2.2.2
-              if: failure()
+              if: always()
               with:
                   name: failures-artifacts
                   path: artifacts
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> upstream/trunk
 =======
+=======
+                  if-no-files-found: ignore
+>>>>>>> upstream/trunk
 
             - name: Archive flaky tests report
               uses: actions/upload-artifact@e448a9b857ee2131e752b06002bf0e093c65e571 # v2.2.2

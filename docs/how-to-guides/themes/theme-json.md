@@ -820,8 +820,10 @@ Note that the name of the variable is created by adding `--` in between each nes
 	}
 }
 ```
-
-- ボタンブロックの枠の角丸を無効化 (現在、枠はプラグインでのみ利用可能)
+<!--
+- Disable border radius for the button block:
+ -->
+- ボタンブロックの枠の角丸を無効化
 
 ```json
 {
@@ -1343,9 +1345,11 @@ Currently block variations exist for "header" and "footer" values of the area te
 
 <!--
 - name: mandatory.
+- title: optional, translatable.
 - area: optional, will be set to `uncategorized` by default and trigger no block variation.
  -->
 - name: 必須
+- title: オプション、翻訳可能
 - area: オプション。デフォルトでは `uncategorized` に設定され、ブロックバリエーションをトリガーしない
 
 ```json
@@ -1354,6 +1358,7 @@ Currently block variations exist for "header" and "footer" values of the area te
 	"templateParts": [
 		{
 			"name": "my-template-part",
+			"title": "Header",
 			"area": "header"
 		}
 	]

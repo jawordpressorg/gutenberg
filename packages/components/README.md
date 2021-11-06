@@ -65,6 +65,16 @@ WordPress 以外のプロジェクトの場合は、直接 `build-style/style.cs
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
 
 <!--
+## Docs & examples
+ -->
+## ドキュメント & サンプル
+
+<!--
+You can browse the components docs and examples at https://wordpress.github.io/gutenberg/
+ -->
+コンポーネントのドキュメントとサンプルは https://wordpress.github.io/gutenberg/ で参照できます。
+
+<!--
 ## Contributing
  -->
 ## コントリビューティング

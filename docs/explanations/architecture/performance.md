@@ -19,11 +19,11 @@ To ensure the block editor stays performant across releases and development, we 
 リリースと開発のサイクルの中でブロックエディタのパフォーマンスを維持するため、[パフォーマンステスト](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/testing-overview/#performance-testing)を実行して、いくつかの重要な指標を監視しています。
 
 <!--
-**Loading Time:** The time it takes to load an editor page.
+**Loading Time:** The time it takes to load an editor page. This includes time the server takes to respond, times to first paint, first contentful paint, DOM content load complete, load complete and first block render.
 **Typing Time:** The time it takes for the browser to respond while typing on the editor.
 **Block Selection Time:** The time it takes for the browser to respond after a user selects block. (Inserting a block is also equivalent to selecting a block. Monitoring the selection is sufficient to cover both metrics).
  -->
-**ロード時間:** エディターページの読み込み時間
+**ロード時間:** エディターページの読み込み時間。これには、サーバーが応答するまでの時間、最初の描画までの時間 (FP)、最初の DOM コンテンツの描画 (FCP)、DOMコンテンツのロード完了、ロード完了、最初のブロックレンダリングが含まれます。
 **タイプ時間:** エディター上で文字を入力した際にブラウザが応答するまでの時間
 **ブロックの選択時間：**ユーザーがブロックを選択してから、ブラウザが反応するまでの時間。ちなみに、ブロックの挿入はブロックの選択と同等のため、ブロックの選択時間を監視することで、両方の指標をカバーできます。
 

@@ -9,6 +9,59 @@ What follows is a set of questions that have come up from the last few years of 
 この記事では Gutenberg 開発においてこの2年間に受けた質問と回答をまとめました。さらに追加した方がよい質問がある場合には [GitHub issue](https://github.com/WordPress/gutenberg/issues) を作成し質問してください。喜んでお答えし疑問を解消したいと思います。歴史を振り返り返るには Matt の 2018年11月の投稿 [WordPress 5.0: A Gutenberg FAQ](https://ma.tt/2018/11/a-gutenberg-faq/) を参照してください。
 
 <!--
+## Table of Contents
+
+### The Gutenberg Project
+- [What is Gutenberg?](#what-is-gutenberg)
+- [What’s on the roadmap long term?](#whats-on-the-roadmap-long-term)
+- [When was Gutenberg started?](#when-was-gutenberg-started)
+- [When was Gutenberg merged into WordPress?](#when-was-gutenberg-merged-into-wordpress)
+- [WordPress is already the world's most popular publishing platform. Why change the editor at all?](#wordpress-is-already-the-worlds-most-popular-publishing-platform-why-change-the-editor-at-all)
+
+
+### The Editing Experience
+- [What are “blocks” and why are we using them?](#what-are-blocks-and-why-are-we-using-them)
+- [What is the writing experience like?](#what-is-the-writing-experience-like)
+- [Is Gutenberg built on top of TinyMCE?](#is-gutenberg-built-on-top-of-tinymce)
+- [Are there Keyboard Shortcuts for Gutenberg?](#are-there-keyboard-shortcuts-for-gutenberg)
+  * [Editor shortcuts](#editor-shortcuts)
+  * [Selection shortcuts](#selection-shortcuts)
+  * [Block shortcuts](#block-shortcuts)
+  * [Text formatting](#text-formatting)
+- [Does Gutenberg support columns?](#does-gutenberg-support-columns)
+- [Does Gutenberg support nested blocks?](#does-gutenberg-support-nested-blocks)
+- [Does drag and drop work for rearranging blocks?](#does-drag-and-drop-work-for-rearranging-blocks)
+
+### The Development Experience
+- [How do I make my own block?](#how-do-i-make-my-own-block)
+- [Does Gutenberg involve editing posts/pages in the front-end?](#does-gutenberg-involve-editing-postspages-in-the-front-end)
+- [Given Gutenberg is built in JavaScript, how do old meta boxes (PHP) work?](#given-gutenberg-is-built-in-javascript-how-do-old-meta-boxes-php-work)
+- [How can plugins extend the Gutenberg UI?](#how-can-plugins-extend-the-gutenberg-ui)
+- [Are Custom Post Types still supported?](#are-custom-post-types-still-supported)
+
+### Styles
+- [Can themes _style_ blocks?](#can-themes-_style_-blocks)
+- [How do block styles work in both the front-end and back-end?](#how-do-block-styles-work-in-both-the-front-end-and-back-end)
+- [What are block variations? Are they the same as block styles?](#what-are-block-variations-are-they-the-same-as-block-styles)
+- [How do editor styles work?](#how-do-editor-styles-work)
+
+### Compatibility
+- [What browsers does Gutenberg support?](#what-browsers-does-gutenberg-support)
+- [Should I be concerned that Gutenberg will make my plugin obsolete?](#should-i-be-concerned-that-gutenberg-will-make-my-plugin-obsolete)
+- [Is it possible to opt out of Gutenberg for my site?](#is-it-possible-to-opt-out-of-gutenberg-for-my-site)
+- [How do custom TinyMCE buttons work in Gutenberg?](#how-do-custom-tinymce-buttons-work-in-gutenberg)
+- [How do shortcodes work in Gutenberg?](#how-do-shortcodes-work-in-gutenberg)
+- [Should I move shortcodes to content blocks?](#should-i-move-shortcodes-to-content-blocks)
+
+### Miscellaneous
+- [Is Gutenberg made to be properly accessible?](#is-gutenberg-made-to-be-properly-accessible)
+- [How is data stored? I've seen HTML comments, what is their purpose?](#how-is-data-stored-ive-seen-html-comments-what-is-their-purpose)
+- [How can I parse the post content back out into blocks in PHP or JS?](#how-can-i-parse-the-post-content-back-out-into-blocks-in-php-or-js)
+
+----
+-->
+
+<!--
 ## What is Gutenberg?
  -->
 ## Gutenberg (グーテンベルク) とは ?
@@ -80,6 +133,15 @@ Gutenberg was first merged into [WordPress 5.0](https://wordpress.org/news/2018/
 Gutenberg は2018年12月にリリースされた [WordPress 5.0](https://wordpress.org/news/2018/12/bebo/) で初めて組み込まれました。WordPress 本体リリースに組み込まれた Gutenberg プラグインのバージョンの完全なリストについては「[Versions in WordPress](https://ja.wordpress.org/team/handbook/block-editor/contributors/versions-in-wordpress/)」を参照してください。
 
 <!--
+## WordPress is already the world's most popular publishing platform. Why change the editor at all?
+
+The Editor is where most of the action happens in WordPress’s daily use, and it was a place where we could polish and perfect the block experience in a contained environment. Further, as an open-source project, we believe that it is critical for WordPress to continue to innovate and keep working to make the core experience intuitive and enjoyable for all users. As a community project, Gutenberg has the potential to do just that, and we’re excited to pursue this goal together. If you’d like to test, contribute, or offer feedback, we welcome you to [share what you find on GitHub](https://github.com/WordPress/gutenberg/issues).
+ -->
+## WordPress は既に、世界で最も人気のあるパブリッシングプラットフォームです。どうしてエディターを変えるのですか ?
+
+エディターは日々の WordPress の使用においてもっとも多くの操作が行われる場所であり、環境としてブロックエクスペリエンスを改良し、完璧なものにできる場所です。またオープンソースプロジェクトとして、WordPress は革新を続け、すべてのユーザーにとってコアエクスペリエンスを直感的で楽しめるものにするために努力し続けることが重要であると考えています。コミュニティプロジェクトとして、Gutenberg はまさにそれを実行できる可能性があり、この目標を一緒に追求することにワクワクしています。テスト、貢献、フィードバックがあれば、[GitHub での共有](https://github.com/WordPress/gutenberg/issues)を歓迎します。
+
+<!--
 ## What are “blocks” and why are we using them?
  -->
 ##「ブロック」とはなんですか ? なぜこれを使うのですか ?
@@ -112,11 +174,20 @@ As we thought about these uses and how to make them obvious and consistent, we b
 <!--
 ## What is the writing experience like?
  -->
-執筆エクスペリエンスはどのようなものですか ?
+## 執筆エクスペリエンスはどのようなものですか ?
 <!--
 Our goal with Gutenberg is not just to create a seamless post- and page-building experience. We also want to ensure that it provides a seamless writing experience. To test this out yourself, [head to this demo and give it a try](https://wordpress.org/gutenberg/)!
  -->
 Gutenberg のゴールはシームレスな投稿やページ構築エクスペリエンスを作り出すだけではありません。同時に、シームレスな執筆エクスペリエンスも提供したいと考えています。[是非、デモを試してみてください](https://wordpress.org/gutenberg/) !
+
+<!--
+## Is Gutenberg built on top of TinyMCE?
+
+No. [TinyMCE](https://www.tinymce.com/) is only used for the "Classic" block.
+ -->
+## Gutenberg は TinyMCE 上で構築されていますか ?
+
+いいえ。[TinyMCE](https://www.tinymce.com/) は「クラシック」ブロックでのみ使用されます。
 
 <!--
 ## Are there Keyboard Shortcuts for Gutenberg?
@@ -616,26 +687,31 @@ Here is a brief animation illustrating how to find and use the keyboard shortcut
 </table>
 
 <!--
-## Is Gutenberg built on top of TinyMCE?
+## Does Gutenberg support columns?
 
-No. [TinyMCE](https://www.tinymce.com/) is only used for the "Classic" block.
+Yes, a columns block is available in Gutenberg.
  -->
-## Gutenberg は TinyMCE 上で構築されていますか ?
+## Gutenberg はカラムをサポートしますか ?
 
-いいえ。[TinyMCE](https://www.tinymce.com/) は「クラシック」ブロックでのみ使用されます。
+はい。「カラム」ブロックを利用可能です。
 
 <!--
-## What browsers does Gutenberg support?
+## Does Gutenberg support nested blocks?
 
-Gutenberg works in modern browsers, and Internet Explorer 11.
-
-Our [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). By “modern browsers” we generally mean the _current and past two versions_ of each major browser.
+Yes, it is supported. You can have multiple levels of nesting – blocks within blocks within blocks. See the [Nested Block Tutorial](https://developer.wordpress.org/block-editor/tutorials/block-tutorial/nested-blocks-inner-blocks/) for more information.
  -->
-## Gutenberg はどのブラウザをサポートしていますか ?
+## Gutenberg は入れ子のブロックをサポートしますか ?
 
-Gutenberg はモダンブラウザーおよび Internet Explorer 11 で動作します。
+はい、サポートします。複数レベルの入れ子もサポートします。たとえばブロックの中のブロックの中のブロック。詳細については [チュートリアルのネストしたブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) を参照してください。
 
-[Make WordPress handbook に対応ブラウザーの一覧があります](https://make.wordpress.org/core/handbook/best-practices/browser-support/)。「モダンブラウザー」とは、一般にメジャーなブラウザーの最新および過去の2バージョンを意味します。
+<!--
+## Does drag and drop work for rearranging blocks?
+
+Yes, you can drag and drop blocks to rearrange their order.
+ -->
+## ドラッグ & ドロップでブロックを並べ替えられますか ?
+
+はい。ブロックをドラッグ & ドロップして並べ替えることができます。
 
 <!--
 ## How do I make my own block?
@@ -681,32 +757,6 @@ Indeed. There are multiple ways in which custom post types can leverage Gutenber
 ## カスタム投稿タイプはまだサポートされますか ?
 
 もちろんです。カスタム投稿タイプが Gutenberg を活用できる方法には複数あります。計画では、カスタム投稿タイプでサポートするブロックを指定したり、デフォルトのブロックを定義できるようにします。現在はまだ未実装ですが、投稿タイプがコンテンツフィールドを無効にすれば、下部の「上級者向け」セクションがページを埋めるようになります。
-
-<!--
-## Does Gutenberg support columns?
-
-Yes, a columns block is available in Gutenberg.
- -->
-## Gutenberg はカラムをサポートしますか ?
-
-はい。「カラム」ブロックを利用可能です。
-
-<!-- ## Does Gutenberg support nested blocks?
-
-Yes, it is supported. You can have multiple levels of nesting – blocks within blocks within blocks. See the [Nested Block Tutorial](https://developer.wordpress.org/block-editor/tutorials/block-tutorial/nested-blocks-inner-blocks/) for more information.
- -->
-## Gutenberg は入れ子のブロックをサポートしますか ?
-
-はい、サポートします。複数レベルの入れ子もサポートします。たとえばブロックの中のブロックの中のブロック。詳細については [チュートリアルのネストしたブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) を参照してください。
-
-<!--
-## Does drag and drop work for rearranging blocks?
-
-Yes, you can drag and drop blocks to rearrange their order.
- -->
-## ドラッグ & ドロップでブロックを並べ替えられますか ?
-
-はい。ブロックをドラッグ & ドロップして並べ替えることができます。
 
 <!--
 ## Can themes _style_ blocks?
@@ -770,6 +820,18 @@ _See:_ [Editor Styles](/docs/how-to-guides/themes/theme-support.md#editor-styles
  -->
 *参照:* [エディタースタイル](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#editor-styles)
 
+<!--
+## What browsers does Gutenberg support?
+
+Gutenberg works in modern browsers, and Internet Explorer 11.
+
+Our [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). By “modern browsers” we generally mean the _current and past two versions_ of each major browser.
+ -->
+## Gutenberg はどのブラウザをサポートしていますか ?
+
+Gutenberg はモダンブラウザーおよび Internet Explorer 11 で動作します。
+
+[Make WordPress handbook に対応ブラウザーの一覧があります](https://make.wordpress.org/core/handbook/best-practices/browser-support/)。「モダンブラウザー」とは、一般にメジャーなブラウザーの最新および過去の2バージョンを意味します。
 
 <!--
 ## Should I be concerned that Gutenberg will make my plugin obsolete?
@@ -898,14 +960,6 @@ PHP の場合:
 ```php
 $blocks = parse_blocks( $post_content );
 ```
-<!--
-## WordPress is already the world's most popular publishing platform. Why change the editor at all?
-
-The Editor is where most of the action happens in WordPress’s daily use, and it was a place where we could polish and perfect the block experience in a contained environment. Further, as an open-source project, we believe that it is critical for WordPress to continue to innovate and keep working to make the core experience intuitive and enjoyable for all users. As a community project, Gutenberg has the potential to do just that, and we’re excited to pursue this goal together. If you’d like to test, contribute, or offer feedback, we welcome you to [share what you find on GitHub](https://github.com/WordPress/gutenberg/issues).
- -->
-## WordPress は既に、世界で最も人気のあるパブリッシングプラットフォームです。エディターをどうして変えなくてはならなかったのですか ?
-
-エディターは日々の WordPress の使用においてもっとも多くの操作が行われる場所であり、環境としてブロックエクスペリエンスを改良し、完璧なものにできる場所です。またオープンソースプロジェクトとして、WordPress は革新を続け、すべてのユーザーにとってコアエクスペリエンスを直感的で楽しめるものにするために努力し続けることが重要であると考えています。コミュニティプロジェクトとして、Gutenberg はまさにそれを実行できる可能性があり、この目標を一緒に追求することにワクワクしています。テスト、貢献、フィードバックがあれば、[GitHub での共有](https://github.com/WordPress/gutenberg/issues)を歓迎します。
 
 ## 問い合わせ先
 ブロックエディターハンドブックへのコメントは [WordPress の 日本語 Slack](https://ja.wordpress.org/support/article/slack/) 内の #docs チャンネル、[フォーラム > その他](https://ja.wordpress.org/support/forum/miscellaneous/)、または以下のリポジトリへお願いします。

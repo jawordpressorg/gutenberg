@@ -2,6 +2,28 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2021/10/15
+- [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - ロード時間の詳細を追加。[#32237](https://github.com/WordPress/gutenberg/pull/32237)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - templateParts に title 追加 [#35626](https://github.com/WordPress/gutenberg/pull/35626)、ボタンブロックの枠の角丸がプラグインでのみ有効という記述を削除 [#35582](https://github.com/WordPress/gutenberg/pull/35582)
+- [登録](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) - カテゴリーの更新 [#35523](https://github.com/WordPress/gutenberg/pull/35523)
+- [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) - storybookへのリンク追加 [#35493](https://github.com/WordPress/gutenberg/pull/35493)
+- 以下、未訳分で変更に気がついたもの
+- [BlockPreview](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/block-preview/README.md) - viewportWidth 700 -> 1200 [#35659](https://github.com/WordPress/gutenberg/pull/35659)
+- [Media replace flow](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/media-replace-flow/README.md) - children 追加 [#35372](https://github.com/WordPress/gutenberg/pull/35372)
+- [ColorPicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/color-picker/README.md) - 新バージョンで置換 [#35220](https://github.com/WordPress/gutenberg/pull/35220)
+- [DateTimePicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/date-time/README.md) - isDayHighlighted 削除 [#35363](https://github.com/WordPress/gutenberg/pull/35363)
+- [FontSizePicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/font-size-picker/README.md) - withReset 追加 [#35395](https://github.com/WordPress/gutenberg/pull/35395)
+- [Navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigation/README.md) - クラス名を変更 [#35358](https://github.com/WordPress/gutenberg/pull/35358)
+- [NumberControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/number-control/README.md) - max、min 追加 [#34542](https://github.com/WordPress/gutenberg/pull/34542)
+- [RangeControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/range-control/README.md) - "any" ステップサポート [#34542](https://github.com/WordPress/gutenberg/pull/34542)
+- [ToggleGroupControlOption](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/toggle-group-control/toggle-group-control-option/README.md) - 新規
+- [ToggleGroupControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/toggle-group-control/toggle-group-control/README.md) - 名称変更
+- [ToolsPanel](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tools-panel/tools-panel/README.md) - hasInnerWrapper、shouldRenderPlaceholderItems 追加 [#34725](https://github.com/WordPress/gutenberg/pull/34725)
+- [Tooltip](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tooltip/README.md) - delay 追加 [#35246](https://github.com/WordPress/gutenberg/pull/35246)
+- ColorPicker - 削除
+- [Global Styles](https://github.com/WordPress/gutenberg/blob/trunk/packages/edit-site/src/components/global-styles/README.md) - 新規
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - Failed Test Artifacts 追加 [#35371](https://github.com/WordPress/gutenberg/pull/35371)
+
 2021/10/2
 - [開発環境](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/) - Node と nvm のバージョンを更新 [#35125](https://github.com/WordPress/gutenberg/pull/35125)
 - [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - development インスタンスでのプラグイン、テーマのインストール方法追加 [#35064](https://github.com/WordPress/gutenberg/pull/35064)
