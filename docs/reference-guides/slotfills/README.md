@@ -148,7 +148,7 @@ The following SlotFills are available in the `edit-post` package. Please refer t
 
 `edit-post` パッケージでは以下の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
 
-- [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button.md)
+- [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button/)
 - [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)
 - [PluginDocumentSettingPanel](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-document-setting-panel/)
 - [PluginMoreMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-more-menu-item/)
