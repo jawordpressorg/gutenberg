@@ -24,7 +24,7 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 <!--
 Starting in WordPress 5.8 release, we encourage using the `block.json` metadata file as the canonical way to register block types. Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
  -->
-WordPress 5.8 リリースから、ブロックタイプを登録する標準の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
+WordPress 5.8のリリースから、ブロックタイプを登録する標準の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
 
 <!--
 **Example:**
@@ -33,6 +33,7 @@ WordPress 5.8 リリースから、ブロックタイプを登録する標準の
 
 ```json
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
 	"name": "my-plugin/notice",
 	"title": "Notice",
@@ -68,6 +69,7 @@ WordPress 5.8 リリースから、ブロックタイプを登録する標準の
 	},
 	"editorScript": "file:./build/index.js",
 	"script": "file:./build/script.js",
+	"viewScript": "file:./build/view.js",
 	"editorStyle": "file:./build/index.css",
 	"style": "file:./build/style.css"
 }
@@ -107,9 +109,18 @@ Furthermore, because the [Block Type REST API Endpoint](https://developer.wordpr
 さらに、[ブロックタイプ REST API エンドポイント](https://developer.wordpress.org/rest-api/reference/block-types/)では、サーバー上で登録されたブロックしか一覧できないため、サーバーサイドでブロックを登録することが推奨されます。`block.json`ファイルを使用すると、この登録が簡単になります。
 
 <!--
-Last, but not least, the [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to [submit your block(s) to the Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md), all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
+The [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to [submit your block(s) to the Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md), all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
  -->
-最後に、[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。[ブロックディレクトリに自分のブロックを登録する](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)場合、ブロックディレクトリに認識させるには、プラグインに含まれるすべてのブロックに `block.json` ファイルが必要です。
+[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。[ブロックディレクトリに自分のブロックを登録する](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)場合、ブロックディレクトリに認識させるには、プラグインに含まれるすべてのブロックに `block.json` ファイルが必要です。
+
+<!-- 
+Development is improved by using a defined schema definition file. Supported editors can provide help like tooltips, autocomplete, and schema validation. To use the schema, add the following to the top of the `block.json`.
+ -->
+定義されたスキーマ定義ファイルを使用することで、開発効率が向上します。これに対応するエディタでは、ツールチップやオートコンプリート、スキーマの検証などの支援機能を提供できます。スキーマを使用するには、`block.json`の先頭に以下を追加します。
+
+```json
+"$schema": "https://schemas.wp.org/trunk/block.json"
+```
 
 <!--
 ## Block registration
@@ -313,12 +324,12 @@ This is the display title for your block, which can be translated with our trans
 
 <!--
 -   Type: `string`
--   Required
+-   Optional
 -   Localized: No
 -   Property: `category`
  -->
 -   型: `string`
--   必須
+-   オプション
 -   ローカライズ: 不可
 -   プロパティ: `category`
 
@@ -451,13 +462,13 @@ Sometimes a block could have aliases that help users discover it while searching
 -   Optional
 -   Localized: No
 -   Property: `version`
--   Since: `5.8.0`
+-   Since: `WordPress 5.8.0`
  -->
 -   型: `string`
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `version`
--   Since: `5.8.0`
+-   Since: `WordPress 5.8.0`
 
 ```json
 { "version": "1.0.3" }
@@ -475,11 +486,13 @@ The current version number of the block, such as 1.0 or 1.0.3. It's similar to h
 -   Optional
 -   Localized: No
 -   Property: `textdomain`
+-   Since: `WordPress 5.7.0`
  -->
 -   型: `string`
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `textdomain`
+-   Since: `WordPress 5.7.0`
 
 ```json
 { "textdomain": "my-plugin" }
@@ -689,12 +702,12 @@ See the [the example documentation](/docs/reference-guides/block-api/block-regis
 ### Editor Script
 
 <!--
--   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   Type: `WPDefinedAsset` ([learn more](#WPDefinedAsset))
 -   Optional
 -   Localized: No
 -   Property: `editorScript`
  -->
--   型: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   型: `WPDefinedAsset` ([詳細](#WPDefinedAsset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorScript`
@@ -711,12 +724,12 @@ Block type editor script definition. It will only be enqueued in the context of 
 ### Script
 
 <!--
--   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   Type: `WPDefinedAsset` ([learn more](#WPDefinedAsset))
 -   Optional
 -   Localized: No
 -   Property: `script`
  -->
--   型: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   型: `WPDefinedAsset` ([詳細](#WPDefinedAsset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `script`
@@ -726,19 +739,43 @@ Block type editor script definition. It will only be enqueued in the context of 
 ```
 
 <!--
-Block type frontend script definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
+Block type frontend and editor script definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
  -->
-ブロックタイプフロントエンドスクリプト定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
+ブロックタイプフロントエンド、および、エディタースクリプト定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
+
+### View Script
+
+<!-- 
+-   Type: `WPDefinedAsset` ([learn more](#WPDefinedAsset))
+-   Optional
+-   Localized: No
+-   Property: `viewScript`
+-   Since: `WordPress 5.9.0`
+ -->
+-   型: `WPDefinedAsset` ([詳細](#WPDefinedAsset))
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `viewScript`
+-   Since: `WordPress 5.9.0`
+
+```json
+{ "script": "file:./build/view.js" }
+```
+
+<!-- 
+Block type frontend script definition. It will be enqueued only when viewing the content on the front of the site.
+ -->
+ブロックタイプフロントエンド定義。サイトのフロントでコンテンツを表示するときのみ、エンキューされます。
 
 ### Editor Style
 
 <!--
--   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#WPDefinedAsset))
 -   Optional
 -   Localized: No
 -   Property: `editorStyle`
  -->
--   型: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#WPDefinedAsset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorStyle`
@@ -752,15 +789,17 @@ Block type editor style definition. It will only be enqueued in the context of t
  -->
 ブロックタイプエディタースタイル定義。エディターのコンテキスト内でのみエンキューされます。
 
+_Note: An option to pass also an array of editor styles exists since WordPress `5.9.0`._
+
 ### Style
 
 <!--
--   Type: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#WPDefinedAsset))
 -   Optional
 -   Localized: No
 -   Property: `style`
  -->
--   型: `string` ([WPDefinedAsset](#WPDefinedAsset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#WPDefinedAsset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `style`
@@ -770,9 +809,14 @@ Block type editor style definition. It will only be enqueued in the context of t
 ```
 
 <!--
-Block type frontend style definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
+Block type frontend and editor style definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
  -->
-ブロックタイプフロントエンドスタイル定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
+ブロックタイプフロントエンド、およびエディタースタイル定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
+
+<!-- 
+_Note: An option to pass also an array of styles exists since WordPress `5.9.0`._
+ -->
+_注意: スタイルの配列を渡すオプションもあります。 WordPress `5.9.0` 以降。_
 
 <!--
 ## Assets
@@ -787,11 +831,11 @@ Block type frontend style definition. It will be enqueued both in the editor and
 <!--
 The `WPDefinedAsset` type is a subtype of string, where the value represents a path to a JavaScript or CSS file relative to where `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
 
-An alternative would be a script or style handle name referencing a registered asset using WordPress helpers.
+An alternative would be a script or style handle name referencing an already registered asset using WordPress helpers.
  -->
 `WPDefinedAsset` タイプは string のサブタイプです。値は、`block.json` ファイルの場所から JavaScript ファイルや CSS ファイルへの相対パスで表します。提供されるパスには、接頭辞 `file:` を付ける必要があります。この方法は npm のパッケージの[ローカルパス](https://docs.npmjs.com/files/package.json#local-paths) を扱う方法に基づいています。
 
-代わりに WordPress ヘルパーを使用して登録されたアセットを参照する、スクリプトハンドル名やスタイルハンドル名も使用できます。
+代わりに WordPress ヘルパーを使用してすでに登録されたアセットを参照する、スクリプトハンドル名やスタイルハンドル名も使用できます。
 <!--
 **Example:**
  -->
@@ -804,8 +848,11 @@ In `block.json`:
 
 ```json
 {
-	"editorScript": "file:./build/index.js",
-	"editorStyle": "my-editor-style-handle"
+	"editorScript": "file:./index.js",
+	"script": "my-script-handle",
+	"viewScript": "file:./view.js",
+	"editorStyle": "my-editor-style-handle",
+	"style": [ "file:./style.css", "my-style-handle" ]
 }
 ```
 
@@ -844,6 +891,7 @@ The definition is stored inside separate PHP file which ends with `.asset.php` a
 **例:**
 
 ```
+block.json
 build/
 ├─ index.js
 └─ index.asset.php
@@ -874,6 +922,25 @@ return array(
 	'version'      => '3be55b05081a63d8f9d0ecb466c42cfd',
 );
 ```
+<!-- 
+### Frontend Enqueueing
+ -->
+### フロントエンドでのエンキュー
+
+<!-- 
+Starting in the WordPress 5.8 release, it is possible to instruct WordPress to enqueue scripts and styles for a block type only when rendered on the frontend. It applies to the following asset fields in the `block.json` file:
+ -->
+WordPress 5.8リリースから、フロントエンドでレンダーされるときにのみ、ブロックタイプのスクリプトとスタイルをエンキューするように WordPress に指示できます。これは、`block.json` ファイルの以下のアセットフィールドに適用されます。
+
+<!-- 
+-   `script`
+-   `viewScript` (when the block defines `render_callback` during registration in PHP, then the block author is responsible for enqueuing the script)
+-   `style`
+ -->
+-   `script`
+-   `viewScript` (PHP の登録時にブロックが `render_callback` を定義する場合、ブロックの作者はスクリプトをエンキューする責任があります。)
+-   `style`
+
 <!--
 ## Internationalization
  -->

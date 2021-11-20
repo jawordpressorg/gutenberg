@@ -6,7 +6,7 @@
 <!-- 
 ESNext is JavaScript written using syntax and features only available in a version newer than browser support—the support browser versions is referred to as ECMAScript 5 (ES5). [JSX](https://reactjs.org/docs/introducing-jsx.html) is a custom syntax extension to JavaScript, created by React project, that allows you to write JavaScript using a familiar HTML tag-like syntax.
  -->
-ESNext はブラウザーのサポートする JavaScript よりも新しいバージョンで利用可能な構文や機能を使用して書かれた JavaScript です。サポートするブラウザーのバージョンは ECMAScript 5 (ES5) と参照されます。[JSX](https://reactjs.org/docs/introducing-jsx.html) は React プロジェクトで作成された JavaScript に対するカスタム構文拡張です。馴染みのある HTML タグに似た構文を使用して JavaScript を書くことができます。
+ESNext は、ブラウザーのサポートする JavaScript よりも新しいバージョンで利用可能な構文や機能を使用して書かれた JavaScript です。サポートするブラウザーのバージョンは ECMAScript 5 (ES5) と参照されます。[JSX](https://reactjs.org/docs/introducing-jsx.html) は React プロジェクトで作成された JavaScript に対するカスタム構文拡張です。馴染みのある HTML タグに似た構文を使用して JavaScript を書くことができます。
 
 <!-- 
 See the [ESNext syntax documentation](/docs/how-to-guides/javascript/esnext-js.md) for explanation and examples about common code differences between standard JavaScript and ESNext.
@@ -75,11 +75,11 @@ webpack も Babel も JavaScript で書かれており [Node.js](https://nodejs.
 -   Windows: `choco install node`
 
 <!-- 
-If you are not using a package manager, see the [developer environment setup documentation](/docs/getting-started/tutorials/devenv/README.md) for setting up Node using nvm, or see the official [Node.js download page](https://nodejs.org/en/download/) for installers and binaries.
+If you are not using a package manager, see the [developer environment setup documentation](/docs/getting-started/devenv/README.md) for setting up Node using nvm, or see the official [Node.js download page](https://nodejs.org/en/download/) for installers and binaries.
 
 **Note:** The build tools and process occur on the command-line, so basic familiarity using a terminal application is required. Some text editors have a terminal built-in that is fine to use; Visual Studio Code and PhpStorm are two popular options.
  -->
-パッケージマネージャーをインストールしていない場合は、nvm を使用した Node のセットアップについて [開発環境セットアップドキュメント](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/devenv/) を参照するか、または公式 [Node.js ダウンロードページ](https://nodejs.org/en/download/) を参照してインストーラーとバイナリーを入手してください。
+パッケージマネージャーをインストールしていない場合は、nvm を使用した Node のセットアップについて [開発環境セットアップドキュメント](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) を参照するか、または公式 [Node.js ダウンロードページ](https://nodejs.org/en/download/) を参照してインストーラーとバイナリーを入手してください。
 
 **注意:** ビルドツールやプロセスはコマンドライン上で動作するため、ターミナルアプリケーションの基本的な使い方は覚える必要があります。テキストエディターの中には便利なビルトインターミナル機能があるものもあります。Visual Studio Code と PhpStorm は人気のあるエディターです。
 

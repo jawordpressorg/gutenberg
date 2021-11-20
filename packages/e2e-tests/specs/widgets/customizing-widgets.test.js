@@ -10,6 +10,7 @@ import {
 	clickBlockToolbarButton,
 	deleteAllWidgets,
 	createURL,
+	openTypographyToolsPanelMenu,
 } from '@wordpress/e2e-test-utils';
 
 /**
@@ -163,7 +164,7 @@ describe( 'Widgets Customizer', () => {
 			selector: '.widget-content *',
 		} ).toBeFound( findOptions );
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should open the inspector panel', async () => {
@@ -250,7 +251,7 @@ describe( 'Widgets Customizer', () => {
 
 		await expect( inspectorHeading ).not.toBeVisible();
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should handle the inserter outer section', async () => {
@@ -359,7 +360,7 @@ describe( 'Widgets Customizer', () => {
 			level: 2,
 		} ).not.toBeFound();
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should move focus to the block', async () => {
@@ -456,7 +457,7 @@ describe( 'Widgets Customizer', () => {
 		} );
 		await expect( headingBlock ).toHaveFocus();
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should clear block selection', async () => {
@@ -520,7 +521,7 @@ describe( 'Widgets Customizer', () => {
 			name: 'Block tools',
 		} ).not.toBeFound();
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should handle legacy widgets', async () => {
@@ -601,7 +602,7 @@ describe( 'Widgets Customizer', () => {
 		await clickBlockToolbarButton( 'Options' );
 		const removeBlockButton = await find( {
 			role: 'menuitem',
-			name: /Remove block/,
+			name: /Remove Legacy Widget/,
 		} );
 		await removeBlockButton.click();
 
@@ -700,7 +701,7 @@ describe( 'Widgets Customizer', () => {
 		} ).toBeFound();
 		await expect( paragraphBlock ).toBeVisible();
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should move (inner) blocks to another sidebar', async () => {
@@ -761,7 +762,7 @@ describe( 'Widgets Customizer', () => {
 		const movedParagraphBlock = await find( movedParagraphBlockQuery );
 		await expect( movedParagraphBlock ).toHaveFocus();
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 
 	it( 'should not render Block Settings sections', async () => {
@@ -831,6 +832,9 @@ describe( 'Widgets Customizer', () => {
 		await showMoreSettingsButton.click();
 
 		// Change `drop cap` (Any change made in this section is sufficient; not required to be `drop cap`).
+		await openTypographyToolsPanelMenu();
+		await page.click( 'button[aria-label="Show Drop cap"]' );
+
 		const [ dropCapToggle ] = await page.$x(
 			"//label[contains(text(), 'Drop cap')]"
 		);
@@ -852,7 +856,7 @@ describe( 'Widgets Customizer', () => {
 			level: 3,
 		} );
 
-		expect( console ).toHaveErrored( twentyTwentyError );
+		expect( console ).toHaveWarned( twentyTwentyError );
 	} );
 } );
 

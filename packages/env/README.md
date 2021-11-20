@@ -868,12 +868,29 @@ This is useful for working on plugins and WordPress Core at the same time.
 
 プラグインと WordPress コアで同時に作業する場合に便利です。
 
+<!-- 
+If you are running a _build_ of `wordpress-develop`, point `core` to the `build` directory.
+ -->
+`wordpress-develop` の _build_ を実行している場合は、`core` を `build` ディレクトリに指定します。
+
 ```json
 {
 	"core": "../wordpress-develop/build",
 	"plugins": [ "." ]
 }
 ```
+<!-- 
+If you are running `wordpress-develop` in a dev mode (e.g. the watch command `dev` or the dev build `build:dev`), then point `core` to the `src` directory.
+ -->
+もし、`wordpress-develop` を dev モード（例: watch コマンド `dev` や dev ビルド `build:dev`）で実行している場合は、`core` を `src` ディレクトリに指定します。
+
+```json
+{
+	"core": "../wordpress-develop/src",
+	"plugins": [ "." ]
+}
+```
+
 <!--
 #### A complete testing environment
 

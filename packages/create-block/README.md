@@ -76,7 +76,7 @@ Options:
 
 ```bash
 -V, --version                output the version number
--t, --template <name>        block template type name, allowed values: "es5", "esnext", or the name of an external npm package (default: "esnext")
+-t, --template <name>        block template type name, allowed values: "es5", "esnext", the name of an external npm package (default: "esnext"), or the path to a local directory.
 --namespace <value>          internal namespace for the block name
 --title <value>              display title for the block
 --short-description <value>  short description for the block
@@ -90,7 +90,7 @@ Options:
 オプション:
 ```
 -V, --version                バージョン番号の出力
--t, --template <name>        テンプレートタイプ名。指定可能な値: "es5", "esnext" (デフォルト: "esnext")
+-t, --template <name>        テンプレートタイプ名。指定可能な値: "es5", "esnext" (デフォルト: "esnext")、またはローカルディレクトリへのパス
 --namespace <value>          ブロック名の内部名前空間
 --title <value>              ブロックの表示タイトル
 --short-description <value>  ブロックの短い説明
@@ -119,7 +119,14 @@ $ npx @wordpress/create-block
 $ npx @wordpress/create-block --template es5
 ```
 
-3. Help – you need to use `npx` to output usage information.
+3. Local template directory – it is also possible to pick a local directory as a template.
+
+```bash
+$ npx @wordpress/create-block --template ./path/to/template
+```
+
+4. Help – you need to use `npx` to output usage information.
+
 ```bash
 $ npx @wordpress/create-block --help
 ```
@@ -129,14 +136,20 @@ $ npx @wordpress/create-block --help
 ```bash
 $ npx @wordpress/create-block
 ```
-
 2. ES5 テンプレート – ESNext や JSX サポートを有効化するビルド手順 (`npm start`) を実行したくない場合は ES5 テンプレートを選択できます。
 
 ```bash
 $ npm init @wordpress/block --template es5
 ```
 
-3. ヘルプ – 使用例の情報を出力する場合は `npx` が必要です。
+3. ローカルテンプレートディレクトリ - また、テンプレートとしてローカルディレクトリを取ることもできます。
+
+```bash
+$ npx @wordpress/create-block --template ./path/to/template
+```
+
+4. ヘルプ – 使用例の情報を出力する場合は `npx` が必要です。
+
 ```bash
 $ npx @wordpress/create-block --help
 ```
@@ -305,6 +318,7 @@ The following configurable variables are used with the template files. Template 
 テンプレートファイルでは以下の構成可能変数が使用されます。テンプレートの作者は、ユーザーが指定しない場合に使用されるデフォルト値を変更できます。
 
 <!--
+-   `$schema` (default: `https://schemas.wp.org/trunk/block.json`)
 -   `apiVersion` (default: `2`) - see https://make.wordpress.org/core/2020/11/18/block-api-version-2/.
 -   `slug` (no default)
 -   `namespace` (default: `'create-block'`)
@@ -325,6 +339,7 @@ The following configurable variables are used with the template files. Template 
 -   `editorStyle` (default: `'file:./build/index.css'`)
 -   `style` (default: `'file:./build/style-index.css'`)
  -->
+-   `$schema` (デフォルト: `https://schemas.wp.org/trunk/block.json`)
 -   `apiVersion` (デフォルト: `2`) - 参照 https://make.wordpress.org/core/2020/11/18/block-api-version-2/
 -   `slug` (デフォルトなし)
 -   `namespace` (デフォルト: `'create-block'`)

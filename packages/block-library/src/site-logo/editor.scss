@@ -57,6 +57,7 @@
 		width: 120px;
 	}
 
+	// Style the placeholder.
 	.components-placeholder {
 		justify-content: center;
 		align-items: center;
@@ -99,6 +100,7 @@
 		// By setting the dashed border to currentColor, we ensure it's visible
 		// against any background color.
 		color: currentColor;
+		background: transparent;
 		&::before {
 			content: "";
 			display: block;

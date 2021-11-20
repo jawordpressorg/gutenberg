@@ -98,19 +98,19 @@ const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
 <!--
 ## Orientation
 
-By default, `InnerBlocks` expects its blocks to be shown in a vertical list. A valid use-case is to style InnerBlocks to appear horizontally. When blocks are styled in such a way, the `orientation` prop can be used to indicate a horizontal layout:
+By default, `InnerBlocks` expects its blocks to be shown in a vertical list. A valid use-case is to style inner blocks to appear horizontally, for instance by adding CSS flex or grid properties to the inner blocks wrapper. When blocks are styled in such a way, the `orientation` prop can be set to indicate that a horizontal layout is being used:
 -->
 ## orientation
 
-`InnerBlocks` はデフォルトでは縦のリストとしてブロックが表示されることを期待していますが、横に並べて使用することもできます。ブロックを横に並べる場合は、horizontal レイアウトを示すために `orientation` プロパティを使用してください。
+デフォルトでは、`InnerBlocks` は、縦のリストとしてブロックが表示されることを期待しています。また、内部ブロックのラッパーに CSS flex や grid プロパティを追加して、横に並べて表示するようスタイリングすることもできます。ブロックを横に並べる場合は、horizontal レイアウトが使用されることを示すために `orientation` プロパティを使用してください。
 
 ```js
 <InnerBlocks orientation="horizontal" />
 ```
 <!--
-Specifying this prop will result in the block movers being shown horizontally, and also ensure drag and drop works correctly.
+Specifying this prop does not affect the layout of the inner blocks, but results in the block mover icons in the child blocks being displayed horizontally, and also ensures that drag and drop works correctly.
 -->
-このプロパティを指定するとブロックの移動ハンドルは水平に表示され、ドラッグアンドドロップが正しく動作することが保証されます。
+このプロパティを指定しても、内側のブロックのレイアウトには影響しませんが、子ブロックのブロック移動アイコンが水平に表示され、また、ドラッグアンドドロップが正しく動作するようになります。
 
 <!--
 ## Template

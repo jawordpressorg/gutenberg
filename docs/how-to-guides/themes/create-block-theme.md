@@ -161,7 +161,7 @@ In this file, you can enqueue `style.css`, include additional files, enable an e
 
 <!--
 <div class="callout callout-tip">
-You will add most of the theme support in the `theme.json` file. The title tag is already enabled for all block themes, and it is no longer necessarry to enqueue the comment reply script because it is included with the comments block.
+You will add most of the theme support in the `theme.json` file. The title tag is already enabled for all block themes, and it is no longer necessary to enqueue the comment reply script because it is included with the comments block.
 </div>
  -->
 > テーマサポートのほとんどは `theme.json`ファイルに追加します。title タグはすでにすべてのブロックテーマで有効です。また、コメントリプライスクリプトはコメントブロックに含まれているため、エンキューする必要はありません。
@@ -754,10 +754,10 @@ To enable border styles, add a `border` object under `settings` with the followi
 	"version": 1,
 	"settings": {
 		"border": {
-			"customColor": true,
-			"customRadius": true,
-			"customStyle": true,
-			"customWidth": true
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
 		}
 	}
 }
@@ -773,10 +773,10 @@ To enable link colors, add a `color` setting and set `link` to true:
 	"version": 1,
 	"settings": {
 		"border": {
-			"customColor": true,
-			"customRadius": true,
-			"customStyle": true,
-			"customWidth": true
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
 		},
 		"color": {
 			"link": true,
@@ -795,17 +795,17 @@ To enable padding, margin and custom spacing units, include a setting for spacin
 	"version": 1,
 	"settings": {
 		"border": {
-			"customColor": true,
-			"customRadius": true,
-			"customStyle": true,
-			"customWidth": true
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
 		},
 		"color": {
 			"link": true
 		},
 		"spacing": {
-			"customPadding": true,
-			"customMargin": true,
+			"padding": true,
+			"margin": true,
 			"units": [ "px", "em", "rem", "vh", "vw" ]
 		}
 	}
@@ -827,10 +827,10 @@ If you want to disable gradients, which are enabled by default, set `gradient` t
 	"version": 1,
 	"settings": {
 		"border": {
-			"customColor": true,
-			"customRadius": true,
-			"customStyle": true,
-			"customWidth": true
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
 		},
 		"color": {
 			"link": true,

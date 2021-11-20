@@ -11,12 +11,12 @@
 <!--
 Blocks are an abstract unit for structuring and interacting with content. When composed together they create the content for a webpage. Everything from a paragraph, to a video, to the site title is represented as a block.
  -->
-ブロックはコンテンツを構成し、相互に作用し合う抽象的なユニットです。複数を一緒に組み合わせて Web ページのコンテンツを作成します。段落やビデオからサイトのタイトルまで、あらゆるものがブロックとして表現されます。
+ブロックはコンテンツを構成し、相互に作用し合う抽象的なユニットです。一緒に組み合わせることで Web ページのコンテンツが作成されます。段落やビデオからサイトのタイトルまで、あらゆるものをブロックとして表現できます。
 
 <!--
 Blocks come in many different forms but also provide a consistent interface. They can be inserted, moved, reordered, copied, duplicated, transformed, deleted, dragged, and combined. Blocks can also be reused, allowing them to be shared across posts and post types and/or used multiple times in the same post. If it helps, you can think of blocks as a more graceful shortcode, with rich formatting tools for users to compose content.
  -->
-ブロックはさまざまな異なる形を取りますが、一貫したインターフェースを提供します。例えば、挿入、移動、並べ替え、コピー、重複、変換、削除、ドラッグ、合成。ブロックを再利用することも可能で、投稿や投稿タイプ間で共有したり、あるいは、1つの投稿の中で複数回、使用することができます。ブロックを、コンテンツ作成者向けのリッチな整形ツールの付いた、洗練されたショートコードとして考えても良いでしょう。
+ブロックはさまざまな異なる形を取りますが、一貫したインターフェースを提供します。例えば、挿入、移動、並べ替え、コピー、重複、変換、削除、ドラッグ、合成。ブロックを再利用することも可能で、投稿や投稿タイプ間で共有したり、あるいは、1つの投稿の中で複数回、使用できます。ブロックを、コンテンツ作成者向けのリッチな整形ツールの付いた、洗練されたショートコードとして考えても良いでしょう。
 
 <!--
 The settings and content of a block can be customized in three main places: the block canvas, the block toolbar, and the block inspector.
@@ -84,10 +84,10 @@ Given a block type, a block variation is a predefined set of its initial attribu
 
 <!--
 -   **[Block API](/docs/reference-guides/block-api/README.md)**
--   **[Tutorial: Building A Custom Block](/docs/getting-started/tutorials/create-block/README.md)**
+-   **[Tutorial: Building A Custom Block](/docs/getting-started/create-block/README.md)**
  -->
 - **[ブロック API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/)**
-- **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/)**
+- **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/)**
 
 <!--
 ## Reusable Blocks

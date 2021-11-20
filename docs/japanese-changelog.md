@@ -2,6 +2,28 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2021/11/19
+- [ネストしたブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - orientation の説明を修正 [#35712](https://github.com/WordPress/gutenberg/pull/35712)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - スキーマの追加[#35739](https://github.com/WordPress/gutenberg/pull/35739)、custom プレフィックスの削除 [#34485](https://github.com/WordPress/gutenberg/pull/34485)、設定とスタイルの追加 [#36137](https://github.com/WordPress/gutenberg/pull/36137)、v1 から v2 に [#36155](https://github.com/WordPress/gutenberg/pull/36155)、コアのカラーパレットのオプトアウト [#36492](https://github.com/WordPress/gutenberg/pull/36492)
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - スキーマの追加[#35835](https://github.com/WordPress/gutenberg/pull/35835)、category はオプションに [#35998](https://github.com/WordPress/gutenberg/pull/35998)、view script とフロンエンドでのエンキュー [#36175](https://github.com/WordPress/gutenberg/pull/36175)、複数スタイルを渡せる [#36218](https://github.com/WordPress/gutenberg/pull/36218)
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - 生成ファイルに $scheme 追加 [#35843](https://github.com/WordPress/gutenberg/pull/35843)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - core で wordpress-develop を指定する例 [#35978](https://github.com/WordPress/gutenberg/pull/35978)
+- 以下、未訳分で変更に気がついたもの
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - receiveThemeSupports 非推奨 [#36044](https://github.com/WordPress/gutenberg/pull/36044)
+- [Block filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/block-filters.md) - wrapperProps 使い方 [#26961](https://github.com/WordPress/gutenberg/pull/26961)
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - useInnerBlocksProps 追加 [#26031](https://github.com/WordPress/gutenberg/pull/26031)、useCachedTruthy 追加 [#36263](https://github.com/WordPress/gutenberg/pull/36263)、BlockStyles [#34522](https://github.com/WordPress/gutenberg/pull/34522)
+- [Link Control](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/link-control/README.md) - renderControlBottom 追加 [#35857](https://github.com/WordPress/gutenberg/pull/35857)
+- [SkipToSelectedBlock](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/skip-to-selected-block/README.md) - 新規
+- [ComboboxControl](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/combobox-control) - 例の修正 [#36413](https://github.com/WordPress/gutenberg/pull/36413)
+- [Modal](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/modal/README.md) - isFullScreen 追加 [#35773](https://github.com/WordPress/gutenberg/pull/35773)
+- [SelectControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/select-control/README.md) - optgroup の追加 [#29540](https://github.com/WordPress/gutenberg/pull/29540)
+- [ToolsPanel](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tools-panel/tools-panel/README.md) - パネルへの項目の追加 [#36557](https://github.com/WordPress/gutenberg/pull/36557)
+- [Core Data](https://github.com/WordPress/gutenberg/blob/trunk/packages/core-data/README.md) - receiveThemeSupports 非推奨 [#36044](https://github.com/WordPress/gutenberg/pull/36044)
+- [Data](https://github.com/WordPress/gutenberg/blob/trunk/packages/data/README.md) - 非推奨登録の削除 [#36344](https://github.com/WordPress/gutenberg/pull/36344)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - openTypographyToolsPanelMenu 追加 [#36344](https://github.com/WordPress/gutenberg/pull/36334)
+- [Rich Text](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md) - 使用方法の追加 [#35885](https://github.com/WordPress/gutenberg/pull/35885)
+- [URL](https://github.com/WordPress/gutenberg/blob/trunk/packages/url/README.md) - normalizePath 追加 [#35992](https://github.com/WordPress/gutenberg/pull/35992)
+
 2021/10/15
 - [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - ロード時間の詳細を追加。[#32237](https://github.com/WordPress/gutenberg/pull/32237)
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - templateParts に title 追加 [#35626](https://github.com/WordPress/gutenberg/pull/35626)、ボタンブロックの枠の角丸がプラグインでのみ有効という記述を削除 [#35582](https://github.com/WordPress/gutenberg/pull/35582)

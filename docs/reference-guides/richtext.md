@@ -297,7 +297,7 @@ wp.richText.unregisterFormatType( 'core/image' );
 ```
 
 <!--
-To apply, you would need to enqueue the above script in your plugin or theme. See the JavaScript tutorial for [how to load JavaScript in WordPress](https://developer.wordpress.org/block-editor/tutorials/javascript/loading-javascript/).
+To apply, you would need to enqueue the above script in your plugin or theme. See the JavaScript tutorial for [how to load JavaScript in WordPress](https://developer.wordpress.org/block-editor/how-to-guides/javascript/loading-javascript/).
  -->
 適用するには、プラグインやテーマで上のスクリプトをエンキューする必要があります。JavaScript チュートリアルの「[WordPress で JavaScript をロードする方法](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/)」を参照してください。
 

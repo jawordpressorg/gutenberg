@@ -6,7 +6,7 @@
 <!-- 
 With each major release of WordPress a new version of Gutenberg is included. This has caused confusion over time as people have tried to figure out how to best debug problems and report bugs appropriately. To make this easier we have made this document to serve as a canonical list of the Gutenberg versions integrated into each major WordPress release. Of note, during the beta period of a WordPress release, additional bug fixes from later Gutenberg releases than those noted are added into the WordPress release where it is needed. If you want details about what's in each Gutenberg release outside of the high level items shared as part of major WordPress releases, please review the [release notes shared on Make Core](https://make.wordpress.org/core/tag/gutenberg-new/).
  -->
-WordPress の各メジャーリリースには新しいバージョンの Gutenberg が含まれますが、このことは問題のデバッグや適切なバグレポートを検討する開発者に何度も混乱を招いてきました。この文書では問題の解決を助けるため WordPress の各メジャーリリースに取り込まれた Gutenberg のバージョンの履歴リストを掲載します。ただし WordPress リリースのベータ期間中、必要に応じてここに掲示したバージョンよりも新しい Gutenberg のバージョンから追加のバグフィックスを適用している場合があることに注意してください。If you want details about what's in each Gutenberg release outside of the high level items shared as part of major WordPress releases, please review the [release notes shared on Make Core](https://make.wordpress.org/core/tag/gutenberg-new/).
+WordPress の各メジャーリリースには新しいバージョンの Gutenberg が含まれますが、このことは問題のデバッグや適切なバグレポートを検討する開発者に何度も混乱を招いてきました。この文書では問題の解決を助けるため WordPress の各メジャーリリースに取り込まれた Gutenberg のバージョンの履歴リストを掲載します。ただし WordPress リリースのベータ期間中、必要に応じてここに掲示したバージョンよりも新しい Gutenberg のバージョンから追加のバグフィックスを適用している場合があることに注意してください。WordPress のメジャーリリースの一部として共有されるハイレベルな項目以上に、Gutenbergの各リリースで含まれる詳細を知るには、[Make Core で共有されるリリースノート](https://make.wordpress.org/core/tag/gutenberg-new/)を参照してください。
 
 <!-- 
 If anything looks incorrect here, please bring it up in #core-editor in [WordPress.org slack](https://make.wordpress.org/chat/).
@@ -15,6 +15,7 @@ If anything looks incorrect here, please bring it up in #core-editor in [WordPre
 
 | Gutenberg Versions | WordPress Version |
 | ------------------ | ----------------- |
+| 10.8-11.9          | 5.9               |
 | 10.0-10.7          | 5.8.1             |
 | 10.0-10.7          | 5.8               |
 | 9.3-9.9            | 5.7.1             |

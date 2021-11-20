@@ -5,9 +5,9 @@
 
 <!--
 Slot and Fill are components that have been exposed to allow developers to inject items into some predefined places in the Gutenberg admin experience.
-Please see the [SlotFill component docs](https://wordpress.org/gutenberg/handbook/reference-guides/components/slot-fill/) for more details.
+Please see the [SlotFill component docs](/packages/components/src/slot-fill/README.md) for more details.
 
-In order to use them, we must leverage the [@wordpress/plugins](https://wordpress.org/gutenberg/handbook/reference-guides/packages/packages-plugins/) api to register a plugin that will inject our items.
+In order to use them, we must leverage the [@wordpress/plugins](/packages/plugins/README.md) api to register a plugin that will inject our items.
  -->
 Slot と Fill は外部に公開されているコンポーネントです。開発者は Gutenberg 管理画面内の事前定義された場所に項目を注入できます。
 詳細については [SlotFill コンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/slot-fill/README.md)を参照してください。

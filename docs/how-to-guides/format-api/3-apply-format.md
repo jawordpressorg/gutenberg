@@ -11,7 +11,7 @@ The [rich-text package](/packages/rich-text/README.md) offers a few utilities to
 Update `my-custom-format.js` with this new code:
  -->
 
-ここまではまだカスタムボタンをクリックしても選択したテキストは変化せず、コンソールにメッセージが表示されるだけです。これから実装していきます。
+この時点ではまだ、カスタムボタンをクリックしても選択したテキストは変化せず、コンソールにメッセージがレンダーするだけです。これを変更していきます。
 
 [rich-text パッケージ](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md) にはフォーマット関連のユーティリティー [applyFormat](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#applyFormat)、[removeFormat](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#removeFormat)、[toggleFormat](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#toggleFormat) があります。
 
@@ -95,11 +95,11 @@ The expected behavior is that the format will be toggled, meaning that the text 
 <!--
 Your browser may have already displayed the selection differently once the tag was applied, but you may want to use a special style of your own. You can use the `className` option in [`registerFormatType`](/packages/rich-text/README.md#registerFormatType) to target the new element by class name: if `className` is set, it'll be added to the new element.
 
-That's it. This is all that is necessary to make a custom format available in the new editor. From here, you may want to check out other [tutorials](/docs/getting-started/tutorials/) or apply your new knowledge to your next plugin!
+That's it. This is all that is necessary to make a custom format available in the new editor. From here, you may want to check out other [how-to-guides](/docs/how-to-guides/README.md) or apply your new knowledge to your next plugin!
  -->
 
 タグが適用されるとブラウザ上ではすでに異なるスタイルで表示されたかもしれませんが、指定したスタイルを使用することもできます。[`registerFormatType`](https://github.com/WordPress/gutenberg/blob/trunk/packages/rich-text/README.md#registerFormatType) の `className` オプションを使用して新しい要素をクラス名で対象にできます。`className` が設定されると、新しい要素に追加されます。
 
-以上で、新しいエディターで利用可能なカスタムフォーマットについての説明は終了です。ここからは他の[チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/)を調べるか、ここで得た新しい知識を次のプラグインで試してみてください !
+以上で、新しいエディターで利用可能なカスタムフォーマットについての説明は終了です。ここからは他の[開発ガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/)を調べるか、ここで得た新しい知識を次のプラグインで試してみてください !
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/format-api/3-apply-format.md)

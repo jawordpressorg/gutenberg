@@ -9,6 +9,7 @@ import {
 import { dispatch, useDispatch } from '@wordpress/data';
 import { render, useMemo } from '@wordpress/element';
 import {
+	__experimentalFetchUrlData,
 	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
 	store as coreStore,
 } from '@wordpress/core-data';
@@ -42,6 +43,7 @@ function NavEditor( { settings } ) {
 			...settings,
 			__experimentalFetchLinkSuggestions,
 			__experimentalSetIsInserterOpened,
+			__experimentalFetchRichUrlData: __experimentalFetchUrlData,
 		};
 	}, [
 		settings,
@@ -92,3 +94,5 @@ export function initialize( id, settings ) {
 		document.getElementById( id )
 	);
 }
+
+export { createMenuPreloadingMiddleware as __unstableCreateMenuPreloadingMiddleware } from './utils';

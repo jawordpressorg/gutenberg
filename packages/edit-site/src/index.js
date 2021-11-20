@@ -8,7 +8,10 @@ import {
 } from '@wordpress/block-library';
 import { dispatch } from '@wordpress/data';
 import { render, unmountComponentAtNode } from '@wordpress/element';
-import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@wordpress/core-data';
+import {
+	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
+	__experimentalFetchUrlData as fetchUrlData,
+} from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -44,7 +47,10 @@ export function reinitializeEditor( target, settings ) {
 export function initialize( id, settings ) {
 	settings.__experimentalFetchLinkSuggestions = ( search, searchOptions ) =>
 		fetchLinkSuggestions( search, searchOptions, settings );
+	settings.__experimentalFetchRichUrlData = fetchUrlData;
 	settings.__experimentalSpotlightEntityBlocks = [ 'core/template-part' ];
+	// Feature flag for the new menu sidebar which isn't stable yet.
+	settings.__experimentalNewMenuSidebar = false;
 
 	const target = document.getElementById( id );
 	const reboot = reinitializeEditor.bind( null, target, settings );

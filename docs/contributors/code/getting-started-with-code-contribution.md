@@ -4,9 +4,9 @@
 # コードによるコントリビューション入門
 
 <!--
-The following guide is for setting up your local environment to contribute to the Gutenberg project. There is significant overlap between an environment to contribute and an environment used to extend the WordPress block editor. You can review the [Development Environment tutorial](/docs/getting-started/tutorials/devenv/README.md) for additional setup information.
+The following guide is for setting up your local environment to contribute to the Gutenberg project. There is significant overlap between an environment to contribute and an environment used to extend the WordPress block editor. You can review the [Development Environment tutorial](/docs/getting-started/devenv/README.md) for additional setup information.
 -->
-このガイドでは、Gutenbergプロジェクトにコントリビュートするための、ローカル環境の設定方法について説明します。コントリビューション用環境のほとんどは、WordPress ブロックエディター拡張用の環境と同じです。設定の追加情報については、[開発環境のチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorials/devenv/)を参照してください。
+このガイドでは、Gutenbergプロジェクトにコントリビュートするための、ローカル環境の設定方法について説明します。コントリビューション用環境のほとんどは、WordPress ブロックエディター拡張用の環境と同じです。設定の追加情報については、[開発環境のチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/)を参照してください。
 <!--
 ## Prerequisites
 -->
@@ -20,9 +20,9 @@ The following guide is for setting up your local environment to contribute to th
     Gutenbergは JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは、最新のアクティブ な LTS リリースの node と、最新バージョンの NPM を使用して構築されています。詳細は [LTS release schedule](https://github.com/nodejs/Release#release-schedule) を参照してください。
 
 <!--
-We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) since it is the easiest way to install and manage node for macOS, Linux, and Windows 10 using WSL2. See [our Development Tools guide](/docs/getting-started/tutorials/devenv/README.md#development-tools) or the Nodejs site for additional installation instructions.
+We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) since it is the easiest way to install and manage node for macOS, Linux, and Windows 10 using WSL2. See [our Development Tools guide](/docs/getting-started/devenv/README.md#development-tools) or the Nodejs site for additional installation instructions.
 -->
-[Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) を使用してください。nvm は、macOS、Linux、WSL2 を使用した Windows 10 において最も簡単に node をインストール、管理できます。追加のインストール方法については、[このハンドブックの開発ツールガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorials/devenv/#development-tools)、またはNodejs のサイトを参照してください。
+[Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) を使用してください。nvm は、macOS、Linux、WSL2 を使用した Windows 10 において最も簡単に node をインストール、管理できます。追加のインストール方法については、[このハンドブックの開発ツールガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/#development-tools)、またはNodejs のサイトを参照してください。
 
 <!--
 -   Git
@@ -33,11 +33,11 @@ We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nv
 
 <!--
 -   [Recommended] Docker Desktop
-    We recommend using the [wp-env package](/packages/env/README.md) for setting WordPress environment locally. You'll need to install Docker to use `wp-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/tutorials/devenv/README.md).
+    We recommend using the [wp-env package](/packages/env/README.md) for setting WordPress environment locally. You'll need to install Docker to use `wp-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/devenv/README.md).
     > Note: To install Docker on Windows 10 Home Edition, follow the [install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/).
 -->
 -   [推奨] Docker Desktop:
-    ローカルでの WordPress 環境の設定には、[wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)の使用を推奨します。「wp-env」を使用するには、Docker のインストールが必要です。詳細については [開発環境チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorials/devenv/) を参照してください。
+    ローカルでの WordPress 環境の設定には、[wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)の使用を推奨します。「wp-env」を使用するには、Docker のインストールが必要です。詳細については [開発環境チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) を参照してください。
     > 注意: Windows 10 Home Edition に Docker をインストールするには、[install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/) に従ってください。
 
 <!--
@@ -71,7 +71,7 @@ Install the Gutenberg dependencies and build your code in development mode:
 Gutenberg の依存をインストールし、開発モードでコードをビルドします。
 
 ```bash
-npm ci
+npm install
 npm run dev
 ```
 
@@ -81,9 +81,9 @@ npm run dev
 > 注意: インストールスクリプトを実行するには、[Python](https://www.python.org/)がインストールされ、ローカルシステムのパスにあることが必要です。Python は、使用中のOSにデフォルトでインストールされているか、ダウンロードしてインストールする必要があります。
 
 <!--
-There are two ways to build your code. While developing, you probably will want to use `npm run dev` to run continuous builds automatically as source files change. The dev build also includes additional warnings and errors to help troubleshoot while developing. Once you are happy with your changes, you can run `npm build` to create optimized production build.
+There are two ways to build your code. While developing, you probably will want to use `npm run dev` to run continuous builds automatically as source files change. The dev build also includes additional warnings and errors to help troubleshoot while developing. Once you are happy with your changes, you can run `npm run build` to create optimized production build.
 -->
-コードのビルドには2つの方法があります。開発中は、おそらく `npm run dev` を使用して、ソースファイルを変更するたびに自動的に継続してビルドを実行したいでしょう。dev ビルドには、開発中のトラブルシューティングに役立つ警告やエラーが追加されます。変更内容に満足したら、`npm build` を実行して、最適化された production ビルドを作成できます。
+コードのビルドには2つの方法があります。開発中は、おそらく `npm run dev` を使用して、ソースファイルを変更するたびに自動的に継続してビルドを実行したいでしょう。dev ビルドには、開発中のトラブルシューティングに役立つ警告やエラーが追加されます。変更内容に満足したら、`npm run build` を実行して、最適化された production ビルドを作成できます。
 
 <!--
 Once built, Gutenberg is ready to be used as a WordPress plugin!

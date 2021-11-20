@@ -15,7 +15,27 @@
 
 Takayuki Miyauchi さんの発案された翻訳方式を採用して、ブロックエディターハンドブックのドキュメントを翻訳しています。
 https://qiita.com/miya0001/items/4745cf900a66c0bbf8e5
+```
+% git clone git@github.com:jawordpressorg/gutenberg.git
+% cd gutenberg
+% git remote add upstream https://github.com/WordPress/gutenberg.git  (ここまで、最初だけ)
+% git fetch upstream
+% git merge upstream/trunk
+```
 
+ここですべてのファイルがマージされる場合でも、どこが変更されたかチェックし、手動で反映する必要があります (例: コードが変更された場合)。画面の出力から「.md」ファイルを抽出して変更一覧を取得します。
+
+すべてのファイルがマージされなかった場合は、以下のコマンドで変更されたファイルの一覧を取得します。
+```
+% git status | grep \.md | grep -v CHANGELOG
+```
+
+変更ファイルの一覧を取得したら、GitHub で最近の変更を確認しながら、日本語版に反映します。
+```
+% git add -A
+% git commit -m "Synched with the latest"
+% git push
+```
 <!--
 [![End-to-End Tests](https://github.com/WordPress/gutenberg/workflows/End-to-End%20Tests/badge.svg)](https://github.com/WordPress/gutenberg/actions?query=workflow%3A%22End-to-End+Tests%22+branch%3Atrunk)
 [![Static Analysis (Linting, License, Type checks...)](<https://github.com/WordPress/gutenberg/workflows/Static%20Analysis%20(Linting,%20License,%20Type%20checks...)/badge.svg>)](https://github.com/WordPress/gutenberg/actions?query=workflow%3A%22Static+Analysis+%28Linting%2C+License%2C+Type+checks...%29%22+branch%3Atrunk)
@@ -36,6 +56,8 @@ The block editor introduces a modular approach to pages and posts: each piece of
 
 The block editor first became available in December 2018, and we're still hard at work refining the experience, creating more and better blocks, and laying the groundwork for the next three phases of work. The Gutenberg plugin gives you the latest version of the block editor so you can join us in testing bleeding-edge features, start playing with blocks, and maybe get inspired to build your own.
 
+Check out the [Ways to keep up with Gutenberg & Full Site Editing (FSE)](https://make.wordpress.org/core/2020/05/20/ways-to-keep-up-with-full-site-editing-fse/)
+
 ## Getting Started
 
 Get hands on: check out the [block editor live demo](https://wordpress.org/gutenberg/) to play with a test instance of the editor.
@@ -52,7 +74,7 @@ Get hands on: check out the [block editor live demo](https://wordpress.org/guten
 
 Extending and customizing is at the heart of the WordPress platform, this is no different for the Gutenberg project. The editor and future products can be extended by third-party developers using plugins.
 
-Review the [Create a Block tutorial](/docs/getting-started/tutorials/create-block/README.md) for the fastest way to get started extending the block editor. See the [Developer Documentation](https://developer.wordpress.org/block-editor/#develop-for-the-block-editor) for extensive tutorials, documentation, and API references.
+Review the [Create a Block tutorial](/docs/getting-started/create-block/README.md) for the fastest way to get started extending the block editor. See the [Developer Documentation](https://developer.wordpress.org/block-editor/#develop-for-the-block-editor) for extensive tutorials, documentation, and API references.
 
 ### Contribute to Gutenberg
 
@@ -66,8 +88,8 @@ As with all WordPress projects, we want to ensure a welcoming environment for ev
 
 You can join us in the `#core-editor` channel in Slack, see the [WordPress Slack page](https://make.wordpress.org/chat/) for signup information; it is free to join.
 
-**Weekly meetings** The Editor Team meets weekly on Wednesdays at 14:00 UTC in Slack. If you can not join the meeting, agenda and notes are posted to the [Make WordPress Blog](https://make.wordpress.org/core/).
- -->
+**Weekly meetings** The Editor Team meets weekly on Wednesdays at 14:00 UTC in Slack. If you can not join the meeting, [agenda](https://make.wordpress.org/core/tag/core-editor-agenda/) and [notes](https://make.wordpress.org/core/tag/core-editor-summary/) are posted to the [Make WordPress Blog](https://make.wordpress.org/core/).
+
 ## License
 
 WordPress is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE.md](LICENSE.md) for complete license.
