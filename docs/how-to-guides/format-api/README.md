@@ -1,7 +1,7 @@
 <!-- 
-# Introduction to the Format API
+# Formatting Toolbar API
  -->
-# フォーマット API 入門
+# フォーマットツールバー API
 
 <!-- 
 The purpose of this tutorial is to introduce you to the Format API. The Format API makes it possible for developers to add custom buttons to the formatting toolbar and have them apply a _format_ to a text selection. Bold is an example of a standard button in the formatting toolbar.
@@ -12,9 +12,9 @@ If you are unfamiliar with how to work with WordPress plugins and JavaScript, yo
  -->
 このチュートリアルではフォーマット API を紹介します。フォーマット API を使用すると開発者は、フォーマットツールバーにカスタムボタンを追加し、選択したテキストに対して「フォーマット」を適用できます。たとえば「太字」は、フォーマットツールバーの標準ボタンの一例です。
 
-WordPress の世界で「フォーマット」とは、[テキストレベルのセマンティクスでの HTML タグ](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary)を指します。選択したテキストに特別な意味を与えられます。たとえばこのチュートリアルでフォーマットツールバーにフックされるボタンは選択したテキストを [`<samp>` HTML タグ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp)でラップします。
+WordPress の世界で「フォーマット」とは、[テキストレベルのセマンティクスでの HTML タグ](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary)を指します。選択したテキストに特別な意味を与えられます。たとえばこのチュートリアルでフォーマットツールバーにフックするボタンは、選択したテキストを [`<samp>` HTML タグ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp)でラップします。
 
-WordPress プラグインと javaScript に馴染みのない方はまず [JavaScript チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/)を参照してください。
+WordPress プラグインと JavaScript に馴染みのない方は、まず [JavaScript チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/)を参照してください。
 
 <!-- 
 ## Table of Contents

@@ -108,11 +108,20 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/11/21
+- タイトルの変更 [#35904](https://github.com/WordPress/gutenberg/pull/35904)
+  - [フォーマットツールバー API](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/)
+  - [通知](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/notices/)
+  - [開発プラットフォーム](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/)
+  - [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - defaultPalette と defaultGradients [#36622](https://github.com/WordPress/gutenberg/pull/36622)
+- 以下、未訳分で変更に気がついたもの
+- [Dependency Extraction Webpack Plugin](https://github.com/WordPress/gutenberg/blob/trunk/packages/dependency-extraction-webpack-plugin/README.md) - externalizedReport 追加 [#35106](https://github.com/WordPress/gutenberg/pull/35106)
+
 2021/11/19
 - ページの移動 [#34091](https://github.com/WordPress/gutenberg/pull/34091)
   - [開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) と [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) を [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) 直下に。
   - [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/explanations/faq/)、「Glossary](https://ja.wordpress.org/team/handbook/block-editor/explanations/glossary/)、[History](https://ja.wordpress.org/team/handbook/block-editor/explanations/history/) を [概説](https://ja.wordpress.org/team/handbook/block-editor/explanations/) に移動
-
 - [ネストしたブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - orientation の説明を修正 [#35712](https://github.com/WordPress/gutenberg/pull/35712)
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - スキーマの追加[#35739](https://github.com/WordPress/gutenberg/pull/35739)、custom プレフィックスの削除 [#34485](https://github.com/WordPress/gutenberg/pull/34485)、設定とスタイルの追加 [#36137](https://github.com/WordPress/gutenberg/pull/36137)、v1 から v2 に [#36155](https://github.com/WordPress/gutenberg/pull/36155)、コアのカラーパレットのオプトアウト [#36492](https://github.com/WordPress/gutenberg/pull/36492)
 - [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - スキーマの追加[#35835](https://github.com/WordPress/gutenberg/pull/35835)、category はオプションに [#35998](https://github.com/WordPress/gutenberg/pull/35998)、view script とフロンエンドでのエンキュー [#36175](https://github.com/WordPress/gutenberg/pull/36175)、複数スタイルを渡せる [#36218](https://github.com/WordPress/gutenberg/pull/36218)

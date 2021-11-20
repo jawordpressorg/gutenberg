@@ -1,9 +1,10 @@
 <!--
-# Gutenberg as a Development Platform
+# Development Platform
  -->
-# 開発プラットフォームとしての Gutenberg
+# 開発プラットフォーム
+
 <!--
-The Gutenberg Project is not only building a better editor for WordPress, but also creating a platform to build upon. This platform consists of a set of JavaScript packages and tools that you can use in your web application. [View the list packages available on npm](https://www.npmjs.com/org/wordpress).
+The Gutenberg Project is not only building a better editor for WordPress, but also creating a platform to build upon. This platform consists of a set of JavaScript packages and tools that you can use in your web application. [View the list of packages available on npm](https://www.npmjs.com/org/wordpress).
  -->
 Gutenberg プロジェクトは、より良い WordPress エディターを作るだけでなく、その上で構築するプラットフォームの作成を目指しています。プラットフォームは JavaScript パッケージとツールから構成され、Web アプリケーションで利用できます。[npm で利用可能なパッケージのリストを参照してください](https://www.npmjs.com/org/wordpress)。
 

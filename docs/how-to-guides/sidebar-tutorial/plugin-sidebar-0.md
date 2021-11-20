@@ -1,15 +1,26 @@
-<!--
-# Creating a Sidebar for Your Plugin
+<!-- 
+# Plugin Sidebar
  -->
-# プラグイン用サイドバーの作成
+# プラグイン用サイドバー
+
+<!-- 
+How to add a sidebar to your plugin. A sidebar is the region to the far right of the editor. Your plugin can add an additional icon next to the InspectorControls (gear icon) that can be expanded.
+ -->
+プラグインにサイドバーを追加する方法を説明します。サイドバーは、エディターの右端にある領域です。プラグインは、InspectorControls（歯車のアイコン）の横に、展開可能なアイコンを追加できます。
+
+<!-- 
+![Example sidebar](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
+ --> 
+![サイドバーの例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
+
+<!-- 
+**Prerequisite:**: The tutorial assumes you have an existing plugin setup and ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/how-to-guides/javascript/) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
+ -->
+**前提条件**: このチュートリアルでは、設定済みのプラグインがあり、PHP と JavaScript のコードを追加できることを前提としています。WordPress プラグインの入門、ブロックエディター拡張プラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) チュートリアルを参照してください。
 
 <!--
-This tutorial starts with you having an existing plugin setup and ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/how-to-guides/javascript/) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
-
 In the next sections, you're going to create a custom sidebar for a plugin that contains a text control so the user can update a value that is stored in the `post_meta` table.
  -->
-このチュートリアルはすでにプラグインがあると仮定し、PHP と JavaScript のコードを追加していきます。WordPress プラグインの入門、ブロックエディター拡張プラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) チュートリアルを参照してください。
-
 次のセクション以降でプラグイン用のカスタムサイドバーを作成します。サイドバーにはテキストコントロールがあり、ユーザーは値を更新でき、値は `post_meta` テーブルに保存されます。
 
 <!--

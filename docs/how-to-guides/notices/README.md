@@ -1,16 +1,16 @@
 <!-- 
-# Displaying Notices from Your Plugin or Theme
+# Notices
  -->
-# プラグインやテーマからの通知の表示
+# 通知
 
 <!-- 
 Notices are informational UI displayed near the top of admin pages. WordPress core, themes, and plugins all use notices to indicate the result of an action, or to draw the user's attention to necessary information.
 
 In the classic editor, notices hooked onto the `admin_notices` action can render whatever HTML they'd like. In the block editor, notices are restricted to a more formal API.
  -->
-「通知」は管理画面の先頭付近に表示される情報用のユーザーインターフェースです。WordPress コア、テーマ、プラグインのすべてでアクションの結果を知らせたり、必須の情報にユーザーの注意を集めるために使用されます。
+「通知」は、管理画面の先頭付近に表示される情報用のユーザーインターフェースです。WordPress コア、テーマ、プラグインのすべてでアクションの結果を知らせたり、必須の情報にユーザーの注意を集めるために使用されます。
 
-クラシックエディターでは、`admin_notices` アクションをフックして自由な HTML をレンダリングして通知としましたが、ブロックエディターでは、より正式な API に制限されています。
+クラシックエディターでは、`admin_notices` アクションにフックされた通知は、どのような HTML でも自由にレンダーできましたが、ブロックエディターでは、より正式な API に制限されます。
 
 <!-- 
 ## Notices in the Classic Editor
