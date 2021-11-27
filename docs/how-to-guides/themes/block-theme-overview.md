@@ -191,7 +191,7 @@ To begin, create a blank template file within your theme. For example: `mytheme/
 
 Repeat for any additional templates you'd like to bundle with your theme.
  -->
-まずテーマ内にブランクのテンプレートファイルを作成してください。たとえば `mytheme/block-templates/index.html` です。次にフルサイトエディターを開きます。新しいテンプレートがアクティブテンプレートとして表示されますが、ブランクのはずです。そこに Gutenberg を普通使うようにしてブロックを追加します。「テンプレートパーツ」ブロックを使用して直接テンプレート発を追加、作成できます。
+まずテーマ内にブランクのテンプレートファイルを作成してください。たとえば `mytheme/block-templates/index.html` です。次にフルサイトエディターを開きます。新しいテンプレートがアクティブテンプレートとして表示されますが、ブランクのはずです。そこに Gutenberg を普通使うようにしてブロックを追加します。「テンプレートパーツ」ブロックを使用して直接テンプレートパーツを追加、作成できます。
 
 これをテーマにバンドルする追加テンプレートの分、繰り返します。
 
