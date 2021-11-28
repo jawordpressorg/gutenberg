@@ -288,7 +288,7 @@ Add a credit text to `footer.html`:
 Blocks are self-containing; the opening tag and the closing tag must be in the same template.
 You would not be able to place an opening tag for a group block in a header template and close it in a footer template.
  -->
-ブロックは自己完結型です。開始タグと囚虜タグは同じテンプレートにある必要があります。
+ブロックは自己完結型です。開始タグと終了タグは同じテンプレートにある必要があります。
 たとえば、ヘッダーテンプレート内にグループブロックの開始タグを置き、終了タグをフッターテンプレートに置くことはできません。
 
 <!--
