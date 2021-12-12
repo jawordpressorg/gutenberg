@@ -15,10 +15,15 @@
 
 Takayuki Miyauchi さんの発案された翻訳方式を採用して、ブロックエディターハンドブックのドキュメントを翻訳しています。
 https://qiita.com/miya0001/items/4745cf900a66c0bbf8e5
+
+最初の1回だけ
 ```
 % git clone git@github.com:jawordpressorg/gutenberg.git
 % cd gutenberg
-% git remote add upstream https://github.com/WordPress/gutenberg.git  (ここまで、最初だけ)
+% git remote add upstream https://github.com/WordPress/gutenberg.git
+```
+あとは定期的に
+```
 % git fetch upstream
 % git merge upstream/trunk
 ```

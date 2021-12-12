@@ -410,6 +410,7 @@ settings セクションは以下の構造を持ちます。
 {
 	"version": 1,
 	"settings": {
+		"appearanceTools": false,
 		"border": {
 			"color": false,
 			"radius": false,
@@ -480,6 +481,27 @@ Each block can configure any of these settings separately, providing a more fine
 Note, however, that not all settings are relevant for all blocks. The settings section provides an opt-in/opt-out mechanism for themes, but it's the block's responsibility to add support for the features that are relevant to it. For example, if a block doesn't implement the `dropCap` feature, a theme can't enable it for such a block through `theme.json`.
  -->
 注意: ただし、すべての設定がすべてのブロックに関連するわけではありません。settings セクションはテーマに対してオプトイン、オプトアウトの仕組みを提供しますが、関連する機能のサポートの追加はブロックの責任です。たとえばブロックが `dropCap` 機能を実装しなければ、テーマは `theme.json` を介して有効化できません。
+
+<!-- 
+### Opt-in into UI controls
+ -->
+### UI コントロールへのオプトイン
+
+<!-- 
+There's one special setting property, `appearanceTools`, which is a boolean and its default value is false. Themes can use this setting to enable the following ones:
+ -->
+特別な設定プロパティとして `appearanceTools` があります。ブール値で、デフォルト値は false です。テーマはこの設定を使用して、以下を有効化できます。
+
+<!-- 
+- border: color, radius, style, width
+- color: link
+- spacing: blockGap, margin, padding
+- typography: lineHeight
+ -->
+- border: color, radius, style, width
+- color: link
+- spacing: blockGap, margin, padding
+- typography: lineHeight
 
 <!--
 #### Backward compatibility with add_theme_support
@@ -1310,9 +1332,9 @@ This field is only allowed when the Gutenberg plugin is active. In WordPress 5.8
 > このフィールドは、Gutenberg プラグインが有効な場合にのみ許可されます。WordPress 5.8では無視されます。
 
 <!--
-Within this field themes can list the custom templates present in the `block-templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
+Within this field themes can list the custom templates present in the `templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
  -->
-このフィールド内にテーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
+このフィールド内にテーマは、`templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
 
 <!--
 - name: mandatory.
@@ -1350,9 +1372,9 @@ This field is only allowed when the Gutenberg plugin is active. In WordPress 5.8
 > このフィールドは、Gutenberg プラグインが有効な場合にのみ許可されます。WordPress 5.8では無視されます。
 
 <!--
-Within this field themes can list the template parts present in the `block-template-parts` folder. For example, for a template part named `my-template-part.html`, the `theme.json` can declare the area term for the template part entity which is responsible for rendering the corresponding block variation (Header block, Footer block, etc.) in the editor. Defining this area term in the json will allow the setting to persist across all uses of that template part entity, as opposed to a block attribute that would only affect one block. Defining area as a block attribute is not recommended as this is only used 'behind the scenes' to aid in bridging the gap between placeholder flows and entity creation.
+Within this field themes can list the template parts present in the `parts` folder. For example, for a template part named `my-template-part.html`, the `theme.json` can declare the area term for the template part entity which is responsible for rendering the corresponding block variation (Header block, Footer block, etc.) in the editor. Defining this area term in the json will allow the setting to persist across all uses of that template part entity, as opposed to a block attribute that would only affect one block. Defining area as a block attribute is not recommended as this is only used 'behind the scenes' to aid in bridging the gap between placeholder flows and entity creation.
  -->
-このフィールド内にテーマは、`block-template-parts` フォルダーにあるテンプレートパーツをリストできます。たとえば、テンプレートパーツ `my-template-part.html` に対して、`theme.json` は、テンプレートパーツのエンティティのための area タームを宣言できます。エンティティはエディター内で、対応するブロックバリエーション (ヘッダーブロック、フッターブロックなど) をレンダリングする責任があります。json 内で area タームを定義するとテンプレートパーツエンティティのすべての使用において設定を永続化できます。これは、ブロック属性が1つのブロックのみに影響するのとは対照的です。ブロック属性としての area 定義は推奨されません。これは「表舞台の裏側」で使用され、プレースホルダーフローとエンティティ作成のギャップの橋渡しを支援します。
+このフィールド内にテーマは、`parts` フォルダーにあるテンプレートパーツをリストできます。たとえば、テンプレートパーツ `my-template-part.html` に対して、`theme.json` は、テンプレートパーツのエンティティのための area タームを宣言できます。エンティティはエディター内で、対応するブロックバリエーション (ヘッダーブロック、フッターブロックなど) をレンダリングする責任があります。json 内で area タームを定義するとテンプレートパーツエンティティのすべての使用において設定を永続化できます。これは、ブロック属性が1つのブロックのみに影響するのとは対照的です。ブロック属性としての area 定義は推奨されません。これは「表舞台の裏側」で使用され、プレースホルダーフローとエンティティ作成のギャップの橋渡しを支援します。
 
 <!--
 Currently block variations exist for "header" and "footer" values of the area term, any other values and template parts not defined in the json will default to the general template part block. Variations will be denoted by specific icons within the editor's interface, will default to the corresponding semantic HTML element for the wrapper (this can also be overridden by the `tagName` attribute set on the template part block), and will contextualize the template part allowing more custom flows in future editor improvements.
@@ -1546,5 +1568,41 @@ A few notes about this process:
 	}
 }
 ```
+
+<!-- 
+### What is blockGap and how can I use it?
+ -->
+### blockGap とは何か、どう使うのか ?
+
+<!-- 
+blockGap adjusts the vertical margin, or gap, between blocks.
+It is also used for margins between inner blocks in columns, buttons, and social icons.
+In the editor, the control for the blockGap is called Block spacing, located in the Dimensions panel.
+ -->
+blockGap は、ブロック間の垂直方向のマージン、またはギャップを調整します。
+また、カラム、ボタン、ソーシャルアイコン内のインナーブロック間のマージンにも使用できます。
+エディタでは、blockGap のコントロールは、「ブロックスペース」と呼ばれ、「寸法」パネル内にあります。
+
+<!-- 
+The value you define for the blockGap style uses a CSS property, a preset, named `--wp--style--block-gap`.
+The default value is 2em.
+ -->
+blockGapスタイルに定義する値は、プリセットされた CSS プロパティ `--wp--style--block-gap` を使用します。
+デフォルト値は2emです。
+
+```json
+{
+	"version": 1,
+	"settings": {
+		"spacing": {
+			"blockGap": true,
+		}
+	},
+	"styles": {
+		"spacing": {
+			"blockGap": "1.5rem"
+		}
+	}
+}
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-json.md)

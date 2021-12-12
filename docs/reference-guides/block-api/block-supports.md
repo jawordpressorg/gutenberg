@@ -27,7 +27,7 @@ Anchors let you link directly to a specific block on a page. This property adds 
 ```js
 // Declare support for anchor links.
 supports: {
-	anchor: true;
+	anchor: true
 }
 ```
  -->
@@ -59,7 +59,7 @@ supports: {
 	// Declare support for block's alignment.
 	// This adds support for all the options:
 	// left, center, right, wide, and full.
-	align: true;
+	align: true
 }
 ```
  -->
@@ -76,7 +76,7 @@ supports: {
 ```js
 supports: {
 	// Declare support for specific alignment options.
-	align: [ 'left', 'right', 'full' ];
+	align: [ 'left', 'right', 'full' ]
 }
 ```
  -->
@@ -117,7 +117,7 @@ This property allows to enable [wide alignment](/docs/how-to-guides/themes/theme
 ```js
 supports: {
 	// Remove the support for wide alignment.
-	alignWide: false;
+	alignWide: false
 }
 ```
  -->
@@ -146,7 +146,7 @@ By default, the class `.wp-block-your-block-name` is added to the root element o
 ```js
 supports: {
 	// Remove the support for the generated className.
-	className: false;
+	className: false
 }
 ```
  -->
@@ -200,7 +200,7 @@ Note that the `background` and `text` keys have a default value of `true`, so if
 supports: {
 	color: {
 		// This also enables text and background UI controls.
-		gradients: true; // Enable gradients UI control.
+		gradients: true // Enable gradients UI control.
 	}
 }
 ```
@@ -756,7 +756,7 @@ This property adds a field to define a custom className for the block's wrapper.
 ```js
 supports: {
 	// Remove the support for the custom className.
-	customClassName: false;
+	customClassName: false
 }
 ```
  -->
@@ -863,6 +863,7 @@ attributes: {
             }
         }
     }
+	defaultStylePicker: false
 }
 ```
 
@@ -876,7 +877,7 @@ By default, a block's markup can be edited individually. To disable this behavio
 ```js
 supports: {
 	// Remove support for an HTML mode.
-	html: false;
+	html: false
 }
 ```
  -->
@@ -918,53 +919,6 @@ supports: {
 }
 ```
 
-## lineHeight
-
-<!--
--   Type: `boolean`
--   Default value: `false`
-
-This value signals that a block supports the line-height CSS style property. When it does, the block editor will show an UI control for the user to set its value if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#supporting-custom-line-heights).
-
-```js
-supports: {
-    // Enable UI control for line-height.
-    lineHeight: true,
-}
-```
- -->
-- タイプ: `boolean`
-- デフォルト値: `false`
-
-この値はブロックが line-height CSS スタイルプロパティをサポートすることを通知します。サポートする場合、[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#supporting-custom-line-heights)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
-
-```js
-supports: {
-    // line-height の UI コントロールを有効化
-    lineHeight: true,
-}
-```
-
-<!--
-When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
- -->
-When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
-
-ブロックが `lineHeight` プロパティのサポートを宣言すると、attributes の定義も新しい属性 `style` を含むよう拡張されます。`style` は `obuject` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトの style を適用できます。
-
-```js
-attributes: {
-    style: {
-        type: 'object',
-        default: {
-            typography: {
-                lineHeight: 'value'
-            }
-        }
-    }
-}
-```
-
 ## multiple
 <!--
 -   Type: `boolean`
@@ -975,7 +929,7 @@ A non-multiple block can be inserted into each post, one time only. For example,
 ```js
 supports: {
 	// Use the block just once per post
-	multiple: false;
+	multiple: false
 }
 ```
  -->
@@ -1085,5 +1039,167 @@ A spacing property may define an array of allowable sides that can be configured
  -->
 spacing プロパティは構成可能なサイドの配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。軸方向のサイドは `vertical` と `horizontal` で定義され、軸方向のペアごとに1つの UI コントロールが表示されます (例えば、`vertical` は上辺と下辺の両方を制御します)。spacing プロパティは、任意の個別のサイド、**または**、軸方向のサイドをサポートできますが、両方を混ぜることはできません。
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-supports.md)
+## typography
 
+<!-- 
+-   Type: `Object`
+-   Default value: `null`
+-   Subproperties:
+    - `fontSize`: type `boolean`, default value `false`
+    - `lineHeight`: type `boolean`, default value `false`
+
+The presence of this object signals that a block supports some typography related properties. When it does, the block editor will show a typography UI allowing the user to control their values.
+ -->
+-   タイプ: `Object`
+-   デフォルト値: `null`
+-   サブプロパティ:
+    - `fontSize`: タイプ `boolean`、デフォルト値 `false`
+    - `lineHeight`: タイプ `boolean`、デフォルト値 `false`
+
+このオブジェクトが存在すると、ブロックがいくつかのタイポグラフィ関連のプロパティをサポートすることを通知します。サポートする場合、ブロックエディタにはタイポグラフィのUIが表示され、ユーザーは値を制御できます。
+
+<!-- 
+```js
+supports: {
+    typography: {
+        // Enable support and UI control for font-size.
+        fontSize: true,
+        // Enable support and UI control for line-height.
+        lineHeight: true,
+    },
+}
+```
+ -->
+```js
+supports: {
+    typography: {
+        // font-size のサポートと UI コントロールを有効化
+        fontSize: true,
+        // line-height のサポートと UI コントロールを有効化
+        lineHeight: true,
+    },
+}
+```
+
+### typography.fontSize
+
+<!--
+-   Type: `boolean`
+-   Default value: `false`
+
+This value signals that a block supports the font-size CSS style property. When it does, the block editor will show an UI control for the user to set its value.
+
+The values shown in this control are the ones declared by the theme via the `editor-font-sizes` [theme support](/docs/how-to-guides/themes/theme-support.md#block-font-sizes), or the default ones if none are provided.
+ -->
+- タイプ: `boolean`
+- デフォルト値: `false`
+
+この値はブロックが font-size CSS スタイルプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+このコントロール内に表示される値は `editor-font-sizes` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes) でテーマが宣言したもの、または指定がなければデフォルトのものになります。
+
+<!-- 
+```js
+supports: {
+    typography: {
+        // Enable support and UI control for font-size.
+        fontSize: true,
+    },
+}
+```
+ -->
+```js
+supports: {
+    typography: {
+        // font-size のサポートと UI コントールの有効化
+        fontSize: true,
+    },
+}
+```
+<!-- 
+When the block declares support for `fontSize`, the attributes definition is extended to include two new attributes: `fontSize` and `style`:
+
+-   `fontSize`: attribute of `string` type with no default assigned. It stores any preset value selected by the user. The block can apply a default fontSize by specifying its own `fontSize` attribute with a default e.g.:
+ -->
+ブロックが `fontSize` サポートを宣言すると、attributes の定義も新しい属性 `fontSize` と `style` を含むよう拡張されます。
+
+- `fontSize`: `string` タイプの属性で、デフォルトの割り当てはありません。ユーザーが選択したプリセット値のセットを保存します。ブロックは自身の `fontSize` 属性とデフォルトを指定することで、デフォルトの fontSize を適用できます。
+
+```js
+attributes: {
+    fontSize: {
+        type: 'string',
+        default: 'some-value',
+    }
+}
+```
+
+<!-- 
+-   `style`: attribute of `object` type with no default assigned. It stores the custom values set by the user and is shared with other block supports such as color. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+ -->
+- `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるカスタム値のセットを保存し、色などの他のブロックサポートと共有されます。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            typography: {
+                fontSize: 'value'
+            }
+        }
+    }
+}
+```
+
+### typography.lineHeight
+
+<!-- 
+-   Type: `boolean`
+-   Default value: `false`
+
+This value signals that a block supports the line-height CSS style property. When it does, the block editor will show an UI control for the user to set its value if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#supporting-custom-line-heights).
+ -->
+- タイプ: `boolean`
+- デフォルト値: `false`
+
+この値はブロックが line-height CSS スタイルプロパティをサポートすることを通知します。サポートする場合、[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#supporting-custom-line-heights)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+<!-- 
+```js
+supports: {
+    typography: {
+        // Enable support and UI control for line-height.
+        lineHeight: true,
+    },
+}
+```
+ -->
+```js
+supports: {
+    typography: {
+        // line-height のサポートと UI コントロールを有効化
+        lineHeight: true,
+    },
+}
+```
+
+<!-- 
+When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+ -->
+ブロックが `lineHeight` プロパティのサポートを宣言すると、attributes の定義も新しい属性 `style` を含むよう拡張されます。`style` は `obuject` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトの style を適用できます。
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            typography: {
+                lineHeight: 'value'
+            }
+        }
+    }
+}
+```
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-supports.md)

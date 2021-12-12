@@ -78,10 +78,11 @@
 
 	// Submenu indicator.
 	.wp-block-navigation__submenu-icon {
-		align-self: center;
-		height: inherit;
+		align-self: center; // This one affects nested submenu indicators.
 		line-height: 0;
-		margin-left: 6px;
+		display: inline-block;
+		vertical-align: middle;
+		font-size: inherit;
 
 		// Affect the button as well.
 		padding: 0;
@@ -89,9 +90,16 @@
 		color: currentColor;
 		border: none;
 
+		// Scale to font size.
+		margin-left: 0.25em;
+		width: 0.6em;
+		height: 0.6em;
+
 		svg {
 			display: inline-block;
 			stroke: currentColor;
+			width: inherit;
+			height: inherit;
 		}
 	}
 }
@@ -418,7 +426,10 @@ button.wp-block-navigation-item__content {
 			align-items: var(--layout-justification-setting, inherit);
 
 			// Always align the contents of the menu to the top.
-			justify-content: flex-start;
+			&,
+			.wp-block-navigation__container {
+				justify-content: flex-start;
+			}
 
 			// Allow menu to scroll.
 			overflow: auto;

@@ -66,9 +66,9 @@ To use a block theme, you first need to activate the Gutenberg plugin.
 <!--
 There are two files that are required to activate any theme: `index.php` and `style.css`.
 For the plugin to recognize that a block theme is active, the theme must also include an `index.html` template
-inside a folder called `block-templates`.
+inside a folder called `templates`.
  -->
-任意のテーマを有効化するには2つのファイル、`index.php` と `style.css` が必要です。ブロックテーマが有効だとプラグインに知らせるには、テーマはフォルダー `block-templates` 内にテンプレート `index.html` を含める必要があります。
+任意のテーマを有効化するには2つのファイル、`index.php` と `style.css` が必要です。ブロックテーマが有効だとプラグインに知らせるには、テーマはフォルダー `templates` 内にテンプレート `index.html` を含める必要があります。
 
 <!--
 The theme may optionally include a `functions.php` file and a [theme.json file](/docs/how-to-guides/themes/theme-json.md) to manage global styles.
@@ -76,9 +76,9 @@ The theme may optionally include a `functions.php` file and a [theme.json file](
 テーマはオプションで `functions.php` ファイルや、グローバルなスタイルを管理する [theme.json ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)を含むこともできます。
 
 <!--
-Template parts are optional. If they are included they must be placed inside a `block-template-parts` folder.
+Template parts are optional. If they are included they must be placed inside a `parts` folder.
  -->
-テンプレートパーツはオプションです。含める場合は、`block-template-parts` フォルダーに置く必要があります。
+テンプレートパーツはオプションです。含める場合は、`parts` フォルダーに置く必要があります。
 
 <!--
 File structure:
@@ -90,10 +90,10 @@ theme
 |__ functions.php
 |__ index.php
 |__ theme.json
-|__ block-templates
+|__ templates
 	|__ index.html
 	|__ ...
-|__ block-template-parts
+|__ parts
 	|__ header.html
 	|__ footer.html
 	|__ ...
@@ -110,9 +110,9 @@ In this example, the folder name is `fse-tutorial`.
 この例でのフォルダー名は `fse-tutorial` です。
 
 <!--
-Inside the theme folder, create the `block-templates` and `block-template-parts` folders.
+Inside the theme folder, create the `templates` and `parts` folders.
  -->
-テーマフォルダー内に、`block-templates` フォルダーと `block-template-parts` フォルダーを作成してください。
+テーマフォルダー内に、`templates` フォルダーと `parts` フォルダーを作成してください。
 
 <!--
 Create a `style.css` file. The file header in the `style.css` file has [the same items you would use in a classic theme](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/#explanations).
@@ -146,9 +146,9 @@ Create a blank `index.php` file. This file is used as a fallback if the theme is
 ブランクの `index.php` ファイルを作成してください。このファイルは、テーマが Gutenberg なしで有効化された際のフォールバックとして使用されます。
 
 <!--
-Inside the `block-templates` folder, create a blank `index.html` file.
+Inside the `templates` folder, create a blank `index.html` file.
  -->
-`block-templates` フォルダー内に、ブランクの `index.html` ファイルを作成してください。
+`templates` フォルダー内に、ブランクの `index.html` ファイルを作成してください。
 
 <!--
 Optionally, create a `functions.php` file.
@@ -212,9 +212,9 @@ theme
  |__ style.css
  |__ functions.php (optional)
  |__ index.php
- |__ block-templates
+ |__ templates
  	|__ index.html
- |__ block-template-parts
+ |__ parts
  	|__ (empty folder)
 ```
 
@@ -253,9 +253,9 @@ The fourth way is temporary and involves going to the Appearance menu > Template
 ### 手動でのテンプレート作成
 
 <!--
-Create two template part files called `header.html` and `footer.html` and place them inside the `block-template-parts` folder.
+Create two template part files called `header.html` and `footer.html` and place them inside the `parts` folder.
  -->
-2つのテンプレートパーツファイル `header.html` と `footer.html` を作成し、`block-template-parts` フォルダー内に保存します。
+2つのテンプレートパーツファイル `header.html` と `footer.html` を作成し、`parts` フォルダー内に保存します。
 
 <!--
 When you add blocks manually to your HTML files, start with an HTML comment that includes the block name prefixed with `wp:`.
@@ -288,7 +288,7 @@ Add a credit text to `footer.html`:
 Blocks are self-containing; the opening tag and the closing tag must be in the same template.
 You would not be able to place an opening tag for a group block in a header template and close it in a footer template.
  -->
-ブロックは自己完結型です。開始タグと囚虜タグは同じテンプレートにある必要があります。
+ブロックは自己完結型です。開始タグと終了タグは同じテンプレートにある必要があります。
 たとえば、ヘッダーテンプレート内にグループブロックの開始タグを置き、終了タグをフッターテンプレートに置くことはできません。
 
 <!--
@@ -419,15 +419,15 @@ are saved to the database as custom post types. To export them as theme files, f
 <!--
 - In the site editor, open the **More tools and options** menu.
 - Select the **Export** option to download a zip file containing the files. Unpack the files.
-- Copy the updated `index.html` file from `theme/block-templates/` to your theme's `block-templates` folder.
-- Copy template part one and two from `theme/block-template-parts/` to your theme's `block-template-parts` folder.
+- Copy the updated `index.html` file from `theme/templates/` to your theme's `templates` folder.
+- Copy template part one and two from `theme/parts/` to your theme's `parts` folder.
 - Rename the template parts to `header.html` and `footer.html`, respectively.
 - Open `index.html` and update the template part slugs in the block markup.
  -->
 - サイトエディターで右サイドバーの「オプション」メニュー (3点リーダーアイコン) を開く。
 - 「エクスポート」オプションを選択して、ファイルを含む zip ファイルをダウンロードする。ファイルを解凍する。
-- 更新された `index.html` ファイルを `theme/block-templates/` からテーマの `block-templates` フォルダにコピーする。
-- `theme/block-templates/`からテンプレートパーツ1と2をテーマの`block-template-parts`フォルダにコピーする。
+- 更新された `index.html` ファイルを `theme/templates/` からテーマの `block-templates` フォルダにコピーする。
+- `theme/parts/`からテンプレートパーツ1と2をテーマの `parts` フォルダにコピーする。
 - それぞれのテンプレートパーツの名前を、`header.html` と `footer.html` に変更する。
 - `index.html`を開き、ブロックマークアップ内のテンプレートパーツのスラッグを更新する。
 
@@ -544,11 +544,10 @@ The query pagination block can only be used inside the query loop. Place it insi
 #### 投稿と固定ページ
 
 <!--
-Next, create a new template for displaying single posts.
-If you are editing theme files directly, create a file called `single.html` inside the block-templates folder.
+If you are editing theme files directly, create a file called `single.html` inside the templates folder.
  -->
 次に、単一の投稿を表示する新しいテンプレートを作成します。
-テーマファイルを直接編集している場合は、block-templates フォルダ内にファイル `single.html` を作成します。
+テーマファイルを直接編集している場合は、templates フォルダ内にファイル `single.html` を作成します。
 
 <!--
 Add the site header and site footer template parts:
@@ -595,11 +594,11 @@ HTML ファイルを保存するか、サイトエディターで作業してい
 
 <!--
 Copy all the blocks and create a template for displaying pages.
-Optionally, save a copy of `single.html` as `page.html` inside the block-templates folder.
+Optionally, save a copy of `single.html` as `page.html` inside the templates folder.
 Adjust the blocks for the page template, and save.
  -->
 すべてのブロックをコピーして、ページを表示するテンプレートを作成します。
-オプションで、block-templates フォルダ内で `single.html` を `page.html` としてコピーします。
+オプションで、templates フォルダ内で `single.html` を `page.html` としてコピーします。
 固定ページテンプレート用にブロックを調整して、保存します。
 
 <!--
@@ -1288,10 +1287,10 @@ There are three template areas to choose from: Header, footer, and general.
 
 <!--
 Custom templates for posts, pages, and custom post types are created by adding additional HTML files inside the
-`block-templates` folder.
+`templates` folder.
 In a classic theme, templates are identified with a file header. In a block theme, you list templates in the `theme.json` file.
  -->
-投稿、ページ、カスタム投稿タイプ用のカスタムテンプレートは、`block-templates` フォルダ内に追加のHTMLファイルを追加して作成します。
+投稿、ページ、カスタム投稿タイプ用のカスタムテンプレートは、`templates` フォルダ内に追加のHTMLファイルを追加して作成します。
 クラシックテーマでは、テンプレートはファイルヘッダで識別されます。ブロックテーマでは、`theme.json` ファイルでテンプレートをリストアップします。
 
 <!--

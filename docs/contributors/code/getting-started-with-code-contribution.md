@@ -15,9 +15,10 @@ The following guide is for setting up your local environment to contribute to th
 <!--
 -   Node.js
     Gutenberg is a JavaScript project and requires [Node.js](https://nodejs.org/). The project is built using the latest active LTS release of node, and the latest version of NPM. See the [LTS release schedule](https://github.com/nodejs/Release#release-schedule) for details.
+    Gutenberg is a JavaScript project and requires [Node.js](https://nodejs.org/). The project is built using Node.js v14, and npm v6. See the [LTS release schedule](https://github.com/nodejs/Release#release-schedule) for details.
 -->
 -   Node.js:
-    Gutenbergは JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは、最新のアクティブ な LTS リリースの node と、最新バージョンの NPM を使用して構築されています。詳細は [LTS release schedule](https://github.com/nodejs/Release#release-schedule) を参照してください。
+    Gutenbergは JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは、Node.js v14 と npm v6 を使用して構築されています。詳細は [LTS release schedule](https://github.com/nodejs/Release#release-schedule) を参照してください。
 
 <!--
 We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) since it is the easiest way to install and manage node for macOS, Linux, and Windows 10 using WSL2. See [our Development Tools guide](/docs/getting-started/devenv/README.md#development-tools) or the Nodejs site for additional installation instructions.
@@ -441,7 +442,7 @@ We recommend configuring your editor to automatically check for syntax and lint 
 <!--
 [EditorConfig](https://editorconfig.org/) defines a standard configuration for setting up your editor, for example using tabs instead of spaces. You should install the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) extension and it will automatically configure your editor to match the rules defined in [.editorconfig](https://github.com/WordPress/gutenberg/blob/HEAD/.editorconfig).
 -->
-[EditorConfig](https://editorconfig.org/) は、スペースの代わりにタブを使用するなど、エディター設定の標準構成を定義します。エクステンション [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) をインストールすると、[.editorconfig](https://github.com/WordPress/gutenberg/blob/HEAD/.editorconfig) で定義されたルールに合わせて、自動的にエディタを設定できます。
+[EditorConfig](https://editorconfig.org/) は、スペースの代わりにタブを使用するなど、エディター設定の標準構成を定義します。エクステンション [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) をインストールすると、[.editorconfig](https://github.com/WordPress/gutenberg/blob/HEAD/.editorconfig) で定義されたルールに合わせて、自動的にエディターを設定できます。
 
 <!--
 ### ESLint
@@ -479,7 +480,7 @@ With the extension installed, ESLint will use the [.eslintrc.js](https://github.
 To use Prettier with Visual Studio Code, you should install the [Prettier - Code formatter extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode). You can then configure it to be the default formatter and to automatically fix issues on save, by adding the following to your settings. **_Note_: depending on where you are viewing this document, the brackets may show as double, the proper format is just a single bracket.**
 -->
 
-Visual Studio Code で Prettier を使用するには、[Prettier - Code formatter extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) をインストールする必要があります。次に、設定を追加して、Prettier をデフォルトのフォーマッターとして、保存時に自動的に問題を修正します。**_注意_: このドキュメントの表示佳境によっては、ブラケットが二重に表示されるかもしれませんが、実際は一つです。**
+Visual Studio Code で Prettier を使用するには、[Prettier - Code formatter extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) をインストールする必要があります。次に、設定を追加して、Prettier をデフォルトのフォーマッターとして、保存時に自動的に問題を修正します。**_注意_: このドキュメントの表示環境によっては、ブラケットが二重に表示されるかもしれませんが、実際は一つです。**
 
 ```json
 "[[javascript]]": {
@@ -515,6 +516,6 @@ For other editors, see [Prettier's Editor Integration docs](https://prettier.io/
 <!--
 **TypeScript** is a typed superset of JavaScript language. The Gutenberg project uses TypeScript via JSDoc to [type check JavaScript files](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html). If you use Visual Studio Code, TypeScript support is built-in, otherwise see [TypeScript Editor Support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) for editor integrations.
 -->
-**TypeScript** は、JavaScript 言語の型付きの上位セットです。Gutenberg プロジェクトでは、JSDoc を通じて TypeScript を使用して [JavaScript ファイルの型チェック](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html) を行います。Visual Studio Code を使用している場合は、TypeScript サポートが組み込まれています。その他のエディターの場合は、エディタとの統合について [TypeScript Editor Support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) を参照してください。
+**TypeScript** は、JavaScript 言語の型付きの上位セットです。Gutenberg プロジェクトでは、JSDoc を通じて TypeScript を使用して [JavaScript ファイルの型チェック](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html) を行います。Visual Studio Code を使用している場合は、TypeScript サポートが組み込まれています。その他のエディターの場合は、エディターとの統合について [TypeScript Editor Support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/getting-started-with-code-contribution.md)

@@ -91,12 +91,12 @@ theme
 |__ style.css
 |__ theme.json
 |__ functions.php
-|__ block-templates
+|__ templates
     |__ index.html
     |__ single.html
     |__ archive.html
     |__ ...
-|__ block-template-parts
+|__ parts
     |__ header.html
     |__ footer.html
     |__ sidebar.html
@@ -187,11 +187,11 @@ Please note that the "Templates" admin menu under "Appearance" will _not_ list t
 ### フルサイトエディター内でのテンプレートの編集
 
 <!--
-To begin, create a blank template file within your theme. For example: `mytheme/block-templates/index.html`. Afterwards, open the Full-site editor. Your new template should appear as the active template, and should be blank. Add blocks as you normally would using Gutenberg. You can add and create template parts directly using the "Template Parts" block.
+To begin, create a blank template file within your theme. For example: `mytheme/templates/index.html`. Afterwards, open the Full-site editor. Your new template should appear as the active template, and should be blank. Add blocks as you normally would using Gutenberg. You can add and create template parts directly using the "Template Parts" block.
 
 Repeat for any additional templates you'd like to bundle with your theme.
  -->
-まずテーマ内にブランクのテンプレートファイルを作成してください。たとえば `mytheme/block-templates/index.html` です。次にフルサイトエディターを開きます。新しいテンプレートがアクティブテンプレートとして表示されますが、ブランクのはずです。そこに Gutenberg を普通使うようにしてブロックを追加します。「テンプレートパーツ」ブロックを使用して直接テンプレート発を追加、作成できます。
+まずテーマ内にブランクのテンプレートファイルを作成してください。たとえば `mytheme/templates/index.html` です。次にフルサイトエディターを開きます。新しいテンプレートがアクティブテンプレートとして表示されますが、ブランクのはずです。そこに Gutenberg を普通使うようにしてブロックを追加します。「テンプレートパーツ」ブロックを使用して直接テンプレートパーツを追加、作成できます。
 
 これをテーマにバンドルする追加テンプレートの分、繰り返します。
 
@@ -241,6 +241,7 @@ As we're still early in the process, the number of blocks specifically dedicated
 -   Query
 -   Query Loop
 -   Query Pagination
+-   Pattern
 -   Post Title
 -   Post Content
 -   Post Author
@@ -265,6 +266,62 @@ As we're still early in the process, the number of blocks specifically dedicated
 One of the most important aspects of themes (if not the most important) is the styling. While initially you'll be able to provide styles and enqueue them using the same hooks themes have always used, the [Global Styles](/docs/how-to-guides/themes/theme-json.md) effort will provide a scaffolding for adding many theme styles in the future.
  -->
 テーマのもっとも重要な要素の1つ、あるいはテーマのもっとも重要な要素は、スタイリングです。当分の間は、準備したスタイルを、テーマが通常行うのと同じフックを使用してエンキューできますが、将来的には開発中の「[グローバルスタイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)」で多くのテーマスタイルを追加するひな形が提供される予定です。
+
+<!-- 
+## Internationalization (i18n)
+ -->
+## 国際化 (i18n)
+
+<!-- 
+A pattern block can be used to insert translatable content inside a block template. Since those files are php-based, there is a mechanism to mark strings for translation or supply dynamic URLs.
+ -->
+パターンブロックを使用して、ブロックテンプレート内に翻訳可能なコンテンツを挿入できます。このファイルは PHP ベースのため、翻訳用に文字列をマークしたり、動的なURLを提供する仕組みがあります。
+
+<!-- 
+#### Example
+
+Register a pattern: 
+ -->
+#### 例
+
+パターンを登録します。 
+
+```php
+<?php
+register_block_pattern( 
+	'myblocktheme/wordpress-credit',
+	array(
+		'title'      => __( 'Wordpress credit', 'myblocktheme' ),
+		'content'    => '
+						<!-- wp:paragraph -->
+						<p>' .
+						sprintf(
+							/* Translators: WordPress link. */
+							esc_html__( 'Proudly Powered by %s', 'myblocktheme' ),
+							'<a href="' . esc_url( __( 'https://wordpress.org', 'myblocktheme' ) ) . '" rel="nofollow">WordPress</a>'
+						) . '</p>
+						<!-- /wp:paragraph -->',
+		'inserter'   => false
+	)
+);
+```
+<!-- 
+Load the pattern in a template or template part:
+ -->
+テンプレート、またはテンプレートパーツ内にパターンをロードします。
+
+```html
+<!-- wp:group -->
+<div class="wp-block-group">
+<!-- wp:pattern {"slug":"myblocktheme/wordpress-credit"} /-->
+</div>
+<!-- /wp:group -->
+```
+
+<!-- 
+You can read more about [internationalization in WordPress here](https://developer.wordpress.org/apis/handbook/internationalization/).
+ -->
+詳細については [WordPress の国際化](https://developer.wordpress.org/apis/handbook/internationalization/) を参照してください。
 
 <!--
 ## Classic Themes

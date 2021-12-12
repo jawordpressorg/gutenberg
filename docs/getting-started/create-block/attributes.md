@@ -67,12 +67,23 @@ The component is added similar to an HTML tag, setting a label, the `value` is s
 コンポーネントは HTML タグと同じように追加できます。ラベルを設定し、`value` に `attributes.message` をセットし、`onChange` 関数に `setAttributes` を使用して message 属性の値を更新します。
 <!--
 The save function will simply write the `attributes.message` as a div tag since that is how we defined it to be parsed.
+ -->
+save 関数は単純に `attributes.message` を div タグとして書き出します。これはそのようにパースされると定義したことに依ります。
 
+<!-- 
+OPTIONAL: For IDE support (code completion and hints), you can install the `@wordpress/components` module which is where the TextControl component is imported from. This install command is optional since the build process automatically detects `@wordpress/*` imports and specifies as dependencies in the assets file.
+ -->
+オプション: IDEサポート（コード補完やヒント）のために、TextControl コンポーネントがインポートされる`@wordpress/components` モジュールをインストールできます。このインストールコマンドはオプションです。ビルドプロセスは、自動的に `@wordpress/*` のインポートを検出して、アセットファイルの中で依存関係を指定します。
+
+```shell
+npm install @wordpress/components --save
+```
+
+<!--
 Update the edit.js and save.js files to the following, replacing the existing functions.
 
 **edit.js** file:
  -->
-save 関数は単純に `attributes.message` を div タグとして書き出します。これはそのようにパースされると定義したことに依ります。
 
 edit.js ファイルと save.js ファイルを以下のように更新し、既存の関数を置き換えてください。
 
@@ -110,11 +121,13 @@ export default function save( { attributes } ) {
 }
 ```
 <!--
-Rebuild the block using `npm run build`, reload the editor and add the block. Type a message in the editor, save, and view it in the post.
+If you have previously run `npm start`, and the script is still running, you can reload the editor now and add the block to test.
+Otherwise rebuild the block using `npm run build`, reload the editor and add the block. Type a message in the editor, save, and view it in the post.
 
 Next Section: [Code Implementation](/docs/getting-started/create-block/block-code.md)
  -->
-`npm run build` を使用してブロックをリビルドし、エディターをリロードして、ブロックを追加してください。エディターでメッセージを入力し、保存し、投稿を表示してみてください。
+以前に `npm start` を実行して、スクリプトがまだ実行されている場合は、エディターをリロードして、ブロックをテストに追加できます。
+そうでなければ、`npm run build` を使用してブロックをリビルドし、エディターをリロードして、ブロックを追加してください。エディターでメッセージを入力し、保存し、投稿を表示してみてください。
 
 次のセクション: [コードの実装](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/block-code/)
 

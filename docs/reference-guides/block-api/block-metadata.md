@@ -759,7 +759,7 @@ Block type frontend and editor script definition. It will be enqueued both in th
 -   Since: `WordPress 5.9.0`
 
 ```json
-{ "script": "file:./build/view.js" }
+{ "viewScript": "file:./build/view.js" }
 ```
 
 <!-- 
