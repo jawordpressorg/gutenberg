@@ -99,10 +99,6 @@ To declare this transformation we add the following code into the heading block 
  -->
 この変換を宣言するには「見出し」ブロック構成に以下のコードを追加します。[`wp-blocks` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-blocks/#createBlock) から `createBlock` 関数を使用します。
 
-**ESNext**
-{% codetabs %}
-{% ESNext %}
-
 ```js
 transforms: {
     from: [
@@ -118,27 +114,6 @@ transforms: {
     ]
 },
 ```
-**ES5**
-{% ES5 %}
-
-```js
-transforms: {
-    from: [
-        {
-            type: 'block',
-            blocks: [ 'core/paragraph' ],
-            transform: function ( attributes ) {
-                return createBlock( 'core/heading', {
-                    content: attributes.content,
-                } );
-            },
-        },
-    ]
-},
-```
-
-{% end %}
-
 <!--
 **Example: blocks that have InnerBlocks**
  -->
@@ -147,10 +122,6 @@ transforms: {
 A block with InnerBlocks can also be transformed from and to another block with InnerBlocks.
  -->
 InnerBlock をもつブロックも別の InnerBlock をもつブロックとの間で変換できます。
-
-**ESNext**
-{% codetabs %}
-{% ESNext %}
 
 ```js
 transforms: {
@@ -169,29 +140,6 @@ transforms: {
     ],
 },
 ```
-
-**ES5**
-{% ES5 %}
-
-```js
-transforms: {
-    to: [
-        {
-            type: 'block',
-            blocks: [ 'some/block-with-innerblocks' ],
-            transform: function( attributes, innerBlocks ) {
-                return createBlock(
-                    'some/other-block-with-innerblocks',
-                    attributes,
-                    innerBlocks
-                );
-            },
-        },
-    ],
-},
-```
-
-{% end %}
 <!--
 ### Enter
  -->
@@ -226,10 +174,6 @@ To create a separator block when the user types the hypen three times and then h
  -->
 ユーザーが「-」を3回入力し Enter キーを押下した場合に「区切り」ブロックを作成します。
 
-**ESNext**
-{% codetabs %}
-{% ESNext %}
-
 ```js
 transforms = {
 	from: [
@@ -241,24 +185,6 @@ transforms = {
 	],
 };
 ```
-**ES5**
-{% ES5 %}
-
-```js
-transforms = {
-	from: [
-		{
-			type: 'enter',
-			regExp: /^-{3,}$/,
-			transform: function ( value ) {
-				return createBlock( 'core/separator' );
-			},
-		},
-	],
-};
-```
-
-{% end %}
 <!--
 ### Files
  -->
@@ -294,9 +220,6 @@ To create a File block when the user drops a file into the editor we can use the
 ユーザーがエディターにファイルをドロップすると「ファイル」ブロックに変換します。
 
 <!--
-{% codetabs %}
-{% ESNext %}
-
 ```js
 transforms: {
 	from: [
@@ -321,39 +244,8 @@ transforms: {
 	];
 }
 ```
+-->
 
-{% ES5 %}
-
-```js
-transforms: {
-	from: [
-		{
-			type: 'files',
-			isMatch: function ( files ) {
-				return files.length === 1;
-			},
-			// By defining a lower priority than the default of 10,
-			// we make that the File block to be created as a fallback,
-			// if no other transform is found.
-			priority: 15,
-			transform: function ( files ) {
-				var file = files[ 0 ];
-				var blobURL = createBlobURL( file );
-				// File will be uploaded in componentDidMount()
-				return createBlock( 'core/file', {
-					href: blobURL,
-					fileName: file.name,
-					textLinkHref: blobURL,
-				} );
-			},
-		},
-	];
-}
-```
-{% end %} -->
-**ESNext**
-{% codetabs %}
-{% ESNext %}
 ```js
 transforms: {
     from: [
@@ -378,36 +270,6 @@ transforms: {
     ];
 }
 ```
-**ES5**
-{% ES5 %}
-```js
-transforms: {
-    from: [
-        {
-            type: 'files',
-            isMatch: function( files ) {
-                return files.length === 1;
-            },
-            // デフォルトの 10 よりも低いプライオリティを設定することで
-            // 他の変換が見つからない場合のフォールバックとして
-            // 「ファイル」ブロックを作成できます。
-            priority: 15,
-            transform: function( files ) {
-                var file = files[ 0 ];
-                var blobURL = createBlobURL( file );
-                // ファイルは componentDidMount() でアップロードされます。
-                return createBlock( 'core/file', {
-                    href: blobURL,
-                    fileName: file.name,
-                    textLinkHref: blobURL,
-                } );
-            },
-        },
-    ];
-}
-```
-
-{% end %}
 
 <!--
 ### Prefix
@@ -423,7 +285,7 @@ A transformation of type `prefix` is an object that takes the following paramete
 `prefix` 変換タイプは次のパラメータを取るオブジェクトです。
 
 <!--
--   **type** _(string)_: the value `files`.
+-   **type** _(string)_: the value `prefix`.
 -   **prefix** _(string)_: the character or sequence of characters that match this transfrom.
 -   **transform** _(function)_: a callback that receives the content introduced. It should return a block object or an array of block objects.
 -   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
@@ -442,10 +304,6 @@ If we want to create a custom block when the user types the question mark, we co
  -->
 ユーザーが疑問符「?」を入力するとカスタムブロックを作成します。
 
-**ESNext**
-{% codetabs %}
-{% ESNext %}
-
 ```js
 transforms: {
 	from: [
@@ -461,26 +319,7 @@ transforms: {
 	];
 }
 ```
-**ES5**
-{% ES5 %}
 
-```js
-transforms: {
-	from: [
-		{
-			type: 'prefix',
-			prefix: '?',
-			transform: function ( content ) {
-				return createBlock( 'my-plugin/question', {
-					content,
-				} );
-			},
-		},
-	];
-}
-```
-
-{% end %}
 <!--
 ### Raw
  -->
@@ -518,10 +357,6 @@ If we want to create an Embed block when the user pastes some URL in the editor,
  -->
 ユーザーがエディターに URL を貼り付けると「埋め込み」ブロックを作成する。
 
-**ESNext**
-{% codetabs %}
-{% ESNext %}
-
 ```js
 transforms: {
     from: [
@@ -539,29 +374,7 @@ transforms: {
     ],
 }
 ```
-**ES5**
-{% ES5 %}
 
-```js
-transforms: {
-    from: [
-        {
-            type: 'raw',
-            isMatch: function( node ) {
-                return node.nodeName === 'P' &&
-                    /^\s*(https?:\/\/\S+)\s*$/i.test( node.textContent );
-            },
-            transform: function( node ) {
-                return createBlock( 'core/embed', {
-                    url: node.textContent.trim(),
-                } );
-            },
-        },
-    ],
-}
-```
-
-{% end %}
 <!--
 ### Shortcode
  -->
@@ -597,10 +410,7 @@ An existing shortcode can be transformed into its block counterpart.
  -->
 既存のショートコードをブロックバージョンに変換する。
 
-<!--
-{% codetabs %}
-{% ESNext %}
-
+<!-- 
 ```js
 transforms: {
     from: [
@@ -634,49 +444,7 @@ transforms: {
     ]
 },
 ```
-
-{% ES5 %}
-
-```js
-transforms: {
-    from: [
-        {
-            type: 'shortcode',
-            tag: 'caption',
-            attributes: {
-                url: {
-                    type: 'string',
-                    source: 'attribute',
-                    attribute: 'src',
-                    selector: 'img',
-                },
-                align: {
-                    type: 'string',
-                    // The shortcode function will extract
-                    // the shortcode atts into a value
-                    // to be sourced in the block's comment.
-                    shortcode: function( attributes ) {
-                        var align = attributes.named.align ? attributes.named.align : 'alignnone';
-                        return align.replace( 'align', '' );
-                    },
-                },
-            },
-            // Prevent the shortcode to be converted
-            // into this block when it doesn't
-            // have the proper ID.
-            isMatch: function( attributes ) {
-                return attributes.named.id === 'my-id';
-            },
-        },
-    ]
-},
-```
-
-{% end %}
  -->
-**ESNext**
-{% codetabs %}
-{% ESNext %}
 ```js
 transforms: {
     from: [
@@ -710,42 +478,5 @@ transforms: {
     ]
 },
 ```
-**ES5**
-{% ES5 %}
-```js
-transforms: {
-    from: [
-        {
-            type: 'shortcode',
-            tag: 'caption',
-            attributes: {
-                url: {
-                    type: 'string',
-                    source: 'attribute',
-                    attribute: 'src',
-                    selector: 'img',
-                },
-                align: {
-                    type: 'string',
-                    // ショートコード関数は
-                    // ブロックコメントを source とする形式で
-                    // ショートコード属性を取り出す。
-                    shortcode: function( attributes ) {
-                        var align = attributes.named.align ? attributes.named.align : 'alignnone';
-                        return align.replace( 'align', '' );
-                    },
-                },
-            },
-            // 適切な ID をもたない場合、
-            // ショートコードからこのブロックへの変換は
-            // 行われない。
-            isMatch: function( attributes ) {
-                return attributes.named.id === 'my-id';
-            },
-        },
-    ]
-},
-```
-{% end %}
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-transforms.md)

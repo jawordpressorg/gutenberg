@@ -58,9 +58,9 @@ There are a number of core blocks using the RichText component. The JavaScript e
 ## Example
 
 {% codetabs %}
-{% ESNext %}
+{% JSX %}
 
-```js
+```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
@@ -98,7 +98,7 @@ registerBlockType( /* ... */, {
 } );
 ```
 
-{% ES5 %}
+{% Plain %}
 
 ```js
 wp.blocks.registerBlockType( /* ... */, {
@@ -140,9 +140,8 @@ wp.blocks.registerBlockType( /* ... */, {
  -->
 ## 例
 
-**ESNext**
+**JSX**
 
-{% ESNext %}
 ```js
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
@@ -182,10 +181,8 @@ registerBlockType( /* ... */, {
 } );
 ```
 
-**ES5**
+**Plain**
 
-{% codetabs %}
-{% ES5 %}
 ```js
 wp.blocks.registerBlockType( /* ... */, {
 	// ...
@@ -222,8 +219,6 @@ wp.blocks.registerBlockType( /* ... */, {
 } );
 ```
 
-{% end %}
-
 <!--
 ## Common Issues & Solutions
 
@@ -257,11 +252,11 @@ RichText のプレースホルダーコンテンツが表示したい入力域�
 <!--
 ### HTML Formatting Tags Display in the Content
 
-If the HTML tags from text formatting such as `<strong>` or `<em>` are being escaped and displayed on the frontend of the site, this is likely due to an issue in your save function. Make sure your code looks something like `<RichText.Content tagName="h2" value={ heading } />` (ESNext) within your save function instead of simply outputting the value with `<h2>{ heading }</h2>`.
+If the HTML tags from text formatting such as `<strong>` or `<em>` are being escaped and displayed on the frontend of the site, this is likely due to an issue in your save function. Make sure your code looks something like `<RichText.Content tagName="h2" value={ heading } />` (JSX) within your save function instead of simply outputting the value with `<h2>{ heading }</h2>`.
  -->
 ### コンテンツ内に HTML フォーマットタグが表示される
 
-`<strong>` や `<em>` などのテキストフォーマットの HTML タグがエスケープされてサイトのフロントエンド側に表示される場合は恐らく save 関数の問題です。save 関数のコードが `<RichText.Content tagName="h2" value={ heading } />` (ESNext の場合) のようになっていることを確認してください。単純な出力 `<h2>{ heading }</h2>` は誤りです。
+`<strong>` や `<em>` などのテキストフォーマットの HTML タグがエスケープされてサイトのフロントエンド側に表示される場合は恐らく save 関数の問題です。save 関数のコードが `<RichText.Content tagName="h2" value={ heading } />` (JSX の場合) のようになっていることを確認してください。単純な出力 `<h2>{ heading }</h2>` は誤りです。
 
 <!--
 ### Unwanted Formatting Options Still Display

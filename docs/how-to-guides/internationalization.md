@@ -84,7 +84,7 @@ In your code, you can include the i18n functions. The most common function is **
 
 <!--
 {% codetabs %}
-{% ESNext %}
+{% JSX %}
 
 ```js
 import { __ } from '@wordpress/i18n';
@@ -110,7 +110,7 @@ registerBlockType( 'myguten/simple', {
 } );
 ```
 
-{% ES5 %}
+{% Plain %}
 
 ```js
 const { __ } = wp.i18n;
@@ -138,9 +138,8 @@ registerBlockType( 'myguten/simple', {
 {% end %}
  -->
 
-{% codetabs %}
-{% ESNext %}
-**ESNext**
+**JSX**
+
 `npm init @wordpress/block --namespace myguten simple-block` を実行し、`src/index/js` に次のコードを記入してください。
 
 ```js
@@ -175,8 +174,7 @@ registerBlockType('myguten/simple-block', {
 });
 ```
 
-{% ES5 %}
-**ES5**
+**Plain**
 
 ```js
 const { __ } = wp.i18n;
@@ -208,7 +206,6 @@ registerBlockType( 'myguten/simple', {
 	},
 } );
 ```
-{% end %}
 
 <!--
 In the above example, the function will use the first argument for the string to be translated. The second argument is the text domain which must match the text domain slug specified by your plugin.

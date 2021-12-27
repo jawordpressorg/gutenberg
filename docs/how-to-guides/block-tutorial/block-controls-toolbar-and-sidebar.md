@@ -25,11 +25,11 @@ You can also customize the toolbar to include controls specific to your block ty
 
 ツールバーをカスタマイズして、ブロックタイプ固有のコントロールを表示することもできます。ブロックタイプの `edit` 関数の戻り値に `BlockControls` を加えると、ブロックのツールバーにそのコントロールが表示されます。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -109,9 +109,10 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 } );
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 ( function ( blocks, blockEditor, element ) {
 	var el = element.createElement;
@@ -196,9 +197,9 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 	} );
 } )( window.wp.blocks, window.wp.blockEditor, window.wp.element );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 Note that `BlockControls` is only visible when the block is currently selected and in visual editing mode. `BlockControls` are not shown when editing a block in HTML editing mode.
  -->

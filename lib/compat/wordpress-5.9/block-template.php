@@ -9,7 +9,7 @@
  * Adds necessary filters to use 'wp_template' posts instead of theme template files.
  */
 function gutenberg_add_template_loader_filters() {
-	if ( ! gutenberg_supports_block_templates() ) {
+	if ( ! current_theme_supports( 'block-templates' ) ) {
 		return;
 	}
 	$template_type_slugs = array_keys( get_default_block_template_types() );
@@ -216,7 +216,10 @@ function gutenberg_get_the_template_html() {
 	$content = $wp_embed->autoembed( $content );
 	$content = do_blocks( $content );
 	$content = wptexturize( $content );
+	$content = convert_smilies( $content );
+	$content = shortcode_unautop( $content );
 	$content = wp_filter_content_tags( $content );
+	$content = do_shortcode( $content );
 	$content = str_replace( ']]>', ']]&gt;', $content );
 
 	// Wrap block template in .wp-site-blocks to allow for specific descendant styles

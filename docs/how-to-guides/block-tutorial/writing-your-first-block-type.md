@@ -54,14 +54,14 @@ add_action( 'init', 'gutenberg_examples_01_register_block' );
 <!--
 Note the above example, shows using the [wp-scripts build step](/docs/how-to-guides/javascript/js-build-setup/) that automatically sets dependencies and versions the file.
 
-If you were using the ES5 code, you would specify `array( 'wp-blocks', 'wp-element' )` as the dependency array. See the [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) in Gutenberg Examples repository for full syntax.
+If you were using the plain code, you would specify `array( 'wp-blocks', 'wp-element' )` as the dependency array. See the [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) in Gutenberg Examples repository for full syntax.
 
 -   **`wp-blocks`** includes block type registration and related functions
 -   **`wp-element`** includes the [WordPress Element abstraction](/packages/element/README.md) for describing the structure of your blocks
  -->
 注意: 上の例では [wp-scripts ビルド手順](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/) を使用して自動的に依存性やファイルのバージョンを設定しています。
 
-ES5 コードを使用する場合には、依存性の配列として `array( 'wp-blocks', 'wp-element' )` を指定してください。完全な構文については Gutenberg Examples リポジトリー内の [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) を参照してください。
+Plain コードを使用する場合には、依存性の配列として `array( 'wp-blocks', 'wp-element' )` を指定してください。完全な構文については Gutenberg Examples リポジトリー内の [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) を参照してください。
 
 - __`wp-blocks`__ ブロックタイプの登録および関連する関数を含む
 - __`wp-element`__ ブロックの構造を記述する [WordPress Element abstraction](/packages/element/README.md) を含む
@@ -76,11 +76,11 @@ With the script enqueued, let's look at the implementation of the block itself:
 
 エンキューされるスクリプトでブロックの実装を確認します。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
@@ -116,9 +116,10 @@ registerBlockType( 'gutenberg-examples/example-01-basic-esnext', {
 } );
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 ( function ( blocks, element, blockEditor ) {
 	var el = element.createElement;
@@ -155,9 +156,9 @@ registerBlockType( 'gutenberg-examples/example-01-basic-esnext', {
 	} );
 } )( window.wp.blocks, window.wp.element, window.wp.blockEditor );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 _By now you should be able to see `Hello World (from the editor).` in the admin side and `Hello World (from the frontend).` on the frontend side._
  -->

@@ -1,6 +1,28 @@
-# 変更履歴
+# 日本語版変更履歴
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
+
+2021/12/28
+- [React Native mobile editor](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/) 以下 - React Native 節新設 [#36685](https://github.com/WordPress/gutenberg/pull/36685)
+- [ブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/)など - "ESNext & ES5" を "JSX & Plain" に [#37348](https://github.com/WordPress/gutenberg/pull/37348)
+- [ブロックテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/) - アクセシビリティ追加 [#36555](https://github.com/WordPress/gutenberg/pull/36555)
+- [書式ツールバー API](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/format-api/) - 全体を整理 [#37298](https://github.com/WordPress/gutenberg/pull/37298)
+- [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) - 全体を整理 [#37490](https://github.com/WordPress/gutenberg/pull/37490)
+- 以下、未訳分で変更に気がついたもの
+- [Core Block Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 新規
+- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - rootClientId 削除 [#37453](https://github.com/WordPress/gutenberg/pull/37453) 
+- [InnerBlocks](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/inner-blocks/README.md) - excerpt の注意追記 [#36405](https://github.com/WordPress/gutenberg/pull/36405)
+- [Navigation block](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/navigation/README.md) - 新規
+- [Card](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/card/card/README.md) - Text と Heading は実験 [#37290](https://github.com/WordPress/gutenberg/pull/37290)
+- [DateTimePicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/date-time/README.md) - onMonthPreviewed 追加 [#36835](https://github.com/WordPress/gutenberg/pull/36835)
+- [MenuItem](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/menu-item/README.md) - shortcut の説明修正 [#36800](https://github.com/WordPress/gutenberg/pull/36800)
+- [Navigation](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigation/README.md) - CSS Classes leveraged 削除 [#37375](https://github.com/WordPress/gutenberg/pull/37375)
+- [QueryControls](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/query-controls/README.md) - 全体を更新 [#37233](https://github.com/WordPress/gutenberg/pull/37233)
+- [RadioGroup](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/radio-group/README.md) - まだ実験中 [#36934](https://github.com/WordPress/gutenberg/pull/36934)
+- [ToolsPanel](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tools-panel/tools-panel/README.md) - panelId の null の扱い [#37273](https://github.com/WordPress/gutenberg/pull/37273)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - createReusableBlock 追加 [#37333](https://github.com/WordPress/gutenberg/pull/37333)
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - start -hot 追加 [#28273](https://github.com/WordPress/gutenberg/pull/28273)
+- [Schemas](https://github.com/WordPress/gutenberg/blob/trunk/schemas/README.md) - 全体を更新 [#37294](https://github.com/WordPress/gutenberg/pull/37294)
 
 2021/12/7
 - [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - Node.js v14 と npm v6 で固定 [#36744](https://github.com/WordPress/gutenberg/pull/36744)

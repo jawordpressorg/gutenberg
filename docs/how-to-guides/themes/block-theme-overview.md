@@ -341,6 +341,22 @@ Theme authors can opt-out of this feature by removing the `block-templates` them
 ```php
 remove_theme_support( 'block-templates' );
 ```
+<!-- 
+## Accessibility
+ -->
+## アクセシビリティ
+
+<!-- 
+A [skip to content link](https://make.wordpress.org/accessibility/handbook/markup/skip-links/) is automatically added on the front of the website when a webpage includes a `<main>` HTML element.
+The skip link points to the `<main>`.
+ -->
+ウェブページに HTML 要素 `<main>` が含まれている場合、[コンテンツへスキップするリンク](https://make.wordpress.org/accessibility/handbook/markup/skip-links/)が、自動的にウェブサイトの前に追加されます。
+スキップリンクは `<main>` を指します。
+
+<!-- 
+The group, template part, and query blocks can be changed to use `<main>`. You can find the setting to change the HTML element in the block settings sidebar under Advanced.
+ -->
+グループブロック、テンプレートパーツ、クエリーブロックは、`<main>`を使用するように変更できます。HTML 要素を変更する設定は、ブロック設定サイドバーの「詳細設定」で確認できます。
 
 <!--
 ## Resources

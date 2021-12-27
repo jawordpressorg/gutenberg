@@ -13,11 +13,11 @@ The editor will automatically generate a class name for each block type to simpl
  -->
 各ブロックタイプで簡単にスタイルできるようエディターは自動的にクラス名を生成します。クラス名は edit 関数、save 関数に渡される object 引数でアクセスできます。このセクションではクラス名を使用するスタイルシートを作成します。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
@@ -49,9 +49,10 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 } );
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 ( function ( blocks, element, blockEditor ) {
 	var el = element.createElement;
@@ -81,9 +82,9 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	} );
 } )( window.wp.blocks, window.wp.element, window.wp.blockEditor );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 The class name is generated using the block's name prefixed with `wp-block-`, replacing the `/` namespace separator with a single `-`.
  -->

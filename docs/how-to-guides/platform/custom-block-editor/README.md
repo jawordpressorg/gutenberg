@@ -31,15 +31,11 @@ To follow along with this tutorial, you can [download the accompanying WordPress
 ## Code Syntax
  -->
 ## コード構文
-<!--
 
-Code snippets are provided in "ESNext". ESNext refers to the next versions of the language standard, plus JSX syntax.
+<!-- 
+Code snippets are provided using JSX syntax. Note it is not required to use JSX to create blocks or extend the editor, you can use plain JavaScript. However, once familiar with JSX, many developers tend find it is easier to read and write, thus most code examples you'll find use that syntax.
  -->
-コード例は「ESNext」で示されます。言語仕様の次のバージョンである ESNext に加えて JSX 構文を使用します。
-<!--
-Note that it is not required to use ESNext to create blocks or extend the editor, you can use classic JavaScript. However, once familiar with ESNext, developers find it is easier to read and write, thus most code examples you'll find use the ESNext syntax.
- -->
-注意: ブロックの作成やエディターの拡張に ESNext の使用は必須ではありません。従来の JavaScript も使えます。しかし、いったん ESNext に慣れると開発者にとっては読むのも書くのもラクなため、紹介するほとんどのコード例は ESNext 構文を使用します。
+コード例は JSX 構文で示されます。注意: ブロックの作成やエディターの拡張に  JSX の使用は必須ではありません。従来の Plain な JavaScript も使えます。しかし、いったん JSX に慣れると、多くの開発者にとっては読むのも書くのもラクなため、紹介するほとんどのコード例は JSX 構文を使用します。
 
 <!--
 -   [Start custom block editor tutorial](/docs/reference-guides/platform/custom-block-editor/tutorial.md)

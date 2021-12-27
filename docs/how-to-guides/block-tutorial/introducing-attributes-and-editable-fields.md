@@ -87,11 +87,11 @@ Here is the complete block definition for Example 03.
 
 Example 03 の完全なブロック定義を以下に示します。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
@@ -144,9 +144,10 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	},
 } );
 ```
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 ( function ( blocks, blockEditor, element ) {
 	var el = element.createElement;
@@ -201,7 +202,7 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	} );
 } )( window.wp.blocks, window.wp.blockEditor, window.wp.element );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields.md)

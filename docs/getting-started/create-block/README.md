@@ -42,11 +42,13 @@ npx @wordpress/create-block gutenpride
 <!--
 The above command creates a new directory called `gutenpride`, installs the necessary files, and builds the block plugin. If you want an interactive mode that prompts you for details, run the command without the `gutenpride` name.
 
+The [npx command](https://docs.npmjs.com/cli/v7/commands/npx) runs a command from a remote package, in this case our create-block package that will create a new directory called `gutenpride`, installs the necessary files, and builds the block plugin. If you want an interactive mode that prompts you for details, run the command without the `gutenpride` name.
+
 You now need to activate the plugin from inside wp-admin plugins page.
 
 After activated, go to the block editor and use the inserter to search and add your new block.
  -->
-上のコマンドは新しいディレクトリ `gutenpride` を作成し、必要なファイルをインストールし、ブロックプラグインをビルドします。対話モードを使用して詳細を1つずつ指定するには、名前 `gutenpride` を指定せずにコマンドを実行してください。
+[npx コマンド](https://docs.npmjs.com/cli/v7/commands/npx)は、リモートパッケージからコマンドを実行します。この場合、create-block パッケージは新しいディレクトリ `gutenpride` を作成し、必要なファイルをインストールし、ブロックプラグインをビルドします。対話モードを使用して詳細を1つずつ指定するには、名前 `gutenpride` を指定せずにコマンドを実行してください。
 
 管理画面のプラグインページでプラグインを有効化します。
 

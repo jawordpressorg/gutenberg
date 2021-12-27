@@ -646,10 +646,11 @@ From here, meta attributes can be read and written by a block using the same int
  -->
 メタ属性は任意の属性と同じインターフェースを使用してブロックから読み書きできます。
 
-**ESNext**
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 edit( { attributes, setAttributes } ) {
 	function onChange( event ) {
@@ -660,9 +661,10 @@ edit( { attributes, setAttributes } ) {
 },
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 edit: function( props ) {
 	function onChange( event ) {
@@ -675,8 +677,9 @@ edit: function( props ) {
 	} );
 },
 ```
-
+<!-- 
 {% end %}
+ -->
 <!--
 ### Considerations
  -->

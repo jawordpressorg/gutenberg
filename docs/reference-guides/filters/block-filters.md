@@ -152,7 +152,7 @@ Used to modify the block's `edit` component. It receives the original block `Blo
 _Example:_
 
 {% codetabs %}
-{% ESNext %}
+{% JSX %}
 
 ```js
 const { createHigherOrderComponent } = wp.compose;
@@ -180,7 +180,7 @@ wp.hooks.addFilter(
 );
 ```
 
-{% ES5 %}
+{% Plain %}
 
 ```js
 var el = wp.element.createElement;
@@ -219,7 +219,7 @@ Used to modify the block's wrapper component containing the block's `edit` compo
 _Example:_
 
 {% codetabs %}
-{% ESNext %}
+{% JSX %}
 
 ```js
 const { createHigherOrderComponent } = wp.compose;
@@ -245,7 +245,7 @@ wp.hooks.addFilter(
 );
 ```
 
-{% ES5 %}
+{% Plain %}
 
 ```js
 var el = wp.element.createElement;
@@ -277,42 +277,51 @@ Adding new properties to the block's wrapper component can be achieved by adding
 _Example:_
 
 {% codetabs %}
-{% ESNext %}
+{% JSX %}
+
 ```js
 const { createHigherOrderComponent } = wp.compose;
 const withMyWrapperProp = createHigherOrderComponent( ( BlockListBlock ) => {
 	return ( props ) => {
 		const wrapperProps = {
-		    ...props.wrapperProps,
-		    'data-my-property': 'the-value',
+			...props.wrapperProps,
+			'data-my-property': 'the-value',
 		};
 		return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
 	};
 }, 'withMyWrapperProp' );
-wp.hooks.addFilter( 'editor.BlockListBlock', 'my-plugin/with-my-wrapper-prop', withMyWrapperProp );
+wp.hooks.addFilter(
+	'editor.BlockListBlock',
+	'my-plugin/with-my-wrapper-prop',
+	withMyWrapperProp
+);
 ```
-{% ES5 %}
+
+{% Plain %}
+
 ```js
 var el = wp.element.createElement;
 var hoc = wp.compose.createHigherOrderComponent;
 
-var withMyWrapperProp = hoc( function( BlockListBlock ) {
-	return function( props ) {
+var withMyWrapperProp = hoc( function ( BlockListBlock ) {
+	return function ( props ) {
 		var newProps = {
 			...props,
 			wrapperProps: {
 				...props.wrapperProps,
-				'data-my-property': 'the-value'
-			}
+				'data-my-property': 'the-value',
+			},
 		};
-		return el(
-			BlockListBlock,
-			newProps
-		);
+		return el( BlockListBlock, newProps );
 	};
 }, 'withMyWrapperProp' );
-wp.hooks.addFilter( 'editor.BlockListBlock', 'my-plugin/with-my-wrapper-prop', withMyWrapperProp );
+wp.hooks.addFilter(
+	'editor.BlockListBlock',
+	'my-plugin/with-my-wrapper-prop',
+	withMyWrapperProp
+);
 ```
+
 {% end %}
 
 ## Removing Blocks
@@ -331,7 +340,7 @@ Adding blocks is easy enough, removing them is as easy. Plugin or theme authors 
 **ESNext**
 
 {% codetabs %}
-{% ESNext %}
+{% JSX %}
 
 ```js
 // my-plugin.js
@@ -343,18 +352,19 @@ domReady( function () {
 } );
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 // my-plugin.js
 wp.domReady( function () {
 	wp.blocks.unregisterBlockType( 'core/verse' );
 } );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 and load this script in the Editor
  -->

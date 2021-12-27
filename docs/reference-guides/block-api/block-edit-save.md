@@ -13,11 +13,11 @@ The `edit` function describes the structure of your block in the context of the 
  -->
 `edit` 関数はエディターのコンテキスト内でのブロックの構造を記述します。ブロックが使用される際、エディターがどのようにブロックをレンダーするかを表します。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 import { useBlockProps } from '@wordpress/block-editor';
 
@@ -35,9 +35,10 @@ const blockSettings = {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 var blockSettings = {
 	apiVersion: 2,
@@ -51,9 +52,9 @@ var blockSettings = {
 	},
 };
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 ### block wrapper props
  -->
@@ -69,10 +70,11 @@ If the element wrapper needs any extra custom HTML attributes, these need to be 
  -->
 要素ラッパーで追加のカスタム HTML 属性が必要であれば、`useBlockProps` フックに引数として追加する必要があります。たとえば次のコードではラッパーに  `my-random-classname` className を追加します。
 
-**ESNext**
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 import { useBlockProps } from '@wordpress/block-editor';
 
@@ -92,9 +94,10 @@ const blockSettings = {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 var blockSettings = {
 	apiVersion: 2,
@@ -110,9 +113,9 @@ var blockSettings = {
 	},
 };
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 ### attributes
  -->
@@ -133,10 +136,11 @@ In this case, assuming we had defined an attribute of `content` during block reg
  -->
 この例ではブロック登録の際に `content` 属性を定義したと仮定し、`edit` 関数内で値を受け取って使用します。
 
-**ESNext**
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 edit: ( { attributes } ) => {
 	const blockProps = useBlockProps();
@@ -145,9 +149,10 @@ edit: ( { attributes } ) => {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 edit: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps();
@@ -159,9 +164,9 @@ edit: function( props ) {
 	);
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 The value of `attributes.content` will be displayed inside the `div` when inserting the block in the editor.
  -->
@@ -173,11 +178,11 @@ The isSelected property is an object that communicates whether the block is curr
  -->
 `isSelected` プロパティはブロックが現在選択されているかどうかを伝えるオブジェクトです。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 edit: ( { attributes, isSelected } ) => {
 	const blockProps = useBlockProps();
@@ -193,9 +198,10 @@ edit: ( { attributes, isSelected } ) => {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 edit: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps();
@@ -214,20 +220,20 @@ edit: function( props ) {
 	);
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 ### setAttributes
 <!--
 This function allows the block to update individual attributes based on user interactions.
  -->
 ブロックは `setAttributes` 関数を使用して、ユーザーの操作に基づき個々の属性を更新できます。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 edit: ( { attributes, setAttributes, isSelected } ) => {
 	const blockProps = useBlockProps();
@@ -248,9 +254,10 @@ edit: ( { attributes, setAttributes, isSelected } ) => {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 edit: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps();
@@ -275,20 +282,20 @@ edit: function( props ) {
 	);
 },
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 When using attributes that are objects or arrays it's a good idea to copy or clone the attribute prior to updating it:
  -->
 
 オブジェクトや配列の属性を使用する場合には、更新の前に属性をコピーするかクローンしてください。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 // Good - a new array is created from the old list attribute and a new list item:
 const { list } = attributes;
@@ -303,9 +310,10 @@ const addListItem = ( newListItem ) => {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 // Good - cloning the old list
 var newList = attributes.list.slice();
@@ -321,9 +329,9 @@ var addListItem = function ( newListItem ) {
 	setAttributes( { list: list } );
 };
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 Why do this? In JavaScript, arrays and objects are passed by reference, so this practice ensures changes won't affect other code that might hold references to the same data. Furthermore, the Gutenberg project follows the philosophy of the Redux library that [state should be immutable](https://redux.js.org/faq/immutable-data#what-are-the-benefits-of-immutability)—data should not be changed directly, but instead a new version of the data created containing the changes.
  -->
@@ -335,11 +343,11 @@ The `save` function defines the way in which the different attributes should be 
  -->
 `save` 関数は、最終的なマークアップに異なる属性を結合する方法を定義します。この属性は `post_content` 内にシリアライズされます。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 save: () => {
 	const blockProps = useBlockProps.save();
@@ -348,9 +356,10 @@ save: () => {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 save: function() {
 	var blockProps = wp.blockEditor.useBlockProps.save();
@@ -362,9 +371,9 @@ save: function() {
 	);
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 For most blocks, the return value of `save` should be an [instance of WordPress Element](/packages/element/README.md) representing how the block is to appear on the front of the site.
  -->
@@ -416,11 +425,11 @@ As with `edit`, the `save` function also receives an object argument including a
  -->
 `edit` 関数と同様 `save` 関数もまたオブジェクト引数を受け取ります。オブジェクト引数にはマークアップに挿入することができる属性が含まれます。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 save: ( { attributes } ) => {
 	const blockProps = useBlockProps.save();
@@ -429,9 +438,10 @@ save: ( { attributes } ) => {
 };
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 save: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps.save();
@@ -443,8 +453,9 @@ save: function( props ) {
 	);
 }
 ```
+<!-- 
 {% end %}
-
+ -->
 <!--
 When saving your block, you want to save the attributes in the same format specified by the attribute source definition. If no attribute source is specified, the attribute will be saved to the block's comment delimiter. See the [Block Attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
  -->
@@ -465,11 +476,11 @@ Here are a couple examples of using attributes, edit, and save all together. For
  -->
 ### 子要素への属性の保存
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 attributes: {
 	content: {
@@ -502,9 +513,10 @@ save: ( { attributes } ) => {
 },
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 attributes: {
 	content: {
@@ -541,9 +553,9 @@ save: function( props ) {
 	return wp.element.createElement( 'div', blockProps, props.attributes.content );
 },
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 ### Saving Attributes via Serialization
  -->
@@ -558,11 +570,11 @@ This example could be for a dynamic block, such as the [Latest Posts block](http
 
 次の例は[「最近の投稿」ブロック](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/latest-posts/index.js)のような、マークアップをサーバーサイドでレンダーするダイナミックブロックになります。`save` 関数は依然として必要ですが、ブロックはエディターからコンテンツを保存していないため、この例では単純に null を返しています。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```jsx
 attributes: {
 	postsToShow: {
@@ -591,9 +603,10 @@ save: () => {
 }
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 attributes: {
 	postsToShow: {
@@ -624,8 +637,9 @@ save: function() {
 	return null;
 }
 ```
+<!-- 
 {% end %}
-
+ -->
 <!--
 ## Validation
  -->

@@ -16,11 +16,11 @@ Here is the basic InnerBlocks usage.
 
 基本的な InnerBlocks の使用方法
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 import { registerBlockType } from '@wordpress/blocks';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
@@ -50,9 +50,10 @@ registerBlockType( 'gutenberg-examples/example-06', {
 } );
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 ( function ( blocks, element, blockEditor ) {
 	var el = element.createElement;
@@ -77,9 +78,9 @@ registerBlockType( 'gutenberg-examples/example-06', {
 	} );
 } )( window.wp.blocks, window.wp.element, window.wp.blockEditor );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 ## Allowed Blocks
 
@@ -121,11 +122,11 @@ Use the template property to define a set of blocks that prefill the InnerBlocks
 
 template プロパティを使用して、InnerBlocks コンポーネントが挿入された際にデフォルトで含まれるブロックの集合を定義できます。ブロックの属性を設定して使用例を定義できます。次の例は InnerBlocks コンポーネントを使用した本のレビューのテンプレートです。placeholder 値を設定してブロックの使用例を示しています。
 
-**ESNext**
-
+**JSX**
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 const MY_TEMPLATE = [
 	[ 'core/image', {} ],
@@ -145,9 +146,10 @@ const MY_TEMPLATE = [
 	},
 ```
 
-**ES5**
-{% ES5 %}
-
+**Plain**
+<!-- 
+{% Plain %}
+ -->
 ```js
 const MY_TEMPLATE = [
 	[ 'core/image', {} ],
@@ -167,9 +169,9 @@ const MY_TEMPLATE = [
 		);
 	},
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 Use the `templateLock` property to lock down the template. Using `all` locks the template completely so no changes can be made. Using `insert` prevents additional blocks from being inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
  -->

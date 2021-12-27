@@ -1604,5 +1604,6 @@ blockGapスタイルに定義する値は、プリセットされた CSS プロ�
 		}
 	}
 }
+```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-json.md)

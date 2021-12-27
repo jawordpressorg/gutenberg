@@ -39,9 +39,6 @@ For blocks with multiple deprecations, it may be easier to save each deprecation
 ### Example:
  -->
 ### 例:
-#### ESNext
-{% codetabs %}
-{% ESNext %}
 
 ```js
 const v1 = {};
@@ -49,17 +46,6 @@ const v2 = {};
 const v3 = {};
 const deprecated = [ v3, v2, v1 ];
 ```
-#### ES5
-{% ES5 %}
-
-```js
-var v1 = {};
-var v2 = {};
-var v3 = {};
-var deprecated = [ v3, v2, v1 ];
-```
-
-{% end %}
 
 <!--
 It is also recommended to keep [fixtures](https://github.com/WordPress/gutenberg/blob/HEAD/test/integration/fixtures/blocks/README.md) which contain the different versions of the block content to allow you to easily test that new deprecations and migrations are working across all previous versions of the block.
@@ -94,11 +80,11 @@ It's important to note that `attributes`, `supports`, and `save` are not automat
  -->
 ### 例:
 
-#### ESNext
-
+#### JSX
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 const { registerBlockType } = wp.blocks;
 const attributes = {
@@ -129,9 +115,10 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 } );
 ```
 
-#### ES5
-{% ES5 %}
-
+#### Plain
+<!-- 
+{% Plain %}
+ -->
 ```js
 var el = wp.element.createElement,
 	registerBlockType = wp.blocks.registerBlockType,
@@ -162,9 +149,9 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	],
 } );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 In the example above we updated the markup of the block to use a `div` instead of `p`.
  -->
@@ -185,11 +172,11 @@ Sometimes, you need to update the attributes set to rename or modify old attribu
  -->
 ### 例:
 
-#### ESNext
-
+#### JSX
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 const { registerBlockType } = wp.blocks;
 
@@ -230,9 +217,10 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 } );
 ```
 
-#### ES5
-{% ES5 %}
-
+#### Plain
+<!-- 
+{% Plain %}
+ -->
 ```js
 var el = wp.element.createElement,
 	registerBlockType = wp.blocks.registerBlockType;
@@ -273,9 +261,9 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	],
 } );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 In the example above we updated the markup of the block to use a `div` instead of `p` and rename the `text` attribute to `content`.
  -->
@@ -298,11 +286,11 @@ E.g: a block wants to migrate a title attribute to a paragraph innerBlock.
  -->
 ### 例:
 
-#### ESNext
-
+#### JSX
+<!-- 
 {% codetabs %}
-{% ESNext %}
-
+{% JSX %}
+ -->
 ```js
 const { registerBlockType } = wp.blocks;
 const { omit } = lodash;
@@ -345,9 +333,10 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 } );
 ```
 
-#### ES5
-{% ES5 %}
-
+#### Plain
+<!-- 
+{% Plain %}
+ -->
 ```js
 var el = wp.element.createElement,
 	registerBlockType = wp.blocks.registerBlockType,
@@ -385,9 +374,9 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	],
 } );
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 In the example above we updated the block to use an inner Paragraph block with a title instead of a title attribute.
  -->
