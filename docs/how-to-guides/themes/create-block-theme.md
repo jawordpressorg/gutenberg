@@ -685,7 +685,7 @@ Next, add three main sections:
 - Styles -Where you apply styles to the website, elements, and blocks.
 - templateParts -For assigning template part files to template areas.
  -->
-- settinngs - 機能を有効化し、スタイルのプリセットを作成する。
+- settings - 機能を有効化し、スタイルのプリセットを作成する。
 - styles - サイト、要素、ブロックにスタイルを適用する。
 - templateParts - テンプレートエリアにテンプレートパーツファイルを割り当てる。
 
