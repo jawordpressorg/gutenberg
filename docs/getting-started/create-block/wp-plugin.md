@@ -155,7 +155,7 @@ By default, the build scripts looks for `src/index.js` for the JavaScript file t
  -->
 ## スクリプトをロードするプラグイン
 <!--
-To load the built script, so it is run within the editor, you need to tell WordPress about the script. This done in the init action in the `gutenpride.php` file.
+To load the built script, so it is run within the editor, you need to tell WordPress about the script. This is done in the init action in the `gutenpride.php` file.
  -->
 エディター内で動作するようビルドしたスクリプトをロードするには、WordPress に対してスクリプトのことを伝える必要があります。これは `gutenpride.php` ファイル内の init アクションで行います。
 

@@ -69,13 +69,13 @@ function YourBlockEdit( { attributes } ) {
 <!--
 The block is responsible for using the `save` function to ensure that all attributes with a `source` field are saved according to the attributes definition. This is not automatic.
 
-Attributes without a `source` will be automatically saved in the block [comment delimiter](/docs/getting-started/architecture/key-concepts.md#delimiters-and-parsing-expression-grammar).
+Attributes without a `source` will be automatically saved in the block [comment delimiter](/docs/explanations/architecture/key-concepts.md#data-attributes).
 
 For example, using the above attributes definition you would need to ensure that your `save` function has a corresponding img tag for the `url` attribute. The `title` and `size` attributes will be saved in the comment delimiter.
  -->
 ブロックには、`save` 関数を使用して、`source` フィールドを持つすべての属性を、属性定義に従って保存する責任があります。これは自動的には行われません。
 
-一方、`source` のない属性は、自動的にブロックの[コメントデリミタ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/#delimiters-and-parsing-expression-grammar)に保存されます。
+一方、`source` のない属性は、自動的にブロックの[コメントデリミタ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts#data-attributes)に保存されます。
 
 例えば、上の属性定義を使用する場合、`save` 関数で、`url` 属性に対応する img タグがあることを確認する必要があります。一方、`title` と `size` 属性は、コメントデリミタに保存されます。
 
@@ -206,7 +206,7 @@ _例_: `enum` の例
 Attribute sources are used to define how the attribute values are extracted from saved post content. They provide a mechanism to map from the saved markup to a JavaScript representation of a block.
 
 The available `source` values are:
-- `(no value)` - when no `source` is specified then data is stored in the block's [comment delimiter](/docs/getting-started/architecture/key-concepts.md#delimiters-and-parsing-expression-grammar).
+- `(no value)` - when no `source` is specified then data is stored in the block's [comment delimiter](/docs/explanations/architecture/key-concepts.md#data-attributes).
 - `attribute` - data is stored in an HTML element attribute.
 - `text` - data is stored in HTML text.
 - `html` - data is stored in HTML. This is typically used by `RichText`.
@@ -218,7 +218,7 @@ The available `source` values are:
 可能な `source` の値は以下のとおりです。
 
 値:
-- `(値なし)` - `source` が指定されていない場合、データはブロックの[コメントデリミタ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/#delimiters-and-parsing-expression-grammar)に保存されます。
+- `(値なし)` - `source` が指定されていない場合、データはブロックの[コメントデリミタ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts#data-attributes)に保存されます。
 - `attribute` - データは、HTML 要素の属性に保存されます。
 - `text` - データは、HTML テキストに保存されます。
 - `html` - データは、HTML に保存されます。この典型的な使用例は `RichText` です。
@@ -448,7 +448,7 @@ Attribute definition:
 属性定義:
 
 ```js
-attributes {
+attributes: {
 	content: {
 		type: 'string',
 		source: 'text',
@@ -621,11 +621,11 @@ Attribute available in the block:
 ## meta ソース (非推奨)
 <!--
 <div class="callout callout-alert">
-Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="/block-editor/how-to-guides/metabox/meta-block-3-add/">Create Meta Block how-to</a>.
+Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="/block-editor/how-to-guides/metabox/#step-2-add-meta-block">Create Meta Block how-to</a>.
 </div>
  -->
 **注意**
-投稿の meta から属性を取得できますが、meta 属性ソースは非推奨です。代わりに <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider と関連するフック API</a> を使用してください。「<a href="https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-3-add/">メタブロックの作成</a>」も参照してください。
+投稿の meta から属性を取得できますが、meta 属性ソースは非推奨です。代わりに <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider と関連するフック API</a> を使用してください。「<a href="https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/#step-2-add-meta-block">メタブロックの作成</a>」も参照してください。
 
 <!--
 Attributes may be obtained from a post's meta rather than from the block's representation in saved post content. For this, an attribute is required to specify its corresponding meta key under the `meta` key:

@@ -86,9 +86,9 @@ registerBlockType( 'myplugin/template', {
 } );
 ```
 <!--
-See the [Meta Block Tutorial](/docs/how-to-guides/metabox/meta-block-5-finishing.md) for a full example of a template in use.
+See the [Meta Block Tutorial](/docs/how-to-guides/metabox.md#step-4-finishing-touches) for a full example of a template in use.
  -->
-テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/meta-block-5-finishing/) を参照してください。
+テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox#step-4-finishing-touches) を参照してください。
 
 <!--
 ## Block Attributes

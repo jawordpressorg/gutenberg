@@ -108,6 +108,13 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2021/12/31
+- [メタボックス](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) - 増補改訂 [#37621](https://github.com/WordPress/gutenberg/pull/37621)
+- 以下、未訳分で変更に気がついたもの
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - receiveUploadPermissions 非推奨。代替は receiveUserPermission。[#37508](https://github.com/WordPress/gutenberg/pull/37508)
+- [GradientPicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/gradient-picker/README.md) - 新規
+- [Core Data](https://github.com/WordPress/gutenberg/blob/trunk/packages/core-data/README.md) - receiveUploadPermissions 非推奨。代替は receiveUserPermission。[#37508](https://github.com/WordPress/gutenberg/pull/37508)
+
 2021/12/28
 - [React Native mobile editor](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/) 以下 - React Native 節新設 [#36685](https://github.com/WordPress/gutenberg/pull/36685)
 - [ブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/)など - "ESNext & ES5" を "JSX & Plain" に [#37348](https://github.com/WordPress/gutenberg/pull/37348)
@@ -129,24 +136,6 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 - [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - createReusableBlock 追加 [#37333](https://github.com/WordPress/gutenberg/pull/37333)
 - [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - start -hot 追加 [#28273](https://github.com/WordPress/gutenberg/pull/28273)
 - [Schemas](https://github.com/WordPress/gutenberg/blob/trunk/schemas/README.md) - 全体を更新 [#37294](https://github.com/WordPress/gutenberg/pull/37294)
-
-2021/12/7
-- [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - Node.js v14 と npm v6 で固定 [#36744](https://github.com/WordPress/gutenberg/pull/36744)
-- [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 最新情報の入手方法追加 [#36498](https://github.com/WordPress/gutenberg/pull/36498)
-- [ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/attributes/) - @wordpress/components の言及 [#36553](https://github.com/WordPress/gutenberg/pull/36553)
-- [開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) - Node.js v14 と npm v6 で固定 [#36744](https://github.com/WordPress/gutenberg/pull/36744)
-- [ブロックテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/) - テンプレートとテンプレートパーツのパスの変更 [#36647](https://github.com/WordPress/gutenberg/pull/36647)、国際化 [#36144](https://github.com/WordPress/gutenberg/pull/36144)
-- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - テンプレートとテンプレートパーツのパスの変更 [#36647](https://github.com/WordPress/gutenberg/pull/36647)
-- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - appearanceTools 追加 [#36646](https://github.com/WordPress/gutenberg/pull/36646)、blockGap 追加 [#36558](https://github.com/WordPress/gutenberg/pull/36558)、テンプレートとテンプレートパーツのパスの変更 [#36647](https://github.com/WordPress/gutenberg/pull/36647)
-- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - fontSize と lineHeight を typography の下に移動 [#36894](https://github.com/WordPress/gutenberg/pull/36894)
-- 以下、未訳分で変更に気がついたもの
-- [URLInputButton](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/url-input/README.md) - placeholder 追加 [#36799](https://github.com/WordPress/gutenberg/pull/36799)
-- [ConfirmDialog](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/confirm-dialog/README.md) - 新規
-- [Divider](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/divider/README.md) - 全体的な更新 [#36579](https://github.com/WordPress/gutenberg/pull/36579)
-- [Modal](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/modal/README.md) - __experimentalHideHeader 追加 [#36831](https://github.com/WordPress/gutenberg/pull/36831)
-- [ToggleGroupControlOption](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/toggle-group-control/toggle-group-control-option/README.md) - showTooltip 追加 [#36726](https://github.com/WordPress/gutenberg/pull/36726)
-- [Dependency Extraction Webpack Plugin](https://github.com/WordPress/gutenberg/blob/trunk/packages/dependency-extraction-webpack-plugin/README.md) - outputFilename 追加 [#26214](https://github.com/WordPress/gutenberg/pull/26214)
-- [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - getOption、setOption 追加 [#37139](https://github.com/WordPress/gutenberg/pull/37139)
 
 
 [以前の変更履歴](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)
@@ -178,5 +167,6 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 | @arm-band | @armband |
 | @kurudrive | @kurudrive |
 | @t-hamano | @wildworks |
+| @tecking | @tecking |
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/README.md)

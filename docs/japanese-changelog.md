@@ -2,6 +2,13 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2021/12/31
+- [メタボックス](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) - 増補改訂 [#37621](https://github.com/WordPress/gutenberg/pull/37621)
+- 以下、未訳分で変更に気がついたもの
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - receiveUploadPermissions 非推奨。代替は receiveUserPermission。[#37508](https://github.com/WordPress/gutenberg/pull/37508)
+- [GradientPicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/gradient-picker/README.md) - 新規
+- [Core Data](https://github.com/WordPress/gutenberg/blob/trunk/packages/core-data/README.md) - receiveUploadPermissions 非推奨。代替は receiveUserPermission。[#37508](https://github.com/WordPress/gutenberg/pull/37508)
+
 2021/12/28
 - [React Native mobile editor](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/) 以下 - React Native 節新設 [#36685](https://github.com/WordPress/gutenberg/pull/36685)
 - [ブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/)など - "ESNext & ES5" を "JSX & Plain" に [#37348](https://github.com/WordPress/gutenberg/pull/37348)

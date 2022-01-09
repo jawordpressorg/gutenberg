@@ -60,15 +60,11 @@ You can also filter certain aspects of the editor; this is documented on the [Ed
 <!--
 ## Meta Boxes
 
-Porting PHP meta boxes to blocks or sidebar plugins is highly encouraged, learn how through these [meta data tutorials](/docs/how-to-guides/metabox/README.md).
-
-See how the new editor [supports existing Meta Boxes](/docs/reference-guides/backward-compatibility/meta-box.md).
+Porting PHP meta boxes to blocks or sidebar plugins is highly encouraged, learn how in the [meta box](/docs/how-to-guides/metabox.md) and [sidebar plugin](/docs/how-to-guides/plugin-sidebar-0.md) guides.
 -->
 ## メタボックス
 
-PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックスチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) を参照してください。
-
-新しいエディターがどのように既存のメタボックスをサポートするかについては、[こちらの文書](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/backward-compatibility/meta-box/) を参照してください。
+PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックス](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) および [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) を参照してください。
 
 <!--
 ## Theme Support

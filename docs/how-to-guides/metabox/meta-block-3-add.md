@@ -149,7 +149,6 @@ You can now edit a draft post and add a Meta Block to the post. You will see you
 
 You can now use the post meta data in a template, or another block. See next section for [using post meta data](/docs/how-to-guides/metabox/meta-block-4-use-data.md). You could also confirm the data is saved by checking the database table `wp_postmeta` and confirm the new post id contains the new field data.
  -->
-
 これで投稿の下書きを編集し、メタブロックを追加できます。ブロックにはフィールドが表示され文字を入力することができます。下書き、あるいは公開状態で投稿を保存すると、投稿メタ値も保存されます。確認するには投稿の下書きを保存し再ロードします。リロードされたフォームには数値が入力されているはずです。データが保存されたことはデータベーステーブル `wp_postmeta` を調べ、新しい投稿 ID が新しいフィールドデータを含むことでも確認できます。
 
 ![メタブロック](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/metabox/meta-block.png)
