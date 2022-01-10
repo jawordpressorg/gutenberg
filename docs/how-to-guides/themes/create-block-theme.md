@@ -3,15 +3,10 @@
  -->
 # ブロックテーマの作成
 
-<!--
-The purpose of this tutorial is to show how to create a block theme and help theme developers transition to full site editing.
+<!-- 
+The purpose of this tutorial is to show how to create a block theme and help theme developers transition to full site editing. It is recommended that you first read the [block theme overview](/docs/how-to-guides/themes/block-theme-overview.md).
  -->
-このチュートリアルではブロックテーマの作り方を紹介し、テーマ開発者の「フルサイト編集 (full site editing)」への移行を支援します。
-
-<!--
-It is recommended that you first read the [block theme overview](/docs/how-to-guides/themes/block-theme-overview.md).
- -->
-まず、はじめに「[ブロックテーマの概要](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/)」を読むことをお勧めします。
+このチュートリアルではブロックテーマの作り方を紹介し、テーマ開発者の「フルサイト編集 (full site editing)」への移行を支援します。まず、はじめに「[ブロックテーマの概要](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/)」を読むことをお勧めします。
 
 <!--
 You will learn about the required files, how to combine templates and template parts, how to add presets for global styles, and how to add blocks and export the templates in the site editor.
@@ -21,12 +16,19 @@ You will learn about the required files, how to combine templates and template p
 <!--
 Full site editing is an experimental feature, and the workflow in this tutorial is likely to change.
  -->
+<!-- 
 「フルサイト編集」は実験中の機能のため、以下の手順も変わる可能性があります。
-
+ -->
 <!--
 This tutorial is up to date with Gutenberg version 11.0.0.
  -->
+<!-- 
 このチュートリアルは Gutenberg Version 11.0 時点の最新です。
+ -->
+<!-- 
+Block themes require WordPress 5.9. To use block themes in earlier versions of WordPress requires the Gutenberg plugin version 11.0 or newer.
+ -->
+ブロックテーマは WordPress 5.9 が必要です。それ以前のバージョンの WordPress でブロックテーマを使用するには、Gutenberg プラグインのバージョン 11.0 以降が必要です。
 
 <!--
 ## Table of Contents
@@ -84,6 +86,7 @@ Template parts are optional. If they are included they must be placed inside a `
 File structure:
  -->
 ファイル構造
+
 ```
 theme
 |__ style.css
@@ -234,18 +237,20 @@ There are several ways to create templates and template parts:
 テンプレートとテンプレートパーツの作成にはいくつかの方法があります。
 
 <!--
-- Manually, by creating HTML files containing block markup.
-- Using the site editor.
-- Using the template editing mode in the block editor.
+-   Manually, by creating HTML files containing block markup.
+-   Using the site editor.
+-   Using the template editing mode in the block editor.
  -->
-- 手動で、ブロックマークアップを含む HTML ファイルを作成する。
-- サイトエディターを使用する。
-- ブロックエディターのテンプレート編集モードを使用する。
+-   手動で、ブロックマークアップを含む HTML ファイルを作成する。
+-   サイトエディターを使用する。
+-   ブロックエディターのテンプレート編集モードを使用する。
 
 <!--
 The fourth way is temporary and involves going to the Appearance menu > Templates, and is not recommended because of its limitations.
  -->
+<!-- 
 4番目の方法は一時的で、「外観」 > 「テンプレート」でアクセスしますが、制限があるため推奨されません。
+ -->
 
 <!--
 ### Manual template creation
@@ -329,7 +334,9 @@ All block attributes are placed inside these curly brackets. If you wanted the p
 
 ```html
 <!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">Proudly powered by <a href="https://wordpress.org/">WordPress</a>.</p>
+<p class="has-text-align-center">
+	Proudly powered by <a href="https://wordpress.org/">WordPress</a>.
+</p>
 <!-- /wp:paragraph -->
 ```
 
@@ -416,26 +423,26 @@ are saved to the database as custom post types. To export them as theme files, f
 サイトエディターまたはテンプレート編集モードで作成、編集されたテンプレートやテンプレートパーツは、カスタム投稿タイプとしてデータベースに保存されます。
 これらをテーマファイルとしてエクスポートするには、以下の手順に従ってください。
 
-<!--
-- In the site editor, open the **More tools and options** menu.
-- Select the **Export** option to download a zip file containing the files. Unpack the files.
-- Copy the updated `index.html` file from `theme/templates/` to your theme's `templates` folder.
-- Copy template part one and two from `theme/parts/` to your theme's `parts` folder.
-- Rename the template parts to `header.html` and `footer.html`, respectively.
-- Open `index.html` and update the template part slugs in the block markup.
+<!-- 
+-   In the site editor, open the **More tools and options** menu.
+-   Select the **Export** option to download a zip file containing the files. Unpack the files.
+-   Copy the updated `index.html` file from `theme/templates/` to your theme's `templates` folder.
+-   Copy template parts from `theme/parts/` to your theme's `parts` folder.
  -->
-- サイトエディターで右サイドバーの「オプション」メニュー (3点リーダーアイコン) を開く。
-- 「エクスポート」オプションを選択して、ファイルを含む zip ファイルをダウンロードする。ファイルを解凍する。
-- 更新された `index.html` ファイルを `theme/templates/` からテーマの `block-templates` フォルダにコピーする。
-- `theme/parts/`からテンプレートパーツ1と2をテーマの `parts` フォルダにコピーする。
-- それぞれのテンプレートパーツの名前を、`header.html` と `footer.html` に変更する。
-- `index.html`を開き、ブロックマークアップ内のテンプレートパーツのスラッグを更新する。
+-   サイトエディターで右サイドバーの「オプション」メニュー (3点リーダーアイコン) を開く。
+-   「エクスポート」オプションを選択して、ファイルを含む zip ファイルをダウンロードする。ファイルを解凍する。
+-   更新された `index.html` ファイルを `theme/templates/` から、テーマの `templates` フォルダにコピーする。
+-   テンプレートパーツを `theme/parts/`から、テーマの `parts` フォルダにコピーする。
 
-<!--
-Saved templates have precedence over theme files. To use the updated theme files, go to **Appearance > Templates** and
-**Appearance > Template parts** and delete the saved templates.
+<!-- 
+Saved templates have precedence over theme files.
  -->
-保存されたテンプレートは、テーマファイルよりも優先されます。更新されたテーマファイルを使用するには、「外観」 > 「テンプレート」と、「外観」 > 「テンプレートパーツ」で保存したテンプレートを削除してください。
+保存されたテンプレートは、テーマファイルよりも優先されます。
+
+<!-- 
+To learn more about the Site Editor, see the [support article](https://wordpress.org/support/article/site-editor/)
+ -->
+サイトエディターの詳細については、[サポート記事](https://ja.wordpress.org/support/article/site-editor/) を参照してください。
 
 <!--
 ### Additional templates
@@ -506,11 +513,13 @@ Example markup:
 
 ```html
 <!-- wp:query -->
-<div class="wp-block-query"><!-- wp:post-template -->
-<!-- wp:post-title /-->
-<!-- wp:post-date /-->
-<!-- wp:post-excerpt /-->
-<!-- /wp:post-template --></div>
+<div class="wp-block-query">
+	<!-- wp:post-template -->
+	<!-- wp:post-title /-->
+	<!-- wp:post-date /-->
+	<!-- wp:post-excerpt /-->
+	<!-- /wp:post-template -->
+</div>
 <!-- /wp:query -->
 ```
 
@@ -521,19 +530,20 @@ The query pagination block can only be used inside the query loop. Place it insi
 
 ```html
 <!-- wp:query -->
-<div class="wp-block-query"><!-- wp:post-template -->
-<!-- wp:post-title /-->
-<!-- wp:post-date /-->
-<!-- wp:post-excerpt /-->
-<!-- /wp:post-template -->
+<div class="wp-block-query">
+	<!-- wp:post-template -->
+	<!-- wp:post-title /-->
+	<!-- wp:post-date /-->
+	<!-- wp:post-excerpt /-->
+	<!-- /wp:post-template -->
 
-<!-- wp:query-pagination -->
-<div class="wp-block-query-pagination">
-<!-- wp:query-pagination-previous /-->
-<!-- wp:query-pagination-numbers /-->
-<!-- wp:query-pagination-next /--></div>
-<!-- /wp:query-pagination -->
-
+	<!-- wp:query-pagination -->
+	<div class="wp-block-query-pagination">
+		<!-- wp:query-pagination-previous /-->
+		<!-- wp:query-pagination-numbers /-->
+		<!-- wp:query-pagination-next /-->
+	</div>
+	<!-- /wp:query-pagination -->
 </div>
 <!-- /wp:query -->
 ```
@@ -578,14 +588,14 @@ Add your preferred blocks inside the group block. Some new blocks that are avail
  -->
 グループブロックの中に自由にブロックを追加してください。いくつかの新しいブロックを利用可能です。
 
-- Post content: `<!-- wp:post-content /-->`
-- Post title: `<!-- wp:post-title /-->`
-- Post author: `<!-- wp:post-author /-->`
-- Post date: `<!-- wp:post-date /-->`
-- Post featured image: `<!-- wp:post-featured-image /-->`
-- Post tags: `<!-- wp:post-terms {"term":"post_tag"} /-->`
-- Post categories: `<!-- wp:post-terms {"term":"category"} /-->`
-- Next and previous post: `<!-- wp:post-navigation-link /--><!-- wp:post-navigation-link {"type":"previous"} /-->`
+-   Post content: `<!-- wp:post-content /-->`
+-   Post title: `<!-- wp:post-title /-->`
+-   Post author: `<!-- wp:post-author /-->`
+-   Post date: `<!-- wp:post-date /-->`
+-   Post featured image: `<!-- wp:post-featured-image /-->`
+-   Post tags: `<!-- wp:post-terms {"term":"post_tag"} /-->`
+-   Post categories: `<!-- wp:post-terms {"term":"category"} /-->`
+-   Next and previous post: `<!-- wp:post-navigation-link /--><!-- wp:post-navigation-link {"type":"previous"} /-->`
 
 <!--
 Save the HTML file, or save and export the post template if you are working in the site editor.
@@ -659,19 +669,18 @@ Start by adding two curly brackets to the file:
 まずファイルに中括弧を追加してください。
 
 ```json
-{
-
-}
+{}
 ```
 
 <!--
 Add the version number for the theme.json format. For Gutenberg 10.6, the version number is 1:
+Add the version number for the theme.json format. For WordPress 5.9, the version number is 2:
  -->
-theme.jsonフォーマットのバージョン番号を追加します。Gutenberg 10.6の場合、バージョン番号は1です。
+theme.jsonフォーマットのバージョン番号を追加します。WordPress 5.9の場合、バージョン番号は2です。
 
 ```json
 {
-	"version": 1,
+	"version": 2
 }
 ```
 
@@ -681,9 +690,9 @@ Next, add three main sections:
 次に、3つのメインセクションを追加します。
 
 <!--
-- Settings -Where you will enable features and create presets for styles.
-- Styles -Where you apply styles to the website, elements, and blocks.
-- templateParts -For assigning template part files to template areas.
+-   Settings -Where you will enable features and create presets for styles.
+-   Styles -Where you apply styles to the website, elements, and blocks.
+-   templateParts -For assigning template part files to template areas.
  -->
 - settings - 機能を有効化し、スタイルのプリセットを作成する。
 - styles - サイト、要素、ブロックにスタイルを適用する。
@@ -691,13 +700,10 @@ Next, add three main sections:
 
 ```json
 {
-	"version": 1,
-	"settings": {
-	},
-	"styles": {
-	},
-	"templateParts": [
-	]
+	"version": 2,
+	"settings": {},
+	"styles": {},
+	"templateParts": []
 }
 ```
 
@@ -722,8 +728,8 @@ There are two different ways that a block can support a feature:
 ブロックが機能をサポートする方法には2種類あります。
 
 <!--
-- By displaying a control in the block settings sidebar.
-- By allowing defaults to be set using `theme.json`.
+-   By displaying a control in the block settings sidebar.
+-   By allowing defaults to be set using `theme.json`.
  -->
 - ブロック設定サイドバーにコントロールを表示する。
 - `theme.json`を使用してデフォルトを設定する。
@@ -750,7 +756,7 @@ To enable border styles, add a `border` object under `settings` with the followi
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"border": {
 			"color": true,
@@ -769,7 +775,7 @@ To enable link colors, add a `color` setting and set `link` to true:
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"border": {
 			"color": true,
@@ -778,7 +784,7 @@ To enable link colors, add a `color` setting and set `link` to true:
 			"width": true
 		},
 		"color": {
-			"link": true,
+			"link": true
 		}
 	}
 }
@@ -791,7 +797,7 @@ To enable padding, margin and custom spacing units, include a setting for spacin
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"border": {
 			"color": true,
@@ -823,7 +829,7 @@ If you want to disable gradients, which are enabled by default, set `gradient` t
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"border": {
 			"color": true,
@@ -884,8 +890,8 @@ The keys used by `layout` are:
 `layout` で使用されるキー:
 
 <!--
-- `contentSize` Default width for the blocks.
-- `wideSize` Wide width.
+-   `contentSize` Default width for the blocks.
+-   `wideSize` Wide width.
  -->
 - `contentSize` ブロックのデフォルト幅
 - `wideSize` ワイド幅
@@ -899,7 +905,7 @@ The example uses pixels, but you can use any valid CSS value and unit.
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		...
 		"layout": {
@@ -934,9 +940,9 @@ The keys used by `palette` are:
 `palette` で使用されるキー:
 
 <!--
-- `slug` A unique identifier for the color.
-- `color` The hex color value.
-- `name` The visible name in the editor. Optional.
+-   `slug` A unique identifier for the color.
+-   `color` The hex color value.
+-   `name` The visible name in the editor. Optional.
  -->
 - `slug` 色の一意の識別子
 - `color` 色の16進値
@@ -951,7 +957,7 @@ Add a default color palette inside `settings`, under `color`:
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		...
 		"color": {
@@ -1051,9 +1057,9 @@ The keys used by `fontSizes` are:
 `fontSizes` で使用されるキー:
 
 <!--
-- `slug` A unique identifier for the size.
-- `size` The size value. This can be unitless or use any valid CSS value.
-- `name` The visible name in the editor.
+-   `slug` A unique identifier for the size.
+-   `size` The size value. This can be unitless or use any valid CSS value.
+-   `name` The visible name in the editor.
  -->
 - `slug` サイズの一意の識別子
 - `size` サイズの値。単位を指定しない数値、または有効な CSS 値
@@ -1251,16 +1257,32 @@ Since the theme has custom padding enabled, you can add `padding` within the `sp
 
 <!--
 In the templeParts section, assign the two template parts that you created to their template areas.
-Add two keys:
  -->
 templeParts」セクションでは、作成した2つのテンプレートパーツをそれぞれのテンプレートエリアに割り当てます。
+
+<!-- 
+Add two keys:
+ -->
+<!-- 
 2つのキーを追加します。
+ -->
+
 <!--
 -`name`, the file name of the template part file without the file extension,
 -`area`, the name of the template area.
  -->
+<!--  
 -`name`: テンプレートパーツのファイル名から拡張子を除いたもの
 -`area`: テンプレートエリアの名前
+ -->
+
+<!-- 
+Add three keys: -`name`, the file name of the template part file without the file extension, -`area`, the name of the template area, and `title` the visible name in the editor.
+ -->
+3つのキーを追加します。
+- `name`: テンプレートパーツのファイル名から拡張子を除いたもの
+- `area`: テンプレートエリアの名前
+- `title`: エディターで表示される名前
 
 <!--
 There are three template areas to choose from: Header, footer, and general.
@@ -1271,11 +1293,13 @@ There are three template areas to choose from: Header, footer, and general.
 "templateParts": [
 	{
 		"name": "header",
-		"area": "header"
+		"area": "header",
+		"title": "Header"
 	},
 	{
 		"name": "footer",
-		"area": "footer"
+		"area": "footer",
+		"title": "Footer"
 	}
 ]
 ```
@@ -1353,12 +1377,9 @@ The key is `postTypes`, followed by the name of the post type:
 
 <!--
 You can find a basic starter theme called "emptytheme" and other example themes
-on the [Experimental themes GitHub repository](https://github.com/WordPress/theme-experiments).
-When using a theme as reference, take note of which Gutenberg version the theme is built for,
-because the experimental features are updated frequently.
+on the [Theme Experiments GitHub repository](https://github.com/WordPress/theme-experiments). When using a theme as reference, take note of which Gutenberg version the theme is built for, because the experimental features are updated frequently.
  -->
-基本的なスターターテーマ「emptytheme」やその他のサンプルテーマが、[実験的テーマ GitHub リポジトリ](https://github.com/WordPress/theme-experiments)にあります。
-テーマを参考にする際は、そのテーマがどのGutenbergバージョン用に作られているかに注意してください。実験的な機能は頻繁に更新されるためです。
+基本的なスターターテーマ「emptytheme」やその他のサンプルテーマが、[実験的テーマ GitHub リポジトリ](https://github.com/WordPress/theme-experiments)にあります。テーマを参考にする際は、そのテーマがどのGutenbergバージョン用に作られているかに注意してください。実験的な機能は頻繁に更新されるためです。
 
 <!--
 The theme directory lists block themes under the tag [full site editing](https://wordpress.org/themes/tags/full-site-editing/).

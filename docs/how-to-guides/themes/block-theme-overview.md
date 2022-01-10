@@ -55,12 +55,19 @@ A very simple block-based theme is structured like so:
 <!--
 These features are still experimental in the plugin. “Experimental” means this is just an early implementation that is subject to potential drastic and breaking changes in iterations based on feedback from users, contributors and theme authors.
  -->
+<!--  
 > これらの機能はまだプラグインの実験レベルの機能です。ここで「実験レベル」とは早い段階での実装を意味し、ユーザー、コントリビューター、テーマ作成者のフィードバックに基づくイテレーションによっては、大きく互換性を失う形で変更される可能性があります。
-
+ -->
 <!--
 Documentation is shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. You can provide feedback in the weekly #core-editor chats, or #fse-outreach-experiment channels, or async via Github issues.
  -->
+<!--  
 > 早い段階で文書を共有する理由は、作業の様子を明らかにし、API を利用した実験からフィードバックを得るためです。フィードバックは、#core-editor チャット、#fse-outreach-experiment チャンネル、または Github の issue を通して非同期に行えます。
+ -->
+<!-- 
+These features are part of the full site editing project releasing in WordPress 5.9. You can provide feedback in the weekly #core-editor chats, or #fse-outreach-experiment channels, or async using GitHub issues.
+ -->
+> これらの機能は、WordPress 5.9でリリースされるフルサイト編集プロジェクトの一部です。フィードバックは、毎週開催される #core-editor チャットや #fse-outreach-experiment チャンネル、または GitHub issues を使って非同期的に行うことができます。
 
 <!--
 </div>
@@ -280,7 +287,7 @@ A pattern block can be used to insert translatable content inside a block templa
 <!-- 
 #### Example
 
-Register a pattern: 
+Register a pattern:
  -->
 #### 例
 
@@ -288,7 +295,7 @@ Register a pattern:
 
 ```php
 <?php
-register_block_pattern( 
+register_block_pattern(
 	'myblocktheme/wordpress-credit',
 	array(
 		'title'      => __( 'Wordpress credit', 'myblocktheme' ),
@@ -313,7 +320,7 @@ Load the pattern in a template or template part:
 ```html
 <!-- wp:group -->
 <div class="wp-block-group">
-<!-- wp:pattern {"slug":"myblocktheme/wordpress-credit"} /-->
+	<!-- wp:pattern {"slug":"myblocktheme/wordpress-credit"} /-->
 </div>
 <!-- /wp:group -->
 ```

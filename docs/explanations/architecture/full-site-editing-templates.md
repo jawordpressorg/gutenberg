@@ -10,7 +10,7 @@
 
 <!--
 <div class="callout callout-alert">
-This is the documentation for the current implementation of the block templates and template parts themes. This is part of the Full Site Editing project. These features are still experimental in the plugin. “Experimental” means this is just an early implementation that is subject to potential drastic and breaking changes in iterations based on feedback from users, contributors, and theme authors.
+This documentation is for block templates and template parts, these features are part of the Full Site Editing project releasing in WordPress 5.9.
 </div>
  -->
 > これは、現在実装されている、フルサイト編集プロジェクトの一部のブロックテンプレートとテンプレートパーツテーマに関するドキュメントです。この機能はプラグイン内でまだ「実験中」です。「実験中」とは、初期の実装であり、ユーザー、コントリビューター、テーマ作者からのフィードバックによりイテレーション中に、大規模で後方互換性のない変更の可能性があることを意味します。

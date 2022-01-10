@@ -15,8 +15,9 @@ Performance is a key feature for editor applications and the Block editor is not
 
 <!--
 To ensure the block editor stays performant across releases and development, we monitor some key metrics using [performance testing](/docs/contributors/code/testing-overview.md#performance-testing).
+To ensure the block editor stays performant across releases and development, we monitor some key metrics using [performance benchmark job](#the-performance-benchmark-job).
  -->
-リリースと開発のサイクルの中でブロックエディタのパフォーマンスを維持するため、[パフォーマンステスト](https://ja.wordpress.org/team/handbook/block-editor/contributors/develop/testing-overview/#performance-testing)を実行して、いくつかの重要な指標を監視しています。
+リリースと開発サイクルの中でブロックエディターのパフォーマンスを維持するため、後述する[パフォーマンスベンチマークジョブ](#the-performance-benchmark-job)を実行して、いくつかの重要な指標を監視しています。
 
 <!--
 **Loading Time:** The time it takes to load an editor page. This includes time the server takes to respond, times to first paint, first contentful paint, DOM content load complete, load complete and first block render.
@@ -61,6 +62,85 @@ Rendering asynchronously in this context means that if a change is triggered in 
 Based on the idea that **when editing a given block, it is very rare that an update to that block affects other parts of the content**, the block editor canvas only renders the selected block is synchronous mode, all the remaining blocks are rendered asynchronously. This ensures that the editor stays responsive as the post grows.
  -->
 「**あるブロックを編集している場合、そのブロックの更新が、コンテンツの他の部分に影響を与えることは非常にまれである**」という考えに基づき、ブロックエディターキャンバスは、選択したブロックのみを同期モードでレンダリングし、残りのブロックはすべて非同期でレンダリングします。これにより、投稿記事が長くなってもエディタの応答パフォーマンスは保たれます。
+
+<!-- 
+## The performance benchmark job
+ -->
+## パフォーマンスベンチマークジョブ
+
+<!-- 
+A tool to compare performance accross multiple branches/tags/commits is provided. You can run it locally like so: `./bin/plugin/cli.js perf [branches]`, example:
+ -->
+複数のブランチ、タグ、コミット間のパフォーマンスを比較するツールが提供されています。以下のようにローカルで実行できます: `./bin/plugin/cli.js perf [branches]`。たとえば、
+
+```
+./bin/plugin/cli.js perf trunk v8.1.0 v8.0.0
+```
+<!-- 
+To get the most accurate results, it's is important to use the exact same version of the tests and environment (theme...) when running the tests, the only thing that need to be different between the branches is the Gutenberg plugin version (or branch used to build the plugin).
+ -->
+最も正確な結果を得るには、テストを実行する際に、全く同じバージョンのテストとテーマなどの環境を使用することが重要です。ブランチ間で異なるのは、Gutenberg プラグインのバージョン (または、プラグインのビルドに使用するブランチ) だけであるべきです。
+
+<!-- 
+To achieve that the command first prepares the following folder structure:
+ -->
+そのため、コマンドはまず次のようなフォルダ構造を用意します。
+
+<!-- 
+    │
+    ├── tests/packages/e2e-tests/specs/performance/*
+    |   The actual performance tests to run
+    │
+    ├── tests/test/emptytheme
+    |   The theme used for the tests environment. (site editor)
+    │
+    │── envs/branch1/.wp-env.json
+    │   The wp-env config file for branch1 (similar to all other branches except the plugin folder).
+    │── envs/branch1/plugin
+    │   A built clone of the Gutenberg plugin for branch1 (git checkout branch1)
+    │
+    └── envs/branchX
+        The structure of perf-envs/branch1 is duplicated for all other branches.
+ -->
+    │
+    ├── tests/packages/e2e-tests/specs/performance/*
+    |   実行される実際のパフォーマンステスト
+    │
+    ├── tests/test/emptytheme
+    |   テスト環境で使用されるテーマ (サイトエディター)
+    │
+    │── envs/branch1/.wp-env.json
+    │   branch1 の wp-env 構成ファイル (すべての他のブランチと、プラグインフォルダを除いて、同じ)
+    │── envs/branch1/plugin
+    │   branch1 の Gutenberg プラグインの構築されたクローン (git checkout branch1)
+    │
+    └── envs/branchX
+        perf-envs/branch1 の構造は、すべての他のブランチのために重複している。
+
+<!-- 
+Once the directory above is in place, the performance command loop over the performance test suites (post editor and site editor) and does the following:
+ -->
+上のディレクトリ構造ができたら、performance コマンドは、パフォーマンステストスイート（投稿エディターとサイトエディター）をループし、以下を実行します。
+
+<!-- 
+ 1- Start the environment for branch1
+ 2- Run the performance test for the current suite
+ 3- Stop the environment for branch1
+ 4- Repeat the first 3 steps for all other branches
+ 5- Repeat the previous 4 steps 3 times.
+ 6- Compute medians for all the performance metrics of the current suite.
+ -->
+1. branch1 の環境を開始
+2. 現行のスイートでパフォーマンステストを実行
+3. branch1 の環境を停止
+4. 1〜3のステップをすべての他のブランチで繰り返す
+5. 1〜4のステップを3回繰り返す
+6. 現行スイートのすべてのパフォーマンス指標の中央地を算出
+
+<!-- 
+Once all the test suites are executed, a summary report is printed.
+ -->
+すべてのテストスイートの実行が完了すると、サマリーレポートが出力されます。
 
 <!--
 ## Going further

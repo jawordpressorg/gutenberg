@@ -2,6 +2,16 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/1/9
+- [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - パフォーマンスベンチマークジョブ追加 [#37446](https://github.com/WordPress/gutenberg/pull/37446)、[#37775](https://github.com/WordPress/gutenberg/pull/37775)
+- [スタイルとスタイルシートの利用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/applying-styles-with-stylesheets/) - block.json を使用する方法に書き換え [#37679](https://github.com/WordPress/gutenberg/pull/37679)
+- [ブロックテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/)、[ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/)、[Glossary](https://ja.wordpress.org/team/handbook/block-editor/explanations/glossary/) - 実験を削除 [#37655](https://github.com/WordPress/gutenberg/pull/37655)
+- [Core Blocks Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ソースへのリンク追加 [#37750](https://github.com/WordPress/gutenberg/pull/37750)
+- [theme.json Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/) - 新規
+- 以下、未訳分で変更に気がついたもの
+- [ColorIndicator](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/color-indicator/README.md) - 改定 [#37638](https://github.com/WordPress/gutenberg/pull/37638)
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - packages-update 追加 [#37687](https://github.com/WordPress/gutenberg/pull/37687)
+
 2021/12/31
 - [メタボックス](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) - 増補改訂 [#37621](https://github.com/WordPress/gutenberg/pull/37621)
 - 以下、未訳分で変更に気がついたもの
