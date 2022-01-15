@@ -110,6 +110,8 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 2022/1/15
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 翻訳
+- [theme.json リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/) - 翻訳
+
 
 2022/1/9
 - [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - パフォーマンスベンチマークジョブ追加 [#37446](https://github.com/WordPress/gutenberg/pull/37446)、[#37775](https://github.com/WordPress/gutenberg/pull/37775)
