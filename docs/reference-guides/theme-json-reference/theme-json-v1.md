@@ -1,12 +1,24 @@
+<!-- 
 # Version 1 Reference
+ -->
+# バージョン 1 リファレンス
 
+<!-- 
 Theme.json version 2 has been released, see the [theme.json migration guide](/docs/reference-guides/theme-json-reference/theme-json-migrations.md#migrating-from-v1-to-v2) for updating to the latest version.
+ -->
+theme.json バージョン 2 がリリースされました。最新バージョンに移行するには [theme.json 移行ガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) を参照してください。
 
+<!-- 
 ## Settings
+ -->
+## settings
 
 ### border
 
+<!-- 
 Settings related to borders.
+ -->
+ボーダー関連の設定です。
 
 | Property     | Type    | Default | Props |
 | ------------ | ------- | ------- | ----- |
@@ -15,8 +27,10 @@ Settings related to borders.
 ---
 
 ### color
-
+<!-- 
 Settings related to colors.
+ -->
+色関連の設定です。
 
 | Property       | Type    | Default | Props                |
 | -------------- | ------- | ------- | -------------------- |
@@ -31,8 +45,10 @@ Settings related to colors.
 ---
 
 ### layout
-
+<!-- 
 Settings related to layout.
+ -->
+レイアウト関連の設定です。
 
 | Property    | Type   | Default | Props |
 | ----------- | ------ | ------- | ----- |
@@ -43,7 +59,10 @@ Settings related to layout.
 
 ### spacing
 
+<!-- 
 Settings related to spacing.
+ -->
+スペース関連の設定です。
 
 | Property      | Type    | Default           | Props |
 | ------------- | ------- | ----------------- | ----- |
@@ -55,7 +74,10 @@ Settings related to spacing.
 
 ### typography
 
+<!-- 
 Settings related to typography.
+ -->
+タイポグラフィ関連の設定です。
 
 | Property         | Type    | Default | Props            |
 | ---------------- | ------- | ------- | ---------------- |
@@ -68,15 +90,22 @@ Settings related to typography.
 
 ### custom
 
+<!-- 
 Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
+ -->
+「`--wp--custom--{key}--{nested-key}: {value};`」形式のカスタム CSS カスタムプロパティを生成します。`camelCased` のキーは、CSSプロパティ命名スキーマに従うために、 `kebab-case` に変換されます。異なる深さのレベルのキーは `--` で区切られるため、キーの名前に `--` を含めないでください。
 
 ---
-
+<!-- 
 ## Styles
+ -->
+## styles
 
 ### border
-
+<!-- 
 Border styles.
+ -->
+ボーダーのスタイル。
 
 | Property | Type   | Props |
 | -------- | ------ | ----- |
@@ -85,8 +114,10 @@ Border styles.
 ---
 
 ### color
-
+<!-- 
 Color styles.
+ -->
+色のスタイル。
 
 | Property   | Type   | Props |
 | ---------- | ------ | ----- |
@@ -98,7 +129,10 @@ Color styles.
 
 ### spacing
 
+<!-- 
 Spacing styles.
+ -->
+スペースのスタイル。
 
 | Property | Type   | Props                    |
 | -------- | ------ | ------------------------ |
@@ -108,8 +142,10 @@ Spacing styles.
 ---
 
 ### typography
-
+<!-- 
 Typography styles.
+ -->
+タイポグラフィのスタイル。
 
 | Property   | Type   | Props |
 | ---------- | ------ | ----- |

@@ -4,7 +4,7 @@
 <!-- 
 # theme.json リファレンス
  -->
-# バージョン2 (現在のリファレンス)
+# バージョン 2 (現在のリファレンス)
 <!-- 
 > This is the living specification for the **version 2** of theme.json. This version works with the upcoming WordPress 5.9 and the latest Gutenberg plugin.
 >
@@ -143,8 +143,6 @@ Settings related to typography.
 <!--
 Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
 -->
-Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
-
 「`--wp--custom--{key}--{nested-key}: {value};`」形式のカスタム CSS カスタムプロパティを生成します。`camelCased` のキーは、CSSプロパティ命名スキーマに従うために、 `kebab-case` に変換されます。異なる深さのレベルのキーは `--` で区切られるため、キーの名前に `--` を含めないでください。
 
 ---
