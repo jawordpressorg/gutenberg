@@ -109,9 +109,9 @@ Furthermore, because the [Block Type REST API Endpoint](https://developer.wordpr
 さらに、[ブロックタイプ REST API エンドポイント](https://developer.wordpress.org/rest-api/reference/block-types/)では、サーバー上で登録されたブロックしか一覧できないため、サーバーサイドでブロックを登録することが推奨されます。`block.json`ファイルを使用すると、この登録が簡単になります。
 
 <!--
-The [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to [submit your block(s) to the Block Directory](/docs/getting-started/tutorials/create-block/submitting-to-block-directory.md), all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
+The [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to [submit your block(s) to the Block Directory](/docs/getting-started/create-block/submitting-to-block-directory.md), all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
  -->
-[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。[ブロックディレクトリに自分のブロックを登録する](https://ja.wordpress.org/team/handbook/block-editor/handbook/tutorials/create-block/submitting-to-block-directory/)場合、ブロックディレクトリに認識させるには、プラグインに含まれるすべてのブロックに `block.json` ファイルが必要です。
+[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。[ブロックディレクトリに自分のブロックを登録する](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/submitting-to-block-directory/)場合、ブロックディレクトリに認識させるには、プラグインに含まれるすべてのブロックに `block.json` ファイルが必要です。
 
 <!-- 
 Development is improved by using a defined schema definition file. Supported editors can provide help like tooltips, autocomplete, and schema validation. To use the schema, add the following to the top of the `block.json`.

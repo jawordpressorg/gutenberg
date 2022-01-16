@@ -29,14 +29,14 @@ The editor will automatically generate a class name for each block type to simpl
 <!-- 
 A block typically inserts markup (HTML) into post content that you want to style in someway. This guides walks through a few different ways you can use CSS with the block editor and how to work with styles and stylesheets.
  -->
-ブロックは、通常、スタイルを設定したい投稿コンテンツにマークアップ (HTML) を挿入します。このガイドでは、ブロックエディタで CSS を使用するいくつかの方法と、スタイルとスタイルシートの操作方法について説明します。
+ブロックは、通常、スタイルを設定する投稿コンテンツにマークアップ (HTML) を挿入します。このガイドでは、ブロックエディタで CSS を使用するいくつかの方法と、スタイルとスタイルシートの操作方法について説明します。
 
 <!-- 
 ## Before you start
  -->
 ## はじめる前に
 
-このガイドで紹介する例を実装するには、基本的なブロックと WordPress の開発環境が必要です。[基本ブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) または [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) を見てセットアップを行ってください。
+このガイドで紹介する例を実装するには、基本的なブロックと WordPress の開発環境が必要です。[基本ブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) または [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) を参照して、セットアップしてください。
 
 <!-- 
 ## Methods to add style
@@ -46,7 +46,7 @@ A block typically inserts markup (HTML) into post content that you want to style
 <!-- 
 The following are different methods you can use to add style to your block, either in the editor or when saved.
  -->
-以下は、エディター内部または保存時に、ブロックへスタイルを追加する、いくつかの異なる方法です。
+以下では、エディター内部または保存時に、ブロックへスタイルを追加する異なる方法を紹介します。
 
 <!-- 
 ## Method 1: Inline style
@@ -143,7 +143,9 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	} );
 } )( window.wp.blocks, window.wp.element, window.wp.blockEditor );
 ```
-
+<!-- 
+{% end %}
+ -->
 <!-- 
 ## Method 2: Block classname
  -->

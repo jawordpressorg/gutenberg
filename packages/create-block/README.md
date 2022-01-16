@@ -28,11 +28,11 @@ Block API の詳細については [ブロックエディターハンドブッ�
 <!--
 ## Quick start
 
-You just need to provide the `slug` which is the target location for scaffolded files and the internal block name.
+You just need to provide the `slug` which is the target location for scaffolded plugin files and the internal block name.
  -->
 ## クイックスタート
 
-ひな形ファイルの保管場所となる `slug` と内部のブロック名を指定するだけで作成できます。
+ひな形プラグインファイルの保管場所となる `slug` と内部のブロック名を指定するだけで作成できます。
 
 ```bash
 $ npx @wordpress/create-block todo-list
@@ -76,10 +76,10 @@ Options:
 
 ```bash
 -V, --version                output the version number
--t, --template <name>        block template type name, allowed values: "es5", "esnext", the name of an external npm package (default: "esnext"), or the path to a local directory.
+-t, --template <name>        plugin template type name, allowed values: "es5", "esnext", the name of an external npm package (default: "esnext"), or the path to a local directory.
 --namespace <value>          internal namespace for the block name
---title <value>              display title for the block
---short-description <value>  short description for the block
+--title <value>              display title for the plugin/block
+--short-description <value>  short description for the plugin/block
 --category <name>            category name for the block
 --wp-scripts                 enable integration with `@wordpress/scripts` package
 --no-wp-scripts              disable integration with `@wordpress/scripts` package
@@ -90,10 +90,10 @@ Options:
 オプション:
 ```
 -V, --version                バージョン番号の出力
--t, --template <name>        テンプレートタイプ名。指定可能な値: "es5", "esnext" (デフォルト: "esnext")、またはローカルディレクトリへのパス
+-t, --template <name>        プラグインテンプレートタイプ名。指定可能な値: "es5", "esnext" (デフォルト: "esnext")、またはローカルディレクトリへのパス
 --namespace <value>          ブロック名の内部名前空間
---title <value>              ブロックの表示タイトル
---short-description <value>  ブロックの短い説明
+--title <value>              プラグイン/ブロックの表示タイトル
+--short-description <value>  プラグイン/ブロックの短い説明
 --category <name>            ブロックのカテゴリー名
 --wp-scripts                 `@wordpress/scripts` パッケージとの統合を有効化
 --no-wp-scripts              `@wordpress/scripts` パッケージとの統合を無効化
@@ -249,9 +249,9 @@ It is mandatory to provide the main file (`index.js` by default) for the package
 #### templatesPath
 
 <!--
-A mandatory field with the path pointing to the location where template files live (nested folders are also supported). All files without the `.mustache` extension will be ignored.
+A mandatory field with the path pointing to the location where plugin template files live (nested folders are also supported). All files without the `.mustache` extension will be ignored.
  -->
-テンプレートファイルの場所を示すパスを指定する必須フィールド。ネストしたフォルダーもサポートされます。`.mustache` 拡張子のないすべてのファイルは無視されます。
+プラグインテンプレートファイルの場所を示すパスを指定する必須フィールド。ネストしたフォルダーもサポートされます。`.mustache` 拡張子のないすべてのファイルは無視されます。
 
 <!--
 _Example:_
@@ -262,7 +262,29 @@ _例:_
 const { join } = require( 'path' );
 
 module.exports = {
-	templatesPath: join( __dirname, 'templates' ),
+	templatesPath: join( __dirname, 'plugin-templates' ),
+};
+```
+<!-- 
+#### `blockTemplatesPath`
+ -->
+#### blockTemplatesPath
+
+<!-- 
+An optional field with the path pointing to the location where template files for the individual block live (nested folders are also supported). All files without the `.mustache` extension will be ignored.
+ -->
+個々のブロックのテンプレートファイルがある場所を指すパスを指定する、オプションのフィールド (ネストしたフォルダもサポートされます）。拡張子が `.mustache` でないファイルはすべて無視されます。
+
+<!-- 
+_Example:_
+ -->
+_例:_
+
+```js
+const { join } = require( 'path' );
+
+module.exports = {
+	blockTemplatesPath: join( __dirname, 'block-templates' ),
 };
 ```
 <!--
@@ -271,9 +293,9 @@ module.exports = {
 #### assetsPath
 
 <!--
-This setting is useful when your template scaffolds a block that uses static assets like images or fonts, which should not be processed. It provides the path pointing to the location where assets are located. They will be copied to the `assets` subfolder in the generated plugin.
+This setting is useful when your template scaffolds a plugin that uses static assets like images or fonts, which should not be processed. It provides the path pointing to the location where assets are located. They will be copied to the `assets` subfolder in the generated plugin.
  -->
-この設定はテンプレートから雛形の生成時、ブロックが使用する画像やフォントなどの処理の必要のない静的なアセットを準備する場合に便利です。アセットのある場所を指すパスを指定します。アセットは生成されたプラグインの `assets` サブフォルダーにコピーされます。
+この設定はテンプレートから雛形の生成時、プラグインが使用する画像やフォントなどの処理の必要のない静的なアセットを準備する場合に便利です。アセットのある場所を指すパスを指定します。アセットは生成されたプラグインの `assets` サブフォルダーにコピーされます。
 
 <!--
 _Example:_
@@ -284,7 +306,7 @@ _例:_
 const { join } = require( 'path' );
 
 module.exports = {
-	assetsPath: join( __dirname, 'assets' ),
+	assetsPath: join( __dirname, 'plugin-assets' ),
 };
 ```
 <!--
@@ -334,7 +356,8 @@ The following configurable variables are used with the template files. Template 
 -   `version` (default: `'0.1.0'`)
 -   `wpScripts` (default: `true`)
 -   `wpEnv` (default: `false`)
--   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install).
+-   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
+-   `folderName` (default: `.`) – the location for the `block.json` file and other optional block files generated from block templates included in the folder set with the `blockTemplatesPath` setting.
 -   `editorScript` (default: `'file:./build/index.js'`)
 -   `editorStyle` (default: `'file:./build/index.css'`)
 -   `style` (default: `'file:./build/style-index.css'`)
@@ -353,7 +376,8 @@ The following configurable variables are used with the template files. Template 
 -   `version` (デフォルト: `'0.1.0'`)
 -   `wpScripts` (デフォルト: `true`)
 -   `wpEnv` (default: `false`)
--   `npmDependencies` (デフォルト: `[]`) – [`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
+-   `npmDependencies` (デフォルト: `[]`) – `wpScripts` が有効の時、[`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
+-   `folderName` (デフォルト: `.`) – `block.json` ファイル、および、`blockTemplatesPath` で設定したフォルダに含まれるブロックテンプレートから生成されたオプションのブロックファイルの場所
 -   `editorScript` (デフォルト: `'file:./build/index.js'`)
 -   `editorStyle` (デフォルト: `'file:./build/index.css'`)
 -   `style` (デフォルト: `'file:./build/style-index.css'`)

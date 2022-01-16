@@ -79,6 +79,15 @@
 -   [PluginSidebar](https://developer.wordpress.org/block-editor/reference-guides/slotfills/plugin-sidebar/)
 -   [PluginSidebarMoreMenuItem](https://developer.wordpress.org/block-editor/reference-guides/slotfills/plugin-sidebar-more-menu-item/)
 
+<!-- 
+## [Theme.json Reference](/docs/reference-guides/theme-json-reference/README.md)
+ -->
+## [theme.json リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/)
+
+-   [バージョン 2 (現在のリファレンス)](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/)
+-   [バージョン 1](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v1/)
+-   [新しいバージョンへの移行](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/)
+
 <!--
 ## [RichText Reference](/docs/reference-guides/richtext.md)
  -->
@@ -111,7 +120,7 @@
     -   [**core/viewport**: The Viewport Data](/docs/reference-guides/data/data-core-viewport.md)
  -->
 -   [**core**: WordPress Core Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core/)
-    -   [**core/annotations**: Annotations](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-annotations/
+    -   [**core/annotations**: Annotations](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-annotations/)
     -   [**core/blocks**: Block Types Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-blocks.md)
     -   [**core/block-editor**: The Block Editor’s Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-block-editor/)
     -   [**core/editor**: The Post Editor’s Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/)

@@ -108,10 +108,19 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
 
+2022/1/17
+- [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - 全面改訂 [#37674](https://github.com/WordPress/gutenberg/pull/37674)
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - カスタムフォルダーのサポート [#37612](https://github.com/WordPress/gutenberg/pull/37612)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - WordPress との同期について追加 [#37898](https://github.com/WordPress/gutenberg/pull/37898)
+- [Migrating to Newer Versions](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) - 新規
+- [Version 1 Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v1/) - 新規
+- 以下、未訳分で変更に気がついたもの
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - useBlockEditContext 追加 [#36299](https://github.com/WordPress/gutenberg/pull/36299)
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - エントリーポイントのために block.json をスキャン [#37661](https://github.com/WordPress/gutenberg/pull/37661)
+
 2022/1/15
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 翻訳
 - [theme.json リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/) - 翻訳
-
 
 2022/1/9
 - [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - パフォーマンスベンチマークジョブ追加 [#37446](https://github.com/WordPress/gutenberg/pull/37446)、[#37775](https://github.com/WordPress/gutenberg/pull/37775)
@@ -122,13 +131,6 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 - 以下、未訳分で変更に気がついたもの
 - [ColorIndicator](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/color-indicator/README.md) - 改定 [#37638](https://github.com/WordPress/gutenberg/pull/37638)
 - [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - packages-update 追加 [#37687](https://github.com/WordPress/gutenberg/pull/37687)
-
-2021/12/31
-- [メタボックス](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) - 増補改訂 [#37621](https://github.com/WordPress/gutenberg/pull/37621)
-- 以下、未訳分で変更に気がついたもの
-- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - receiveUploadPermissions 非推奨。代替は receiveUserPermission。[#37508](https://github.com/WordPress/gutenberg/pull/37508)
-- [GradientPicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/gradient-picker/README.md) - 新規
-- [Core Data](https://github.com/WordPress/gutenberg/blob/trunk/packages/core-data/README.md) - receiveUploadPermissions 非推奨。代替は receiveUserPermission。[#37508](https://github.com/WordPress/gutenberg/pull/37508)
 
 [以前の変更履歴](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)
 

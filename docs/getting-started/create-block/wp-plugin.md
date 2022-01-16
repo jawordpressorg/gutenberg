@@ -5,7 +5,7 @@
 <!--
 A block is added to the block editor using a WordPress plugin. You can create your own plugin, and after installing and activating the plugin use the block. Let's first look at what makes up a WordPress plugin.
  -->
-ブロックは WordPress プラグインを使用してブロックエディターに追加されます。ユーザーは自分のプラグインを作成し、インストール、有効化してブロックを使用できます。ここではまず、WordPress プラグインの構成から見ていきます。
+ブロックは WordPress プラグインを使用してブロックエディターに追加されます。ユーザーはプラグインを作成し、インストール、有効化してブロックを使用できます。ここではまず、WordPress プラグインの構成から見ていきます。
 
 <!--
 ## Plugin Details
@@ -14,24 +14,24 @@ A block is added to the block editor using a WordPress plugin. You can create yo
 <!--
 A WordPress plugin is a set of files within the site's `wp-content/plugins` directory. For our tutorial, we will use the `@wordpress/create-block` package to generate the necessary plugin files.
  -->
-「WordPress プラグイン」の実体は Web サイトの `wp-content/plugins` ディレクトリ内にあるファイルの集合体です。このチュートリアルでは `@wordpress/create-block` パッケージを使用して、必要なプラグインファイルを生成します。
+「WordPress プラグイン」の実体は Web サイトの `wp-content/plugins` ディレクトリ内にあるファイルの集合です。このチュートリアルでは `@wordpress/create-block` パッケージを使用して、必要なプラグインファイルを生成します。
 
 <!--
 ### Switch to Working Directory
  -->
 ### ワーキングディレクトリへの切り替え
 <!--
-(1A) If you do not plan to use `wp-env`, change to your local WordPress plugin directory. For example in Local it is: `~\Local Sites\mywp\wp-content\plugins`
+(1A) If you do not plan to use `wp-env`, change to your local WordPress plugin directory. For example in Local it is: `~\Local Sites\mywp\app\public\wp-content\plugins`
 
 -or-
 
 (1B) If using `wp-env start`, you can work from any directory for your project; `wp-env` will map it as a plugin directory for your site.
  -->
-(1A) `wp-env` を使う予定がなければ、ローカルの WordPress プラグインディレクトリに移動してください。たとえば [Local by Flywheel](https://localbyflywheel.com/) (以下、Local) であれば `~\Local Sites\mywp\wp-content\plugins` です。
+(1A) `wp-env` を使う予定がなければ、ローカルの WordPress プラグインディレクトリに移動してください。たとえば [Local by Flywheel](https://localbyflywheel.com/) (以下、Local) であれば `~\Local Sites\mywp\app\public\wp-content\plugins` です。
 
 または
 
-(1B) `wp-env start` を使う場合、任意のプロジェクト用ディレクトリから始めることができます。`wp-env` がサイトのプラグインディレクトリにマッピングしてくれます。
+(1B) `wp-env start` を使う場合、任意のプロジェクト用ディレクトリから始めることができます。`wp-env` がサイトのプラグインディレクトリにマッピングします。
 <!--
 ### Generate Plugin Files
  -->
@@ -50,9 +50,9 @@ A new directory `gutenpride` is created with all the necessary plugin files. Thi
 
 The main plugin file created is the PHP file `gutenpride.php`, at the top of this file is the Plugin Header comment block that defines the plugin.
  -->
-新しいディレクトリ `gutenpride` とすべての必要なプラグインファイルが作成されます。以下、プラグインファイルを見ながら説明を加えていきます。一緒にファイルを確認し内容に親しんでください。
+新しいディレクトリ `gutenpride` とすべての必要なプラグインファイルが作成されます。以下、プラグインファイルを見ながら説明します。一緒にファイルを確認し、内容に親しんでください。
 
-作成されるメインのプラグインファイルは PHP ファイル `gutenpride.php` です。このファイルの先頭部分には、プラグインを定義するプラグインヘッダーコメントブロックがあります。
+作成されるメインのプラグインファイルは PHP ファイル `gutenpride.php` です。このファイルの先頭部分には、プラグインを定義する、プラグインヘッダーコメントブロックがあります。
 
 ```php
 /**
@@ -102,6 +102,7 @@ This will start your local WordPress site and use the current directory as your 
  -->
 ### Plugin のインストールの確認
 
+<!--
 The generated plugin should now be listed on the Plugins admin page in your WordPress install. Switch WordPress to the plugins page and activate.
 
 For more on creating a WordPress plugin see [Plugin Basics](https://developer.wordpress.org/plugins/plugin-basics/), and [Plugin Header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) for explanation and additional fields you can include in your plugin header.
@@ -121,9 +122,9 @@ A `package.json` file was created with the create script, this defines the depen
 
 In `package.json`, there is a `scripts` property that defines what command to run when using `npm run (cmd)`. In our generated `package.json` file, the two main scripts point to the commands in the `wp-scripts` package:
  -->
-`package.json` ファイルはプロジェクトの JavaScript プロパティを定義します。これは NPM で使用される標準ファイルでプロパティや実行可能なスクリプトを含みます。ファイルやプロセスは WordPress 固有のものではありません。
+`package.json` ファイルはプロジェクトの JavaScript プロパティを定義します。これは NPM で使用される標準ファイルで、プロパティや実行可能なスクリプトを含みます。ファイルやプロセスは WordPress 固有のものではありません。
 
-`package.json` ファイルは create スクリプトで作成され、依存性と必要なスクリプトを定義します。最初からある依存性は `@wordpress/scripts` パッケージだけでブロック構築に必要なツールと構成をバンドルします。
+`package.json` ファイルは create スクリプトで作成され、依存性と必要なスクリプトを定義します。最初からある依存性は `@wordpress/scripts` パッケージで、ブロック構築に必要なツールと構成をバンドルします。
 
 `package.json` には `scripts` プロパティがあり、`npm run (cmd)` を使用した際に実行されるコマンドが定義されています。生成された `package.json` ファイルでは、2つのメインのスクリプトが `wp-scripts` パッケージ内のコマンドを指しています。
 
@@ -196,7 +197,7 @@ For the `editorScript` provided in the block metadata, the build process creates
 <!--
 The `wp_register_script` function used internally registers a name, called the handle, and relates that name to the script file. The dependencies are used to specify if the script requires including other libraries. The version is specified so the browser will reload if the file changed.
  -->
-内部で使用される `wp_register_script` は「ハンドル」と呼ばれる名前を登録し、その名前をスクリプトファイルと関連付けます。他のライブラリーを含めスクリプトが必要であれば、指定に依存性が使用されます。ファイルが更新された場合にブラウザがリロードするよう、バージョンが指定されます。
+内部で使用される `wp_register_script` は「ハンドル」と呼ばれる名前を登録し、その名前をスクリプトファイルに関連付けます。スクリプトが、他のライブラリのインクルードを必要とする場合、依存性を使用してこれを指定します。またバージョンを指定すると、ファイルが更新された場合にブラウザがリロードします。
 
 <!--
 The `wp_set_script_translations` function tells WordPress to load translations for this script, if they  exist. See more about [translations & internationalization.](/docs/how-to-guides/internationalization.md)
@@ -217,7 +218,7 @@ It is a good skill to learn and get comfortable using the web console. This is w
 
 To open the developer tools in Firefox, use the menu selecting Web Developer : Toggle Tools, on Chrome, select More Tools -> Developers Tools. For both browsers, the keyboard shortcut on Windows is Ctrl+Shift+I, or on Mac Cmd+Shift+I. On Windows & Linux, the F12 key also works. You can then click Console to view logs.
  -->
-Web コンソールの使い方を学び親しみましょう。Web コンソールでは JavaScript のエラーを表示したり、JavaScript のスニペットをテストできます。[Firefox 開発ツールドキュメント](https://developer.mozilla.org/ja/docs/Tools)を参照してください。
+Web コンソールの使い方を学び、親しみましょう。Web コンソールでは JavaScript のエラーを表示したり、JavaScript のスニペットをテストできます。[Firefox 開発ツールドキュメント](https://developer.mozilla.org/ja/docs/Tools)を参照してください。
 
 FireFox で開発ツールを開くにはメニューの「Web 開発」>「開発ツールを表示」を選択してください。Chrome では「その他のツール」>「デベロッパーツール」です。両方のブラウザともキーボードショートカットは Windows では Ctrl+Shift+I、Mac では Cmd+Shift+I です。Windows や Linux であれば F12 キーでも開きます。ログを参照するには「コンソール」をクリックしてください。
 <!--

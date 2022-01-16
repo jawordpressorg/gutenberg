@@ -849,12 +849,12 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 <!--
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Supports:** align (full, wide), anchor, inserter, spacing (units), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
 -->
 -	**名前:** core/navigation
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), anchor, inserter, spacing (units), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
 
 <!--
@@ -1010,9 +1010,9 @@ Show a block pattern. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 ## Post Author / 投稿者
 
 <!--
-Add the author of this post. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author))
+Display post author details such as name, avatar, and bio. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author))
 -->
-投稿の投稿者を追加します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author))
+投稿者の名前、アバター、履歴などの詳細情報を表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author))
 
 <!--
 -	**Name:** core/post-author
