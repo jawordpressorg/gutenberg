@@ -275,4 +275,37 @@ The above commands will update your `trunk` branch from _upstream_. To update an
 -->
 上のコマンドは、_upstream_ の `trunk` ブランチを更新します。他のブランチを更新するには、`trunk` をそれぞれのブランチ名で置き換えてください。
 
+<!-- 
+## Miscellaneous
+ -->
+## その他
+
+<!-- 
+### Git Archeology
+ -->
+### Git 考古学
+
+<!-- 
+When looking for a commit that introduced a specific change, it might be helpful to ignore revisions that only contain styling or formatting changes.
+ -->
+特定の変更を行ったコミットを探す場合、スタイルやフォーマットの変更のみを含むリビジョンは無視した方がよいでしょう。
+
+<!-- 
+Fortunately, newer versions of `git` gained the ability to skip commits in history:
+ -->
+幸いなことに、新しいバージョンの `git` では履歴のコミットをスキップできるようになりました。
+
+```
+git blame --ignore-rev f63053cace3c02e284f00918e1854284c85b9132 -L 66,73 packages/api-fetch/src/middlewares/media-upload.js
+
+```
+<!-- 
+All styling and formatting revisions are tracked using the `.git-blame-ignore-revs` file in the Gutenberg repository. You can use this file to ignore them all at once:
+ -->
+すべてのスタイルとフォーマットのリビジョンは、Gutenberg リポジトリの `.git-blame-ignore-revs` ファイルを使用して追跡されます。このファイルを使用すると、すべてのリビジョンを一度に無視できます。
+
+```
+git blame --ignore-revs-file .git-blame-ignore-revs -L 66,73 packages/api-fetch/src/middlewares/media-upload.js
+```
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/git-workflow.md)

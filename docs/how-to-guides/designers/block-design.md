@@ -227,13 +227,13 @@ You can add a description by using the description attribute in the [registerBlo
 <!--
 Stick to a single imperative sentence with an action + subject format. Examples:
 
--   Start with the building block of all narrative.
+-   Start with the basic building block of all narrative.
 -   Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.
 -   Create a bulleted or numbered list.
 -->
 「アクション + 主語」の形で単一の命令的な文章にしてください (英語の場合)
 
-- Start with the building block of all narrative. (すべての物語の構成要素から始めます)
+- Start with the basic building block of all narrative. (すべての物語の基本の構成要素から始めます)
 - Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content. (新しいセクションを導入し、コンテンツを編成して、訪問者と検索エンジンがコンテンツの構造を理解できるようにします)
 - Create a bulleted or numbered list. (番号無しリスト、または番号付きリストを作成します)
 

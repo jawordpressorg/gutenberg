@@ -42,13 +42,16 @@ Block themes require WordPress 5.9. To use block themes in earlier versions of W
 4.  [Theme.json - Global styles](#themejson---global-styles)
 5.  [Custom templates](#custom-templates)
 6.  [Example themes](#example-themes)
+6.  [Global styles presets](#global-styles-presets)
+7.  [Example themes](#example-themes)
  -->
 1. ブロックベーステーマを作成するには何が必要か ?
 2. テーマのセットアップ
 3. テンプレートとテンプレートパーツの作成
 4. theme.json - グローバルスタイル
 5. テンプレートの作成
-6. テーマの例
+6. グローバルスタイルプリセット
+7. テーマの例
 
 <!--
 ## What is needed to create a block theme?
@@ -82,6 +85,11 @@ Template parts are optional. If they are included they must be placed inside a `
  -->
 テンプレートパーツはオプションです。含める場合は、`parts` フォルダーに置く必要があります。
 
+<!-- 
+The theme may optionally include a `styles` folder to provide [global styles presets](#global-styles-presets).
+ -->
+テーマはオプションでグローバルスタイルプリセットを提供する `styles` フォルダを含めても構いません。 
+
 <!--
 File structure:
  -->
@@ -99,6 +107,10 @@ theme
 |__ parts
 	|__ header.html
 	|__ footer.html
+	|__ ...
+|__ styles
+	|__ red.json
+	|__ blue.json
 	|__ ...
 ```
 
@@ -1277,7 +1289,7 @@ Add two keys:
  -->
 
 <!-- 
-Add three keys: -`name`, the file name of the template part file without the file extension, -`area`, the name of the template area, and `title` the visible name in the editor.
+Add three keys: `name`, the file name of the template part file without the file extension, `area`, the name of the template area, and `title`, the visible name in the editor.
  -->
 3つのキーを追加します。
 - `name`: テンプレートパーツのファイル名から拡張子を除いたもの
@@ -1285,9 +1297,10 @@ Add three keys: -`name`, the file name of the template part file without the fil
 - `title`: エディターで表示される名前
 
 <!--
-There are three template areas to choose from: Header, footer, and general.
+There are three template areas to choose from: header, footer, and general.
  -->
 テンプレートは、header、footer、general の3つのエリアから選択できます。
+
 
 ```json
 "templateParts": [
@@ -1368,6 +1381,51 @@ The key is `postTypes`, followed by the name of the post type:
 		]
 	}
 ]
+```
+
+<!-- 
+## Global styles presets
+ -->
+## グローバルスタイルプリセット
+
+<!-- 
+In addition to the default theme.json file, Block Themes can define multiple global styles presets for users to pick from. For example, a theme author might provide multiple theme color variations for the theme.
+ -->
+ブロックテーマでは、デフォルトの theme.json ファイルに加えて、ユーザーが選択できるように複数のグローバルスタイルプリセットを定義できます。例えば、テーマの作者は、テーマに複数のカラーバリエーションを提供できます。
+
+
+<!-- 
+To provide a global styles preset, themes can add multiple JSON files inside their `/styles` folder. Each one of these JSON file is a mini theme.json file containing `styles` and/or `settings` that overrides any of the default `theme.json` file settings or styles.
+ -->
+テーマでグローバルスタイルプリセットを提供するには、`/styles` フォルダ内に複数の JSON ファイルを追加します。これらの JSON ファイルは、ミニ theme.json ファイルで、それぞれ、`styles` や `settings` を含み、デフォルトの `theme.json` ファイルの設定やスタイルを上書きします。
+
+<!-- 
+**Example**
+ -->
+**例**
+
+```json
+// styles/red.json
+{
+	styles: {
+		colors: {
+			text: 'red',
+			background: 'white'
+		}
+	}
+}
+```
+
+```json
+// styles/dark.json
+{
+	styles: {
+		colors: {
+			text: 'white',
+			background: 'black'
+		}
+	}
+}
 ```
 
 <!--

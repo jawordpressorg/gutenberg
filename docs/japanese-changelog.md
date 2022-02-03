@@ -2,6 +2,25 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/1/29
+
+- [Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow/) - .git-blame-ignore-revs 追加 [#37822](https://github.com/WordPress/gutenberg/pull/37822)
+- [React Native Mobile Editor](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/) - 国際化追加 [#37918](https://github.com/WordPress/gutenberg/pull/37918)
+- [Glossary](https://ja.wordpress.org/team/handbook/block-editor/explanations/glossary/) - Block Styles、Block Supports, Global Styles, Local Styles 追加 [#38076](https://github.com/WordPress/gutenberg/pull/38076)、[#38083](https://github.com/WordPress/gutenberg/pull/38083)
+- [ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/)、[ダイナミックブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) - block supports 追加 [#38210](https://github.com/WordPress/gutenberg/pull/38210)
+- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - グローバルスタイルプリセット追加 [#38129](https://github.com/WordPress/gutenberg/pull/38129)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - __experimentalSelector への注記 [#37984](https://github.com/WordPress/gutenberg/pull/37984)
+minor
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - 概要説明の更新 [#37847](https://github.com/WordPress/gutenberg/pull/37847)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 属性の追加等 [#36149](https://github.com/WordPress/gutenberg/pull/36149), [#38044](https://github.com/WordPress/gutenberg/pull/38044), [#37297](https://github.com/WordPress/gutenberg/pull/37297), [#38235](https://github.com/WordPress/gutenberg/pull/38235), [#38152](https://github.com/WordPress/gutenberg/pull/38152)
+- [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) など - コントリビューター用記述の追加 [#38122](https://github.com/WordPress/gutenberg/pull/38122)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - install-path 追加 [#35638](https://github.com/WordPress/gutenberg/pull/35638)
+- [React Native Integration Test Guide](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/) - toBeVisible 推奨 [#38254](https://github.com/WordPress/gutenberg/pull/38254)
+- [React Native Internationalization Guide](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/internationalization-guide/) - 新規
+- [Folder Structure](https://ja.wordpress.org/team/handbook/block-editor/contributors/folder-structure/) - .stylelintignore 追加 [#38091](https://github.com/WordPress/gutenberg/pull/38091)
+- [Block Supports in dynamic blocks](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks/) - 新規
+- Block Supports - 新規
+
 2022/1/17
 - [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - 全面改訂 [#37674](https://github.com/WordPress/gutenberg/pull/37674)
 - [バージョン 1 リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v1/) - 新規、翻訳

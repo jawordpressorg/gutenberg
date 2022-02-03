@@ -30,4 +30,8 @@ If you encounter a failed Android/iOS test on your pull request, we recommend th
 
 Follow the instructions in [Native mobile testing](/docs/contributors/code/react-native/integration-test-guide.md) to locally debug the native mobile unit tests when needed.
 
+## Internationalization (i18n)
+
+Further information about this topic can be found in the [React Native Internationalization Guide](/docs/contributors/code/react-native/internationalization-guide.md).
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/react-native/README.md)

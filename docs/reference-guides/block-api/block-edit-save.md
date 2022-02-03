@@ -174,9 +174,9 @@ The value of `attributes.content` will be displayed inside the `div` when insert
 
 ### isSelected
 <!--
-The isSelected property is an object that communicates whether the block is currently selected.
+The isSelected property is an boolean that communicates whether the block is currently selected.
  -->
-`isSelected` プロパティはブロックが現在選択されているかどうかを伝えるオブジェクトです。
+`isSelected` プロパティはブロックが現在選択されているかどうかを伝えるブール値です。
 
 **JSX**
 <!-- 

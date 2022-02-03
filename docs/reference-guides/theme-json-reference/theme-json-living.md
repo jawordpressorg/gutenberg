@@ -4,13 +4,17 @@
 <!-- 
 # theme.json リファレンス
  -->
-# バージョン 2 (現在のリファレンス)
 <!-- 
-> This is the living specification for the **version 2** of theme.json. This version works with the upcoming WordPress 5.9 and the latest Gutenberg plugin.
+# Version 2 (living reference)
+ -->
+# バージョン 2 (現在のリファレンス)
+
+<!-- 
+> This is the living specification for the **version 2** of theme.json. This version works with WordPress 5.9 or later, and the latest Gutenberg plugin.
 >
 > There're related documents you may be interested in: the [theme.json v1](/docs/reference-guides/theme-json-reference/theme-json-v1.md) specification and the [reference to migrate from theme.json v1 to v2](/docs/reference-guides/theme-json-reference/theme-json-migrations.md).
  -->
-> これは、theme.json **バージョン2**の現在の仕様です。このバージョンは、次期 WordPress 5.9と最新のGutenberg プラグインで動作します。
+> これは、theme.json **バージョン2**の現在の仕様です。このバージョンは、WordPress 5.9以降と最新のGutenberg プラグインで動作します。
 >
 > 関連するドキュメントとして、[theme.json v1](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v1/) 仕様と [theme.json v1 から v2 への移行リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) があります。
 

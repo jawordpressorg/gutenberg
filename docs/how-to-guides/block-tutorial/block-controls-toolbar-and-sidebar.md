@@ -323,4 +323,9 @@ multiple blocks of the same type are selected.
  -->
 ツールバーとサイドバー内の両方でレンダーされるブロックコントロールは、同じタイプの複数のブロックが選択された際にも使用されます。
 
+<!-- 
+**Note :** In the example above, we added text and background color customization support to our block to demonstrate the use of `InspectorControls` to add custom controls to the sidebar. That said, for common customization settings including color, border, spacing customization and more, we will see on the [next chapter](docs/how-to-guides/block-tutorial/block-supports.md) that you can rely on block supports to provide the same functionality in a more efficient way.
+ -->
+**注意:** 上の例では、`InspectorControls` のデモとして、ブロックのテキストや背景色のカスタマイズのサポートに、`InspectorControls` を使用してサイドバーにカスタムコントロールを追加しました。しかし、色やボーダー、スペースなどの一般的なカスタマイズ設定では、[次の章](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports/)で見るように、より効率的に同じ機能を提供するブロックサポートを使用できます。
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar.md)

@@ -1151,12 +1151,15 @@ Styles found within a block will be enqueued using the block selector.
 ブロック内のスタイルは、ブロックセレクタを使用してエンキューされます。
 
 <!--
-By default, the block selector is generated based on its name such as `.wp-block-<blockname-without-namespace>`. For example, `.wp-block-group` for the `core/group` block. There are some blocks that want to opt-out from this default behavior. They can do so by explicitly telling the system which selector to use for them via the `__experimentalSelector` key within the `supports` section of its `block.json` file.
+By default, the block selector is generated based on its name such as `.wp-block-<blockname-without-namespace>`. For example, `.wp-block-group` for the `core/group` block. There are some blocks that want to opt-out from this default behavior. They can do so by explicitly telling the system which selector to use for them via the `__experimentalSelector` key within the `supports` section of its `block.json` file. Note that the block needs to be registered server-side for the `__experimentalSelector` field to be available to the style engine.
  -->
-デフォルトでは、ブロックセレクタは `.wp-block-<blockname-without-namespace>` のような名前を基にして生成されます。たとえば、`core/group` ブロックの `.wp-block-group` です。このデフォルトの動作をオプトアウトしたいブロックもあります。これには明示的にシステムに対してどのセレクタを使用するかを、`block.json` ファイルの `supports` セクション内の `__experimentalSelector` キーで指定します。
+デフォルトでは、ブロックセレクタは `.wp-block-<blockname-without-namespace>` のような名前を基にして生成されます。たとえば、`core/group` ブロックの `.wp-block-group` です。このデフォルトの動作をオプトアウトしたいブロックもあります。これには明示的にシステムに対してどのセレクタを使用するか、`block.json` ファイルの `supports` セクション内の `__experimentalSelector` キーで指定します。注意: スタイルエンジンが `__experimentalSelector` フィールドを利用できるようにするには、このブロックをサーバーサイドで登録する必要があります。
 
+<!-- 
 {% codetabs %}
 {% Input %}
+ -->
+**入力**
 
 ```json
 {
@@ -1180,8 +1183,10 @@ By default, the block selector is generated based on its name such as `.wp-block
 	}
 }
 ```
-
+<!-- 
 {% Output %}
+ -->
+**出力**
 
 ```css
 body {
@@ -1194,8 +1199,9 @@ p { /* The core/paragraph opts out from the default behaviour and uses p as a se
 	color: var( --wp--preset--color--tertiary );
 }
 ```
-
+<!-- 
 {% end %}
+ -->
 
 <!--
 #### Element styles

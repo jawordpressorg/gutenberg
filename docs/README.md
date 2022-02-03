@@ -104,9 +104,18 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ## ブロックエディターハンドブック日本語版
 
-### 更新履歴
+### 主な変更
 
-翻訳の進捗や、最新の英語版で同期した際に気づいたことをメモします。
+詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
+
+2022/1/29
+- ブロックサポート
+  - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - 概要説明の更新 [#37847](https://github.com/WordPress/gutenberg/pull/37847)
+  - [Block Supports in dynamic blocks](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks/) - 新規
+  - Block Supports - 新規
+  - [ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/)、[ダイナミックブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) - block supports 追加 [#38210](https://github.com/WordPress/gutenberg/pull/38210)
+- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - グローバルスタイルプリセット追加 [#38129](https://github.com/WordPress/gutenberg/pull/38129)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - install-path 追加 [#35638](https://github.com/WordPress/gutenberg/pull/35638)
 
 2022/1/17
 - [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - 全面改訂 [#37674](https://github.com/WordPress/gutenberg/pull/37674)
@@ -122,15 +131,6 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 翻訳
 - [theme.json リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/) - 翻訳
 
-2022/1/9
-- [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - パフォーマンスベンチマークジョブ追加 [#37446](https://github.com/WordPress/gutenberg/pull/37446)、[#37775](https://github.com/WordPress/gutenberg/pull/37775)
-- [スタイルとスタイルシートの利用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/applying-styles-with-stylesheets/) - block.json を使用する方法に書き換え [#37679](https://github.com/WordPress/gutenberg/pull/37679)
-- [ブロックテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/)、[ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/)、[Glossary](https://ja.wordpress.org/team/handbook/block-editor/explanations/glossary/) - 実験を削除 [#37655](https://github.com/WordPress/gutenberg/pull/37655)
-- [Core Blocks Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ソースへのリンク追加 [#37750](https://github.com/WordPress/gutenberg/pull/37750)
-- [theme.json Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/) - 新規
-- 以下、未訳分で変更に気がついたもの
-- [ColorIndicator](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/color-indicator/README.md) - 改定 [#37638](https://github.com/WordPress/gutenberg/pull/37638)
-- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - packages-update 追加 [#37687](https://github.com/WordPress/gutenberg/pull/37687)
 
 [以前の変更履歴](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)
 

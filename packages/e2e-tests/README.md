@@ -35,7 +35,7 @@ Gutenberg リポジトリでは、以下のコマンドを実行できます。
 {
 	"test-e2e": "wp-scripts test-e2e --config packages/e2e-tests/jest.config.js",
 	"test-e2e:debug": "wp-scripts --inspect-brk test-e2e --config packages/e2e-tests/jest.config.js --puppeteer-devtools",
-	"test-e2e:watch": "npm run test-e2e -- --watch",
+	"test-e2e:watch": "npm run test-e2e -- --watch"
 }
 ```
 <!--
@@ -50,6 +50,7 @@ npm run test-e2e
 ### Run all available tests and listen for changes.
  -->
 ### すべての実行可能なテストを実行し、変更を監視
+
 
 ```bash
 npm run test-e2e:watch
@@ -85,6 +86,7 @@ e2e テストを Chrome ブラウザでデバッグできるようにします�
 ```bash
 npm run test-e2e:debug
 ```
+
 <!--
 After running the command, tests will be available for debugging in Chrome by going to chrome://inspect/#devices and clicking `inspect` under the path to `/test-e2e.js`.
  -->
@@ -102,22 +104,22 @@ Debugging in a Chrome browser can be replaced with `vscode`'s debugger by adding
 
 ```json
 {
-			"type": "node",
-			"request": "launch",
-			"name": "Debug current e2e test",
-			"program": "${workspaceFolder}/node_modules/@wordpress/scripts/bin/wp-scripts.js",
-			"args": [
-				"test-e2e",
-				"--config=${workspaceFolder}/packages/e2e-tests/jest.config.js",
-				"--verbose=true",
-				"--runInBand",
-				"--watch",
-				"${file}"
-			],
-			"console": "integratedTerminal",
-			"internalConsoleOptions": "neverOpen",
-			"trace": "all"
-		}
+	"type": "node",
+	"request": "launch",
+	"name": "Debug current e2e test",
+	"program": "${workspaceFolder}/node_modules/@wordpress/scripts/bin/wp-scripts.js",
+	"args": [
+		"test-e2e",
+		"--config=${workspaceFolder}/packages/e2e-tests/jest.config.js",
+		"--verbose=true",
+		"--runInBand",
+		"--watch",
+		"${file}"
+	],
+	"console": "integratedTerminal",
+	"internalConsoleOptions": "neverOpen",
+	"trace": "all"
+}
 ```
 
 <!--
@@ -130,6 +132,21 @@ This will run jest, targetting the spec file currently open in the editor. `vsco
  -->
 **注意**: このパッケージは Node.js 12.0.0 以降が必要です。古いバージョンと互換性はありません。
 
-[原文](https://github.com/WordPress/gutenberg/tree/trunk/packages/e2e-tests#readme)
+<!-- 
+## Contributing to this package
+ -->
+## このパッケージへのコントリビュート
 
-<br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+<!-- 
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+ -->
+これは、Gutenberg プロジェクトの一部である、個別パッケージです。このプロジェクトは、monorepo として構成されています。複数の自己完結型ソフトウェアパッケージで構成されており、それぞれが特定の目的を持ちます。この monorepo のパッケージは [npm](https://www.npmjs.com/) で公開され、[WordPress](https://make.wordpress.org/core/) や他のソフトウェアプロジェクトで利用されています。
+
+<!-- 
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+ -->
+このパッケージや Gutenberg 全体へのコントリビュートの詳細については、プロジェクトのメインの[コントリビューターガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/)を参照ください。
+
+<br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+
+[原文](https://github.com/WordPress/gutenberg/tree/trunk/packages/e2e-tests#readme)

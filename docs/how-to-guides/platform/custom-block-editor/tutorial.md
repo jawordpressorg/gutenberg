@@ -1092,12 +1092,12 @@ If you've made it this far then congratulations! I hope you now have a better un
 
 In addition, you've reviewed an working example of the code required to implement your own custom functioning block editor. This information should prove useful, especially as Gutenberg expands beyond editing just the `Post` and into Widgets, Full Site Editing and beyond!
 
-The full code for the custom functioning block editor we've just built is [available on Github](https://github.com/getdave/standalone-block-editor). I encourage you to download and try it out for yourself. Experiment, then and take things even further!
+The full code for the custom functioning block editor we've just built is [available on GitHub](https://github.com/getdave/standalone-block-editor). I encourage you to download and try it out for yourself. Experiment, then and take things even further!
  -->
 ここまでお付き合いいただいた方、おめでとうございます ! ブロックエディター内部がどのように動作しているのかを理解できるようになったとと思います。
 
 加えて、カスタムで機能するブロックエディターを実装する際に必要な動くコード例をレビューしてきました。この情報は特に、Gutenberg が単なる `Post` の編集からウィジェットやフルサイト編集、さらにその先まで拡張されている今、必ず役に立つはずです。
 
-これまで構築したカスタムで機能するブロックエディターの完全なコードは [Github から取得可能](https://github.com/getdave/standalone-block-editor) です。ダウンロードし、自分で動かしてみることをお勧めします。実験し、更にその先まで進みましょう !
+これまで構築したカスタムで機能するブロックエディターの完全なコードは [GitHub から取得可能](https://github.com/getdave/standalone-block-editor) です。ダウンロードし、自分で動かしてみることをお勧めします。実験し、更にその先まで進みましょう !
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/platform/custom-block-editor/tutorial.md)

@@ -684,6 +684,24 @@ wp-env logs [environment]
   --debug    デバッグ出力の有効化         [boolean] [デフォルト: false]
   --watch    ログをウオッチする          [boolean] [デフォルト: true]
 ```
+<!-- 
+### `wp-env install-path`
+ -->
+### wp-env install-path
+<!-- 
+Outputs the absolute path to the WordPress environment files.
+
+Example:
+ -->
+WordPress 環境ファイルへの絶対パスを出力します。
+
+例:
+
+```sh
+$ wp-env install-path
+
+/home/user/.wp-env/63263e6506becb7b8613b02d42280a49
+```
 
 <!--
 ## .wp-env.json
@@ -1001,6 +1019,21 @@ You can tell `wp-env` to use a specific PHP version for compatibility and testin
 }
 ```
 
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/env/README.md)
+<!-- 
+## Contributing to this package
+ -->
+## このパッケージへのコントリビュート
 
-<br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+<!-- 
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+ -->
+これは、Gutenberg プロジェクトの一部である、個別パッケージです。このプロジェクトは、monorepo として構成されています。複数の自己完結型ソフトウェアパッケージで構成されており、それぞれが特定の目的を持ちます。この monorepo のパッケージは [npm](https://www.npmjs.com/) で公開され、[WordPress](https://make.wordpress.org/core/) や他のソフトウェアプロジェクトで利用されています。
+
+<!-- 
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+ -->
+このパッケージや Gutenberg 全体へのコントリビュートの詳細については、プロジェクトのメインの[コントリビューターガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/)を参照ください。
+
+<br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/env/README.md)

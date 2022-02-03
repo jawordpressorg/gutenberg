@@ -28,7 +28,7 @@ Unlike other components that exist in the [Component Reference](/packages/compon
 <!--
 ## Property Reference
 
-For a list of the possible properties to pass your RichText component, [check out the component documentation on Github](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md).
+For a list of the possible properties to pass your RichText component, [check out the component documentation on GitHub](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md).
  -->
 ## プロパティリファレンス
 

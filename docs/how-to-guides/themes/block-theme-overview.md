@@ -108,6 +108,10 @@ theme
     |__ footer.html
     |__ sidebar.html
     |__ ...
+|__ styles
+    |__ red.json
+    |__ blue.json
+    |__ ...
 ```
 
 <!--

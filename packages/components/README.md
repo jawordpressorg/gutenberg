@@ -77,11 +77,35 @@ You can browse the components docs and examples at https://wordpress.github.io/g
 <!--
 ## Contributing
  -->
+<!-- 
 ## コントリビューティング
-
+ -->
 <!--
 See [CONTRIBUTING.md](/packages/components/CONTRIBUTING.md) for the contributing guidelines for the `@wordpress/components` package.
  -->
+<!--  
 `@wordpress/components` パッケージへのコントリビュートのガイドラインの詳細については [CONTRIBUTING.md](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) を参照してください。
+ -->
+<!-- 
+## Contributing to this package
+ -->
+## このパッケージへのコントリビュート
+
+<!-- 
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+ -->
+これは、Gutenberg プロジェクトの一部である、個別パッケージです。このプロジェクトは、monorepo として構成されています。複数の自己完結型ソフトウェアパッケージで構成されており、それぞれが特定の目的を持ちます。この monorepo のパッケージは [npm](https://www.npmjs.com/) で公開され、[WordPress](https://make.wordpress.org/core/) や他のソフトウェアプロジェクトで利用されています。
+
+<!-- 
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+ -->
+このパッケージや Gutenberg 全体へのコントリビュートの詳細については、プロジェクトのメインの[コントリビューターガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/)を参照ください。
+
+<!-- 
+This package also has its own [contributing information](/packages/components/CONTRIBUTING.md) where you can find additional details.
+ -->
+このパッケージには、また、追加の詳細詳細を記述した独自の [コントリビューター情報](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) があります。
+
+<br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/README.md)

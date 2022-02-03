@@ -4,14 +4,76 @@
 # サポート
 
 <!--
-Block Supports is the API that allows a block to declare features used in the editor.
+Block Supports is the API that allows a block to declare support for certain features.
  -->
-ブロックは「ブロックサポート」API を使用してエディター内で使用する機能を宣言できます。
+ブロックは「ブロックサポート」API を使用して、特定の機能のサポートを宣言できます。
 
 <!--
 Some block supports — for example, `anchor` or `className` — apply their attributes by adding additional props on the element returned by `save`. This will work automatically for default HTML tag elements (`div`, etc). However, if the return value of your `save` is a custom component element, you will need to ensure that your custom component handles these props in order for the attributes to be persisted.
  -->
+<!-- 
 `anchor` や `className` などいくつかのブロックサポートは属性を適用する場合に `save` から返される要素に追加の props を加えます。`div` などのデフォルトの HTML タグ要素であればこれは自動的に動作しますが、`save` の戻り値がカスタムコンポーネント要素の場合、属性が永続化されるようカスタムコンポーネントがこれらの props を処理する必要があります。
+ -->
+
+<!-- 
+Opting into any of these features will register additional attributes on the block and provide the UI to manipulate that attribute.
+ -->
+機能にオプトインすると、ブロックに追加の属性が登録され、属性を操作するUIが提供されます。
+
+<!-- 
+In order for the attribute to get applied to the block the generated properties get added to the wrapping element of the block. They get added to the object you get returned from the `useBlockProps` hook.
+ -->
+ブロックに属性を適用するために、生成されたプロパティがブロックのラッパー要素に追加されます。これらのプロパティは `useBlockProps` フックから返されるオブジェクトに追加されます。
+
+<!-- 
+`BlockEdit` function:
+ -->
+`BlockEdit` 関数:
+
+```js
+function BlockEdit() {
+	const blockProps = useBlockProps();
+
+	return (
+		<div {...blockProps}>Hello World!</div>
+	);
+}
+```
+<!-- 
+`save` function:
+ -->
+`save` 関数:
+
+```js
+function BlockEdit() {
+	const blockProps = useBlockProps.save();
+
+	return (
+		<div {...blockProps}>Hello World!</div>
+	);
+}
+```
+<!-- 
+For dynamic blocks that get rendered via a `render_callback` in PHP you can use the `get_block_wrapper_attributes()` function. It returns a string containing all the generated properties and needs to get output in the opening tag of the wrapping block element.
+ -->
+PHP の `render_callback` でレンダーされるダイナミックブロックでは、`get_block_wrapper_attributes()` 関数を使用できます。生成されたすべてのプロパティを含む文字列が返されます。これをラップするブロック要素の開始タグに出力する必要があります。
+
+<!-- 
+`render_callback` function:
+ -->
+`render_callback` 関数:
+
+```php
+function render_block() {
+	$wrapper_attributes = get_block_wrapper_attributes();
+
+	return sprintf(
+		'<div %1$s>%2$s</div>',
+		$wrapper_attributes,
+		'Hello World!'
+	);
+}
+```
 
 ## anchor
 <!--
@@ -22,7 +84,7 @@ Some block supports — for example, `anchor` or `className` — apply their att
 - デフォルト値: `false`
 
 <!--
-Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link.
+Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link. _Important: It doesn't work with dynamic blocks yet._
 
 ```js
 // Declare support for anchor links.
@@ -31,7 +93,7 @@ supports: {
 }
 ```
  -->
-アンカーを使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。
+アンカーを使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。_重要: ダイナミックブロックでは、まだ、動作しません。_
 
 ```js
 // アンカーリンクのサポートを宣言
@@ -48,11 +110,11 @@ supports: {
 - タイプ: `boolean` または `array`
 - デフォルト値: `false`
 
-<!--
-This property adds block controls which allow to change block's alignment. _Important: It doesn't work with dynamic blocks yet._
+<!-- 
+This property adds block controls which allow to change block's alignment.
  -->
-このプロパティはブロックの配置を変更するブロックコントロールを追加します。_重要: ダイナミックブロックでは、まだ動作しません。_
-
+ このプロパティはブロックの配置を変更するブロックコントロールを追加します。
+ 
 <!--
 ```js
 supports: {

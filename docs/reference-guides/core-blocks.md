@@ -472,12 +472,12 @@ An advanced block that allows displaying post comments based on different query 
 -	**Name:** core/comments-query-loop
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
--	**Attributes:** perPage, tagName
+-	**Attributes:** inherit, order, perPage, tagName
 -->
 -	**名前:** core/comments-query-loop
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), color (background, gradients, link, text), ~~html~~
--	**属性:** perPage, tagName
+-	**属性:** inherit, order, perPage, tagName
 
 <!--
 ## Cover
@@ -850,12 +850,12 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 -	**Name:** core/navigation
 -	**Category:** theme
 -	**Supports:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
+-	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
 -->
 -	**名前:** core/navigation
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
--	**属性:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
+-	**属性:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
 
 <!--
 ## Navigation Area
@@ -968,7 +968,7 @@ Display a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tr
 ## Paragraph / 段落
 
 <!--
-Start with the building block of all narrative. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/paragraph))
+Start with the basic building block of all narrative. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/paragraph))
 -->
 文章の基本のブロックです。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/paragraph))
 
@@ -1228,12 +1228,12 @@ Display a post's featured image. ([Source](https://github.com/WordPress/gutenber
 -	**Name:** core/post-featured-image
 -	**Category:** theme
 -	**Supports:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**Attributes:** height, isLink, scale, width
+-	**Attributes:** height, isLink, scale, sizeSlug, width
 -->
 -	**名前:** core/post-featured-image
 -	**カテゴリー:** theme
 -	**サポート:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**属性:** height, isLink, scale, width
+-	**属性:** height, isLink, scale, sizeSlug, width
 
 <!--
 ## Post Navigation Link
@@ -1690,12 +1690,12 @@ Display icons linking to your social media profiles or sites. ([Source](https://
 -	**Name:** core/social-links
 -	**Category:** widgets
 -	**Supports:** align (center, left, right), anchor, spacing (blockGap, margin, units)
--	**Attributes:** customIconBackgroundColor, customIconColor, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, openInNewTab, size
+-	**Attributes:** customIconBackgroundColor, customIconColor, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, openInNewTab, showLabels, size
 -->
 -	**名前:** core/social-links
 -	**カテゴリー:** widgets
 -	**サポート:** align (center, left, right), anchor, spacing (blockGap, margin, units)
--	**属性:** customIconBackgroundColor, customIconColor, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, openInNewTab, size
+-	**属性:** customIconBackgroundColor, customIconColor, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, openInNewTab, showLabels, size
 
 <!--
 ## Spacer

@@ -189,6 +189,11 @@ There are a few things to notice:
 - 組み込みの `save` 関数は `null` を返すだけです。これはレンダリングがサーバー側で実行されるためです。
 - サーバー側レンダリングは、ブロックとブロックの内部コンテンツを引数に取る関数で、ショートコードに似たマークアップを返します。
 
+<!-- 
+**Note :** For common customization settings including color, border, spacing customization and more, we will see on the [next chapter](/docs/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks.md) how you can rely on block supports to provide such functionality in an efficient way.
+ -->
+**注意:** 色やボーダー、スペースなどの一般的なカスタマイズ設定では、[次の章](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports/)で見るように、より効率的に同じ機能を提供するブロックサポートを使用できます。
+
 <!--
 ## Live rendering in the block editor
 
