@@ -134,14 +134,17 @@ While the post editor concentrates on the content of a post, the [template](/doc
 Note: custom post types can also be initialized with a starting `post_content` template that should not be confused with the theme template system described above.
  -->
 注意: カスタム投稿タイプはまた、開始 `post_content` テンプレートでも初期化されます。これを上で説明したテーマテンプレートシステムと混同しないでください。
-<!--
-## Global Styles (in progress)
- -->
-## グローバルスタイル (進行中)
 
-<!--
-Describes a set of configuration and default properties of blocks and their visual aspects. Global Styles is both an interface (which users access through the site editor) and a configuration system done through [a `theme.json` file](/docs/how-to-guides/themes/theme-json.md). This file absorbs most of the configuration aspects usually scattered through various `add_theme_support` calls to simplify communicating with the editor. It thus aims to improve declaring what settings should be enabled, what attributes are supported, what specific tools a theme offers (like a custom color palette), the available design tools present both globally and on each block, and an infrastructure that allows to enqueue only the relevant CSS based on what blocks are used on a page.
+<!-- 
+## Global Styles
  -->
-グローバルスタイルは、ブロックの構成やデフォルトプロパティ、ビジュアル表現のセットを記述します。グローバルスタイルは、ユーザーがサイトエディターにアクセスする際に使用する「インターフェース」と、[`theme.json` ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) を介して実行される「構成システム」の2つから成ります。`theme.json` ファイルは通常であればさまざまな `add_theme_support` 呼び出しに散らばる構成要素の大部分を吸収し、エディターとの通信を簡素化し、以下の改良を目的とします。どの設定を有効化すべきか、どの属性がサポートされるか、テーマが特定のツール、たとえばカスタムカラーパレットを提供するかなどの宣言、そして、全体またはブロックごとに利用可能なデザインツール、ページで使用されるブロックに応じて関連する CSS のみをエンキューできる基盤。
+## グローバルスタイル
+
+<!-- 
+Global Styles is both an interface (which users access through the site editor) and a configuration system done through [a `theme.json` file](/docs/how-to-guides/themes/theme-json.md). This file absorbs most of the configuration aspects usually scattered through various `add_theme_support` calls to simplify communicating with the editor. It thus aims to improve declaring what settings should be enabled, what specific tools a theme offers (like a custom color palette), the available design tools present, and an infrastructure that allows to coordinate the styles coming from WordPress, the active theme, and the user.
+ -->
+グローバルスタイルは、ユーザーがサイトエディターにアクセスする際に使用する「インターフェース」と、[`theme.json` ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) を介して実行される「構成システム」の2つから成ります。`theme.json` ファイルは、通常であればさまざまな `add_theme_support` 呼び出しに散らばる構成要素の大部分を吸収し、エディターとの通信を簡素化します。したがって、グローバルスタイルは以下に挙げるような宣言を改良します。すなわち、どの設定を有効化するか、テーマはどの特定ツールをサポートするか (カスタムカラーパレットなど)、利用可能なデザインツール、そして、WordPress、有効化されたテーマ、ユーザーから来るスタイルを調整するインフラ。
+
+詳細については、[グローバルスタイル](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles.md#global-styles) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/explanations/architecture/key-concepts.md)

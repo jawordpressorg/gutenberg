@@ -52,6 +52,7 @@ WordPress 5.8では、エディタを構成する[新しいメカニズム](http
         - Elements
     - customTemplates
     - templateParts
+    - patterns
 - FAQ
     - The naming schema of CSS Custom Properties
     - Why using -- as a separator?
@@ -1406,6 +1407,28 @@ Currently block variations exist for "header" and "footer" values of the area te
 			"area": "header"
 		}
 	]
+}
+```
+<!-- 
+### patterns
+ -->
+### patterns
+<!-- 
+<div class="callout callout-alert">
+This field requires the Gutenberg plugin active and using the [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) of `theme.json`.
+</div>
+ -->
+注意: このフィールドは、Gutenberg プラグインが有効で、`theme.json`の [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) が必要です。
+
+<!-- 
+Within this field themes can list patterns to register from [Pattern Directory](https://wordpress.org/patterns/). The `patterns` field is an array of pattern `slugs` from the Pattern Directory. Pattern slugs can be extracted by the `url` in single pattern view at the Pattern Directory. For example in this url `https://wordpress.org/patterns/pattern/partner-logos` the slug is `partner-logos`.
+ -->
+このフィールドには、[パターンディレクトリ](https://ja.wordpress.org/patterns/)から登録するパターンをリストアップできます。`patterns` フィールドはパターンディレクトリに登録されているパターンの `slugs` の配列です。パターンのスラッグは、パターンディレクトリの単一のパターンビューで `url` から抽出できます。例えば、URL `https://wordpress.org/patterns/pattern/partner-logos` でのスラッグは `partner-logos` です。
+
+```json
+{
+    "version": 2,
+	"patterns": [ "short-text-surrounded-by-round-images", "partner-logos" ]
 }
 ```
 

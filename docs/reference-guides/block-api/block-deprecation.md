@@ -20,20 +20,38 @@ A block can have several deprecated versions. A deprecation will be tried if the
 --->
 ブロックは複数の非推奨バージョンをもつことができます。パースしたブロックの現行の状態が不正 (invalid) の場合、または、true を返す `isEligible` 関数が定義されている場合、非推奨プロセス (deprecation) が実行されます。
 
-<!--
-It is important to note that if a deprecation's `save` method does not produce a valid block then it is skipped, including its `migrate` method, even if `isEligible` would return true for the given attributes. This means that if you have several deprecations for a block and want to perform a new migration, like moving content to `InnerBlocks`, you may need to include the `migrate` method in multiple deprecations for it to be applied to all previous versions of the block.
- -->
-重要な注意点ですが、仮に `isEligible` が与えられた属性に対して true を返しても、非推奨プロセスの `save` メソッドが正しい (valid) ブロックを作成しない場合には、`migrate` メソッドを含む非推奨プロセスはスキップされます。すなわち、あるブロックに対して複数の非推奨プロセスがあって新しい移行を実行したい場合、たとえば `InnerBlocks` にコンテンツを移動する場合、複数の非推奨プロセスに、ブロックのすべての先行するバージョンに適用される `migrate` メソッドを含める必要があります。
+<!--  
+Deprecations do not operate as a chain of updates in the way other software data updates, like database migrations, do. At first glance, it is easy to think that each deprecation is going to make the required changes to the data and then hand this new form of the block onto the next deprecation to make its changes. What happens instead is:
+ --> 
+非推奨プロセスは、たとえばデータベースの移行のような、ソフトウエアデータの更新に見られる「更新の連鎖」としては動作しません。誰もが非推奨プロセスを、データに対して必要な変更を行うと、次の非推奨プロセスにブロックの新しい形が渡され、またそこで必要な変更が行われるものと考えます。しかし実際には、
 
-<!--
-Deprecations do not operate as a chain of updates in the way other software data updates, like database migrations, do. At first glance, it is easy to think that each deprecation is going to make the required changes to the data and then hand this new form of the block onto the next deprecation to make its changes. What happens instead, is that each deprecation is passed the original saved content, and if its `save` method produces valid content the deprecation is used to parse the block attributes. If it has a `migrate` method it will also be run using the attributes parsed by the deprecation. The current block is updated with the migrated attributes and inner blocks before the current block's `save` function is run to generate new valid content for the block. At this point the current block should now be in a valid state.
+<!-- 
+1. If the current `save` method does not produce a valid block the first deprecation in the deprecations array is passed the original saved content.
+2. If its `save` method produces valid content this deprecation is used to parse the block attributes. If it has a `migrate` method it will also be run using the attributes parsed by the deprecation.
+3. If the first deprecation's `save` method does not produce a valid block the subsequent deprecations in the array are tried until one producing a valid block is encountered.
+4. The attributes, and any innerBlocks, from the first deprecation to generate a valid block are then passed back to the current `save` method to generate new valid content for the block.
+5. At this point the current block should now be in a valid state and the deprecations workflow stops.
  -->
-非推奨プロセスは、たとえばデータベース移行のような、ソフトウエアデータの更新に見られる「更新の連鎖」としては動作しません。誰もが非推奨プロセスを、データに対して必要な変更を行うと、次の非推奨プロセスにブロックの新しい形が渡され、またそこで必要な変更が行われるものと考えます。しかし実際には各非推奨プロセスにはオリジナルの保存されたコンテンツが渡され、その `save` メソッドが正しい (valid) コンテンツを作成するなら、ブロック属性のパースに非推奨プロセスが使用されます。また `migrate` メソッドがあるなら、これも非推奨プロセスがパースした属性を使用して実行されます。現行のブロックは移行された属性と内部ブロックで更新され、次に `save` 関数を実行して、ブロックの新しい正しいコンテンツが生成されます。この時点で現行のブロックは正しい状態になります。
+1. 現在の `save` メソッドが正しい (valid) ブロックを生成しないなら、非推奨プロセス配列内の最初の非推奨プロセスに、オリジナルの保存されたコンテンツが渡される。
+2. その `save` メソッドが正しいコンテンツを生成するなら、この非推奨プロセスが、ブロックの属性のパースに使用される。もし `migrate` メソッドがあるなら、非推奨プロセスによってパースされた属性を用いて実行される。
+3. 最初の非推奨プロセスの `save` メソッドが正しいブロックを生成しないなら、正しいブロックを生成するまで、配列内の後続の非推奨プロセスを試行する。
+4. 属性と任意の innerBlock は、正しいブロックを作成した最初の非推奨プロセスから、現行の `save` メソッドに戻され、ブロックのための新しく正しいコンテンツを生成する。
+5. この時点で現行のブロックは正しい状態になり、非推奨プロセスワークフローは停止する。
+
+<!-- 
+It is important to note that if a deprecation's `save` method does not produce a valid block then it is skipped completely, including its `migrate` method, even if `isEligible` would return true for the given attributes. This means that if you have several deprecations for a block and want to perform a new migration, like moving content to `InnerBlocks`, you may need to update the `migrate` methods in multiple deprecations in order for the required changes to be applied to all previous versions of the block.
+ -->
+注意点として、非推奨プロセスの `save` メソッドが正しいブロックを生成しない場合、与えられた属性に対して `isEligible` が true を返すとしても、その `migrate` メソッドを含め、完全にスキップされます。あるブロックに複数の非推奨プロセスのメソッドがあり、例えばコンテンツを `InnerBlocks` に移動するような、新しい移行を行いたい場合、必要な変更を以前のバージョンのブロックすべてに適用するために、複数の非推奨プロセスの `migrate` メソッドを更新する必要があります。
+
+<!-- 
+It is also important to note that if a deprecation's `save` method imports additional functions from other files, changes to those files may accidentally change the behavior of the deprecation. You may want to add a snapshot copy of these functions to the deprecations file instead of importing them in order to avoid inadvertently breaking the deprecations.
+ -->
+また、非推奨プロセスの `save` メソッドが他のファイルから追加の関数をインポートする場合、このファイルを変更すると、誤って非推奨プロセスの動きが変わるかもしれません。これを防ぐには、関数をインポートする代わりに、関数のスナップショットのコピーを非推奨プロセスのファイルに追加してください。
 
 <!--
 For blocks with multiple deprecations, it may be easier to save each deprecation to a constant with the version of the block it applies to, and then add each of these to the block's `deprecated` array. The deprecations in the array should be in reverse chronological order. This allows the block editor to attempt to apply the most recent and likely deprecations first, avoiding unnecessary and expensive processing.
  -->
-複数の非推奨プロセスをもつブロックの場合、適用するブロックのバージョンと共に各非推奨プロセスを定数に保存し、これらをブロックの `deprecated` 配列に追加すると簡単になります。配列内の非推奨プロセスは時系列の逆順 (新しいものが先) で格納します。ブロックエディターは最新の、恐らく最初の非推奨プロセスを適用し、不要で高価な処理を避けられます。
+複数の非推奨プロセスを持つブロックの場合、各非推奨プロセスを適用するブロックのバージョンを示す定数に保存し、これらをブロックの `deprecated` 配列に追加すると分かりやすいでしょう。配列内の非推奨プロセスは時系列の逆順 (新しいものが先) で格納します。ブロックエディターはまず、最新の、恐らく適切な非推奨プロセスを最初に適用し、不要で高価な処理を避けられます。
 
 <!--
 ### Example:
@@ -63,12 +81,13 @@ Deprecations are defined on a block type as its `deprecated` property, an array 
 -   `save` (Function): The [save implementation](/docs/reference-guides/block-api/block-edit-save.md) of the deprecated form of the block.
 -   `migrate` (Function, Optional): A function which, given the old attributes and inner blocks is expected to return either the new attributes or a tuple array of `[ attributes, innerBlocks ]` compatible with the block. As mentioned above, a deprecation's `migrate` will not be run if its `save` function does not return a valid block so you will need to make sure your migrations are available in all the deprecations where they are relevant.
 -   `isEligible` (Function, Optional): A function which, given the attributes and inner blocks of the parsed block, returns true if the deprecation can handle the block migration even if the block is valid. This is particularly useful in cases where a block is technically valid even once deprecated, and requires updates to its attributes or inner blocks. This function is not called when the results of all previous deprecations' `save` functions were invalid.
+-   `isEligible` (Function, Optional): A function which, given the attributes and inner blocks of the parsed block, returns true if the deprecation can handle the block migration even if the block is valid. This is particularly useful in cases where a block is technically valid even once deprecated, but still requires updates to its attributes or inner blocks. This function is not called when the results of all previous deprecations' `save` functions were invalid.
  -->
 - `attributes` (Object): ブロックの非推奨形式の [attributes 定義](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)。
 - `supports` (Object): ブロックの非推奨形式の [supports 定義](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/)。
 - `save` (Function): ブロックの非推奨形式の [save の実装](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)。
 - `migrate` (Function、オプション): 古い属性と内部ブロックを指定すると、新しい属性、または、ブロックと互換性のある `[ attributes, innerBlocks ]` のタブル配列を返す関数。上で説明したように、非推奨プロセスの `save` 関数が正しいブロックを返さない場合、`migrate` は実行されません。したがって関連するすべての非推奨プロセスで移行が利用可能であることを確認する必要があります。
-- `isEligible` (Function、オプション): パースされたブロックの属性と内部ブロックを指定すると、ブロックが正しく (valid) ても、非推奨プロセスがブロック移行を処理できる場合に true を返す関数。この関数が特に有用なケースはブロックが非推奨となっても技術的には正しく、属性や内部ブロックの更新が必要な場合です。以前のすべての非推奨プロセスの `save` 関数が不正 (invalid) の場合にはこの関数は呼ばれません。
+- `isEligible` (Function、オプション): パースされたブロックの属性と内部ブロックを指定すると、ブロックが正しく (valid) ても、非推奨プロセスがブロック移行を処理できる場合に true を返す関数。この関数が特に有用なケースはブロックが非推奨となっても技術的には正しいにも関わらず、属性や内部ブロックの更新が必要な場合です。以前のすべての非推奨プロセスの `save` 関数が不正 (invalid) の場合にはこの関数は呼ばれません。
 
 <!--
 It's important to note that `attributes`, `supports`, and `save` are not automatically inherited from the current version, since they can impact parsing and serialization of a block, so they must be defined on the deprecated object in order to be processed during a migration.
@@ -155,7 +174,7 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 <!--
 In the example above we updated the markup of the block to use a `div` instead of `p`.
  -->
-上の例ではブロックのマークアップを更新し `a` の代わりに `div` を使用しています。
+上の例ではブロックのマークアップを更新し `p` の代わりに `div` を使用しています。
 
 <!--
 ## Changing the attributes set

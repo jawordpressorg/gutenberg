@@ -331,22 +331,22 @@ A transformation of type `raw` is an object that takes the following parameters:
  -->
 「raw」変換タイプは _from_ 方向をサポートし、生の HTML ノードからブロックを生成します。ユーザーがブロック設定 UI メニューで「ブロックへ変換」アクションを実行した場合、またはコンテンツをエディターに貼り付けたり、ドロップした場合にこの変換が適用されます。
 
-`raw` 変換タイプは次のパラメータを取るオブジェクトです。
+タイプ `raw` の変換は、次のパラメータを取るオブジェクトです。
 
 <!--
 -   **type** _(string)_: the value `raw`.
 -   **transform** _(function, optional)_: a callback that receives the node being processed. It should return a block object or an array of block objects.
--   **schema** _(object|function, optional)_: it defines the attributes and children of the node that will be preserved on paste, according to its [HTML content model](https://html.spec.whatwg.org/multipage/dom.html#content-models). Take a look at [pasteHandler](/packages/blocks/README.md#pasteHandler) for more info.
+-   **schema** _(object|function, optional)_: defines an [HTML content model](https://html.spec.whatwg.org/multipage/dom.html#content-models) used to detect and process pasted contents. See [below](#schemas-and-content-models).
 -   **selector** _(string, optional)_: a CSS selector string to determine whether the element matches according to the [element.matches](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) method. The transform won't be executed if the element doesn't match. This is a shorthand and alternative to using `isMatch`, which, if present, will take precedence.
 -   **isMatch** _(function, optional)_: a callback that receives the node being processed and should return a boolean. Returning `false` from this function will prevent the transform from being applied.
 -   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `raw`。
 - **transform** _(function、オプション)_: 処理するノードを受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
-- **schema** _(object|function、オプション)_: [HTML content model](https://html.spec.whatwg.org/multipage/dom.html#content-models) に従って貼り付け時に保存される属性とノードの子を定義する。詳細な情報については [pasteHandler](https://developer.wordpress.org/block-editor/packages/packages-blocks/#pasteHandler) を参照してください。
+- **schema** _(object|function、オプション)_: 張り付けられたコンテンツの検出と処理に使用される [HTML content model](https://html.spec.whatwg.org/multipage/dom.html#content-models) を定義する。以下の「スキーマとコンテンツモデル」を参照してください。
 - **selector** _(string、オプション)_: [element.matches](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) メソッドに従って要素が合致するかどうかを決定する CSS セレクター文字列。要素がマッチしない場合、変換は実行されない。`isMatch` の代替、かつ、短縮形。あれば、`isMatch` が優先。
 - **isMatch** _(function、オプション)_: 処理するノードを受け取り、ブール値を返すコールバック。`false` を返すと変換を適用しない。
-- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
+- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同じく、値が指定されていない場合のデフォルトのプライオリティは `10`。
 <!--
 
 **Example: from URLs to Embed block**
@@ -374,6 +374,84 @@ transforms: {
     ],
 }
 ```
+<!-- 
+<h4 id="schemas-and-content-models">Schemas and Content Models</h4>
+ -->
+#### スキーマとコンテンツモデル
+
+<!-- 
+When pasting content it's possible to define
+a [content model](https://html.spec.whatwg.org/multipage/dom.html#content-models) that will be used to validate and
+process pasted content. It's often the case that HTML pasted into the editor will contain a mixture of elements that _
+should_ transfer as well as elements that _shouldn't_. For example, consider
+pasting `<span class="time">12:04 pm</span>` into the editor. We want to copy `12:04 pm` and omit the `<span>` and
+its `class` attribute because those won't carry the same meaning or structure as they originally did from where they
+were copied.
+ -->
+コンテンツを貼り付ける際、[コンテンツモデル](https://html.spec.whatwg.org/multipage/dom.html#content-models)を定義して、コンテンツの妥当性を検証し、処理できます。エディターに貼り付けられたHTMLには、変換すべき要素と、変換すべきでない要素が混在します。例えば、エディターに `<span class="time">12:04 pm</span>` を貼り付ける場合、`12:04 pm` はコピーしますが、`<span>` と、その `class` 属性は削除したいでしょう。なぜなら、コピー元のオリジナル文書には存在した、意味や構造を、コピー先には持ち込めないためです。
+
+<!-- 
+When writing `raw` transforms you can control this by supplying a `schema` which describes allowable content and which
+will be applied to clean up the pasted content before attempting to match with your block. The schemas are passed
+into [`cleanNodeList` from `@wordpress/dom`](https://github.com/wordpress/gutenberg/blob/trunk/packages/dom/src/dom/clean-node-list.js); check there for
+a [complete description of the schema](https://github.com/wordpress/gutenberg/blob/trunk/packages/dom/src/phrasing-content.js).
+ -->
+`raw` 変換を書く際に、`schema` を指定することで、これを制御できます。`schema` は、許容されるコンテンツを記述し、ブロックとのマッチングを試みる前に、貼り付けられたコンテンツのクリーンアップに適用できます。`schema` は、[`@wordpress/dom` の `cleanNodeList`](https://github.com/wordpress/gutenberg/blob/trunk/packages/dom/src/dom/clean-node-list.js) に渡されます。スキーマの完全な説明については、[こちら](https://github.com/wordpress/gutenberg/blob/trunk/packages/dom/src/phrasing-content.js) を参照してください。
+
+```js
+schema = { span: { children: { '#text': {} } } }
+```
+<!-- 
+**Example: a custom content model**
+ -->
+**例: カスタムコンテンツモデル**
+
+<!-- 
+Suppose we want to match the following HTML snippet and turn it into some kind of custom post preview block.
+ -->
+例えば、次のようなHTMLスニペットにマッチして、ある種のカスタム投稿プレビューブロックに変換したいとします。
+
+ ```html
+ <div data-post-id="13">
+     <h2>The Post Title</h2>
+     <p>Some <em>great</em> content.</p>
+ </div>
+ ```
+<!-- 
+We want to tell the editor to allow the inner `h2` and `p` elements. We do this by supplying the following schema. In
+this example we're using the function form, which accepts an argument supplying `phrasingContentSchema` (as well as a
+boolean `isPaste` indicating if the transformation operation started with pasting text). The `phrasingContentSchema` is
+pre-defined to match HTML phrasing elements, such as `<strong>` and `<sup>` and `<kbd>`. Anywhere we expect
+a `<RichText />` component is a good place to allow phrasing content otherwise we'll lose all text formatting on
+conversion.
+ -->
+エディターには、内側の `h2` と `p` 要素を許可するように指示します。それには次のようなスキーマを提供できます。この例では、関数形式を使っていて、関数は、引数に `phrasingContentSchema` プロパティの値 (と同時に、変換操作がテキストの貼り付けから始まったかどうかを示すブール値 `isPaste`) を受け取ります。`phrasingContentSchema` は、HTML のフレージング要素 (例: `<strong>`、`<sup>`、`<kbd>`) とマッチするよう、あらかじめ定義されていています。`<RichText />` コンポーネントを期待する場所ではどこでも、フレージングコンテンツ ([記述コンテンツ](https://developer.mozilla.org/ja/docs/Web/Guide/HTML/Content_categories#phrasing_content)。文章とその中に含まれるマークアップ) を許可する良い候補となります。そうでなければ、変換時にすべてのテキストの書式が失われます。
+
+ ```js
+ schema = ({ phrasingContentSchema }) => {
+     div: {
+         required: true,
+         attributes: [ 'data-post-id' ],
+         children: {
+             h2: { children: phrasingContentSchema },
+             p: { children: phrasingContentSchema }
+         }
+     }
+ }
+ ```
+<!-- 
+When we successfully match this content every HTML attribute will be stripped away except for `data-post-id` and if we
+have other arrangements of HTML inside of a given `div` then it won't match our transformer. Likewise we'd fail to match
+if we found an `<h3>` in there instead of an `<h2>`.
+ -->
+このコンテンツとのマッチングに成功すると、`data-post-id` 以外のすべての HTML 属性が取り除かれます。指定された `div` の中に他の HTML の配置があると、この変換にはマッチしません。同様に、`<h2>` の代わりに `<h3>` があると、マッチングは失敗します。
+
+<!-- 
+Schemas are most-important when wanting to match HTML snippets containing non-phrasing content, such as `<details>` with
+a `<summary>`. Without declaring the custom schema the editor will skip over these other contructions before attempting
+to run them through any block transforms.
+ -->
+スキーマは、フレージングコンテンツ以外を含む HTML スニペットとマッチングする場合 (例: `<summary>` を含む `<details>`) に、最も重要になります。カスタムスキーマを宣言しなければ、エディターはブロック変換を実行する前に、これらの他の構造をスキップします。
 
 <!--
 ### Shortcode

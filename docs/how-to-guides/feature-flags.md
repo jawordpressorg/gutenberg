@@ -8,18 +8,41 @@ With phase 2 of the Gutenberg project there's a need for improved control over h
 
 The technique for handling this is known as a 'feature flag'.
  -->
+<!-- 
 Gutenberg プロジェクトのフェーズ2を開始するにあたってはコード変更のリリースコントロールを改良する必要がありました。フェーズ2以降で開発された新しい機能は Gutenberg プラグインとしてリリースする一方、改良やバグの修正は引き続きコアリリースに反映しなければなりません。
 
 こうした処理技術は「フィーチャーフラグ」として知られています。
+ -->
+<!-- 
+Often in the Gutenberg project, there's a need to control whether the code we write is shipped to WordPress core, or whether certain more experimental features are only active in the plugin.
+ -->
+Gutenberg プロジェクトでは、しばしば、書いたコードが WordPress コアとしてリリースされるのか、それとも、特定の実験的な機能がプラグインでのみ有効なのかを制御する必要があります。
+
+<!-- 
+Often this is handled using a 'feature flag'.
+ -->
+多くの場合、このような要求は「フィーチャーフラグ」を使用して処理されます。
 
 <!--
 ## Introducing `process.env.GUTENBERG_PHASE`
 
 The `process.env.GUTENBERG_PHASE` is an environment variable containing a number that represents the phase. When the codebase is built for the plugin, this variable will be set to `2`. When building for core, it will be set to `1`.
  -->
+<!-- 
 ## process.env.GUTENBERG_PHASE の導入
 
 `process.env.GUTENBERG_PHASE` はフェーズ番号を示す環境変数です。コードをプラグインとしてビルドする際、この変数を `2` にセットします。コアとしてビルドする際には `1` にセットします。
+ -->
+
+<!-- 
+## Introducing `process.env.IS_GUTENBERG_PLUGIN`
+ -->
+## process.env.IS_GUTENBERG_PLUGIN の導入
+
+<!-- 
+The `process.env.IS_GUTENBERG_PLUGIN` is an environment variable that represents whether code is currently executing within the plugin. When the codebase is built for the plugin, this variable will be set to `true`. When building for core, it will be set to `false` or `undefined`.
+ -->
+`process.env.IS_GUTENBERG_PLUGIN` は、現在プラグイン内でコードが実行されているかどうかを表す環境変数です。プラグイン用にコードベースがビルドされると、この変数は `true` に設定されます。コア用にビルドする場合は、`false` または `undefined` に設定されます。
 
 <!--
 ## Basic Use
@@ -27,59 +50,80 @@ The `process.env.GUTENBERG_PHASE` is an environment variable containing a number
 A phase 2 function or constant should be exported using the following ternary syntax:
  -->
 ## 基本的な使用方法
-
+<!-- 
 フェーズ2の関数や定数は次の3項構文を使用してエクスポートしてください。
+ -->
+<!-- 
+A plugin only function or constant should be exported using the following ternary syntax:
+ -->
+プラグイン専用の関数や定数は、次の三項構文を使用してエクスポートしてください。
 
 ```js
-function myPhaseTwoFeature() {
+function myPluginOnlyFeature() {
 	// implementation
 }
 
-export const phaseTwoFeature =
-	process.env.GUTENBERG_PHASE === 2 ? myPhaseTwoFeature : undefined;
+export const pluginOnlyFeature =
+	process.env.IS_GUTENBERG_PLUGIN ? myPluginOnlyFeature : undefined;
 ```
 <!--
 In phase 1 environments the `phaseTwoFeature` export will be `undefined`.
 
 If you're attempting to import and call a phase 2 feature, be sure to wrap the call to the function in an if statement to avoid an error:
  -->
+<!-- 
 フェーズ1の環境で `phaseTwoFeature` のエクスポートは `undefined` になります。
 
 フェーズ2の機能をインポートし呼び出す場合はエラーを避けるため、関数呼び出しを if 文でラップしてください。
+ -->
+<!-- 
+In non-plugin environments the `phaseTwoFeature` export will be `undefined`.
+
+If you're attempting to import and call a plugin only feature, be sure to wrap the call to the function in an if statement to avoid an error:
+ -->
+非プラグイン環境では、`process.env.IS_GUTENBERG_PLUGIN` のエクスポートは `undefined` になります。
+
+プラグインのみの機能をインポートし、呼び出す場合はエラーを避けるため、関数呼び出しを if 文で囲んでください。
 
 ```js
-import { phaseTwoFeature } from '@wordpress/foo';
+import { pluginOnlyFeature } from '@wordpress/foo';
 
-if ( process.env.GUTENBERG_PHASE === 2 ) {
-	phaseTwoFeature();
+if ( process.env.IS_GUTENBERG_PLUGIN ) {
+	pluginOnlyFeature();
 }
 ```
 <!--
 ### How it works
 
-During the webpack build, any instances of `process.env.GUTENBERG_PHASE` will be replaced using webpack's define plugin (https://webpack.js.org/plugins/define-plugin/).
+During the webpack build, any instances of `process.env.IS_GUTENBERG_PLUGIN` will be replaced using webpack's define plugin (https://webpack.js.org/plugins/define-plugin/).
 
 If you write the following code:
  -->
 ### 動作原理
 
-webpack のビルド時、すべての `process.env.GUTENBERG_PHASE` は webpack の [define プラグイン](https://webpack.js.org/plugins/define-plugin/) を使用して置き換えられます。
+webpack のビルド時、すべての `process.env.IS_GUTENBERG_PLUGIN` は webpack の [define プラグイン](https://webpack.js.org/plugins/define-plugin/) を使用して置き換えられます。
 
 次のようなコードがある場合
 
 ```js
-if ( process.env.GUTENBERG_PHASE === 2 ) {
-	phaseTwoFeature();
+if ( process.env.IS_GUTENBERG_PLUGIN ) {
+	pluginOnlyFeature();
 }
 ```
 <!--
 When building the codebase for the plugin the variable will be replaced with the number literal `2`:
  -->
+<!--  
 コードベースをプラグインとしてビルドすると、変数は数値リテラル `2` で置き換えられます。
+ -->
+<!-- 
+When building the codebase for the plugin the variable will be replaced with the boolean `true`:
+ -->
+コードベースをプラグインとしてビルドすると、変数はブール値 `true` で置き換えられます。
 
 ```js
-if ( 2 === 2 ) {
-	phaseTwoFeature();
+if ( true ) {
+	pluginOnlyFeature();
 }
 ```
 <!--
@@ -87,19 +131,35 @@ Any code within the body of the if statement will be executed within the gutenbe
 
 For core, the `process.env.GUTENBERG_PHASE` variable is replaced with `1`, so the built code will look like:
  -->
+<!--  
 if 文内部のコードは、`2 === 2` が `true` と評価されるため、Gutenberg プラグイン内部で実行されます。
 
 コアでは、`process.env.GUTENBERG_PHASE` 変数は `1` で置換されるため、ビルドされたコードは以下のようになります。
+ -->
+<!-- 
+Any code within the body of the if statement will be executed because of this truthyness.
+
+For core, the `process.env.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`, so the built code will look like:
+ -->
+if 文の本体内にあるコードは、この `true` のため、実行されます。
+
+コアでは、`process.env.IS_GUTENBERG_PLUGIN` 変数は `undefined` で置換されるため、ビルドされたコードは以下のようになります。
 
 ```js
-if ( 1 === 2 ) {
-	phaseTwoFeature();
+if ( undefined ) {
+	pluginOnlyFeature();
 }
 ```
 <!--
 `1 === 2` evaluates to false so the phase 2 feature will not be executed within core.
  -->
+<!-- 
 `1 === 2` は `false` と評価されるため、フェーズ2の機能はコア内部では実行されません。
+ -->
+<!-- 
+`undefined` evaluates to `false` so the plugin only feature will not be executed within core.
+ -->
+`undefined` は `false` と評価されるため、プラグインのみの機能はコア内部では実行されません。
 
 <!--
 ### Dead Code Elimination
@@ -115,8 +175,8 @@ When the following code is encountered, webpack determines that the surrounding 
 次のコードに出会うと webpack は周りの `if` 文は不要と判断します。
 
 ```js
-if ( 2 === 2 ) {
-	phaseTwoFeature();
+if ( true ) {
+	pluginOnlyFeature();
 }
 ```
 <!--
@@ -125,7 +185,7 @@ The condition will always evaluates to `true`, so can be removed leaving just th
 条件は常に `true` と評価されるため、if 文を削除し、中の実行部分のみを残すことができます。
 
 ```js
-phaseTwoFeature();
+pluginOnlyFeature();
 ```
 
 <!--
@@ -134,14 +194,20 @@ Similarly when building for core, the condition in the following `if` statement 
 同様にコアのビルドの場合、次の `if` 文の条件は常に `false` と解決されます。
 
 ```js
-if ( 1 === 2 ) {
-	phaseTwoFeature();
+if ( undefined ) {
+	pluginOnlyFeature();
 }
 ```
 <!--
 The minification process will remove the entire `if` statement including the body, ensuring code destined for phase 2 is not included in the built JavaScript intended for core.
  -->
+<!-- 
 ミニファイプロセスは内容を含む `if` 文全体を削除します。これでフェーズ2のコードは、コア用にビルドされた JavaScript に含まれません。
+ -->
+<!-- 
+The minification process will remove the entire `if` statement including the body, ensuring plugin only code is not included in the built JavaScript intended for core.
+ -->
+ミニファイプロセスは内容を含む `if` 文全体を削除します。これでプラグインのみのコードは、コア用にビルドされた JavaScript に含まれません。
 
 <!--
 ## FAQ
@@ -152,6 +218,7 @@ This is a restriction due to the behaviour of the greater than or less than oper
 
 However, the following code doesn't quite have the intended behaviour:
  -->
+<!-- 
 ## FAQ
 
 #### なぜ process.env.GUTENBERG_PHASE の比較には === や !== のみを使うべきなのですか ? >、>=、<、<= ではいけないのですか ?
@@ -169,17 +236,23 @@ function myPhaseTwoFeature() {
 	// implementation of phase 2 feature
 }
 ```
+ -->
 <!--
 Here an early return is used to avoid execution of a phase 2 feature, but because the `if` condition resolves to false, the early return is bypassed and the phase 2 feature is incorrectly triggered.
  -->
+<!-- 
 このコードはフェーズ2の機能の実行を避けるため、その前で `return` しています。しかし `if` の条件は false と解決されるため、その前の `return` は通らず、フェーズ2の機能が誤って呼び出されます。
-
+ -->
 <!--
 #### Why shouldn't I assign the result of an expression involving `GUTENBERG_PHASE` to a variable, e.g. `const isMyFeatureActive = process.env.GUTENBERG_PHASE === 2`?
+ -->
+
+<!--
+#### Why shouldn't I assign the result of an expression involving `IS_GUTENBERG_PLUGIN` to a variable, e.g. `const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2`?
 
 The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.
  -->
-#### なぜ GUTENBERG_PHASE 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.GUTENBERG_PHASE === 2 ではいけないのですか ?
+#### なぜ IS_GUTENBERG_PLUGIN 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === true ではいけないのですか ?
 
 webpack のミニファイが呼ばれないコードを削除できるよう、コードに複雑性を持ち込まないようにするためです。詳細については上の「呼ばれないコードの削除」セクションを参照してください。
 

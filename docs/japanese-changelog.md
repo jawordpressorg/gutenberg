@@ -2,6 +2,39 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/2/17
+- [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 最初の指針を追加 [#38682](https://github.com/WordPress/gutenberg/pull/38682)
+- [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) - グローバルスタイルの記述変更 [#38208](https://github.com/WordPress/gutenberg/pull/38208)
+- [フィーチャーフラグ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/feature-flags/) - IS_GUTENBERG_PLUGIN の導入 [#38202](https://github.com/WordPress/gutenberg/pull/38202)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - patterns 追加 [#38700](https://github.com/WordPress/gutenberg/pull/38700)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - 5.9 からのコアの色、グラデーション、フォントサイズの上書きについての記述の追加 [#38514](https://github.com/WordPress/gutenberg/pull/38514)
+- [非推奨プロセス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/) - 流れの書き換え [#38683](https://github.com/WordPress/gutenberg/pull/38683)
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - コンテキストやセマンティックの追加 [#38809](https://github.com/WordPress/gutenberg/pull/38809)
+- [変換](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) - schema 追加 [#36839](https://github.com/WordPress/gutenberg/pull/36839)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 投稿者の経歴ブロック [#38269](https://github.com/WordPress/gutenberg/pull/38269)、続きを読むブロック [#37649](https://github.com/WordPress/gutenberg/pull/37649)、コメントクエリーループブロックに defaultPage 追加 [#38187](https://github.com/WordPress/gutenberg/pull/38187)
+minor
+- [create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - wpEnvの説明 [#38530](https://github.com/WordPress/gutenberg/pull/38530)、customScripts の追加 [#38535](https://github.com/WordPress/gutenberg/pull/38535)
+- [CONTRIBUTING](https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md) - GPLv2 から GPLv2 と MPLv2 へ [#38303](https://github.com/WordPress/gutenberg/pull/38303)
+- [後方互換性](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/backward-compatibility/) - 「コントリビューターガイド」章に移動
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - ポイントリリースの追記 [#38565](https://github.com/WordPress/gutenberg/pull/38565)、[#38631](https://github.com/WordPress/gutenberg/pull/38631)
+- [Styles](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles/) - 新規
+- [ユーザーインターフェース](https://ja.wordpress.org/team/handbook/block-editor/explanations/user-interface/) - 既存文書からの再編成 [#37807](https://github.com/WordPress/gutenberg/pull/37807)
+- [Data Tutorial](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) - 新規 [#38581](https://github.com/WordPress/gutenberg/pull/38581)
+- [thunk](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/thunks/) - 新規 [#36051](https://github.com/WordPress/gutenberg/pull/36051)
+- [The Editor’s UI Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-edit-post.md) - thunk を使用 [#36551](https://github.com/WordPress/gutenberg/pull/36551)
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - getReferenceByDistinctEdits 削除 [#38564](https://github.com/WordPress/gutenberg/pull/38564)、validateThemeColors、validateThemeGradients 削除 [#38417](https://github.com/WordPress/gutenberg/pull/38417)
+- [FocalPointPicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/focal-point-picker/README.md) - resolvePoint 追加 [#38247](https://github.com/WordPress/gutenberg/pull/38247)
+- [NavigatorBackButton](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigator/navigator-back-button/README.md) - 新規
+- [NavigatorButton](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigator/navigator-button/README.md) - 新規
+- [NavigatorProvider](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigator/navigator-provider/README.md)、[NavigatorScreen](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/navigator/navigator-provider/README.md) - NavigatorLink、 NavigatorBackLink 追加による変更 [#38634](https://github.com/WordPress/gutenberg/pull/38634)
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - clickSiteEditorMenuItem 追加 [#38463](https://github.com/WordPress/gutenberg/pull/38463)、openGlobalStylesPanel、openPreviousGlobalStylesPanel、toggleGlobalStyles追加 [#38485](https://github.com/WordPress/gutenberg/pull/38485)、deleteAllTemplates 追加 [#38524](https://github.com/WordPress/gutenberg/pull/38524)
+- eslint
+  - [i18n-hyphenated-range](https://github.com/WordPress/gutenberg/blob/trunk/packages/eslint-plugin/docs/rules/i18n-hyphenated-range.md) - 新規
+  - [i18n-no-flanking-whitespace](https://github.com/WordPress/gutenberg/blob/trunk/packages/eslint-plugin/docs/rules/i18n-no-flanking-whitespace.md) - 新規
+  - [is-gutenberg-plugin](https://github.com/WordPress/gutenberg/blob/trunk/packages/eslint-plugin/docs/rules/is-gutenberg-plugin.md) - 新規
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - block.json スキャンの説明 [#38379](https://github.com/WordPress/gutenberg/pull/38379)
+- [Style Engine](https://github.com/WordPress/gutenberg/blob/trunk/packages/style-engine/README.md) - 新規
+
 2022/1/29
 
 - [Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow/) - .git-blame-ignore-revs 追加 [#37822](https://github.com/WordPress/gutenberg/pull/37822)

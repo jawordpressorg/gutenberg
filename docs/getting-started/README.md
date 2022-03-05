@@ -4,9 +4,24 @@
 # はじめに
 
 <!-- 
-Welcome! Let's get started building with blocks. Blocks are at the core of extending WordPress. You can create custom blocks, your own block patterns, or combine them together to build a block theme.
+Welcome! Let's get started building with blocks. Blocks are at the core of extending WordPress. You can create custom blocks, your own block patterns, or combine them together to build a block theme. At a high level, here are a few ways to begin your journey but read on to explore more:
  -->
-ようこそ ! さっそくブロックを作りましょう。ブロックは、WordPressを拡張する核となります。カスタムブロックや独自のブロックパターンを作成したり、ブロックを組み合わせてブロックテーマを構築できます。
+ようこそ ! さっそくブロックを作っていきましょう。ブロックは、WordPress を拡張する核です。カスタムブロックや独自のブロックパターンを作成したり、ブロックを組み合わせてブロックテーマを構築できます。高いレベルでは、ブロックの作成にはいくつかの方法がありますが、まずは以下に目を通してください。
+
+<!-- 
+- Learn more about where this work is going by [reviewing the long term roadmap](https://wordpress.org/about/roadmap/).
+- Explore the [GitHub repo](https://github.com/WordPress/gutenberg/) to see the latest issues and PRs folks are working on, especially [Good First Issues](https://github.com/WordPress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22).
+- Join the [Slack community](https://make.wordpress.org/chat/) to join meetings, ongoing conversations, and more. 
+- Take courses on how to use the block editor and more on [Learn WordPress](https://learn.wordpress.org/). 
+- Expand your knowledge by reviewing more developer docs at the overall [developer.wordpress.org resource](https://developer.wordpress.org/).
+- Subscribe to [updates on Make Core](https://make.wordpress.org/core/), the main site where ongoing project updates happen.
+ -->
+- この Gutenberg プロジェクトがどこに向かっているのか、[長期ロードマップを参照](https://wordpress.org/about/roadmap/)してください。
+- [GitHub リポジトリ](https://github.com/WordPress/gutenberg/)を探索し、最新の issue とプルリクを参照してください。特に、[Good First Issues](https://github.com/WordPress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) は良いスタート地点です。
+- [Slack コミュニティ](https://make.wordpress.org/chat/)にアクセスし、ミーティングや進行中の会話に参加してください。
+- [Learn WordPress](https://learn.wordpress.org/) で、ブロックエディターに関するコースを受講ください。 
+- [developer.wordpress.org リソース](https://developer.wordpress.org/) 全体の開発者ドキュメントを参照し、知識を拡げてください。
+- 実施中のプロジェクトの更新が掲載される、[Make Core の更新](https://make.wordpress.org/core/) を購読してください。
 
 <!-- 
 ## Tutorials
@@ -39,13 +54,10 @@ Welcome! Let's get started building with blocks. Blocks are at the core of exten
 -   [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - ブロックテーマでのブロックを使用したテンプレートの構築と、theme.json を使用したスタイルの提供を学びます。
 
 <!-- 
-## Additional Resources
-## 追加のリソース
+-   [Convert as Classic Theme to a Block Theme](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - Learn how to adopt various pieces of full site editing in your classic theme.
  -->
+-   [Convert as Classic Theme to a Block Theme](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - Learn how to adopt various pieces of full site editing in your classic theme.
 
-<!-- 
--   [What's New in Gutenberg](https://make.wordpress.org/core/tag/gutenberg-new) - follow the Make Core blog for development news.
- -->
 <!-- 
 ## Ways to Stay Informed
  -->

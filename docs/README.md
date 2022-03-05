@@ -108,6 +108,27 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/2/17
+- [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 最初の指針を追加 [#38682](https://github.com/WordPress/gutenberg/pull/38682)
+- [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) - グローバルスタイルの記述変更 [#38208](https://github.com/WordPress/gutenberg/pull/38208)
+- [フィーチャーフラグ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/feature-flags/) - IS_GUTENBERG_PLUGIN の導入 [#38202](https://github.com/WordPress/gutenberg/pull/38202)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - patterns 追加 [#38700](https://github.com/WordPress/gutenberg/pull/38700)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - 5.9 からのコアの色、グラデーション、フォントサイズの上書きについての記述の追加 [#38514](https://github.com/WordPress/gutenberg/pull/38514)
+- [非推奨プロセス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/) - 流れの書き換え [#38683](https://github.com/WordPress/gutenberg/pull/38683)
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - コンテキストやセマンティックの追加 [#38809](https://github.com/WordPress/gutenberg/pull/38809)
+- [変換](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) - schema 追加 [#36839](https://github.com/WordPress/gutenberg/pull/36839)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 投稿者の経歴ブロック [#38269](https://github.com/WordPress/gutenberg/pull/38269)、続きを読むブロック [#37649](https://github.com/WordPress/gutenberg/pull/37649)、コメントクエリーループブロックに defaultPage 追加 [#38187](https://github.com/WordPress/gutenberg/pull/38187)
+minor
+- [create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - wpEnvの説明 [#38530](https://github.com/WordPress/gutenberg/pull/38530)、customScripts の追加 [#38535](https://github.com/WordPress/gutenberg/pull/38535)
+- [CONTRIBUTING](https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md) - GPLv2 から GPLv2 と MPLv2 へ [#38303](https://github.com/WordPress/gutenberg/pull/38303)
+- [後方互換性](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/backward-compatibility/) - 「コントリビューターガイド」章に移動
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - ポイントリリースの追記 [#38565](https://github.com/WordPress/gutenberg/pull/38565)、[#38631](https://github.com/WordPress/gutenberg/pull/38631)
+- [Styles](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles/) - 新規
+- [ユーザーインターフェース](https://ja.wordpress.org/team/handbook/block-editor/explanations/user-interface/) - 既存文書からの再編成 [#37807](https://github.com/WordPress/gutenberg/pull/37807)
+- [Data Tutorial](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) - 新規 [#38581](https://github.com/WordPress/gutenberg/pull/38581)
+- [thunk](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/thunks/) - 新規 [#36051](https://github.com/WordPress/gutenberg/pull/36051)
+
+
 2022/1/29
 - ブロックサポート
   - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - 概要説明の更新 [#37847](https://github.com/WordPress/gutenberg/pull/37847)

@@ -17,8 +17,8 @@ For this block tutorial, we want to allow the user to type in a message that we 
 		"type": "string",
 		"source": "text",
 		"selector": "div",
-		"default": "",
-	},
+		"default": ""
+	}
 },
 ```
 <!--

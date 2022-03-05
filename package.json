@@ -1,6 +1,6 @@
 {
 	"name": "gutenberg",
-	"version": "12.5.0-rc.1",
+	"version": "12.6.0",
 	"private": true,
 	"description": "A new WordPress editor experience.",
 	"author": "The WordPress Contributors",
@@ -19,7 +19,7 @@
 		"npm": ">=6.9.0 <7"
 	},
 	"config": {
-		"GUTENBERG_PHASE": 2
+		"IS_GUTENBERG_PLUGIN": true
 	},
 	"dependencies": {
 		"@wordpress/a11y": "file:packages/a11y",
@@ -76,6 +76,7 @@
 		"@wordpress/rich-text": "file:packages/rich-text",
 		"@wordpress/server-side-render": "file:packages/server-side-render",
 		"@wordpress/shortcode": "file:packages/shortcode",
+		"@wordpress/style-engine": "file:packages/style-engine",
 		"@wordpress/token-list": "file:packages/token-list",
 		"@wordpress/url": "file:packages/url",
 		"@wordpress/viewport": "file:packages/viewport",

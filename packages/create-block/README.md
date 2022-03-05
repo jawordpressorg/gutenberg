@@ -173,50 +173,49 @@ When bootstrapped with the `esnext` template (or any external template with `wpS
 $ npm start
 ```
 <!--
-Starts the build for development. [Learn more](/packages/scripts#start).
+Starts the build for development. [Learn more](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#start).
  -->
-開発用のビルドを開始 [詳細](https://developer.wordpress.org/block-editor/packages/packages-scripts/#start)
+開発用のビルドを開始 [詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#start)
 
 ```bash
 $ npm run build
 ```
 <!--
-Builds the code for production. [Learn more](/packages/scripts#build).
+Builds the code for production. [Learn more](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#build).
  -->
-本番用にコードをビルド [詳細](https://developer.wordpress.org/block-editor/packages/packages-scripts/#build)
+本番用にコードをビルド [詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#build)
 
 ```bash
 $ npm run format
 ```
 <!--
-Formats files. [Learn more](/packages/scripts#format).
+Formats files. [Learn more](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#format).
  -->
-ファイルをフォーマット [詳細](https://developer.wordpress.org/block-editor/packages/scripts#format-js)
-
+ファイルをフォーマット [詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#format)
 
 ```bash
 $ npm run lint:css
 ```
 <!--
-Lints CSS files. [Learn more](/packages/scripts#lint-style).
+Lints CSS files. [Learn more](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#lint-style).
  -->
-CSS ファイルを lint [詳細](https://developer.wordpress.org/block-editor/packages/scripts#lint-style)
+CSS ファイルを lint [詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#lint-style)
 
 ```bash
 $ npm run lint:js
 ```
 <!--
-Lints JavaScript files. [Learn more](/packages/scripts#lint-js).
+Lints JavaScript files. [Learn more](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#lint-js).
  -->
-JavaScript ファイルを lint [詳細](https://developer.wordpress.org/block-editor/packages/scripts#lint-js)
+JavaScript ファイルを lint [詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#lint-js)
 
 ```bash
 $ npm run packages-update
 ```
 <!--
-Updates WordPress packages to the latest version. [Learn more](/packages/scripts#packages-update).
+Updates WordPress packages to the latest version. [Learn more](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#packages-update).
  -->
-WordPress パッケージを最新版に更新 [詳細](https://developer.wordpress.org/block-editor/packages/scripts#packages-update)
+WordPress パッケージを最新版に更新 [詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#packages-update)
 
 <!--
 _Note: You don’t need to install or configure tools like [webpack](https://webpack.js.org), [Babel](https://babeljs.io) or [ESLint](https://eslint.org) yourself. They are preconfigured and hidden so that you can focus on coding._
@@ -355,8 +354,9 @@ The following configurable variables are used with the template files. Template 
 -   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
 -   `version` (default: `'0.1.0'`)
 -   `wpScripts` (default: `true`)
--   `wpEnv` (default: `false`)
+-   `wpEnv` (default: `false`) - enables integration with the `@wordpress/env` package and adds the `env` command to the package.json.
 -   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
+    `customScripts` (default: {}) - the list of custom scripts to add to `package.json`. It also allows overriding default scripts.
 -   `folderName` (default: `.`) – the location for the `block.json` file and other optional block files generated from block templates included in the folder set with the `blockTemplatesPath` setting.
 -   `editorScript` (default: `'file:./build/index.js'`)
 -   `editorStyle` (default: `'file:./build/index.css'`)
@@ -375,8 +375,9 @@ The following configurable variables are used with the template files. Template 
 -   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
 -   `version` (デフォルト: `'0.1.0'`)
 -   `wpScripts` (デフォルト: `true`)
--   `wpEnv` (default: `false`)
+-   `wpEnv` (デフォルト: `false`) - enables integration with the `@wordpress/env` パッケージとの統合を有効可し、package.json に `env` コマンドを追加する。
 -   `npmDependencies` (デフォルト: `[]`) – `wpScripts` が有効の時、[`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
+-   `customScripts` (デフォルト: {}) - `package.json` に追加するカスタムスクリプトのリスト。デフォルトスクリプトの上書きもできる。
 -   `folderName` (デフォルト: `.`) – `block.json` ファイル、および、`blockTemplatesPath` で設定したフォルダに含まれるブロックテンプレートから生成されたオプションのブロックファイルの場所
 -   `editorScript` (デフォルト: `'file:./build/index.js'`)
 -   `editorStyle` (デフォルト: `'file:./build/index.css'`)
@@ -392,12 +393,23 @@ Another way of making a developer’s life easier is to use [WP-CLI](https://wp-
 
 もう1つの開発者をラクにしてくれる方法が [WP-CLI](https://wp-cli.org) です。WP-CLI は WordPress に対する多くの操作をコマンドラインから実行できますが、その中の1つ `wp scaffold block` はこのツール、特に ES5 テンプレートの開始ラインとして使用されました。
  -->
-[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/create-block/README.md)
 
+<!-- 
 ## Contributing to this package
+ -->
+## このパッケージへのコントリビュート
 
+<!-- 
 This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+ -->
+これは、Gutenberg プロジェクトの一部である、個別パッケージです。このプロジェクトは、monorepo として構成されています。複数の自己完結型ソフトウェアパッケージで構成されており、それぞれが特定の目的を持ちます。この monorepo のパッケージは [npm](https://www.npmjs.com/) で公開され、[WordPress](https://make.wordpress.org/core/) や他のソフトウェアプロジェクトで利用されています。
 
+<!-- 
 To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+ -->
+このパッケージや Gutenberg 全体へのコントリビュートの詳細については、プロジェクトのメインの[コントリビューターガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/)を参照ください。
+
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/create-block/README.md)

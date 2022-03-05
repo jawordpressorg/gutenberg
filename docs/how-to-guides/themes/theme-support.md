@@ -204,26 +204,38 @@ Twenty Nineteen テーマのメインカラーやサブカラーのように動�
 
 <!--
 The colors will be shown in order on the palette, and there's no limit to how many can be specified.
-
-Themes are responsible for creating the classes that apply the colors in different contexts. Core blocks use "color" and "background-color" contexts. So to correctly apply "strong magenta" to all contexts of core blocks a theme should implement the following classes:
  -->
 色はパレット上に順番に表示され、指定可能な数に制限はありません。
 
-テーマにはコンテキストに応じて色に適用するクラスを作成する責任があります。コアブロックは「color」コンテキストと「background-color」コンテキストを使用します。コアブロックのすべてのコンテキストで正しく「strong magenta」を適用するにはテーマは次のクラスを実装する必要があります。
+<!-- 
+Themes are responsible for creating the classes that apply the colors in different contexts. Core blocks use "color", "background-color", and "border-color" contexts. So to correctly apply "strong magenta" to all contexts of core blocks a theme should implement the classes itself. The class name is built appending 'has-', followed by the class name _using_ kebab case and ending with the context name.
+ -->
+テーマにはコンテキストに応じて色に適用するクラスを作成する責任があります。コアブロックは「color」コンテキスト、「background-color」コンテキスト、「border-color」コンテキストを使用します。コアブロックのすべてのコンテキストで正しく「strong magenta」を適用するにはテーマはクラス自身を実装する必要があります。クラス名は、最初に「has-」、続けてケバブケースを使用したクラス名、最後にコンテキスト名で作成します。
 
 ```css
 .has-strong-magenta-background-color {
-	background-color: #313131;
+	background-color: #a156b4;
 }
 
 .has-strong-magenta-color {
-	color: #f78da7;
+	color: #a156b4;
+}
+
+.has-strong-magenta-border-color {
+	color: #a156b4;
 }
 ```
-<!--
-The class name is built appending 'has-', followed by the class name _using_ kebab case and ending with the context name.
+<!-- 
+Starting in WordPress 5.9, to override color values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--color--<slug>`. See more info in [this devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
  -->
-クラス名は、最初に「has-」、続けてケバブケースを使用したクラス名、最後にコンテキスト名で作成します。
+WordPress 5.9 以降、`theme.json` を持たないテーマが、コアで定義された色の値を上書きするには、クラスを提供する代わりに、CSSカスタムプロパティで値を設定しなければなりません。CSSカスタムプロパティは、命名規則 `--wp--preset--color--<slug>` を使用します。詳細については [devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) を参照してください。例えば
+
+```css
+:root {
+	--wp--preset--color--cyan-bluish-gray: <new_value>;
+	--wp--preset--color--pale-pink: <new_value>;
+}
+```
 
 <!--
 ### Block Gradient Presets
@@ -286,10 +298,22 @@ Themes are responsible for creating the classes that apply the gradients. So to 
 }
 ```
 
-<!--
-### Block Font Sizes:
+<!-- 
+Starting in WordPress 5.9, to override gradient values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--gradient--<slug>`. See more info in [this devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
  -->
-### ブロックフォントサイズ:
+WordPress 5.9 以降、`theme.json` を持たないテーマが、コアで定義されたグラデーションの値を上書きするには、クラスを提供する代わりに、CSSカスタムプロパティで値を設定しなければなりません。CSSカスタムプロパティは、命名規則 `--wp--preset--gradient--<slug>` を使用します。詳細については [devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) を参照してください。例えば
+
+```css
+:root {
+	--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: <new_value>;
+	--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: <new_value>;
+}
+```
+
+<!--
+### Block Font Sizes
+ -->
+### ブロックフォントサイズ
 
 <!--
 Blocks may allow the user to configure the font sizes they use, e.g., the paragraph block. The block provides a default set of font sizes, but a theme can overwrite it and provide its own:
@@ -345,6 +369,18 @@ As an example for the regular font size, a theme may provide the following class
 </div>
  -->
 **注意:** スラッグ `default` と `custom` は予約済みのため、テーマでは使えません。
+
+<!-- 
+Starting in WordPress 5.9, to override font size values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--font-size--<slug>`. See more info in [this devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+ -->
+WordPress 5.9 以降、`theme.json` を持たないテーマが、コアで定義されたフォントサイズの値を上書きするには、クラスを提供する代わりに、CSSカスタムプロパティで値を設定しなければなりません。CSSカスタムプロパティは、命名規則 `--wp--preset--font-size--<slug>` を使用します。詳細については [devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) を参照してください。例えば
+
+```css
+:root {
+	--wp--preset--font-size--small: <new_value>;
+	--wp--preset--font-size--large: <new_value>;
+}
+```
 
 <!--
 ### Disabling custom font sizes

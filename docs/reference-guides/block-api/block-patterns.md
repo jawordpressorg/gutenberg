@@ -7,17 +7,17 @@
 Block Patterns are predefined block layouts, ready to insert and tweak.
 Block Patterns are predefined block layouts, available from the patterns tab of the block inserter. Once inserted into content, the blocks are ready for additional or modified content and configuration.
  -->
-ブロックパターンは事前に定義されたブロックレイアウトです。ブロックインサーターの「パターン」タブから利用できます。コンテンツ内に挿入すると、ブロックはコンテンツや構成を追加、変更できます。
+ブロックパターンは事前に定義されたブロックのレイアウトです。ブロックインサーターの「パターン」タブから利用できます。コンテンツ内に挿入すると、ブロックはコンテンツや構成を追加、変更できます。
 
 <!--
 In this Document:
  -->
 目次
 
-* [`register_block_pattern`](#register_block_pattern)
-* [`unregister_block_pattern`](#unregister_block_pattern)
-* [`register_block_pattern_category`](#register_block_pattern_category)
-* [`unregister_block_pattern_category`](#unregister_block_pattern_category)
+* [`register_block_pattern`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#registerblockpattern)
+* [`unregister_block_pattern`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#unregisterblockpattern)
+* [`register_block_pattern_category`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#registerblockpatterncategory)
+* [`unregister_block_pattern_category`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#unregisterblockpatterncategory)
 
 <!--
 ## Block Patterns
@@ -29,7 +29,7 @@ In this Document:
 <!--
 The editor comes with several core block patterns. Theme and plugin authors can register additional custom block patterns using the `register_block_pattern` helper function.
  -->
-エディターにはいくつかのコアブロックパターンが付属します。テーマやプラグインの作者は `register_block_pattern` ヘルパー関数を使用して追加のカスタムブロックパターンを登録できます。
+エディターにはいくつかのコアブロックパターンが付属します。テーマやプラグインの作者は `register_block_pattern` ヘルパー関数を使用して、追加のカスタムブロックパターンを登録できます。
 
 <!--
 The `register_block_pattern` helper function receives two arguments.
@@ -70,18 +70,20 @@ The properties available for block patterns are:
 -   `categories` (optional): An array of registered pattern categories used to group block patterns. Block patterns can be shown on multiple categories. A category must be registered separately in order to be used here.
 -   `keywords` (optional): An array of aliases or keywords that help users discover the pattern while searching.
 -   `viewportWidth` (optional): An integer specifying the intended width of the pattern to allow for a scaled preview of the pattern in the inserter.
+-   `blockTypes` (optional): An array of block types that the pattern is intended to be used with. Each value needs to be the declared block's `name`.
  -->
 -   `title` (必須): 表示されるパターンのタイトル。
 -   `content` (必須): パターンのブロック HTML マークアップ。
 -   `description` (オプション): インスペクター内でパターンの記述に使用される非表示のテキスト。オプションだがタイトルで十分にブロックの動作を表せない場合は強く推奨。ユーザーの検索を支援する。
--   `categories` (オプション): ブロックパターンのグループ化に使用される、登録されたパターンカテゴリーの配列。ブロックパターンは複数のカテゴリーに分けて表示できる。ここで使用されるには、カテゴリーは個別にと労苦する必要がある。
+-   `categories` (オプション): ブロックパターンのグループ化に使用される、登録されたパターンカテゴリーの配列。ブロックパターンは複数のカテゴリーに分けて表示できる。ここで使用するには、カテゴリーを個別に登録する必要がある。
 -   `keywords` (オプション): 検索の際に役立つ別名またはキーワードの配列。
 -   `viewportWidth` (オプション): インサーター内でのパターンのインデント幅を指定する整数。パターンのスケールするプレビュー用。
+-   `blockTypes` (オプション): パターンが一緒に使われることを想定するブロックタイプの配列。各値は、ブロックの `name` で宣言される必要がある。
 
 <!--
 The following code sample registers a block pattern named 'my-plugin/my-awesome-pattern':
  -->
-次のサンプルコードは、ブロックパターン「my-plugin/my-awesome-pattern」」を登録します。
+次のサンプルコードは、ブロックパターン「my-plugin/my-awesome-pattern」を登録します。
 
 ```php
 register_block_pattern(
@@ -119,7 +121,7 @@ add_action( 'init', 'my_plugin_register_my_patterns' );
 <!--
 The `unregister_block_pattern` helper function allows for a previously registered block pattern to be unregistered from a theme or plugin and receives one argument.
  -->
-`unregister_block_pattern` ヘルパー関数を使用すると、テーマやプラグインからブロックパターンの登録を解除出来ます。1つの引数を取ります。
+`unregister_block_pattern` ヘルパー関数を使用すると、テーマやプラグインからブロックパターンの登録を解除できます。1つの引数を取ります。
 <!--
 -   `title`: The name of the block pattern to be unregistered.
  -->
@@ -247,6 +249,104 @@ function my_plugin_unregister_my_pattern_categories() {
 }
 
 add_action( 'init', 'my_plugin_unregister_my_pattern_categories' );
+```
+<!-- 
+## Block patterns contextual to block types and pattern transformations
+ -->
+## ブロックタイプやパターン変換のコンテキストに応じたブロックパターン 
+
+<!-- 
+It is possible to attach a block pattern to one or more block types. This adds the block pattern as an available transform for that block type.
+ -->
+1つまたは複数のブロックタイプにブロックパターンをアタッチできます。これにより、そのブロックタイプで使用可能な変換としてブロックパターンが追加されます。
+
+<!-- 
+Currently these transformations are available only to simple blocks (blocks without inner blocks). In order for a pattern to be suggested, **every selected block must be present in the block pattern**.
+ -->
+現在、これらの変換は単純なブロック (内部ブロックを持たないブロック) でのみ可能です。パターンが提案されるには、**選択されたすべてのブロックがブロックパターンに存在する必要があります**。
+
+<!-- 
+For instance:
+ -->
+例:
+
+```php
+register_block_pattern(
+	'my-plugin/powered-by-wordpress',
+	array(
+		'title'      => __( 'Powered by WordPress', 'my-plugin' ),
+		'blockTypes' => array( 'core/paragraph' ),
+		'content'    => '<!-- wp:paragraph {"backgroundColor":"black","textColor":"white"} -->
+		<p class="has-white-color has-black-background-color has-text-color has-background">Powered by WordPress</p>
+		<!-- /wp:paragraph -->',
+	)
+);
+```
+<!-- 
+The above code registers a block pattern named 'my-plugin/powered-by-wordpress' and also shows the pattern in the "transform menu" of paragraph blocks. The transformation result will be keeping the paragraph's existing content and also apply the other attributes - in this case the background and text color.
+ -->
+上のコードは、ブロックパターン `my-plugin/powered-by-wordpress` を登録し、段落ブロックの「変換」メニューにパターンを表示します。変換結果は、段落の既存のコンテンツを維持したまま、他の属性 (この場合は背景とテキストの色) を適用します。
+
+<!-- 
+As mentioned above pattern transformations for simple blocks can also work if we have selected multiple blocks and there are matching contextual patterns to these blocks. Let's see an example of a pattern where two block types are attached.
+ -->
+上で述べたように、単純なブロックに対するパターン変換は、複数のブロックを選択し、かつ、これらのブロックに対応するコンテキストパターンがある場合にも機能します。2つのブロックタイプがアタッチされたパターンの例を見ます。
+
+```php
+register_block_pattern(
+	'my-plugin/powered-by-wordpress',
+	array(
+		'title'      => __( 'Powered by WordPress', 'my-plugin' ),
+		'blockTypes' => array( 'core/paragraph', 'core/heading' ),
+		'content'    => '<!-- wp:group -->
+						<div class="wp-block-group">
+						<!-- wp:heading {"fontSize":"large"} -->
+						<h2 class="has-large-font-size"><span style="color:#ba0c49" class="has-inline-color">Hi everyone</span></h2>
+						<!-- /wp:heading -->
+						<!-- wp:paragraph {"backgroundColor":"black","textColor":"white"} -->
+						<p class="has-white-color has-black-background-color has-text-color has-background">Powered by WordPress</p>
+						<!-- /wp:paragraph -->
+						</div><!-- /wp:group -->',
+	)
+);
+```
+<!-- 
+In the above example if we select **one of the two** block types, either a paragraph or a heading block, this pattern will be suggested by transforming the selected block using its content and will also add the remaing blocks from the pattern. If on the other hand we multi select one paragraph and one heading block, both blocks will be transformed.
+ -->
+上の例では、**2つのブロックタイプのうち1つ**、段落または見出しブロックのどちらかを選択すると、選択したブロックをその内容を使って変換し、パターンから残りのブロックを追加して、このパターンが提案されます。一方、1つの段落と1つの見出しブロックを複数選択すると、両方のブロックが変換されます。
+
+<!-- 
+Blocks can also use these contextual block patterns in other places. For instance, when inserting a new Query Loop block, the user is provided with a list of all patterns attached to the block.
+ -->
+ブロックは、このコンテキストに応じたブロックパターンを他の場所でも使用できます。例えば、新しいクエリーループブロックを挿入すると、ブロックにアタッチされたすべてのパターンのリストが提供されます。
+
+<!-- 
+## Semantic block patterns
+ -->
+## セマンティックブロックパターン
+
+<!-- 
+In block themes, you can also mark block patterns as "header" or "footer" patterns (template part areas). We call these "semantic block patterns". These patterns are shown to the user when inserting or replacing header or footer template parts.
+ -->
+ブロックテーマでは、ブロックパターンを「ヘッダー」パターン、「フッター」パターン (テンプレートパーツ領域) としてもマークできます。これを「セマンティックブロックパターン」と呼びます。これらのパターンは、ヘッダーテンプレートパーツやフッターテンプレートパーツの挿入、置換の際に表示されます。
+
+<!-- 
+Example:
+ -->
+例:
+
+```php
+<?php
+register_block_pattern(
+	'my-plugin/my-header',
+	array(
+		'title'      => __( 'My Header', 'my-plugin' ),
+		'categories' => array( 'header' ),
+		// Assigning the pattern the "header" area.
+		'blockTypes' => array( 'core/template-part/header' ),
+		'content'    => 'Content of my block pattern',
+	)
+);
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-patterns.md)

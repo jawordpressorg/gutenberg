@@ -62,8 +62,6 @@ WordPress 以外のプロジェクトの場合は、直接 `build-style/style.cs
 
 [原文およびその下のページ](https://developer.wordpress.org/block-editor/reference-guides/components/)を参照してください。
 
-<br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
-
 <!--
 ## Docs & examples
  -->
@@ -102,7 +100,7 @@ To find out more about contributing to this package or Gutenberg as a whole, ple
 このパッケージや Gutenberg 全体へのコントリビュートの詳細については、プロジェクトのメインの[コントリビューターガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/)を参照ください。
 
 <!-- 
-This package also has its own [contributing information](/packages/components/CONTRIBUTING.md) where you can find additional details.
+This package also has its own [contributing information](https://github.com/WordPress/gutenberg/tree/HEAD/packages/components/CONTRIBUTING.md) where you can find additional details.
  -->
 このパッケージには、また、追加の詳細詳細を記述した独自の [コントリビューター情報](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) があります。
 
