@@ -108,6 +108,16 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/3/6
+- [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) - カスタムプロジェクトテンプレートで書き換え [#39049](https://github.com/WordPress/gutenberg/pull/39049)
+- [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/author-experience/) - useBlockProps 追加 [#39072](https://github.com/WordPress/gutenberg/pull/39072)、[#39049](https://github.com/WordPress/gutenberg/pull/39049)
+- [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/block-anatomy/) - カスタムプロジェクトテンプレート [#39049](https://github.com/WordPress/gutenberg/pull/39049)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - version v2 [#38937](https://github.com/WordPress/gutenberg/pull/38937)、experimental-link-color は 5.9 以上で削除 [#38711](https://github.com/WordPress/gutenberg/pull/38711)
+- [Building an edit form](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/3-building-an-edit-form.md) - 新規
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - cherry-picking 自動化 [#38977](https://github.com/WordPress/gutenberg/pull/38977)
+- [@wordpress/create_block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - 全面改訂 [#39049](https://github.com/WordPress/gutenberg/pull/39049)、[#39096](https://github.com/WordPress/gutenberg/pull/39096)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - xdebug への追記 [#38882](https://github.com/WordPress/gutenberg/pull/38882)、run での引用符 [#39101](https://github.com/WordPress/gutenberg/pull/39101)
+
 2022/2/17
 - [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 最初の指針を追加 [#38682](https://github.com/WordPress/gutenberg/pull/38682)
 - [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) - グローバルスタイルの記述変更 [#38208](https://github.com/WordPress/gutenberg/pull/38208)

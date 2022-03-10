@@ -151,7 +151,7 @@ describe( 'actions', () => {
 			const end = 'end';
 			const select = {
 				getBlockRootClientId() {
-					return 'parent'; // for all client IDs
+					return 'parent'; // For all client IDs.
 				},
 				getSelectedBlockCount() {
 					return 0;
@@ -165,6 +165,7 @@ describe( 'actions', () => {
 				type: 'MULTI_SELECT',
 				start,
 				end,
+				initialPosition: 0,
 			} );
 		} );
 

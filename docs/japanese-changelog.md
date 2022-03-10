@@ -2,6 +2,24 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/3/6
+- [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) - カスタムプロジェクトテンプレートで書き換え [#39049](https://github.com/WordPress/gutenberg/pull/39049)
+- [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/author-experience/) - useBlockProps 追加 [#39072](https://github.com/WordPress/gutenberg/pull/39072)、[#39049](https://github.com/WordPress/gutenberg/pull/39049)
+- [ブロックの詳細](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/block-anatomy/) - カスタムプロジェクトテンプレート [#39049](https://github.com/WordPress/gutenberg/pull/39049)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - version v2 [#38937](https://github.com/WordPress/gutenberg/pull/38937)、experimental-link-color は 5.9 以上で削除 [#38711](https://github.com/WordPress/gutenberg/pull/38711)
+- [Building an edit form](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/3-building-an-edit-form.md) - 新規
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - cherry-picking 自動化 [#38977](https://github.com/WordPress/gutenberg/pull/38977)
+- [@wordpress/create_block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - 全面改訂 [#39049](https://github.com/WordPress/gutenberg/pull/39049)、[#39096](https://github.com/WordPress/gutenberg/pull/39096)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - xdebug への追記 [#38882](https://github.com/WordPress/gutenberg/pull/38882)、run での引用符 [#39101](https://github.com/WordPress/gutenberg/pull/39101)
+- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - experimentalInitialPosition [#38314](https://github.com/WordPress/gutenberg/pull/38314)
+- [The Editor’s UI Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-edit-post.md) - 新しい preferences [#39115](https://github.com/WordPress/gutenberg/pull/39115)、[#39132](https://github.com/WordPress/gutenberg/pull/39132)
+- [List view](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/list-view/README.md)、[TreeGrid](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tree-grid/README.md) - 複数選択の追加 [#38314](https://github.com/WordPress/gutenberg/pull/38314)
+- [Block library](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/README.md) - 新しいブロックの追加方法 [#38868](https://github.com/WordPress/gutenberg/pull/38868)
+- [ConfirmDialog](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/confirm-dialog/README.md) - カスタムテキストの追加 [#38994](https://github.com/WordPress/gutenberg/pull/38994)
+- [Preferences](https://github.com/WordPress/gutenberg/blob/trunk/packages/preferences/README.md) - 新規
+- [PreferenceToggleMenuItem](https://github.com/WordPress/gutenberg/blob/trunk/packages/preferences/src/components/preference-toggle-menu-item/README.md) - 新規
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - PHP ファイルのコピー方法を変更 [#39171](https://github.com/WordPress/gutenberg/pull/39171)
+
 2022/2/17
 - [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 最初の指針を追加 [#38682](https://github.com/WordPress/gutenberg/pull/38682)
 - [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) - グローバルスタイルの記述変更 [#38208](https://github.com/WordPress/gutenberg/pull/38208)
@@ -12,7 +30,6 @@
 - [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - コンテキストやセマンティックの追加 [#38809](https://github.com/WordPress/gutenberg/pull/38809)
 - [変換](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) - schema 追加 [#36839](https://github.com/WordPress/gutenberg/pull/36839)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 投稿者の経歴ブロック [#38269](https://github.com/WordPress/gutenberg/pull/38269)、続きを読むブロック [#37649](https://github.com/WordPress/gutenberg/pull/37649)、コメントクエリーループブロックに defaultPage 追加 [#38187](https://github.com/WordPress/gutenberg/pull/38187)
-minor
 - [create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - wpEnvの説明 [#38530](https://github.com/WordPress/gutenberg/pull/38530)、customScripts の追加 [#38535](https://github.com/WordPress/gutenberg/pull/38535)
 - [CONTRIBUTING](https://github.com/WordPress/gutenberg/blob/trunk/CONTRIBUTING.md) - GPLv2 から GPLv2 と MPLv2 へ [#38303](https://github.com/WordPress/gutenberg/pull/38303)
 - [後方互換性](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/backward-compatibility/) - 「コントリビューターガイド」章に移動
@@ -43,7 +60,6 @@ minor
 - [ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/)、[ダイナミックブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) - block supports 追加 [#38210](https://github.com/WordPress/gutenberg/pull/38210)
 - [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - グローバルスタイルプリセット追加 [#38129](https://github.com/WordPress/gutenberg/pull/38129)
 - [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - __experimentalSelector への注記 [#37984](https://github.com/WordPress/gutenberg/pull/37984)
-minor
 - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - 概要説明の更新 [#37847](https://github.com/WordPress/gutenberg/pull/37847)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 属性の追加等 [#36149](https://github.com/WordPress/gutenberg/pull/36149), [#38044](https://github.com/WordPress/gutenberg/pull/38044), [#37297](https://github.com/WordPress/gutenberg/pull/37297), [#38235](https://github.com/WordPress/gutenberg/pull/38235), [#38152](https://github.com/WordPress/gutenberg/pull/38152)
 - [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) など - コントリビューター用記述の追加 [#38122](https://github.com/WordPress/gutenberg/pull/38122)

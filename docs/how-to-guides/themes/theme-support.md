@@ -682,9 +682,9 @@ If a theme opts in, it should [define default link colors](/docs/how-to-guides/t
  -->
 
 <!--
-> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support( 'experimental-link-color' )` would also work. This fallback would be removed when the Gutenberg plugin requires WordPress 5.8 as the minimum version.
+> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support( 'experimental-link-color' )` would also work. This fallback would be removed when the Gutenberg plugin requires WordPress 5.9 as the minimum version.
  -->
-> 代替として、Gutenberg プラグインが有効な場合は、古いレガシーサポートである `add_theme_support( 'experimental-link-color' )` も機能します。このフォールバックは、Gutenberg プラグインのサポートするバージョンが WordPress 5.8 以上になった時点で削除されます。
+> 代替として、Gutenberg プラグインが有効な場合は、古いレガシーサポートである `add_theme_support( 'experimental-link-color' )` も機能します。このフォールバックは、Gutenberg プラグインのサポートするバージョンが WordPress 5.9 以上になった時点で削除されます。
 
 <!--
 When the user sets the link color of a block, a new style will be added in the form of:

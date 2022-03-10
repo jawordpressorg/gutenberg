@@ -52,4 +52,10 @@ All core blocks source are in the [block library package on GitHub](https://gith
 
 すべてのコアブロックのソースは [GitHub 上のブロックライブラリーパッケージ](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src) にあります。
 
+<!-- 
+Next Section: [Share your Block with the World](/docs/getting-started/create-block/submitting-to-block-directory.md)
+ -->
+次のセクション: [ブロックを共有する](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/submitting-to-block-directory/)
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/create-block/finishing.md)
+

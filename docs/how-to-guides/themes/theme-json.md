@@ -321,12 +321,25 @@ Additionally, there are two other block selectors: `root` and `defaults`. The `r
 <!--
 This field describes the format of the `theme.json` file. The current and only version is 1.
  -->
+<!--  
 このフィールドは、`theme.json` ファイルのフォーマットを表します。現在の唯一のバージョンは1です。
+ -->
+<!-- 
+This field describes the format of the `theme.json` file. The current version is [v2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/), [introduced in WordPress 5.9](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). It also works with the current Gutenberg plugin.
+ -->
+このフィールドは、`theme.json` ファイルのフォーマットを表します。現在のバージョンは [v2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) で、[WordPress 5.9 で導入されました](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)。現行の Gutenberg プラグインでも動作します。
+
+<!-- 
+If you have used [v1](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-v1/) previously, you don’t need to update the version in the v1 file to v2, as it’ll be [migrated](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) into v2 at runtime for you.
+ -->
+過去に [v1](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-v1/) を使っていた場合、v1 ファイルの version を v2 に更新する必要はありません。実行時に v2 に [移行](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) されます。
 
 <!--
 WordPress 5.8 will ignore the contents of any `theme.json` whose version is not equals to the current. Should the Gutenberg plugin need it, it'll update the version and will add the corresponding migration mechanisms from older versions.
  -->
+<!-- 
 WordPress 5.8 は、現行バージョンと異なる `theme.json` の内容を無視します。Gutenberg プラグインは必要があれば、バージョンを更新し、古いバージョンからの移行メカニズムを追加します。
+ -->
 
 <!--
 ### Settings
@@ -526,7 +539,7 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-color-palette`      | Provide the list of colors via `color.palette`.           |
 | `editor-font-sizes`         | Provide the list of font size via `typography.fontSizes`. |
 | `editor-gradient-presets`   | Provide the list of gradients via `color.gradients`.      |
-| `experimental-link-color`   | Set `color.link` to `true`.                               |
+| `experimental-link-color`   | Set `color.link` to `true`. `experimental-link-color` will be removed when the plugin requires WordPress 5.9 as the minimum version. |
  -->
 | add_theme_support           | theme.json 設定                                        |
 | --------------------------- | --------------------------------------------------------- |
@@ -539,7 +552,7 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-color-palette`      | `color.palette` で色のリストを渡す     |
 | `editor-font-sizes`         | `typography.fontSizes` でフォントサイズのリストを渡す |
 | `editor-gradient-presets`   | `color.gradients` でグラデーションのリストを渡す      |
-| `experimental-link-color`   | `color.link` に `true` を設定                  |
+| `experimental-link-color`   | `color.link` に `true` を設定。`experimental-link-color` は、プラグインのサポートする最低バージョンが WordPress 5.9 になった段階で、削除されます。                  |
 
 <!--
 Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:
@@ -695,7 +708,7 @@ The naming schema for the classes and the custom properties is as follows:
 							"slug": "white",
 							"color": "#ffffff",
 							"name": "White"
-						},
+						}
 					]
 				}
 			}

@@ -25,6 +25,7 @@ To use the Placeholder, wrap the `<TextControl>` component so it becomes a child
 プレースホルダーを使用するには `<Placeholder>` コンポーネントの子要素となるように `<TextControl>` コンポーネントをラップします。自分のコードでも試してみてください。更新後は次のようになるはずです。
 
 ```jsx
+import { useBlockProps } from '@wordpress/block-editor';
 import { Placeholder, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -171,15 +172,16 @@ The edit function can simply be:
 edit 関数は以下のようにシンプルになります。
 
 ```jsx
-import { useBlockProps } from '@wordpress/block-editor';
 import { TextControl } from '@wordpress/components';
+import { useBlockProps } from '@wordpress/block-editor';
 
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
+	const blockProps = useBlockProps();
 	return (
 		<TextControl
-			{ ...useBlockProps() }
+			{ ...blockProps }
 			value={ attributes.message }
 			onChange={ ( val ) => setAttributes( { message: val } ) }
 		/>

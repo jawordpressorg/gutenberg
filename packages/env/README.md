@@ -88,12 +88,12 @@ When installing `wp-env` in this way, all `wp-env` commands detailed in these do
 
 <!--
 ```sh
-# You must add another dash to pass the "update" flag to wp-env
+# You must add another double dash to pass the "update" flag to wp-env
 $ npm run wp-env start -- --update
 ```
  -->
 ```sh
-# wp-env に "update" を渡すには別のダッシュ(-)を追加する必要があります。
+# wp-env に "update" を渡すには別の二重ダッシュ(-)を追加する必要があります。
 $ npm run wp-env start -- --update
 ```
 
@@ -346,6 +346,18 @@ wp-env start
 # リストしたそれぞれの Xdebug モードを有効
 wp-env start --xdebug=profile,trace,debug
 ```
+<!-- 
+When you're running `wp-env` using `npm run`, like when working in the Gutenberg repo or when having `wp-env` as a local project dependency, don't forget to add an extra double dash before the `--xdebug` command:
+ -->
+`npm run` を使って `wp-env` を実行する場合、たとえば、Gutenberg リポジトリで作業刷る場合や、`wp-env` をプロジェクトのローカルな依存関係として持つ場合、`--xdebug` コマンドの前に、忘れずに二重ダッシュを追加してください。
+
+```sh
+npm run wp-env start -- --xdebug
+```
+<!-- 
+If you forget about that, the `--xdebug` parameter will be passed to NPM instead of the `wp-env start` command and it will be ignored.
+ -->
+これを忘れると、`wp-env start` コマンドの代わりに `--xdebug` パラメータが NPM に渡され、無視されます。
 
 <!--
 You can see a reference on each of the Xdebug modes and what they do in the [Xdebug documentation](https://xdebug.org/docs/all_settings#mode).
@@ -373,15 +385,20 @@ IDE から Xdebug に接続するには以下の IDE 設定を使用できます
 
 ```json
 {
-	"name": "Listen for XDebug",
-	"type": "php",
-	"request": "launch",
-	"port": 9003,
-	"pathMappings": {
-		"/var/www/html/wp-content/plugins/gutenberg": "${workspaceFolder}/"
-	}
+  "name": "Listen for XDebug",
+  "type": "php",
+  "request": "launch",
+  "port": 9003,
+  "pathMappings": {
+    "/var/www/html/wp-content/plugins/gutenberg": "${workspaceFolder}/"
+  }
 }
 ```
+<!-- 
+After you create a `.vscode/launch.json` file in your repository, you probably want to add it to your [global gitignore file](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer) so that it stays private for you and is not committed to the repository.
+ -->
+リポジトリに `.vscode/launch.json` ファイルを作成したら、それを [グローバル gitignore ファイル](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer) に追加すると良いでしょう。ファイルはプライベートになり、リポジトリにはコミットされません。
+
 <!--
 Once your IDEs Xdebug settings have been enabled, you should just have to launch the debugger, put a breakpoint on any line of PHP code, and then refresh your browser!
  -->
@@ -504,7 +521,45 @@ WordPress データベースをクリアします。
 
 <!--
 ### `wp-env run [container] [command]`
+ -->
+### wp-env run [container] [command]
 
+<!-- 
+The run command can be used to open shell sessions or invoke WP-CLI commands.
+ -->
+run コマンドは、シェルセッションを開いたり、WP-CLI コマンドの呼び出しに使用できます。
+
+<!-- 
+<div class="callout callout-alert">
+To run a WP-CLI command that includes optional arguments, enclose the WP-CLI command in quotation marks; otherwise, the optional arguments are ignored. This is because flags are normally passed to `wp-env` itself, meaning that the flags are not considered part of the argument that specifies the WP-CLI command. With quotation marks, `wp-env` considers everything inside quotation marks the WP-CLI command argument.
+ -->
+オプションの引数を含む WP-CLI コマンドを実行するには、WP-CLI コマンドを引用符 (`'`) で囲みます。囲まない場合、オプションの引数は無視されます。フラグは通常 WP-CLI コマンドを指定する引数の一部とはみなされず、`wp-env` 自身に渡されるためです。引用符を使用すると、 `wp-env` は引用符の中のすべてを WP-CLI コマンドの引数と見なします。
+
+<!-- 
+For example, to list cron schedules with optional arguments that specify the fields returned and the format of the output:
+ -->
+たとえば、cron のスケジュールをリストし、オプションに返すフィールドと出力フォーマットを指定するには、
+
+```sh
+wp-env run cli "wp cron schedule list --fields=name --format=csv"
+```
+<!-- 
+Without the quotation marks, WP-CLI lists the schedule in its default format, ignoring the `fields` and `format` arguments.
+</div>
+ -->
+引用符がない場合、WP-CLI は `fields` と `format` の引数を無視して、デフォルトのフォーマットでスケジュールをリストします。
+
+<!-- 
+Note that quotation marks are not required for a WP-CLI command that excludes optional arguments, although it does not hurt to include them. For example, the following command syntaxes return identical results: `wp-env run cli "wp cron schedule list"` or `wp-env run cli wp cron schedule list`.
+ -->
+注意: オプションの引数を除外する WP-CLI コマンドでは引用符は必要ありませんが、引用符を含めても問題ありません。たとえば、次のコマンド構文`wp-env run cli "wp cron schedule list"` と `wp-env run cli wp cron schedule list` は、同一の結果を返します。
+
+<!-- 
+For more information about all the available commands, see [WP-CLI Commands](https://developer.wordpress.org/cli/commands/).
+ -->
+利用可能なコマンドの詳細については、[WP-CLI コマンド](https://developer.wordpress.org/cli/commands/)を参照してください。
+
+<!--
 ```sh
 wp-env run <container> [command..]
 
@@ -531,8 +586,6 @@ Options:
 
 For example:
  -->
-### wp-env run
-
 ```sh
 wp-env run <container> [command..]
 
@@ -607,7 +660,7 @@ wp> ^C
 #### development インスタンスでのプラグインやテーマのインストール
 
 ```sh
-wp-env run cli plugin install custom-post-type-ui
+wp-env run cli wp plugin install custom-post-type-ui
 
 Creating 500cd328b649d63e882d5c4695871d04_cli_run ... done
 Installing Custom Post Type UI (1.9.2)
@@ -773,22 +826,22 @@ Additionally, the key `env` is available to override any of the above options on
 
 ```json
 {
-	"plugins": [ "." ],
-	"config": {
-		"KEY_1": true,
-		"KEY_2": false
-	},
-	"env": {
-		"development": {
-			"themes": [ "./one-theme" ]
-		},
-		"tests": {
-			"config": {
-				"KEY_1": false
-			},
-			"port": 3000
-		}
-	}
+  "plugins": ["."],
+  "config": {
+    "KEY_1": true,
+    "KEY_2": false
+  },
+  "env": {
+    "development": {
+      "themes": ["./one-theme"]
+    },
+    "tests": {
+      "config": {
+        "KEY_1": false
+      },
+      "port": 3000
+    }
+  }
 }
 ```
 <!--
@@ -857,8 +910,8 @@ This is useful for plugin development.
 
 ```json
 {
-	"core": null,
-	"plugins": [ "." ]
+  "core": null,
+  "plugins": ["."]
 }
 ```
 
@@ -873,8 +926,8 @@ This is useful for plugin development when upstream Core changes need to be test
 
 ```json
 {
-	"core": "WordPress/WordPress#master",
-	"plugins": [ "." ]
+  "core": "WordPress/WordPress#master",
+  "plugins": ["."]
 }
 ```
 <!--
@@ -893,8 +946,8 @@ If you are running a _build_ of `wordpress-develop`, point `core` to the `build`
 
 ```json
 {
-	"core": "../wordpress-develop/build",
-	"plugins": [ "." ]
+  "core": "../wordpress-develop/build",
+  "plugins": ["."]
 }
 ```
 <!-- 
@@ -904,8 +957,8 @@ If you are running `wordpress-develop` in a dev mode (e.g. the watch command `de
 
 ```json
 {
-	"core": "../wordpress-develop/src",
-	"plugins": [ "." ]
+  "core": "../wordpress-develop/src",
+  "plugins": ["."]
 }
 ```
 
@@ -920,9 +973,9 @@ This is useful for integration testing: that is, testing how old versions of Wor
 
 ```json
 {
-	"core": "WordPress/WordPress#5.2.0",
-	"plugins": [ "WordPress/wp-lazy-loading", "WordPress/classic-editor" ],
-	"themes": [ "WordPress/theme-experiments" ]
+  "core": "WordPress/WordPress#5.2.0",
+  "plugins": ["WordPress/wp-lazy-loading", "WordPress/classic-editor"],
+  "themes": ["WordPress/theme-experiments"]
 }
 ```
 <!--
@@ -936,12 +989,12 @@ You can add mu-plugins via the mapping config. The mapping config also allows yo
 
 ```json
 {
-	"plugins": [ "." ],
-	"mappings": {
-		"wp-content/mu-plugins": "./path/to/local/mu-plugins",
-		"wp-content/themes": "./path/to/local/themes",
-		"wp-content/themes/specific-theme": "./path/to/local/theme-1"
-	}
+  "plugins": ["."],
+  "mappings": {
+    "wp-content/mu-plugins": "./path/to/local/mu-plugins",
+    "wp-content/themes": "./path/to/local/themes",
+    "wp-content/themes/specific-theme": "./path/to/local/theme-1"
+  }
 }
 ```
 <!--
@@ -955,10 +1008,10 @@ Since all plugins in the `plugins` key are activated by default, you should use 
 
 ```json
 {
-	"plugins": [ "." ],
-	"mappings": {
-		"wp-content/plugins/my-test-plugin": "./path/to/test/plugin"
-	}
+  "plugins": ["."],
+  "mappings": {
+    "wp-content/plugins/my-test-plugin": "./path/to/test/plugin"
+  }
 }
 ```
 
@@ -973,12 +1026,12 @@ If you need a plugin active in one environment but not the other, you can use `e
 
 ```json
 {
-	"plugins": [ "." ],
-	"env": {
-		"tests": {
-			"plugins": [ ".", "path/to/test/plugin" ]
-		}
-	}
+  "plugins": ["."],
+  "env": {
+    "tests": {
+      "plugins": [".", "path/to/test/plugin"]
+    }
+  }
 }
 ```
 
@@ -993,13 +1046,13 @@ You can tell `wp-env` to use a custom port number so that your instance does not
 
 ```json
 {
-	"plugins": [ "." ],
-	"port": 4013,
-	"env": {
-		"tests": {
-			"port": 4012
-		}
-	}
+  "plugins": ["."],
+  "port": 4013,
+  "env": {
+    "tests": {
+      "port": 4012
+    }
+  }
 }
 ```
 <!--
@@ -1014,8 +1067,8 @@ You can tell `wp-env` to use a specific PHP version for compatibility and testin
 
 ```json
 {
-	"phpVersion": "7.2",
-	"plugins": [ "." ]
+  "phpVersion": "7.2",
+  "plugins": ["."]
 }
 ```
 

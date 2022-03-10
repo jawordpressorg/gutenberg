@@ -17,11 +17,11 @@ Note: The color may not work with all browsers until they support the proper col
 ## フォントファイルのロード
 
 <!-- 
-Download and extract the font from the Type with Pride site, and copy it in the `src` directory of your plugin naming it `gilbert-color.otf`. To load the font file, we need to add CSS using standard WordPress enqueue, [see Including CSS & JavaScript documentation](https://developer.wordpress.org/themes/basics/including-css-javascript/).
+Download and extract the font from the Type with Pride site, and copy it in the `assets` directory of your plugin naming it `gilbert-color.otf`. To load the font file, we need to add CSS using standard WordPress enqueue, [see Including CSS & JavaScript documentation](https://developer.wordpress.org/themes/basics/including-css-javascript/).
 
 In the `gutenpride.php` file, the enqueue process is already setup from the generated script, so `index.css` and `style-index.css` files are loaded using:
  -->
-Type with Pride のサイトからフォントをダウンロードし解凍し、プラグインの `src` ディレクトリに `gilbert-color.otf` という名前でコピーしてください。フォントファイルをロードするには WordPress 標準のエンキューを使用してフォントファイルをロードする必要があります。[Including CSS & JavaScript ドキュメント](https://developer.wordpress.org/themes/basics/including-css-javascript/) を参照してください。
+Type with Pride のサイトからフォントをダウンロードし解凍し、プラグインの `assets` ディレクトリに `gilbert-color.otf` という名前でコピーしてください。フォントファイルをロードするには WordPress 標準のエンキューを使用してフォントファイルをロードする必要があります。[Including CSS & JavaScript ドキュメント](https://developer.wordpress.org/themes/basics/including-css-javascript/) を参照してください。
 
 `gutenpride.php` ファイルにはすでに生成されたスクリプトからのエンキュープロセスが設定されています。以下のコードで `index.css` ファイルと `style-index.css` ファイルがロードされます。
 
@@ -65,12 +65,12 @@ Note: the block classname is prefixed with `wp-block`. The `create-block/gutenpr
 ```scss
 @font-face {
 	font-family: Gilbert;
-	src: url( gilbert-color.otf );
-	font-weight: bold;
+	src: url( ../assets/gilbert-color.otf );
+	font-weight: 700;
 }
 
 .wp-block-create-block-gutenpride {
-	font-family: Gilbert;
+	font-family: Gilbert, sans-serif;
 	font-size: 64px;
 }
 ```

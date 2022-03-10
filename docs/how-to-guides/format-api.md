@@ -232,7 +232,7 @@ Here is an example that only shows the button for Paragraph blocks:
 次のサンプルコードは、「段落」ブロックでのみボタンを表示します。
 
 ```js
-import { registerFormatType } from '@wordpress/rich-text';
+import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 

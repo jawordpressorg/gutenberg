@@ -702,12 +702,12 @@ See the [the example documentation](/docs/reference-guides/block-api/block-regis
 ### Editor Script
 
 <!--
--   Type: `WPDefinedAsset` ([learn more](#WPDefinedAsset))
+-   Type: `WPDefinedAsset` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorScript`
  -->
--   型: `WPDefinedAsset` ([詳細](#WPDefinedAsset))
+-   型: `WPDefinedAsset` ([詳細](#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorScript`
@@ -724,12 +724,12 @@ Block type editor script definition. It will only be enqueued in the context of 
 ### Script
 
 <!--
--   Type: `WPDefinedAsset` ([learn more](#WPDefinedAsset))
+-   Type: `WPDefinedAsset` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `script`
  -->
--   型: `WPDefinedAsset` ([詳細](#WPDefinedAsset))
+-   型: `WPDefinedAsset` ([詳細](#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `script`
@@ -746,13 +746,13 @@ Block type frontend and editor script definition. It will be enqueued both in th
 ### View Script
 
 <!-- 
--   Type: `WPDefinedAsset` ([learn more](#WPDefinedAsset))
+-   Type: `WPDefinedAsset` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScript`
 -   Since: `WordPress 5.9.0`
  -->
--   型: `WPDefinedAsset` ([詳細](#WPDefinedAsset))
+-   型: `WPDefinedAsset` ([詳細](#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `viewScript`
@@ -770,12 +770,12 @@ Block type frontend script definition. It will be enqueued only when viewing the
 ### Editor Style
 
 <!--
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#WPDefinedAsset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorStyle`
  -->
--   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#WPDefinedAsset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorStyle`
@@ -794,12 +794,12 @@ _Note: An option to pass also an array of editor styles exists since WordPress `
 ### Style
 
 <!--
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#WPDefinedAsset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `style`
  -->
--   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#WPDefinedAsset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `style`

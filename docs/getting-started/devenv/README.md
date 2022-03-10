@@ -41,7 +41,7 @@ Download and install [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm)
 [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) をダウンロードし、インストールします。
 
 ```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 ```
 <!--
 Quit and restart terminal
@@ -126,7 +126,7 @@ Run the following on the command-line to install nvm:
 nvm をインストールするには次のコマンドを実行します。
 
 ```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 ```
 <!--
 Note: On macOS, the required developer tools are not installed by default, if not already installed you may be prompted to download the install.
@@ -182,10 +182,10 @@ The important part after installing is being able to use them in your terminal. 
 
 ```sh
 > node -v
-v14.18.1
+v14.19.0
 
 > npm -v
-6.14.15
+6.14.16
 ```
 <!--
 Your versions may not match exactly, that is fine. The minimum version for node is >= 10.x and for npm >= 6.9x, using the current LTS version will always be supported.
@@ -289,7 +289,7 @@ A common issue when running `wp-env` is `Error while running docker-compose comm
 If you see the error: `Host is already in use by another container`
 
 -   The container is already running, or another one is. You can stop an existing container running use `wp-env stop` from the directory you started it.
-- If you do not remember the directory you started wp-env in, you can stop all containers with `docker stop $(docker ps -q)`. Please note, this will stop all containers, use caution with this command.
+-   If you do not remember the directory you started wp-env in, you can stop all containers with `docker stop $(docker ps -q)`. Please note, this will stop all containers, use caution with this command.
  -->
 エラー「`Host is already in use by another container`」(ホストはすでに他のコンテナで使用中) が表示される場合は、
 
