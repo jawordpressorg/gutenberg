@@ -2,6 +2,10 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/3/12
+- [ダイナミックブロック内のブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks/) - 翻訳
+- [Gutenberg のデータを使用したアプリの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) - 翻訳
+
 2022/3/6
 - [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) - カスタムプロジェクトテンプレートで書き換え [#39049](https://github.com/WordPress/gutenberg/pull/39049)
 - [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/author-experience/) - useBlockProps 追加 [#39072](https://github.com/WordPress/gutenberg/pull/39072)、[#39049](https://github.com/WordPress/gutenberg/pull/39049)

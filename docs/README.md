@@ -108,6 +108,10 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/3/12
+- [ダイナミックブロック内のブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks/) - 翻訳
+- [Gutenberg のデータを使用したアプリの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) - 翻訳
+
 2022/3/6
 - [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) - カスタムプロジェクトテンプレートで書き換え [#39049](https://github.com/WordPress/gutenberg/pull/39049)
 - [執筆エクスペリエンス](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/author-experience/) - useBlockProps 追加 [#39072](https://github.com/WordPress/gutenberg/pull/39072)、[#39049](https://github.com/WordPress/gutenberg/pull/39049)
