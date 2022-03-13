@@ -581,7 +581,7 @@ Display multiple images in a rich gallery. ([Source](https://github.com/WordPres
 -->
 -	**名前:** core/gallery
 -	**カテゴリー:** media
--	**サポート:** align, anchor
+-	**サポート:** align, anchor, ~~html~~
 -	**属性:** allowResize, caption, columns, fixedHeight, ids, imageCrop, images, linkTarget, linkTo, shortCodeTransforms, sizeSlug
 
 <!--

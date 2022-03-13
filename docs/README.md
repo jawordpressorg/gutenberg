@@ -108,6 +108,11 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/3/13
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - npm 公開の自動化 [#39259](https://github.com/WordPress/gutenberg/pull/39259)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - Gallery から html 削除 [#39318](https://github.com/WordPress/gutenberg/pull/39318)
+- [バージョン 2 (現在のリファレンス)](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - color に defaultDuotone 追加 [#38681](https://github.com/WordPress/gutenberg/pull/38681)
+
 2022/3/12
 - [ダイナミックブロック内のブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks/) - 翻訳
 - [Gutenberg のデータを使用したアプリの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) - 翻訳
