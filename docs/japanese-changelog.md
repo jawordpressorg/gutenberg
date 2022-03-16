@@ -2,6 +2,9 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/3/16
+- [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup/) - 翻訳
+
 2022/3/13
 - [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - npm 公開の自動化 [#39259](https://github.com/WordPress/gutenberg/pull/39259)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - Gallery から html 削除 [#39318](https://github.com/WordPress/gutenberg/pull/39318)
