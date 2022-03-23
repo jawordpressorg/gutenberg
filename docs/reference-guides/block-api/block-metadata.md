@@ -316,9 +316,13 @@ The name for a block is a unique string that identifies a block. Names have to b
 ```
 
 <!--
-This is the display title for your block, which can be translated with our translation functions. The block inserter will show this name.
+This is the display title for your block, which can be translated with our translation functions. The title will display in the Inserter and in other areas of the editor.
  -->
-ブロックの表示タイトルです。翻訳関数で翻訳できます。ブロックインサーターはこの名前を表示します。
+ブロックの表示タイトルです。翻訳関数で翻訳できます。ブロックインサーターやエディターの他の領域は、このタイトルを表示します。
+<!-- 
+**Note:** To keep your block titles readable and accessible in the UI, try to avoid very long titles.
+ -->
+**注意:** UIで読みやすく、アクセスしやすいブロックタイトルにするには、長過ぎるタイトルは避けてください。
 
 ### Category
 

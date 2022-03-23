@@ -73,19 +73,25 @@ _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plu
 
 -   **Type:** `String`
 <!--
-This is the display title for your block, which can be translated with our translation functions. The block inserter will show this name.
+This is the display title for your block, which can be translated with our translation functions. The title will display in the Inserter and in other areas of the editor. 
 
 ```js
 // Our data object
 title: __( 'Book' );
 ```
  -->
-ブロックの表示タイトル。翻訳関数を使用して翻訳できます。ブロックインサーターはこの名前を表示します。
+ブロックの表示タイトル。翻訳関数を使用して翻訳できます。ブロックインサーターやエディターの他の領域は、このタイトルを表示します。
 
 ```js
 // データオブジェクト
 title: __( 'Book' );
 ```
+<!-- 
+_Note:_ To keep your block titles readable and accessible in the UI, try to avoid very long titles.
+ -->
+_注意:_ UIで読みやすく、アクセスしやすいブロックタイトルにするには、長過ぎるタイトルは避けてください。
+
+
 <!--
 #### description (optional)
  -->

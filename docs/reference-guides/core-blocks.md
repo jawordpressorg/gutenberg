@@ -576,12 +576,12 @@ Display multiple images in a rich gallery. ([Source](https://github.com/WordPres
 <!--
 -	**Name:** core/gallery
 -	**Category:** media
--	**Supports:** align, anchor, ~~html~~
+-	**Supports:** align, anchor, spacing (blockGap), units (em, px, rem, vh, vw), ~~html~~
 -	**Attributes:** allowResize, caption, columns, fixedHeight, ids, imageCrop, images, linkTarget, linkTo, shortCodeTransforms, sizeSlug
 -->
 -	**名前:** core/gallery
 -	**カテゴリー:** media
--	**サポート:** align, anchor, ~~html~~
+-	**サポート:** align, anchor, spacing (blockGap), units (em, px, rem, vh, vw), ~~html~~
 -	**属性:** allowResize, caption, columns, fixedHeight, ids, imageCrop, images, linkTarget, linkTo, shortCodeTransforms, sizeSlug
 
 <!--
@@ -751,6 +751,24 @@ Create a bulleted or numbered list. ([Source](https://github.com/WordPress/guten
 -	**カテゴリー:** text
 -	**サポート:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
 -	**属性:** ordered, placeholder, reversed, start, type, values
+<!-- 
+## List item
+ -->
+## List item / リスト項目
+<!-- 
+Create a list item. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/list-item))
+ -->
+リスト項目を作成します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/list-item))
+<!-- 
+-	**Name:** core/list-item
+-	**Category:** text
+-	**Supports:** ~~className~~
+-	**Attributes:** content, placeholder
+ -->
+-	**名前:** core/list-item
+-	**カテゴリー:** text
+-	**サポート:** ~~className~~
+-	**属性:** content, placeholder
 
 <!--
 ## Login/out
@@ -1604,13 +1622,13 @@ Create a break between ideas or sections with a horizontal separator. ([Source](
 <!--
 -	**Name:** core/separator
 -	**Category:** design
--	**Supports:** align (center, full, wide), anchor
--	**Attributes:** color, customColor
+-	**Supports:** align (center, full, wide), anchor, color (background, gradients, ~~text~~)
+-	**Attributes:** opacity
 -->
 -	**名前:** core/separator
 -	**カテゴリー:** design
--	**サポート:** align (center, full, wide), anchor
--	**属性:** color, customColor
+-	**サポート:** align (center, full, wide), anchor, color (background, gradients, ~~text~~)
+-	**属性:** opacity
 
 <!--
 ## Shortcode

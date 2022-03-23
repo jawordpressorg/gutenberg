@@ -87,14 +87,14 @@ Most of the properties are set in the `block.json` file.
 ```
 
 <!--
-The **title** is the title of the block shown in the Inserter.
+The **title** is the title of the block shown in the Inserter and in other areas of the editor.
  -->
-**title** はインサーターで表示されるブロックのタイトルです。
+**title** は、インサーターやエディターの他のエリアで表示される、ブロックのタイトルです。
 
 <!--
 The **icon** is the icon shown in the Inserter. The icon property expects any Dashicon name as a string, see [list of available icons](https://developer.wordpress.org/resource/dashicons/). You can also provide an SVG object, but for now it's easiest to just pick a Dashicon name.
  -->
-**icon** はインサーターで表示されるアイコンです。icon プロパティは文字列として Dashicon の名前を取ります。[利用可能なアイコンリスト](https://developer.wordpress.org/resource/dashicons/) を参照してください。SVG オブジェクトを渡すこともできますが、ここでは簡単のために Dashicon 名を選択します。
+**icon** は、インサーターで表示されるアイコンです。icon プロパティは文字列として Dashicon の名前を取ります。[利用可能なアイコンリスト](https://developer.wordpress.org/resource/dashicons/) を参照してください。SVG オブジェクトを渡すこともできますが、ここでは簡単のために Dashicon 名を選択します。
 
 <!--
 The **category** specified is a string and must be one of: "common, formatting, layout, widgets, or embed". You can create your own custom category name, [see documentation for details](/docs/reference-guides/filters/block-filters.md#managing-block-categories).

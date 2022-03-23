@@ -222,9 +222,6 @@ If you now go to the Plugins page, you should see a plugin called **My first Gut
 -->
 管理画面の「プラグイン」を開くと、「**My first Gutenberg App**」プラグインが表示されているはずです。これを有効化すると、新しいメニュー項目「My first Gutenberg app」が表示されます。クリックすると、「Hello from JavaScript!」と書かれたページが表示されます。
 
-<!--
-![](/docs/how-to-guides/data-basics/media/setup/hello-from-js.jpg)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/setup/hello-from-js.jpg)
 
 <!--

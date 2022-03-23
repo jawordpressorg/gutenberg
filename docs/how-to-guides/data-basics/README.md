@@ -7,9 +7,7 @@
 This tutorial aims to get you comfortable with the Gutenberg data layer. It guides you through building a simple React application that enables the user to manage their WordPress pages. The finished app will look like this:
 -->
 このチュートリアルは、Gutenberg のデータレイヤーを使いこなすことを目的としています。このチュートリアルでは、ユーザーが WordPress のページを管理できるシンプルなReactアプリケーションを構築する方法を説明します。完成したアプリケーションは、以下のようになります。
-<!--
-![](/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
--->
+
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
 
 <!--

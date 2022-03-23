@@ -2,6 +2,20 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/3/22
+- [テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/) - クラシックテーマとブロックテーマ [#39562](https://github.com/WordPress/gutenberg/pull/39562)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - リスト項目ブロック追加 [#39487](https://github.com/WordPress/gutenberg/pull/39487)、ギャラリーブロックのサポートに spacing と units [#38164](https://github.com/WordPress/gutenberg/pull/38164)、区切りブロックのサポートにcolor、属性はopacity [#38428](https://github.com/WordPress/gutenberg/pull/38428)
+- [Deprecations](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/deprecations/) - Unreleased [#38794](https://github.com/WordPress/gutenberg/pull/38794)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - npm 公開 [#39389](https://github.com/WordPress/gutenberg/pull/39389)
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - User interactions 追加 [#39360](https://github.com/WordPress/gutenberg/pull/39360)
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - getEntityConfig [#39349](https://github.com/WordPress/gutenberg/pull/39349)
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - experimentalGenerateAnchors [#39554](https://github.com/WordPress/gutenberg/pull/39554)
+- [Block Title](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/block-title/README.md) - タイトルが長い場合は切り捨て [#39416](https://github.com/WordPress/gutenberg/pull/39416)
+- [DateFormatPicker](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/date-format-picker/README.md) - 新規
+- [Blocks](https://github.com/WordPress/gutenberg/blob/trunk/packages/blocks/README.md) - serializeRawBlock [#38923](https://github.com/WordPress/gutenberg/pull/38923)、validateBlock [#38794](https://github.com/WordPress/gutenberg/pull/38794)
+- [BaseControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/base-control/README.md) - __nextHasNoMarginBottom [#39325](https://github.com/WordPress/gutenberg/pull/39325)
+- [NumberControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/number-control/README.md) - onChange [#39186](https://github.com/WordPress/gutenberg/pull/39186)
+
 2022/3/16
 - [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup/) - 翻訳
 

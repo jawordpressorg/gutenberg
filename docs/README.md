@@ -108,6 +108,13 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/3/22
+- [テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/) - クラシックテーマとブロックテーマ [#39562](https://github.com/WordPress/gutenberg/pull/39562)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - リスト項目ブロック追加 [#39487](https://github.com/WordPress/gutenberg/pull/39487)、ギャラリーブロックのサポートに spacing と units [#38164](https://github.com/WordPress/gutenberg/pull/38164)、区切りブロックのサポートにcolor、属性はopacity [#38428](https://github.com/WordPress/gutenberg/pull/38428)
+- [Deprecations](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/deprecations/) - Unreleased [#38794](https://github.com/WordPress/gutenberg/pull/38794)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - npm 公開 [#39389](https://github.com/WordPress/gutenberg/pull/39389)
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - User interactions 追加 [#39360](https://github.com/WordPress/gutenberg/pull/39360)
+
 2022/3/16
 - [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup/) - 翻訳
 
