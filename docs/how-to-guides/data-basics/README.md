@@ -26,7 +26,7 @@ gutenberg-examplesリポジトリで、[完成したアプリ](https://github.co
 3. [Building an edit form](/docs/how-to-guides/data-basics/3-building-an-edit-form.md)
 -->
 1. [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup)
-2. [基本的なページ一覧の構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
+2. [簡単なページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
 3. [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/3-building-an-edit-form)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/README.md)

@@ -240,7 +240,7 @@ Congratulations! You are now ready to start building the app!
 * (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) in the gutenberg-examples repository
 -->
 * 前のステップ: [はじめに](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/)
-* 次のステップ: [基本的なページ一覧の構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
+* 次のステップ: [簡単なページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
 * (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/1-data-basics-setup.md)
