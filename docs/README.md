@@ -108,6 +108,10 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/3/26
+- [ページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages/) - 翻訳
+- [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/building-an-edit-form/) - 翻訳
+
 2022/3/22
 - [テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/) - クラシックテーマとブロックテーマ [#39562](https://github.com/WordPress/gutenberg/pull/39562)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - リスト項目ブロック追加 [#39487](https://github.com/WordPress/gutenberg/pull/39487)、ギャラリーブロックのサポートに spacing と units [#38164](https://github.com/WordPress/gutenberg/pull/38164)、区切りブロックのサポートにcolor、属性はopacity [#38428](https://github.com/WordPress/gutenberg/pull/38428)

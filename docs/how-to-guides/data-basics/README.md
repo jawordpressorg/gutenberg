@@ -1,7 +1,7 @@
 <!--
 # Create your First App with Gutenberg Data
 -->
-# Gutenberg のデータを使用したアプリの作成
+# Gutenberg Data を使用したアプリの作成
 
 <!--
 This tutorial aims to get you comfortable with the Gutenberg data layer. It guides you through building a simple React application that enables the user to manage their WordPress pages. The finished app will look like this:

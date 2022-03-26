@@ -394,7 +394,7 @@ search=About_ and thus we’d display the wrong data.
 Gutenberg data helps by handling the asynchronous part behind the scenes. `useSelect` remembers the most recent call and
 returns only the data we expect.
 -->
-Gutenberg のデータレイヤーは、裏で非同期部分を処理します。`useSelect` は直近の呼び出しを記憶しており、期待するデータのみを返します。
+Gutenberg Data は、裏で非同期部分を処理します。`useSelect` は直近の呼び出しを記憶しており、期待するデータのみを返します。
 
 <!--
 Secondly, every keystroke would trigger an API request. If you typed `About`, deleted it, and retyped it, it would
@@ -406,7 +406,7 @@ issue 10 requests in total even though we could reuse the data.
 Gutenberg data helps by caching the responses to API requests triggered by `getEntityRecords()`  and reuses them on
 subsequent calls. This is especially important when other components rely on the same entity records.
 -->
-Gutenberg のデータレイヤーは、`getEntityRecords()` をトリガーとする API リクエストのレスポンスをキャッシュして、以降の呼び出しで再利用します。この動きは特に、他のコンポーネントが同じエンティティレコードに依存している場合に重要です。
+Gutenberg Data は、`getEntityRecords()` をトリガーとする API リクエストのレスポンスをキャッシュして、以降の呼び出しで再利用します。この動きは特に、他のコンポーネントが同じエンティティレコードに依存している場合に重要です。
 
 <!--
 All in all, the utilities built into core-data are designed to solve the typical problems so that you can focus on your application
