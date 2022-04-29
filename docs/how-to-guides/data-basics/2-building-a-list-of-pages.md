@@ -417,7 +417,7 @@ instead.
 <!--
 ## Step 5: Loading Indicator
 -->
-## ステップ 5: インディケータのロード
+## ステップ 5: インジケータのロード
 
 <!--
 There is one problem with our search feature. We can’t be quite sure whether it’s still searching or showing no results:
