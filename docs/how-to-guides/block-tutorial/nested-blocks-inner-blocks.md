@@ -201,26 +201,41 @@ add_action( 'init', function() {
 ```
 
 <!--
-## Parent-Child InnerBlocks
+## Child InnerBlocks: Parent and Ancestors
 
-A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks. An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
+A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks. 
+
+An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
 
 When defining a child block, use the `parent` block setting to define which block is the parent. This prevents the block showing in the inserter outside of the InnerBlock it is defined for.
  -->
-## 親子 InnerBlocks
+## 子の InnerBlocks: 親と先祖
 
-InnerBloks を使用する一般的なパターンは InnerBlocks のみに含まれるカスタムブロックの作成です。この例として「カラム」ブロックがあります。「カラム」ブロックでは単一の親ブロック `columns` とその子ブロック `column` を作成します。親ブロックは子ブロックのみを許可するとして定義されます。[Column のコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
+InnerBloks を使用する一般的なパターンは InnerBlocks のみに含まれるカスタムブロックの作成です。
+
+この例として「カラム」ブロックがあります。「カラム」ブロックでは単一の親ブロック `columns` とその子ブロック `column` を作成します。親ブロックは子ブロックのみを許可するとして定義されます。[Column のコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
 
 子ブロックを定義する際に `parent` ブロック設定を使用して親ブロックを定義します。こうすると定義された InnerBlock の外側ではインサーターに表示されません。
 
-```js
-export const settings = {
-	title: __( 'Column' ),
-	parent: [ 'core/columns' ],
-	icon,
-	description: __( 'A single column within a columns block.' ),
-	//...
-};
+```json
+{
+	"title": "Column",
+	"name": "core/column",
+	"parent": [ "core/columns" ],
+	// ...
+}
+```
+
+他の例としては、`ancestors` ブロック設定を使用して、あるブロックが先祖として存在しなければならないが、`parent` のように、直接の親である必要はないブロックを定義できます。これにより、先祖がツリーに存在しない場合、インサーターにブロックは表示されず、一方で、カラムやグループブロックのように、他のブロックを間に追加できます。[コメント作者名のコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name)を参照してください。
+
+
+```json
+{
+	"title": "Comment Author Name",
+	"name": "core/comment-author-name",
+	"ancestor": [ "core/comment-template" ],
+	// ...
+}
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/nested-blocks-inner-blocks.md)

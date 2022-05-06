@@ -67,11 +67,27 @@ Documentation is shared early to surface what’s being worked on and invite fee
 <!-- 
 These features are part of the full site editing project releasing in WordPress 5.9. You can provide feedback in the weekly #core-editor chats, or #fse-outreach-experiment channels, or async using GitHub issues.
  -->
+<!--  
 > これらの機能は、WordPress 5.9でリリースされるフルサイト編集プロジェクトの一部です。フィードバックは、毎週開催される #core-editor チャットや #fse-outreach-experiment チャンネル、または GitHub issues を使って非同期的に行うことができます。
-
+ -->
 <!--
 </div>
  -->
+<!--  
+These features are experimental and part of the Gutenberg plugin.
+For block theme features supported by WordPress 5.9 see the [Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/).
+ -->
+
+*(2022/5/2) 訳注: この文書の大部分は、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) に移動されました。便宜上、しばらく掲載しますが、最新の情報については、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) を参照してください。*
+
+
+これらの機能は実験的なものであり、Gutenberg プラグインの一部です。
+WordPress 5.9でサポートされるブロックテーマの機能については、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) を参照してください。
+
+<!-- 
+You can provide feedback in the weekly #core-editor chats, or #fse-outreach-experiment channels, or async using GitHub issues.
+ -->
+フィードバックは、毎週開催される #core-editor チャットや #fse-outreach-experiment チャンネル、または GitHub issues を使って非同期的に行うことができます。
 
 <!--
 ## What is a block theme?
@@ -82,6 +98,56 @@ These features are part of the full site editing project releasing in WordPress 
 A block theme is a WordPress theme with templates entirely composed of blocks so that in addition to the post content of the different post types (pages, posts, ...), the block editor can also be used to edit all areas of the site: headers, footers, sidebars, etc.
  -->
 「ブロックテーマ」は WordPress テーマの一種で、完全にブロックで構成されたテンプレートを持ちます。「page」や「post」などの異なる投稿タイプのコンテンツに加え、サイトのすべてのエリア、ヘッダー、フッター、サイドバー等をブロックエディターで編集できます。
+
+<!-- 
+## Global styles presets
+ -->
+## グローバルスタイルプリセット
+
+<!-- 
+In addition to the default theme.json file, Block Themes can define multiple global styles presets for users to pick from. For example, a theme author might provide multiple theme color variations for the theme.
+ -->
+ブロックテーマは、デフォルトの theme.json ファイルに加えて、複数のグローバルスタイルプリセットを定義でき、ユーザーはここから選択できます。たとえば、テーマ作成者は、テーマのカラーバリエーションを複数提供できます。
+
+<!-- 
+To provide a global styles preset, themes can add multiple JSON files inside their `/styles` folder. Each one of these JSON file is a mini theme.json file containing `styles` and/or `settings` that overrides any of the default `theme.json` file settings or styles.
+ -->
+グローバルスタイルプリセットを提供するには、テーマは `/styles` フォルダに複数の JSON ファイルを追加します。各 JSON ファイルは、小さな theme.json ファイルで、`styles` や `settings` を含み、デフォルトの `theme.json` ファイルの設定やスタイルをオーバーライドします。
+
+<!-- 
+**Example**
+ -->
+**例**
+
+```json
+// styles/red.json
+{
+	styles: {
+		colors: {
+			text: 'red',
+			background: 'white'
+		}
+	}
+}
+```
+
+```json
+// styles/dark.json
+{
+	styles: {
+		colors: {
+			text: 'white',
+			background: 'black'
+		}
+	}
+}
+```
+
+<hr />
+
+## 2022/5/2 以前の情報
+
+*(2022/5/2) 訳注: これ以降の文書は、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) に移動されました。便宜上、しばらく掲載しますが、最新の情報については、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) を参照してください。*
 
 <!--
 ## What is the structure of a block theme?

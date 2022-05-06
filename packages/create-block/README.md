@@ -431,11 +431,13 @@ The following configurable variables are used with the template files. Template 
 -   `wpEnv` (default: `false`) – enables integration with the `@wordpress/env` package and adds the `env` script to the `package.json`.
 -   `customScripts` (default: {}) – the list of custom scripts to add to `package.json` . It also allows overriding default scripts.
 -   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
+-   `npmDevDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
  -->
 -   `wpScripts` (デフォルト: `true`) – `@wordpress/scripts` パッケージとの統合を有効可し、`package.json` に共通スクリプトを追加する。
--   `wpEnv` (デフォルト: `false`) – enables integration with the `@wordpress/env` パッケージとの統合を有効可し、`package.json` に `env` スクリプトを追加する。
--   `customScripts` (デフォルト: {}) – the list of custom scripts to add to `package.json` に追加するカスタムスクリプトのリスト。デフォルトのスクリプトも上書きできる。
--   `npmDependencies` (デフォルト: `[]`) – `wpScripts` が有効の時、[`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
+-   `wpEnv` (デフォルト: `false`) – `@wordpress/env` パッケージとの統合を有効可し、`package.json` に `env` スクリプトを追加する。
+-   `customScripts` (デフォルト: {}) – `package.json` に追加するカスタムスクリプトのリスト。デフォルトのスクリプトも上書きできる。
+-   `npmDependencies` (デフォルト: `[]`) – `wpScripts` が有効な時、[`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
+-   `npmDevDependencies` (デフォルト: `[]`) – `wpScripts` が有効な時、[`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
 
 <!-- 
 **Plugin header fields** ([learn more](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/)):

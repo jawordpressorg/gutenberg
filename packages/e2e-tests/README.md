@@ -8,6 +8,11 @@ End-To-End (E2E) tests for WordPress.
  -->
 WordPress の End-To-End (E2E) テスト
 
+<!-- 
+**Note that there's currently an ongoing [project](https://github.com/WordPress/gutenberg/issues/38851) to migrate E2E tests to Playwright instead. This package is deprecated and will only accept bug fixes until fully migrated.**
+ -->
+**注意: 現在進行中の [プロジェクト](https://github.com/WordPress/gutenberg/issues/38851) により、E2E テストは Playwright に移行します。このパッケージは非推奨で、完全に Playwright に移行するまで、バグフィックスのみを受け付けます。**
+
 <!--
 ## Installation
  -->

@@ -58,9 +58,61 @@ In non-WordPress projects, link to the `build-style/style.css` file directly, it
 
 WordPress 以外のプロジェクトの場合は、直接 `build-style/style.css` ファイルをリンクしてください。`node_modules/@wordpress/components/build-style/style.css` にあります。
 
-## コンポーネント一覧
+<!-- 
+### Popovers and Tooltips
+ -->
+### Popover と Tooltip
 
-[原文およびその下のページ](https://developer.wordpress.org/block-editor/reference-guides/components/)を参照してください。
+<!-- 
+_If you're using [`Popover`](/packages/components/src/popover/README.md) or [`Tooltip`](/packages/components/src/tooltip/README.md) components outside of the editor, make sure they are rendered within a `SlotFillProvider` and with a `Popover.Slot` somewhere up the element tree._
+ -->
+_もし、[`Popover`](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/popover/README.md) コンポーネント、または [`Tooltip`](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tooltip/README.md) コンポーネントをエディターの外で使用している場合、それらのコンポーネントは、`SlotFillProvider` 内で、要素ツリーのどこかで `Popover.Slot` と一緒にレンダーされる必要があります。_
+
+<!-- 
+By default, the `Popover` component will render inline i.e. within its
+parent to which it should anchor. Depending upon the context in which the
+`Popover` is being consumed, this might lead to incorrect positioning. For
+example, when being nested within another popover.
+ -->
+`Popover` コンポーネントは、デフォルトではインラインでレンダーされます。すなわち、その親の中に固定されます。しかし、使用されるコンテキストによっては、`Popover` が不適切な位置に表示される場合があります。例えば、他の popover の中にネストしている場合です。
+
+<!-- 
+This issue can be solved by rendering popovers to a specific location in the DOM via the
+`Popover.Slot`. For this to work, you will need your use of the `Popover`
+component and its `Slot` to be wrapped in a [`SlotFill`](/packages/components/src/slot-fill/README.md) provider.
+ -->
+この問題は、popover を `Popover.Slot` を介して DOM の特定の場所にレンダリングすることで解決できます。このためには、 `Popover` コンポーネントとその `Slot` を [`SlotFill`](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/slot-fill/README.md) プロバイダでラップする必要があります。
+
+<!-- 
+A `Popover` is also used as the underlying mechanism to display `Tooltip` components.
+So the same considerations should be applied to them.
+ -->
+`Popover` は `Tooltip` コンポーネントを表示するベースのメカニズムとしても使用されます。したがって、同じ考慮が、`Tooltip` でも必要です。
+
+<!-- 
+The following example illustrates how you can wrap a component using a
+`Popover` and have those popovers render to a single location in the DOM.
+ -->
+次の例は、`Popover` を使ってコンポーネントをラップし、それらの popover を DOM の 1 つの場所にレンダリングする方法を示します。
+
+```jsx
+/**
+ * External dependencies
+ */
+import { Popover, SlotFillProvider } from '@wordpress/components';
+
+/**
+ * Internal dependencies
+ */
+import { MyComponentWithPopover } from './my-component';
+
+const Example = () => {
+	<SlotFillProvider>
+		<MyComponentWithPopover />
+		<Popover.Slot>
+	</SlotFillProvider>
+};
+```
 
 <!--
 ## Docs & examples
@@ -103,6 +155,10 @@ To find out more about contributing to this package or Gutenberg as a whole, ple
 This package also has its own [contributing information](https://github.com/WordPress/gutenberg/tree/HEAD/packages/components/CONTRIBUTING.md) where you can find additional details.
  -->
 このパッケージには、また、追加の詳細詳細を記述した独自の [コントリビューター情報](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) があります。
+
+## コンポーネント一覧
+
+[原文およびその下のページ](https://developer.wordpress.org/block-editor/reference-guides/components/)を参照してください。
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>
 

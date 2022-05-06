@@ -20,7 +20,7 @@ By default, all variations will show up in the Inserter in addition to the regul
 
 ```js
 variations: [
-    {
+	{
 		name: 'wordpress',
 		isDefault: true,
 		title: __( 'WordPress' ),

@@ -108,6 +108,22 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/4/30
+- [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - ancestors 追記 [#40027](https://github.com/WordPress/gutenberg/pull/40027)
+- [テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/) - フルサイト編集追記 [#39662](https://github.com/WordPress/gutenberg/pull/39662)
+- [ブロックテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/) - グローバルスタイルプリセット追記 [#38800](https://github.com/WordPress/gutenberg/pull/38800)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - グローバルスタイルシート [#40005](https://github.com/WordPress/gutenberg/pull/40005)
+- [block.json のメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - ancestor 追加 [#40027](https://github.com/WordPress/gutenberg/pull/40027)
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - inserterプロパティ追加 [#40425](https://github.com/WordPress/gutenberg/pull/40425)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports) - lock 追加 [#40145](https://github.com/WordPress/gutenberg/pull/40145)
+- [テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/) - 個別ロックのサンプル追加 [#40372](https://github.com/WordPress/gutenberg/pull/40372)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - No Result [#38806](https://github.com/WordPress/gutenberg/pull/38806)、Avatar [#38591](https://github.com/WordPress/gutenberg/pull/38591)、Tag Cloudの属性 [#37311](https://github.com/WordPress/gutenberg/pull/37311)、Comments Query Loopの属性 [#39664](https://github.com/WordPress/gutenberg/pull/39664)、Read Moreのサポート [#39796](https://github.com/WordPress/gutenberg/pull/39796)、Page Numbersのサポート [#39835](https://github.com/WordPress/gutenberg/pull/39835)、Quoteのサポート [#39899](https://github.com/WordPress/gutenberg/pull/39899)、Archivesの属性 [#38440](https://github.com/WordPress/gutenberg/pull/38440)、Navigationの属性 [#38621](https://github.com/WordPress/gutenberg/pull/38621)、カバーの属性 [#39658](https://github.com/WordPress/gutenberg/pull/39658)、Columnのサポート [#40122](https://github.com/WordPress/gutenberg/pull/40122)、Comment Author Avatar 非推奨 [#40186](https://github.com/WordPress/gutenberg/pull/40186)、Comment Author Name、Comment Date、Comment Edit Link、Comment Reply Linkの属性 [#40165](https://github.com/WordPress/gutenberg/pull/40165)、Post Comments非推奨 [#40167](https://github.com/WordPress/gutenberg/pull/40167)、Categoriesの属性 [#39426](https://github.com/WordPress/gutenberg/pull/39426)、Comments Title追加 [#40419](https://github.com/WordPress/gutenberg/pull/40419)、Separatorのサポート [#40551](https://github.com/WordPress/gutenberg/pull/40551)
+- [theme.json V2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - border の変更 [#37770](https://github.com/WordPress/gutenberg/pull/37770)、スキーマの説明 [#40599](https://github.com/WordPress/gutenberg/pull/40599)
+- [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) - Popover と Tooltip の注意 [#39709](https://github.com/WordPress/gutenberg/pull/39709)
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - npmDevDependencies 追加 [#39723](https://github.com/WordPress/gutenberg/pull/39723)
+- [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - Playwright に移行のため非推奨 [#38570](https://github.com/WordPress/gutenberg/pull/38570)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - 環境変数 `WP_ENV_CORE` への言及 [#40407](https://github.com/WordPress/gutenberg/pull/40407)
+
 2022/3/26
 - [ページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages/) - 翻訳
 - [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/building-an-edit-form/) - 翻訳

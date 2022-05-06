@@ -193,8 +193,9 @@ Alongside template level locking, you can lock individual blocks; you can do thi
 <!--
 **Block-level locking is an experimental feature that may be removed or change anytime.**
  -->
+<!-- 
 **ブロックレベルのロックは実験的な機能であり、削除または変更される可能性があります。**
-
+ -->
 ```js
 attributes: {
   // Prevent a block from being moved or removed.
@@ -217,6 +218,25 @@ _オプション:_
 You can use this with `templateLock` to lock all blocks except a single block by using `false` in `remove` or `move`.
  -->
 この機能を `templateLock` と一緒に使用して、`remove` や `move` に `false` を指定することで、1つのブロックを除いてすべてのブロックをロックできます。
+
+```php
+$template = array(
+	array( 'core/image', array(
+		'align' => 'left',
+	) ),
+	array( 'core/heading', array(
+		'placeholder' => 'Add Author...',
+	) ),
+	// Allow a Paragraph block to be moved or removed.
+	array( 'core/paragraph', array(
+		'placeholder' => 'Add Description...',
+		'lock' => array(
+			'move'   => false,
+			'remove' => false,
+		),
+	) ),
+);
+```
 
 <!--
 ## Nested Templates

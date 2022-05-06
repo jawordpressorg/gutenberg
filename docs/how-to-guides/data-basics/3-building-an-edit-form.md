@@ -8,9 +8,6 @@ This part is about adding an *Edit* feature to our app. Here's a glimpse of what
 -->
 このパートでは、アプリに *編集* 機能を追加します。以下はその完成した様子です。
 
-<!--
-![](/docs/how-to-guides/data-basics/media/edit-form/form-finished.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-finished.png)
 
 <!--
@@ -70,9 +67,6 @@ The only change in `PagesList` is the additional column labeled _Actions_:
 -->
 `PagesList` の唯一の変更点は、ラベル「Actions」のカラムの追加です。
 
-<!--
-![](/docs/how-to-guides/data-basics/media/edit-form/edit-button.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/edit-button.png)
 
 <!--
@@ -146,9 +140,6 @@ When you click the *Edit* button now, you should see the following modal:
 -->
 「編集」ボタンをクリックすると、次のモーダルが表示されます。
 
-<!--
-![](/docs/how-to-guides/data-basics/media/edit-form/form-scaffold.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-scaffold.png)
 
 <!--
@@ -213,9 +204,6 @@ Now it should look like that:
 -->
 以下のようになります。
 
-<!--
-![](/docs/how-to-guides/data-basics/media/edit-form/form-populated.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-populated.png)
 
 <!--
@@ -329,7 +317,7 @@ As you can see, the `title` of an Entity Record is an object, but the `title` of
 見たように、「エンティティレコード」の `title` はオブジェクトですが、「編集されたエンティティレコード」の `title` は文字列です。
 
 <!--
-This is no accident. Fields like `title`, `excerpt`, and `content` may contain [shortcodes](https://codex.wordpress.org/Shortcode_API) or [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md), which means they can only be rendered on the server. For such fields, the REST API exposes both the `raw` markup _and_ the `rendered` string. For example, in the block editor, `content.rendered` could used as a visual preview, and `content.raw` could be used to populate the code editor.
+This is no accident. Fields like `title`, `excerpt`, and `content` may contain [shortcodes](https://developer.wordpress.org/apis/handbook/shortcode/) or [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md), which means they can only be rendered on the server. For such fields, the REST API exposes both the `raw` markup _and_ the `rendered` string. For example, in the block editor, `content.rendered` could used as a visual preview, and `content.raw` could be used to populate the code editor.
 -->
 これは偶然ではありません。`title`、`excerpt`、`content` などのフィールドは [ショートコード](https://codex.wordpress.org/Shortcode_API) や [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks) を含む場合あります。つまり、これらのフィールドはサーバー上でのみレンダリング可能です。このようなフィールドに対して、REST API は `raw` マークアップ _および_ `rendered` 文字列の両方を公開します。例えば、ブロックエディタでは、 `content.rendered` をビジュアルプレビューとして、 `content.raw` をコードエディタの入力として使用できます。
 
@@ -384,9 +372,6 @@ This is what it looks like now:
 -->
 ここまでで以下のようになります。
 
-<!--
-![](/docs/how-to-guides/data-basics/media/edit-form/form-editable.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-editable.png)
 
 <!--
@@ -588,9 +573,6 @@ Once you refresh the page, open the form, change the title, and hit save, you sh
 -->
 ページを更新し、フォームを開いてタイトルを変更し、保存を押すと、次のようなエラーメッセージが表示されるはずです。
 
-<!--
-![](./media/edit-form/form-error.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-error.png)
 
 <!--
@@ -663,10 +645,6 @@ Here's what it looks like in action:
 -->
 以下に動作の様子を示します。
 
-<!--
-![](./media/edit-form/form-inactive.png)
-![](./media/edit-form/form-spinner.png)
--->
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-inactive.png)
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-spinner.png)
 

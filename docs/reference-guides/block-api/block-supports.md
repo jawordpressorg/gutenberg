@@ -1032,6 +1032,36 @@ supports: {
     reusable: false,
 }
 ```
+
+## lock
+
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+<!-- 
+A block may want to disable the ability to toggle the lock state. It can be locked/unlocked by a user from the block "Options" dropdown by default. To disable this behavior, set `lock` to `false`.
+ -->
+ブロックは、ロック状態を切り替える機能を無効化したい場合があります。デフォルトでは、ブロックの「オプション」ドロップダウンから、ユーザーによるロック、ロック解除が可能です。この動作を無効にするには、`lock` を `false` に設定します。
+
+<!-- 
+```js
+supports: {
+	// Remove support for locking UI.
+	lock: false
+}
+```
+ -->
+```js
+supports: {
+	// ロック UI のサポートを削除。
+	lock: false
+}
+```
+
 ## spacing
 
 <!--

@@ -1,7 +1,7 @@
 <!--
-# Metadata
+# Metadata in block.json
  -->
-# メタデータ
+# block.json のメタデータ
 
 <!--
 To register a new block type using metadata that can be shared between codebase that uses JavaScript and PHP, start by creating a `block.json` file. This file:
@@ -22,6 +22,7 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 -   ブロックタイプのすべてのスクリプトとスタイルを登録します。
  -->
 <!--
+
 Starting in WordPress 5.8 release, we encourage using the `block.json` metadata file as the canonical way to register block types. Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
  -->
 WordPress 5.8のリリースから、ブロックタイプを登録する標準の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
@@ -384,6 +385,30 @@ An implementation should expect and tolerate unknown categories, providing some 
 ```
 
 `parent` を設定すると、ブロックは、指定したブロック内にネストされた場合のみ利用可能になります。たとえば、「カートに追加」ブロックを、「商品」ブロック内でのみ利用可能にすることができます。
+
+### Ancestor
+
+<!-- 
+-   Type: `string[]`
+-   Optional
+-   Localized: No
+-   Property: `ancestor`
+-   Since: `WordPress 6.0.0`
+ -->
+-   型: `string[]`
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `ancestor`
+-   Since: `WordPress 6.0.0`
+
+```json
+{ "ancestor": [ "my-block/product" ] }
+```
+
+<!-- 
+The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a ‘Comment Content’ block inside a ‘Column’ block, as long as ‘Column’ is somewhere within a ‘Comment Template’ block. In comparrison to the `parent` property blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
+ -->
+`ancestor` プロパティは、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置において、ブロックを利用可能にします。例えば、`Column` ブロックが `Comment Template` ブロック内のどこかにいる限り、`Comment Content` ブロックを `Column` ブロックの中に配置可能にすることができます。`parent` プロパティと比較すると、 `ancestor` を指定したブロックはサブツリーのどこにでも配置できますが、 `parent` を指定したブロックは直接の子である必要があります。
 
 ### Icon
 
@@ -750,13 +775,13 @@ Block type frontend and editor script definition. It will be enqueued both in th
 ### View Script
 
 <!-- 
--   Type: `WPDefinedAsset` ([learn more](#wpdefinedasset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScript`
 -   Since: `WordPress 5.9.0`
  -->
--   型: `WPDefinedAsset` ([詳細](#wpdefinedasset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `viewScript`
@@ -770,6 +795,11 @@ Block type frontend and editor script definition. It will be enqueued both in th
 Block type frontend script definition. It will be enqueued only when viewing the content on the front of the site.
  -->
 ブロックタイプフロントエンド定義。サイトのフロントでコンテンツを表示するときのみ、エンキューされます。
+
+<!-- 
+_Note: An option to pass also an array of view scripts exists since WordPress `6.1.0`._
+ -->
+_注意: WordPress `6.1.0` からは、ビュースクリプトの配列を渡すことができるオプションもあります。_
 
 ### Editor Style
 

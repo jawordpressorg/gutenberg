@@ -71,6 +71,7 @@ The properties available for block patterns are:
 -   `keywords` (optional): An array of aliases or keywords that help users discover the pattern while searching.
 -   `viewportWidth` (optional): An integer specifying the intended width of the pattern to allow for a scaled preview of the pattern in the inserter.
 -   `blockTypes` (optional): An array of block types that the pattern is intended to be used with. Each value needs to be the declared block's `name`.
+-   `inserter` (optional): By default, all patterns will appear in the inserter. To hide a pattern so that it can only be inserted programmatically, set the `inserter` to `false`.
  -->
 -   `title` (必須): 表示されるパターンのタイトル。
 -   `content` (必須): パターンのブロック HTML マークアップ。
@@ -79,6 +80,7 @@ The properties available for block patterns are:
 -   `keywords` (オプション): 検索の際に役立つ別名またはキーワードの配列。
 -   `viewportWidth` (オプション): インサーター内でのパターンのインデント幅を指定する整数。パターンのスケールするプレビュー用。
 -   `blockTypes` (オプション): パターンが一緒に使われることを想定するブロックタイプの配列。各値は、ブロックの `name` で宣言される必要がある。
+-   `inserter` (オプション): デフォルトでは、すべてのパターンはインサーターに表示されます。プログラムでのみ挿入できるようにパターンを非表示にするには、`inserter` を `false` に設定します。
 
 <!--
 The following code sample registers a block pattern named 'my-plugin/my-awesome-pattern':

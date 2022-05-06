@@ -916,13 +916,13 @@ This is useful for plugin development.
 ```
 
 <!--
-#### Latest development WordPress + current directory as a plugin
+### Latest development WordPress + current directory as a plugin
 
-This is useful for plugin development when upstream Core changes need to be tested.
+This is useful for plugin development when upstream Core changes need to be tested. This can also be set via the environment variable `WP_ENV_CORE`.
  -->
-#### 最新の開発版 WordPress + 現行ディレクトリーのプラグインをインストール
+### 最新の開発版 WordPress + 現行ディレクトリーのプラグインをインストール
 
-この設定はプラグイン開発時に、最新のコアの変更の影響を見る上で便利です。
+この設定はプラグイン開発時に、最新のコアの変更の影響を見る上で便利です。これは、環境変数 `WP_ENV_CORE` からも設定できます。
 
 ```json
 {

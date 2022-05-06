@@ -4,6 +4,21 @@
 # ブロックテーマの作成
 
 <!-- 
+##This content has moved
+
+You can find documentation about how to create a block theme in the [Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/).
+ -->
+## このコンテンツは移動しました。
+
+ブロックテーマの作成に関するドキュメントについては、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) を参照してください。
+
+<hr />
+
+## 2022/5/2 以前の情報
+
+*(2022/5/2) 訳注: これ以降の文書は、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) に移動されました。便宜上、しばらく掲載しますが、最新の情報については、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) を参照してください。*
+
+<!-- 
 The purpose of this tutorial is to show how to create a block theme and help theme developers transition to full site editing. It is recommended that you first read the [block theme overview](/docs/how-to-guides/themes/block-theme-overview.md).
  -->
 このチュートリアルではブロックテーマの作り方を紹介し、テーマ開発者の「フルサイト編集 (full site editing)」への移行を支援します。まず、はじめに「[ブロックテーマの概要](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/)」を読むことをお勧めします。

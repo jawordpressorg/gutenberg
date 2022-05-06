@@ -85,7 +85,7 @@ Blocks are added to WordPress using plugins, so you will need:
 ### ステップ 1: block.json の構成
 
 <!-- 
-The functions of a static block is defined in JavaScript, however the settings and other metadata should be defined in a block.json file.
+The functions of a static block are defined in JavaScript, however the settings and other metadata should be defined in a block.json file.
  -->
 静的ブロックの機能は JavaScript で定義しますが、設定などのメタデータは block.json ファイルで定義する必要があります。
 

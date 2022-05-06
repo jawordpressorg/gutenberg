@@ -238,6 +238,7 @@ MySQL is listening on port {MYSQL_PORT_NUMBER}
 ```
 Host: 127.0.0.1
 Username: root
+Password: password
 Database: wordpress
 Port: {MYSQL_PORT_NUMBER}
 ```

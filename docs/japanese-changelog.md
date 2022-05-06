@@ -2,6 +2,53 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/4/30
+- [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - ancestors 追記 [#40027](https://github.com/WordPress/gutenberg/pull/40027)
+- [テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/) - フルサイト編集追記 [#39662](https://github.com/WordPress/gutenberg/pull/39662)
+- [ブロックテーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/) - グローバルスタイルプリセット追記 [#38800](https://github.com/WordPress/gutenberg/pull/38800)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - グローバルスタイルシート [#40005](https://github.com/WordPress/gutenberg/pull/40005)
+- [block.json のメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - ancestor 追加 [#40027](https://github.com/WordPress/gutenberg/pull/40027)
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - inserterプロパティ追加 [#40425](https://github.com/WordPress/gutenberg/pull/40425)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports) - lock 追加 [#40145](https://github.com/WordPress/gutenberg/pull/40145)
+- [テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/) - 個別ロックのサンプル追加 [#40372](https://github.com/WordPress/gutenberg/pull/40372)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - No Result [#38806](https://github.com/WordPress/gutenberg/pull/38806)、Avatar [#38591](https://github.com/WordPress/gutenberg/pull/38591)、Tag Cloudの属性 [#37311](https://github.com/WordPress/gutenberg/pull/37311)、Comments Query Loopの属性 [#39664](https://github.com/WordPress/gutenberg/pull/39664)、Read Moreのサポート [#39796](https://github.com/WordPress/gutenberg/pull/39796)、Page Numbersのサポート [#39835](https://github.com/WordPress/gutenberg/pull/39835)、Quoteのサポート [#39899](https://github.com/WordPress/gutenberg/pull/39899)、Archivesの属性 [#38440](https://github.com/WordPress/gutenberg/pull/38440)、Navigationの属性 [#38621](https://github.com/WordPress/gutenberg/pull/38621)、カバーの属性 [#39658](https://github.com/WordPress/gutenberg/pull/39658)、Columnのサポート [#40122](https://github.com/WordPress/gutenberg/pull/40122)、Comment Author Avatar 非推奨 [#40186](https://github.com/WordPress/gutenberg/pull/40186)、Comment Author Name、Comment Date、Comment Edit Link、Comment Reply Linkの属性 [#40165](https://github.com/WordPress/gutenberg/pull/40165)、Post Comments非推奨 [#40167](https://github.com/WordPress/gutenberg/pull/40167)、Categoriesの属性 [#39426](https://github.com/WordPress/gutenberg/pull/39426)、Comments Title追加 [#40419](https://github.com/WordPress/gutenberg/pull/40419)、Separatorのサポート [#40551](https://github.com/WordPress/gutenberg/pull/40551)
+- [theme.json V2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - border の変更 [#37770](https://github.com/WordPress/gutenberg/pull/37770)、スキーマの説明 [#40599](https://github.com/WordPress/gutenberg/pull/40599)
+- [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) - Popover と Tooltip の注意 [#39709](https://github.com/WordPress/gutenberg/pull/39709)
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - npmDevDependencies 追加 [#39723](https://github.com/WordPress/gutenberg/pull/39723)
+- [@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - Playwright に移行のため非推奨 [#38570](https://github.com/WordPress/gutenberg/pull/38570)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - 環境変数 `WP_ENV_CORE` への言及 [#40407](https://github.com/WordPress/gutenberg/pull/40407)
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - User Interactions [#39360](https://github.com/WordPress/gutenberg/pull/39360)、Playwright への言及 [#38570](https://github.com/WordPress/gutenberg/pull/38570)
+- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - canLockBlockType [#39586](https://github.com/WordPress/gutenberg/pull/39568)、canEditBlock [#39950](https://github.com/WordPress/gutenberg/pull/39950)
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - getBlockPatternCategories、getBlockPatterns [#39185](https://github.com/WordPress/gutenberg/pull/39185)
+- [Gutenberg PHP](https://github.com/WordPress/gutenberg/blob/trunk/lib/README.md) - 新規
+- [Block Editor](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) - Lock [#40145](https://github.com/WordPress/gutenberg/pull/40145)
+- [BlockPopover and BlockPopoverInbetween](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/block-popover/README.md) - 新規
+- [Gradients](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/gradients/README.md) - 新規
+- [MediaPlaceholder](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/media-placeholder/README.md) - mediaPreview 追加 [#38114](https://github.com/WordPress/gutenberg/pull/38114)
+- [NavigableToolbar](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/navigable-toolbar/README.md) - 新規
+- [Writing Flow](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/writing-flow/readme.md) - 新規
+- [Contributing](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/CONTRIBUTING.md) - TypeScriptへ [#40153](https://github.com/WordPress/gutenberg/pull/40153)
+minor
+- [BaseControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/base-control/README.md)  - __nextHasNoMarginBottom [#39325](https://github.com/WordPress/gutenberg/pull/39325)
+- [BorderBoxControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/border-box-control/border-box-control/README.md) - 新規
+- [BorderControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/border-control/border-control/README.md) - 新規
+- [BoxControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/box-control/README.md) - Visualizer 削除 [#40505](https://github.com/WordPress/gutenberg/pull/40505)
+- [FormFileUpload](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/form-file-upload/README.md) - onClick [#39268](https://github.com/WordPress/gutenberg/pull/39268)
+- [ToggleGroupControlOptionBase](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/toggle-group-control/toggle-group-control-option-base/README.md) - 新規
+- [ToggleGroupControlOptionIcon](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/toggle-group-control/toggle-group-control-option-icon/README.md) - 新規
+- [UnitControl](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/unit-control/README.md) - onBlur [#39589](https://github.com/WordPress/gutenberg/pull/39589)
+- [Core Data](https://github.com/WordPress/gutenberg/blob/trunk/packages/core-data/README.md) - getEntityConfig、getEntitiesConfig [#39349](https://github.com/WordPress/gutenberg/pull/39349)、getBlockPatternCategories、getBlockPatterns [#39185](https://github.com/WordPress/gutenberg/pull/39185)
+- [DOM](https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/README.md) - isFormElement [#39461](https://github.com/WordPress/gutenberg/pull/39461)
+- [E2E Test Utils Playwright](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils-playwright/README.md) - 新規
+- [E2E Test Utils](https://github.com/WordPress/gutenberg/blob/trunk/packages/e2e-test-utils/README.md) - deprecated 予告 [#38570](https://github.com/WordPress/gutenberg/pull/38570)、
+- [Element](https://github.com/WordPress/gutenberg/blob/trunk/packages/element/README.md) - hydrate [#40723](https://github.com/WordPress/gutenberg/pull/40723)
+- [Preferences persistence](https://github.com/WordPress/gutenberg/blob/trunk/packages/preferences-persistence/README.md) - 新規
+- [Legacy local storage migrations](https://github.com/WordPress/gutenberg/blob/trunk/packages/preferences-persistence/src/migrations/legacy-local-storage-data/README.md) - 新規
+- [Preferences](https://github.com/WordPress/gutenberg/blob/trunk/packages/preferences/README.md) - Key Concepts 追加 [#39795](https://github.com/WordPress/gutenberg/pull/39795)
+- [Scripts](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md) - Automatic block.json detection and the source code directory [#39618](https://github.com/WordPress/gutenberg/pull/39618)
+- [E2E Tests Migration guide](https://github.com/WordPress/gutenberg/blob/trunk/test/e2e/MIGRATION.md) - 新規
+- [E2E Tests](https://github.com/WordPress/gutenberg/blob/trunk/test/e2e/README.md) - 新規
+
 2022/3/26
 - [ページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages/) - 翻訳
 - [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/building-an-edit-form/) - 翻訳

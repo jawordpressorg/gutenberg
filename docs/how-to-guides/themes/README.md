@@ -19,6 +19,8 @@ In this section, you'll learn about the ways that themes can customize the edito
  -->
 # テーマ
 
+*(2022/5/2) 訳注: このセクションの多くが、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) に移動されました。便宜上、しばらく訳文を掲載しますが、最新の情報については、[Theme Developer Handbook](https://developer.wordpress.org/themes/block-themes/) を参照してください。*
+
 <!--
 The block editor provides a number of options for theme designers and developers, including theme-defined color settings, font size control, and much more.
 The block editor provides a number of options for theme designers and developers, to interact with it, including theme-defined color settings, font size control, and much more.
@@ -49,6 +51,16 @@ This is any theme that has, at a minimum, an `index.html` format template in the
  -->
 ブロックテーマは、少なくとも `/block-templates` または `/templates` フォルダに `index.html` 形式のテンプレートがあり、オプションで、ブロックコンテンツのマークアップ形式のテンプレートを提供するテーマです。多くのブロックテーマは `theme.json` ファイルを利用して、構成やスタイル設定を提供しますが、 `theme.json` はブロックテーマに必須ではありません。ブロックテーマの利点は、ヘッダー、フッター、サイドバーなど、サイト内のすべての領域をブロックエディタで編集できる点です。
 
+<!-- 
+### Full site editing (FSE)
+ -->
+### フルサイト編集 (Full site editing, FSE)
+
+<!-- 
+There isn't an FSE specific theme type. In WordPress > 5.9 FSE is enabled for any `Block` theme, ie. any theme that has an `index.html` format template in the `/block-templates` or `/templates` folders.
+ -->
+テーマの種類に、「フルサイト編集」に特化したものはありません。WordPress 5.9以上では、`Block` テーマ、つまり `/block-templates` または `/templates` フォルダに `index.html` 形式のテンプレートを持つすべてのテーマで、フルサイト編集は有効です。
+
 <!--
 **Contents**
  -->
@@ -56,7 +68,6 @@ This is any theme that has, at a minimum, an `index.html` format template in the
 
 <!--
 - [Block Theme Overview](/docs/how-to-guides/themes/block-theme-overview.md)
-- [Create a Block Theme](/docs/how-to-guides/themes/create-block-theme.md)
 - [Global Settings (theme.json)](/docs/how-to-guides/themes/theme-json.md)
 - [Theme Support](/docs/how-to-guides/themes/theme-support.md)
  -->

@@ -47,7 +47,7 @@ There are a number of [components available](/docs/reference-guides/packages/pac
 
 The `RichText` component can be considered as a super-powered `textarea` element, enabling rich content editing including bold, italics, hyperlinks, etc.
 
-To use the `RichText` component, and using ES5 code, remember to add `wp-editor` to the dependency array of registered script handles when calling `wp_register_script`.
+To use the `RichText` component, and using ES5 code, remember to add `wp-block-editor` to the dependency array of registered script handles when calling `wp_register_script`.
  -->
 ## コンポーネントと RichText コンポーネント
 
@@ -57,7 +57,7 @@ To use the `RichText` component, and using ES5 code, remember to add `wp-editor`
 
 `RichText` コンポーネントはパワーアップした `textarea` 要素と見なせます。ここでは太字、車体、ハイパーリンクなどのリッチコンテンツを編集できます。
 
-ES5 コードを使用して `RichText` コンポーネントを使用する場合は、`wp_register_script` 呼び出しの際の登録スクリプトハンドルの依存性配列に `wp-editor` を追加してください。
+ES5 コードを使用して `RichText` コンポーネントを使用する場合は、`wp_register_script` 呼び出しの際の登録スクリプトハンドルの依存性配列に `wp-block-editor` を追加してください。
 
 ```php
 // automatically load dependencies and version

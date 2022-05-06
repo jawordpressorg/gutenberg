@@ -266,12 +266,12 @@ We can now request only the pages matching the `searchTerm`.
 これで `searchTerm` にマッチするページのみをリクエストできます。
 
 <!--
-After checking with the [WordPress API documentation]([https://developer.wordpress.org/rest-api/reference/pages/]), we
-see that the [/wp/v2/pages]([https://developer.wordpress.org/rest-api/reference/pages/]) endpoint accepts a `search`
+After checking with the [WordPress API documentation](https://developer.wordpress.org/rest-api/reference/pages/), we
+see that the [/wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) endpoint accepts a `search`
 query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query
 parameters as the third argument to `getEntityRecords` as below:
 -->
-[WordPress API ドキュメント]([https://developer.wordpress.org/rest-api/reference/pages/]) で確認すると、[wp/v2/pages]([https://developer.wordpress.org/rest-api/reference/pages/]) エンドポイントが `search` クエリパラメータを受け入れ、_文字列にマッチしたものに結果を限定する_ ことがわかります。しかし、どのように使えばよいでしょう ? それには、カスタムクエリパラメータを、`getEntityRecords` の第3引数として指定します。
+[WordPress API ドキュメント](https://developer.wordpress.org/rest-api/reference/pages/) で確認すると、[wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) エンドポイントが `search` クエリパラメータを受け入れ、_文字列にマッチしたものに結果を限定する_ ことがわかります。しかし、どのように使えばよいでしょう ? それには、カスタムクエリパラメータを、`getEntityRecords` の第3引数として指定します。
 
 ```js
 wp.data.select( 'core' ).getEntityRecords( 'postType', 'page', { search: 'home' } )

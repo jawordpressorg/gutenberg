@@ -30,8 +30,9 @@ This is documentation for the current direction and work in progress about how t
  -->
 <!--
 WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file. This page documents its format.
+WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file. Then `theme.json` [evolved to a v2](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) with WordPress 5.9 release. This page documents its format.
  -->
-WordPress 5.8では、エディタを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されます。このメカニズムは、きめ細かい制御を可能にし、将来の WordPress リリースでのスタイル管理の、最初のステップとなる `theme.json` ファイルを導入します。このページでは、`theme.json` ファイルのフォーマットについて説明します。
+WordPress 5.8では、エディタを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されます。このメカニズムは、きめ細かい制御を可能にし、将来の WordPress リリースでのスタイル管理の、最初のステップとなる `theme.json` ファイルを導入します。その後、WordPress 5.9リリースに伴い `theme.json` [v2へと進化](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)しました。このページでは、`theme.json` ファイルのフォーマットについて説明します。
 
 <!--
 - Rationale
@@ -188,7 +189,7 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"color": {
 			"palette": [
@@ -231,7 +232,7 @@ body {
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"custom": {
 			"line-height": {
@@ -261,7 +262,7 @@ body {
 ## 仕様
 
 <!--
-This specification is the same for the three different origins that use this format: core, themes, and users. Themes can override core's defaults by creating a file called `theme.json`. Users, via the site editor, will also be also to override theme's or core's preferences via an user interface that is being worked on.
+This specification is the same for the three different origins that use this format: core, themes, and users. Themes can override core's defaults by creating a file called `theme.json`. Users, via the site editor, will also be able to override theme's or core's preferences via an user interface that is being worked on.
  -->
 この仕様は、同じフォーマットを仕様する3つの異なる主体、「コア」「テーマ」「ユーザー」で共通です。テーマは、ファイル `theme.json` を作成することでコアのデフォルトを上書きできます。ユーザーもまた、開発中のユーザーインターフェース、サイトエディターを介して、テーマやコアの設定を上書きできます。
 
@@ -285,7 +286,7 @@ Both settings and styles can contain subsections for any registered block. As a 
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {},
 	"styles": {},
 	"customTemplates": {},
@@ -370,10 +371,13 @@ settings セクションは以下の構造を持ちます。
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"border": {
-			"customRadius": false
+			"radius": false,
+			"color": false,
+			"style": false,
+			"width": false
 		},
 		"color": {
 			"custom": true,
@@ -382,7 +386,11 @@ settings セクションは以下の構造を持ちます。
 			"duotone": [],
 			"gradients": [],
 			"link": false,
-			"palette": []
+			"palette": [],
+			"text": true,
+			"background": true,
+			"defaultGradients": true,
+			"defaultPalette": true
 		},
 		"custom": {},
 		"layout": {
@@ -390,15 +398,22 @@ settings セクションは以下の構造を持ちます。
 			"wideSize": "1000px"
 		},
 		"spacing": {
-			"customMargin": false,
-			"customPadding": false,
+			"margin": false,
+			"padding": false,
+			"blockGap": null,
 			"units": [ "px", "em", "rem", "vh", "vw" ]
 		},
 		"typography": {
 			"customFontSize": true,
-			"customLineHeight": false,
+			"lineHeight": false,
 			"dropCap": true,
-			"fontSizes": []
+			"fontStyle": true,
+			"fontWeight": true,
+			"letterSpacing": true,
+			"textDecoration": true,
+			"textTransform": true,
+			"fontSizes": [],
+			"fontFamilies": []
 		},
 		"blocks": {
 			"core/paragraph": {
@@ -422,7 +437,7 @@ settings セクションは以下の構造を持ちます。
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"appearanceTools": false,
 		"border": {
@@ -634,7 +649,7 @@ The naming schema for the classes and the custom properties is as follows:
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"color": {
 			"duotone": [
@@ -684,15 +699,15 @@ The naming schema for the classes and the custom properties is as follows:
 			],
 			"fontSizes": [
 				{
-					"slug": "normal",
-					"size": 16,
-					"name": "Normal"
-				},
-				{
 					"slug": "big",
 					"size": 32,
 					"name": "Big"
-				}
+				},
+				{
+					"slug": "x-large",
+					"size": 46,
+					"name": "Large"
+				},
 			]
 		},
 		"blocks": {
@@ -727,8 +742,8 @@ body {
 	--wp--preset--color--very-dark-grey: #444;
 	--wp--preset--gradient--blush-bordeaux: linear-gradient( 135deg, rgb( 254, 205, 165 ) 0%, rgb( 254, 45, 45 ) 50%, rgb( 107, 0, 62 ) 100% );
 	--wp--preset--gradient--blush-light-purple: linear-gradient( 135deg, rgb( 255, 206, 236 ) 0%, rgb( 152, 150, 240 ) 100% );
+	--wp--preset--font-size--x-large: 46;
 	--wp--preset--font-size--big: 32;
-	--wp--preset--font-size--normal: 16;
 	--wp--preset--font-family--helvetica-arial: Helvetica Neue, Helvetica, Arial, sans-serif;
 	--wp--preset--font-family--system: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell, \"Helvetica Neue\",sans-serif;
 }
@@ -793,7 +808,7 @@ For example:
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"custom": {
 			"baseFont": 16,
@@ -848,7 +863,7 @@ Note that the name of the variable is created by adding `--` in between each nes
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"color": {
 			"custom": false
@@ -870,12 +885,12 @@ Note that the name of the variable is created by adding `--` in between each nes
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"blocks": {
 			"core/button": {
 				"border": {
-					"customRadius": false
+					"radius": false
 				}
 			}
 		}
@@ -887,7 +902,7 @@ Note that the name of the variable is created by adding `--` in between each nes
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"color": {
 			"palette": [
@@ -969,10 +984,16 @@ Each block declares which style properties it exposes via the [block supports me
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"styles": {
 		"border": {
-			"radius": "value"
+			"radius": "value",
+			"color": "value",
+			"style": "value",
+			"width": "value"
+		},
+		"filter": {
+			"duotone": "value"
 		},
 		"color": {
 			"background": "value",
@@ -980,11 +1001,12 @@ Each block declares which style properties it exposes via the [block supports me
 			"text": "value"
 		},
 		"spacing": {
+			"blockGap": "value",
 			"margin": {
 				"top": "value",
 				"right": "value",
 				"bottom": "value",
-				"left": "value"
+				"left": "value",
 			},
 			"padding": {
 				"top": "value",
@@ -995,7 +1017,12 @@ Each block declares which style properties it exposes via the [block supports me
 		},
 		"typography": {
 			"fontSize": "value",
-			"lineHeight": "value"
+			"fontStyle": "value",
+			"fontWeight": "value",
+			"letterSpacing": "value",
+			"lineHeight": "value",
+			"textDecoration": "value",
+			"textTransform": "value"
 		},
 		"elements": {
 			"link": {
@@ -1040,7 +1067,7 @@ Each block declares which style properties it exposes via the [block supports me
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"styles": {
 		"border": {
 			"color": "value",
@@ -1367,7 +1394,7 @@ Within this field themes can list the custom templates present in the `templates
 
 ```json
 {
-    "version": 1,
+    "version": 2,
 	"customTemplates": [
 		{
 			"name": "my-custom-template",
@@ -1412,7 +1439,7 @@ Currently block variations exist for "header" and "footer" values of the area te
 
 ```json
 {
-    "version": 1,
+    "version": 2,
 	"templateParts": [
 		{
 			"name": "my-template-part",
@@ -1561,7 +1588,7 @@ For example:
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"custom": {
 			"lineHeight": {
@@ -1600,7 +1627,7 @@ A few notes about this process:
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"custom": {
 			"line--height": { // DO NOT DO THIS
@@ -1610,6 +1637,75 @@ A few notes about this process:
 	}
 }
 ```
+<!-- 
+### Global Stylesheet
+ -->
+### グローバルスタイルシート
+
+<!-- 
+In WordPress 5.8, the CSS for some of the presets defined by WordPress (font sizes, colors, and gradients) was loaded twice for most themes: in the block-library stylesheet plus in the global stylesheet. Additionally, there were slight differences in the CSS in both places.
+ -->
+WordPress 5.8では、WordPress が定義するプリセットの一部 (フォントサイズ、色、グラデーション) の CSS が、ほとんどのテーマで2回、ブロックライブラリのスタイルシートとグローバルスタイルシートで読み込まれていました。さらに、両方の CSS にわずかな違いがありました。
+
+<!-- 
+In WordPress 5.9 release, CSS of presets are consolidated into the global stylesheet, that is now loaded for all themes. Each preset value generates a single CSS Custom Property and a class, as in:
+ -->
+WordPress 5.9 リリースでは、プリセットの CSS はグローバルスタイルシートに統合され、すべてのテーマで読み込まれるようになりました。各プリセットの値は、次のように、単一のCSSカスタムプロパティとクラスを生成します。
+
+```css
+/* CSS Custom Properties for the preset values */
+body {
+  --wp--preset--<PRESET_TYPE>--<PRESET_SLUG>: <DEFAULT_VALUE>;
+  --wp--preset--color--pale-pink: #f78da7;
+  --wp--preset--font-size--large: 36px;
+  /* etc. */
+}
+
+/* CSS classes for the preset values */
+.has-<PRESET_SLUG>-<PRESET_TYPE> { ... }
+.has-pale-pink-color { color: var(--wp--preset--color--pale-pink) !important; } 
+.has-large-font-size { font-size: var(--wp--preset--font-size--large) !important; }
+```
+<!-- 
+For themes to override the default values they can use the `theme.json` and provide the same slug. Themes that do not use a `theme.json` can still override the default values by enqueuing some CSS that sets the corresponding CSS Custom Property.
+ -->
+テーマがデフォルト値をオーバーライドするには、`theme.json` を使用し、同じスラッグを提供します。`theme.json` を使用しないテーマでデフォルト値をオーバーライドするには、対応する CSS カスタムプロパティを設定する CSS をエンキューします。
+
+<!-- 
+`Example` (sets a new value for the default large font size):
+ -->
+`例` (デフォルトの large フォントサイズに新しい値を設定する):
+
+```css
+body {
+ --wp--preset--font-size--large: <NEW_VALUE>;
+}
+```
+<!-- 
+### Specificity for link colors provided by the user
+ -->
+### ユーザーから提供されるリンクカラーの詳細度
+
+<!-- 
+In v1, when a user selected a link color for a specific block we attached a class to that block in the form of `.wp-element-<ID>` and then enqueued the following style:
+ -->
+v1 では、ユーザーが特定のブロックのリンク色を選択すると、そのブロックに `.wp-element-<ID>` という形でクラスをアタッチし、次のスタイルをキューに入れました。
+
+```css
+.wp-element-<ID> a { color: <USER_COLOR_VALUE> !important; }
+```
+<!-- 
+While this preserved user preferences at all times, the specificity was too strong and conflicted with some blocks with legit uses of an HTML element that shouldn’t be considered links. To [address this issue](https://github.com/WordPress/gutenberg/pull/34689), in WordPress 5.9 release, the `!important` was removed and updated the corresponding blocks to style the a elements with a specificity higher than the user link color, which now is:
+ -->
+これは常にユーザーの好みを維持しますが、詳細度が強すぎて、リンクとみなせない HTML 要素を正当に使用している一部のブロックと衝突していました。[この問題に対処する](https://github.com/WordPress/gutenberg/pull/34689)ため、WordPress 5.9 リリースでは `!important` を削除し、対応するブロックを更新して、ユーザーのリンク色よりも高い詳細度で、a 要素をスタイルするようにしました。現在の様子です。
+
+```css
+.wp-element-<ID> a { color: <USER_COLOR_VALUE>; }
+```
+<!-- 
+As a result of this change, it’s now the block author and theme author’s responsibility to make sure the user choices are respected at all times and that the link color provided by the user (specificity 011) is not overridden.
+ -->
+この変更により、ユーザーの選択を常に尊重し、ユーザーが提供したリンク色 (詳細度011) が上書きされないようにすることは、ブロック作成者とテーマ作成者の責任になりました。
 
 <!-- 
 ### What is blockGap and how can I use it?
@@ -1634,7 +1730,7 @@ blockGapスタイルに定義する値は、プリセットされた CSS プロ�
 
 ```json
 {
-	"version": 1,
+	"version": 2,
 	"settings": {
 		"spacing": {
 			"blockGap": true,
