@@ -809,8 +809,8 @@ _注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TEST
  -->
 | タイプ             | 形式                           | 例                                                       |
 | ----------------- | ----------------------------- | -------------------------------------------------------- |
-| 相対パス     | `.<path>|~<path>`             | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
-| 絶対パス     | `/<path>|<letter>:\<path>`    | `"/a/directory"`, `"C:\\a\\directory"`                   |
+| 相対パス     | `.<path>\|~<path>`             | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
+| 絶対パス     | `/<path>\|<letter>:\<path>`    | `"/a/directory"`, `"C:\\a\\directory"`                   |
 | GitHub リポジトリ | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`  |
 | ZIP ファイル          | `http[s]://<host>/<path>.zip` | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
 
