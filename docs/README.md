@@ -232,5 +232,6 @@ minor
 | @kurudrive | @kurudrive |
 | @t-hamano | @wildworks |
 | @tecking | @tecking |
+| @s56bouya | @s56bouya |
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/README.md)

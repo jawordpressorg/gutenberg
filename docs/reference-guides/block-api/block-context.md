@@ -104,7 +104,7 @@ registerBlockType('my-plugin/record-title', {
 <!--
 A block's context values are available from the `context` property of the `$block` argument passed as the third argument to the `render_callback` function.
  -->
-ブロックのコンテキスト値は、`render_callback` 関数の第3引数として渡される `$block` 引数の `content` プロパティから利用可能です。
+ブロックのコンテキスト値は、`render_callback` 関数の第3引数として渡される `$block` 引数の `context` プロパティから利用可能です。
 
 ```php
 register_block_type( 'my-plugin/record-title', array(
