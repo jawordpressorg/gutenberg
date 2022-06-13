@@ -8,18 +8,31 @@ Integration testing is defined as a type of testing where different parts are te
 
 A test can be structured with the following parts:
 
+<!-- 
 -   [Setup](#setup)
 -   [Rendering](#rendering)
 -   [Query elements](#query-elements)
 -   [Fire events](#fire-events)
 -   [Expect correct element behaviour](#expect-correct-element-behaviour)
 -   [Cleanup](#cleanup)
+ -->
+-   [Setup](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#setup)
+-   [Rendering](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#rendering)
+-   [Query elements](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#query-elements)
+-   [Fire events](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#fire-events)
+-   [Expect correct element behaviour](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#expect-correct-element-behaviour)
+-   [Cleanup](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#cleanup)
 
 We also include examples of common tasks as well as tips in the following sections:
 
+<!-- 
 -   [Common flows](#common-flows)
 -   [Tools](#tools)
 -   [Common pitfalls and caveats](#common-pitfalls-and-caveats)
+ -->
+-   [Common flows](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#common-flows)
+-   [Tools](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#tools)
+-   [Common pitfalls and caveats](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#common-pitfalls-and-caveats)
 
 ## Setup
 

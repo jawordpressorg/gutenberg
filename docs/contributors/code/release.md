@@ -190,21 +190,37 @@ Yes. The method for this is identical to the main Plugin release process. You wi
 
 The Gutenberg repository follows the [WordPress SVN repository's](https://make.wordpress.org/core/handbook/about/release-cycle/) branching strategy for every major WordPress release. In addition to that, it also contains two other special branches that control npm publishing workflows:
 
+<!-- 
 -   The `wp/latest` branch contains the same version of packages as those published to npm with the `latest` distribution tag. The goal here is to have this branch synchronized with the last Gutenberg plugin release, and the only exception would be an unplanned [bugfix release](#standalone-bugfix-package-releases).
+-   The `wp/next` branch contains the same version of packages as those published to npm with the `next` distribution tag. It always gets synchronized with the `trunk` branch. Projects should use those packages for development or testing purposes only.
+-   A Gutenberg branch `wp/*` (example `wp/6.0`) targeting a specific WordPress major release (including its further minor increments) gets created based on the `wp/latest` Gutenberg branch just after the last Gutenberg release planned for inclusion in the next major WordPress release.
+ -->
+-   The `wp/latest` branch contains the same version of packages as those published to npm with the `latest` distribution tag. The goal here is to have this branch synchronized with the last Gutenberg plugin release, and the only exception would be an unplanned [bugfix release](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#standalone-bugfix-package-releases).
 -   The `wp/next` branch contains the same version of packages as those published to npm with the `next` distribution tag. It always gets synchronized with the `trunk` branch. Projects should use those packages for development or testing purposes only.
 -   A Gutenberg branch `wp/*` (example `wp/6.0`) targeting a specific WordPress major release (including its further minor increments) gets created based on the `wp/latest` Gutenberg branch just after the last Gutenberg release planned for inclusion in the next major WordPress release.
 
 Release types and their schedule:
 
+<!-- 
 -   [Synchronizing Gutenberg Plugin](#synchronizing-gutenberg-plugin) (`latest` dist tag) – publishing happens automatically every two weeks based on the newly created `release/*` (example `release/12.8`) branch with the RC1 version of the Gutenberg plugin.
 -   [WordPress Releases](#wordpress-releases) (`patch` dist tag) – publishing gets triggered manually from the `wp/*` (example `wp/6.0`) branch. Once we reach the point in the WordPress major release cycle (usually after Beta 1) where we only cherry-pick commits from the Gutenberg repository to the WordPress core, we use `wp/*` branch (created from `wp/latest`) for npm publishing with the `patch` dist-tag. It's also possible to use older branches to backport bug or security fixes to the corresponding older versions of WordPress Core.
 -   [Development Releases](#development-releases) (`next` dist tag) – it is also possible to perform development releases at any time when there is a need to test the upcoming changes.
+ -->
+-   [Synchronizing Gutenberg Plugin](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#synchronizing-gutenberg-plugin) (`latest` dist tag) – publishing happens automatically every two weeks based on the newly created `release/*` (example `release/12.8`) branch with the RC1 version of the Gutenberg plugin.
+-   [WordPress Releases](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#wordpress-releases) (`patch` dist tag) – publishing gets triggered manually from the `wp/*` (example `wp/6.0`) branch. Once we reach the point in the WordPress major release cycle (usually after Beta 1) where we only cherry-pick commits from the Gutenberg repository to the WordPress core, we use `wp/*` branch (created from `wp/latest`) for npm publishing with the `patch` dist-tag. It's also possible to use older branches to backport bug or security fixes to the corresponding older versions of WordPress Core.
+-   [Development Releases](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#development-releases) (`next` dist tag) – it is also possible to perform development releases at any time when there is a need to test the upcoming changes.
 
+<!-- 
 There is also an option to perform [Standalone Bugfix Package Releases](#standalone-bugfix-package-releases) at will. It should be reserved only for critical bug fixes or security releases that must be published to _npm_ outside of regular cycles.
+ -->
+There is also an option to perform [Standalone Bugfix Package Releases](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#standalone-bugfix-package-releases) at will. It should be reserved only for critical bug fixes or security releases that must be published to _npm_ outside of regular cycles.
 
 ### Synchronizing Gutenberg Plugin
 
+<!-- 
 For each Gutenberg plugin release, we also publish to npm an updated version of WordPress packages. This is automated with the [Release Tool](#release-tool) that handles releases for the Gutenberg plugin.
+ -->
+For each Gutenberg plugin release, we also publish to npm an updated version of WordPress packages. This is automated with the [Release Tool](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#release-tool) that handles releases for the Gutenberg plugin.
 
 We deliberately update the `wp/latest` branch within the Gutenberg repo with the content from the Gutenberg release `release/*` (example `release/12.7`) branch at the time of the Gutenberg RC1 release. This is done to ensure that the `wp/latest` branch is as close as possible to the latest version of the Gutenberg plugin. It also practically removes the chances of conflicts while backporting to `trunk` commits with updates applied during publishing to `package.json` and `CHANGELOG.md` files. In the past, we had many issues in that aspect when doing npm publishing after the regular Gutenberg release a week later. When publishing the new package versions to npm, we pick at least the `minor` version bump to account for future bugfix or security releases.
 
@@ -309,7 +325,10 @@ The good news is that the rest of the process is automated with `./bin/plugin/cl
 
 ### Development Releases
 
+<!-- 
 As noted in the [Synchronizing Gutenberg Plugin](#synchronizing-gutenberg-plugin) section, packages publishing happens every two weeks from the `wp/latest` branch. It's also possible to use the development release to test the upcoming changes present in the `trunk` branch at any time. We are taking advantage of [package distribution tags](https://docs.npmjs.com/cli/v7/commands/npm-dist-tag) that make it possible to consume the future version of the codebase according to npm guidelines:
+ -->
+As noted in the [Synchronizing Gutenberg Plugin](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/#synchronizing-gutenberg-plugin) section, packages publishing happens every two weeks from the `wp/latest` branch. It's also possible to use the development release to test the upcoming changes present in the `trunk` branch at any time. We are taking advantage of [package distribution tags](https://docs.npmjs.com/cli/v7/commands/npm-dist-tag) that make it possible to consume the future version of the codebase according to npm guidelines:
 
 > By default, the `latest` tag is used by npm to identify the current version of a package, and `npm install <pkg>` (without any `@<version>` or `@<tag>` specifier) installs the `latest` tag. Typically, projects only use the `latest` tag for stable release versions, and use other tags for unstable versions such as prereleases.
 

@@ -736,7 +736,7 @@ See the [the example documentation](/docs/reference-guides/block-api/block-regis
 -   Localized: No
 -   Property: `editorScript`
  -->
--   型: `WPDefinedAsset` ([詳細](#wpdefinedasset))
+-   型: `WPDefinedAsset` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorScript`
@@ -758,7 +758,7 @@ Block type editor script definition. It will only be enqueued in the context of 
 -   Localized: No
 -   Property: `script`
  -->
--   型: `WPDefinedAsset` ([詳細](#wpdefinedasset))
+-   型: `WPDefinedAsset` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `script`
@@ -781,7 +781,7 @@ Block type frontend and editor script definition. It will be enqueued both in th
 -   Property: `viewScript`
 -   Since: `WordPress 5.9.0`
  -->
--   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#wpdefinedasset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `viewScript`
@@ -809,7 +809,7 @@ _注意: WordPress `6.1.0` からは、ビュースクリプトの配列を渡�
 -   Localized: No
 -   Property: `editorStyle`
  -->
--   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#wpdefinedasset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorStyle`
@@ -833,7 +833,7 @@ _Note: An option to pass also an array of editor styles exists since WordPress `
 -   Localized: No
 -   Property: `style`
  -->
--   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](#wpdefinedasset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `style`

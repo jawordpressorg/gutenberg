@@ -17,7 +17,7 @@ Performance is a key feature for editor applications and the Block editor is not
 To ensure the block editor stays performant across releases and development, we monitor some key metrics using [performance testing](/docs/contributors/code/testing-overview.md#performance-testing).
 To ensure the block editor stays performant across releases and development, we monitor some key metrics using [performance benchmark job](#the-performance-benchmark-job).
  -->
-リリースと開発サイクルの中でブロックエディターのパフォーマンスを維持するため、後述する[パフォーマンスベンチマークジョブ](#the-performance-benchmark-job)を実行して、いくつかの重要な指標を監視しています。
+リリースと開発サイクルの中でブロックエディターのパフォーマンスを維持するため、後述する「パフォーマンスベンチマークジョブ」を実行して、いくつかの重要な指標を監視しています。
 
 <!--
 **Loading Time:** The time it takes to load an editor page. This includes time the server takes to respond, times to first paint, first contentful paint, DOM content load complete, load complete and first block render.

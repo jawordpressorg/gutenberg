@@ -4,6 +4,7 @@ This is a living document explaining how we collaboratively manage the Gutenberg
 
 This document covers:
 
+<!-- 
 -   [Issues](#issues)
     -   [Labels](#labels)
     -   [Milestones](#milestones)
@@ -13,6 +14,17 @@ This document covers:
     -   [Design Review](#design-review)
     -   [Merging Pull Requests](#merging-pull-requests)
     -   [Closing Pull Requests](#closing-pull-requests)
+-   [Projects](#projects)
+ -->
+-   [Issues](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#issues)
+    -   [Labels](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#labels)
+    -   [Milestones](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#milestones)
+    -   [Triaging Issues](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#triaging-issues)
+-   [Pull Requests](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#pull-requests)
+    -   [Code Review](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#code-review)
+    -   [Design Review](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#design-review)
+    -   [Merging Pull Requests](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#merging-pull-requests)
+    -   [Closing Pull Requests](https://ja.wordpress.org/team/handbook/block-editor/contributors/repository-management/#closing-pull-requests)
 -   [Projects](#projects)
 
 ## Issues

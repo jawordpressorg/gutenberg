@@ -260,7 +260,10 @@ Custom types can also be used to describe a set of predefined options. While the
  */
 ```
 
+<!-- 
 Note the use of quotes when defining a set of string literals. As in the [JavaScript Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/javascript/), single quotes should be used when assigning a string literal either as the type or as a [default function parameter](#nullable-undefined-and-void-types), or when [specifying the path](#importing-and-exporting-types) of an imported type.
+ -->
+Note the use of quotes when defining a set of string literals. As in the [JavaScript Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/javascript/), single quotes should be used when assigning a string literal either as the type or as a [default function parameter](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/coding-guidelines/#nullable-undefined-and-void-types), or when [specifying the path](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/coding-guidelines/#importing-and-exporting-types) of an imported type.
 
 ### Importing and Exporting Types
 

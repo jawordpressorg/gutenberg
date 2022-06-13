@@ -83,10 +83,10 @@ A [complete meta-block example](https://github.com/WordPress/gutenberg-examples/
 3. [Use Post Meta Data](#step-3-use-post-meta-data)
 4. [Finishing Touches](#step-4-use-block-templates-optional)
 -->
-1. [メタフィールドの登録](#step-1-register-meta-field)
-2. [メタブロックの追加](#step-2-add-meta-block)
-3. [投稿メタデータの使用](#step-3-use-post-meta-data)
-4. [最後の仕上げ](#step-4-use-block-templates-optional)
+1. メタフィールドの登録
+2. メタブロックの追加
+3. 投稿メタデータの使用
+4. 最後の仕上げ
 
 <!--
 ### Step 1: Register Meta Field
