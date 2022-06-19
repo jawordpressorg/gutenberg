@@ -393,7 +393,7 @@ If there is a need to have other information as part of the save, developers can
 -   Store the external value as an attribute which is dynamically updated in the block's `edit` function as changes occur.
  -->
 _注意:_ `save` 関数は、呼び出し時に使用された属性にのみ依存する純粋関数でなければなりません。どのようなサイドイフェクトも与えられず、別のソースからの情報も取得できません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することはできません。
-これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「[妥当性検証 (Validation)](#validation))」を参照してください。
+これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「妥当性検証 (Validation)」を参照してください。
 保存の流れで他の情報が必要になった場合、開発者には2つの選択肢があります。
  - [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) を使用してサーバー上で動的に必要な情報を取得する。
  - 外部の値を属性として保存し、変更があった場合にはブロックの `edit` 関数内で動的に更新する。

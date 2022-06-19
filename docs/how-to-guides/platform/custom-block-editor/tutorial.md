@@ -186,7 +186,7 @@ As a first step, we need to create a custom page within WP Admin.
 <!--
 **Note**: if you're already comfortable with the process of creating custom Admin pages in WordPress you might want to [skip ahead](#registering-and-rendering-our-custom-block-editor).
  -->
-**注意**: すでに WordPress 管理画面のカスタムページ作成について詳しい方は、[この節をスキップ](#registering-and-rendering-our-custom-block-editor) してください。
+**注意**: すでに WordPress 管理画面のカスタムページ作成について詳しい方は、この節をスキップしてください。
 
 <!--
 ### Registering the Page
