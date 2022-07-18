@@ -147,6 +147,7 @@ const BorderControlDropdown = (
 		resetButtonClassName,
 		showDropdownHeader,
 		enableStyle = true,
+		__unstablePopoverProps,
 		...otherProps
 	} = useBorderControlDropdown( props );
 
@@ -164,6 +165,7 @@ const BorderControlDropdown = (
 		enableStyle
 	);
 
+	const showResetButton = color || ( style && style !== 'none' );
 	const dropdownPosition = __experimentalIsRenderedInSidebar
 		? 'bottom left'
 		: undefined;
@@ -174,6 +176,8 @@ const BorderControlDropdown = (
 			variant="tertiary"
 			aria-label={ toggleAriaLabel }
 			position={ dropdownPosition }
+			label={ __( 'Border color and style picker' ) }
+			showTooltip={ true }
 		>
 			<span className={ indicatorWrapperClassName }>
 				<ColorIndicator
@@ -220,16 +224,18 @@ const BorderControlDropdown = (
 					/>
 				) }
 			</VStack>
-			<Button
-				className={ resetButtonClassName }
-				variant="tertiary"
-				onClick={ () => {
-					onReset();
-					onClose();
-				} }
-			>
-				{ __( 'Reset to default' ) }
-			</Button>
+			{ showResetButton && (
+				<Button
+					className={ resetButtonClassName }
+					variant="tertiary"
+					onClick={ () => {
+						onReset();
+						onClose();
+					} }
+				>
+					{ __( 'Reset to default' ) }
+				</Button>
+			) }
 		</>
 	);
 
@@ -237,7 +243,10 @@ const BorderControlDropdown = (
 		<Dropdown
 			renderToggle={ renderToggle }
 			renderContent={ renderContent }
-			contentClassName={ popoverClassName }
+			popoverProps={ {
+				...__unstablePopoverProps,
+				className: popoverClassName,
+			} }
 			{ ...otherProps }
 			ref={ forwardedRef }
 		/>

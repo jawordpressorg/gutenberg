@@ -16,13 +16,15 @@ Gutenberg プロジェクトのフェーズ2を開始するにあたってはコ
 <!-- 
 Often in the Gutenberg project, there's a need to control whether the code we write is shipped to WordPress core, or whether certain more experimental features are only active in the plugin.
  -->
+<!-- 
 Gutenberg プロジェクトでは、しばしば、書いたコードが WordPress コアとしてリリースされるのか、それとも、特定の実験的な機能がプラグインでのみ有効なのかを制御する必要があります。
-
+ -->
 <!-- 
 Often this is handled using a 'feature flag'.
  -->
+<!-- 
 多くの場合、このような要求は「フィーチャーフラグ」を使用して処理されます。
-
+ -->
 <!--
 ## Introducing `process.env.GUTENBERG_PHASE`
 
@@ -33,6 +35,10 @@ The `process.env.GUTENBERG_PHASE` is an environment variable containing a number
 
 `process.env.GUTENBERG_PHASE` はフェーズ番号を示す環境変数です。コードをプラグインとしてビルドする際、この変数を `2` にセットします。コアとしてビルドする際には `1` にセットします。
  -->
+<!-- 
+'Feature flags' are variables that allow you to prevent specific code in the Gutenberg project from being shipped to WordPress core, and to run certain experimental features only in the plugin.
+ -->
+「フィーチャーフラグ」とは、Gutenberg プロジェクト内の特定のコードを WordPress コアとしてリリースされないようにし、特定の実験的な機能をプラグイン内だけで実行できるようにする変数です。
 
 <!-- 
 ## Introducing `process.env.IS_GUTENBERG_PLUGIN`
@@ -40,9 +46,13 @@ The `process.env.GUTENBERG_PHASE` is an environment variable containing a number
 ## process.env.IS_GUTENBERG_PLUGIN の導入
 
 <!-- 
-The `process.env.IS_GUTENBERG_PLUGIN` is an environment variable that represents whether code is currently executing within the plugin. When the codebase is built for the plugin, this variable will be set to `true`. When building for core, it will be set to `false` or `undefined`.
+The `process.env.IS_GUTENBERG_PLUGIN` is an environment variable whose value 'flags' whether code is running within the Gutenberg plugin. 
+
+When the codebase is built for the plugin, this variable will be set to `true`. When building for WordPress core, it will be set to `false` or `undefined`.
  -->
-`process.env.IS_GUTENBERG_PLUGIN` は、現在プラグイン内でコードが実行されているかどうかを表す環境変数です。プラグイン用にコードベースがビルドされると、この変数は `true` に設定されます。コア用にビルドする場合は、`false` または `undefined` に設定されます。
+`process.env.IS_GUTENBERG_PLUGIN` は、環境変数です。その値は、コードが Gutenberg プラグイン内で実行されているかどうかを示します。
+
+プラグイン用にコードベースがビルドされると、この変数は `true` に設定されます。WordPress コア用にビルドする場合は、`false` または `undefined` に設定されます。
 
 <!--
 ## Basic Use
@@ -50,11 +60,18 @@ The `process.env.IS_GUTENBERG_PLUGIN` is an environment variable that represents
 A phase 2 function or constant should be exported using the following ternary syntax:
  -->
 ## 基本的な使用方法
+
 <!-- 
 フェーズ2の関数や定数は次の3項構文を使用してエクスポートしてください。
  -->
+
 <!-- 
-A plugin only function or constant should be exported using the following ternary syntax:
+### Exporting features
+ -->
+### エクスポート機能
+
+<!-- 
+A plugin-only function or constant should be exported using the following ternary syntax:
  -->
 プラグイン専用の関数や定数は、次の三項構文を使用してエクスポートしてください。
 
@@ -78,12 +95,25 @@ If you're attempting to import and call a phase 2 feature, be sure to wrap the c
  -->
 <!-- 
 In non-plugin environments the `phaseTwoFeature` export will be `undefined`.
-
-If you're attempting to import and call a plugin only feature, be sure to wrap the call to the function in an if statement to avoid an error:
  -->
+<!-- 
 非プラグイン環境では、`process.env.IS_GUTENBERG_PLUGIN` のエクスポートは `undefined` になります。
+ -->
 
-プラグインのみの機能をインポートし、呼び出す場合はエラーを避けるため、関数呼び出しを if 文で囲んでください。
+<!-- 
+In the above example, the `pluginOnlyFeature` export will be `undefined` in non-plugin environments such as WordPress core.
+ -->
+上の例の場合、WordPress コアなどの非プラグイン環境では、`pluginOnlyFeature` エクスポートは `undefined` になります。
+
+<!-- 
+### Importing features
+ -->
+### インポート機能
+<!-- 
+If you're attempting to import and call a plugin-only feature, be sure to wrap the function call in an `if` statement to avoid an error:
+ -->
+プラグインのみの機能をインポートし、呼び出す場合はエラーを避けるため、関数呼び出しを `if` 文で囲んでください。
+
 
 ```js
 import { pluginOnlyFeature } from '@wordpress/foo';
@@ -93,17 +123,17 @@ if ( process.env.IS_GUTENBERG_PLUGIN ) {
 }
 ```
 <!--
-### How it works
+## How it works
 
-During the webpack build, any instances of `process.env.IS_GUTENBERG_PLUGIN` will be replaced using webpack's define plugin (https://webpack.js.org/plugins/define-plugin/).
+During the webpack build, instances of `process.env.IS_GUTENBERG_PLUGIN` will be replaced using webpack's [define plugin](https://webpack.js.org/plugins/define-plugin/).
 
-If you write the following code:
+For example, in the following code –
  -->
-### 動作原理
+## 動作原理
 
-webpack のビルド時、すべての `process.env.IS_GUTENBERG_PLUGIN` は webpack の [define プラグイン](https://webpack.js.org/plugins/define-plugin/) を使用して置き換えられます。
+webpack のビルド時、`process.env.IS_GUTENBERG_PLUGIN` は webpack の [define プラグイン](https://webpack.js.org/plugins/define-plugin/) を使用して置き換えられます。
 
-次のようなコードがある場合
+たとえば、次のコードでは、
 
 ```js
 if ( process.env.IS_GUTENBERG_PLUGIN ) {
@@ -117,12 +147,12 @@ When building the codebase for the plugin the variable will be replaced with the
 コードベースをプラグインとしてビルドすると、変数は数値リテラル `2` で置き換えられます。
  -->
 <!-- 
-When building the codebase for the plugin the variable will be replaced with the boolean `true`:
+– the variable `process.env.IS_GUTENBERG_PLUGIN` will be replaced with the boolean `true` during the plugin-only build:
  -->
-コードベースをプラグインとしてビルドすると、変数はブール値 `true` で置き換えられます。
+– 変数 `process.env.IS_GUTENBERG_PLUGIN` は、プラグインのビルドでのみ、ブール値 `true` で置き換えられます。
 
 ```js
-if ( true ) {
+if ( true ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with `true`
 	pluginOnlyFeature();
 }
 ```
@@ -138,15 +168,21 @@ if 文内部のコードは、`2 === 2` が `true` と評価されるため、Gu
  -->
 <!-- 
 Any code within the body of the if statement will be executed because of this truthyness.
-
-For core, the `process.env.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`, so the built code will look like:
  -->
+<!-- 
 if 文の本体内にあるコードは、この `true` のため、実行されます。
+ -->
+<!-- 
+This ensures that code within the body of the `if` statement will always be executed.
 
-コアでは、`process.env.IS_GUTENBERG_PLUGIN` 変数は `undefined` で置換されるため、ビルドされたコードは以下のようになります。
+In WordPress core, the `process.env.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`. The built code looks like this:
+ -->
+これにより、`if` 文の中にあるコードが、常に実行されます。
+
+WordPress コアでは、`process.env.IS_GUTENBERG_PLUGIN` 変数は `undefined` で置換されるため、ビルドされたコードは以下のようになります。
 
 ```js
-if ( undefined ) {
+if ( undefined ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with `undefined`
 	pluginOnlyFeature();
 }
 ```
@@ -157,22 +193,22 @@ if ( undefined ) {
 `1 === 2` は `false` と評価されるため、フェーズ2の機能はコア内部では実行されません。
  -->
 <!-- 
-`undefined` evaluates to `false` so the plugin only feature will not be executed within core.
+`undefined` evaluates to `false` so the plugin-only feature will not be executed.
  -->
-`undefined` は `false` と評価されるため、プラグインのみの機能はコア内部では実行されません。
+`undefined` は `false` と評価されるため、プラグインのみの機能は実行されません。
 
 <!--
 ### Dead Code Elimination
 
-When building code for production, webpack 'minifies' code (https://en.wikipedia.org/wiki/Minification_(programming)), removing the amount of unnecessary JavaScript as much as possible. One of the steps involves something known as 'dead code elimination'.
+For production builds, webpack ['minifies'](https://en.wikipedia.org/wiki/Minification_(programming)) the code, removing as much unnecessary JavaScript as it can. 
 
-When the following code is encountered, webpack determines that the surrounding `if`statement is unnecessary:
+One of the steps involves something known as 'dead code elimination'. For example, when the following code is encountered, webpack determines that the surrounding `if` statement is unnecessary:
  -->
 ### 呼ばれないコードの削除
 
-本番リリース用にコードをビルドする場合、webpack はコードを[ミニファイ (縮小化)](https://en.wikipedia.org/wiki/Minification_(programming)) し、可能な限り不要な JavaScript のコードを削除しようとします。その中の1つが「呼ばれないコードの削除」です。
+製品のビルドでは、webpack はコードを[ミニファイ (縮小化)](https://en.wikipedia.org/wiki/Minification_(programming))し、可能な限り不要な JavaScript のコードを削除しようとします。
 
-次のコードに出会うと webpack は周りの `if` 文は不要と判断します。
+そのステップのひとつに、「呼ばれないコードの削除」があります。例えば、次のようなコードがあった場合、webpack は周囲の `if` 文は不要と判断します。
 
 ```js
 if ( true ) {
@@ -180,18 +216,18 @@ if ( true ) {
 }
 ```
 <!--
-The condition will always evaluates to `true`, so can be removed leaving just the code in the body:
+The condition will always evaluate to `true`, so webpack removes it, leaving behind the code that was in the body:
  -->
-条件は常に `true` と評価されるため、if 文を削除し、中の実行部分のみを残すことができます。
+条件は常に `true` と評価されるため、webpack は if 文を削除し、次のコードだけが残ります。
 
 ```js
-pluginOnlyFeature();
+pluginOnlyFeature(); // The `if` condition block has been removed. Only the body remains.
 ```
 
 <!--
-Similarly when building for core, the condition in the following `if` statement always resolves to false:
+Similarly, when building for WordPress core, the condition in the following `if` statement always resolves to false:
  -->
-同様にコアのビルドの場合、次の `if` 文の条件は常に `false` と解決されます。
+同様に WordPress コアのビルドの場合、次の `if` 文の条件は常に `false` と解決されます。
 
 ```js
 if ( undefined ) {
@@ -205,12 +241,13 @@ The minification process will remove the entire `if` statement including the bod
 ミニファイプロセスは内容を含む `if` 文全体を削除します。これでフェーズ2のコードは、コア用にビルドされた JavaScript に含まれません。
  -->
 <!-- 
-The minification process will remove the entire `if` statement including the body, ensuring plugin only code is not included in the built JavaScript intended for core.
+In this case, the minification process will remove the entire `if` statement including the body, ensuring plugin-only code is not included in WordPress core build.
  -->
-ミニファイプロセスは内容を含む `if` 文全体を削除します。これでプラグインのみのコードは、コア用にビルドされた JavaScript に含まれません。
+この例で、ミニファイプロセスは内容を含む `if` 文全体を削除します。これでプラグインのみのコードは、WordPress コア用のビルドに含まれません。
 
 <!--
 ## FAQ
+
 
 #### Why should I only use `===` or `!==` when comparing `process.env.GUTENBERG_PHASE` and not `>`, `>=`, `<` or `<=`?
 
@@ -251,9 +288,14 @@ Here an early return is used to avoid execution of a phase 2 feature, but becaus
 #### Why shouldn't I assign the result of an expression involving `IS_GUTENBERG_PLUGIN` to a variable, e.g. `const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2`?
 
 The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.
+
+Introducing complexity may prevent webpack's minifier from identifying and therefore eliminating dead code. Therefore it is recommended to use the examples in this document to ensure your feature flag functions as intended. For further details, see the [Dead Code Elimination](#dead-code-elimination) section.
+
  -->
 #### なぜ IS_GUTENBERG_PLUGIN 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === true ではいけないのですか ?
 
 webpack のミニファイが呼ばれないコードを削除できるよう、コードに複雑性を持ち込まないようにするためです。詳細については上の「呼ばれないコードの削除」セクションを参照してください。
+
+複雑にすると、webpack のミニファイアが呼ばれないコードを識別できず、また削除できなくなる可能性があるためです。そのため、このドキュメントにある例を使用して、フィーチャーフラグが意図したとおりに機能することを確認してください。詳細については上の「呼ばれないコードの削除」セクションを参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/feature-flags.md)

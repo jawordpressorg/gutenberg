@@ -35,11 +35,9 @@ jobs:
     build:
         name: Check
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node: ['14']
 
         steps:
+<<<<<<< HEAD
           - name: CommentOut
             run: echo "workflow_was_comment_out"
 #            - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
@@ -57,3 +55,20 @@ jobs:
 #                  repo-token: '${{ secrets.GITHUB_TOKEN }}'
 #                  pattern: '{build/**/*.min.js,build/**/*.css}'
 #                  clean-script: 'distclean'
+=======
+            - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+              with:
+                  fetch-depth: 1
+
+            - name: Use desired version of NodeJS
+              uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236 # v3.1.0
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: npm
+
+            - uses: preactjs/compressed-size-action@df6e03e187079aef959a2878311639c77b95ee2e # v2.2.0
+              with:
+                  repo-token: '${{ secrets.GITHUB_TOKEN }}'
+                  pattern: '{build/**/*.min.js,build/**/*.css}'
+                  clean-script: 'distclean'
+>>>>>>> upstream/trunk

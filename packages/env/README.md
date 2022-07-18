@@ -533,31 +533,60 @@ run コマンドは、シェルセッションを開いたり、WP-CLI コマン
 <div class="callout callout-alert">
 To run a WP-CLI command that includes optional arguments, enclose the WP-CLI command in quotation marks; otherwise, the optional arguments are ignored. This is because flags are normally passed to `wp-env` itself, meaning that the flags are not considered part of the argument that specifies the WP-CLI command. With quotation marks, `wp-env` considers everything inside quotation marks the WP-CLI command argument.
  -->
+<!--  
 オプションの引数を含む WP-CLI コマンドを実行するには、WP-CLI コマンドを引用符 (`'`) で囲みます。囲まない場合、オプションの引数は無視されます。フラグは通常 WP-CLI コマンドを指定する引数の一部とはみなされず、`wp-env` 自身に渡されるためです。引用符を使用すると、 `wp-env` は引用符の中のすべてを WP-CLI コマンドの引数と見なします。
+ -->
+<!-- 
+In some cases, `wp-env` may consume options that you are attempting to pass to 
+the container. This happens with options that `wp-env` has already declared,
+such as `--debug`, `--help`, and `--version`. When this happens, you should fall
+back to using quotation marks; `wp-env` considers everything inside the
+quotation marks to be command argument.
+ -->
+いくつかのケースでは、コンテナに渡したいオプションを `wp-env` が奪ってしまう場合があります。これは、`wp-env` が同じオプションを宣言する場合、例えば、`--debug`、`--help`、`--version` などで発生します。これを防ぐには引用符 (`"`) を使用してください。`wp-env` は、引用符内のすべてをコマンド引数とみなします。
 
 <!-- 
 For example, to list cron schedules with optional arguments that specify the fields returned and the format of the output:
  -->
+<!--  
 たとえば、cron のスケジュールをリストし、オプションに返すフィールドと出力フォーマットを指定するには、
+ -->
+
+<!-- 
+For example, to ask `WP-CLI` for its help text:
+ -->
+たとえば、`WP-CLI` のヘルプメッセージを表示するには、
 
 ```sh
-wp-env run cli "wp cron schedule list --fields=name --format=csv"
+wp-env run cli "wp --help"
 ```
 <!-- 
 Without the quotation marks, WP-CLI lists the schedule in its default format, ignoring the `fields` and `format` arguments.
+ -->
+<!-- 
+引用符がない場合、WP-CLI は `fields` と `format` の引数を無視して、デフォルトのフォーマットでスケジュールをリストします。
+ -->
+<!-- 
+Without the quotation marks, `wp-env` will print its own help text instead of
+passing it to the container. If you experience any problems where the command
+is not being passed correctly, fall back to using quotation marks.
 </div>
  -->
-引用符がない場合、WP-CLI は `fields` と `format` の引数を無視して、デフォルトのフォーマットでスケジュールをリストします。
+引用符がない場合、`wp-env` は、コンテナにオプションを渡す代わりに、自身のヘルプメッセージを表示します。コマンドが正しく渡らない問題が発生した場合は、引用符を使用してください。
+
 
 <!-- 
 Note that quotation marks are not required for a WP-CLI command that excludes optional arguments, although it does not hurt to include them. For example, the following command syntaxes return identical results: `wp-env run cli "wp cron schedule list"` or `wp-env run cli wp cron schedule list`.
  -->
+<!-- 
 注意: オプションの引数を除外する WP-CLI コマンドでは引用符は必要ありませんが、引用符を含めても問題ありません。たとえば、次のコマンド構文`wp-env run cli "wp cron schedule list"` と `wp-env run cli wp cron schedule list` は、同一の結果を返します。
-
+ -->
 <!-- 
 For more information about all the available commands, see [WP-CLI Commands](https://developer.wordpress.org/cli/commands/).
  -->
+<!-- 
 利用可能なコマンドの詳細については、[WP-CLI コマンド](https://developer.wordpress.org/cli/commands/)を参照してください。
+ -->
 
 <!--
 ```sh
@@ -568,11 +597,7 @@ Runs an arbitrary command in one of the underlying Docker containers. The
 "development", "tests", or "cli". To run a wp-cli command, use the "cli" or
 "tests-cli" service. You can also use this command to open shell sessions like
 bash and the WordPress shell in the WordPress instance. For example, `wp-env run
-cli bash` will open bash in the development WordPress instance. When using long
-commands with arguments and quotation marks, you need to wrap the "command"
-param in quotation marks. For example: `wp-env run tests-cli "wp post create
---post_type=page --post_title='Test'"` will create a post on the tests WordPress
-instance.
+cli bash` will open bash in the development WordPress instance.
 
 Positionals:
   container  The container to run the command on.            [string] [required]
@@ -594,10 +619,6 @@ wp-env run <container> [command..]
 あります。wp-cli コマンドを実行するには "cli" または "tests-cli" サービスを使用してください。
 また bash のようなシェルセッションや、WordPress インスタンス内の WordPress シェルを開くためにも
 使用できます。たとえば `wp-env run cli bash` は開発 WordPress インスタンス内で bash を開きます。
-引数や引用符を含む長いコマンドを使用する場合には、"command" パラメータ全体を引用符で囲む必要が
-あります。例えば `wp-env run tests-cli "wp post create
---post_type=page --post_title='Test'"` は  WordPress インスタンス "tests" に投稿を
-作成します。
 
 引数:
   container  コマンドを実行するコンテナ        [string] [必須]
@@ -799,20 +820,22 @@ _注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TEST
 
 `core`、`plugins`、`themes`、`mappings` フィールドに指定できる文字列のタイプを以下に示します。
 
-<!--
-| Type              | Format                        | Example(s)                                               |
-| ----------------- | ----------------------------- | -------------------------------------------------------- |
-| Relative path     | `.<path>\|~<path>`            | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
-| Absolute path     | `/<path>\|<letter>:\<path>`   | `"/a/directory"`, `"C:\\a\\directory"`                   |
-| GitHub repository | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`   |
-| ZIP File          | `http[s]://<host>/<path>.zip` | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
+<!-- 
+| Type              | Format                                       | Example(s)                                               |
+| ----------------- | -------------------------------------------- | -------------------------------------------------------- |
+| Relative path     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
+| Absolute path     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                   |
+| GitHub repository | `<owner>/<repo>[#<ref>]`                     | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`, if no branch is provided wp-env will fall back to the repos default branch |
+| SSH repository    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`         |
+| ZIP File          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
  -->
-| タイプ             | 形式                           | 例                                                       |
-| ----------------- | ----------------------------- | -------------------------------------------------------- |
-| 相対パス     | `.<path>\|~<path>`             | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
-| 絶対パス     | `/<path>\|<letter>:\<path>`    | `"/a/directory"`, `"C:\\a\\directory"`                   |
-| GitHub リポジトリ | `<owner>/<repo>[#<ref>]`      | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`  |
-| ZIP ファイル          | `http[s]://<host>/<path>.zip` | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
+| タイプ             | 形式                                      | 例                                               |
+| ----------------- | -------------------------------------------- | -------------------------------------------------------- |
+| 相対パス     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
+| 絶対パス     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                   |
+| GitHub リポジトリ | `<owner>/<repo>[#<ref>]`                     | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`, ブランチが指定されない場合、wp-env はリポジトリのデフォルトブランチを使用する |
+| SSH リポジトリ    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`         |
+| ZIP ファイル          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
 
 <!--
 Remote sources will be downloaded into a temporary directory located in `~/.wp-env`.
@@ -889,9 +912,13 @@ WP_HOME: 'http://localhost',
 <!--
 On the test instance, all of the above are still defined, but `WP_DEBUG` and `SCRIPT_DEBUG` are set to false.
 
+These can be overridden by setting a value within the `config` configuration. Setting it to `null` will prevent the constant being defined entirely.
+
 Additionally, the values referencing a URL include the specified port for the given environment. So if you set `testsPort: 3000, port: 2000`, `WP_HOME` (for example) will be `http://localhost:3000` on the tests instance and `http://localhost:2000` on the development instance.
  -->
 tests インスタンスでは同じすべての値が定義されますが、`WP_DEBUG` と `SCRIPT_DEBUG` は false に設定されます。
+
+これらは `config` 設定内に値を設定することで上書きできます。この値を `null` に設定すると、定数を完全に定義できなくなります。
 
 また URL を参照する値には環境で指定されたポート番号が含まれます。たとえば `testsPort: 3000, port: 2000` を設定すると、`WP_HOME` は tests インスタンスでは `http://localhost:3000`、development インスタンスでは `http://localhost:2000` になります。
 

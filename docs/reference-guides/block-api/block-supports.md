@@ -1070,6 +1070,7 @@ supports: {
 -   Subproperties:
     -   `margin`: type `boolean` or `array`, default value `false`
     -   `padding`: type `boolean` or `array`, default value `false`
+    -   `blockGap`: type `boolean` or `array`, default value `false`
 
 This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#cover-block-padding).
 
@@ -1078,6 +1079,7 @@ supports: {
     spacing: {
         margin: true,  // Enable margin UI control.
         padding: true, // Enable padding UI control.
+        blockGap: true,  // Enables block spacing UI control.
     }
 }
 ```
@@ -1087,6 +1089,7 @@ supports: {
 - サブプロパティ:
     -   `margin`: タイプ `boolean` または `array`, デフォルト値 `false`
     -   `padding`: タイプ `boolean` または `array`, デフォルト値 `false`
+    -   `blockGap`: タイプ `boolean` または `array`, デフォルト値 `false`
 
 この値はブロックがスペースに関連する CSS スタイルプロパティをサポートすることを通知します。[テーマがサポートを宣言する](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#cover-block-padding)なら、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
@@ -1095,24 +1098,52 @@ supports: {
     spacing: {
         margin: true,  // margin UI コントロールを有効化
         padding: true, // padding UI コントロールを有効化
+        blockGap: true,  // block spacing UI コントロールを有効化
 }
 ```
 
 <!--
 When the block declares support for a specific spacing property, the attributes definition is extended to include the `style` attribute.
 
--   `style`: attribute of `object` type with no default assigned. This is added when `margin` or `padding` support is declared. It stores the custom values set by the user.
+- `style`: attribute of `object` type with no default assigned. This is added when `margin` or `padding` support is declared. It stores the custom values set by the user, e.g.:
  -->
 ブロックが spacing プロパティのサポートを宣言すると、attributes の定義も `style` 属性を含むよう拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。
+- `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。例:
 
-<!--
+```js
+attributes: {
+    style: {
+        margin: 'value',
+        padding: {
+            top: 'value',
+        }
+    }
+}
+```
+
+<!-- 
+A spacing property may define an array of allowable sides – 'top', 'right', 'bottom', 'left' – that can be configured. When such arbitrary sides are defined, only UI controls for those sides are displayed. 
+ -->
+spacing プロパティは構成可能なサイド、'top'、'right'、'bottom'、'left' の配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。
+
+<!-- 
+Axial sides are defined with the `vertical` and `horizontal` terms, and display a single UI control for each axial pair (for example, `vertical` controls both the top and bottom sides). A spacing property may support arbitrary individual sides **or** axial sides, but not a mix of both.
+ -->
+軸方向のサイドは `vertical` と `horizontal` で定義され、軸方向のペアごとに1つの UI コントロールが表示されます (例えば、`vertical` は上辺と下辺の両方を制御します)。spacing プロパティは、任意の個別のサイド、**または**、軸方向のサイドをサポートできますが、両方を混ぜることはできません。
+
+<!-- 
+Note: `blockGap` accepts `vertical` and `horizontal` axial sides, which adjust gap column and row values. `blockGap` doesn't support arbitrary sides.
+ -->
+注意: `blockGap` は軸方向のサイド `vertical` と `horizontal` を取り、列値と行値のスペースを調整します。`blockGap` は任意方向のサイドをサポートしまsん。
+
+<!-- 
 ```js
 supports: {
     spacing: {
-        margin: [ 'top', 'bottom' ], // Enable margin for arbitrary sides.
-        padding: true,               // Enable padding for all sides.
+        margin: [ 'top', 'bottom' ],             // Enable margin for arbitrary sides.
+        padding: true,                           // Enable padding for all sides.
+        blockGap: [ 'horizontal', 'vertical' ],  // Enables axial (column/row) block spacing controls
     }
 }
 ```
@@ -1120,16 +1151,12 @@ supports: {
 ```js
 supports: {
     spacing: {
-        margin: [ 'top', 'bottom' ], // 任意のサイドのマージンを有効化する。
-        padding: true,               // すべてのサイドのパディングを有効化する。
+        margin: [ 'top', 'bottom' ],             // 任意のサイドのマージンを有効化する。
+        padding: true,                           // すべてのサイドのパディングを有効化する。
+        blockGap: [ 'horizontal', 'vertical' ],  // 軸方向 (列/行) のブロックのスペース制御を有効化する。
     }
 }
 ```
-
-<!--
-A spacing property may define an array of allowable sides that can be configured. When arbitrary sides are defined only UI controls for those sides are displayed. Axial sides are defined with the `vertical` and `horizontal` terms, and display a single UI control for each axial pair (for example, `vertical` controls both the top and bottom sides). A spacing property may support arbitrary individual sides **or** axial sides, but not a mix of both.
- -->
-spacing プロパティは構成可能なサイドの配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。軸方向のサイドは `vertical` と `horizontal` で定義され、軸方向のペアごとに1つの UI コントロールが表示されます (例えば、`vertical` は上辺と下辺の両方を制御します)。spacing プロパティは、任意の個別のサイド、**または**、軸方向のサイドをサポートできますが、両方を混ぜることはできません。
 
 ## typography
 

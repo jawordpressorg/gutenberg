@@ -25,8 +25,9 @@ import './style.scss';
 
 import Edit from './edit';
 import save from './save';
+import metadata from './block.json';
 
-registerBlockType( 'create-block/gutenpride', {
+registerBlockType( metadata.name, {
 	/**
 	 * @see ./edit.js
 	 */
@@ -62,9 +63,9 @@ The results of the save function is what the editor will insert into the **post_
 save 関数の結果は、投稿が保存された際に、エディターが **post_content** フィールドに挿入するブロックの形になります。post_content フィールドは投稿のコンテンツを保存する、WordPress データベース内のフィールドです。
 
 <!--
-Most of the properties are set in the `block.json` file.
+Most of the properties are set in the `src/block.json` file.
  -->
-ほとんどのプロパティは、`block.json` ファイルで設定されます。
+ほとんどのプロパティは、`src/block.json` ファイルで設定されます。
 
 ```json
 {

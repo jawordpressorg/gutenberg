@@ -153,7 +153,7 @@ register_block_style(
 ```
 
 <!--
-Alternatively, if a stylesheet was already registered which contains the CSS for the block style, it is possible to just pass the stylesheet's handle so `register_block_style` function will make sure it is enqueue.
+Alternatively, if a stylesheet was already registered which contains the CSS for the block style, it is possible to just pass the stylesheet's handle so `register_block_style` function will make sure it is enqueued.
  -->
 代替として、ブロックスタイルのCSSを含むスタイルシートがすでに登録済みの場合は、`register_block_style`関数にスタイルシートのハンドルを渡すだけでエンキューできます。
 

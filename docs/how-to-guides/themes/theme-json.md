@@ -58,6 +58,7 @@ WordPress 5.8では、エディタを構成する[新しいメカニズム](http
     - The naming schema of CSS Custom Properties
     - Why using -- as a separator?
     - How settings under "custom" create new CSS Custom Properties
+    - Why does it take so long to update the styles in the browser?
 
  -->
 - 論拠
@@ -1743,5 +1744,14 @@ blockGapスタイルに定義する値は、プリセットされた CSS プロ�
 	}
 }
 ```
+<!-- 
+### Why does it take so long to update the styles in the browser?
+ -->
+### なぜ、ブラウザのスタイルの更新に長い時間がかかるのか ?
+
+<!-- 
+When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#wp_debug) or [`SCRIPT_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#script_debug) to 'true' in your [`wp-config.php`](https://wordpress.org/support/article/editing-wp-config-php/). This tells WordPress to skip the cache and always use fresh data.
+ -->
+theme.json を使用して開発を行っていると、変更内容がブラウザに表示されるまでに30秒以上かかることに気がつくかもしれません。これは、`theme.json` がキャッシュされているためです。このキャッシュの問題を解決するには、[`wp-config.php`](https://wordpress.org/support/article/editing-wp-config-php/) の [`WP_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#wp_debug) または [`SCRIPT_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#script_debug) を 'true' に設定します。これにより、WordPress はキャッシュをスキップし、常に新しいデータを使用します。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-json.md)

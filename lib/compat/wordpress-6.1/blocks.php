@@ -6,6 +6,26 @@
  */
 
 /**
+ * Update allowed inline style attributes list.
+ *
+ * Note: This should be removed when the minimum required WP version is >= 6.1.
+ *
+ * @param string[] $attrs Array of allowed CSS attributes.
+ * @return string[] CSS attributes.
+ */
+function gutenberg_safe_style_attrs_6_1( $attrs ) {
+	$attrs[] = 'flex-wrap';
+	$attrs[] = 'gap';
+	$attrs[] = 'margin-block-start';
+	$attrs[] = 'margin-block-end';
+	$attrs[] = 'margin-inline-start';
+	$attrs[] = 'margin-inline-end';
+
+	return $attrs;
+}
+add_filter( 'safe_style_css', 'gutenberg_safe_style_attrs_6_1' );
+
+/**
  * Registers view scripts for core blocks if handling is missing in WordPress core.
  *
  * @since 6.1.0
@@ -79,7 +99,7 @@ if ( ! function_exists( 'wp_enqueue_block_view_script' ) ) {
 				'ver'        => false,
 				'in_footer'  => false,
 
-				// Additional arg to allow translations for the script's textdomain.
+				// Additional args to allow translations for the script's textdomain.
 				'textdomain' => '',
 			)
 		);
@@ -109,7 +129,7 @@ if ( ! function_exists( 'wp_enqueue_block_view_script' ) ) {
 
 			// If a textdomain is defined, use it to set the script translations.
 			if ( ! empty( $args['textdomain'] ) && in_array( 'wp-i18n', $args['deps'], true ) ) {
-				wp_set_script_translations( $args['handle'], $args['textdomain'] );
+				wp_set_script_translations( $args['handle'], $args['textdomain'], $args['domainpath'] );
 			}
 
 			return $content;

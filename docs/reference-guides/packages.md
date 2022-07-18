@@ -12,19 +12,19 @@ WordPress は開発用に JavaScript のパッケージとツールをエクス�
 
 JavaScript packages are available as a registered script in WordPress and can be accessed using the `wp` global variable.
 
-If you wanted to use the `PlainText` component from the editor module, first you would specify `wp-editor` as a dependency when you enqueue your script:
+If you wanted to use the `PlainText` component from the block editor module, first you would specify `wp-block-editor` as a dependency when you enqueue your script:
 -->
 ## WordPress グローバルからのパッケージの使用
 
 JavaScript パッケージは WordPress 内で登録済みスクリプトとして利用可能で、`wp` グローバル変数を使用してアクセスできます。
 
-たとえばエディターモジュールから `PlainText` コンポーネントを使用する場合、スクリプトをエンキューする際に依存として `wp-editor` を指定します。
+たとえばブロックエディターモジュールから `PlainText` コンポーネントを使用する場合、スクリプトをエンキューする際に依存として `wp-block-editor` を指定します。
 
 ```php
 wp_enqueue_script(
 	'my-custom-block',
 	plugins_url( $block_path, __FILE__ ),
-	array( 'wp-blocks', 'wp-editor', 'wp-element', 'wp-i18n' )
+	array( 'wp-blocks', 'wp-block-editor', 'wp-element', 'wp-i18n' )
 );
 ```
 
@@ -34,7 +34,7 @@ After the dependency is declared, you can access the module in your JavaScript c
 依存の定義後は、JavaScript コードの中からグローバル変数 `wp` を使用して以下のようにモジュールにアクセスできます。
 
 ```js
-const { PlainText } = wp.editor;
+const { PlainText } = wp.blockEditor;
 ```
 
 <!--
@@ -63,6 +63,32 @@ Once installed, you can access the component in your code using:
 ```js
 import { PlainText } from '@wordpress/block-editor';
 ```
+<!-- 
+## Testing JavaScript code from a specific major WordPress version
+ -->
+## WordPress の特定のメジャーバージョンでの JavaScript コードのテスト
+
+<!-- 
+There is a way to quickly install a version of the individual WordPress package used with a given WordPress major version using [npm distribution tags](https://docs.npmjs.com/cli/v8/commands/npm-dist-tag) (example for WordPress `5.8.x`):
+ -->
+ある WordPress のメジャーバージョンで使用されている、個々の WordPress パッケージのバージョンを素早くインストールする方法があります。これには、[npm distribution tags](https://docs.npmjs.com/cli/v8/commands/npm-dist-tag) を使用します。WordPress `5.8.x` の例です。
+
+```bash
+npm install @wordpress/block-editor@wp-5.8
+```
+<!-- 
+It’s also possible to update all existing WordPress packages in the project with a single command:
+ -->
+It’s also possible to update all existing WordPress packages in the project with a single command:
+また、プロジェクト内の既存のすべての WordPress パッケージを1つのコマンドで更新できます。
+
+```bash
+npx @wordpress/scripts packages-update --dist-tag=wp-5.8
+```
+<!-- 
+All major WordPress versions starting from `5.7.x` are supported (e.g., `wp-5.7` or `wp-6.0`). Each individual dist-tag always points to the latest bug fix release for that major version line.
+ -->
+`5.7.x` から始まるすべての WordPress のメジャーバージョンがサポートされています (例: `wp-5.7` や `wp-6.0` など)。個々の dist-tag は、常にそのメジャーバージョンの最新のバグフィックスリリースを指します。
 
 ## パッケージ一覧 (翻訳のあるもの)
 

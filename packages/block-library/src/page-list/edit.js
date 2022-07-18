@@ -16,10 +16,7 @@ import { ToolbarButton, Spinner, Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useMemo, useState, memo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import {
-	store as coreStore,
-	__experimentalUseEntityRecords as useEntityRecords,
-} from '@wordpress/core-data';
+import { store as coreStore, useEntityRecords } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -45,10 +42,8 @@ export default function PageListEdit( { context, clientId } ) {
 	const blockProps = useBlockProps( {
 		className: classnames( 'wp-block-page-list', {
 			'has-text-color': !! context.textColor,
-			[ getColorClassName(
-				'color',
-				context.textColor
-			) ]: !! context.textColor,
+			[ getColorClassName( 'color', context.textColor ) ]:
+				!! context.textColor,
 			'has-background': !! context.backgroundColor,
 			[ getColorClassName(
 				'background-color',
@@ -81,11 +76,9 @@ export default function PageListEdit( { context, clientId } ) {
 
 			{ hasResolvedPages && totalPages === null && (
 				<div { ...blockProps }>
-					<div { ...blockProps }>
-						<Notice status={ 'warning' } isDismissible={ false }>
-							{ __( 'Page List: Cannot retrieve Pages.' ) }
-						</Notice>
-					</div>
+					<Notice status={ 'warning' } isDismissible={ false }>
+						{ __( 'Page List: Cannot retrieve Pages.' ) }
+					</Notice>
 				</div>
 			) }
 
@@ -196,7 +189,8 @@ const PageItems = memo( function PageItems( {
 						className={ classnames(
 							'wp-block-pages-list__item__link',
 							{
-								'wp-block-navigation-item__content': isNavigationChild,
+								'wp-block-navigation-item__content':
+									isNavigationChild,
 							}
 						) }
 						href={ page.link }
@@ -217,7 +211,8 @@ const PageItems = memo( function PageItems( {
 							) }
 						<ul
 							className={ classnames( 'submenu-container', {
-								'wp-block-navigation__submenu-container': isNavigationChild,
+								'wp-block-navigation__submenu-container':
+									isNavigationChild,
 							} ) }
 						>
 							<PageItems

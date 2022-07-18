@@ -12,7 +12,7 @@ JavaScript コードが正しく動作しない場合のトラブルシューテ
 
 The console log is a JavaScript developer's best friend. It is a good practice to work with it open, as it displays errors and notices in one place. See Mozilla's [JavaScript console](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools#The_JavaScript_console) documentation for more.
 
-To open the JavaScript console, find the correct key combination for your broswer and OS:
+To open the JavaScript console, find the correct key combination for your browser and OS:
 -->
 ## コンソールログ
 

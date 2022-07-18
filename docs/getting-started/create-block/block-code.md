@@ -19,24 +19,24 @@ Note: The color may not work with all browsers until they support the proper col
 <!-- 
 Download and extract the font from the Type with Pride site, and copy it in the `assets` directory of your plugin naming it `gilbert-color.otf`. To load the font file, we need to add CSS using standard WordPress enqueue, [see Including CSS & JavaScript documentation](https://developer.wordpress.org/themes/basics/including-css-javascript/).
 
-In the `gutenpride.php` file, the enqueue process is already setup from the generated script, so `index.css` and `style-index.css` files are loaded using:
+In the `gutenpride.php` file, the enqueue process is already setup from the generated script, so `build/index.css` and `build/style-index.css` files are loaded using:
+
  -->
 Type with Pride のサイトからフォントをダウンロードし解凍し、プラグインの `assets` ディレクトリに `gilbert-color.otf` という名前でコピーしてください。フォントファイルをロードするには WordPress 標準のエンキューを使用してフォントファイルをロードする必要があります。[Including CSS & JavaScript ドキュメント](https://developer.wordpress.org/themes/basics/including-css-javascript/) を参照してください。
 
-`gutenpride.php` ファイルにはすでに生成されたスクリプトからのエンキュープロセスが設定されています。以下のコードで `index.css` ファイルと `style-index.css` ファイルがロードされます。
-
+`gutenpride.php` ファイルにはすでに生成されたスクリプトからのエンキュープロセスが設定されています。以下のコードで `build/index.css` ファイルと `build/style-index.css` ファイルがロードされます。
 
 ```php
 function create_block_gutenpride_block_init() {
-	register_block_type( __DIR__ );
+	register_block_type( __DIR__ . '/build' );
 }
 add_action( 'init', 'create_block_gutenpride_block_init' );
 ```
 
 <!-- 
-This function checks the `block.json` file for js and css files, and will pass them on to [enqueue](https://developer.wordpress.org/themes/basics/including-css-javascript/) these files, so they are loaded on the appropriate pages.
+This function checks the `build/block.json` file for JS and CSS files, and will pass them on to [enqueue](https://developer.wordpress.org/themes/basics/including-css-javascript/) these files, so they are loaded on the appropriate pages.
  -->
-この関数は `block.json` ファイルをチェックし、JavaScript や CSS ファイルが適切なページでロードされるよう [enqueue](https://developer.wordpress.org/themes/basics/including-css-javascript/) に渡します。
+この関数は `build/block.json` ファイルをチェックし、JavaScript や CSS ファイルが適切なページでロードされるよう [enqueue](https://developer.wordpress.org/themes/basics/including-css-javascript/) に渡します。
 
 <!-- 
 The `build/index.css` is compiled from `src/editor.scss` and loads only within the editor, and after the `style-index.css`.
@@ -64,7 +64,7 @@ Note: the block classname is prefixed with `wp-block`. The `create-block/gutenpr
 
 ```scss
 @font-face {
-	font-family: Gilbert, sans-serif;
+	font-family: Gilbert;
 	src: url( ../assets/gilbert-color.otf );
 	font-weight: 700;
 }

@@ -120,9 +120,9 @@ const Example = () => {
 ## ドキュメント & サンプル
 
 <!--
-You can browse the components docs and examples at https://wordpress.github.io/gutenberg/
+You can browse the components docs and examples at [https://wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/)
  -->
-コンポーネントのドキュメントとサンプルは https://wordpress.github.io/gutenberg/ で参照できます。
+コンポーネントのドキュメントとサンプルは [https://wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/) で参照できます。
 
 <!--
 ## Contributing

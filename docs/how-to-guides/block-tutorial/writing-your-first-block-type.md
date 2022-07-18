@@ -126,10 +126,10 @@ Create a basic `block.json` file there:
 ```json
 {
 	"apiVersion": 2,
-	"name": "gutenberg-examples/example-01-basic-esnext",
 	"title": "Example: Basic (ESNext)",
-	"icon": "universal-access-alt",
+	"name": "gutenberg-examples/example-01-basic-esnext",
 	"category": "layout",
+	"icon": "universal-access-alt",
 	"editorScript": "file:./build/index.js"
 }
 ```
@@ -279,6 +279,7 @@ Add the following to `block.js`
 <!-- 
 {% end %}
  -->
+
 <!--
 _By now you should be able to see `Hello World (from the editor).` in the admin side and `Hello World (from the frontend).` on the frontend side._
  -->
@@ -292,12 +293,64 @@ Once a block is registered, you should immediately see that it becomes available
 <!-- 
 NOTE: If using the JSX version, you need to run `npm run build` and it will create the JavaScript file that is loaded in the editor at `build/index.js`
  -->
+<!-- 
 注意: JSX 版を使用する場合は、`npm run build` を実行する必要があります。エディタで読み込まれる JavaScript ファイルが `build/index.js` に作成されます。
+ -->
 
 <!-- 
-### Step 4: Confirm
+### Step 4: Build or add dependency
  -->
-### 手順 4: 確認
+### ステップ4: ビルド、または依存関係の追加
+
+<!-- 
+In order to register the block, an asset php file is required in the same directory as the directory used in `register_block_type()` and must begin with the script's filename.
+ -->
+ブロックを登録するには、`register_block_type()` で使用したディレクトリと同じディレクトリに、スクリプトのファイル名で始まるアセットのphpファイルが必要です。
+
+**JSX**
+<!-- 
+{% codetabs %}
+{% JSX %}
+ -->
+
+<!-- 
+Build the scripts and asset file which is used to keep track of dependencies and the build version.
+ -->
+スクリプトとアセットファイルをビルドします。 依存関係やビルドバージョンの追跡に使用されます。
+
+```bash
+npm run build
+```
+
+**Plain**
+<!-- 
+{% Plain %}
+ -->
+
+<!-- 
+Create the asset file to load the dependencies for the scripts. The name of this file should be the name of the js file then .asset.php. For this example, create `block.asset.php` with the following:
+ -->
+Create the asset file to load the dependencies for the scripts. The name of this file should be the name of the js file then .asset.php. For this example, create `block.asset.php` with the following:
+
+スクリプトの依存関係を読み込むアセットファイルを作成します。このファイルの名前は、js ファイルの名前に.asset.php を加えたものにする必要があります。この例では、`block.asset.php` を以下のように作成します。
+
+```php
+<?php return
+	array( 'dependencies' =>
+		array(
+			'wp-blocks',
+			'wp-element',
+			'wp-polyfill'
+		),
+		'version' => '0.1'
+	);
+```
+
+<!-- 
+### Step 5: Confirm
+ -->
+### ステップ5: 確認
+
 <!-- 
 Open your editor and try adding your new block. It will show in the inserter using the `title`.
 When inserted you will see the `Hello World (from the editor)` message.
@@ -330,14 +383,16 @@ When you save the post and view it published, you will see the `Hola mundo (from
 This shows the most basic static block. The [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository has complete examples for both.
  -->
 最も基本的な静的ブロックを示しました。[gutenberg-examples](https://github.com/WordPress/gutenberg-examples)リポジトリには、両方の完全な例があります。
+
 <!-- 
--   [Basic example with JSX build](https://github.com/WordPress/gutenberg-examples/tree/trunk/01-basic-esnext)
+-   [Basic Example with JSX build](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/01-basic-esnext)
 
--   [Basic example plain JavaScript](https://github.com/WordPress/gutenberg-examples/tree/trunk/01-basic),
+-   [Basic Example Plain JavaScript](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/01-basic),
  -->
--   [JSX ビルドの基本的な例](https://github.com/WordPress/gutenberg-examples/tree/trunk/01-basic-esnext)
+-   [JSX ビルドの基本的な例](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/01-basic-esnext)
 
--   [Plain な JavaScript の基本的な例](https://github.com/WordPress/gutenberg-examples/tree/trunk/01-basic),
+-   [Plain な JavaScript の基本的な例](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/01-basic),
+
 <!-- 
 **NOTE:** The examples include a more complete block setup with translation features included, it is recommended to follow those examples for a production block. The internationalization features were left out of this guide for simplicity and focusing on the very basics of a block.
  -->

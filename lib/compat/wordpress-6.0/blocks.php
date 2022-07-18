@@ -119,6 +119,9 @@ function gutenberg_build_query_vars_from_query_block( $block, $page ) {
 		if ( ! empty( $block->context['query']['search'] ) ) {
 			$query['s'] = $block->context['query']['search'];
 		}
+		if ( ! empty( $block->context['query']['parents'] ) && is_post_type_hierarchical( $query['post_type'] ) ) {
+			$query['post_parent__in'] = array_filter( array_map( 'intval', $block->context['query']['parents'] ) );
+		}
 	}
 	return $query;
 }
@@ -176,7 +179,10 @@ if ( ! function_exists( 'build_comment_query_vars_from_block' ) ) {
 				} elseif ( 'oldest' === $default_page ) {
 					$comment_args['paged'] = 1;
 				} elseif ( 'newest' === $default_page ) {
-					$comment_args['paged'] = (int) ( new WP_Comment_Query( $comment_args ) )->max_num_pages;
+					$max_num_pages = (int) ( new WP_Comment_Query( $comment_args ) )->max_num_pages;
+					if ( 0 !== $max_num_pages ) {
+						$comment_args['paged'] = $max_num_pages;
+					}
 				}
 				// Set the `cpage` query var to ensure the previous and next pagination links are correct
 				// when inheriting the Discussion Settings.

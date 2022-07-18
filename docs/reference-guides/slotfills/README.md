@@ -67,7 +67,7 @@ SlotFill は `createSlotFill` を使用して作成されます。`createSlotFil
 
 ```js
 /**
- * Defines as extensibility slot for the Status & visibility panel.
+ * Defines as extensibility slot for the Summary panel.
  */
 
 /**
@@ -88,7 +88,7 @@ PluginPostStatusInfo.Slot = Slot;
 export default PluginPostStatusInfo;
 ```
 <!--
-This new Slot is then exposed in the editor. The example below is from core and represents the Status & visibility panel.
+This new Slot is then exposed in the editor. The example below is from core and represents the Summary panel.
 
 As we can see, the `<PluginPostStatusInfo.Slot>` is wrapping all of the items that will appear in the panel.
 Any items that have been added via the SlotFill ( see the example above ), will be included in the `fills` parameter and be displayed between the `<PostAuthor/>` and `<PostTrash/>` components.
@@ -96,7 +96,7 @@ Any items that have been added via the SlotFill ( see the example above ), will 
 See [core code](https://github.com/WordPress/gutenberg/tree/HEAD/packages/edit-post/src/components/sidebar/post-status/index.js#L26).
  -->
 
-次にこの新しい Slot はエディター内で外部に公開されます。以下の例はコアのもので「ステータスと公開状態」パネルを表します。
+次にこの新しい Slot はエディター内で外部に公開されます。以下の例はコアのもので「Summary (概要)」パネルを表します。
 
 見て分かるように `<PluginPostStatusInfo.Slot>` はパネルに表示されるすべての項目をラップします。SlotFill 経由で追加されたすべての項目 (上の例参照) は、`fills` パラメータに含まれ、`<PostAuthor/>` と `<PostTrash/>` コンポーネントの間に表示されます。
 
@@ -106,7 +106,7 @@ See [core code](https://github.com/WordPress/gutenberg/tree/HEAD/packages/edit-p
 const PostStatus = ( { isOpened, onTogglePanel } ) => (
 	<PanelBody
 		className="edit-post-post-status"
-		title={ __( 'Status & visibility' ) }
+		title={ __( 'Summary' ) }
 		opened={ isOpened }
 		onToggle={ onTogglePanel }
 	>

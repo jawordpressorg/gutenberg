@@ -133,6 +133,9 @@ Settings related to spacing.
 | margin | boolean | false |  |
 | padding | boolean | false |  |
 | units | array | px,em,rem,vh,vw,% |  |
+| customSpacingSize | boolean | true |  |
+| spacingSizes | array |  | name, size, slug |
+| spacingScale | object |  |  |
 
 ---
 
@@ -154,7 +157,7 @@ Settings related to typography.
 | textTransform | boolean | true |  |
 | dropCap | boolean | true |  |
 | fontSizes | array |  | name, size, slug |
-| fontFamilies | array |  | fontFamily, name, slug |
+| fontFamilies | array |  | fontFace, fontFamily, name, slug |
 
 ---
 
@@ -239,6 +242,16 @@ Typography styles.
 | lineHeight | string |  |
 | textDecoration | string |  |
 | textTransform | string |  |
+
+---
+
+### filter
+
+CSS and SVG filter styles.
+
+| Property  | Type   |  Props  |
+| ---       | ---    |---   |
+| duotone | string |  |
 
 ---
 

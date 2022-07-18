@@ -411,12 +411,12 @@ Suppose we want to match the following HTML snippet and turn it into some kind o
  -->
 例えば、次のようなHTMLスニペットにマッチして、ある種のカスタム投稿プレビューブロックに変換したいとします。
 
- ```html
- <div data-post-id="13">
-     <h2>The Post Title</h2>
-     <p>Some <em>great</em> content.</p>
- </div>
- ```
+```html
+<div data-post-id="13">
+    <h2>The Post Title</h2>
+    <p>Some <em>great</em> content.</p>
+</div>
+```
 <!-- 
 We want to tell the editor to allow the inner `h2` and `p` elements. We do this by supplying the following schema. In
 this example we're using the function form, which accepts an argument supplying `phrasingContentSchema` (as well as a
@@ -427,18 +427,19 @@ conversion.
  -->
 エディターには、内側の `h2` と `p` 要素を許可するように指示します。それには次のようなスキーマを提供できます。この例では、関数形式を使っていて、関数は、引数に `phrasingContentSchema` プロパティの値 (と同時に、変換操作がテキストの貼り付けから始まったかどうかを示すブール値 `isPaste`) を受け取ります。`phrasingContentSchema` は、HTML のフレージング要素 (例: `<strong>`、`<sup>`、`<kbd>`) とマッチするよう、あらかじめ定義されていています。`<RichText />` コンポーネントを期待する場所ではどこでも、フレージングコンテンツ ([記述コンテンツ](https://developer.mozilla.org/ja/docs/Web/Guide/HTML/Content_categories#phrasing_content)。文章とその中に含まれるマークアップ) を許可する良い候補となります。そうでなければ、変換時にすべてのテキストの書式が失われます。
 
- ```js
- schema = ({ phrasingContentSchema }) => {
-     div: {
-         required: true,
-         attributes: [ 'data-post-id' ],
-         children: {
-             h2: { children: phrasingContentSchema },
-             p: { children: phrasingContentSchema }
-         }
-     }
- }
- ```
+```js
+schema = ({ phrasingContentSchema }) => {
+    div: {
+        required: true,
+        attributes: [ 'data-post-id' ],
+        children: {
+            h2: { children: phrasingContentSchema },
+            p: { children: phrasingContentSchema }
+        }
+    }
+}
+```
+
 <!-- 
 When we successfully match this content every HTML attribute will be stripped away except for `data-post-id` and if we
 have other arrangements of HTML inside of a given `div` then it won't match our transformer. Likewise we'd fail to match
@@ -469,24 +470,27 @@ A transformation of type `shortcode` is an object that takes the following param
 <!--
 -   **type** _(string)_: the value `shortcode`.
 -   **tag** _(string|array)_: the shortcode tag or list of shortcode aliases this transform can work with.
--   **attributes** _(object)_: object representing where the block attributes should be sourced from, according to the attributes shape defined by the [block configuration object](./block-registration.md). If a particular attribute contains a `shortcode` key, it should be a function that receives the shortcode attributes as the first arguments and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as second, and returns a value for the attribute that will be sourced in the block's comment.
+-   **transform** _(function, optional): a callback that receives the shortcode attributes as the first argument and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as the second. It should return a block object or an array of block objects. When this parameter is defined, it will take precedence over the `attributes` parameter.
+-   **attributes** _(object, optional)_: object representing where the block attributes should be sourced from, according to the attributes shape defined by the [block configuration object](./block-registration.md). If a particular attribute contains a `shortcode` key, it should be a function that receives the shortcode attributes as the first arguments and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as second, and returns a value for the attribute that will be sourced in the block's comment.
 -   **isMatch** _(function, optional)_: a callback that receives the shortcode attributes per the [Shortcode API](https://codex.wordpress.org/Shortcode_API) and should return a boolean. Returning `false` from this function will prevent the shortcode to be transformed into this block.
 -   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `shortcode`。
 - **tag** _(string|array)_: この変換が動作可能なショートコードタグ、またはショートコードエイリアスのリスト。
-- **attributes** _(object)_: [block 構成オブジェクト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) で定義された属性の形に従い、ブロック属性がどこを source とするかを表したオブジェクト。特定の属性が `shortcode` キーを含む場合には関数であり、第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取り、ブロックのコメントを source とする属性の値を返さなければならない。
+- **transform** _(function, オプション): 第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取るコールバック。ブロックオブジェクト、またはブロックオブジェクトの配列を返さなければならない。このパラメータが定義されると、`attributes` パラメータに優先する。
+- **attributes** _(object, オプション)_: [block 構成オブジェクト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) で定義された属性の形に従い、ブロック属性がどこを source とするかを表したオブジェクト。特定の属性が `shortcode` キーを含む場合には関数であり、第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取り、ブロックのコメントを source とする属性の値を返さなければならない。
 - **isMatch** _(function、オプション)_: [Shortcode API](https://codex.wordpress.org/Shortcode_API) ごとにショートコード属性を受け取り、ブール値を返すコールバック。`false` を返すとショートコードのブロックへの変換を適用しない。
 - **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
-<!--
 
-**Example: from shortcode to block**
+<!-- 
+**Example: from shortcode to block using `transform`**
  -->
-**例: ショートコードからブロックへの変換**
-<!--
-An existing shortcode can be transformed into its block counterpart.
+**例: ショートコードからブロックへの、`transform` を使用した変換**
+
+<!-- 
+An existing shortcode can be transformed into its block counterpart using the `transform` method.
  -->
-既存のショートコードをブロックバージョンに変換する。
+既存のショートコードを対応するブロックバージョンに、`transform` 方式を使用して変換する。
 
 <!-- 
 ```js
@@ -494,7 +498,55 @@ transforms: {
     from: [
         {
             type: 'shortcode',
-            tag: 'caption',
+            tag: 'video',
+            transform( { named: { src } } ) {
+                return createBlock( 'core/video', { src } );
+            },
+            // Prevent the shortcode to be converted
+            // into this block when it doesn't
+            // have the proper ID.
+            isMatch( { named: { id } } ) {
+                return id === 'my-id';
+            },
+        },
+    ],
+},
+```
+ -->
+```js
+transforms: {
+    from: [
+        {
+            type: 'shortcode',
+            tag: 'video',
+            transform( { named: { src } } ) {
+                return createBlock( 'core/video', { src } );
+            },
+            // 適切な ID をもたない場合、
+            // ショートコードからこのブロックへの変換は
+            // 行われない。
+            isMatch( { named: { id } } ) {
+                return id === 'my-id';
+            },
+        },
+    ],
+},
+```
+
+<!-- 
+**Example: from shortcode to block using `attributes`**
+ -->
+**例: ショートコードからブロックへの、`attributes` を使用した変換**
+
+既存のショートコードを対応するブロックバージョンに、`attributes` 方式を使用して変換する。
+
+<!-- 
+```js
+transforms: {
+    from: [
+        {
+            type: 'shortcode',
+            tag: 'youtube',
             attributes: {
                 url: {
                     type: 'string',

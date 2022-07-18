@@ -64,8 +64,6 @@ describe( 'full post content fixture', () => {
 			} )
 		);
 		unstable__bootstrapServerSideBlockDefinitions( blockDefinitions );
-		// Load all hooks that modify blocks.
-		require( '../../../packages/editor/src/hooks' );
 		registerCoreBlocks();
 		if ( process.env.IS_GUTENBERG_PLUGIN ) {
 			__experimentalRegisterExperimentalCoreBlocks( {
@@ -84,10 +82,8 @@ describe( 'full post content fixture', () => {
 	blockBasenames.forEach( ( basename ) => {
 		// eslint-disable-next-line jest/valid-title
 		it( basename, () => {
-			const {
-				filename: htmlFixtureFileName,
-				file: htmlFixtureContent,
-			} = getBlockFixtureHTML( basename );
+			const { filename: htmlFixtureFileName, file: htmlFixtureContent } =
+				getBlockFixtureHTML( basename );
 			if ( htmlFixtureContent === null ) {
 				throw new Error(
 					`Missing fixture file: ${ htmlFixtureFileName }`
@@ -144,13 +140,10 @@ describe( 'full post content fixture', () => {
 				/* eslint-enable no-console */
 			}
 
-			const blocksActualNormalized = normalizeParsedBlocks(
-				blocksActual
-			);
-			const {
-				filename: jsonFixtureFileName,
-				file: jsonFixtureContent,
-			} = getBlockFixtureJSON( basename );
+			const blocksActualNormalized =
+				normalizeParsedBlocks( blocksActual );
+			const { filename: jsonFixtureFileName, file: jsonFixtureContent } =
+				getBlockFixtureJSON( basename );
 
 			let blocksExpectedString;
 
@@ -247,12 +240,10 @@ describe( 'full post content fixture', () => {
 							startsWith( basename, nameToFilename + '__' )
 					)
 					.map( ( basename ) => {
-						const {
-							filename: htmlFixtureFileName,
-						} = getBlockFixtureHTML( basename );
-						const {
-							file: jsonFixtureContent,
-						} = getBlockFixtureJSON( basename );
+						const { filename: htmlFixtureFileName } =
+							getBlockFixtureHTML( basename );
+						const { file: jsonFixtureContent } =
+							getBlockFixtureJSON( basename );
 						// The parser output for this test.  For missing files,
 						// JSON.parse( null ) === null.
 						const parserOutput = JSON.parse( jsonFixtureContent );

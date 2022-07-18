@@ -68,9 +68,9 @@ You will need:
 -   JavaScript のビルドとエンキューが可能なセットアップ
 
 <!--
-A [complete meta-block example](https://github.com/WordPress/gutenberg-examples/tree/trunk/meta-block) is available that you can use as a reference for your setup.
+A [complete meta-block example](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/meta-block) is available that you can use as a reference for your setup.
 -->
-[完全なメタブロックのサンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/meta-block) が利用可能です。セットアップの参考にしてください。
+[完全なメタブロックのサンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/meta-block) が利用可能です。セットアップの参考にしてください。
 
 <!--
 ## Step-by-step guide

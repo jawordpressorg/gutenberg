@@ -293,7 +293,7 @@ You'll need to run this again if new plugins are added. To run e2e tests:
 新しいプラグインが追加された場合は、この手順を再度実行する必要があります。e2e テストを実行するには以下を実行します。
 
 ```bash
-WP_BASE_URL=http://localhost:8888/gutenberg npm run test-e2e
+WP_BASE_URL=http://localhost:8888/gutenberg/ npm run test-e2e
 ```
 
 <!--

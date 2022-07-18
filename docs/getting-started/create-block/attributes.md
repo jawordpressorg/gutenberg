@@ -22,13 +22,13 @@ For this block tutorial, we want to allow the user to type in a message that we 
 },
 ```
 <!--
-Add this to the `block.json` file. The `attributes` are at the same level as the _name_ and _title_ fields.
+Add this to the `src/block.json` file. The `attributes` are at the same level as the _name_ and _title_ fields.
 
 When the block loads it will look at the saved content for the block, look for the div tag, take the text portion, and store the content in an `attributes.message` variable.
 
 Note: The text portion is equivalent to `innerText` attribute of a DOM element. For more details and other examples see the [Block Attributes documentation](/docs/reference-guides/block-api/block-attributes.md).
  -->
-このコードを `block.json` ファイルに追加してください。`attributes` は _name_ や _title_ フィールドと同じレベルです。
+このコードを `src/block.json` ファイルに追加してください。`attributes` は _name_ や _title_ フィールドと同じレベルです。
 
 ブロックがロードされると、ブロックのために保存されたコンテンツを探し、div タグを探し、text 部分を取り出し、コンテンツを `attributes.message` 変数に保存します。
 

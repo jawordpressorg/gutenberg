@@ -4,14 +4,18 @@
 import type { ForwardedRef } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { RadioGroup, useRadioState } from 'reakit';
-import useResizeAware from 'react-resize-aware';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 import { useRef, useMemo } from '@wordpress/element';
-import { useMergeRefs, useInstanceId, usePrevious } from '@wordpress/compose';
+import {
+	useMergeRefs,
+	useInstanceId,
+	usePrevious,
+	useResizeObserver,
+} from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -43,13 +47,14 @@ function ToggleGroupControl(
 		hideLabelFromVision = false,
 		help,
 		onChange = noop,
+		size = 'default',
 		value,
 		children,
 		...otherProps
 	} = useContextSystem( props, 'ToggleGroupControl' );
 	const cx = useCx();
 	const containerRef = useRef();
-	const [ resizeListener, sizes ] = useResizeAware();
+	const [ resizeListener, sizes ] = useResizeObserver();
 	const baseId = useInstanceId(
 		ToggleGroupControl,
 		'toggle-group-control'
@@ -79,12 +84,11 @@ function ToggleGroupControl(
 	const classes = useMemo(
 		() =>
 			cx(
-				styles.ToggleGroupControl,
+				styles.ToggleGroupControl( { size } ),
 				isBlock && styles.block,
-				'medium',
 				className
 			),
-		[ className, cx, isBlock ]
+		[ className, cx, isBlock, size ]
 	);
 	return (
 		<BaseControl help={ help }>

@@ -165,9 +165,9 @@ A calendar of your site’s posts. ([Source](https://github.com/WordPress/gutenb
 -	**属性:** month, year
 
 <!--
-## Categories
+## Categories List
 -->
-## Categories / カテゴリー
+## Categories List / カテゴリー一覧
 
 <!--
 Display a list of all categories. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/categories))
@@ -283,12 +283,12 @@ Displays the name of the author of the comment. ([Source](https://github.com/Wor
 -	**Name:** core/comment-author-name
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** fontSize, isLink, linkTarget, textAlign
+-	**Attributes:** isLink, linkTarget, textAlign
 -->
 -	**名前:** core/comment-author-name
 -	**カテゴリー:** theme
 -	**サポート:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**属性:** fontSize, isLink, linkTarget, textAlign
+-	**属性:** isLink, linkTarget, textAlign
 
 <!--
 ## Comment Content
@@ -325,12 +325,12 @@ Displays the date on which the comment was posted. ([Source](https://github.com/
 -	**Name:** core/comment-date
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** fontSize, format, isLink
+-	**Attributes:** format, isLink
 -->
 -	**名前:** core/comment-date
 -	**カテゴリー:** theme
 -	**サポート:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
--	**属性:** fontSize, format, isLink
+-	**属性:** format, isLink
 
 <!--
 ## Comment Edit Link
@@ -346,7 +346,7 @@ WordPress 管理画面でコメントを編集するリンクを表示します�
 -	**Name:** core/comment-edit-link
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** fontSize, linkTarget, textAlign
+-	**Attributes:** linkTarget, textAlign
 -->
 -	**名前:** core/comment-edit-link
 -	**カテゴリー:** theme
@@ -367,12 +367,12 @@ Displays a link to reply to a comment. ([Source](https://github.com/WordPress/gu
 -	**Name:** core/comment-reply-link
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** fontSize, textAlign
+-	**Attributes:** textAlign
 -->
 -	**名前:** core/comment-reply-link
 -	**カテゴリー:** theme
 -	**サポート:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** fontSize, textAlign
+-	**Attributes:** textAlign
 
 <!--
 ## Comment Template
@@ -394,6 +394,27 @@ Contains the block elements used to display a comment, like the title, date, aut
 -	**カテゴリー:** design
 -	**サポート:** align, ~~html~~, ~~reusable~~
 -	**属性:** 
+
+<!-- 
+## Comments
+ -->
+## Comments / コメント
+
+<!-- 
+An advanced block that allows displaying post comments using different visual configurations. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments))
+ -->
+異なるビジュアル構成を使用して投稿のコメントを表示できる、高度なブロックです。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments))
+
+<!-- 
+-	**Name:** core/comments
+-	**Category:** theme
+-	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
+-	**Attributes:** tagName
+ -->
+-	**名前:** core/comments
+-	**カテゴリー:** theme
+-	**サポート:** align (full, wide), color (background, gradients, link, text), ~~html~~
+-	**属性:** tagName
 
 <!--
 ## Comments Pagination
@@ -482,24 +503,27 @@ Displays the previous comment's page link. ([Source](https://github.com/WordPres
 <!--
 ## Comments Query Loop
 -->
+<!-- 
 ## Comments Query Loop / コメントクエリーループ
-
+ -->
 <!--
 An advanced block that allows displaying post comments using different visual configurations. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-query-loop))
 -->
+<!-- 
 異なるビジュアル構成を使用して投稿のコメントを表示できる、高度なブロックです。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-query-loop))
-
+ -->
 <!--
 -	**Name:** core/comments-query-loop
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
 -	**Attributes:** tagName
 -->
+<!-- 
 -	**名前:** core/comments-query-loop
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), color (background, gradients, link, text), ~~html~~
 -	**属性:** tagName
-
+ -->
 <!-- 
 ## Comments Title
  -->
@@ -515,11 +539,12 @@ Displays a title with the number of comments ([Source](https://github.com/WordPr
 -	**Category:** theme
 -	**Supports:** align, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~anchor~~, ~~html~~
 -	**Attributes:** level, multipleCommentsLabel, showCommentsCount, showPostTitle, singleCommentLabel, textAlign
+-	**Attributes:** level, showCommentsCount, showPostTitle, textAlign
  -->
 -	**名前:** core/comments-title
 -	**カテゴリー:** theme
 -	**サポート:** align, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~anchor~~, ~~html~~
--	**属性:** level, multipleCommentsLabel, showCommentsCount, showPostTitle, singleCommentLabel, textAlign
+-	**属性:** level, showCommentsCount, showPostTitle, textAlign
 
 <!--
 ## Cover
@@ -534,12 +559,12 @@ Add an image or video with a text overlay — great for headers. ([Source](https
 <!--
 -	**Name:** core/cover
 -	**Category:** media
--	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (padding), ~~html~~
+-	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
 -	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, templateLock, url, useFeaturedImage
 -->
 -	**名前:** core/cover
 -	**カテゴリー:** media
--	**サポート:** align, anchor, color (~~background~~, ~~text~~), spacing (padding), ~~html~~
+-	**サポート:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
 -	**属性:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, templateLock, url, useFeaturedImage
 
 <!--
@@ -639,12 +664,12 @@ Gather blocks in a layout container. ([Source](https://github.com/WordPress/gute
 <!--
 -	**Name:** core/group
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** tagName, templateLock
 -->
 -	**名前:** core/group
 -	**カテゴリー:** design
--	**サポート:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** tagName, templateLock
 
 <!--
@@ -920,24 +945,27 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 <!--
 ## Navigation Area
 -->
+<!-- 
 ## Navigation Area / ナビゲーションエリア
-
+ -->
 <!--
 Define a navigation area for your theme. The navigation block associated with this area will be automatically displayed. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/navigation-area))
 -->
+<!-- 
 テーマのナビゲーションエリアを定義します。このエリアに関連付けられたナビゲーションブロックが自動的に表示されます。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/navigation-area))
-
+ -->
 <!--
 -	**Name:** core/navigation-area
 -	**Category:** theme
 -	**Supports:** ~~html~~, ~~inserter~~
 -	**Attributes:** area
 -->
+<!-- 
 -	**名前:** core/navigation-area
 -	**カテゴリー:** theme
 -	**サポート:** ~~html~~, ~~inserter~~
 -	**属性:** area
-
+ -->
 <!--
 ## Custom Link
 -->
@@ -1132,9 +1160,9 @@ The author name. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pac
 ## Post Comment (deprecated) / 投稿のコメント (非推奨)
 
 <!--
-This block is deprecated. Please use the Comments Query Loop block instead. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comment))
+This block is deprecated. Please use the Comments block instead. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comment))
 -->
-このブロックは非推奨です。代わりにコメントクエリーループブロックを使用してください。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comment))
+このブロックは非推奨です。代わりにコメントブロックを使用してください。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comment))
 
 <!--
 -	**Name:** core/post-comment
@@ -1153,9 +1181,9 @@ This block is deprecated. Please use the Comments Query Loop block instead. ([So
 ## Post Comments / 投稿コメント (非推奨)
 
 <!-- 
-This block is deprecated. Please use the Comments Query Loop block instead. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
+This block is deprecated. Please use the Comments block instead. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
  -->
-のブロックは非推奨です。代わりにコメントクエリーループブロックを使用してください。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
+のブロックは非推奨です。代わりにコメントブロックを使用してください。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
 
 <!--
 -	**Name:** core/post-comments
@@ -1328,12 +1356,12 @@ Displays the next or previous post link that is adjacent to the current post. ([
 <!--
 -	**Name:** core/post-navigation-link
 -	**Category:** theme
--	**Supports:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** color (background, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label, linkLabel, showTitle, textAlign, type
 -->
 -	**名前:** core/post-navigation-link
 -	**カテゴリー:** theme
--	**サポート:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**サポート:** color (background, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** label, linkLabel, showTitle, textAlign, type
 
 <!--
@@ -1371,12 +1399,12 @@ Post terms. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages
 -	**Name:** core/post-terms
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** separator, term, textAlign
+-	**Attributes:** prefix, separator, suffix, term, textAlign
 -->
 -	**名前:** core/post-terms
 -	**カテゴリー:** theme
 -	**サポート:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
--	**属性:** separator, term, textAlign
+-	**属性:** prefix, separator, term, textAlign
 
 <!--
 ## Post Title
@@ -1666,11 +1694,12 @@ Help visitors find your content. ([Source](https://github.com/WordPress/gutenber
 -	**Category:** widgets
 -	**Supports:** align (center, left, right), color (background, gradients, text), ~~html~~
 -	**Attributes:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, showLabel, width, widthUnit
+-	**Attributes:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, query, showLabel, width, widthUnit
 -->
 -	**名前:** core/search
 -	**カテゴリー:** widgets
 -	**サポート:** align (center, left, right), color (background, gradients, text), ~~html~~
--	**属性:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, showLabel, width, widthUnit
+-	**属性:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, query, showLabel, width, widthUnit
 
 <!--
 ## Separator
@@ -1875,12 +1904,12 @@ Summarize your post with a list of headings. Add HTML anchors to Heading blocks 
 -	**Name:** core/table-of-contents
 -	**Category:** layout
 -	**Supports:** ~~html~~
--	**Attributes:** onlyIncludeCurrentPage
+-	**Attributes:** headings, onlyIncludeCurrentPage
 -->
 -	**名前:** core/table-of-contents
 -	**カテゴリー:** layout
 -	**サポート:** ~~html~~
--	**属性:** onlyIncludeCurrentPage
+-	**属性:** headings, onlyIncludeCurrentPage
 
 <!--
 ## Tag Cloud

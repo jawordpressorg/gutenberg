@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { mapValues, isObject, forEach } from 'lodash';
+import { mapValues, forEach } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -42,6 +42,10 @@ import { createEmitter } from './utils/emitter';
  *
  * @property {Function} registerStore registers store.
  */
+
+function isObject( object ) {
+	return object !== null && typeof object === 'object';
+}
 
 /**
  * Creates a new store registry, given an optional object of initial store
@@ -93,24 +97,26 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 			return store.getSelectors();
 		}
 
-		return parent && parent.select( storeName );
+		return parent?.select( storeName );
 	}
 
 	function __unstableMarkListeningStores( callback, ref ) {
 		listeningStores.clear();
-		const result = callback.call( this );
-		ref.current = Array.from( listeningStores );
-		return result;
+		try {
+			return callback.call( this );
+		} finally {
+			ref.current = Array.from( listeningStores );
+		}
 	}
 
 	/**
-	 * Given the name of a registered store, returns an object containing the store's
-	 * selectors pre-bound to state so that you only need to supply additional arguments,
-	 * and modified so that they return promises that resolve to their eventual values,
-	 * after any resolvers have ran.
+	 * Given a store descriptor, returns an object containing the store's selectors pre-bound to
+	 * state so that you only need to supply additional arguments, and modified so that they return
+	 * promises that resolve to their eventual values, after any resolvers have ran.
 	 *
-	 * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-	 *                                                       or the store descriptor.
+	 * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+	 *                                                       convention of passing the store name is
+	 *                                                       also supported.
 	 *
 	 * @return {Object} Each key of the object matches the name of a selector.
 	 */
@@ -125,6 +131,30 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 		}
 
 		return parent && parent.resolveSelect( storeName );
+	}
+
+	/**
+	 * Given a store descriptor, returns an object containing the store's selectors pre-bound to
+	 * state so that you only need to supply additional arguments, and modified so that they throw
+	 * promises in case the selector is not resolved yet.
+	 *
+	 * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+	 *                                                       convention of passing the store name is
+	 *                                                       also supported.
+	 *
+	 * @return {Object} Object containing the store's suspense-wrapped selectors.
+	 */
+	function suspendSelect( storeNameOrDescriptor ) {
+		const storeName = isObject( storeNameOrDescriptor )
+			? storeNameOrDescriptor.name
+			: storeNameOrDescriptor;
+		listeningStores.add( storeName );
+		const store = stores[ storeName ];
+		if ( store ) {
+			return store.getSuspendSelectors();
+		}
+
+		return parent && parent.suspendSelect( storeName );
 	}
 
 	/**
@@ -276,6 +306,7 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 		subscribe,
 		select,
 		resolveSelect,
+		suspendSelect,
 		dispatch,
 		use,
 		register,

@@ -14,10 +14,36 @@ In this Document:
  -->
 目次
 
+<!-- 
+- [Patterns](#patterns)
+	- [Block Patterns](#block-patterns)
+		- [register_block_pattern](#register_block_pattern)
+	- [Unregistering Block Patterns](#unregistering-block-patterns)
+		- [unregister_block_pattern](#unregister_block_pattern)
+	- [Block Pattern Categories](#block-pattern-categories)
+		- [register_block_pattern_category](#register_block_pattern_category)
+		- [unregister_block_pattern_category](#unregister_block_pattern_category)
+	- [Block patterns contextual to block types and pattern transformations](#block-patterns-contextual-to-block-types-and-pattern-transformations)
+	- [Semantic block patterns](#semantic-block-patterns)
+ -->
+
+- パターン
+	- ブロックパターン
+		- register_block_pattern
+	- ブロックパターンの登録の解除
+		- unregister_block_pattern
+	- ブロックパターンカテゴリー
+		- register_block_pattern_category
+		- unregister_block_pattern_category
+	- ブロックタイプやパターン変換のコンテキストに応じたブロックパターン 
+	- セマンティックブロックパターン
+
+<!-- 
 * [`register_block_pattern`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#registerblockpattern)
 * [`unregister_block_pattern`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#unregisterblockpattern)
 * [`register_block_pattern_category`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#registerblockpatterncategory)
 * [`unregister_block_pattern_category`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#unregisterblockpatterncategory)
+ -->
 
 <!--
 ## Block Patterns
@@ -71,6 +97,7 @@ The properties available for block patterns are:
 -   `keywords` (optional): An array of aliases or keywords that help users discover the pattern while searching.
 -   `viewportWidth` (optional): An integer specifying the intended width of the pattern to allow for a scaled preview of the pattern in the inserter.
 -   `blockTypes` (optional): An array of block types that the pattern is intended to be used with. Each value needs to be the declared block's `name`.
+-   `postTypes` (optional): An array of post types that the pattern is restricted to be used with. The pattern will only be available when editing one of the post types passed on the array, for all the other post types the pattern is not available at all.
 -   `inserter` (optional): By default, all patterns will appear in the inserter. To hide a pattern so that it can only be inserted programmatically, set the `inserter` to `false`.
  -->
 -   `title` (必須): 表示されるパターンのタイトル。
@@ -80,6 +107,7 @@ The properties available for block patterns are:
 -   `keywords` (オプション): 検索の際に役立つ別名またはキーワードの配列。
 -   `viewportWidth` (オプション): インサーター内でのパターンのインデント幅を指定する整数。パターンのスケールするプレビュー用。
 -   `blockTypes` (オプション): パターンが一緒に使われることを想定するブロックタイプの配列。各値は、ブロックの `name` で宣言される必要がある。
+-   `postTypes` (オプション): このパターンを使用可能な投稿タイプの配列。配列で指定した投稿タイプのいずれかを編集する際にのみこのパターンを使用でき、その他のすべての投稿タイプではまったく使用できない。
 -   `inserter` (オプション): デフォルトでは、すべてのパターンはインサーターに表示されます。プログラムでのみ挿入できるようにパターンを非表示にするには、`inserter` を `false` に設定します。
 
 <!--

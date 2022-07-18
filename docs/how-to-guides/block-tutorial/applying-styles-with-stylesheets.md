@@ -387,8 +387,8 @@ This guide showed a couple of different ways to apply styles to your block, by e
 このガイドでは、インラインまたは独自のスタイルシートによって、ブロックにスタイルを適用する方法を紹介しました。この方法はどちらも `useBlockProps` フックを使用します。詳細については、 [ブロックラッパーリファレンスドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#block-wrapper-props) を参照してください。
 
 <!-- 
-See the complete [example-02-stlyesheets](https://github.com/WordPress/gutenberg-examples/tree/trunk/02-stylesheets) code in the [gutenberg-examples repository](https://github.com/WordPress/gutenberg-examples).
+See the complete [example-02-stylesheets](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/02-stylesheets) code in the [gutenberg-examples repository](https://github.com/WordPress/gutenberg-examples).
  -->
-完全なサンプルコードは [gutenberg-examples リポジトリ](https://github.com/WordPress/gutenberg-examples) 内の [example-02-stlyesheets](https://github.com/WordPress/gutenberg-examples/tree/trunk/02-stylesheets) を参照してください。
+完全なサンプルコードは [gutenberg-examples リポジトリ](https://github.com/WordPress/gutenberg-examples) 内の [example-02-stylesheets](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/02-stylesheets) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/applying-styles-with-stylesheets.md)

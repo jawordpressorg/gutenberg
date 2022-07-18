@@ -2,6 +2,35 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2022/7/18
+
+- [React Native Integration Test Guide](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/) - Helper 追加 [#38619](https://github.com/WordPress/gutenberg/pull/38619)
+- [Setup guide for React Native development (macOS)](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/osx-setup-guide/) - Android トラブシューティングの追加 [#40964](https://github.com/WordPress/gutenberg/pull/40964)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - npm 発行ワークフローの改善 [#42189](https://github.com/WordPress/gutenberg/pull/42189)
+- [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - 依存関係の追加 [#41511](https://github.com/WordPress/gutenberg/pull/41511)
+- [Curating the Editor Experience](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) - 新規
+- [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup/) - CSS の変更 [#40940](https://github.com/WordPress/gutenberg/pull/40940)
+- [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/3-building-an-edit-form/) - 「キャンセル」ボタンの追加 [#39261](https://github.com/WordPress/gutenberg/pull/39261)
+- [Part 4: Building a Create page form](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/4-building-a-create-page-form/) - 新規
+- [Adding a delete button](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/5-adding-a-delete-button/) - 新規
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - スタイルの変更に時間がかかる問題の回避方法 [#42346](https://github.com/WordPress/gutenberg/pull/42346)
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - postTypes 追加 [#41791](https://github.com/WordPress/gutenberg/pull/41791)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - blockGap 追加 [#41225](https://github.com/WordPress/gutenberg/pull/41225)
+- [変換](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) - shortcode に transform 追加 [#42001](https://github.com/WordPress/gutenberg/pull/42001)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - カテゴリー -> カテゴリー一覧 [#39837](https://github.com/WordPress/gutenberg/pull/39837)、コメントの投稿者名、コメント日付、コメント編集リンク、コメント返信リンク fontSize 削除 [#41627](https://github.com/WordPress/gutenberg/pull/41627)、コメントクエリーリープ -> コメント [#40763](https://github.com/WordPress/gutenberg/pull/40763)、コメントタイトル multipleCommentsLabel, singleCommentLabel 削除 [#40817](https://github.com/WordPress/gutenberg/pull/40817)、カバー spacing (margin) 追加 [#41963](https://github.com/WordPress/gutenberg/pull/41963)、グループ ariaLabel 追加 [#41744](https://github.com/WordPress/gutenberg/pull/41744)、ナビゲーションエリア削除 [#40645](https://github.com/WordPress/gutenberg/pull/40645)、投稿ナビゲーションリンク color (background, link, text) 追加 [#41378](https://github.com/WordPress/gutenberg/pull/41378)、投稿タグ prefix 追加、検索 query 追加 [#40585](https://github.com/WordPress/gutenberg/pull/40585)、目次 headings 追加 [#29739](https://github.com/WordPress/gutenberg/pull/29739)
+- [非推奨プロセス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/) - サンプルに supports 追加 [#41589](https://github.com/WordPress/gutenberg/pull/41589)
+- [The Block Editor’s Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-block-editor.md) - isBlockVisible、setBlockVisibility 追加 [#41104](https://github.com/WordPress/gutenberg/pull/41104)
+- [Notices Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core-notices.md) - サンプル追加 [#42023](https://github.com/WordPress/gutenberg/pull/42023)
+- [WordPress Core Data](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) - JSDoc -> TypeScript [#40025](https://github.com/WordPress/gutenberg/pull/40025)、RecordKey -> GenericRecordKey [#41235](https://github.com/WordPress/gutenberg/pull/41235)
+- [Block Hooks](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/block-filters.md) - サンプル追加 [#41211](https://github.com/WordPress/gutenberg/pull/41211)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - typography の fontFamilies に fontFace [#41844](https://github.com/WordPress/gutenberg/pull/41844)、filter 追加 [#41920](https://github.com/WordPress/gutenberg/pull/41920)、fontSizes に fluid 追加 [#39529](https://github.com/WordPress/gutenberg/pull/39529)、spacing に customSpacingSize, spacingSizes, spacingScale 追加 [#41527](https://github.com/WordPress/gutenberg/pull/41527)
+- [パッケージリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/) - WordPress の特定のメジャーバージョンでの JavaScript コードのテスト追加 [#42390](https://github.com/WordPress/gutenberg/pull/42390)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - SSH リポジトリ [#40451](https://github.com/WordPress/gutenberg/pull/40451)、引数の渡し方 [#41179](https://github.com/WordPress/gutenberg/pull/41179)
+- [How To Get Your Pull Request Reviewed?](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/how-to-get-your-pull-request-reviewed/) - 新規
+- [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - 全面改訂 [#40964](https://github.com/WordPress/gutenberg/pull/40964)
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - e2e テスト [#41883](https://github.com/WordPress/gutenberg/pull/41883)
+- [Styles](https://developer.wordpress.org/block-editor/explanations/architecture/styles/) - _experimentalSkipSerialization [#41277](https://github.com/WordPress/gutenberg/pull/41277)
+
 2022/4/30
 - [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - ancestors 追記 [#40027](https://github.com/WordPress/gutenberg/pull/40027)
 - [テーマ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/) - フルサイト編集追記 [#39662](https://github.com/WordPress/gutenberg/pull/39662)

@@ -4,8 +4,7 @@
 # ページリストの構築
 
 <!--
-In this part, we will build a filterable list of all WordPress pages. This is what the app will look like at the end of
-this section:
+In this part, we will build a filterable list of all WordPress pages. This is what the app will look like at the end of this section:
 -->
 このパートでは、WordPress のすべての固定ページの、フィルタリング可能なリストを構築します。このセクションを終えると、以下のようなアプリが完成します。
 
@@ -46,8 +45,7 @@ function PagesList( { pages } ) {
 ```
 
 <!--
-Note that this component does not fetch any data yet, only presents the hardcoded list of pages. When you refresh the page,
-you should see the following:
+Note that this component does not fetch any data yet, only presents the hardcoded list of pages. When you refresh the page, you should see the following:
 -->
 注意: このコンポーネントはまだデータを取得しておらず、ハードコードされたページのリストを表示します。ページを更新すると、以下のように表示されます。
 
@@ -59,14 +57,12 @@ you should see the following:
 ## ステップ 2: データの取得
 
 <!--
-The hard-coded sample page isn’t very useful. We want to display your actual WordPress pages so let’s fetch the actual
-list of pages from the [WordPress REST API](https://developer.wordpress.org/rest-api/).
+The hard-coded sample page isn’t very useful. We want to display your actual WordPress pages so let’s fetch the actual list of pages from the [WordPress REST API](https://developer.wordpress.org/rest-api/).
 -->
 ハードコードされたサンプルページでは、何の役にも立ちません。実際の WordPress のページを表示するには、[WordPress REST API](https://developer.wordpress.org/rest-api/) から実際のページのリストを取得します。
 
 <!--
-Before we start, let’s confirm we actually have some pages to fetch. Within WPAdmin, Navigate to Pages using the sidebar menu and
-ensure it shows at least four or five Pages:
+Before we start, let’s confirm we actually have some pages to fetch. Within WPAdmin, Navigate to Pages using the sidebar menu and ensure it shows at least four or five Pages:
 -->
 その前に、実際に取得するページがあることを確認しましょう。管理画面のサイドバーメニューから「ページ」に移動します。
 少なくとも4～5ページはあることを確認します。
@@ -74,22 +70,17 @@ ensure it shows at least four or five Pages:
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
 
 <!--
-If it doesn’t, go ahead and create a few pages – you can use the same titles as on the screenshot above. Be sure to _
-publish_ and not just _save_ them.
+If it doesn’t, go ahead and create a few pages – you can use the same titles as on the screenshot above. Be sure to _publish_ and not just _save_ them.
 -->
 固定ページがなければ、何ページか作成してください。上のスクリーンショットと同じタイトルを使用できます。このとき保存するだけでなく、必ず公開してください。
 
 <!--
-Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@wordpress/core-data` package](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data)
-package which provides resolvers, selectors, and actions to work with the WordPress core API. `@wordpress/core-data` builds on top
-of the [`@wordpress/data` package](https://github.com/WordPress/gutenberg/tree/trunk/packages/data).
+Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@wordpress/core-data` package](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) package which provides resolvers, selectors, and actions to work with the WordPress core API. `@wordpress/core-data` builds on top of the [`@wordpress/data` package](https://github.com/WordPress/gutenberg/tree/trunk/packages/data).
 -->
 データが揃ったところで、コードを見ていきましょう。ここでは、[`@wordpress/core-data` パッケージ](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) を利用します。このパッケージは、WordPress のコア API を操作するリゾルバ、セレクタ、アクションを提供します。`WordPress/core-data` は、[`@wordpress/data` パッケージ](https://github.com/WordPress/gutenberg/tree/trunk/packages/data)の上に構築されています。
 
 <!--
-To fetch the list of pages, we will use
-the [`getEntityRecords`](/docs/reference-guides/data/data-core/#getentityrecords) selector. In broad strokes, it will
-issue the correct API request, cache the results, and return the list of the records we need. Here’s how to use it:
+To fetch the list of pages, we will use the [`getEntityRecords`](/docs/reference-guides/data/data-core/#getentityrecords) selector. In broad strokes, it will issue the correct API request, cache the results, and return the list of the records we need. Here’s how to use it:
 -->
 ページのリストの取得には、[`getEntityRecords`](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/data/data-core.md) セレクタを使用します。このセレクタは主に、正しい API リクエストを発行し、結果をキャッシュし、必要なレコードのリストを返します。以下のように使用します。
 
@@ -98,15 +89,12 @@ wp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )
 ```
 
 <!--
-If you run that following snippet in your browser’s dev tools, you will see it returns `null`. Why? The pages are only
-requested by the `getEntityRecords` resolver after first running the _selector_. If you wait a moment and re-run it, it
-will return the list of all pages.
+If you run that following snippet in your browser’s dev tools, you will see it returns `null`. Why? The pages are only requested by the `getEntityRecords` resolver after first running the _selector_. If you wait a moment and re-run it, it will return the list of all pages.
 -->
 以下のスニペットをブラウザの開発ツールで実行すると、`null` が返されます。なぜでしょう ? ページは、最初の _セレクタ_ の実行後、`getEntityRecords` リゾルバによってのみリクエストされます。しばらく待ってから再実行すると、すべてのページのリストが返されます。
 
 <!--
-Similarly, the `MyFirstApp` component needs to re-run the selector once the data is available. That’s exactly what
-the `useSelect` hook does:
+Similarly, the `MyFirstApp` component needs to re-run the selector once the data is available. That’s exactly what the `useSelect` hook does:
 -->
 同様に、`MyFirstApp` コンポーネントも、データが利用可能になった時点でセレクタを再実行する必要があります。まさに `useSelect` フックはこれを実行しています。
 
@@ -131,9 +119,7 @@ Note that we use an `import` statement inside index.js. This enables the plugin 
 
 
 <!--
-`useSelect` takes two arguments: a callback and dependencies. In broad strokes, it re-runs the callback whenever either
-the dependencies or the underlying data store changes. You can learn more about [useSelect](/packages/data/README.md#useselect) in
-the [data module documentation](/packages/data/README.md#useselect).
+`useSelect` takes two arguments: a callback and dependencies. In broad strokes, it re-runs the callback whenever either the dependencies or the underlying data store changes. You can learn more about [useSelect](/packages/data/README.md#useselect) in the [data module documentation](/packages/data/README.md#useselect).
 -->
 `useSelect` は、コールバックと依存関係の2つの引数を取ります。依存関係、または基礎となるデータストアが変更された場合はいつでも、コールバックを再実行します。詳細については[データモジュールのドキュメント](https://github.com/WordPress/gutenberg/blob/trunk/packages/data/README.md)の [useSelect](https://github.com/WordPress/gutenberg/blob/trunk/packages/data/README.md#useselect) を参照してください。
 
@@ -215,8 +201,7 @@ function PagesList( { pages } ) {
 ## ステップ 4: 検索ボックスの追加
 
 <!--
-The list of pages is short for now; however, the longer it grows, the harder it is to work with. WordPress admins
-typically solves this problem with a search box – let’s implement one too!
+The list of pages is short for now; however, the longer it grows, the harder it is to work with. WordPress admins typically solves this problem with a search box – let’s implement one too!
 -->
 ページのリストは今のところ短いですが、長くなればなるほど、作業が難しくなります。WordPress の管理では通常、この種の問題を検索ボックスで解決します。私たちも検索ボックスを実装してみましょう。
 
@@ -245,18 +230,14 @@ function MyFirstApp() {
 ```
 
 <!--
-Note that instead of using an `input` tag, we took advantage of
-the [SearchControl](https://developer.wordpress.org/block-editor/reference-guides/components/search-control/) component.
-This is what it looks like:
+Note that instead of using an `input` tag, we took advantage of the [SearchControl](https://developer.wordpress.org/block-editor/reference-guides/components/search-control/) component. This is what it looks like:
 -->
 注意: `input`タグを使用する代わりに、[SearchControl](https://developer.wordpress.org/block-editor/reference-guides/components/search-control/) コンポーネントを利用します。
 
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter-field.jpg)
 
 <!--
-The field starts empty, and the contents are stored in the `searchTerm` state value. If you aren’t familiar with
-the [useState](https://reactjs.org/docs/hooks-state.html) hook, you can learn more
-in [React’s documentation](https://reactjs.org/docs/hooks-state.html).
+The field starts empty, and the contents are stored in the `searchTerm` state value. If you aren’t familiar with the [useState](https://reactjs.org/docs/hooks-state.html) hook, you can learn more in [React’s documentation](https://reactjs.org/docs/hooks-state.html).
 -->
 フィールドは空で始まり、内容は `searchTerm` ステート値に格納されます。[useState](https://reactjs.org/docs/hooks-state.html) フックがよく分からない場合は、[Reactのドキュメント](https://reactjs.org/docs/hooks-state.html)を参照してください。
 
@@ -266,10 +247,7 @@ We can now request only the pages matching the `searchTerm`.
 これで `searchTerm` にマッチするページのみをリクエストできます。
 
 <!--
-After checking with the [WordPress API documentation](https://developer.wordpress.org/rest-api/reference/pages/), we
-see that the [/wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) endpoint accepts a `search`
-query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query
-parameters as the third argument to `getEntityRecords` as below:
+After checking with the [WordPress API documentation](https://developer.wordpress.org/rest-api/reference/pages/), we see that the [/wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
 -->
 [WordPress API ドキュメント](https://developer.wordpress.org/rest-api/reference/pages/) で確認すると、[wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) エンドポイントが `search` クエリパラメータを受け入れ、_文字列にマッチしたものに結果を限定する_ ことがわかります。しかし、どのように使えばよいでしょう ? それには、カスタムクエリパラメータを、`getEntityRecords` の第3引数として指定します。
 
@@ -278,8 +256,7 @@ wp.data.select( 'core' ).getEntityRecords( 'postType', 'page', { search: 'home' 
 ```
 
 <!--
-Running that snippet in your browser’s dev tools will trigger a request to `/wp/v2/pages?search=home` instead of
-just `/wp/v2/pages`.
+Running that snippet in your browser’s dev tools will trigger a request to `/wp/v2/pages?search=home` instead of just `/wp/v2/pages`.
 -->
 ブラウザの開発ツールでこのスニペットを実行すると、`/wp/v2/pages` の代わりに、`/wp/v2/pages?search=home` へのリクエストが発生します。
 
@@ -308,8 +285,7 @@ function MyFirstApp() {
 ```
 
 <!--
-The `searchTerm` is now used as a `search` query parameter when provided. Note that `searchTerm` is also specified
-inside the list of `useSelect` dependencies to make sure `getEntityRecords` is re-run when the `searchTerm` changes.
+The `searchTerm` is now used as a `search` query parameter when provided. Note that `searchTerm` is also specified inside the list of `useSelect` dependencies to make sure `getEntityRecords` is re-run when the `searchTerm` changes.
 -->
 `searchTerm` が指定された場合、`search` クエリパラメータとして使用されます。注意: `searchTerm` はまた、`useSelect` の依存関係のリスト内でも使用されます。これは、`searchTerm` が変更された際に、`getEntityRecords` を再実行するためです。
 
@@ -384,33 +360,27 @@ Working outside of core-data, we would need to solve two problems here.
 core-data を使用せずに作業すると、2つの問題を解決する必要があります。
 
 <!--
-Firstly, out-of-order updates. Searching for „About” would trigger five API requests filtering for `A`, `Ab`, `Abo`, `Abou`, and
-`About`. Theese requests could finish in a different order than they started. It is possible that _search=A_ would resolve after _
-search=About_ and thus we’d display the wrong data.
+Firstly, out-of-order updates. Searching for „About” would trigger five API requests filtering for `A`, `Ab`, `Abo`, `Abou`, and `About`. Theese requests could finish in a different order than they started. It is possible that _search=A_ would resolve after _ search=About_ and thus we’d display the wrong data.
 -->
 まず、ランダムな更新の問題です。「About」を検索すると、`A`、`Ab`、`Abo`、`Abou`、`About` をフィルタリングする、5つのAPIリクエストが発生します。このリクエストは、呼び出しと異なる順番で終了する可能性があります。つまり、_search=About_ の後に _search=A_ が解決される可能性があり、誤ったデータが表示されます。
 
 <!--
-Gutenberg data helps by handling the asynchronous part behind the scenes. `useSelect` remembers the most recent call and
-returns only the data we expect.
+Gutenberg data helps by handling the asynchronous part behind the scenes. `useSelect` remembers the most recent call and returns only the data we expect.
 -->
 Gutenberg Data は、裏で非同期部分を処理します。`useSelect` は直近の呼び出しを記憶しており、期待するデータのみを返します。
 
 <!--
-Secondly, every keystroke would trigger an API request. If you typed `About`, deleted it, and retyped it, it would
-issue 10 requests in total even though we could reuse the data.
+Secondly, every keystroke would trigger an API request. If you typed `About`, deleted it, and retyped it, it would issue 10 requests in total even though we could reuse the data.
 -->
 次に、キー操作のたびにAPIリクエストが発生する問題です。例えば、`About` と入力した後に、それを削除し、再度入力した場合、データを再利用できるにもかかわらず、合計で10回のリクエストが発生します。
 
 <!--
-Gutenberg data helps by caching the responses to API requests triggered by `getEntityRecords()`  and reuses them on
-subsequent calls. This is especially important when other components rely on the same entity records.
+Gutenberg data helps by caching the responses to API requests triggered by `getEntityRecords()`  and reuses them on subsequent calls. This is especially important when other components rely on the same entity records.
 -->
 Gutenberg Data は、`getEntityRecords()` をトリガーとする API リクエストのレスポンスをキャッシュして、以降の呼び出しで再利用します。この動きは特に、他のコンポーネントが同じエンティティレコードに依存している場合に重要です。
 
 <!--
-All in all, the utilities built into core-data are designed to solve the typical problems so that you can focus on your application
-instead.
+All in all, the utilities built into core-data are designed to solve the typical problems so that you can focus on your application instead.
 -->
 つまり、core-data に組み込まれたユーティリティが、一般的な問題を解決するよう設計されているため、開発者はアプリケーションの開発に集中できます。
 
@@ -427,8 +397,7 @@ There is one problem with our search feature. We can’t be quite sure whether i
 ![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/unclear-status.jpg)
 
 <!--
-A few messages like  _Loading…_ or _No results_ would clear it up. Let’s implement them! First,  `PagesList` has to be
-aware of the current status:
+A few messages like  _Loading…_ or _No results_ would clear it up. Let’s implement them! First,  `PagesList` has to be aware of the current status:
 -->
 これは、「ロード中」や「結果がありません」のようなメッセージを出せばクリアになります。早速、実装しましょう。まず、 `PagesList` は現在の状態を認識する必要があります。
 
@@ -457,22 +426,19 @@ function MyFirstApp() {
 ```
 
 <!--
-Note that instead of building a custom loading indicator, we took advantage of
-the [Spinner](https://developer.wordpress.org/block-editor/reference-guides/components/spinner/) component.
+Note that instead of building a custom loading indicator, we took advantage of the [Spinner](https://developer.wordpress.org/block-editor/reference-guides/components/spinner/) component.
 -->
 注意: 独自のローディングインジケータを作成する代わりに、[Spinner](https://developer.wordpress.org/block-editor/reference-guides/components/spinner/) コンポーネントを活用しています。
 
 <!--
-We still need to know whether the pages selector `hasResolved` or not. We can find out using
-the  `hasFinishedResolution` selector:
+We still need to know whether the pages selector `hasResolved` or not. We can find out using the  `hasFinishedResolution` selector:
 -->
 ページセレクタが `hasResolved` かどうかを知る必要があります。これには、`hasFinishedResolution` セレクタを使用します。
 
 `wp.data.select('core').hasFinishedResolution( 'getEntityRecords', [ 'postType', 'page', { search: 'home' } ] )`
 
 <!--
-It takes the name of the selector and the _exact same arguments you passed to that selector_ and returns either `true` if the data was already loaded or `false`
-if we’re still waiting. Let’s add it to `useSelect`:
+It takes the name of the selector and the _exact same arguments you passed to that selector_ and returns either `true` if the data was already loaded or `false` if we’re still waiting. Let’s add it to `useSelect`:
 -->
 これはセレクタの名前と、_そのセレクタに渡したものと全く同じ引数_ を受け取り、データがすでにロードされていれば `true` を、まだ待っている場合は `false` を返します。これを `useSelect` に追加します。
 

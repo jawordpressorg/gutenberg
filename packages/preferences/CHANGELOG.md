@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 2.5.0 (2022-07-13)
+
+## 2.4.0 (2022-06-29)
+
+## 2.3.0 (2022-06-15)
+
+## 2.2.0 (2022-06-01)
+
+## 2.1.0 (2022-05-18)
+
+## 2.0.0 (2022-05-04)
+
 ### Breaking change
 
 -   The preferences package is no longer compatible with the `@wordpress/data` persistence plugin. Please use the new `setPersistenceLayer` API. ([#39795](https://github.com/WordPress/gutenberg/pull/39795))

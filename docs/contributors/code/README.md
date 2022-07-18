@@ -34,9 +34,9 @@ The Gutenberg project uses GitHub for managing code and tracking issues. The mai
 Gutenberg プロジェクトでは、コードの管理や問題の追跡に GitHub を使用しています。メインのリポジトリは [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg) です。
 
 <!--
-Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find issues to work on. The [good first issue](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) and [good first review](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) labels are good starting points.
+Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find issues to work on. The [good first issue](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) and [good first review](https://github.com/WordPress/gutenberg/pulls?q=is%3Aopen+is%3Apr+label%3A%22Good+First+Review%22) labels are good starting points.
 -->
-[issue リスト](https://github.com/wordpress/gutenberg/issues)を検索して、取りかかれそうな issue を探してください。[Good first issue](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) ラベルや [Good first review](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) ラベルが良い出発点になるでしょう。
+[issue リスト](https://github.com/wordpress/gutenberg/issues)を検索して、取りかかれそうな issue を探してください。[Good first issue](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) ラベルや [Good first review](https://github.com/WordPress/gutenberg/pulls?q=is%3Aopen+is%3Apr+label%3A%22Good+First+Review%22) ラベルが良い出発点になるでしょう。
 
 <!--
 ## Contributor Resources

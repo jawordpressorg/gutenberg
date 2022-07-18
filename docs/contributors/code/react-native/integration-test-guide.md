@@ -26,10 +26,12 @@ A test can be structured with the following parts:
 We also include examples of common tasks as well as tips in the following sections:
 
 <!-- 
+-   [Helpers](#helpers)
 -   [Common flows](#common-flows)
 -   [Tools](#tools)
 -   [Common pitfalls and caveats](#common-pitfalls-and-caveats)
  -->
+-   [Helpers](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#helpers)
 -   [Common flows](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#common-flows)
 -   [Tools](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#tools)
 -   [Common pitfalls and caveats](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/#common-pitfalls-and-caveats)
@@ -223,6 +225,10 @@ afterAll( () => {
 	} );
 } );
 ```
+
+## Helpers
+
+In the spirit of making easier writing integration tests for the native version, you can find a list of helper functions in [this README](https://github.com/WordPress/gutenberg/blob/HEAD/test/native/integration-test-helpers/README.md).
 
 ## Common flows
 

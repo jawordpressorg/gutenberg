@@ -23,8 +23,8 @@ One challenge of maintaining the representation of a block as a JavaScript objec
 ```js
 	attributes: {
 		content: {
-			type: 'array',
-			source: 'children',
+			type: 'string',
+			source: 'html',
 			selector: 'p',
 		},
 	},
@@ -43,7 +43,7 @@ In the code snippet above, when loading the editor, the `content` value will be 
 
 Earlier examples used the `createElement` function to create DOM nodes, but it's also possible to encapsulate this behavior into "components". This abstraction helps you share common behaviors and hide complexity in self-contained units.
 
-There are a number of [components available](/docs/reference-guides/packages/packages-editor.md#components) to use in implementing your blocks. You can see one such component in the code below: the [`RichText` component](/docs/reference-guides/packages/packages-editor.md#richtext) is part of the `wp-editor` package.
+There are a number of [components available](/docs/reference-guides/packages/packages-editor.md#components) to use in implementing your blocks. You can see one such component in the code below: the [`RichText` component](/docs/reference-guides/richtext.md) is part of the `wp-block-editor` package.
 
 The `RichText` component can be considered as a super-powered `textarea` element, enabling rich content editing including bold, italics, hyperlinks, etc.
 
@@ -53,7 +53,7 @@ To use the `RichText` component, and using ES5 code, remember to add `wp-block-e
 
 これまでのサンプルでは `createElement` 関数を使用して DOM ノードを作成しましたが、この動きを「コンポーネント」にカプセル化することができます。この抽象化により共通の動作を共有しやすくなり、複雑さを自己完結したユニット内に隠す事ができます。
 
-ブロックの実装に[利用できるコンポーネント](https://developer.wordpress.org/block-editor/packages/packages-editor/#components)が多数あります。以下のサンプルではそのうちの1つ [`RichText` コンポーネント](https://developer.wordpress.org/block-editor/packages/packages-editor/#richtext)を使用します。`RickTest` コンポーネントは `wp-editor` パッケージの一部です。
+ブロックの実装に[利用できるコンポーネント](https://developer.wordpress.org/block-editor/packages/packages-editor/#components)が多数あります。以下のサンプルではそのうちの1つ [`RichText` コンポーネント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/richtext/)を使用します。`RickTest` コンポーネントは `wp-editor` パッケージの一部です。
 
 `RichText` コンポーネントはパワーアップした `textarea` 要素と見なせます。ここでは太字、車体、ハイパーリンクなどのリッチコンテンツを編集できます。
 
