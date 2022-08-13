@@ -347,6 +347,8 @@ Create the asset file to load the dependencies for the scripts. The name of this
 ```
 
 <!-- 
+{% end %}
+
 ### Step 5: Confirm
  -->
 ### ステップ5: 確認

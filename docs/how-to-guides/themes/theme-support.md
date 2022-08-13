@@ -439,6 +439,30 @@ When set, users will be restricted to the default gradients provided in the bloc
  -->
 無効化するとユーザーは、ブロックエディターで提供されるデフォルトのグラデーション、またはテーマサポート設定 `editor-gradient-presets` で提供されたグラデーションに制限されます。
 
+<!-- 
+### Disabling base layout styles
+ -->
+### ベースレイアウトスタイルの無効化
+
+<!-- 
+_**Note:** Since WordPress 6.1._
+
+Themes can opt out of generated block layout styles that provide default structural styles for core blocks including Group, Columns, Buttons, and Social Icons. By using the following code, these themes commit to providing their own structural styling, as using this feature will result in core blocks displaying incorrectly in both the editor and site frontend:
+ -->
+_**注意:** WordPress 6.1以降_
+
+テーマは、グループ、カラム、ボタン、ソーシャルアイコンなどのコアブロックにデフォルトの構造スタイルを提供する、生成されたブロックレイアウトスタイルを拒否できます。次のコードを使用して、テーマは独自の構造スタイルを提供することをコミットします。提供せずに、この機能を使用すると、エディターとサイトのフロントエンドの両方でコアブロックが正しく表示されません。
+
+```php
+add_theme_support( 'disable-layout-styles' );
+```
+
+<!-- 
+For themes looking to customize `blockGap` styles or block spacing, see [the developer docs on Global Settings & Styles](/docs/how-to-guides/themes/theme-json/#what-is-blockgap-and-how-can-i-use-it).
+ -->
+`blockGap` スタイルやブロック間隔をカスタマイズしたいテーマは、[グローバル設定とスタイルに関する開発者向けドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)を参照してください。
+
+
 <!--
 ### Supporting custom line heights
  -->

@@ -68,6 +68,15 @@ WordPress 5.8のリリースから、ブロックタイプを登録する標準�
 			"message": "This is a notice!"
 		}
 	},
+	"variations": [
+		{
+			"name": "example",
+			"title": "Example",
+			"attributes": {
+				"message": "This is an example!"
+			},
+		}
+	]
 	"editorScript": "file:./build/index.js",
 	"script": "file:./build/script.js",
 	"viewScript": "file:./build/view.js",
@@ -433,9 +442,9 @@ An icon property should be specified to make it easier to identify a block. Thes
 ブロックを識別しやすくするために icon プロパティを指定してください。任意の WordPress Dashicons を指定できます。またスラッグは 非 js コンテキストでのフォールバックとなります。
 
 <!--
-**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/src/svg/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
+**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/packages-primitives) component to add accessibility attributes (aria-hidden, role, and focusable).
  -->
-**注意:** このプロパティはまた、クライアントサイドで、SVG 要素のソースで上書きすることもできます。加えて、このプロパティは背景色や前景色を含むオブジェクトとして、 JavaScript で定義できます。この色は、たとえばインサーター内で表示される場合にアイコンと一緒に使用されます。カスタム SVG アイコンは自動で [wp.primitives.SVG](/packages/primitives/src/svg/README.md) コンポーネントにラップされ、アクセシビリティ属性 (aria-hidden、role、focusable) が追加されます。
+**注意:** このプロパティはまた、クライアントサイドで、SVG 要素のソースで上書きすることもできます。加えて、このプロパティは背景色や前景色を含むオブジェクトとして、 JavaScript で定義できます。この色は、たとえばインサーター内で表示される場合にアイコンと一緒に使用されます。カスタム SVG アイコンは自動で [wp.primitives.SVG](https://github.com/WordPress/gutenberg/tree/trunk/packages/primitives) コンポーネントにラップされ、アクセシビリティ属性 (aria-hidden、role、focusable) が追加されます。
 
 ### Description
 
@@ -727,6 +736,50 @@ It provides structured example data for the block. This data is used to construc
 See the [the example documentation](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
  -->
 詳細については [ドキュメントの「example (オプション)」セクション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) を参照してください。
+
+### Variations
+
+<!-- 
+- Type: `object[]`
+- Optional
+- Localized: Yes (`title`, `description`, and `keywords` of each variation only)
+- Property: `variations`
+- Since: `WordPress 5.9.0`
+ -->
+- 型: `object[]`
+- オプション
+- ローカライズ: 可 (`title`, `description`, `keywords` それぞれのバリエーションのみ)
+- プロパティ: `variations`
+- Since: `WordPress 5.9.0`
+
+```json
+{
+	"variations": [
+		{
+			"name": "example",
+			"title": "Example",
+			"attributes": {
+				"level": 2,
+				"message": "This is an example!"
+			},
+			"scope": [ "block" ],
+			"isActive": [ "level" ]
+		}
+	]
+}
+```
+<!-- 
+Block Variations is the API that allows a block to have similar versions of it, but all these versions share some common functionality. Each block variation is differentiated from the others by setting some initial attributes or inner blocks. Then at the time when a block is inserted these attributes and/or inner blocks are applied.
+
+_Note: In JavaScript you can provide a function for the `isActive` property, and a React element for the `icon`. In the `block.json` file both only support strings_
+
+See the [the variations documentation](/docs/reference-guides/block-api/block-variations.md) for more details.
+ -->
+ブロックバリエーションは、あるブロックに類似のバージョンを持たせられる API ですが、これらのバージョンはすべて、共通の機能を共有します。各ブロックバリエーションは、いくつかの初期属性やインナーブロックの設定により、他のブロックと区別されます。ブロックを挿入すると、これらの属性やインナーブロックが適用されます。
+
+_注: JavaScriptでは、`isActive`プロパティに関数を、`icon` に React 要素を指定できます。`block.json` ファイルでは、どちらも文字列のみをサポートします。_
+
+詳細は[ドキュメントのバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
 
 ### Editor Script
 

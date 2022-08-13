@@ -3,18 +3,21 @@
  -->
 # データモジュールリファレンス
 
--   [**core**: WordPress Core Data](/docs/reference-guides/data/data-core.md)
--   [**core/annotations**: Annotations](/docs/reference-guides/data/data-core-annotations.md)
--   [**core/blocks**: Block Types Data](/docs/reference-guides/data/data-core-blocks.md)
--   [**core/block-editor**: The Block Editor’s Data](/docs/reference-guides/data/data-core-block-editor.md)
--   [**core/editor**: The Post Editor’s Data](/docs/reference-guides/data/data-core-editor.md)
--   [**core/edit-post**: The Editor’s UI Data](/docs/reference-guides/data/data-core-edit-post.md)
--   [**core/notices**: Notices Data](/docs/reference-guides/data/data-core-notices.md)
--   [**core/nux**: The NUX (New User Experience) Data](/docs/reference-guides/data/data-core-nux.md)
--   [**core/viewport**: The Viewport Data](/docs/reference-guides/data/data-core-viewport.md)
+-   [**core**: WordPress Core Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core/)
+-   [**core/annotations**: Annotations](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-annotations/)
+-   [**core/block-directory**: Block directory](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-block-directory/)
+-   [**core/block-editor**: The Block Editor’s Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-block-editor/)
+-   [**core/blocks**: Block Types Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-blocks/)
+-   [**core/customize-widgets**: Customize Widgets](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-customize-widgets/)
+-   [**core/edit-post**: The Editor’s UI Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-edit-post/)
+-   [**core/edit-site**: Edit Site](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-edit-site/)
+-   [**core/edit-widgets**: Edit Widgets](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-edit-widgets/)
+-   [**core/editor**: The Post Editor’s Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/)
+-   [**core/keyboard-shortcuts**: The Keyboard Shortcuts Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-keyboard-shortcuts/)
+-   [**core/notices**: Notices Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-notices/)
+-   [**core/nux**: The NUX (New User Experience) Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-nux/)
+-   [**core/preferences**: Preferences](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-preferences/)
+-   [**core/reusable-blocks**: Reusable blocks](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-reusable-blocks/)
+-   [**core/rich-text**: Rich Text](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-rich-text/)
+-   [**core/viewport**: The Viewport Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-viewport/)
 
- ## データモジュール一覧
-
-原文およびその下のページを参照してください。
-
-https://developer.wordpress.org/block-editor/data/

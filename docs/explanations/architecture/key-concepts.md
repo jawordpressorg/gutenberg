@@ -95,7 +95,7 @@ Given a block type, a block variation is a predefined set of its initial attribu
 ## 再利用可能ブロック
 
 <!--
-A reusable blocks is a block (or multiple blocks) that can be inserted and edited globally at once. If a reusable block is edited in one place, those changes are reflected across all posts and pages that that block is used. Examples of reusable blocks include a block consisting of a heading whose content and a custom color that would be appear on multiple pages of the site and sidebar widgets that would appear on every page.
+A reusable blocks is a block (or multiple blocks) that can be inserted and edited globally at once. If a reusable block is edited in one place, those changes are reflected across all posts and pages that block is used. Examples of reusable blocks include a block consisting of a heading whose content and a custom color that would be appear on multiple pages of the site and sidebar widgets that would appear on every page.
  -->
 再利用可能ブロックは、挿入し、一度にまとめて編集できる単一または複数のブロックです。ある場所で再利用可能ブロックを編集すると、同じブロックを使用しているすべての投稿や固定ページで変更が反映されます。例えば、見出しのコンテンツとカスタムカラーを含むブロックを再利用可能ブロックとして、サイトの複数のページや、全ページに表示されるサイドバーウィジェット内で使用できます。
 

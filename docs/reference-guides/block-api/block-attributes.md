@@ -334,7 +334,27 @@ Most attributes from markup will be of type `string`. Numeric attributes in HTML
  -->
 マークアップからのほとんどの属性のタイプは `string` です。HTML の数字の属性も文字列として保存され、自動では変換されません。
 
+<!-- 
+_Example_: Extract the `width` attribute from an image found in the block's markup.
+
+Saved content:
+ -->
+_例_: ブロックのマークアップにある画像から `width` 属性を取り出す。
+
+保存されたコンテンツ:
+
+```html
+<div>
+	Block Content
+
+	<img src="https://lorempixel.com/1200/800/" width="50" />
+</div>
+```
+<!-- 
 Attribute definition:
+ -->
+属性定義:
+
 ```js
 {
 	width: {
@@ -361,6 +381,22 @@ The only exception is when checking for the existence of an attribute (for examp
 例外は `button` の `disabled` 属性のような、属性の存在を確認する場合です。この場合にはタイプ `boolean` を使用でき、保存した値も boolean になります。
 
 <!-- 
+_Example_: Extract the `disabled` attribute from a button found in the block's markup.
+
+Saved content:
+ -->
+_例_: ブロックのマークアップにあるボタンから、`disabled` 属性を取り出す。
+
+保存されたコンテンツ:
+
+```html
+<div>
+	Block Content
+
+	<button type="button" disabled>Button</button>
+</div>
+```
+<!--
 Attribute definition:
  -->
 属性定義:
@@ -408,8 +444,12 @@ Use `text` to extract the inner text from markup. Note that HTML is returned acc
 マークアップから内部のテキストを取り出すには、`text` を使用します。注意: HTML は [`textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) のルールに基づいて返されます。
 
 <!--
+_Example_: Extract the `content` attribute from a figcaption element found in the block's markup.
+
 Saved content:
  -->
+_例_: ブロックのマークアップにある figcaption 要素から、`content` 属性を取り出す。
+
 保存されたコンテンツ:
 
 ```html
@@ -447,8 +487,12 @@ Another example, using `text` as the source, and using `.my-content` class as th
 次の例では source として `text`、selector として `.my-content` クラスを使用してテキストを抽出しています。
 
 <!--
+_Example_: Extract the `content` attribute from an element with `.my-content` class found in the block's markup.
+
 Saved content:
  -->
+_例_: ブロックのマークアップにある `.my-content` クラス付きの要素から、`content` 属性を取り出す。
+
 保存されたコンテンツ:
 
 ```html
@@ -493,9 +537,14 @@ Use `html` to extract the inner HTML from markup.
  -->
 
 <!--
-Use `html` to extract the inner HTML from markup. Note that text is returned according to the rules of [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerHTML).
+Use `html` to extract the inner HTML from markup. Note that text is returned according to the rules of [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML).
  -->
-マークアップから内部の HTML を取り出すには、`html` を使用します。注意: テキストは [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerHTML) のルールに基づいて返されます。
+マークアップから内部の HTML を取り出すには、`html` を使用します。注意: テキストは [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) のルールに基づいて返されます。
+
+<!-- 
+_Example_: Extract the `content` attribute from a figcaption element found in the block's markup.
+ -->
+_例_: ブロックのマークアップにある figcaption 要素から `content` 属性を取り出す。
 
 <!--
 Saved content:
@@ -538,6 +587,25 @@ Use the `multiline` property to extract the inner HTML of matching tag names for
 `RickText` 内から複数のタグ名に合致する內部 HTML を取り出すには `multiline` プロパティを使用してください。
 
 <!-- 
+_Example_: Extract the `content` attribute from a blockquote element found in the block's markup.
+
+Saved content:
+ -->
+_例_: ブロックのマークアップにある blockquote 要素から `content` 属性を取り出す。
+
+保存されたコンテンツ:
+
+```html
+<div>
+	Block Content
+
+	<blockquote>
+		<p>First line</p>
+		<p>Second line</p>
+	</blockquote>
+</div>
+```
+<!--
 Attribute definition:
  -->
 属性定義:

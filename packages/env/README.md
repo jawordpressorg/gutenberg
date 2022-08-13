@@ -26,7 +26,7 @@ The local environment will be available at http://localhost:8888 (Username: `adm
 
 ## Prerequisites
 
-`wp-env` requires Docker to be installed. There are instructions available for installing Docker on [Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/), [all other versions of Windows](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script).
+`wp-env` requires Docker to be installed. There are instructions available for installing Docker on [Windows](https://docs.docker.com/desktop/install/windows-install/), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/desktop/install/linux-install/).
 
 Node.js and NPM are required. The latest LTS version of Node.js is used to develop `wp-env` and is recommended.
  -->
@@ -34,7 +34,7 @@ http://localhost:8888 (ユーザー名: `admin`、パスワード: `password`) �
 
 ## 前提ソフトウエア
 
-`wp-env` を使用するにはまず Docker をインストールしてください。インストールの詳細については以下の OS ごとのドキュメントを参照してください。[Windows 10 Pro](https://docs.docker.com/docker-for-windows/install/)、[Windows の他のバージョン](https://docs.docker.com/toolbox/toolbox_install_windows/), [macOS](https://docs.docker.com/docker-for-mac/install/)、[Linux](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script)
+`wp-env` を使用するにはまず Docker をインストールしてください。インストールの詳細については以下の OS ごとのドキュメントを参照してください。[Windows](https://docs.docker.com/desktop/install/windows-install/)、[macOS](https://docs.docker.com/docker-for-mac/install/)、[Linux](https://docs.docker.com/desktop/install/linux-install/)
 
 Node.js と NPM も必要です。`wp-env` の開発には最新の LTS バージョンの Node.js を使用しているため、これを推奨します。
 
@@ -74,7 +74,21 @@ $ npm i @wordpress/env --save-dev
 <!--
 Then modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
  -->
+<!-- 
 次に package.json を変更し、npm `scripts` (https://docs.npmjs.com/misc/scripts) にコマンドを追加します。
+ -->
+
+<!-- 
+At this point, you can use the local, project-level version of wp-env via [`npx`](https://www.npmjs.com/package/npx), a utility automatically installed with `npm`.`npx` finds binaries like wp-env installed through node modules. As an example: `npx wp-env start --update`.
+
+If you don't wish to use `npx`, modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
+ -->
+この時点で、ローカルのプロジェクトレベルの wp-env を [`npx`](https://www.npmjs.com/package/npx) で使用できます。これは `npm` とともに自動的にインストールされるユーティリティです。`npx` は node モジュールを通してインストールされた wp-env などのバイナリを見つけます。例: `npx wp-env start --update`。
+
+<!-- 
+If you don't wish to use `npx`, modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
+ -->
+`npx` を使いたくなければ、package.json を変更し、npm `scripts` (https://docs.npmjs.com/misc/scripts) にコマンドを追加します。
 
 ```json
 "scripts": {
@@ -88,12 +102,12 @@ When installing `wp-env` in this way, all `wp-env` commands detailed in these do
 
 <!--
 ```sh
-# You must add another double dash to pass the "update" flag to wp-env
+# You must add another double dash to pass flags to the script (wp-env) rather than to npm itself
 $ npm run wp-env start -- --update
 ```
  -->
 ```sh
-# wp-env に "update" を渡すには別の二重ダッシュ(-)を追加する必要があります。
+# npm に対してではなく、スクリプト (wp-env) にフラグを渡すには、別の二重ダッシュ(--)を追加する必要があります。
 $ npm run wp-env start -- --update
 ```
 
@@ -196,25 +210,24 @@ Running `docker ps` and inspecting the `PORTS` column allows you to determine wh
 
 You may also specify the port numbers in your `.wp-env.json` file, but the environment variables take precedent.
 
-### 3. Restart `wp-env`
+### 3. Restart `wp-env` with updates
 
 Restarting `wp-env` will restart the underlying Docker containers which can fix many issues.
 
-To restart `wp-env`:
+To restart `wp-env`, just run `wp-env start` again. It will automatically stop and start the container. If you also pass the `--update` argument, it will download updates and configure WordPress agian.
  -->
 `docker ps` を実行し `PORTS` 列を参照すると、現在 `wp-env` がどのポートを使用しているかを調べることができます。
 
 `.wp-env.json` ファイル内にポート番号を指定することもできますが、環境変数が指定されるとそちらが優先されます。
 
-### 3. `wp-env` の再起動
+### 3. 更新と `wp-env` の再起動
 
 `wp-env` を再起動すると、内部で使用される Docker コンテナが再起動され、多くの問題を解消します。
 
-`wp-env` を再起動するには、
+`wp-env` を再起動するには、`wp-env start` を再実行するだけです。自動的にコンテナを停止し、起動します。引数に `--update` を渡すと、更新をダウンロードし、WordPress を再設定します。
 
 ```sh
-$ wp-env stop
-$ wp-env start
+$ wp-env start --update
 ```
 
 <!--
@@ -266,17 +279,17 @@ $ wp-env clean all
 $ wp-env start
 ```
 <!--
-### 6. Nuke everything and start again 🔥
+### 6. Destroy everything and start again 🔥
 
-When all else fails, you can use `wp-env destroy` to forcibly remove all of the underlying Docker containers and volumes. This will allow you to start from scratch.
+When all else fails, you can use `wp-env destroy` to forcibly remove all of the underlying Docker containers, volumes, and files. This will allow you to start from scratch.
 
-To nuke everything:
+To do so:
 
 **⚠️ WARNING: This will permanently delete any posts, pages, media, etc. in the local WordPress installation.**
  -->
 ### 6. すべてを破壊して、最初からやり直す 🔥
 
-上のすべてがうまくいかない場合、`wp-env destroy` を使用してローカルの Docker コンテナとボリュームを強制的に削除できます。ゼロからやり直すことができます。
+上のすべてがうまくいかない場合、`wp-env destroy` を使用してローカルの Docker コンテナ、ボリューム、ファイルを強制的に削除できます。ゼロからやり直すことができます。
 
 すべてを破壊するには
 
@@ -284,6 +297,7 @@ To nuke everything:
 
 ```sh
 $ wp-env destroy
+# This new instance is a fresh start with no existing data:
 $ wp-env start
 ```
 <!--
@@ -313,6 +327,27 @@ wp-env start --debug
 	"dockerComposeConfigPath": "/Users/$USERNAME/.wp-env/5a619d332a92377cd89feb339c67b833/docker-compose.yml",
 	...
 ```
+
+<!-- 
+## Using included WordPress PHPUnit test files
+ -->
+## 同梱された WordPress PHPUnit テストファイルの使用
+
+<!-- 
+Out of the box `wp-env` includes the [WordPress' PHPUnit test files](https://develop.svn.wordpress.org/trunk/tests/phpunit/) corresponding to the version of WordPress installed. There is an environment variable, `WP_TESTS_DIR`, which points to the location of these files within each container. By including these files in the environment, we remove the need for you to use a package or install and mount them yourself. If you do not want to use these files, you should ignore the `WP_TESTS_DIR` environment variable and load them from the location of your choosing.
+ -->
+`wp-env` にはデフォルトで、インストールされる WordPress のバージョンに対応した [WordPress の PHPUnit テストファイル](https://develop.svn.wordpress.org/trunk/tests/phpunit/) が含まれます。環境変数 `WP_TESTS_DIR` は、各コンテナ内のこれらのファイルの場所を指定します。これらのファイルが環境に含まれるため、パッケージを使用したり、自分でインストールしてマウントしたりする必要はありません。これらのファイルを使用したくない場合は、環境変数 `WP_TESTS_DIR` を無視して、好きな場所から読み込めます。
+
+<!-- 
+### Customizing the `wp-tests-config.php` file
+ -->
+### `wp-tests-config.php` ファイルのカスタマイズ
+
+<!-- 
+While we do provide a default `wp-tests-config.php` file within the environment, there may be cases where you want to use your own. WordPress provides a `WP_TESTS_CONFIG_FILE_PATH` constant that you can use to change the `wp-config.php` file used for testing. Set this to a desired path in your `bootstrap.php` file and the file you've chosen will be used instead of the one included in the environment.
+ -->
+環境内にはデフォルトで `wp-tests-config.php` ファイルがありますが、独自のファイルを使いたい場合もあるでしょう。WordPress には `WP_TESTS_CONFIG_FILE_PATH` 定数があり、これを使用するとテストに使用する `wp-config.php` ファイルを変更できます。これを `bootstrap.php` ファイル内の任意のパスに設定すると、環境に含まれるファイルの代わりに、選択したファイルが使用されます。
+
 <!--
 ## Using Xdebug
  -->
@@ -347,12 +382,14 @@ wp-env start
 wp-env start --xdebug=profile,trace,debug
 ```
 <!-- 
-When you're running `wp-env` using `npm run`, like when working in the Gutenberg repo or when having `wp-env` as a local project dependency, don't forget to add an extra double dash before the `--xdebug` command:
+When you're running `wp-env` using `npm run`, like when working in the Gutenberg repo or when `wp-env` is a local project dependency, don't forget to add an extra double dash before the `--xdebug` command:
  -->
-`npm run` を使って `wp-env` を実行する場合、たとえば、Gutenberg リポジトリで作業刷る場合や、`wp-env` をプロジェクトのローカルな依存関係として持つ場合、`--xdebug` コマンドの前に、忘れずに二重ダッシュを追加してください。
+`npm run` を使って `wp-env` を実行する場合、たとえば、Gutenberg リポジトリで作業刷る場合や、`wp-env` にプロジェクトのローカルな依存関係がある場合、`--xdebug` コマンドの前に、忘れずに二重ダッシュを追加してください。
 
 ```sh
 npm run wp-env start -- --xdebug
+# Alternatively, use npx:
+npx wp-env start --xdebug
 ```
 <!-- 
 If you forget about that, the `--xdebug` parameter will be passed to NPM instead of the `wp-env start` command and it will be ignored.
@@ -905,7 +942,7 @@ SCRIPT_DEBUG: true,
 WP_PHP_BINARY: 'php',
 WP_TESTS_EMAIL: 'admin@example.org',
 WP_TESTS_TITLE: 'Test Blog',
-WP_TESTS_DOMAIN: 'http://localhost',
+WP_TESTS_DOMAIN: 'localhost',
 WP_SITEURL: 'http://localhost',
 WP_HOME: 'http://localhost',
 ```
@@ -925,13 +962,13 @@ tests インスタンスでは同じすべての値が定義されますが、`W
 <!--
 ### Examples
 
-#### Latest production WordPress + current directory as a plugin
+#### Latest stable WordPress + current directory as a plugin
 
 This is useful for plugin development.
  -->
 ### 例
 
-#### 最新のリリース版 WordPress + 現行ディレクトリーのプラグインをインストールし有効化
+#### 最新の安定版 WordPress + 現行ディレクトリーのプラグインをインストールし有効化
 
 この設定はプラグイン開発時に便利です。
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-const { snakeCase, camelCase, upperFirst } = require( 'lodash' );
+const { pascalCase, snakeCase } = require( 'change-case' );
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ module.exports = async (
 		namespaceSnakeCase: snakeCase( namespace ),
 		slug,
 		slugSnakeCase: snakeCase( slug ),
-		slugPascalCase: upperFirst( camelCase( slug ) ),
+		slugPascalCase: pascalCase( slug ),
 		title,
 		description,
 		dashicon,

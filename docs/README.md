@@ -108,6 +108,18 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 詳細な変更履歴は、[こちら](https://ja.wordpress.org/team/handbook/block-editor/handbook/block-editor-changelog/)を参照してください。
 
+2022/8/13
+
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - blockGap の値 [#42447](https://github.com/WordPress/gutenberg/pull/42447)、新要素と疑似セレクタ[#42412](https://github.com/WordPress/gutenberg/pull/42412)
+- [theme.json V2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - typography に fluid 追加 [#39529](https://github.com/WordPress/gutenberg/pull/39529)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - disable-layout-styles追加 [#42544](https://github.com/WordPress/gutenberg/pull/42544)
+- [メタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - Valiation [#425639](https://github.com/WordPress/gutenberg/pull/42539)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - コメント legacy 追加、投稿コメント削除 [#41807](https://github.com/WordPress/gutenberg/pull/41807)、投稿のアイキャッチ画像 linkTarget, rel 追加 [#42853](https://github.com/WordPress/gutenberg/pull/42853), クエリータイトル showSearchTerm 追加 [#42662](https://github.com/WordPress/gutenberg/pull/42662)、アーカイブ showLabel 追加 [#43025](https://github.com/WordPress/gutenberg/pull/43025)、投稿日 displayType 追加 [#42312](https://github.com/WordPress/gutenberg/pull/42312)、見出しと段落 gradients 追加 [#43119](https://github.com/WordPress/gutenberg/pull/43119)
+- [フックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/filters/) - フィルターリファrンスから改名
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/)、[@wordpress/e2e-tests](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-e2e-tests/) - Node 14 以上 [#43141](https://github.com/WordPress/gutenberg/pull/43141)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - PHPUnit [#41780](https://github.com/WordPress/gutenberg/pull/41780)、WordPress を git から取得 [#42826](https://github.com/WordPress/gutenberg/pull/42826)
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - cherry-picking [#42932](https://github.com/WordPress/gutenberg/pull/42932)
+
 2022/7/18
 
 - [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - 依存関係の追加 [#41511](https://github.com/WordPress/gutenberg/pull/41511)

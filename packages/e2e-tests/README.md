@@ -38,9 +38,9 @@ Gutenberg リポジトリでは、以下のコマンドを実行できます。
 
 ```json
 {
-	"test-e2e": "wp-scripts test-e2e --config packages/e2e-tests/jest.config.js",
-	"test-e2e:debug": "wp-scripts --inspect-brk test-e2e --config packages/e2e-tests/jest.config.js --puppeteer-devtools",
-	"test-e2e:watch": "npm run test-e2e -- --watch"
+	"test:e2e": "wp-scripts test-e2e --config packages/e2e-tests/jest.config.js",
+	"test:e2e:debug": "wp-scripts --inspect-brk test-e2e --config packages/e2e-tests/jest.config.js --puppeteer-devtools",
+	"test:e2e:watch": "npm run test:e2e -- --watch"
 }
 ```
 <!--
@@ -49,7 +49,7 @@ Gutenberg リポジトリでは、以下のコマンドを実行できます。
 ### すべての実行可能なテストを実行
 
 ```bash
-npm run test-e2e
+npm run test:e2e
 ```
 <!--
 ### Run all available tests and listen for changes.
@@ -58,7 +58,7 @@ npm run test-e2e
 
 
 ```bash
-npm run test-e2e:watch
+npm run test:e2e:watch
 ```
 <!--
 ### Run a specific test file
@@ -67,9 +67,9 @@ npm run test-e2e:watch
 
 <!--
 ```bash
-npm run test-e2e -- packages/e2e-test/<path_to_test_file>
+npm run test:e2e -- packages/e2e-test/<path_to_test_file>
 # Or, in order to watch for changes:
-npm run test-e2e:watch -- packages/e2e-test/<path_to_test_file>
+npm run test:e2e:watch -- packages/e2e-test/<path_to_test_file>
 ```
  -->
 ```bash
@@ -89,7 +89,7 @@ Makes e2e tests available to debug in a Chrome Browser.
 e2e テストを Chrome ブラウザでデバッグできるようにします。
 
 ```bash
-npm run test-e2e:debug
+npm run test:e2e:debug
 ```
 
 <!--
@@ -135,7 +135,7 @@ This will run jest, targetting the spec file currently open in the editor. `vsco
 <!--
 **Note**: This package requires Node.js 12.0.0 or later. It is not compatible with older versions.
  -->
-**注意**: このパッケージは Node.js 12.0.0 以降が必要です。古いバージョンと互換性はありません。
+**注意**: このパッケージは Node.js 14.0.0 以降が必要です。古いバージョンと互換性はありません。
 
 <!-- 
 ## Contributing to this package

@@ -31,12 +31,12 @@ Display a date archive of your posts. ([Source](https://github.com/WordPress/gut
 -	**Name:** core/archives
 -	**カテゴリ:** widgets
 -	**Supports:** align, ~~html~~
--	**Attributes:** displayAsDropdown, showPostCounts, type
+-	**Attributes:** displayAsDropdown, showLabel, showPostCounts, type
 -->
 -	**名前:** core/archives
 -	**カテゴリー:** widgets
 -	**サポート:** align, ~~html~~
--	**属性:** displayAsDropdown, showPostCounts, type
+-	**属性:** displayAsDropdown, showLabel, showPostCounts, type
 
 <!--
 ## Audio
@@ -409,12 +409,12 @@ An advanced block that allows displaying post comments using different visual co
 -	**Name:** core/comments
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
--	**Attributes:** tagName
+-	**Attributes:** legacy, tagName
  -->
 -	**名前:** core/comments
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), color (background, gradients, link, text), ~~html~~
--	**属性:** tagName
+-	**属性:** legacy, tagName
 
 <!--
 ## Comments Pagination
@@ -685,12 +685,12 @@ Introduce new sections and organize content to help visitors (and search engines
 <!--
 -	**Name:** core/heading
 -	**Category:** text
--	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, color (background, link, text), spacing (margin), typography (fontSize, lineHeight), ~~className~~
+-	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin), typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** content, level, placeholder, textAlign
 -->
 -	**名前:** core/heading
 -	**カテゴリー:** text
--	**サポート:** __unstablePasteTextInline, align (full, wide), anchor, color (background, link, text), spacing (margin), typography (fontSize, lineHeight), ~~className~~
+-	**サポート:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin), typography (fontSize, lineHeight), ~~className~~
 -	**属性:** content, level, placeholder, textAlign
 
 <!--
@@ -1063,12 +1063,12 @@ Start with the basic building block of all narrative. ([Source](https://github.c
 <!--
 -	**Name:** core/paragraph
 -	**Category:** text
--	**Supports:** __unstablePasteTextInline, anchor, color (background, link, text), typography (fontSize, lineHeight), ~~className~~
+-	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** align, content, direction, dropCap, placeholder
 -->
 -	**名前:** core/paragraph
 -	**カテゴリー:** text
--	**サポート:** __unstablePasteTextInline, anchor, color (background, link, text), typography (fontSize, lineHeight), ~~className~~
+-	**サポート:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
 -	**属性:** align, content, direction, dropCap, placeholder
 
 <!--
@@ -1178,23 +1178,29 @@ This block is deprecated. Please use the Comments block instead. ([Source](https
 <!--
 ## Post Comments (deprecated)
 -->
-## Post Comments / 投稿コメント (非推奨)
 
+<!-- 
+## Post Comments / 投稿コメント (非推奨)
+ -->
 <!-- 
 This block is deprecated. Please use the Comments block instead. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
  -->
-のブロックは非推奨です。代わりにコメントブロックを使用してください。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
 
+<!-- 
+このブロックは非推奨です。代わりにコメントブロックを使用してください。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments))
+ -->
 <!--
 -	**Name:** core/post-comments
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~inserter~~
 -	**Attributes:** textAlign
 -->
+<!-- 
 -	**名前:** core/post-comments
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** textAlign
+ -->
 
 <!--
 ## Post Comments Count
@@ -1294,12 +1300,12 @@ Add the date of this post. ([Source](https://github.com/WordPress/gutenberg/tree
 -	**Name:** core/post-date
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** format, isLink, textAlign
+-	**Attributes:** displayType, format, isLink, textAlign
 -->
 -	**名前:** core/post-date
 -	**カテゴリー:** theme
 -	**サポート:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
--	**属性:** format, isLink, textAlign
+-	**属性:** displayType, format, isLink, textAlign
 
 <!--
 ## Post Excerpt
@@ -1336,12 +1342,12 @@ Display a post's featured image. ([Source](https://github.com/WordPress/gutenber
 -	**Name:** core/post-featured-image
 -	**Category:** theme
 -	**Supports:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**Attributes:** height, isLink, scale, sizeSlug, width
+-	**Attributes:** height, isLink, linkTarget, rel, scale, sizeSlug, width
 -->
 -	**名前:** core/post-featured-image
 -	**カテゴリー:** theme
 -	**サポート:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**属性:** height, isLink, scale, sizeSlug, width
+-	**属性:** height, isLink, linkTarget, rel, scale, sizeSlug, width
 
 <!--
 ## Post Navigation Link
@@ -1609,12 +1615,12 @@ Display the query title. ([Source](https://github.com/WordPress/gutenberg/tree/t
 -	**Name:** core/query-title
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** level, textAlign, type
+-	**Attributes:** level, showSearchTerm, textAlign, type
 -->
 -	**名前:** core/query-title
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), color (background, gradients, text), spacing (margin), typography (fontSize, lineHeight), ~~html~~
--	**属性:** level, textAlign, type
+-	**属性:** level, showSearchTerm, textAlign, type
 
 <!--
 ## Quote

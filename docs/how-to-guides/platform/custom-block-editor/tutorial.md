@@ -940,7 +940,7 @@ And with that we have covered the render of our custom `<BlockEditor>`!
 ## ブロックの永続性
 <!--
 We've come a long way on our journey to create a custom block editor. But there is
-one major area left to touch upon - Block persistance; that is the act of having our
+one major area left to touch upon - Block persistence; that is the act of having our
 Blocks saved and **available _between_ page refreshes**.
 
 ![alt text](https://wordpress.org/gutenberg/files/2020/03/block-persistance.gif 'Screencapture showing added Blocks being restored between page refreshes.')

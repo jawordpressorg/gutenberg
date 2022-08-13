@@ -327,6 +327,7 @@ This field describes the format of the `theme.json` file. The current and only v
 このフィールドは、`theme.json` ファイルのフォーマットを表します。現在の唯一のバージョンは1です。
  -->
 <!-- 
+
 This field describes the format of the `theme.json` file. The current version is [v2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/), [introduced in WordPress 5.9](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). It also works with the current Gutenberg plugin.
  -->
 このフィールドは、`theme.json` ファイルのフォーマットを表します。現在のバージョンは [v2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) で、[WordPress 5.9 で導入されました](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)。現行の Gutenberg プラグインでも動作します。
@@ -776,6 +777,7 @@ body {
 .wp-block-group.has-white-border-color { border-color: #444 !important; }
 
 ```
+
 {% end %}
 
 <!--
@@ -1121,7 +1123,10 @@ Each block declares which style properties it exposes via the [block supports me
 			"h3": {},
 			"h4": {},
 			"h5": {},
-			"h6": {}
+			"h6": {},
+			"heading": {},
+			"button": {},
+			"caption": {}
 		},
 		"blocks": {
 			"core/group": {
@@ -1245,40 +1250,95 @@ p { /* The core/paragraph opts out from the default behaviour and uses p as a se
 {% end %}
  -->
 
+<!-- 
+#### Referencing a style
+ -->
+#### スタイルの参照
+
+<!-- 
+A block can be styled using a reference to a root level style. This feature is supported by Gutenberg.
+If you register a background color for the root using styles.color.background:
+ -->
+ブロックは、ルートレベルのスタイルへの参照を使用して、スタイルを設定できます。この機能は Gutenberg でサポートされています。
+ルートの背景色を styles.color.background を使用して登録すると、
+
+```JSON
+"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--primary)"
+		}
+	}
+```
+<!-- 
+You can use `ref: "styles.color.background"`  to re-use the style for a block:
+ -->
+`ref: "styles.color.background"` を使用して、ブロックにスタイルを再利用できます。
+
+```JSON
+{
+	"color": {
+		"text": { ref: "styles.color.background" }
+	}
+}
+```
+
 <!--
 #### Element styles
  -->
 #### 要素スタイル
 
 <!--
-In addition to top-level and block-level styles, there's the concept of elements that can used in both places. There's a closed set of them:
+In addition to top-level and block-level styles, there's the concept of elements that can be used in both places. There's a closed set of them:
  -->
 トップレベル、ブロックレベルのスタイルに加えて、両方の場所で使用できる要素のコンセプトがあります。
 
+<!-- 
+Supported by Gutenberg:
+
+- `button`: maps to the `wp-element-button` CSS class. Also maps to `wp-block-button__link` for backwards compatibility.
+- `caption`: maps to the `.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption` CSS classes.
+- `heading`: maps to all headings, the `h1 to h6` CSS selectors.
+
+Supported by WordPress:
+ -->
+Gutenberg によるサポート
+
+- `button`: `wp-element-button` CSS クラスにマップ。後方互換性のため、`wp-block-button__link` にもマップ
+- `caption`: `.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption` CSS クラスにマップ
+- `heading`: すべての見出し、`h1` から `h6` CSS セレクタにマップ
+
 <!--
-- `link`: maps to the `a` CSS selector.
+Supported by WordPress:
+ -->
+WordPress によるサポート
+
+<!--
 - `h1`: maps to the `h1` CSS selector.
 - `h2`: maps to the `h2` CSS selector.
 - `h3`: maps to the `h3` CSS selector.
 - `h4`: maps to the `h4` CSS selector.
 - `h5`: maps to the `h5` CSS selector.
 - `h6`: maps to the `h6` CSS selector.
+- `link`: maps to the `a` CSS selector.
  -->
-- `link`: `a` CSS セレクタにマップ
 - `h1`: `h1` CSS セレクタにマップ
 - `h2`: `h2` CSS セレクタにマップ
 - `h3`: `h3` CSS セレクタにマップ
 - `h4`: `h4` CSS セレクタにマップ
 - `h5`: `h5` CSS セレクタにマップ
 - `h6`: `h6` CSS セレクタにマップ
+- `link`: `a` CSS セレクタにマップ
 
 <!--
 If they're found in the top-level the element selector will be used. If they're found within a block, the selector to be used will be the element's appended to the corresponding block.
  -->
 トップレベルにあれば、要素セレクタが使用されます。ブロック内にあれば、使用されるセレクタは、対応するブロックに追加された形の要素セレクタになります。
 
+<!-- 
 {% codetabs %}
 {% Input %}
+ -->
+**入力**
 
 ```json
 {
@@ -1323,9 +1383,10 @@ If they're found in the top-level the element selector will be used. If they're 
 	}
 }
 ```
-
-**出力**
+<!-- 
 {% Output %}
+ -->
+**出力**
 
 ```css
 body {
@@ -1347,37 +1408,64 @@ h3 {
 	font-size: var( --wp--preset--font-size--smaller );
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 The `defaults` block selector can't be part of the `styles` section and will be ignored if it's present. The `root` block selector will generate a style rule with the `:root` CSS selector.
  -->
+<!--  
 `defaults` ブロックセレクタは、`styles` セクションの一部にはなれず、あっても無視されます。`root` ブロックセレクタはなることはできず、`:root` CSS セレクタと共にスタイルルールを生成します。
-
+ -->
 <!--
 ### Other theme metadata
  -->
+<!-- 
 ### その他のテーマのメタデータ
-
+ -->
 <!--
 There's a growing need to add more theme metadata to the theme.json. This section lists those other fields:
  -->
+<!-- 
 theme.json にはさらに多くのテーマのメタデータを追加するニーズがあります。このセクションでは、それら他のフィールドを挙げます。
-
+ -->
 <!--
 **customTemplates**: within this field themes can list the custom templates present in the `block-templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
  -->
+<!-- 
 **customTemplates**: このフィールド内にテーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
+ -->
+ 
+<!-- 
+##### Element pseudo selectors
+ -->
+##### 要素疑似セレクタ
+<!-- 
+Pseudo selectors `:hover`, `:focus`, `:visited` are supported by Gutenberg.
+ -->
+疑似セレクタ `:hover`、`:focus`、`:visited` を Gutenberg はサポートします。
+
+```json
+"elements": {
+		"link": {
+			"color": {
+				"text": "green"
+			},
+			":hover": {
+				"color": {
+					"text": "hotpink"
+				}
+			}
+		}
+	}
+```
 
 ### customTemplates
 
-<!--
-<div class="callout callout-alert">
-This field is only allowed when the Gutenberg plugin is active. In WordPress 5.8 will be ignored.
-</div>
+<!-- 
+<div class="callout callout-alert">Supported in WordPress from version 5.9.</div>
  -->
-> このフィールドは、Gutenberg プラグインが有効な場合にのみ許可されます。WordPress 5.8では無視されます。
+> WordPress Version 5.9 以降でサポートされます。
 
 <!--
 Within this field themes can list the custom templates present in the `templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
@@ -1412,12 +1500,10 @@ Within this field themes can list the custom templates present in the `templates
 
 ### templateParts
 
-<!--
-<div class="callout callout-alert">
-This field is only allowed when the Gutenberg plugin is active. In WordPress 5.8 will be ignored.
-</div>
+<!-- 
+<div class="callout callout-alert">Supported in WordPress from version 5.9.</div>
  -->
-> このフィールドは、Gutenberg プラグインが有効な場合にのみ許可されます。WordPress 5.8では無視されます。
+> WordPress Version 5.9 以降でサポートされます。
 
 <!--
 Within this field themes can list the template parts present in the `parts` folder. For example, for a template part named `my-template-part.html`, the `theme.json` can declare the area term for the template part entity which is responsible for rendering the corresponding block variation (Header block, Footer block, etc.) in the editor. Defining this area term in the json will allow the setting to persist across all uses of that template part entity, as opposed to a block attribute that would only affect one block. Defining area as a block attribute is not recommended as this is only used 'behind the scenes' to aid in bridging the gap between placeholder flows and entity creation.
@@ -1459,7 +1545,13 @@ Currently block variations exist for "header" and "footer" values of the area te
 This field requires the Gutenberg plugin active and using the [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) of `theme.json`.
 </div>
  -->
+<!-- 
 注意: このフィールドは、Gutenberg プラグインが有効で、`theme.json`の [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) が必要です。
+ -->
+<!-- 
+<div class="callout callout-alert">Supported in WordPress from version 6.0 using [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) of `theme.json`.</div>
+ -->
+> `theme.json` の [version 2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) を使用して、WordPress Version 6.0 からサポートされます。
 
 <!-- 
 Within this field themes can list patterns to register from [Pattern Directory](https://wordpress.org/patterns/). The `patterns` field is an array of pattern `slugs` from the Pattern Directory. Pattern slugs can be extracted by the `url` in single pattern view at the Pattern Directory. For example in this url `https://wordpress.org/patterns/pattern/partner-logos` the slug is `partner-logos`.
@@ -1468,7 +1560,7 @@ Within this field themes can list patterns to register from [Pattern Directory](
 
 ```json
 {
-    "version": 2,
+	"version": 2,
 	"patterns": [ "short-text-surrounded-by-round-images", "partner-logos" ]
 }
 ```
@@ -1664,7 +1756,7 @@ body {
 
 /* CSS classes for the preset values */
 .has-<PRESET_SLUG>-<PRESET_TYPE> { ... }
-.has-pale-pink-color { color: var(--wp--preset--color--pale-pink) !important; } 
+.has-pale-pink-color { color: var(--wp--preset--color--pale-pink) !important; }
 .has-large-font-size { font-size: var(--wp--preset--font-size--large) !important; }
 ```
 <!-- 
@@ -1714,20 +1806,9 @@ As a result of this change, it’s now the block author and theme author’s res
 ### blockGap とは何か、どう使うのか ?
 
 <!-- 
-blockGap adjusts the vertical margin, or gap, between blocks.
-It is also used for margins between inner blocks in columns, buttons, and social icons.
-In the editor, the control for the blockGap is called Block spacing, located in the Dimensions panel.
+For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called _Block spacing_, located in the Dimensions panel.
  -->
-blockGap は、ブロック間の垂直方向のマージン、またはギャップを調整します。
-また、カラム、ボタン、ソーシャルアイコン内のインナーブロック間のマージンにも使用できます。
-エディタでは、blockGap のコントロールは、「ブロックスペース」と呼ばれ、「寸法」パネル内にあります。
-
-<!-- 
-The value you define for the blockGap style uses a CSS property, a preset, named `--wp--style--block-gap`.
-The default value is 2em.
- -->
-blockGapスタイルに定義する値は、プリセットされた CSS プロパティ `--wp--style--block-gap` を使用します。
-デフォルト値は2emです。
+グループ、カラム、ボタン、ソーシャルアイコンなどのインナーブロックを含むブロックでは、 `blockGap` は、内部ブロック間の間隔を制御します。ブロックのレイアウトによって、 `blockGap` 値は垂直方向のマージンか `gap` 値として出力されます。エディタでは、`blockGap`の値のコントロールは「ブロックスペース」と呼ばれ、「寸法」パネル内にあります。
 
 ```json
 {
@@ -1744,6 +1825,24 @@ blockGapスタイルに定義する値は、プリセットされた CSS プロ�
 	}
 }
 ```
+
+<!-- 
+The setting for `blockGap` is either a boolean or `null` value and is `null` by default. This allows an extra level of control over style output. The `settings.spacing.blockGap` setting in a `theme.json` file accepts the following values:
+
+- `true`: Opt into displaying _Block spacing_ controls in the editor UI and output `blockGap` styles.
+- `false`: Opt out of displaying _Block spacing_ controls in the editor UI, with `blockGap` styles stored in `theme.json` still being rendered. This allows themes to use `blockGap` values without allowing users to make changes within the editor.
+- `null` (default): Opt out of displaying _Block spacing_ controls, _and_ prevent the output of `blockGap` styles.
+
+The value defined for the root `styles.spacing.blockGap` style is also output as a CSS property, named `--wp--style--block-gap`.
+ -->
+`blockGap` の設定は boolean か `null` 値で、デフォルトでは `null` です。この設定により、スタイル出力をより細かく制御できます。`theme.json` ファイル内の `settings.spacing.blockGap` 設定は、以下の値を受け取ります。
+
+- `true`: エディター UI に_ブロックスペース_コントロールを表示し、`blockGap` スタイルを出力することを許可します。
+- `false`: エディター UI で_ブロックスペース_コントロールを表示せず、`theme.json` に保存された `blockGap` スタイルをそのままレンダーします。この結果、テーマは、エディタ内でのユーザーの変更を禁止して、`blockGap` 値を使用できます。
+- `null` (デフォルト): ブロック間隔コントロールの表示と、 `blockGap` スタイルの出力を停止します。
+
+ルートの `styles.spacing.blockGap` スタイルに定義された値は、CSSプロパティ `--wp--style--block-gap` として出力されます。
+
 <!-- 
 ### Why does it take so long to update the styles in the browser?
  -->

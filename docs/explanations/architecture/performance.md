@@ -69,7 +69,7 @@ Based on the idea that **when editing a given block, it is very rare that an upd
 ## パフォーマンスベンチマークジョブ
 
 <!-- 
-A tool to compare performance accross multiple branches/tags/commits is provided. You can run it locally like so: `./bin/plugin/cli.js perf [branches]`, example:
+A tool to compare performance across multiple branches/tags/commits is provided. You can run it locally like so: `./bin/plugin/cli.js perf [branches]`, example:
  -->
 複数のブランチ、タグ、コミット間のパフォーマンスを比較するツールが提供されています。以下のようにローカルで実行できます: `./bin/plugin/cli.js perf [branches]`。たとえば、
 

@@ -76,8 +76,12 @@ jobs:
               run: npm run build:package-types
 
             - name: Check local changes
-              run: npm run check-local-changes
+              run: npm run other:check-local-changes
 
             - name: License compatibility
+<<<<<<< HEAD
               run: npm run check-licenses
+>>>>>>> upstream/trunk
+=======
+              run: npm run other:check-licenses
 >>>>>>> upstream/trunk
