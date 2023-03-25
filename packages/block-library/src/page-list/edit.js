@@ -2,7 +2,6 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { sortBy } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -53,6 +52,47 @@ export default function PageListEdit( { context, clientId } ) {
 		style: { ...context.style?.color },
 	} );
 
+	const getBlockContent = () => {
+		if ( ! hasResolvedPages ) {
+			return (
+				<div { ...blockProps }>
+					<Spinner />
+				</div>
+			);
+		}
+
+		if ( totalPages === null ) {
+			return (
+				<div { ...blockProps }>
+					<Notice status={ 'warning' } isDismissible={ false }>
+						{ __( 'Page List: Cannot retrieve Pages.' ) }
+					</Notice>
+				</div>
+			);
+		}
+
+		if ( totalPages === 0 ) {
+			return (
+				<div { ...blockProps }>
+					<Notice status={ 'info' } isDismissible={ false }>
+						{ __( 'Page List: Cannot retrieve Pages.' ) }
+					</Notice>
+				</div>
+			);
+		}
+
+		if ( totalPages > 0 ) {
+			return (
+				<ul { ...blockProps }>
+					<PageItems
+						context={ context }
+						pagesByParentId={ pagesByParentId }
+					/>
+				</ul>
+			);
+		}
+	};
+
 	return (
 		<>
 			{ allowConvertToLinks && (
@@ -68,35 +108,8 @@ export default function PageListEdit( { context, clientId } ) {
 					clientId={ clientId }
 				/>
 			) }
-			{ ! hasResolvedPages && (
-				<div { ...blockProps }>
-					<Spinner />
-				</div>
-			) }
 
-			{ hasResolvedPages && totalPages === null && (
-				<div { ...blockProps }>
-					<Notice status={ 'warning' } isDismissible={ false }>
-						{ __( 'Page List: Cannot retrieve Pages.' ) }
-					</Notice>
-				</div>
-			) }
-
-			{ totalPages === 0 && (
-				<div { ...blockProps }>
-					<Notice status={ 'info' } isDismissible={ false }>
-						{ __( 'Page List: Cannot retrieve Pages.' ) }
-					</Notice>
-				</div>
-			) }
-			{ totalPages > 0 && (
-				<ul { ...blockProps }>
-					<PageItems
-						context={ context }
-						pagesByParentId={ pagesByParentId }
-					/>
-				</ul>
-			) }
+			{ getBlockContent() }
 		</>
 	);
 }
@@ -133,7 +146,12 @@ function usePageData() {
 		// TODO: Once the REST API supports passing multiple values to
 		// 'orderby', this can be removed.
 		// https://core.trac.wordpress.org/ticket/39037
-		const sortedPages = sortBy( pages, [ 'menu_order', 'title.rendered' ] );
+		const sortedPages = [ ...( pages ?? [] ) ].sort( ( a, b ) => {
+			if ( a.menu_order === b.menu_order ) {
+				return a.title.rendered.localeCompare( b.title.rendered );
+			}
+			return a.menu_order - b.menu_order;
+		} );
 		const pagesByParentId = sortedPages.reduce( ( accumulator, page ) => {
 			const { parent } = page;
 			if ( accumulator.has( parent ) ) {

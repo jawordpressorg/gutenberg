@@ -2,7 +2,8 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { escape, unescape } from 'lodash';
+import escapeHtml from 'escape-html';
+import { unescape } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -42,8 +43,12 @@ import {
 } from '@wordpress/element';
 import { placeCaretAtHorizontalEdge } from '@wordpress/dom';
 import { link as linkIcon, addSubmenu } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
+import {
+	store as coreStore,
+	useResourcePermissions,
+} from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
+import { useMergeRefs } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -258,8 +263,8 @@ export const updateNavigationLinkBlockAttributes = (
 	// - https://github.com/WordPress/gutenberg/pull/41063
 	// - https://github.com/WordPress/gutenberg/pull/18617.
 	const label = useNewLabel
-		? escape( newLabel )
-		: originalLabel || escape( newUrlWithoutHttp );
+		? escapeHtml( newLabel )
+		: originalLabel || escapeHtml( newUrlWithoutHttp );
 
 	// In https://github.com/WordPress/gutenberg/pull/24670 we decided to use "tag" in favor of "post_tag"
 	const type = newType === 'post_tag' ? 'tag' : newType.replace( '-', '_' );
@@ -458,10 +463,16 @@ export default function NavigationLinkEdit( {
 	const { replaceBlock, __unstableMarkNextChangeAsNotPersistent } =
 		useDispatch( blockEditorStore );
 	const [ isLinkOpen, setIsLinkOpen ] = useState( false );
+	// Use internal state instead of a ref to make sure that the component
+	// re-renders when the popover's anchor updates.
+	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
 	const listItemRef = useRef( null );
 	const isDraggingWithin = useIsDraggingWithin( listItemRef );
-	const itemLabelPlaceholder = __( 'Add link…' );
+	const itemLabelPlaceholder = __( 'Add label…' );
 	const ref = useRef();
+
+	const pagesPermissions = useResourcePermissions( 'pages' );
+	const postsPermissions = useResourcePermissions( 'posts' );
 
 	const {
 		innerBlocks,
@@ -469,8 +480,6 @@ export default function NavigationLinkEdit( {
 		isTopLevelLink,
 		isParentOfSelectedBlock,
 		hasChildren,
-		userCanCreatePages,
-		userCanCreatePosts,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -497,14 +506,6 @@ export default function NavigationLinkEdit( {
 					true
 				),
 				hasChildren: !! getBlockCount( clientId ),
-				userCanCreatePages: select( coreStore ).canUser(
-					'create',
-					'pages'
-				),
-				userCanCreatePosts: select( coreStore ).canUser(
-					'create',
-					'posts'
-				),
 			};
 		},
 		[ clientId ]
@@ -606,9 +607,9 @@ export default function NavigationLinkEdit( {
 
 	let userCanCreate = false;
 	if ( ! type || type === 'page' ) {
-		userCanCreate = userCanCreatePages;
+		userCanCreate = pagesPermissions.canCreate;
 	} else if ( type === 'post' ) {
-		userCanCreate = userCanCreatePosts;
+		userCanCreate = postsPermissions.canCreate;
 	}
 
 	async function handleCreate( pageTitle ) {
@@ -655,7 +656,7 @@ export default function NavigationLinkEdit( {
 	}
 
 	const blockProps = useBlockProps( {
-		ref: listItemRef,
+		ref: useMergeRefs( [ setPopoverAnchor, listItemRef ] ),
 		className: classnames( 'wp-block-navigation-item', {
 			'is-editing': isSelected || isParentOfSelectedBlock,
 			'is-dragging-within': isDraggingWithin,
@@ -846,10 +847,10 @@ export default function NavigationLinkEdit( {
 					) }
 					{ isLinkOpen && (
 						<Popover
-							position="bottom center"
+							placement="bottom"
 							onClose={ () => setIsLinkOpen( false ) }
-							anchorRef={ listItemRef.current }
-							__unstableShift
+							anchor={ popoverAnchor }
+							shift
 						>
 							<LinkControl
 								hasTextControl

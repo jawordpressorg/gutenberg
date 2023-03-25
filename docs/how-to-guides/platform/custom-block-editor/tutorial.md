@@ -259,11 +259,11 @@ function getdave_sbe_render_block_editor() {
 <!--
 Here we simply output some basic placeholder HTML.
 
-Note that we've included an `id` attribute `getdave-sbe-block-editor`. Keep a note of that, a we'll be using it shortly.
+Note that we've included an `id` attribute `getdave-sbe-block-editor`. Keep a note of that, as we'll be using it shortly.
  -->
 ここでは単純に基本的なプレースホルダー HTML を出力します。
 
-`id` 属性  `getdave-sbe-block-editor` を加えました。すぐに使いますので覚えておいてください。
+注意: `id` 属性  `getdave-sbe-block-editor` を加えました。すぐに使いますので覚えておいてください。
 
 <!--
 ### Enqueuing JavaScript and CSS

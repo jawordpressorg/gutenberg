@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Tokenizer } from 'simple-html-tokenizer';
-import { xor, isEqual, includes } from 'lodash';
+import { isEqual } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -289,7 +289,7 @@ export function getMeaningfulAttributePairs( token ) {
 		return (
 			value ||
 			key.indexOf( 'data-' ) === 0 ||
-			includes( MEANINGFUL_ATTRIBUTES, key )
+			MEANINGFUL_ATTRIBUTES.includes( key )
 		);
 	} );
 }
@@ -410,9 +410,17 @@ export const isEqualAttributesOfName = {
 	class: ( actual, expected ) => {
 		// Class matches if members are the same, even if out of order or
 		// superfluous whitespace between.
-		return ! xor(
-			...[ actual, expected ].map( getTextPiecesSplitOnWhitespace )
-		).length;
+		const [ actualPieces, expectedPieces ] = [ actual, expected ].map(
+			getTextPiecesSplitOnWhitespace
+		);
+		const actualDiff = actualPieces.filter(
+			( c ) => ! expectedPieces.includes( c )
+		);
+		const expectedDiff = expectedPieces.filter(
+			( c ) => ! actualPieces.includes( c )
+		);
+
+		return actualDiff.length === 0 && expectedDiff.length === 0;
 	},
 	style: ( actual, expected ) => {
 		return isEqual( ...[ actual, expected ].map( getStyleProperties ) );

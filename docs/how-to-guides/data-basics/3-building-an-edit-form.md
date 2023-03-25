@@ -81,7 +81,7 @@ Our button looks nice but doesn't do anything yet. To display an edit form, we n
 
 ```js
 import { Button, TextControl } from '@wordpress/components';
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	return (
 		<div className="my-gutenberg-form">
 			<TextControl
@@ -182,7 +182,7 @@ Let's update `EditPageForm` accordingly:
 `EditPageForm` を更新します。
 
 ```js
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	const page = useSelect(
 		select => select( coreDataStore ).getEntityRecord( 'postType', 'page', pageId ),
 		[pageId]
@@ -191,7 +191,7 @@ export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 		<div className="my-gutenberg-form">
 			<TextControl
 				label='Page title:'
-				value={ page.title }
+				value={ page.title.rendered }
 			/>
 			{ /* ... */ }
 		</div>
@@ -200,7 +200,7 @@ export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 ```
 
 <!--
-Now it should look like that:
+Now it should look like this:
 -->
 以下のようになります。
 
@@ -222,7 +222,7 @@ You may have seen a pattern similar to this one in other React apps. It's known 
 これと似たパターンを他の React アプリで見たかもしれません。これは [Controlled Component](https://reactjs.org/docs/forms.html#controlled-components) (制御されたコンポーネント) と呼ばれます。
 
 ```js
-export function VanillaReactForm({ initialTitle }) {
+function VanillaReactForm({ initialTitle }) {
 	const [title, setTitle] = useState( initialTitle );
 	return (
 		<TextControl
@@ -255,7 +255,7 @@ wp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'page', pageId, { title
 ```
 
 <!--
-At this point, you may ask _how is `editEntityRecord` better than `useState`? The answer is that it offers a few features you wouldn't otherwise get.
+At this point, you may ask _how_ is `editEntityRecord` better than `useState`? The answer is that it offers a few features you wouldn't otherwise get.
 -->
 この時点で、`editEntityRecord` は、 `useState` より何が良いのか ? と思うかもしれません。それは、他の方法では得られない、いくつかの機能が提供されるためです。
 
@@ -334,7 +334,7 @@ We can now update `EditPageForm` accordingly. We can access the actions using th
 ```js
 import { useDispatch } from '@wordpress/data';
 
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	const page = useSelect(
 		select => select( coreDataStore ).getEditedEntityRecord( 'postType', 'page', pageId ),
 		[ pageId ]
@@ -431,7 +431,7 @@ This is how the `EditPageForm` looks like with a working *Save* button:
 以下は、動作する「保存」ボタンを持った `EditPageForm` です。
 
 ```js
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	// ...
 	const { saveEditedEntityRecord } = useDispatch( coreDataStore );
 	const handleSave = () => saveEditedEntityRecord( 'postType', 'page', pageId );
@@ -456,7 +456,7 @@ It works, but there's still one thing to fix: the form modal doesn't automatical
 動作はしますが、まだひとつ修正すべき点があります。`onSaveFinished` を呼び出していないため、フォームモーダルが自動的に閉じないのです。幸いなことに、`saveEditedEntityRecord` は、保存操作が終了すると解決されるプロミスを返します。これを `EditPageForm` で利用します。
 
 ```js
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	// ...
 	const handleSave = async () => {
 		await saveEditedEntityRecord( 'postType', 'page', pageId );
@@ -491,7 +491,7 @@ To tell the user when any of these happens, we have to make two adjustments. We 
 エラーが発生したことをユーザーに伝えるるには、2つの調整が必要です。まず、更新が失敗した場合に、フォームモーダルを閉じないようにします。`saveEditedEntityRecord` が返すプロミスは、更新が実際にうまくいった場合のみ、更新されたレコードで解決されます。何か問題が発生した場合は、空の値で解決されます。これを利用して、モーダルを開いたままにしておきます。
 
 ```js
-export function EditPageForm( { pageId, onSaveFinished } ) {
+function EditPageForm( { pageId, onSaveFinished } ) {
 	// ...
 	const handleSave = async () => {
 		const updatedRecord = await saveEditedEntityRecord( 'postType', 'page', pageId );
@@ -526,7 +526,7 @@ Here's how we can use it in `EditPageForm`:
 以下に、`EditPageForm` 内で使用する方法を示します。
 
 ```js
-export function EditPageForm( { pageId, onSaveFinished } ) {
+function EditPageForm( { pageId, onSaveFinished } ) {
 	// ...
     const { lastError, page } = useSelect(
         select => ({
@@ -537,7 +537,7 @@ export function EditPageForm( { pageId, onSaveFinished } ) {
 	)
 	// ...
 	return (
-		<>
+		<div className="my-gutenberg-form">
 			{/* ... */}
 			{ lastError ? (
 				<div className="form-error">
@@ -545,7 +545,7 @@ export function EditPageForm( { pageId, onSaveFinished } ) {
 				</div>
 			) : false }
 			{/* ... */}
-		</>
+		</div>
 	);
 }
 ```
@@ -561,7 +561,7 @@ Let's see that error message in action. We'll trigger an invalid update and let 
 実際にエラーメッセージを表示してみましょう。無効な更新を行い、失敗させます。投稿のタイトルではエラーを起こしにくいため、代わりに `date` プロパティを `-1` に設定します。これで確実にバリデーションエラーが発生します。
 
 ```js
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	// ...
 	const handleChange = ( title ) => editEntityRecord( 'postType', 'page', pageId, { title, date: -1 } );
 	// ...
@@ -601,7 +601,7 @@ Let's use them in `EditPageForm`:
 `EditPageForm` の中で使用します。
 
 ```js
-export function EditPageForm( { pageId, onSaveFinished } ) {
+function EditPageForm( { pageId, onSaveFinished } ) {
 	// ...
 	const { isSaving, hasEdits, /* ... */ } = useSelect(
 		select => ({
@@ -620,8 +620,7 @@ We can now use `isSaving` and `hasEdits` to display a spinner when saving is in 
 `isSaving` と `hasEdits` を使用して、保存中の場合はスピナーを表示し、編集がない場合は「保存」ボタンをグレイアウトします。
 
 ```js
-
-export function EditPageForm( { pageId, onSaveFinished } ) {
+function EditPageForm( { pageId, onSaveFinished } ) {
 	// ...
 	return (
 		// ...
@@ -700,7 +699,7 @@ function PageEditButton( { pageId } ) {
 	);
 }
 
-export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
+function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	const { page, lastError, isSaving, hasEdits } = useSelect(
 		( select ) => ( {
 			page: select( coreDataStore ).getEditedEntityRecord( 'postType', 'page', pageId ),
@@ -766,10 +765,10 @@ export function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 <!--
 * **Previous part:** [Building a list of pages](/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
 * **Next part:** Building a *New Page* form (coming soon)
-* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) in the gutenberg-examples repository
+* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) in the gutenberg-examples repository
 -->
 * **前のステップ:** [ページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
 * **次のステップ:** 新規ページフォームの構築 (近日公開)
-* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) を参照
+* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/3-building-an-edit-form.md)

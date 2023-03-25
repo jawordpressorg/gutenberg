@@ -29,10 +29,9 @@ This is documentation for the current direction and work in progress about how t
 この文書ではテーマがブロックエディターの提供するさまざまなサブシステムとどのように連携するのか、その方向性と現在進行中の作業について記述します。
  -->
 <!--
-WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file. This page documents its format.
 WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file. Then `theme.json` [evolved to a v2](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) with WordPress 5.9 release. This page documents its format.
  -->
-WordPress 5.8では、エディタを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されます。このメカニズムは、きめ細かい制御を可能にし、将来の WordPress リリースでのスタイル管理の、最初のステップとなる `theme.json` ファイルを導入します。その後、WordPress 5.9リリースに伴い `theme.json` [v2へと進化](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)しました。このページでは、`theme.json` ファイルのフォーマットについて説明します。
+WordPress 5.8ではエディターを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されました。きめ細かな制御を可能にし、将来の WordPress リリースにおけるスタイル管理の最初のステップとなる `theme.json` ファイルです。その後、WordPress 5.9のリリースに伴い `theme.json` も [v2へと進化](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)しました。このページでは、`theme.json` ファイルのフォーマットについて説明します。
 
 <!--
 - Rationale
@@ -185,9 +184,10 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 - **プリセット**: [カラーパレット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes)、[フォントサイズ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes)、[グラデーション](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) をテーマで宣言すると、CSS カスタムプロパティに変換され、フロントエンドとエディターの両方にエンキューされます。
 
 **入力**
+<!-- 
 {% codetabs %}
 {% Input %}
-
+ -->
 ```json
 {
 	"version": 2,
@@ -211,26 +211,28 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 ```
 
 **出力**
+<!-- 
 {% Output %}
-
+ -->
 ```css
 body {
 	--wp--preset--color--black: #000000;
 	--wp--preset--color--white: #ffffff;
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 -   **Custom properties**: there's also a mechanism to create your own CSS Custom Properties.
  -->
 - **カスタムプロパティ**: 自身の CSS カスタムプロパティを作成する仕組みもあります。
 
 **入力**
+<!-- 
 {% codetabs %}
 {% Input %}
-
+ -->
 ```json
 {
 	"version": 2,
@@ -246,17 +248,18 @@ body {
 ```
 
 **出力**
+<!-- 
 {% Output %}
-
+ -->
 ```css
 body {
 	--wp--custom--line-height--body: 1.7;
 	--wp--custom--line-height--heading: 1.3;
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 ## Specification
  -->
@@ -470,7 +473,16 @@ settings セクションは以下の構造を持ちます。
 			"blockGap": null,
 			"margin": false,
 			"padding": false,
-			"units": [ "px", "em", "rem", "vh", "vw" ]
+			"customSpacingSize": true,
+			"units": [ "px", "em", "rem", "vh", "vw" ],
+			"spacingScale": {
+				"operator": "*",
+				"increment": 1.5,
+				"steps": 7,
+				"mediumStep": 1.5,
+				"unit": "rem"
+			},
+			"spacingSizes": []
 		},
 		"typography": {
 			"customFontSize": true,
@@ -557,6 +569,7 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-font-sizes`         | Provide the list of font size via `typography.fontSizes`. |
 | `editor-gradient-presets`   | Provide the list of gradients via `color.gradients`.      |
 | `experimental-link-color`   | Set `color.link` to `true`. `experimental-link-color` will be removed when the plugin requires WordPress 5.9 as the minimum version. |
+| `appearance-tools`          | Set `appearanceTools` to `true`.                          |
  -->
 | add_theme_support           | theme.json 設定                                        |
 | --------------------------- | --------------------------------------------------------- |
@@ -570,6 +583,7 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-font-sizes`         | `typography.fontSizes` でフォントサイズのリストを渡す |
 | `editor-gradient-presets`   | `color.gradients` でグラデーションのリストを渡す      |
 | `experimental-link-color`   | `color.link` に `true` を設定。`experimental-link-color` は、プラグインのサポートする最低バージョンが WordPress 5.9 になった段階で、削除されます。                  |
+| `appearance-tools`          | `appearanceTools` に `true` を設定                          |
 
 <!--
 Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:
@@ -621,7 +635,17 @@ The following presets can be defined via `theme.json`:
 - `color.gradients`: generates a single class and custom property per preset value.
 - `color.palette`:
     - generates 3 classes per preset value: color, background-color, and border-color.
-    - generates a single custom property per preset value
+    - generates a single custom property per preset value.
+- `spacing.spacingScale`: used to generate an array of spacing preset sizes for use with padding, margin, and gap settings.
+    - `operator`: specifies how to calculate the steps with either `*` for multiplier, or `+` for sum.
+    - `increment`: the amount to increment each step by. Core by default uses a 'perfect 5th' multiplier of `1.5`.
+    - `steps`: the number of steps to generate in the spacing scale. The default is 7. To prevent the generation of the spacing presets, and to disable the related UI, this can be set to `0`.
+    - `mediumStep`: the steps in the scale are generated descending and ascending from a medium step, so this should be the size value of the medium space, without the unit. The default medium step is `1.5rem` so the mediumStep value is `1.5`.
+    - `unit`: the unit the scale uses, eg. `px, rem, em, %`. The default is `rem`.
+- `spacing.spacingSizes`: themes can choose to include a static `spacing.spacingSizes` array of spacing preset sizes if they have a sequence of sizes that can't be generated via an increment or mulitplier. 
+    - `name`: a human readable name for the size, eg. `Small, Medium, Large`.
+    - `slug`: the machine readable name. In order to provide the best cross site/theme compatibility the slugs should be in the format, "10","20","30","40","50","60", with "50" representing the `Medium` size value.
+    - `size`: the size, including the unit, eg. `1.5rem`. It is possible to include fluid values like `clamp(2rem, 10vw, 20rem)`. 
 - `typography.fontSizes`: generates a single class and custom property per preset value.
 - `typography.fontFamilies`: generates a single custom property per preset value.
  -->
@@ -630,6 +654,16 @@ The following presets can be defined via `theme.json`:
 - `color.palette`:
     - プリセット値ごとに3つのクラスを生成します: color、background-color、border-color
     - プリセット値ごとに1つのカスタムプロパティを生成します。
+- `spacing.spacingScale`: padding、margin、gap の設定に使用する、spacing プリセットサイズの配列の生成に使用されます。
+    - `operator`: ステップを掛け算で計算するか(`*`)、足し算で計算するか(`+`)を指定します。
+    - `increment`: 各ステップの増加量。コアはデフォルトで `1.5` の掛け算、「完全五度」を使用します。
+    - `steps`: spacing スケールを生成するステップ数。デフォルトは7。spacing プリセットを生成せず、関連する UI を無効にするには、`0`に設定します。
+    - `mediumStep`: スケールのステップは、中間のステップから減少、増加の2方向に生成されるため、これは中間の space のサイズ値でなければならず、単位を含みません。デフォルトの中間のステップは `1.5rem` のため、mediumStep の値は `1.5` です。
+    - `unit`: スケールの使用する単位。例えば、`px, rem, em, %`。デフォルトは `rem`。
+- `spacing.spacingSizes`: 足し算や掛け算で生成できないサイズの並びがある場合、テーマは spacing プリセットサイズの静的配列 `spacing.spacingSizes` を含めることを選択できます。
+    - `name`: 人が読めるサイズの名前。例: `Small, Medium, Large`。
+    - `slug`: 機械が読める名前。サイトやテーマ間の互換性を保つため、slug は "10", "20", "30", "40", "50", "60" の形式で、"50"は `Medium` サイズの値を表してください。
+    - `size`: 単位を含むサイズ。例: `1.5rem`. fluid 値を含むことも可能。例: `clamp(2rem, 10vw, 20rem)`
 - `typography.fontSizes`: プリセット値ごとに1つのクラスとカスタムプロパティを生成します。
 - `typography.fontFamilies`: プリセット値ごとに1つのカスタムプロパティを生成します。
 
@@ -646,9 +680,10 @@ The naming schema for the classes and the custom properties is as follows:
 - クラス: `.has-{preset-slug}-{preset-category}` 例: `.has-black-color`.
 
 **入力**
+<!-- 
 {% codetabs %}
 {% Input %}
-
+ -->
 ```json
 {
 	"version": 2,
@@ -709,7 +744,33 @@ The naming schema for the classes and the custom properties is as follows:
 					"slug": "x-large",
 					"size": 46,
 					"name": "Large"
+				}
+			]
+		},
+		"spacing": {
+			"spacingScale": {
+				"operator": "*",
+				"increment": 1.5,
+				"steps": 7,
+				"mediumStep": 1.5,
+				"unit": "rem"
+			},
+			"spacingSizes": [
+				{
+					"slug": "40",
+					"size": "1rem",
+					"name": "Small"
 				},
+				{
+					"slug": "50",
+					"size": "1.5rem",
+					"name": "Medium"
+				},
+				{
+					"slug": "60",
+					"size": "2rem",
+					"name": "Large"
+				}
 			]
 		},
 		"blocks": {
@@ -735,8 +796,9 @@ The naming schema for the classes and the custom properties is as follows:
 ```
 
 **出力**
+<!-- 
 {% Output %}
-
+ -->
 ```css
 /* Top-level custom properties */
 body {
@@ -748,6 +810,13 @@ body {
 	--wp--preset--font-size--big: 32;
 	--wp--preset--font-family--helvetica-arial: Helvetica Neue, Helvetica, Arial, sans-serif;
 	--wp--preset--font-family--system: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell, \"Helvetica Neue\",sans-serif;
+	--wp--preset--spacing--20: 0.44rem;
+	--wp--preset--spacing--30: 0.67rem;
+	--wp--preset--spacing--40: 1rem;
+	--wp--preset--spacing--50: 1.5rem;
+	--wp--preset--spacing--60: 2.25rem;
+	--wp--preset--spacing--70: 3.38rem;
+	--wp--preset--spacing--80: 5.06rem;
 }
 
 /* Block-level custom properties (bounded to the group block) */
@@ -777,9 +846,9 @@ body {
 .wp-block-group.has-white-border-color { border-color: #444 !important; }
 
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 To maintain backward compatibility, the presets declared via `add_theme_support` will also generate the CSS Custom Properties. If the `theme.json` contains any presets, these will take precedence over the ones declared via `add_theme_support`.
  -->
@@ -806,9 +875,10 @@ For example:
 例:
 
 **入力**
+<!-- 
 {% codetabs %}
 {% Input %}
-
+ -->
 ```json
 {
 	"version": 2,
@@ -833,8 +903,9 @@ For example:
 ```
 
 **出力**
+<!-- 
 {% Output %}
-
+ -->
 ```css
 body {
 	--wp--custom--base-font: 16;
@@ -846,9 +917,9 @@ body {
 	--wp--custom--base-font: 32;
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 Note that the name of the variable is created by adding `--` in between each nesting level and `camelCase` fields are transformed to `kebab-case`.
  -->
@@ -1162,10 +1233,10 @@ Each block declares which style properties it exposes via the [block supports me
 Styles found at the top-level will be enqueued using the `body` selector.
  -->
 トップレベルのスタイルは `body` セレクタを使用してエンキューされます。
-
+<!-- 
 {% codetabs %}
 {% Input %}
-
+ -->
 ```json
 {
 	"version": 1,
@@ -1176,17 +1247,17 @@ Styles found at the top-level will be enqueued using the `body` selector.
 	}
 }
 ```
-
+<!-- 
 {% Output %}
-
+ -->
 ```css
 body {
 	color: var( --wp--preset--color--primary );
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 ### Block styles
  -->
@@ -1676,9 +1747,10 @@ For example:
 例:
 
 **入力**
+<!-- 
 {% codetabs %}
 {% Input %}
-
+ -->
 ```json
 {
 	"version": 2,
@@ -1694,17 +1766,18 @@ For example:
 ```
 
 **出力**
+<!-- 
 {% Output %}
-
+ -->
 ```css
 body {
 	--wp--custom--line-height--body: 1.7;
 	--wp--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif";
 }
 ```
-
+<!-- 
 {% end %}
-
+ -->
 <!--
 A few notes about this process:
 

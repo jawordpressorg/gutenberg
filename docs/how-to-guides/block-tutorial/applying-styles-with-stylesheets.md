@@ -157,7 +157,7 @@ The inline style works well for a small amount of CSS to apply. If you have much
 インラインスタイルは、適用するCSSの量が少ない場合にはうまく動作します。しかし、多くの CSS がある場合は、別のスタイルシートファイルで管理する方が簡単でしょう。
 
 <!-- 
-The `useBlockProps` hooks includes the classsname for the block automatically, it generates a name for each block using the block's name prefixed with `wp-block-`, replacing the `/` namespace separator with a single `-`.
+The `useBlockProps` hooks includes the classname for the block automatically, it generates a name for each block using the block's name prefixed with `wp-block-`, replacing the `/` namespace separator with a single `-`.
  -->
 `useBlockProps` フックは、ブロックのクラス名を自動的に含めます。ブロックの名前の前に `wp-block-` を付け、名前空間セパレータ「`/`」を1つの「`-`」に置き換えて、クラス名を生成します。
 

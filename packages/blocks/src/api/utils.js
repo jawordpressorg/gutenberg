@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { every, has, reduce } from 'lodash';
 import { colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
@@ -57,10 +56,8 @@ export function isUnmodifiedDefaultBlock( block ) {
 	const newDefaultBlock = isUnmodifiedDefaultBlock.block;
 	const blockType = getBlockType( defaultBlockName );
 
-	return every(
-		blockType?.attributes,
-		( value, key ) =>
-			newDefaultBlock.attributes[ key ] === block.attributes[ key ]
+	return Object.keys( blockType?.attributes ?? {} ).every(
+		( key ) => newDefaultBlock.attributes[ key ] === block.attributes[ key ]
 	);
 }
 
@@ -99,7 +96,7 @@ export function normalizeIconObject( icon ) {
 		return { src: icon };
 	}
 
-	if ( has( icon, [ 'background' ] ) ) {
+	if ( 'background' in icon ) {
 		const colordBgColor = colord( icon.background );
 		const getColorContrast = ( iconColor ) =>
 			colordBgColor.contrast( iconColor );
@@ -259,9 +256,8 @@ export function __experimentalSanitizeBlockAttributes( name, attributes ) {
 		throw new Error( `Block type '${ name }' is not registered.` );
 	}
 
-	return reduce(
-		blockType.attributes,
-		( accumulator, schema, key ) => {
+	return Object.entries( blockType.attributes ).reduce(
+		( accumulator, [ key, schema ] ) => {
 			const value = attributes[ key ];
 
 			if ( undefined !== value ) {
@@ -302,5 +298,19 @@ export function __experimentalGetBlockAttributesNamesByRole( name, role ) {
 	return attributesNames.filter(
 		( attributeName ) =>
 			attributes[ attributeName ]?.__experimentalRole === role
+	);
+}
+
+/**
+ * Return a new object with the specified keys omitted.
+ *
+ * @param {Object} object Original object.
+ * @param {Array}  keys   Keys to be omitted.
+ *
+ * @return {Object} Object with omitted keys.
+ */
+export function omit( object, keys ) {
+	return Object.fromEntries(
+		Object.entries( object ).filter( ( [ key ] ) => ! keys.includes( key ) )
 	);
 }

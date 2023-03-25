@@ -19,6 +19,7 @@ test.describe( 'new editor state', () => {
 	test( 'should show the New Post page in Gutenberg', async ( {
 		admin,
 		page,
+		editor,
 	} ) => {
 		await admin.createNewPost();
 
@@ -29,12 +30,13 @@ test.describe( 'new editor state', () => {
 		await expect( title ).toBeEditable();
 		await expect( title ).toHaveText( '' );
 
-		// Should display the View button.
+		// Should display the Preview button.
 		await expect(
-			page.locator( 'role=button[name="View"i]' )
+			page.locator( 'role=button[name="Preview"i]' )
 		).toBeVisible();
 
 		// Should display the Post Formats UI.
+		await editor.openDocumentSettingsSidebar();
 		await expect(
 			page.locator( 'role=combobox[name="Post Format"i]' )
 		).toBeVisible();

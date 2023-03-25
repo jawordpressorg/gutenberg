@@ -41,7 +41,7 @@ WordPress 5.8のリリースから、ブロックタイプを登録する標準�
 	"category": "text",
 	"parent": [ "core/group" ],
 	"icon": "star",
-	"description": "Shows warning, error or success notices…",
+	"description": "Shows warning, error or success notices...",
 	"keywords": [ "alert", "message" ],
 	"version": "1.0.3",
 	"textdomain": "my-plugin",
@@ -74,14 +74,15 @@ WordPress 5.8のリリースから、ブロックタイプを登録する標準�
 			"title": "Example",
 			"attributes": {
 				"message": "This is an example!"
-			},
+			}
 		}
-	]
-	"editorScript": "file:./build/index.js",
-	"script": "file:./build/script.js",
-	"viewScript": "file:./build/view.js",
-	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style.css"
+	],
+	"editorScript": "file:./index.js",
+	"script": "file:./script.js",
+	"viewScript": [ "file:./view.js", "example-shared-view-script" ],
+	"editorStyle": "file:./index.css",
+	"style": [ "file:./style.css", "example-shared-style" ],
+	"render": "file:./render.php"
 }
 ```
 
@@ -156,10 +157,11 @@ This function takes two params relevant in this context (`$block_type` accepts m
 -   `$block_type` (`string`) – path to the folder where the `block.json` file is located or full path to the metadata file if named differently.
 -   `$args` (`array`) – an optional array of block type arguments. Default value: `[]`. Any arguments may be defined. However, the one described below is supported by default:
     -   `$render_callback` (`callable`) – callback used to render blocks of this block type.
+    -   `$render_callback` (`callable`) – callback used to render blocks of this block type, it's an alternative to the `render` field in `block.json`.
  -->
 -   `$block_type` (`string`) – `block.json` ファイルのあるフォルダーへのパス、または、名前が異なる場合、メタデータファイルへのフルパス。
 -   `$args` (`array`) – ブロックタイプ引数のオプション配列。デフォルト値は `[]`。任意の引数を定義可。ただし、以下はデフォルトでサポートされる。
-    -   `$render_callback` (`callable`) – このブロックタイプのブロックをレンダーする際に使用されるコールバック。
+    -   `$render_callback` (`callable`) – このブロックタイプのブロックをレンダーする際に使用されるコールバック。これは `block.json` 内の `render` フィールドの代替。
 
 <!--
 It returns the registered block type (`WP_Block_Type`) on success or `false` on failure.
@@ -740,17 +742,18 @@ See the [the example documentation](/docs/reference-guides/block-api/block-regis
 ### Variations
 
 <!-- 
-- Type: `object[]`
-- Optional
-- Localized: Yes (`title`, `description`, and `keywords` of each variation only)
-- Property: `variations`
-- Since: `WordPress 5.9.0`
+-   Type: `object[]`
+-   Optional
+-   Localized: Yes (`title`, `description`, and `keywords` of each variation only)
+-   Property: `variations`
+-   Since: `WordPress 5.9.0`
  -->
 - 型: `object[]`
 - オプション
 - ローカライズ: 可 (`title`, `description`, `keywords` それぞれのバリエーションのみ)
 - プロパティ: `variations`
 - Since: `WordPress 5.9.0`
+
 
 ```json
 {
@@ -784,46 +787,67 @@ _注: JavaScriptでは、`isActive`プロパティに関数を、`icon` に Reac
 ### Editor Script
 
 <!--
--   Type: `WPDefinedAsset` ([learn more](#wpdefinedasset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorScript`
  -->
--   型: `WPDefinedAsset` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorScript`
 
 ```json
-{ "editorScript": "file:./build/index.js" }
+{ "editorScript": "file:./index.js" }
 ```
 
 <!--
-Block type editor script definition. It will only be enqueued in the context of the editor.
+Block type editor scripts definition. They will only be enqueued in the context of the editor.
  -->
 ブロックタイプエディタースクリプト定義。エディターのコンテキスト内でのみエンキューされます。
+
+<!-- 
+It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録されたスクリプトハンドル、`block.json` ファイルからの JavaScript ファイルへの相対パス、または2つを混ぜ合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
+
+<!-- 
+_Note: An option to pass also an array of editor scripts exists since WordPress `6.1.0`._
+ -->
+_注意: WordPress `6.1.0` からは、エディタースクリプトの配列を渡すオプションもあります。_
 
 ### Script
 
 <!--
 -   Type: `WPDefinedAsset` ([learn more](#wpdefinedasset))
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `script`
  -->
--   型: `WPDefinedAsset` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `script`
 
 ```json
-{ "script": "file:./build/script.js" }
+{ "script": "file:./script.js" }
 ```
 
 <!--
-Block type frontend and editor script definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
+Block type frontend and editor scripts definition. They will be enqueued both in the editor and when viewing the content on the front of the site.
  -->
 ブロックタイプフロントエンド、および、エディタースクリプト定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
+
+<!-- 
+It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録されたスクリプトハンドル、`block.json` ファイルからの JavaScript ファイルへの相対パス、または2つを混ぜ合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
+
+<!-- 
+_Note: An option to pass also an array of scripts exists since WordPress `6.1.0`._
+ -->
+_注意: スクリプトの配列を渡すオプションもあります。 WordPress `6.1.0` 以降。_
 
 ### View Script
 
@@ -841,18 +865,23 @@ Block type frontend and editor script definition. It will be enqueued both in th
 -   Since: `WordPress 5.9.0`
 
 ```json
-{ "viewScript": "file:./build/view.js" }
+{ "viewScript": [ "file:./view.js", "example-shared-view-script" ] }
 ```
 
 <!-- 
-Block type frontend script definition. It will be enqueued only when viewing the content on the front of the site.
+Block type frontend scripts definition. They will be enqueued only when viewing the content on the front of the site.
  -->
 ブロックタイプフロントエンド定義。サイトのフロントでコンテンツを表示するときのみ、エンキューされます。
 
 <!-- 
+It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録されたスクリプトハンドル、`block.json` ファイルからの JavaScript ファイルへの相対パス、または2つを混ぜ合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
+
+<!-- 
 _Note: An option to pass also an array of view scripts exists since WordPress `6.1.0`._
  -->
-_注意: WordPress `6.1.0` からは、ビュースクリプトの配列を渡すことができるオプションもあります。_
+_注意: ビュースクリプトの配列を渡すオプションもあります。 WordPress `6.1.0` 以降。_
 
 ### Editor Style
 
@@ -868,15 +897,23 @@ _注意: WordPress `6.1.0` からは、ビュースクリプトの配列を渡�
 -   プロパティ: `editorStyle`
 
 ```json
-{ "editorStyle": "file:./build/index.css" }
+{ "editorStyle": "file:./index.css" }
 ```
 
 <!--
-Block type editor style definition. It will only be enqueued in the context of the editor.
+Block type editor styles definition. They will only be enqueued in the context of the editor.
  -->
 ブロックタイプエディタースタイル定義。エディターのコンテキスト内でのみエンキューされます。
 
+<!-- 
+It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録されたスクリプトハンドル、`block.json` ファイルからの JavaScript ファイルへの相対パス、または2つを混ぜ合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
+
+<!-- 
 _Note: An option to pass also an array of editor styles exists since WordPress `5.9.0`._
+ -->
+_注意: エディタースクリプトの配列を渡すオプションもあります。 WordPress `5.9.0` 以降。_
 
 ### Style
 
@@ -892,37 +929,91 @@ _Note: An option to pass also an array of editor styles exists since WordPress `
 -   プロパティ: `style`
 
 ```json
-{ "style": "file:./build/style.css" }
+{ "style": [ "file:./style.css", "example-shared-style" ] }
 ```
 
 <!--
-Block type frontend and editor style definition. It will be enqueued both in the editor and when viewing the content on the front of the site.
+Block type frontend and editor styles definition. They will be enqueued both in the editor and when viewing the content on the front of the site.
  -->
 ブロックタイプフロントエンド、およびエディタースタイル定義。エディター内、および、サイトのフロントエンドでコンテンツが表示される際の両方でエンキューされます。
+
+<!-- 
+It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録されたスクリプトハンドル、`block.json` ファイルからの JavaScript ファイルへの相対パス、または2つを混ぜ合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
 
 <!-- 
 _Note: An option to pass also an array of styles exists since WordPress `5.9.0`._
  -->
 _注意: スタイルの配列を渡すオプションもあります。 WordPress `5.9.0` 以降。_
 
+### Render
+<!-- 
+-   Type: `WPDefinedPath` ([learn more](#wpdefinedpath))
+-   Optional
+-   Localized: No
+-   Property: `render`
+-   Since: `WordPress 6.1.0`
+ -->
+-   型: `WPDefinedPath` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedpath))
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `render`
+-   Since: `WordPress 6.1.0`
+
+```json
+{ "render": "file:./render.php" }
+```
+
+<!-- 
+PHP file to use when rendering the block type on the server to show on the front end. The following variables are exposed to the file:
+ -->
+フロントエンドに表示するブロックタイプをサーバでレンダリングする際に使用する PHP ファイル。次の変数がファイルに公開されます。
+
+<!-- 
+-   `$attributes` (`array`): The block attributes.
+-   `$content` (`string`): The block default content.
+-   `$block` (`WP_Block`): The block instance.
+ -->
+-   `$attributes` (`array`): ブロックの属性
+-   `$content` (`string`): ブロックのデフォルトコンテンツ
+-   `$block` (`WP_Block`): ブロックのインスタンス
+
 <!--
 ## Assets
  -->
 ## アセット
+
+### WPDefinedPath
+
+<!-- 
+The `WPDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
+ -->
+`WPDefinedPath` タイプは string のサブタイプです。値は、`block.json` ファイルのある場所から JavaScript、CSS、PHP ファイルへの相対パスで表します。提供されるパスには、接頭辞 `file:` を付ける必要があります。この方法は npm のパッケージの[ローカルパス](https://docs.npmjs.com/files/package.json#local-paths) を扱う方法に基づいています。
+
+<!-- 
+**Example:**
+ -->
+**例:**
+
+In `block.json`:
+
+```json
+{
+	"render": "file:./render.php"
+}
+```
 
 <!--
 ### `WPDefinedAsset`
  -->
 ### WPDefinedAsset
 
-<!--
-The `WPDefinedAsset` type is a subtype of string, where the value represents a path to a JavaScript or CSS file relative to where `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
-
-An alternative would be a script or style handle name referencing an already registered asset using WordPress helpers.
+<!-- 
+It extends `WPDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script or style handle name referencing an already registered asset using WordPress helpers.
  -->
-`WPDefinedAsset` タイプは string のサブタイプです。値は、`block.json` ファイルの場所から JavaScript ファイルや CSS ファイルへの相対パスで表します。提供されるパスには、接頭辞 `file:` を付ける必要があります。この方法は npm のパッケージの[ローカルパス](https://docs.npmjs.com/files/package.json#local-paths) を扱う方法に基づいています。
+JavaScript や CSS ファイル用に `WPDefinedPath` を拡張します。ファイルパスの代わりに、WordPress ヘルパーを使用して既に登録されているアセットを参照するスクリプトやスタイルハンドル名を使用できます。
 
-代わりに WordPress ヘルパーを使用してすでに登録されたアセットを参照する、スクリプトハンドル名やスタイルハンドル名も使用できます。
 <!--
 **Example:**
  -->
@@ -936,10 +1027,10 @@ In `block.json`:
 ```json
 {
 	"editorScript": "file:./index.js",
-	"script": "my-script-handle",
-	"viewScript": "file:./view.js",
-	"editorStyle": "my-editor-style-handle",
-	"style": [ "file:./style.css", "my-style-handle" ]
+	"script": "file:./script.js",
+	"viewScript": [ "file:./view.js", "example-shared-view-script" ],
+	"editorStyle": "file:./index.css",
+	"style": [ "file:./style.css", "example-shared-style" ]
 }
 ```
 
@@ -978,8 +1069,8 @@ The definition is stored inside separate PHP file which ends with `.asset.php` a
 **例:**
 
 ```
-block.json
 build/
+├─ block.json
 ├─ index.js
 └─ index.asset.php
 ```
@@ -990,7 +1081,7 @@ In `block.json`:
 `block.json` 内
 
 ```json
-{ "editorScript": "file:./build/index.js" }
+{ "editorScript": "file:./index.js" }
 ```
 
 <!--
@@ -1019,13 +1110,8 @@ Starting in the WordPress 5.8 release, it is possible to instruct WordPress to e
  -->
 WordPress 5.8リリースから、フロントエンドでレンダーされるときにのみ、ブロックタイプのスクリプトとスタイルをエンキューするように WordPress に指示できます。これは、`block.json` ファイルの以下のアセットフィールドに適用されます。
 
-<!-- 
 -   `script`
--   `viewScript` (when the block defines `render_callback` during registration in PHP, then the block author is responsible for enqueuing the script)
--   `style`
- -->
--   `script`
--   `viewScript` (PHP の登録時にブロックが `render_callback` を定義する場合、ブロックの作者はスクリプトをエンキューする責任があります。)
+-   `viewScript`
 -   `style`
 
 <!--

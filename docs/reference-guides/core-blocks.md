@@ -29,13 +29,13 @@ Display a date archive of your posts. ([Source](https://github.com/WordPress/gut
 
 <!--
 -	**Name:** core/archives
--	**カテゴリ:** widgets
--	**Supports:** align, ~~html~~
+-	**Category:** widgets
+-	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayAsDropdown, showLabel, showPostCounts, type
 -->
 -	**名前:** core/archives
 -	**カテゴリー:** widgets
--	**サポート:** align, ~~html~~
+-	**サポート:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** displayAsDropdown, showLabel, showPostCounts, type
 
 <!--
@@ -51,12 +51,12 @@ Embed a simple audio player. ([Source](https://github.com/WordPress/gutenberg/tr
 <!--
 -	**Name:** core/audio
 -	**Category:** media
--	**Supports:** align, anchor
+-	**Supports:** align, anchor, spacing (margin, padding)
 -	**Attributes:** autoplay, caption, id, loop, preload, src
 -->
 -	**名前:** core/audio
 -	**カテゴリー:** media
--	**サポート:** align, anchor
+-	**サポート:** align, anchor, spacing (margin, padding)
 -	**属性:** autoplay, caption, id, loop, preload, src
 
 <!-- 
@@ -65,14 +65,14 @@ Embed a simple audio player. ([Source](https://github.com/WordPress/gutenberg/tr
 ## Avatar / アバター
 
 <!-- 
-Add a user's avatar. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/avatar))
+Add a user’s avatar. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/avatar))
  -->
 ユーザーのアバターを追加します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/avatar))
 
 <!-- 
 -	**Name:** core/avatar
 -	**Category:** theme
--	**Supports:** align, color (~~background~~, ~~text~~), spacing (margin), ~~alignWide~~, ~~html~~
+-	**Supports:** align, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
 -	**Attributes:** isLink, linkTarget, size, userId
  -->
 -	**名前:** core/avatar
@@ -114,12 +114,12 @@ Prompt visitors to take action with a button-style link. ([Source](https://githu
 <!--
 -	**Name:** core/button
 -	**Category:** design
--	**Supports:** align, anchor, color (background, gradients, text), spacing (padding), typography (fontSize), ~~alignWide~~, ~~reusable~~
+-	**Supports:** align, anchor, color (background, gradients, text), spacing (padding), typography (fontSize, lineHeight), ~~alignWide~~, ~~reusable~~
 -	**Attributes:** backgroundColor, gradient, linkTarget, placeholder, rel, text, textColor, title, url, width
 -->
 -	**名前:** core/button
 -	**カテゴリー:** design
--	**サポート:** align, anchor, color (background, gradients, text), spacing (padding), typography (fontSize), ~~alignWide~~, ~~reusable~~
+-	**サポート:** align, anchor, color (background, gradients, text), spacing (padding), typography (fontSize, lineHeight), ~~alignWide~~, ~~reusable~~
 -	**属性:** backgroundColor, gradient, linkTarget, placeholder, rel, text, textColor, title, url, width
 
 <!--
@@ -135,12 +135,12 @@ Prompt visitors to take action with a group of button-style links. ([Source](htt
 <!--
 -	**Name:** core/buttons
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, spacing (blockGap, margin)
+-	**Supports:** align (full, wide), anchor, spacing (blockGap, margin), typography (fontSize, lineHeight)
 -	**Attributes:** 
 -->
 -	**名前:** core/buttons
 -	**カテゴリー:** design
--	**サポート:** align (full, wide), anchor, spacing (blockGap, margin)
+-	**サポート:** align (full, wide), anchor, spacing (blockGap, margin), typography (fontSize, lineHeight)
 -	**属性:** 
 
 <!--
@@ -156,12 +156,12 @@ A calendar of your site’s posts. ([Source](https://github.com/WordPress/gutenb
 <!--
 -	**Name:** core/calendar
 -	**Category:** widgets
--	**Supports:** align
+-	**Supports:** align, color (background, link, text), typography (fontSize, lineHeight)
 -	**Attributes:** month, year
 -->
 -	**名前:** core/calendar
 -	**カテゴリー:** widgets
--	**サポート:** align
+-	**サポート:** align, color (background, link, text), typography (fontSize, lineHeight)
 -	**属性:** month, year
 
 <!--
@@ -177,12 +177,12 @@ Display a list of all categories. ([Source](https://github.com/WordPress/gutenbe
 <!--
 -	**Name:** core/categories
 -	**Category:** widgets
--	**Supports:** align, ~~html~~
+-	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayAsDropdown, showEmpty, showHierarchy, showOnlyTopLevel, showPostCounts
 -->
 -	**名前:** core/categories
 -	**カテゴリー:** widgets
--	**サポート:** align, ~~html~~
+-	**サポート:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** displayAsDropdown, showEmpty, showHierarchy, showOnlyTopLevel, showPostCounts
 
 <!--
@@ -219,12 +219,12 @@ A single column within a columns block. ([Source](https://github.com/WordPress/g
 <!--
 -	**Name:** core/column
 -	**Category:** text
--	**Supports:** anchor, color (background, gradients, link, text), spacing (blockGap, padding), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (blockGap, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** allowedBlocks, templateLock, verticalAlignment, width
 -->
 -	**名前:** core/column
 -	**カテゴリー:** text
--	**サポート:** anchor, color (background, gradients, link, text), spacing (blockGap, padding), ~~html~~, ~~reusable~~
+-	**サポート:** anchor, color (background, gradients, link, text), spacing (blockGap, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** allowedBlocks, templateLock, verticalAlignment, width
 
 <!--
@@ -240,12 +240,12 @@ Display content in multiple columns, with blocks added to each column. ([Source]
 <!--
 -	**Name:** core/columns
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isStackedOnMobile, verticalAlignment
 -->
 -	**名前:** core/columns
 -	**カテゴリー:** design
--	**サポート:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), ~~html~~
+-	**サポート:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** isStackedOnMobile, verticalAlignment
 
 <!-- 
@@ -324,12 +324,12 @@ Displays the date on which the comment was posted. ([Source](https://github.com/
 <!--
 -	**Name:** core/comment-date
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** format, isLink
 -->
 -	**名前:** core/comment-date
 -	**カテゴリー:** theme
--	**サポート:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** format, isLink
 
 <!--
@@ -345,12 +345,12 @@ WordPress 管理画面でコメントを編集するリンクを表示します�
 <!--
 -	**Name:** core/comment-edit-link
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** linkTarget, textAlign
 -->
 -	**名前:** core/comment-edit-link
 -	**カテゴリー:** theme
--	**サポート:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** fontSize, linkTarget, textAlign
 
 <!--
@@ -366,12 +366,12 @@ Displays a link to reply to a comment. ([Source](https://github.com/WordPress/gu
 <!--
 -	**Name:** core/comment-reply-link
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 -->
 -	**名前:** core/comment-reply-link
 -	**カテゴリー:** theme
--	**サポート:** color (background, gradients, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -387,12 +387,12 @@ Contains the block elements used to display a comment, like the title, date, aut
 <!--
 -	**Name:** core/comment-template
 -	**Category:** design
--	**Supports:** align, ~~html~~, ~~reusable~~
+-	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 -->
 -	**名前:** core/comment-template
 -	**カテゴリー:** design
--	**サポート:** align, ~~html~~, ~~reusable~~
+-	**サポート:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** 
 
 <!-- 
@@ -408,12 +408,12 @@ An advanced block that allows displaying post comments using different visual co
 <!-- 
 -	**Name:** core/comments
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
+-	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** legacy, tagName
  -->
 -	**名前:** core/comments
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), color (background, gradients, link, text), ~~html~~
+-	**サポート:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** legacy, tagName
 
 <!--
@@ -429,7 +429,7 @@ Displays a paginated navigation to next/previous set of comments, when applicabl
 <!--
 -	**Name:** core/comments-pagination
 -	**Category:** theme
--	**Supports:** align, color (background, gradients, link, text), ~~html~~, ~~reusable~~
+-	**Supports:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** paginationArrow
 -->
 -	**名前:** core/comments-pagination
@@ -438,9 +438,9 @@ Displays a paginated navigation to next/previous set of comments, when applicabl
 -	**属性:** paginationArrow
 
 <!--
-## Next Page
+## Comments Next Page
 -->
-## Next Page / 次ページ
+## Comments Next Page / コメントの次のページ
 
 <!--
 Displays the next comment's page link. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-pagination-next))
@@ -459,9 +459,9 @@ Displays the next comment's page link. ([Source](https://github.com/WordPress/gu
 -	**属性:** label
 
 <!--
-## Page Numbers
+## Comments Page Numbers
 -->
-## Page Numbers / ページ番号
+## Comments Page Numbers / コメントのページ番号
 
 <!--
 Displays a list of page numbers for comments pagination. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-pagination-numbers))
@@ -471,18 +471,18 @@ Displays a list of page numbers for comments pagination. ([Source](https://githu
 <!--
 -	**Name:** core/comments-pagination-numbers
 -	**Category:** theme
--	**Supports:** ~~html~~, ~~reusable~~
+-	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 -->
 -	**名前:** core/comments-pagination-numbers
 -	**カテゴリー:** theme
--	**サポート:** ~~html~~, ~~reusable~~
+-	**サポート:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** 
 
 <!--
-## Previous Page
+## Comments Previous Page
 -->
-## Previous Page / 前ページ
+## Comments Previous Page / コメントの前のページ
 
 <!--
 Displays the previous comment's page link. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-pagination-previous))
@@ -559,12 +559,12 @@ Add an image or video with a text overlay — great for headers. ([Source](https
 <!--
 -	**Name:** core/cover
 -	**Category:** media
--	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
+-	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, templateLock, url, useFeaturedImage
 -->
 -	**名前:** core/cover
 -	**カテゴリー:** media
--	**サポート:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
+-	**サポート:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, templateLock, url, useFeaturedImage
 
 <!--
@@ -643,12 +643,12 @@ Display multiple images in a rich gallery. ([Source](https://github.com/WordPres
 <!--
 -	**Name:** core/gallery
 -	**Category:** media
--	**Supports:** align, anchor, spacing (blockGap), units (em, px, rem, vh, vw), ~~html~~
+-	**Supports:** align, anchor, color (background, gradients, ~~text~~), spacing (blockGap, margin, padding), units (em, px, rem, vh, vw), ~~html~~
 -	**Attributes:** allowResize, caption, columns, fixedHeight, ids, imageCrop, images, linkTarget, linkTo, shortCodeTransforms, sizeSlug
 -->
 -	**名前:** core/gallery
 -	**カテゴリー:** media
--	**サポート:** align, anchor, spacing (blockGap), units (em, px, rem, vh, vw), ~~html~~
+-	**サポート:** align, anchor, color (background, gradients, ~~text~~), spacing (blockGap, margin, padding), units (em, px, rem, vh, vw), ~~html~~
 -	**属性:** allowResize, caption, columns, fixedHeight, ids, imageCrop, images, linkTarget, linkTo, shortCodeTransforms, sizeSlug
 
 <!--
@@ -664,12 +664,12 @@ Gather blocks in a layout container. ([Source](https://github.com/WordPress/gute
 <!--
 -	**Name:** core/group
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), dimensions (minHeight), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** tagName, templateLock
 -->
 -	**名前:** core/group
 -	**カテゴリー:** design
--	**サポート:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), dimensions (minHeight), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** tagName, templateLock
 
 <!--
@@ -685,12 +685,12 @@ Introduce new sections and organize content to help visitors (and search engines
 <!--
 -	**Name:** core/heading
 -	**Category:** text
--	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin), typography (fontSize, lineHeight), ~~className~~
+-	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** content, level, placeholder, textAlign
 -->
 -	**名前:** core/heading
 -	**カテゴリー:** text
--	**サポート:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin), typography (fontSize, lineHeight), ~~className~~
+-	**サポート:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**属性:** content, level, placeholder, textAlign
 
 <!--
@@ -706,12 +706,12 @@ Create a link that always points to the homepage of the site. Usually not necess
 <!--
 -	**Name:** core/home-link
 -	**Category:** design
--	**Supports:** ~~html~~, ~~reusable~~
+-	**Supports:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label
 -->
 -	**名前:** core/home-link
 -	**カテゴリー:** design
--	**サポート:** ~~html~~, ~~reusable~~
+-	**サポート:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** label
 
 <!--
@@ -769,12 +769,12 @@ Display a list of your most recent comments. ([Source](https://github.com/WordPr
 <!--
 -	**Name:** core/latest-comments
 -	**Category:** widgets
--	**Supports:** align, ~~html~~
+-	**Supports:** align, spacing (margin, padding), ~~html~~
 -	**Attributes:** commentsToShow, displayAvatar, displayDate, displayExcerpt
 -->
 -	**名前:** core/latest-comments
 -	**カテゴリー:** widgets
--	**サポート:** align, ~~html~~
+-	**サポート:** align, spacing (margin, padding), ~~html~~
 -	**属性:** commentsToShow, displayAvatar, displayDate, displayExcerpt
 
 <!--
@@ -790,12 +790,12 @@ Display a list of your most recent posts. ([Source](https://github.com/WordPress
 <!--
 -	**Name:** core/latest-posts
 -	**Category:** widgets
--	**Supports:** align, ~~html~~
+-	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** addLinkToFeaturedImage, categories, columns, displayAuthor, displayFeaturedImage, displayPostContent, displayPostContentRadio, displayPostDate, excerptLength, featuredImageAlign, featuredImageSizeHeight, featuredImageSizeSlug, featuredImageSizeWidth, order, orderBy, postLayout, postsToShow, selectedAuthor
 -->
 -	**名前:** core/latest-posts
 -	**カテゴリー:** widgets
--	**サポート:** align, ~~html~~
+-	**サポート:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** addLinkToFeaturedImage, categories, columns, displayAuthor, displayFeaturedImage, displayPostContent, displayPostContentRadio, displayPostDate, excerptLength, featuredImageAlign, featuredImageSizeHeight, featuredImageSizeSlug, featuredImageSizeWidth, order, orderBy, postLayout, postsToShow, selectedAuthor
 
 <!--
@@ -811,12 +811,12 @@ Create a bulleted or numbered list. ([Source](https://github.com/WordPress/guten
 <!--
 -	**Name:** core/list
 -	**Category:** text
--	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
+-	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** ordered, placeholder, reversed, start, type, values
 -->
 -	**名前:** core/list
 -	**カテゴリー:** text
--	**サポート:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
+-	**サポート:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**属性:** ordered, placeholder, reversed, start, type, values
 <!-- 
 ## List item
@@ -829,12 +829,12 @@ Create a list item. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/
 <!-- 
 -	**Name:** core/list-item
 -	**Category:** text
--	**Supports:** ~~className~~
+-	**Supports:** typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** content, placeholder
  -->
 -	**名前:** core/list-item
 -	**カテゴリー:** text
--	**サポート:** ~~className~~
+-	**サポート:** typography (fontSize, lineHeight), ~~className~~
 -	**属性:** content, placeholder
 
 <!--
@@ -871,12 +871,12 @@ Set media and words side-by-side for a richer layout. ([Source](https://github.c
 <!--
 -	**Name:** core/media-text
 -	**Category:** media
--	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** align, focalPoint, href, imageFill, isStackedOnMobile, linkClass, linkDestination, linkTarget, mediaAlt, mediaId, mediaLink, mediaPosition, mediaSizeSlug, mediaType, mediaUrl, mediaWidth, rel, verticalAlignment
 -->
 -	**名前:** core/media-text
 -	**カテゴリー:** media
--	**サポート:** align (full, wide), anchor, color (background, gradients, link, text), ~~html~~
+-	**サポート:** align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** align, focalPoint, href, imageFill, isStackedOnMobile, linkClass, linkDestination, linkTarget, mediaAlt, mediaId, mediaLink, mediaPosition, mediaSizeSlug, mediaType, mediaUrl, mediaWidth, rel, verticalAlignment
 
 <!--
@@ -934,13 +934,13 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 <!--
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Supports:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
+-	**Supports:** align (full, wide), inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 -->
 -	**名前:** core/navigation
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
--	**属性:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, textColor
+-	**サポート:** align (full, wide), inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
+-	**属性:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 
 <!--
 ## Navigation Area
@@ -979,12 +979,12 @@ Add a page, link, or another item to your navigation. ([Source](https://github.c
 <!--
 -	**Name:** core/navigation-link
 -	**Category:** design
--	**Supports:** ~~html~~, ~~reusable~~
+-	**Supports:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** description, id, isTopLevelLink, kind, label, opensInNewTab, rel, title, type, url
 -->
 -	**名前:** core/navigation-link
 -	**カテゴリー:** design
--	**サポート:** ~~html~~, ~~reusable~~
+-	**サポート:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** description, id, isTopLevelLink, kind, label, opensInNewTab, rel, title, type, url
 
 <!--
@@ -1043,12 +1043,12 @@ Display a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tr
 -	**Name:** core/page-list
 -	**Category:** widgets
 -	**Supports:** ~~html~~, ~~reusable~~
--	**Attributes:** __unstableMaxPages
+-	**Attributes:** 
 -->
 -	**名前:** core/page-list
 -	**カテゴリー:** widgets
 -	**サポート:** ~~html~~, ~~reusable~~
--	**属性:** __unstableMaxPages
+-	**属性:**
 
 <!--
 ## Paragraph
@@ -1063,12 +1063,12 @@ Start with the basic building block of all narrative. ([Source](https://github.c
 <!--
 -	**Name:** core/paragraph
 -	**Category:** text
--	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
+-	**Supports:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** align, content, direction, dropCap, placeholder
 -->
 -	**名前:** core/paragraph
 -	**カテゴリー:** text
--	**サポート:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~className~~
+-	**サポート:** __unstablePasteTextInline, anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**属性:** align, content, direction, dropCap, placeholder
 
 <!--
@@ -1106,12 +1106,12 @@ Display post author details such as name, avatar, and bio. ([Source](https://git
 -	**Name:** core/post-author
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** avatarSize, byline, showAvatar, showBio, textAlign
+-	**Attributes:** avatarSize, byline, isLink, linkTarget, showAvatar, showBio, textAlign
 -->
 -	**名前:** core/post-author
 -	**カテゴリー:** theme
 -	**サポート:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**属性:** avatarSize, byline, showAvatar, showBio, textAlign
+-	**属性:** avatarSize, byline, isLink, linkTarget, showAvatar, showBio, textAlign
 
 <!-- 
 ## Post Author Biography
@@ -1215,7 +1215,7 @@ Display a post's comments count. ([Source](https://github.com/WordPress/gutenber
 <!--
 -	**Name:** core/post-comments-count
 -	**Category:** theme
--	**Supports:** color (background, gradients, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 -->
 -	**名前:** core/post-comments-count
@@ -1236,12 +1236,12 @@ Display a post's comments form. ([Source](https://github.com/WordPress/gutenberg
 <!--
 -	**Name:** core/post-comments-form
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 -->
 -	**名前:** core/post-comments-form
 -	**カテゴリー:** theme
--	**サポート:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** textAlign
 
 <!--
@@ -1257,12 +1257,12 @@ Displays the link to the current post comments. ([Source](https://github.com/Wor
 <!--
 -	**Name:** core/post-comments-link
 -	**Category:** theme
--	**Supports:** color (background, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 -->
 -	**名前:** core/post-comments-link
 -	**カテゴリー:** theme
--	**サポート:** color (background, link, ~~text~~), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** color (background, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** textAlign
 
 <!--
@@ -1278,12 +1278,12 @@ Displays the contents of a post or page. ([Source](https://github.com/WordPress/
 <!--
 -	**Name:** core/post-content
 -	**Category:** theme
--	**Supports:** align (full, wide), ~~html~~
+-	**Supports:** align (full, wide), dimensions (minHeight), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** 
 -->
 -	**名前:** core/post-content
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), ~~html~~
+-	**サポート:** align (full, wide), dimensions (minHeight), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** 
 
 <!--
@@ -1299,7 +1299,7 @@ Add the date of this post. ([Source](https://github.com/WordPress/gutenberg/tree
 <!--
 -	**Name:** core/post-date
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayType, format, isLink, textAlign
 -->
 -	**名前:** core/post-date
@@ -1342,12 +1342,12 @@ Display a post's featured image. ([Source](https://github.com/WordPress/gutenber
 -	**Name:** core/post-featured-image
 -	**Category:** theme
 -	**Supports:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**Attributes:** height, isLink, linkTarget, rel, scale, sizeSlug, width
+-	**Attributes:** customGradient, customOverlayColor, dimRatio, gradient, height, isLink, linkTarget, overlayColor, rel, scale, sizeSlug, width
 -->
 -	**名前:** core/post-featured-image
 -	**カテゴリー:** theme
 -	**サポート:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**属性:** height, isLink, linkTarget, rel, scale, sizeSlug, width
+-	**属性:** customGradient, customOverlayColor, dimRatio, gradient, height, isLink, linkTarget, overlayColor, rel, scale, sizeSlug, width
 
 <!--
 ## Post Navigation Link
@@ -1363,12 +1363,12 @@ Displays the next or previous post link that is adjacent to the current post. ([
 -	**Name:** core/post-navigation-link
 -	**Category:** theme
 -	**Supports:** color (background, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
--	**Attributes:** label, linkLabel, showTitle, textAlign, type
+-	**Attributes:** arrow, label, linkLabel, showTitle, textAlign, type
 -->
 -	**名前:** core/post-navigation-link
 -	**カテゴリー:** theme
 -	**サポート:** color (background, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
--	**属性:** label, linkLabel, showTitle, textAlign, type
+-	**属性:** arrow, label, linkLabel, showTitle, textAlign, type
 
 <!--
 ## Post Template
@@ -1383,12 +1383,12 @@ Contains the block elements used to render a post, like the title, date, feature
 <!--
 -	**Name:** core/post-template
 -	**Category:** theme
--	**Supports:** align, ~~html~~, ~~reusable~~
+-	**Supports:** align, typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 -->
 -	**名前:** core/post-template
 -	**カテゴリー:** theme
--	**サポート:** align, ~~html~~, ~~reusable~~
+-	**サポート:** align, typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** 
 
 <!--
@@ -1404,12 +1404,12 @@ Post terms. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages
 <!--
 -	**Name:** core/post-terms
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** prefix, separator, suffix, term, textAlign
 -->
 -	**名前:** core/post-terms
 -	**カテゴリー:** theme
--	**サポート:** color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** prefix, separator, term, textAlign
 
 <!--
@@ -1425,12 +1425,12 @@ Displays the title of a post, page, or any other content-type. ([Source](https:/
 <!--
 -	**Name:** core/post-title
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, level, linkTarget, rel, textAlign
 -->
 -	**名前:** core/post-title
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), color (background, gradients, link, text), spacing (margin), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** isLink, level, linkTarget, rel, textAlign
 
 <!--
@@ -1489,12 +1489,12 @@ An advanced block that allows displaying post types based on different query par
 -	**Name:** core/query
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
--	**Attributes:** displayLayout, query, queryId, tagName
+-	**Attributes:** displayLayout, namespace, query, queryId, tagName
 -->
 -	**名前:** core/query
 -	**カテゴリー:** theme
 -	**サポート:** align (full, wide), color (background, gradients, link, text), ~~html~~
--	**属性:** displayLayout, query, queryId, tagName
+-	**属性:** displayLayout, namespace, query, queryId, tagName
 
 <!-- 
 ## No results
@@ -1509,12 +1509,12 @@ Contains the block elements used to render content when no query results are fou
 <!-- 
 -	**Name:** core/query-no-results
 -	**Category:** theme
--	**Supports:** align, color (background, gradients, link, text), ~~html~~, ~~reusable~~
+-	**Supports:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
  -->
 -	**名前:** core/query-no-results
 -	**カテゴリー:** theme
--	**サポート:** align, color (background, gradients, link, text), ~~html~~, ~~reusable~~
+-	**サポート:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** 
 
 <!--
@@ -1530,12 +1530,12 @@ Displays a paginated navigation to next/previous set of posts, when applicable. 
 <!--
 -	**Name:** core/query-pagination
 -	**Category:** theme
--	**Supports:** align, color (background, gradients, link, text), ~~html~~, ~~reusable~~
+-	**Supports:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** paginationArrow
 -->
 -	**名前:** core/query-pagination
 -	**カテゴリー:** theme
--	**サポート:** align, color (background, gradients, link, text), ~~html~~, ~~reusable~~
+-	**サポート:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**属性:** paginationArrow
 
 <!--
@@ -1614,13 +1614,13 @@ Display the query title. ([Source](https://github.com/WordPress/gutenberg/tree/t
 <!--
 -	**Name:** core/query-title
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** level, showSearchTerm, textAlign, type
+-	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** level, showPrefix, showSearchTerm, textAlign, type
 -->
 -	**名前:** core/query-title
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), color (background, gradients, text), spacing (margin), typography (fontSize, lineHeight), ~~html~~
--	**属性:** level, showSearchTerm, textAlign, type
+-	**サポート:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**属性:** level, showPrefix, showSearchTerm, textAlign, type
 
 <!--
 ## Quote
@@ -1698,13 +1698,12 @@ Help visitors find your content. ([Source](https://github.com/WordPress/gutenber
 <!--
 -	**Name:** core/search
 -	**Category:** widgets
--	**Supports:** align (center, left, right), color (background, gradients, text), ~~html~~
--	**Attributes:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, showLabel, width, widthUnit
+-	**Supports:** align (center, left, right), color (background, gradients, text), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, query, showLabel, width, widthUnit
 -->
 -	**名前:** core/search
 -	**カテゴリー:** widgets
--	**サポート:** align (center, left, right), color (background, gradients, text), ~~html~~
+-	**サポート:** align (center, left, right), color (background, gradients, text), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, query, showLabel, width, widthUnit
 
 <!--
@@ -1720,12 +1719,12 @@ Create a break between ideas or sections with a horizontal separator. ([Source](
 <!--
 -	**Name:** core/separator
 -	**Category:** design
--	**Supports:** align (center, full, wide), anchor, color (background, gradients, ~~text~~), spacing (margin)
+-	**Supports:** align (center, full, wide), anchor, color (background, gradients, ~~enableContrastChecker~~, ~~text~~), spacing (margin)
 -	**Attributes:** opacity
 -->
 -	**名前:** core/separator
 -	**カテゴリー:** design
--	**サポート:** align (center, full, wide), anchor, color (background, gradients, ~~text~~), spacing (margin)
+-	**サポート:** align (center, full, wide), anchor, color (background, gradients, ~~enableContrastChecker~~, ~~text~~), spacing (margin)
 -	**属性:** opacity
 
 <!--
@@ -1762,12 +1761,12 @@ Display a graphic to represent this site. Update the block, and the changes appl
 <!--
 -	**Name:** core/site-logo
 -	**Category:** theme
--	**Supports:** align, color (~~background~~, ~~text~~), ~~alignWide~~, ~~html~~
+-	**Supports:** align, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
 -	**Attributes:** isLink, linkTarget, shouldSyncIcon, width
 -->
 -	**名前:** core/site-logo
 -	**カテゴリー:** theme
--	**サポート:** align, color (~~background~~, ~~text~~), ~~alignWide~~, ~~html~~
+-	**サポート:** align, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
 -	**属性:** isLink, linkTarget, shouldSyncIcon, width
 
 <!--
@@ -1776,7 +1775,7 @@ Display a graphic to represent this site. Update the block, and the changes appl
 ## Site Tagline / サイトのキャッチフレーズ
 
 <!--
-Describe in a few words what the site is about. The tagline can be used in search results or when sharing on social networks even if it's not displayed in the theme design. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-tagline))
+Describe in a few words what the site is about. The tagline can be used in search results or when sharing on social networks even if it’s not displayed in the theme design. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-tagline))
 -->
 簡潔にサイトを説明します。キャッチフレーズは、テーマのデザインで非表示でも、検索結果やソーシャルネットワークでの共有で使用されます。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-tagline))
 
@@ -1826,12 +1825,12 @@ Display an icon linking to a social media profile or site. ([Source](https://git
 -	**Name:** core/social-link
 -	**Category:** widgets
 -	**Supports:** ~~html~~, ~~reusable~~
--	**Attributes:** label, service, url
+-	**Attributes:** label, rel, service, url
 -->
 -	**名前:** core/social-link
 -	**カテゴリー:** widgets
 -	**サポート:** ~~html~~, ~~reusable~~
--	**属性:** label, service, url
+-	**属性:** label, rel, service, url
 
 <!--
 ## Social Icons
@@ -1846,12 +1845,12 @@ Display icons linking to your social media profiles or sites. ([Source](https://
 <!--
 -	**Name:** core/social-links
 -	**Category:** widgets
--	**Supports:** align (center, left, right), anchor, spacing (blockGap, margin, units)
+-	**Supports:** align (center, left, right), anchor, color (background, gradients, ~~enableContrastChecker~~, ~~text~~), spacing (blockGap, margin, padding, units)
 -	**Attributes:** customIconBackgroundColor, customIconColor, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, openInNewTab, showLabels, size
 -->
 -	**名前:** core/social-links
 -	**カテゴリー:** widgets
--	**サポート:** align (center, left, right), anchor, spacing (blockGap, margin, units)
+-	**サポート:** align (center, left, right), anchor, color (background, gradients, ~~enableContrastChecker~~, ~~text~~), spacing (blockGap, margin, padding, units)
 -	**属性:** customIconBackgroundColor, customIconColor, iconBackgroundColor, iconBackgroundColorValue, iconColor, iconColorValue, openInNewTab, showLabels, size
 
 <!--
@@ -1867,12 +1866,12 @@ Add white space between blocks and customize its height. ([Source](https://githu
 <!--
 -	**Name:** core/spacer
 -	**Category:** design
--	**Supports:** anchor
+-	**Supports:** anchor, spacing (margin)
 -	**Attributes:** height, width
 -->
 -	**名前:** core/spacer
 -	**カテゴリー:** design
--	**サポート:** anchor
+-	**サポート:** anchor, spacing (margin)
 -	**属性:** height, width
 
 <!--
@@ -1888,12 +1887,12 @@ Create structured content in rows and columns to display information. ([Source](
 <!--
 -	**Name:** core/table
 -	**Category:** text
--	**Supports:** align, anchor, color (background, gradients, text), typography (fontSize, lineHeight)
+-	**Supports:** align, anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** body, caption, foot, hasFixedLayout, head
 -->
 -	**名前:** core/table
 -	**カテゴリー:** text
--	**サポート:** align, anchor, color (background, gradients, text), typography (fontSize, lineHeight)
+-	**サポート:** align, anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**属性:** body, caption, foot, hasFixedLayout, head
 
 <!--
@@ -1909,12 +1908,12 @@ Summarize your post with a list of headings. Add HTML anchors to Heading blocks 
 <!--
 -	**Name:** core/table-of-contents
 -	**Category:** layout
--	**Supports:** ~~html~~
+-	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** headings, onlyIncludeCurrentPage
 -->
 -	**名前:** core/table-of-contents
 -	**カテゴリー:** layout
--	**サポート:** ~~html~~
+-	**サポート:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** headings, onlyIncludeCurrentPage
 
 <!--
@@ -1930,12 +1929,12 @@ A cloud of your most used tags. ([Source](https://github.com/WordPress/gutenberg
 <!--
 -	**Name:** core/tag-cloud
 -	**Category:** widgets
--	**Supports:** align, ~~html~~
+-	**Supports:** align, spacing (margin, padding), typography (lineHeight), ~~html~~
 -	**Attributes:** largestFontSize, numberOfTags, showTagCounts, smallestFontSize, taxonomy
 -->
 -	**名前:** core/tag-cloud
 -	**カテゴリー:** widgets
--	**サポート:** align, ~~html~~
+-	**サポート:** align, spacing (margin, padding), typography (lineHeight), ~~html~~
 -	**属性:** largestFontSize, numberOfTags, showTagCounts, smallestFontSize, taxonomy
 
 <!--
@@ -1972,12 +1971,12 @@ Display the description of categories, tags and custom taxonomies when viewing a
 <!--
 -	**Name:** core/term-description
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 -->
 -	**名前:** core/term-description
 -	**カテゴリー:** theme
--	**サポート:** align (full, wide), color (background, link, text), typography (fontSize, lineHeight), ~~html~~
+-	**サポート:** align (full, wide), color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**属性:** textAlign
 
 <!--
@@ -2014,12 +2013,12 @@ Insert poetry. Use special spacing formats. Or quote song lyrics. ([Source](http
 <!--
 -	**Name:** core/verse
 -	**Category:** text
--	**Supports:** anchor, color (background, gradients, link, text), spacing (padding), typography (fontSize, lineHeight)
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** content, textAlign
 -->
 -	**名前:** core/verse
 -	**カテゴリー:** text
--	**サポート:** anchor, color (background, gradients, link, text), spacing (padding), typography (fontSize, lineHeight)
+-	**サポート:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**属性:** content, textAlign
 
 <!--
@@ -2035,12 +2034,12 @@ Embed a video from your media library or upload a new one. ([Source](https://git
 <!--
 -	**Name:** core/video
 -	**Category:** media
--	**Supports:** align, anchor
+-	**Supports:** align, anchor, spacing (margin, padding)
 -	**Attributes:** autoplay, caption, controls, id, loop, muted, playsInline, poster, preload, src, tracks
 -->
 -	**名前:** core/video
 -	**カテゴリー:** media
--	**サポート:** align, anchor
+-	**サポート:** align, anchor, spacing (margin, padding)
 -	**属性:** autoplay, caption, controls, id, loop, muted, playsInline, poster, preload, src, tracks
 
 <!-- END TOKEN Autogenerated - DO NOT EDIT -->

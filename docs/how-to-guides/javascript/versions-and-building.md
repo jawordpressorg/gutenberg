@@ -15,7 +15,7 @@ Plain refers to JavaScript code compatible with WordPress's minimum [target for 
 
 <!-- 
 "JSX" doesn't refer to a specific version of JavaScript, but refers to the latest language definition plus
-[JSX syntax](https://reactjs.org/docs/introducing-jsx.html), a syntax that blends HTML and JavaScript. JSX makes it easier to read and write markup code, but does require a build step to transpile into code compatible with browers. Webpack and babel are the tools that perform this transpilation step.
+[JSX syntax](https://reactjs.org/docs/introducing-jsx.html), a syntax that blends HTML and JavaScript. JSX makes it easier to read and write markup code, but does require a build step to transpile into code compatible with browsers. Webpack and babel are the tools that perform this transpilation step.
  -->
 「JSX」は、JavaScript の特定のバージョンを意味せず、最新の言語定義、そして、HTML と JavaScript を混ぜた [JSX 構文](https://reactjs.org/docs/introducing-jsx.html) を指します。JSX を使用するとマークアップコードの読み書きが楽になりますが、ブラウザと互換のコードにトランスパイルするビルド手順が必要です。Webpack や Babel はこのトランスパイルを実行するツールです。
 

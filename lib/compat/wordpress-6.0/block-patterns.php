@@ -11,15 +11,11 @@ if ( ! function_exists( '_register_remote_theme_patterns' ) ) {
 	 * `theme.json` file.
 	 */
 	function _register_remote_theme_patterns() {
-		if ( ! get_theme_support( 'core-block-patterns' ) ) {
-			return;
-		}
-
 		if ( ! apply_filters( 'should_load_remote_block_patterns', true ) ) {
 			return;
 		}
 
-		if ( ! WP_Theme_JSON_Resolver_Gutenberg::theme_has_support() ) {
+		if ( ! wp_theme_has_theme_json() ) {
 			return;
 		}
 

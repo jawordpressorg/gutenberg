@@ -2,9 +2,32 @@
 
 ## Unreleased
 
+## 4.5.0 (2022-11-02)
+
+### Enhancement
+
+-   Update templates to use the `render` field in `block.json` introduced in WordPress 6.1 ([#44185](https://github.com/WordPress/gutenberg/pull/44185)).
+
+## 4.4.0 (2022-10-19)
+
+### New Feature
+
+-   Add new `customPackageJSON` and `customBlockJSON` keys to allow templates to define custom keys for the resulting `package.json` and `block.json` files respectively.[#44649](https://github.com/WordPress/gutenberg/pull/44649)
+
+## 4.3.0 (2022-10-05)
+
+## 4.2.0 (2022-09-21)
+
+## 4.0.0 (2022-08-24)
+
 ### Breaking Change
 
 -   Increase the minimum Node.js version to 14 and minimum npm version to 6.14.4 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+
+### New Feature
+
+-   Add `--no-plugin` flag to allow scaffolding of a block in an existing plugin ([#41642](https://github.com/WordPress/gutenberg/pull/41642))
+-   Introduce the `--variant` flag to allow selection of a variant as defined in the template ([#41289](https://github.com/WordPress/gutenberg/pull/41289), [#43481](https://github.com/WordPress/gutenberg/pull/43481)).
 
 ## 3.6.0 (2022-07-13)
 

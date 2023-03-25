@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { escape, without } from 'lodash';
+import escapeHtml from 'escape-html';
 
 /**
  * WordPress dependencies
@@ -39,9 +39,13 @@ import {
 } from '@wordpress/element';
 import { placeCaretAtHorizontalEdge } from '@wordpress/dom';
 import { link as linkIcon, removeSubmenu } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
+import {
+	useResourcePermissions,
+	store as coreStore,
+} from '@wordpress/core-data';
 import { speak } from '@wordpress/a11y';
 import { createBlock } from '@wordpress/blocks';
+import { useMergeRefs } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -244,8 +248,8 @@ export const updateNavigationLinkBlockAttributes = (
 		normalizedTitle !== normalizedURL &&
 		originalLabel !== title;
 	const label = escapeTitle
-		? escape( title )
-		: originalLabel || escape( normalizedURL );
+		? escapeHtml( title )
+		: originalLabel || escapeHtml( normalizedURL );
 
 	// In https://github.com/WordPress/gutenberg/pull/24670 we decided to use "tag" in favor of "post_tag"
 	const type = newType === 'post_tag' ? 'tag' : newType.replace( '-', '_' );
@@ -289,10 +293,16 @@ export default function NavigationSubmenuEdit( {
 	const { __unstableMarkNextChangeAsNotPersistent, replaceBlock } =
 		useDispatch( blockEditorStore );
 	const [ isLinkOpen, setIsLinkOpen ] = useState( false );
+	// Use internal state instead of a ref to make sure that the component
+	// re-renders when the popover's anchor updates.
+	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
 	const listItemRef = useRef( null );
 	const isDraggingWithin = useIsDraggingWithin( listItemRef );
 	const itemLabelPlaceholder = __( 'Add text…' );
 	const ref = useRef();
+
+	const pagesPermissions = useResourcePermissions( 'pages' );
+	const postsPermissions = useResourcePermissions( 'posts' );
 
 	const {
 		isAtMaxNesting,
@@ -301,8 +311,6 @@ export default function NavigationSubmenuEdit( {
 		isImmediateParentOfSelectedBlock,
 		hasChildren,
 		selectedBlockHasChildren,
-		userCanCreatePages,
-		userCanCreatePosts,
 		onlyDescendantIsEmptyLink,
 	} = useSelect(
 		( select ) => {
@@ -348,14 +356,6 @@ export default function NavigationSubmenuEdit( {
 				),
 				hasChildren: !! getBlockCount( clientId ),
 				selectedBlockHasChildren: !! selectedBlockChildren?.length,
-				userCanCreatePages: select( coreStore ).canUser(
-					'create',
-					'pages'
-				),
-				userCanCreatePosts: select( coreStore ).canUser(
-					'create',
-					'posts'
-				),
 				onlyDescendantIsEmptyLink: _onlyDescendantIsEmptyLink,
 			};
 		},
@@ -426,9 +426,9 @@ export default function NavigationSubmenuEdit( {
 
 	let userCanCreate = false;
 	if ( ! type || type === 'page' ) {
-		userCanCreate = userCanCreatePages;
+		userCanCreate = pagesPermissions.canCreate;
 	} else if ( type === 'post' ) {
-		userCanCreate = userCanCreatePosts;
+		userCanCreate = postsPermissions.canCreate;
 	}
 
 	async function handleCreate( pageTitle ) {
@@ -462,7 +462,7 @@ export default function NavigationSubmenuEdit( {
 	}
 
 	const blockProps = useBlockProps( {
-		ref: listItemRef,
+		ref: useMergeRefs( [ setPopoverAnchor, listItemRef ] ),
 		className: classnames( 'wp-block-navigation-item', {
 			'is-editing': isSelected || isParentOfSelectedBlock,
 			'is-dragging-within': isDraggingWithin,
@@ -486,7 +486,9 @@ export default function NavigationSubmenuEdit( {
 	const innerBlocksColors = getColors( context, true );
 
 	const allowedBlocks = isAtMaxNesting
-		? without( ALLOWED_BLOCKS, 'core/navigation-submenu' )
+		? ALLOWED_BLOCKS.filter(
+				( blockName ) => blockName !== 'core/navigation-submenu'
+		  )
 		: ALLOWED_BLOCKS;
 
 	const innerBlocksProps = useInnerBlocksProps(
@@ -631,10 +633,10 @@ export default function NavigationSubmenuEdit( {
 					}
 					{ ! openSubmenusOnClick && isLinkOpen && (
 						<Popover
-							position="bottom center"
+							placement="bottom"
 							onClose={ () => setIsLinkOpen( false ) }
-							anchorRef={ listItemRef.current }
-							__unstableShift
+							anchor={ popoverAnchor }
+							shift
 						>
 							<LinkControl
 								className="wp-block-navigation-link__inline-link-input"

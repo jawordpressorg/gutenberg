@@ -176,9 +176,44 @@ describe( 'Blocks raw handling', () => {
 			.map( getBlockContent )
 			.join( '' );
 
-		expect( filtered ).toBe(
-			'<ul><li>one</li><li>two</li><li>three</li></ul>'
-		);
+		expect( filtered ).toMatchInlineSnapshot( `
+		"<ul><!-- wp:list-item -->
+		<li>one</li>
+		<!-- /wp:list-item -->
+
+		<!-- wp:list-item -->
+		<li>two</li>
+		<!-- /wp:list-item -->
+
+		<!-- wp:list-item -->
+		<li>three</li>
+		<!-- /wp:list-item --></ul>"
+	` );
+		expect( console ).toHaveLogged();
+	} );
+
+	it( 'should parse bulleted list', () => {
+		const filtered = pasteHandler( {
+			HTML: '• one<br>• two<br>• three',
+			plainText: '• one\n• two\n• three',
+			mode: 'AUTO',
+		} )
+			.map( getBlockContent )
+			.join( '' );
+
+		expect( filtered ).toMatchInlineSnapshot( `
+		"<ul><!-- wp:list-item -->
+		<li>one</li>
+		<!-- /wp:list-item -->
+
+		<!-- wp:list-item -->
+		<li>two</li>
+		<!-- /wp:list-item -->
+
+		<!-- wp:list-item -->
+		<li>three</li>
+		<!-- /wp:list-item --></ul>"
+	` );
 		expect( console ).toHaveLogged();
 	} );
 
@@ -282,9 +317,19 @@ describe( 'Blocks raw handling', () => {
 			.map( getBlockContent )
 			.join( '' );
 
-		expect( filtered ).toBe(
-			'<ul><li>One</li><li>Two</li><li>Three</li></ul>'
-		);
+		expect( filtered ).toMatchInlineSnapshot( `
+		"<ul><!-- wp:list-item -->
+		<li>One</li>
+		<!-- /wp:list-item -->
+
+		<!-- wp:list-item -->
+		<li>Two</li>
+		<!-- /wp:list-item -->
+
+		<!-- wp:list-item -->
+		<li>Three</li>
+		<!-- /wp:list-item --></ul>"
+	` );
 		expect( console ).toHaveLogged();
 	} );
 
@@ -331,6 +376,7 @@ describe( 'Blocks raw handling', () => {
 			'nested-divs',
 			'apple',
 			'google-docs',
+			'google-docs-list-only',
 			'google-docs-table',
 			'google-docs-table-with-comments',
 			'google-docs-with-comments',

@@ -190,6 +190,27 @@ supports: {
 }
 ```
 
+## ariaLabel
+
+<!-- 
+- Type: `boolean`
+- Default value: `false`
+ -->
+- タイプ: `boolean`
+- デフォルト値: `false`
+
+<!-- 
+ARIA-labels let you define an accessible label for elements. This property allows enabling the definition of an aria-label for the block, without exposing a UI field.
+ -->
+要素にアクセス可能なラベルを定義できます。このプロパティを使用すると、UI フィールドを公開せずに、ブロックの aria-label を定義できます。
+
+```js
+supports: {
+	// aria ラベルのサポートを追加
+	ariaLabel: true
+}
+```
+
 ## className
 
 <!--

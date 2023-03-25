@@ -52,15 +52,15 @@ Many components include CSS to add style, you will need to include for the compo
 ## 開発スクリプト
 
 <!--
-The [wp-scripts package](https://developer.wordpress.org/block-editor/packages/packages-scripts/) is a collection of reusable scripts for JavaScript development — includes scripts for building, linting, and testing — all with no additional configuration files.
+The [`@wordpress/scripts` package](/packages/scripts/README.md) is a collection of reusable scripts for JavaScript development — includes scripts for building, linting, and testing — all with no additional configuration files.
 
-Here is a quick example, on how to use wp-scripts in your project.
+Here is a quick example, on how to use `wp-scripts` tool in your project.
 
 Install the dependency:
  -->
-[wp-scripts パッケージ](https://developer.wordpress.org/block-editor/packages/packages-scripts/)は JavaScript 開発用の再利用可能なスクリプト集です。ビルド、lint、テスト用のスクリプトが含まれ、すべてのスクリプトで追加の構成ファイルは不要です。
+[`@wordpress/scripts` パッケージ](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md)は JavaScript 開発用の再利用可能なスクリプト集です。ビルド、lint、テスト用のスクリプトが含まれ、すべてのスクリプトで追加の構成ファイルは不要です。
 
-プロジェクト内から wp-scripts を使用する簡単な例を示します。
+プロジェクトで `wp-scripts` ツールを使用する簡単な例を示します。
 
 まず、依存をインストールします。
 
@@ -81,13 +81,16 @@ You can then add a scripts section to your package.json file, for example:
 	}
 ```
 <!--
-You can then use `npm run build` to build your project with all the default webpack settings already configured, likewise for formatting and linting. The `start` command is used for development mode. See [the scripts package](https://www.npmjs.com/package/@wordpress/scripts) for full documentation.
+You can then use `npm run build` to build your project with all the default webpack settings already configured, likewise for formatting and linting. The `start` command is used for development mode. See the [`@wordpress/scripts` package](/packages/scripts/README.md) for full documentation.
 
 You can also play with the [Gutenberg Example #03](https://github.com/WordPress/gutenberg-examples/tree/HEAD/03-editable-esnext) for a complete setup using the wp-scripts package.
- -->
-これで `npm run build` と実行すると、構成済みのすべてのデフォルトの webpack 、たとえばフォーマットや lint を実行してプロジェクトをビルドします。`start` コマンドは開発モードで使用します。完全なドキュメントについては [スクリプトのパッケージ](https://www.npmjs.com/package/@wordpress/scripts) を参照してください。
 
-wp-scripts パッケージを使用した完全なセットアップ方法については [Gutenberg Example #03](https://github.com/WordPress/gutenberg-examples/tree/HEAD/03-editable-esnext) を参照してください。
+For more info, see the [Getting Started with JavaScript tutorial](/docs/how-to-guides/javascript/js-build-setup.md) in the Block Editor Handbook.
+ -->
+これで `npm run build` と実行すると、構成済みのすべてのデフォルトの webpack 、たとえばフォーマットや lint を実行してプロジェクトをビルドします。`start` コマンドは開発モードで使用します。完全なドキュメントについては [`@wordpress/scripts` パッケージ](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md)を参照してください。
+
+詳細については「ブロックエディターハンドブック」の「[JavaScript ビルド環境のセットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/)」を参照してください。
+
 
 <!--
 ## Block Editor
@@ -97,7 +100,7 @@ wp-scripts パッケージを使用した完全なセットアップ方法につ
 <!--
 The [`@wordpress/block-editor` package](https://developer.wordpress.org/block-editor/packages/packages-block-editor/) allows you to create and use standalone block editors.
 
-You can learn more by reading the [tutorial "Building a custom block editor"](/docs/reference-guides/platform/custom-block-editor/README.md).
+You can learn more by reading the [tutorial "Building a custom block editor"](/docs/how-to-guides/platform/custom-block-editor/README.md).
  -->
 [`@wordpress/block-editor` パッケージ](https://developer.wordpress.org/block-editor/packages/packages-block-editor/) を使用するとスタンドアロンのブロックエディターを作成し、使用できます。
 

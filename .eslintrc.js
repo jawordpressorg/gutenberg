@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-const { escapeRegExp } = require( 'lodash' );
 const glob = require( 'glob' ).sync;
 const { join } = require( 'path' );
 
@@ -17,7 +16,8 @@ const { version } = require( './package' );
  * @type {string}
  */
 const majorMinorRegExp =
-	escapeRegExp( version.replace( /\.\d+$/, '' ) ) + '(\\.\\d+)?';
+	version.replace( /\.\d+$/, '' ).replace( /[\\^$.*+?()[\]{}|]/g, '\\$&' ) +
+	'(\\.\\d+)?';
 
 /**
  * The list of patterns matching files used only for development purposes.
@@ -79,28 +79,42 @@ module.exports = {
 					{
 						name: 'lodash',
 						importNames: [
+							'camelCase',
 							'capitalize',
+							'castArray',
 							'chunk',
 							'clamp',
+							'cloneDeep',
 							'compact',
 							'concat',
 							'countBy',
+							'debounce',
 							'deburr',
 							'defaults',
 							'defaultTo',
 							'delay',
+							'difference',
 							'differenceWith',
 							'dropRight',
 							'each',
+							'escape',
+							'escapeRegExp',
+							'every',
 							'extend',
 							'findIndex',
 							'findKey',
 							'findLast',
+							'first',
 							'flatMap',
 							'flatten',
 							'flattenDeep',
+							'flow',
+							'flowRight',
+							'forEach',
 							'fromPairs',
+							'has',
 							'identity',
+							'includes',
 							'invoke',
 							'isArray',
 							'isBoolean',
@@ -116,14 +130,18 @@ module.exports = {
 							'isUndefined',
 							'keyBy',
 							'keys',
+							'last',
 							'lowerCase',
+							'mapKeys',
 							'maxBy',
 							'memoize',
 							'negate',
 							'noop',
 							'nth',
+							'omitBy',
 							'once',
 							'overEvery',
+							'partial',
 							'partialRight',
 							'random',
 							'reject',
@@ -131,19 +149,30 @@ module.exports = {
 							'reverse',
 							'size',
 							'snakeCase',
+							'some',
+							'sortBy',
+							'startCase',
 							'startsWith',
 							'stubFalse',
 							'stubTrue',
 							'sum',
 							'sumBy',
 							'take',
+							'throttle',
+							'times',
 							'toString',
 							'trim',
 							'truncate',
+							'unionBy',
+							'uniq',
+							'uniqBy',
 							'uniqueId',
 							'uniqWith',
+							'upperFirst',
 							'values',
+							'without',
 							'words',
+							'xor',
 							'zip',
 						],
 						message:
@@ -298,6 +327,23 @@ module.exports = {
 			extends: [ 'plugin:@wordpress/eslint-plugin/test-unit' ],
 		},
 		{
+			files: [ '**/test/**/*.js' ],
+			excludedFiles: [
+				'**/*.@(android|ios|native).js',
+				'packages/react-native-*/**/*.js',
+				'test/native/**/*.js',
+				'test/e2e/**/*.[tj]s',
+			],
+			extends: [
+				'plugin:jest-dom/recommended',
+				'plugin:testing-library/react',
+			],
+			rules: {
+				'testing-library/no-container': 'off',
+				'testing-library/no-node-access': 'off',
+			},
+		},
+		{
 			files: [ 'packages/e2e-test*/**/*.js' ],
 			excludedFiles: [ 'packages/e2e-test-utils-playwright/**/*.js' ],
 			extends: [ 'plugin:@wordpress/eslint-plugin/test-e2e' ],
@@ -335,7 +381,7 @@ module.exports = {
 			},
 		},
 		{
-			files: [ 'bin/**/*.js', 'packages/env/**' ],
+			files: [ 'bin/**/*.js', 'bin/**/*.mjs', 'packages/env/**' ],
 			rules: {
 				'no-console': 'off',
 			},

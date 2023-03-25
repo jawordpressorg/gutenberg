@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -11,7 +16,10 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalView as View,
 } from '@wordpress/components';
-import { __experimentalUseCustomSides as useCustomSides } from '@wordpress/block-editor';
+import {
+	__experimentalUseCustomSides as useCustomSides,
+	__experimentalSpacingSizesControl as SpacingSizesControl,
+} from '@wordpress/block-editor';
 import { Icon, positionCenter, stretchWide } from '@wordpress/icons';
 
 /**
@@ -27,8 +35,16 @@ export function useHasDimensionsPanel( name ) {
 	const hasPadding = useHasPadding( name );
 	const hasMargin = useHasMargin( name );
 	const hasGap = useHasGap( name );
+	const hasMinHeight = useHasMinHeight( name );
 
-	return hasContentSize || hasWideSize || hasPadding || hasMargin || hasGap;
+	return (
+		hasContentSize ||
+		hasWideSize ||
+		hasPadding ||
+		hasMargin ||
+		hasGap ||
+		hasMinHeight
+	);
 }
 
 function useHasContentSize( name ) {
@@ -66,6 +82,19 @@ function useHasGap( name ) {
 	return settings && supports.includes( 'blockGap' );
 }
 
+function useHasMinHeight( name ) {
+	const supports = getSupportedGlobalStylesPanels( name );
+	const [ settings ] = useSetting( 'dimensions.minHeight', name );
+
+	return settings && supports.includes( 'minHeight' );
+}
+
+function useHasSpacingPresets() {
+	const [ settings ] = useSetting( 'spacing.spacingSizes' );
+
+	return settings && settings.length > 0;
+}
+
 function filterValuesBySides( values, sides ) {
 	if ( ! sides ) {
 		// If no custom side configuration all sides are opted into by default.
@@ -90,7 +119,7 @@ function filterValuesBySides( values, sides ) {
 }
 
 function splitStyleValue( value ) {
-	// Check for shorthand value ( a string value ).
+	// Check for shorthand value (a string value).
 	if ( value && typeof value === 'string' ) {
 		// Convert to value for individual sides for BoxControl.
 		return {
@@ -98,6 +127,26 @@ function splitStyleValue( value ) {
 			right: value,
 			bottom: value,
 			left: value,
+		};
+	}
+
+	return value;
+}
+
+function splitGapValue( value ) {
+	// Check for shorthand value (a string value).
+	if ( value && typeof value === 'string' ) {
+		// If the value is a string, treat it as a single side (top) for the spacing controls.
+		return {
+			top: value,
+		};
+	}
+
+	if ( value ) {
+		return {
+			...value,
+			right: value?.left,
+			bottom: value?.top,
 		};
 	}
 
@@ -204,14 +253,52 @@ function useMarginProps( name ) {
 // Props for managing `spacing.blockGap`.
 function useBlockGapProps( name ) {
 	const [ gapValue, setGapValue ] = useStyle( 'spacing.blockGap', name );
+	const gapValues = splitGapValue( gapValue );
+	const gapSides = useCustomSides( name, 'blockGap' );
+	const isAxialGap =
+		gapSides && gapSides.some( ( side ) => AXIAL_SIDES.includes( side ) );
 	const resetGapValue = () => setGapValue( undefined );
 	const [ userSetGapValue ] = useStyle( 'spacing.blockGap', name, 'user' );
 	const hasGapValue = () => !! userSetGapValue;
+	const setGapValues = ( nextBoxGapValue ) => {
+		if ( ! nextBoxGapValue ) {
+			setGapValue( null );
+		}
+		// If axial gap is not enabled, treat the 'top' value as the shorthand gap value.
+		if ( ! isAxialGap && nextBoxGapValue?.hasOwnProperty( 'top' ) ) {
+			setGapValue( nextBoxGapValue.top );
+		} else {
+			setGapValue( {
+				top: nextBoxGapValue?.top,
+				left: nextBoxGapValue?.left,
+			} );
+		}
+	};
 	return {
 		gapValue,
+		gapValues,
+		gapSides,
+		isAxialGap,
 		setGapValue,
+		setGapValues,
 		resetGapValue,
 		hasGapValue,
+	};
+}
+
+// Props for managing `dimensions.minHeight`.
+function useMinHeightProps( name ) {
+	const [ minHeightValue, setMinHeightValue ] = useStyle(
+		'dimensions.minHeight',
+		name
+	);
+	const resetMinHeightValue = () => setMinHeightValue( undefined );
+	const hasMinHeightValue = () => !! minHeightValue;
+	return {
+		minHeightValue,
+		setMinHeightValue,
+		resetMinHeightValue,
+		hasMinHeightValue,
 	};
 }
 
@@ -221,6 +308,8 @@ export default function DimensionsPanel( { name } ) {
 	const showPaddingControl = useHasPadding( name );
 	const showMarginControl = useHasMargin( name );
 	const showGapControl = useHasGap( name );
+	const showMinHeightControl = useHasMinHeight( name );
+	const showSpacingPresetsControl = useHasSpacingPresets();
 	const units = useCustomUnits( {
 		availableUnits: useSetting( 'spacing.units', name )[ 0 ] || [
 			'%',
@@ -268,8 +357,24 @@ export default function DimensionsPanel( { name } ) {
 	} = useMarginProps( name );
 
 	// Props for managing `spacing.blockGap`.
-	const { gapValue, setGapValue, resetGapValue, hasGapValue } =
-		useBlockGapProps( name );
+	const {
+		gapValue,
+		gapValues,
+		gapSides,
+		isAxialGap,
+		setGapValue,
+		setGapValues,
+		resetGapValue,
+		hasGapValue,
+	} = useBlockGapProps( name );
+
+	// Props for managing `dimensions.minHeight`.
+	const {
+		minHeightValue,
+		setMinHeightValue,
+		resetMinHeightValue,
+		hasMinHeightValue,
+	} = useMinHeightProps( name );
 
 	const resetAll = () => {
 		resetPaddingValue();
@@ -342,16 +447,32 @@ export default function DimensionsPanel( { name } ) {
 					label={ __( 'Padding' ) }
 					onDeselect={ resetPaddingValue }
 					isShownByDefault={ true }
+					className={ classnames( {
+						'tools-panel-item-spacing': showSpacingPresetsControl,
+					} ) }
 				>
-					<BoxControl
-						values={ paddingValues }
-						onChange={ setPaddingValues }
-						label={ __( 'Padding' ) }
-						sides={ paddingSides }
-						units={ units }
-						allowReset={ false }
-						splitOnAxis={ isAxialPadding }
-					/>
+					{ ! showSpacingPresetsControl && (
+						<BoxControl
+							values={ paddingValues }
+							onChange={ setPaddingValues }
+							label={ __( 'Padding' ) }
+							sides={ paddingSides }
+							units={ units }
+							allowReset={ false }
+							splitOnAxis={ isAxialPadding }
+						/>
+					) }
+					{ showSpacingPresetsControl && (
+						<SpacingSizesControl
+							values={ paddingValues }
+							onChange={ setPaddingValues }
+							label={ __( 'Padding' ) }
+							sides={ paddingSides }
+							units={ units }
+							allowReset={ false }
+							splitOnAxis={ isAxialPadding }
+						/>
+					) }
 				</ToolsPanelItem>
 			) }
 			{ showMarginControl && (
@@ -360,16 +481,32 @@ export default function DimensionsPanel( { name } ) {
 					label={ __( 'Margin' ) }
 					onDeselect={ resetMarginValue }
 					isShownByDefault={ true }
+					className={ classnames( {
+						'tools-panel-item-spacing': showSpacingPresetsControl,
+					} ) }
 				>
-					<BoxControl
-						values={ marginValues }
-						onChange={ setMarginValues }
-						label={ __( 'Margin' ) }
-						sides={ marginSides }
-						units={ units }
-						allowReset={ false }
-						splitOnAxis={ isAxialMargin }
-					/>
+					{ ! showSpacingPresetsControl && (
+						<BoxControl
+							values={ marginValues }
+							onChange={ setMarginValues }
+							label={ __( 'Margin' ) }
+							sides={ marginSides }
+							units={ units }
+							allowReset={ false }
+							splitOnAxis={ isAxialMargin }
+						/>
+					) }
+					{ showSpacingPresetsControl && (
+						<SpacingSizesControl
+							values={ marginValues }
+							onChange={ setMarginValues }
+							label={ __( 'Margin' ) }
+							sides={ marginSides }
+							units={ units }
+							allowReset={ false }
+							splitOnAxis={ isAxialMargin }
+						/>
+					) }
 				</ToolsPanelItem>
 			) }
 			{ showGapControl && (
@@ -378,14 +515,60 @@ export default function DimensionsPanel( { name } ) {
 					label={ __( 'Block spacing' ) }
 					onDeselect={ resetGapValue }
 					isShownByDefault={ true }
+					className={ classnames( {
+						'tools-panel-item-spacing': showSpacingPresetsControl,
+					} ) }
+				>
+					{ ! showSpacingPresetsControl &&
+						( isAxialGap ? (
+							<BoxControl
+								label={ __( 'Block spacing' ) }
+								min={ 0 }
+								onChange={ setGapValues }
+								units={ units }
+								sides={ gapSides }
+								values={ gapValues }
+								allowReset={ false }
+								splitOnAxis={ isAxialGap }
+							/>
+						) : (
+							<UnitControl
+								label={ __( 'Block spacing' ) }
+								__unstableInputWidth="80px"
+								min={ 0 }
+								onChange={ setGapValue }
+								units={ units }
+								value={ gapValue }
+							/>
+						) ) }
+					{ showSpacingPresetsControl && (
+						<SpacingSizesControl
+							label={ __( 'Block spacing' ) }
+							min={ 0 }
+							onChange={ setGapValues }
+							sides={ isAxialGap ? gapSides : [ 'top' ] } // Use 'top' as the shorthand property in non-axial configurations.
+							values={ gapValues }
+							allowReset={ false }
+							splitOnAxis={ isAxialGap }
+						/>
+					) }
+				</ToolsPanelItem>
+			) }
+			{ showMinHeightControl && (
+				<ToolsPanelItem
+					className="single-column"
+					hasValue={ hasMinHeightValue }
+					label={ __( 'Min. height' ) }
+					onDeselect={ resetMinHeightValue }
+					isShownByDefault={ true }
 				>
 					<UnitControl
-						label={ __( 'Block spacing' ) }
-						__unstableInputWidth="80px"
-						min={ 0 }
-						onChange={ setGapValue }
+						label={ __( 'Min. height' ) }
+						value={ minHeightValue }
+						onChange={ setMinHeightValue }
 						units={ units }
-						value={ gapValue }
+						min={ 0 }
+						size={ '__unstable-large' }
 					/>
 				</ToolsPanelItem>
 			) }

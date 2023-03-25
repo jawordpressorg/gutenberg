@@ -75,9 +75,9 @@ If it doesn’t, go ahead and create a few pages – you can use the same titles
 固定ページがなければ、何ページか作成してください。上のスクリーンショットと同じタイトルを使用できます。このとき保存するだけでなく、必ず公開してください。
 
 <!--
-Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@wordpress/core-data` package](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) package which provides resolvers, selectors, and actions to work with the WordPress core API. `@wordpress/core-data` builds on top of the [`@wordpress/data` package](https://github.com/WordPress/gutenberg/tree/trunk/packages/data).
+Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@wordpress/core-data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) package which provides resolvers, selectors, and actions to work with the WordPress core API. `@wordpress/core-data` builds on top of the [`@wordpress/data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/data) package.
 -->
-データが揃ったところで、コードを見ていきましょう。ここでは、[`@wordpress/core-data` パッケージ](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) を利用します。このパッケージは、WordPress のコア API を操作するリゾルバ、セレクタ、アクションを提供します。`WordPress/core-data` は、[`@wordpress/data` パッケージ](https://github.com/WordPress/gutenberg/tree/trunk/packages/data)の上に構築されています。
+データが揃ったところで、コードを見ていきましょう。ここでは、[`@wordpress/core-data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) パッケージを利用します。このパッケージは、WordPress のコア API を操作するリゾルバ、セレクタ、アクションを提供します。`WordPress/core-data` は、[`@wordpress/data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/data) パッケージの上に構築されています。
 
 <!--
 To fetch the list of pages, we will use the [`getEntityRecords`](/docs/reference-guides/data/data-core/#getentityrecords) selector. In broad strokes, it will issue the correct API request, cache the results, and return the list of the records we need. Here’s how to use it:
@@ -92,6 +92,11 @@ wp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )
 If you run that following snippet in your browser’s dev tools, you will see it returns `null`. Why? The pages are only requested by the `getEntityRecords` resolver after first running the _selector_. If you wait a moment and re-run it, it will return the list of all pages.
 -->
 以下のスニペットをブラウザの開発ツールで実行すると、`null` が返されます。なぜでしょう ? ページは、最初の _セレクタ_ の実行後、`getEntityRecords` リゾルバによってのみリクエストされます。しばらく待ってから再実行すると、すべてのページのリストが返されます。
+
+<!-- 
+*Note: To run this type of command directly make sure your browser is displaying an instance of the block editor (any page will do). Otherwise the `select( 'core' )` function won't be available, and you'll get an error.*
+ -->
+*注意: このタイプのコマンドを直接実行するには、ブラウザにブロックエディタのインスタンスが表示されていることを確認してください (どのページでも構いません)。そうでなければ `select( 'core' )` 関数は利用できず、エラーが返ります。*
 
 <!--
 Similarly, the `MyFirstApp` component needs to re-run the selector once the data is available. That’s exactly what the `useSelect` hook does:
@@ -108,6 +113,14 @@ function MyFirstApp() {
 			select( coreDataStore ).getEntityRecords( 'postType', 'page' ),
 		[]
 	);
+	// ...
+}
+
+function PagesList({ pages }) {
+	// ...
+	<li key={page.id}>
+		{page.title.rendered}
+	</li>
 	// ...
 }
 ```
@@ -505,6 +518,7 @@ import { SearchControl, Spinner } from '@wordpress/components';
 import { useState, render } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
+import { decodeEntities } from '@wordpress/html-entities';
 
 function MyFirstApp() {
 	const [ searchTerm, setSearchTerm ] = useState( '' );
@@ -591,9 +605,10 @@ All that’s left is to refresh the page and enjoy the brand new status indicato
 * **Previous part:** [Setup](/docs/how-to-guides/data-basics/1-data-basics-setup.md)
 * **Next part:** [Building an edit form](/docs/how-to-guides/data-basics/3-building-an-edit-form.md)
 * (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) in the gutenberg-examples repository
--->
+* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) in the gutenberg-examples repository-->
 * **前のステップ:** [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup)
 * **次のステップ:** [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/3-building-an-edit-form)
-* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) を参照
+* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
+

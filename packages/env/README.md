@@ -214,7 +214,7 @@ You may also specify the port numbers in your `.wp-env.json` file, but the envir
 
 Restarting `wp-env` will restart the underlying Docker containers which can fix many issues.
 
-To restart `wp-env`, just run `wp-env start` again. It will automatically stop and start the container. If you also pass the `--update` argument, it will download updates and configure WordPress agian.
+To restart `wp-env`, just run `wp-env start` again. It will automatically stop and start the container. If you also pass the `--update` argument, it will download updates and configure WordPress again.
  -->
 `docker ps` を実行し `PORTS` 列を参照すると、現在 `wp-env` がどのポートを使用しているかを調べることができます。
 
@@ -574,7 +574,7 @@ To run a WP-CLI command that includes optional arguments, enclose the WP-CLI com
 オプションの引数を含む WP-CLI コマンドを実行するには、WP-CLI コマンドを引用符 (`'`) で囲みます。囲まない場合、オプションの引数は無視されます。フラグは通常 WP-CLI コマンドを指定する引数の一部とはみなされず、`wp-env` 自身に渡されるためです。引用符を使用すると、 `wp-env` は引用符の中のすべてを WP-CLI コマンドの引数と見なします。
  -->
 <!-- 
-In some cases, `wp-env` may consume options that you are attempting to pass to 
+In some cases, `wp-env` may consume options that you are attempting to pass to
 the container. This happens with options that `wp-env` has already declared,
 such as `--debug`, `--help`, and `--version`. When this happens, you should fall
 back to using quotation marks; `wp-env` considers everything inside the

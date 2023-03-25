@@ -546,7 +546,8 @@ You now have a custom sidebar that you can use to update `post_meta` content.
 
 <!--
 A complete example is available, download the [plugin-sidebar example](https://github.com/WordPress/gutenberg-examples/tree/trunk/plugin-sidebar) from the [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository.
+A complete example is available, download the [plugin-sidebar example](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/plugin-sidebar) from the [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository.
 -->
-完全なサンプルは、[gutenberg-examples](https://github.com/WordPress/gutenberg-examples) リポジトリから、[plugin-sidebar サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/plugin-sidebar)をダウンロードしてください。
+完全なサンプルは、[gutenberg-examples](https://github.com/WordPress/gutenberg-examples) リポジトリから、[plugin-sidebar サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/plugin-sidebar)をダウンロードしてください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/plugin-sidebar-0.md)

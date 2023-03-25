@@ -48,9 +48,9 @@ You will need:
 -   JavaScript のビルドとエンキューが可能なセットアップ
 
 <!-- 
-The [complete format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/format-api) is available that you can use as a reference for your setup.
+The [complete format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) is available that you can use as a reference for your setup.
  -->
-セットアップのリファレンスとして、[完全な書式 API サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/format-api) を参照してください。
+セットアップのリファレンスとして、[完全な書式 API サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) を参照してください。
 
 ## ステップバイステップガイド
 
@@ -134,9 +134,9 @@ registerFormatType( 'my-custom-format/sample-output', {
 } );
 ```
 <!-- 
-Let's check that everything is working as expected. Build and reload and then select a text block. Confirm the new button was added to the format toolbar.
+Let's check that everything is working as expected. Build and reload and then select any block containing text like for example the paragraph block. Confirm the new button was added to the format toolbar.
  -->
-期待どおりに動作するかを確認します。ビルドし、リロードし、テキストブロックを選択してください。書式ツールバーに新しいボタンが追加されていることを確認してください。
+期待どおりに動作するかを確認します。ビルドし、リロードし、テキストを内部に含む任意のブロック、例えば段落ブロックを選択してください。書式ツールバーに新しいボタンが追加されていることを確認してください。
 <!-- 
 ![Toolbar with custom button](https://developer.wordpress.org/files/2021/12/format-api-toolbar.png)
  -->
@@ -207,9 +207,9 @@ Confirm it is working: first build and reload, then make a text selection and cl
 動作していることを確認します。まず、ビルドしてリロードし、次にテキスト選択をして、ボタンをクリックします。ブラウザは、周囲のテキストとは異なる方法で選択したテキストを表示するはずです。
 
 <!-- 
-You can also confirm by switching to HTML view (Code editor Ctrl+Shift+Alt+M) and see the text selection wrapped with `<samp>` HTML tags.
+You can also confirm by switching to HTML view (Code editor `Ctrl+Shift+Alt+M`) and see the text selection wrapped with `<samp>` HTML tags.
  -->
-また、HTMLビュー（コードエディタでCtrl＋Shift＋Alt＋M）に切り替えると、選択したテキストがHTMLタグ`<samp>`で囲まれていることを確認できます。
+また、HTMLビュー（コードエディタで `Ctrl＋Shift＋Alt＋M`）に切り替えると、選択したテキストがHTMLタグ`<samp>`で囲まれていることを確認できます。
 
 <!-- 
 Use the `className` option when registering to add your own custom class to the tag. You can use that class and custom CSS to target that element and style as you wish.
@@ -223,8 +223,10 @@ Use the `className` option when registering to add your own custom class to the 
 
 <!-- 
 By default, the button is rendered on every rich text toolbar (image captions, buttons, paragraphs, etc). You can render the button only on blocks of a certain type by using `wp.data.withSelect` together with `wp.compose.ifCondition`.
+
+By default, the button is rendered on every rich text toolbar (image captions, buttons, paragraphs, etc). You can render the button only on blocks of a certain type by using [the data API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data).
  -->
-デフォルトではボタンはすべてのリッチテキストツールバー、たとえば画像のキャプション、ボタン、段落等でレンダーされます。特定のタイプのブロックでのみボタンをレンダーできます。これには `wp.data.withSelect` と `wp.compose.ifCondition` を一緒に使用します。
+デフォルトではボタンはすべてのリッチテキストツールバー、たとえば画像のキャプション、ボタン、段落等でレンダーされます。特定のタイプのブロックでのみボタンをレンダーできます。これには [data API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data) を使用します。
 
 <!-- 
 Here is an example that only shows the button for Paragraph blocks:
@@ -266,6 +268,50 @@ registerFormatType( 'my-custom-format/sample-output', {
 	tagName: 'samp',
 	className: null,
 	edit: ConditionalButton,
+} );
+```
+
+<!-- 
+### Step5: Add a button outside of the dropdown (Optional)
+ -->
+### ステップ5: ドロップダウンの外側にボタンを追加する (オプション)
+
+<!-- 
+Using the `RichTextToolbarButton` component, the button is added to the default dropdown menu. You can add the button directly to the toolbar by using the `BlockControls` component.
+ -->
+`RichTextToolbarButton` コンポーネントを使用すると、ボタンはデフォルトではドロップダウンメニューに追加されます。`BlockControls` コンポーネントを使用すると、ボタンを直接ツールバーに追加できます。
+
+```js
+import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
+import { BlockControls } from '@wordpress/block-editor';
+import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+
+const MyCustomButton = ( { isActive, onChange, value } ) => {
+	return (
+		<BlockControls>
+			<ToolbarGroup>
+				<ToolbarButton
+					icon="editor-code"
+					title="Sample output"
+					onClick={ () => {
+						onChange(
+							toggleFormat( value, {
+								type: 'my-custom-format/sample-output',
+							} )
+						);
+					} }
+					isActive={ isActive }
+				/>
+			</ToolbarGroup>
+		</BlockControls>
+	);
+};
+
+registerFormatType( 'my-custom-format/sample-output', {
+	title: 'Sample output',
+	tagName: 'samp',
+	className: null,
+	edit: MyCustomButton,
 } );
 ```
 
@@ -325,7 +371,8 @@ The guide showed you how to add a button to the toolbar and have it apply a form
 
 <!-- 
 Download the [format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/format-api) from the [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository.
+Download the [format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) from the [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository.
  -->
-[gutenberg-examples](https://github.com/WordPress/gutenberg-examples) リポジトリから、[書式 API サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/format-api) をダウンロードしてください。
+[gutenberg-examples](https://github.com/WordPress/gutenberg-examples) リポジトリから、[書式 API サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) をダウンロードしてください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/format-api.md)

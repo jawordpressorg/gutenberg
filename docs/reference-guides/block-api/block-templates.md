@@ -167,11 +167,13 @@ add_action( 'init', 'myplugin_register_template' );
 <!--
 _Options:_
 
+-   `contentOnly` — prevents all operations. Additionally, the block types that don't have content are hidden from the list view and can't gain focus within the block list. Unlike the other lock types, this is not overrideable by children.
 -   `all` — prevents all operations. It is not possible to insert new blocks, move existing blocks, or delete blocks.
 -   `insert` — prevents inserting or removing blocks, but allows moving existing blocks.
  -->
 _オプション_
 
+-   `contentOnly` — すべての操作を禁止します。さらに、コンテンツを持たないブロックタイプは、リストビューに表示されず、ブロックリスト内でもフォーカスを得られません。他のロックタイプとは異なり、子によって上書きされません。
 - `all` - すべての操作を禁止します。新しいブロックの挿入、既存ブロックの移動、ブロックの削除はできません。
 - `insert` - 新しいブロックの挿入、ブロックの削除はできませんが、既存ブロックの移動はできます。
 

@@ -120,7 +120,7 @@ export default {
 		const blockGapValue =
 			style?.spacing?.blockGap &&
 			! shouldSkipSerialization( blockName, 'spacing', 'blockGap' )
-				? getGapCSSValue( style?.spacing?.blockGap )
+				? getGapCSSValue( style?.spacing?.blockGap, '0.5em' )
 				: undefined;
 		const justifyContent = justifyContentMap[ layout.justifyContent ];
 		const flexWrap = flexWrapOptions.includes( layout.flexWrap )
@@ -257,7 +257,7 @@ function FlexLayoutJustifyContentControl( {
 				onChange={ onJustificationChange }
 				popoverProps={ {
 					position: 'bottom right',
-					isAlternate: true,
+					variant: 'toolbar',
 				} }
 			/>
 		);

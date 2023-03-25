@@ -175,6 +175,14 @@ _Parameters_
 -   _object.excerpt_ `[string]`: Excerpt of the new post.
 -   _object.showWelcomeGuide_ `[boolean]`: Whether to show the welcome guide.
 
+### createNewTemplate
+
+Opens the template editor with a newly created template.
+
+_Parameters_
+
+-   _name_ `string`: Name of the template.
+
 ### createReusableBlock
 
 Creates a simple reusable block with a paragraph block.
@@ -314,11 +322,11 @@ Enables Pre-publish checks.
 
 ### ensureSidebarOpened
 
-Verifies that the edit post sidebar is opened, and if it is not, opens it.
+Verifies that the edit post/site/widgets sidebar is opened, and if it is not, opens it.
 
 _Returns_
 
--   `Promise`: Promise resolving once the edit post sidebar is opened.
+-   `Promise`: Promise resolving once the sidebar is opened.
 
 ### findSidebarPanelToggleButtonWithTitle
 

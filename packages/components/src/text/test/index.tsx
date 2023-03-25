@@ -14,7 +14,7 @@ describe( 'Text', () => {
 	describe( 'snapshot tests', () => {
 		test( 'should render correctly', () => {
 			const { container } = render( <Text>Lorem ipsum.</Text> );
-			expect( container.firstChild ).toMatchSnapshot();
+			expect( container ).toMatchSnapshot();
 		} );
 	} );
 
@@ -53,7 +53,7 @@ describe( 'Text', () => {
 			<Text variant="muted">Lorem ipsum.</Text>
 		);
 		expect( container.firstChild ).toHaveStyle( {
-			color: COLORS.mediumGray.text,
+			color: COLORS.gray[ 700 ],
 		} );
 	} );
 
@@ -116,7 +116,7 @@ describe( 'Text', () => {
 			</Text>
 		);
 
-		expect( container.firstChild ).toMatchSnapshot();
+		expect( container ).toMatchSnapshot();
 		// It'll have a length of 1 because there shouldn't be anything but the single span being rendered.
 		expect( container.firstChild?.childNodes ).toHaveLength( 1 );
 	} );

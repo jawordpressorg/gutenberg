@@ -54,9 +54,14 @@ It creates a WordPress plugin that you need to [install manually](https://wordpr
  -->
 _(`node` version `14.0.0` 以上、`npm` version `6.14.4` 以上が必要です)_
 
+<<<<<<< HEAD
 [手動でのインストール](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation)が必要な WordPress プラグインを作成します。
 
 <!--
+=======
+[Watch a video introduction to create-block on Learn.wordpress.org](https://learn.wordpress.org/tutorial/using-the-create-block-tool/)
+
+>>>>>>> upstream/trunk
 ## Usage
 
 The following command generates a project with PHP, JS, and CSS code for registering a block with a WordPress plugin.
@@ -84,6 +89,7 @@ Options:
 ```bash
 -V, --version                output the version number
 -t, --template <name>        project template type name; allowed values: "static" (default), "es5", the name of an external npm package, or the path to a local directory
+--no-plugin                  scaffold block files only
 --namespace <value>          internal namespace for the block name
 --title <value>              display title for the block and the WordPress plugin
 --short-description <value>  short description for the block and the WordPress plugin
@@ -92,12 +98,14 @@ Options:
 --no-wp-scripts              disable integration with `@wordpress/scripts` package
 --wp-env                     enable integration with `@wordpress/env` package
 -h, --help                   output usage information
+--variant                    choose a block variant as defined by the template
 ```
  -->
 オプション:
 ```
 -V, --version                バージョン番号の出力
 -t, --template <name>        プロジェクトテンプレートタイプ名。指定可能な値: "static" (デフォルト)、"es5"、外部 npm パッケージ名、ローカルディレクトリへのパス
+--no-plugin                  ひな形ブロックファイルのみ
 --namespace <value>          ブロック名の内部名前空間
 --title <value>              ブロックと WordPress プラグインの表示タイトル
 --short-description <value>  ブロックと WordPress プラグインの短い説明
@@ -106,6 +114,7 @@ Options:
 --no-wp-scripts              `@wordpress/scripts` パッケージとの統合を無効化
 --wp-env                     `@wordpress/env` パッケージとの統合を有効化
 -h, --help                   使用方法の出力
+--variant                    テンプレートで定義されたブロックのバリエーションを選択
 ```
 
 <!--
@@ -132,10 +141,22 @@ $ npx @wordpress/create-block --template my-template-package
 $ npx @wordpress/create-block --template ./path/to/template-directory
 ```
 
-4. Help – you need to use `npx` to output usage information.
+4. Generating a dynamic block based on the built-in template.
+
+```bash
+$ npx @wordpress/create-block --variant dynamic
+```
+
+5. Help – you need to use `npx` to output usage information.
 
 ```bash
 $ npx @wordpress/create-block --help
+```
+
+5. No plugin mode – it is also possible to scaffold only block files into the current directory.
+
+```bash
+$ npx @wordpress/create-block --no-plugin
 ```
  -->
 1. 対話モード - プロジェクト名を指定しなければスクリプトは対話モードで動作します。コードが生成される前に、もっとも重要なオプションのいくつかをカスタマイズする機会が得られます。
@@ -155,10 +176,22 @@ $ npx @wordpress/create-block --template my-template-package
 $ npx @wordpress/create-block --template ./path/to/template-directory
 ```
 
-4. ヘルプ – 使用例の情報を出力する場合は `npx` が必要です。
+4. 構築済みテンプレートを元に、ダイナミックブロックを生成
+
+```bash
+$ npx @wordpress/create-block --variant dynamic
+```
+
+5. ヘルプ – 使用例の情報を出力する場合は `npx` が必要です。
 
 ```bash
 $ npx @wordpress/create-block --help
+```
+
+6. プラグインなしのモード - また現行ディレクトリに、ひな形のブロックファイルのみを生成できます。
+
+```bash
+$ npx @wordpress/create-block --no-plugin
 ```
 
 <!--
@@ -241,260 +274,10 @@ _注意: [webpack](https://webpack.js.org) や [Babel](https://babeljs.io) や [
 ## External Project Templates
  -->
 ## 外部プロジェクトテンプレート
-
-<!--
-Since version `0.19.0` it is possible to use external templates hosted on npm. These packages need to contain `.mustache` files that will be used during the block scaffolding process.
- -->
 <!-- 
-バージョン `0.19.0` からは npm でホストされた外部テンプレートを使用できます。パッケージはブロックのひな形生成プロセスで使用される `.mustache` ファイルを含む必要があります。
+[Click here](https://github.com/WordPress/gutenberg/tree/HEAD/packages/create-block/docs/external-template.md) for information on External Project Templates
  -->
-<!-- 
-Are you looking for a way to share your project configuration? Creating an external project template hosted on npm or located in a local directory is possible. These npm packages can provide custom `.mustache` files that replace default files included in the tool for the WordPress plugin or/and the block. It's also possible to override default configuration values used during the scaffolding process.
- -->
-プロジェクトの設定の共有方法をお探しですか ? npmでホストされる、または、ローカルディレクトリに、外部プロジェクトテンプレートを作成できます。この npm パッケージは、カスタム`.mustache`ファイルを提供できます。これは、WordPress プラグイン または、ブロックのためのツールに含まれる、デフォルトのファイルを置き換えます。また、ひな形生成プロセス中に使用されるデフォルトの構成値を上書きできます。
-
-<!--
-### Project Template Configuration
- -->
-### プロジェクトテンプレート構成
-
-<!--
-It is mandatory to provide the main file (`index.js` by default) for the package that returns a configuration object. It must contain at least the `templatesPath` field.
- -->
-<!-- 
-構成オブジェクトを返すパッケージのメインファイル (デフォルトでは `index.js`) が必須です。少なくとも `templatesPath` フィールドを含む必要があります。
- -->
-<!-- 
-Providing the main file (`index.js` by default) for the package that returns a configuration object is mandatory. Several options allow customizing the scaffolding process.
- -->
-構成オブジェクトを返すパッケージのメインファイル (デフォルトでは `index.js`) の提供は必須です。いくつかのオプションを使用して、ひな形生成プロセスをカスタマイズできます。
-
-<!--
-#### `pluginTemplatesPath`
- -->
-#### pluginTemplatesPath
-
-<!--
-A mandatory field with the path pointing to the location where plugin template files live (nested folders are also supported). All files without the `.mustache` extension will be ignored.
- -->
-<!-- 
-プラグインテンプレートファイルの場所を示すパスを指定する必須フィールド。ネストしたフォルダーもサポートされます。`.mustache` 拡張子のないすべてのファイルは無視されます。
- -->
-<!-- 
-This optional field allows overriding file templates related to **the WordPress plugin shell**. The path points to a location with template files ending with the `.mustache` extension (nested folders are also supported). When not set, the tool uses its own set of templates.
- -->
-このオプションフィールドは、**WordPressプラグインシェル**に関連するファイルテンプレートを上書きできます。パスは拡張子が `.mustache` で終わるテンプレートファイルのある場所を指します (ネストしたフォルダもサポートされます)。設定されない場合、ツールは自身のテンプレートセットを使用します。 
-
-<!--
-_Example:_
- -->
-_例:_
-
-```js
-const { join } = require( 'path' );
-
-module.exports = {
-	pluginTemplatesPath: join( __dirname, 'plugin-templates' ),
-};
-```
-<!-- 
-#### `blockTemplatesPath`
- -->
-#### blockTemplatesPath
-
-<!-- 
-An optional field with the path pointing to the location where template files for the individual block live (nested folders are also supported). All files without the `.mustache` extension will be ignored.
- -->
-<!-- 
-個々のブロックのテンプレートファイルがある場所を指すパスを指定する、オプションのフィールド (ネストしたフォルダもサポートされます）。拡張子が `.mustache` でないファイルはすべて無視されます。
- -->
-<!-- 
-This optional field allows overriding file templates related to **the individual block**. The path points to a location with template files ending with the `.mustache` extension (nested folders are also supported). When not set, the tool uses its own set of templates.
- -->
-このオプションフィールドは、**個々のブロック**に関連するファイルテンプレートを上書きできます。パスは、拡張子が `.mustache` で終わるテンプレートファイルのある場所を指します (ネストしたフォルダもサポートされます)。設定されない場合、ツールは自身のテンプレートセットを使用します。
-
-<!-- 
-_Example:_
- -->
-_例:_
-
-```js
-const { join } = require( 'path' );
-
-module.exports = {
-	blockTemplatesPath: join( __dirname, 'block-templates' ),
-};
-```
-<!--
-#### `assetsPath`
- -->
-#### assetsPath
-
-<!--
-This setting is useful when your template scaffolds a WordPress plugin that uses static assets like images or fonts, which should not be processed. It provides the path pointing to the location where assets are located. They will be copied to the `assets` subfolder in the generated plugin.
- -->
-この設定はテンプレートから雛形の生成時、WordPress プラグインが使用する画像やフォントなどの処理の必要のない静的なアセットを準備する場合に便利です。アセットのある場所を指すパスを指定します。アセットは生成されたプラグインの `assets` サブフォルダーにコピーされます。
-
-<!--
-_Example:_
- -->
-_例:_
-
-```js
-const { join } = require( 'path' );
-
-module.exports = {
-	assetsPath: join( __dirname, 'plugin-assets' ),
-};
-```
-<!--
-#### `defaultValues`
- -->
-#### defaultValues
-
-<!--
-It is possible to override the default template configuration using the `defaultValues` field.
-
-_Example:_
- -->
-`defaultValues` フィールドを使用してデフォルトのテンプレート構成を上書きできます。
-
-_例:_
-
-```js
-module.exports = {
-	defaultValues: {
-		slug: 'my-fantastic-block',
-		title: 'My fantastic block',
-		dashicon: 'palmtree',
-		version: '1.2.3',
-	},
-};
-```
-<!-- 
-The following configurable variables are used with the template files. Template authors can change default values to use when users don't provide their data.
- -->
-テンプレートファイルでは以下の構成可能変数が使用されます。テンプレートの作者は、ユーザーが指定しない場合に使用されるデフォルト値を変更できます。
-
-<!--
--   `$schema` (default: `https://schemas.wp.org/trunk/block.json`)
--   `apiVersion` (default: `2`) - see https://make.wordpress.org/core/2020/11/18/block-api-version-2/.
--   `slug` (no default)
--   `namespace` (default: `'create-block'`)
--   `title` (no default) - a display title for your block.
--   `description` (no default) - a short description for your block.
--   `dashicon` (no default) - an icon property thats makes it easier to identify a block, see https://developer.wordpress.org/resource/dashicons/.
--   `category` (default: `'widgets'`) - blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, `theme`, and `embed`.
--   `attributes` (no default) - see https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/.
--   `supports` (no default) - optional block extended support features, see https://developer.wordpress.org/block-editor/developers/block-api/block-supports/.
--   `author` (default: `'The WordPress Contributors'`)
--   `license` (default: `'GPL-2.0-or-later'`)
--   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
--   `version` (default: `'0.1.0'`)
--   `wpScripts` (default: `true`)
--   `wpEnv` (default: `false`) - enables integration with the `@wordpress/env` package and adds the `env` command to the package.json.
-
--   `editorScript` (default: `'file:./build/index.js'`)
--   `editorStyle` (default: `'file:./build/index.css'`)
--   `style` (default: `'file:./build/style-index.css'`)
--->
-<!--  
--   `$schema` (デフォルト: `https://schemas.wp.org/trunk/block.json`)
--   `apiVersion` (デフォルト: `2`) - 参照 https://make.wordpress.org/core/2020/11/18/block-api-version-2/
--   `slug` (デフォルトなし)
--   `namespace` (デフォルト: `'create-block'`)
--   `title` (デフォルトなし) - ブロックの表示タイトル
--   `description` (デフォルトなし) - ブロックの短い説明
--   `dashicon` (デフォルトなし) - ブロックの識別を助けるアイコンプロパティ。参照 https://developer.wordpress.org/resource/dashicons/
--   `category` (デフォルト: `'widgets'`) - ユーザーの参照と検索のため、ブロックはカテゴリーにグループ分けされる。コアで提供されるカテゴリーは、`text`、`media`、`design`、`widgets`、`theme`、`embed`
--   `author` (デフォルト: `'The WordPress Contributors'`)
--   `license` (デフォルト: `'GPL-2.0-or-later'`)
--   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`)
--   `version` (デフォルト: `'0.1.0'`)
--   `wpScripts` (デフォルト: `true`)
--   `wpEnv` (デフォルト: `false`) - enables integration with the `@wordpress/env` パッケージとの統合を有効可し、package.json に `env` コマンドを追加する。
--   `npmDependencies` (デフォルト: `[]`) – `wpScripts` が有効の時、[`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
--   `customScripts` (デフォルト: {}) - `package.json` に追加するカスタムスクリプトのリスト。デフォルトスクリプトの上書きもできる。
--   `folderName` (デフォルト: `.`) – `block.json` ファイル、および、`blockTemplatesPath` で設定したフォルダに含まれるブロックテンプレートから生成されたオプションのブロックファイルの場所
--   `editorScript` (デフォルト: `'file:./build/index.js'`)
--   `editorStyle` (デフォルト: `'file:./build/index.css'`)
--   `style` (デフォルト: `'file:./build/style-index.css'`)
- -->
-
-<!-- 
-**Project**:
- -->
-**プロジェクト**:
-
-<!-- 
--   `wpScripts` (default: `true`) – enables integration with the `@wordpress/scripts` package and adds common scripts to the `package.json`.
--   `wpEnv` (default: `false`) – enables integration with the `@wordpress/env` package and adds the `env` script to the `package.json`.
--   `customScripts` (default: {}) – the list of custom scripts to add to `package.json` . It also allows overriding default scripts.
--   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
--   `npmDevDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
- -->
--   `wpScripts` (デフォルト: `true`) – `@wordpress/scripts` パッケージとの統合を有効可し、`package.json` に共通スクリプトを追加する。
--   `wpEnv` (デフォルト: `false`) – `@wordpress/env` パッケージとの統合を有効可し、`package.json` に `env` スクリプトを追加する。
--   `customScripts` (デフォルト: {}) – `package.json` に追加するカスタムスクリプトのリスト。デフォルトのスクリプトも上書きできる。
--   `npmDependencies` (デフォルト: `[]`) – `wpScripts` が有効な時、[`npm install`](https://docs.npmjs.com/cli/v6/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
--   `npmDevDependencies` (デフォルト: `[]`) – `wpScripts` が有効な時、[`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) でプロジェクトにインストールされるリモート npm パッケージのリスト
-
-<!-- 
-**Plugin header fields** ([learn more](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/)):
- -->
-**プラグインヘッダーフィールド** ([詳細](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/)):
-<!-- 
--   `pluginURI` (no default) – the home page of the plugin.
--   `version` (default: `'0.1.0'`) – the current version number of the plugin.
--   `author` (default: `'The WordPress Contributors'`) – the name of the plugin author(s).
--   `license` (default: `'GPL-2.0-or-later'`) – the short name of the plugin’s license.
--   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`) – a link to the full text of the license.
--   `domainPath` (no default) – a custom domain path for the translations ([more info](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#domain-path)).
--   `updateURI:` (no default) – a custom update URI for the plugin ([related dev note](https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/)).
- -->
--   `pluginURI` (デフォルトなし) – プラグインのホームページ
--   `version` (デフォルト: `'0.1.0'`) – プラグインの現行のバージョン番号
--   `author` (デフォルト: `'The WordPress Contributors'`) – プラグイン作者の名前
--   `license` (デフォルト: `'GPL-2.0-or-later'`) – プラグインのライセンスの短い名前
--   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`) – ライセンスの完全なテキストへのリンク
--   `domainPath` (デフォルトなし) – 翻訳へのカスタムドメインパス。([詳細](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#domain-path))
--   `updateURI:` (デフォルトなし) – プラグインのカスタム更新 URI。([関連 dev note](https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/))
-
-<!-- 
-**Block metadata** ([learn more](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/)):
- -->
-**ブロックメタデータ** ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/)):
-
-<!-- 
--   `folderName` (default: `.`) – the location for the `block.json` file and other optional block files generated from block templates included in the folder set with the `blockTemplatesPath` setting.
--   `$schema` (default: `https://schemas.wp.org/trunk/block.json`) – the schema URL used for block validation.
--   `apiVersion` (default: `2`) – the block API version ([related dev note](https://make.wordpress.org/core/2020/11/18/block-api-version-2/)).
--   `slug` (no default) – the block slug used for identification in the block name.
--   `namespace` (default: `'create-block'`) – the internal namespace for the block name.
--   `title` (no default) – a display title for your block.
--   `description` (no default) – a short description for your block.
--   `dashicon` (no default) – an icon property thats makes it easier to identify a block ([available values](https://developer.wordpress.org/resource/dashicons/)).
--   `category` (default: `'widgets'`) – blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, `theme`, and `embed`.
--   `attributes` (no default) – block attributes ([more details](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)).
--   `supports` (no default) – optional block extended support features ([more details](https://developer.wordpress.org/block-editor/developers/block-api/block-supports/).
--   `editorScript` (default: `'file:./index.js'`) – an editor script definition.
--   `editorStyle` (default: `'file:./index.css'`) – an editor style definition.
--   `style` (default: `'file:./style-index.css'`) – a frontend and editor style definition.
- -->
--   `folderName` (デフォルト: `.`) – `block.json` ファイル、および、`blockTemplatesPath` で設定したフォルダに含まれるブロックテンプレートから生成されたオプションのブロックファイルの場所
--   `$schema` (デフォルト: `https://schemas.wp.org/trunk/block.json`) – ブロック妥当性検査 (validation) で使用されるスキーマの URL
--   `apiVersion` (デフォルト: `2`) – ブロック API バージョン ([関連 dev note](https://make.wordpress.org/core/2020/11/18/block-api-version-2/)).
--   `slug` (デフォルトなし) – ブロック名の識別に使用されるブロックスラッグ
--   `namespace` (デフォルト: `'create-block'`) – ブロック名の内部名前空間
--   `title` (デフォルトなし) – ブロックの表示タイトル
--   `description` (デフォルトなし) - ブロックの短い説明
--   `dashicon` (デフォルトなし) - ブロックの識別を助けるアイコンプロパティ。([利用可能な値](https://developer.wordpress.org/resource/dashicons/))
--   `category` (デフォルト: `'widgets'`) - ユーザーの参照と検索のため、ブロックはカテゴリーにグループ分けされる。コアで提供されるカテゴリーは、`text`、`media`、`design`、`widgets`、`theme`、`embed`
--   `attributes` (デフォルトなし) – ブロック属性。([詳細](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)).
--   `supports` (デフォルトなし) – オプションのブロック拡張サポート機能。([詳細](https://developer.wordpress.org/block-editor/developers/block-api/block-supports/).
--   `editorScript` (デフォルト: `'file:./index.js'`) – エディタースクリプト定義
--   `editorStyle` (デフォルト: `'file:./index.css'`) – エディタースタイル定義
--   `style` (デフォルト: `'file:./style-index.css'`) – フロントエンドとエディターのスタイル定義
+外部プロジェクトテンプレートの情報については、[こちらをクリック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/packages-create-block-external-template/)してください。
 
 <!--
 ## WP-CLI

@@ -1,10 +1,4 @@
 <!--
-# Developer Documentation
--->
-<!--
-# 開発者ドキュメント
- -->
-<!--
 # How-to Guides
  -->
 # 開発ガイド
@@ -36,9 +30,14 @@ Learn more in the [Block Filters](/docs/reference-guides/filters/block-filters.m
 -->
 ## ブロックの拡張
 
-フィルターを使用して既存のブロックの振る舞いを変更したり完全に削除することができます。
+フィルターを使用しても、既存のブロックの振る舞いを変更したり、完全に削除できます。
 
 詳細は [ブロックフィルター](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/block-filters.md) セクションを参照してください。
+
+<!-- 
+Specifically for `Query Loop` block, besides the available filters, there are more ways to extend it and create bespoke versions of it. Learn more in the [Extending the Query Loop block](/docs/how-to-guides/block-tutorial/extending-the-query-loop-block.md) section.
+ -->
+特に「クエリループ」ブロックについては、利用可能なフィルター以外にも、ブロックの拡張やオーダーメイドのバージョンを作成する方法があります。詳細は、[クエリループブロックの拡張](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/) セクションを参照してください。
 
 <!--
 ## Extending the Editor UI
@@ -71,13 +70,13 @@ PHP メタボックスからブロックやサイドバープラグインへの�
 
 By default, blocks provide their styles to enable basic support for blocks in themes without any change. Themes can add/override these styles, or rely on defaults.
 
-There are some advanced block features which require opt-in support in the theme. See [theme support](/docs/how-to-guides/themes/theme-support.md).
+There are some advanced block features which require opt-in support in the theme. See [theme support](/docs/how-to-guides/themes/theme-support.md) and [how to filter global styles](/docs/reference-guides/filters/global-styles-filters.md).
 -->
 ## テーマサポート
 
 ブロックにはデフォルトでスタイルが提供され、カスタマイズなしでもテーマ内で適切に表示されます。テーマはこのスタイルを追加したり上書きしたり、あるいはデフォルトのままにしておくことができます。
 
-テーマ内でのオプトインサポートが必要な高度なブロック機能があります。[テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) を参照してください。
+テーマ内でのオプトインサポートが必要な高度なブロック機能があります。[テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) と [グローバルスタイルをフィルターする方法](https://developer.wordpress.org/block-editor/reference-guides/filters/global-styles-filters/)を参照してください。
 
 <!--
 ## Autocomplete

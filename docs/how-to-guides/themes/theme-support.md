@@ -756,4 +756,48 @@ The block will get attached the class `.wp-elements-<uuid>`.
  -->
 このブロックには、クラス `.wp-elements-<uuid>` が付けられます。
 
+<!-- 
+## Appearance Tools
+ -->
+## 外観ツール
+<!-- 
+Use this setting to enable the following Global Styles settings:
+ -->
+この設定を使用すると、以下のグローバルスタイル設定が有効になります。
+
+- border: color, radius, style, width
+- color: link
+- spacing: blockGap, margin, padding
+- typography: lineHeight
+
+```php
+add_theme_support( 'appearance-tools' );
+```
+
+<!-- 
+## Block Based Template Parts
+ -->
+## ブロックベースのテンプレートパーツ
+
+<!-- 
+Block Based Template parts allow administrators to edit parts of the site using blocks. This is off by default, and requires the theme to opt in by declaring support:
+ -->
+ブロックベースのテンプレートパーツにより管理者は、ブロックを使用してサイトの一部を編集できます。この設定はデフォルトではオフで、テーマはサポートを宣言することでオプトインする必要があります。
+
+```php
+add_theme_support( 'block-template-parts' );
+```
+<!-- 
+This feature is only relevant for non block based themes, as block based themes already support block based template parts as part of the site editor.
+
+The standalone template part editor does not allow editors to create new, or delete existing template parts. This is because the theme manually needs to include the template part in the PHP template.
+
+You can find out more about block based template parts in the [themes handbook block template and template parts section](https://developer.wordpress.org/themes/block-themes/templates-and-template-parts/#block-c5fa39a2-a27d-4bd2-98d0-dc6249a0801a).
+ -->
+この機能はブロックベースではないテーマにのみ関連します。ブロックベースのテーマではサイトエディターの一部として、ブロックベースのテンプレートパーツを既にサポートしています。
+
+スタンドアロンのテンプレートパーツエディターでは、エディターは新規テンプレートパーツの作成や、既存テンプレートパーツの削除はできません。これは、テーマが手動でテンプレートパーツをPHPテンプレートに含める必要があるためです。
+
+ブロックベースのテンプレートパーツの詳細については、[テーマハンドブックのブロックテンプレートとテンプレートパーツのセクション](https://developer.wordpress.org/themes/block-themes/templates-and-template-parts/#block-c5fa39a2-a27d-4bd2-98d0-dc6249a0801a)を参照してください。
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-support.md)
