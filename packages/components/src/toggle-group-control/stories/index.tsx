@@ -48,6 +48,7 @@ const Template: ComponentStory< typeof ToggleGroupControl > = ( {
 
 	return (
 		<ToggleGroupControl
+			__nextHasNoMarginBottom
 			{ ...props }
 			onChange={ ( ...changeArgs ) => {
 				setValue( ...changeArgs );
@@ -81,6 +82,7 @@ Default.args = {
 		{ value: 'right', label: 'Right' },
 		{ value: 'justify', label: 'Justify' },
 	].map( mapPropsToOptionComponent ),
+	isBlock: true,
 	label: 'Label',
 };
 
@@ -121,6 +123,7 @@ WithIcons.args = {
 		{ value: 'uppercase', label: 'Uppercase', icon: formatUppercase },
 		{ value: 'lowercase', label: 'Lowercase', icon: formatLowercase },
 	].map( mapPropsToOptionIconComponent ),
+	isBlock: false,
 };
 
 /**

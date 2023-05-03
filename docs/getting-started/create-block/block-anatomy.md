@@ -39,11 +39,11 @@ registerBlockType( metadata.name, {
 } );
 ```
 <!--
-The first parameter in the **registerBlockType** function is the block name, this should match exactly to the name registered in the PHP file.
+The first parameter in the **registerBlockType** function is the block name, this should match exactly to the `name` property in the `block.json` file. By importing the metadata from `block.json` and referencing the `name` property in the first parameter we ensure that they will match, and continue to match even if the name is subsequently changed in `block.json`.
 
 The second parameter to the function is the block object. See the [block registration documentation](/docs/reference-guides/block-api/block-registration.md) for full details.
  -->
-**registerBlockType** 関数の最初のパラメータはブロック名です。PHP ファイルで登録された名前と完全に一致する必要があります。
+**registerBlockType** 関数の最初のパラメータはブロック名です。これは、`block.json` ファイル内の `name` プロパティと完全に一致する必要があります。メタデータを `block.json` からインポートし、最初のパラメータで `name` プロパティを参照することで、両者は確実に一致し、その後 `block.json` で名前が変更されても、一致し続けます。
 
 2番目のパラメータはブロックオブジェクトです。詳細な説明は [ブロックの登録ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) を参照してください。
 
@@ -58,9 +58,9 @@ The results of the edit function is what the editor will render to the editor pa
 edit 関数の結果は、エディターにブロックを挿入した際の、ブロックのレンダリング結果になります。
 
 <!--
-The results of the save function is what the editor will insert into the **post_content** field when the post is saved. The post_content field is the field in the WordPress database used to store the content of the post.
+The results of the save function is what the editor will insert into the **post_content** field when the post is saved. The post_content field is the field in the **wp_posts** table in the WordPress database that is used to store the content of the post.
  -->
-save 関数の結果は、投稿が保存された際に、エディターが **post_content** フィールドに挿入するブロックの形になります。post_content フィールドは投稿のコンテンツを保存する、WordPress データベース内のフィールドです。
+save 関数の結果は、投稿が保存された際に、エディターが **post_content** フィールドに挿入するブロックの形になります。post_content フィールドは投稿のコンテンツを保存する、WordPress データベース内の **wp_posts** テーブルのフィールドです。
 
 <!--
 Most of the properties are set in the `src/block.json` file.

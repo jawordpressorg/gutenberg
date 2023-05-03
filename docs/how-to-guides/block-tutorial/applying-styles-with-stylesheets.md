@@ -27,7 +27,7 @@ The editor will automatically generate a class name for each block type to simpl
 ## 概要
 
 <!-- 
-A block typically inserts markup (HTML) into post content that you want to style in someway. This guides walks through a few different ways you can use CSS with the block editor and how to work with styles and stylesheets.
+A block typically inserts markup (HTML) into post content that you want to style in some way. This guide walks through a few different ways you can use CSS with the block editor and how to work with styles and stylesheets.
  -->
 ブロックは、通常、スタイルを設定する投稿コンテンツにマークアップ (HTML) を挿入します。このガイドでは、ブロックエディタで CSS を使用するいくつかの方法と、スタイルとスタイルシートの操作方法について説明します。
 
@@ -233,7 +233,53 @@ The class name is generated using the block's name prefixed with `wp-block-`, re
 <!--
 ## Enqueueing Editor and Front end Assets
 -->
+<!-- 
+### Build or add dependency
+ -->
+### 依存関係のビルドまたは追加
 
+<!-- 
+In order to include the blockEditor as a dependency, make sure to run the build step, or update the asset php file.
+ -->
+blockEditor を依存関係として含めるには、ビルド手順を実行するか、アセット PHP ファイルを更新してください。
+
+<!-- 
+{% codetabs %}
+{% JSX %}
+ -->
+**JSX**
+<!-- 
+Build the scripts and update the asset file which is used to keep track of dependencies and the build version.
+ -->
+スクリプトをビルドし、依存関係やビルドバージョンの追跡に使用されるアセットファイルを更新します。
+
+```bash
+npm run build
+```
+<!-- 
+{% Plain %}
+ -->
+**Plain**
+<!-- 
+Edit the asset file to include the block-editor dependency for the scripts.
+ -->
+アセットファイルを編集して、スクリプトに block-editor 依存関係を含めます。
+
+```php
+<?php return
+	array( 'dependencies' =>
+		array(
+			'wp-blocks',
+			'wp-element',
+			'wp-block-editor',
+			'wp-polyfill'
+		),
+		'version' => '0.1'
+	);
+```
+<!-- 
+{% end %}
+ -->
 <!-- 
 ### Enqueue stylesheets
  -->

@@ -74,6 +74,7 @@ settings への追加:
 - `settings.typography.fontStyle`
 - `settings.typography.fontWeight`
 - `settings.typography.letterSpacing`
+- `settings.typography.textColumns`
 - `settings.typography.textDecoration`
 - `settings.typography.textTransform`
 <!-- 
@@ -90,6 +91,7 @@ styles への追加:
 - `styles.typography.fontStyle`
 - `styles.typography.fontWeight`
 - `styles.typography.letterSpacing`
+- `styles.typography.textColumns`
 - `styles.typography.textDecoration`
 - `styles.typography.textTransform`
 <!-- 

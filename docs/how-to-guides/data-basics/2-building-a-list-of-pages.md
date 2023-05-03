@@ -373,7 +373,7 @@ Working outside of core-data, we would need to solve two problems here.
 core-data を使用せずに作業すると、2つの問題を解決する必要があります。
 
 <!--
-Firstly, out-of-order updates. Searching for „About” would trigger five API requests filtering for `A`, `Ab`, `Abo`, `Abou`, and `About`. Theese requests could finish in a different order than they started. It is possible that _search=A_ would resolve after _ search=About_ and thus we’d display the wrong data.
+Firstly, out-of-order updates. Searching for „About” would trigger five API requests filtering for `A`, `Ab`, `Abo`, `Abou`, and `About`. These requests could finish in a different order than they started. It is possible that _search=A_ would resolve after _ search=About_ and thus we’d display the wrong data.
 -->
 まず、ランダムな更新の問題です。「About」を検索すると、`A`、`Ab`、`Abo`、`Abou`、`About` をフィルタリングする、5つのAPIリクエストが発生します。このリクエストは、呼び出しと異なる順番で終了する可能性があります。つまり、_search=About_ の後に _search=A_ が解決される可能性があり、誤ったデータが表示されます。
 

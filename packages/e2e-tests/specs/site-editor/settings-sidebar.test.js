@@ -8,6 +8,7 @@ import {
 	selectBlockByClientId,
 	insertBlock,
 	visitSiteEditor,
+	enterEditMode,
 } from '@wordpress/e2e-test-utils';
 
 async function toggleSidebar() {
@@ -49,6 +50,7 @@ describe( 'Settings sidebar', () => {
 	} );
 	beforeEach( async () => {
 		await visitSiteEditor();
+		await enterEditMode();
 	} );
 
 	describe( 'Template tab', () => {
@@ -68,15 +70,18 @@ describe( 'Settings sidebar', () => {
 				postId: 'emptytheme//singular',
 				postType: 'wp_template',
 			} );
+			await enterEditMode();
 			const templateCardAfterNavigation = await getTemplateCard();
 
 			expect( templateCardBeforeNavigation ).toMatchObject( {
 				title: 'Index',
-				description: 'Displays posts.',
+				description:
+					'Used as a fallback template for all pages when a more specific template is not defined.',
 			} );
 			expect( templateCardAfterNavigation ).toMatchObject( {
 				title: 'Singular',
-				description: 'Displays a single post or page.',
+				description:
+					'Displays any single entry, such as a post or a page. This template will serve as a fallback when a more specific template (e.g., Single Post, Page, or Attachment) cannot be found.',
 			} );
 		} );
 	} );

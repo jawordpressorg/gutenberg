@@ -9,6 +9,7 @@ At the highest level, the vision of Full Site Editing is to provide a collection
 「フルサイト編集」(Full Site Editing、FSEとも) の大きな目標は、投稿やページだけでなくサイト内のあらゆる部分に対する、ブロックの使い慣れた体験と拡張性をもたらす機能の提供です。フルサイト編集は、このビジョンを実現する Gutenberg 内の様々なサブプロジェクトを包括したプロジェクト名とも考えられます。フルサイト編集プロジェクトには、サイトエディター、グローバルスタイル、多数のサイト、投稿、ページ固有のブロック、クエリブロック、ナビゲーションブロック、テンプレート、ブロックテーマなどがあります。主要な機能を簡単に説明します。詳細については、[こちら](https://github.com/WordPress/gutenberg/issues/24551)を参照してください。
 
 <!--
+
 - Site Editor: the cohesive experience that allows you to directly edit and navigate between various templates, template parts, styling options, and more.
 - Template Editing: a scaled down direct editing experience allowing you to edit/change/create the template a post/page uses.
 - Block Theme: work to allow for a theme that's built using templates composed using blocks that works with full site editing. More below.
@@ -38,7 +39,7 @@ There are other projects, like the Navigation Editor and Widget Editor, that are
 **試してみる**
 
 <!--
-The best way to learn something is start playing with it. So jump in by installing the Gutenberg plugin from the plugins directory and activating a block theme on a test site. We recommend the [TT1 Blocks theme](https://wordpress.org/themes/tt1-blocks/), it is listed in the theme diretory and our development reference theme. You can find other themes in the directory using the [full-site-editing feature tag](https://wordpress.org/themes/tags/full-site-editing/).
+The best way to learn something is start playing with it. So jump in by installing the Gutenberg plugin from the plugins directory and activating a block theme on a test site. We recommend the [TT1 Blocks theme](https://wordpress.org/themes/tt1-blocks/), it is listed in the theme directory and our development reference theme. You can find other themes in the directory using the [full-site-editing feature tag](https://wordpress.org/themes/tags/full-site-editing/).
  -->
 何かを学ぶための最良の方法は、まず遊んでみることです。プラグインディレクトリから Gutenberg プラグインをインストールし、テストサイトでブロックテーマを有効にしてください。[TT1 Blocks テーマ](https://wordpress.org/themes/tt1-blocks/)をお勧めします。このテーマは、テーマディレクトリにある、開発チームが参照しているテーマです。その他のテーマを見つけるには、[full-site-editing feature タグ](https://wordpress.org/themes/tags/full-site-editing/)を使用してディレクトリを検索してください。
 

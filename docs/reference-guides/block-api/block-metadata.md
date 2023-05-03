@@ -56,6 +56,12 @@ WordPress 5.8のリリースから、ブロックタイプを登録する標準�
 		"my-plugin/message": "message"
 	},
 	"usesContext": [ "groupId" ],
+	"editorSelectors": {
+		"root": ".editor-styles-wrapper .wp-block-my-plugin-notice"
+	},
+	"selectors": {
+		"root": ".wp-block-my-plugin-notice"
+	},
 	"supports": {
 		"align": true
 	},
@@ -444,9 +450,10 @@ An icon property should be specified to make it easier to identify a block. Thes
 ブロックを識別しやすくするために icon プロパティを指定してください。任意の WordPress Dashicons を指定できます。またスラッグは 非 js コンテキストでのフォールバックとなります。
 
 <!--
-**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/packages-primitives) component to add accessibility attributes (aria-hidden, role, and focusable).
+**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
  -->
 **注意:** このプロパティはまた、クライアントサイドで、SVG 要素のソースで上書きすることもできます。加えて、このプロパティは背景色や前景色を含むオブジェクトとして、 JavaScript で定義できます。この色は、たとえばインサーター内で表示される場合にアイコンと一緒に使用されます。カスタム SVG アイコンは自動で [wp.primitives.SVG](https://github.com/WordPress/gutenberg/tree/trunk/packages/primitives) コンポーネントにラップされ、アクセシビリティ属性 (aria-hidden、role、focusable) が追加されます。
+
 
 ### Description
 
@@ -650,6 +657,99 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 }
 ```
 
+### Editor Selectors
+<!-- 
+-   Type: `object`
+-   Optional
+-   Localized: No
+-   Property: `editorSelectors`
+-   Default: `{}`
+-   Since: `WordPress 6.3.0`
+ -->
+-   型: `object`
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `editorSelectors`
+-   デフォルト: `{}`
+-   Since: `WordPress 6.3.0`
+
+<!-- 
+Any editor specific custom CSS selectors, keyed by `root`, feature, or
+sub-feature, to be used when generating block styles for theme.json
+(global styles) stylesheets in the editor.
+
+Editor only selectors override those defined within the `selectors` property.
+
+See the [the selectors documentation](/docs/reference-guides/block-api/block-selectors.md) for more details.
+ -->
+エディターの theme.json (グローバルスタイル) スタイルシートのブロックスタイルを生成する際に使用される、`root`、フィーチャー、サブフィーチャーをキーとする任意のエディター固有カスタム CSS セレクタ。
+
+エディター固有セレクタは `selectors` プロパティ内部で定義されたスタイルを上側期します。
+
+詳細については[セレクタのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-selectors/)を参照してください。
+
+```json
+{
+	"editorSelectors": {
+		"root": ".my-custom-block-selector",
+		"color": {
+			"text": ".my-custom-block-selector p"
+		},
+		"typography": {
+			"root": ".my-custom-block-selector > h2",
+			"text-decoration": ".my-custom-block-selector > h2 span"
+		}
+	}
+}
+```
+
+### Selectors
+
+<!-- 
+-   Type: `object`
+-   Optional
+-   Localized: No
+-   Property: `selectors`
+-   Default: `{}`
+-   Since: `WordPress 6.3.0`
+ -->
+-   型: `object`
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `selectors`
+-   デフォルト: `{}`
+-   Since: `WordPress 6.3.0`
+
+<!-- 
+Any custom CSS selectors, keyed by `root`, feature, or sub-feature, to be used
+when generating block styles for theme.json (global styles) stylesheets.
+Providing custom selectors allows more fine grained control over which styles
+apply to what block elements, e.g. applying typography styles only to an inner
+heading while colors are still applied on the outer block wrapper etc.
+ -->
+theme.json (グローバルスタイル) スタイルシートのブロックスタイルを生成する際に使用される、`root`、フィーチャー、サブフィーチャーをキーとする任意のカスタム CSS セレクタ。
+カスタムセレクタを提供することで、どのブロック要素にどのスタイルを適用するかを細かく制御できます。例えば、typoraphy スタイルは内部の見出しだけに適用し、color は外部のブロックラッパー全体に適用するなど。
+
+<!-- 
+See the [the selectors documentation](/docs/reference-guides/block-api/block-selectors.md) for more details.
+ -->
+詳細については[セレクタのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-selectors/)を参照してください。
+
+```json
+{
+	"selectors": {
+		"root": ".my-custom-block-selector",
+		"color": {
+			"text": ".my-custom-block-selector p"
+		},
+		"typography": {
+			"root": ".my-custom-block-selector > h2",
+			"text-decoration": ".my-custom-block-selector > h2 span"
+		}
+	}
+}
+```
+
 ### Supports
 
 <!--
@@ -701,9 +801,9 @@ Block styles can be used to provide alternative styles to block. It works by add
 ブロックスタイルを使用すると、ブロックに代替のスタイルを与えられます。ブロックのラッパーにクラス名が追加されます。テーマ開発者は CSS を使用して、選択された際のブロックスタイルのターゲットにこのクラス名を指定できます。
 
 <!--
-Plugins and Themes can also register [custom block style](/docs/reference-guides/filters/block-filters.md#block-styles) for existing blocks.
+Plugins and Themes can also register [custom block style](/docs/reference-guides/block-api/block-styles.md) for existing blocks.
  -->
-プラグインやテーマはまた既存のブロックに対して、[カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-styles) を登録できます。
+プラグインやテーマはまた既存のブロックに対して、[カスタムブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) を登録できます。
 
 
 ### Example

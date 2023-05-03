@@ -213,16 +213,16 @@ Themes are responsible for creating the classes that apply the colors in differe
 テーマにはコンテキストに応じて色に適用するクラスを作成する責任があります。コアブロックは「color」コンテキスト、「background-color」コンテキスト、「border-color」コンテキストを使用します。コアブロックのすべてのコンテキストで正しく「strong magenta」を適用するにはテーマはクラス自身を実装する必要があります。クラス名は、最初に「has-」、続けてケバブケースを使用したクラス名、最後にコンテキスト名で作成します。
 
 ```css
-.has-strong-magenta-background-color {
-	background-color: #a156b4;
-}
-
 .has-strong-magenta-color {
 	color: #a156b4;
 }
 
+.has-strong-magenta-background-color {
+	background-color: #a156b4;
+}
+
 .has-strong-magenta-border-color {
-	color: #a156b4;
+	border-color: #a156b4;
 }
 ```
 <!-- 

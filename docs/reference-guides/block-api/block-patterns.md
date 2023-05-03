@@ -98,6 +98,7 @@ The properties available for block patterns are:
 -   `viewportWidth` (optional): An integer specifying the intended width of the pattern to allow for a scaled preview of the pattern in the inserter.
 -   `blockTypes` (optional): An array of block types that the pattern is intended to be used with. Each value needs to be the declared block's `name`.
 -   `postTypes` (optional): An array of post types that the pattern is restricted to be used with. The pattern will only be available when editing one of the post types passed on the array, for all the other post types the pattern is not available at all.
+-   `templateTypes` (optional): An array of template types where the pattern makes sense e.g: '404' if the pattern is for a 404 page, single-post if the pattern is for showing a single post.
 -   `inserter` (optional): By default, all patterns will appear in the inserter. To hide a pattern so that it can only be inserted programmatically, set the `inserter` to `false`.
  -->
 -   `title` (必須): 表示されるパターンのタイトル。
@@ -108,6 +109,7 @@ The properties available for block patterns are:
 -   `viewportWidth` (オプション): インサーター内でのパターンのインデント幅を指定する整数。パターンのスケールするプレビュー用。
 -   `blockTypes` (オプション): パターンが一緒に使われることを想定するブロックタイプの配列。各値は、ブロックの `name` で宣言される必要がある。
 -   `postTypes` (オプション): このパターンを使用可能な投稿タイプの配列。配列で指定した投稿タイプのいずれかを編集する際にのみこのパターンを使用でき、その他のすべての投稿タイプではまったく使用できない。
+-   `templateTypes` (オプション): パターンが意味を持つ、テンプレートタイプの配列。例: パターンが 404 ページ用であれば '404'。パターンが単一の投稿用であれば single-post。
 -   `inserter` (オプション): デフォルトでは、すべてのパターンはインサーターに表示されます。プログラムでのみ挿入できるようにパターンを非表示にするには、`inserter` を `false` に設定します。
 
 <!--
@@ -238,6 +240,11 @@ _注意:_
 `register_block_pattern_category()` should be called from a handler attached to the init hook.
  -->
 `register_block_pattern_category()` は、init フックにアタッチされたハンドラから呼ぶ必要があります。
+
+<!-- 
+The category will not show under Patterns unless a pattern has been assigned to that category.
+ -->
+パターンがあるカテゴリーに割り当てられていなければ、そのカテゴリーはパターンの下に表示しません。
 
 ```php
 function my_plugin_register_my_pattern_categories() {

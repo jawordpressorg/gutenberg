@@ -84,7 +84,7 @@ function render_block() {
 - デフォルト値: `false`
 
 <!--
-Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link. _Important: It doesn't work with dynamic blocks yet._
+Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link.
 
 ```js
 // Declare support for anchor links.
@@ -93,7 +93,7 @@ supports: {
 }
 ```
  -->
-アンカーを使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。_重要: ダイナミックブロックでは、まだ、動作しません。_
+アンカーを使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。
 
 ```js
 // アンカーリンクのサポートを宣言
@@ -658,18 +658,26 @@ Link color presets are sourced from the `editor-color-palette` [theme support](/
 <!--
 When the block declares support for `color.link`, the attributes definition is extended to include two new attributes: `linkColor` and `style`:
  -->
+<!-- 
 ブロックが `color.link` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `linkColor` と `style` が追加されます。
+ -->
+<!-- 
+When the block declares support for `color.link`, the attributes definition is extended to include the `style` attribute:
+ -->
+ブロックが `color.link` のサポートを宣言すると、属性定義が拡張され、`style` が追加されます。
 
 <!--
 - `linkColor`: attribute of `string` type with no default assigned.
  -->
+<!-- 
 - `linkColor`: `string` 型の属性で、デフォルトは割り当てられていません。
-
+ -->
 <!--
   When a user chooses from the list of preset link colors, the preset slug is stored in the `linkColor` attribute.
 
   The block can apply a default preset text color by specifying its own attribute with a default e.g.:
  -->
+<!-- 
   ユーザーがプリセットのリンクの色のリストから選択すると、プリセットのスラッグが `linkColor` 属性に格納されます。
 
   ブロックにデフォルトのプリセットのテキスト色を適用するには、自身の属性にデフォルトを指定します。例:
@@ -682,6 +690,7 @@ When the block declares support for `color.link`, the attributes definition is e
       }
   }
   ```
+ -->
 <!--
 - `style`: attribute of `object` type with no default assigned.
  -->
@@ -692,17 +701,31 @@ When the block declares support for `color.link`, the attributes definition is e
 
   The block can apply a default custom link color by specifying its own attribute with a default e.g.:
  -->
+<!-- 
   カスタム色ピッカーを使用するなどして、カスタムリンクの色が選択されると、カスタム色の値が `style.color.link` 属性に格納されます。
 
   ブロックにデフォルトのカスタムリンクの色を適用するには、自身の属性をデフォルトで指定します。
+ -->  
+  <!-- 
+  When a link color is selected, the color value is stored in the `style.elements.link.color.text` attribute.
+
+  The block can apply a default link color by specifying its own attribute with a default e.g.:
+ -->
+リンクの色が選択されると、色の値が `style.elements.link.color.text` 属性に格納されます。
+
+ブロックにデフォルトのリンクの色を適用するには、自身の属性をデフォルトで指定します。
 
   ```js
   attributes: {
       style: {
           type: 'object',
           default: {
-              color: {
-                  link: '#ff0000',
+              elements: {
+                  link: {
+                      color: {
+                          text: '#ff0000',
+                      }
+                  }
               }
           }
       }
@@ -950,6 +973,64 @@ attributes: {
 }
 ```
 
+## dimensions
+
+<!-- 
+_**Note:** Since WordPress 6.2._
+ -->
+_**注意:** WordPress 6.2以降_
+
+<!-- 
+-   Type: `Object`
+-   Default value: null
+-   Subproperties:
+    -   `minHeight`: type `boolean`, default value `false`
+ -->
+-   型: `Object`
+-   デフォルト値: null
+-   サブプロパティ:
+    -   `minHeight`: タイプ `boolean`, デフォルト値 `false`
+
+<!-- 
+This value signals that a block supports some of the CSS style properties related to dimensions. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/theme-json/#opt-in-into-ui-controls).
+ -->
+この値は、ブロックが寸法に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
+
+<!-- 
+```js
+supports: {
+    dimensions: {
+        minHeight: true // Enable min height control.
+    }
+}
+```
+ -->
+```js
+supports: {
+    dimensions: {
+        minHeight: true // 最小高コントロールを有効化
+    }
+}
+```
+<!-- 
+When a block declares support for a specific dimensions property, its attributes definition is extended to include the `style` attribute.
+
+- `style`: attribute of `object` type with no default assigned. This is added when `minHeight` support is declared. It stores the custom values set by the user, e.g.:
+ -->
+ブロックが特定の dimensions プロパティのサポートを宣言すると、その属性定義は `style` 属性を含むように拡張されます。
+
+- `style`: デフォルトの割り当てのない `object` タイプの属性。これは `minHeight` のサポートが宣言されると追加されます。ユーザーが設定したカスタム値が格納されます。例:
+
+```js
+attributes: {
+    style: {
+        dimensions: {
+            minHeight: "50vh"
+        }
+    }
+}
+```
+
 ## html
 <!--
 -   Type: `boolean`
@@ -981,7 +1062,7 @@ supports: {
 -   Type: `boolean`
 -   Default value: `true`
 
-By default, all blocks will appear in the inserter. To hide a block so that it can only be inserted programmatically, set `inserter` to `false`.
+By default, all blocks will appear in the inserter, block transforms menu, Style Book, etc. To hide a block from all parts of the user interface so that it can only be inserted programmatically, set `inserter` to `false`.
 
 ```js
 supports: {
@@ -993,7 +1074,7 @@ supports: {
 - タイプ: `boolean`
 - デフォルト値: `true`
 
-デフォルトではすべてのブロックはインサーターに表示されます。ブロックをインサーターには表示せず、プログラム的にのみ挿入可能にするには `inserter` に `false` を設定してください。
+デフォルトではすべてのブロックはインサーター、ブロック変換メニュー、スタイルブック等に表示されます。ブロックをすべてのユーザインターフェースの部品に表示せず、プログラム的にのみ挿入可能にするには `inserter` に `false` を設定してください。
 
 ```js
 supports: {
@@ -1083,6 +1164,69 @@ supports: {
 }
 ```
 
+## position
+<!-- 
+_**Note:** Since WordPress 6.2._
+ -->
+_**注意:** WordPress 6.2以降_
+
+<!-- 
+-   Type: `Object`
+-   Default value: null
+-   Subproperties:
+    -   `sticky`: type `boolean`, default value `false`
+ -->
+-   型: `Object`
+-   デフォルト値: null
+-   サブプロパティ:
+    -   `sticky`: 型 `boolean`, デフォルト値 `false`
+
+<!-- 
+This value signals that a block supports some of the CSS style properties related to position. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/theme-json/#opt-in-into-ui-controls).
+ -->
+この値は、ブロックが位置に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
+
+<!-- 
+Note that sticky position controls are currently only available for blocks set at the root level of the document. Setting a block to the `sticky` position will stick the block to its most immediate parent when the user scrolls the page.
+ -->
+注意: sticky 位置コントロールは、現在のところ、ドキュメントのルートレベルに設定されたブロックに対してのみ有効です。ブロックを `sticky` 位置に設定すると、ユーザがページをスクロールしたときに、ブロックは最も近い親に張り付きます。
+
+<!-- 
+```js
+supports: {
+    position: {
+        sticky: true // Enable selecting sticky position.
+    }
+}
+```
+ -->
+```js
+supports: {
+    position: {
+        sticky: true // sticky 位置の選択を有効化
+    }
+}
+```
+<!-- 
+When the block declares support for a specific position property, its attributes definition is extended to include the `style` attribute.
+
+- `style`: attribute of `object` type with no default assigned. This is added when `sticky` support is declared. It stores the custom values set by the user, e.g.:
+ -->
+ブロックが特定の position プロパティのサポートを宣言すると、その属性定義は `style` 属性を含むように拡張されます。
+
+- `style`: デフォルトの割り当てのない `object` タイプの属性。これは `sticky` サポートが宣言されると追加されます。ユーザーが設定したカスタム値が格納されます。例:
+
+```js
+attributes: {
+    style: {
+        position: {
+            type: "sticky",
+            top: "0px"
+        }
+    }
+}
+```
+
 ## spacing
 
 <!--
@@ -1093,7 +1237,7 @@ supports: {
     -   `padding`: type `boolean` or `array`, default value `false`
     -   `blockGap`: type `boolean` or `array`, default value `false`
 
-This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values, if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#cover-block-padding).
+This value signals that a block supports some of the CSS style properties related to spacing. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/theme-support.md#cover-block-padding).
 
 ```js
 supports: {
@@ -1124,13 +1268,13 @@ supports: {
 ```
 
 <!--
-When the block declares support for a specific spacing property, the attributes definition is extended to include the `style` attribute.
+When the block declares support for a specific spacing property, its attributes definition is extended to include the `style` attribute.
 
 - `style`: attribute of `object` type with no default assigned. This is added when `margin` or `padding` support is declared. It stores the custom values set by the user, e.g.:
  -->
-ブロックが spacing プロパティのサポートを宣言すると、attributes の定義も `style` 属性を含むよう拡張されます。
+ブロックが特定の spacing プロパティのサポートを宣言すると、その attributes の定義も `style` 属性を含むよう拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。例:
+- `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーが設定したカスタム値が格納されます。例:
 
 ```js
 attributes: {
@@ -1144,7 +1288,7 @@ attributes: {
 ```
 
 <!-- 
-A spacing property may define an array of allowable sides – 'top', 'right', 'bottom', 'left' – that can be configured. When such arbitrary sides are defined, only UI controls for those sides are displayed. 
+A spacing property may define an array of allowable sides – 'top', 'right', 'bottom', 'left' – that can be configured. When such arbitrary sides are defined, only UI controls for those sides are displayed.
  -->
 spacing プロパティは構成可能なサイド、'top'、'right'、'bottom'、'left' の配列を定義することもできます。任意のサイドが UI コントロールに定義されると、そのサイドが表示されます。
 
@@ -1156,7 +1300,7 @@ Axial sides are defined with the `vertical` and `horizontal` terms, and display 
 <!-- 
 Note: `blockGap` accepts `vertical` and `horizontal` axial sides, which adjust gap column and row values. `blockGap` doesn't support arbitrary sides.
  -->
-注意: `blockGap` は軸方向のサイド `vertical` と `horizontal` を取り、列値と行値のスペースを調整します。`blockGap` は任意方向のサイドをサポートしまsん。
+注意: `blockGap` は軸方向のサイド `vertical` と `horizontal` を取り、列値と行値のスペースを調整します。`blockGap` は任意方向のサイドをサポートしません。
 
 <!-- 
 ```js
@@ -1277,7 +1421,7 @@ attributes: {
 <!-- 
 -   `style`: attribute of `object` type with no default assigned. It stores the custom values set by the user and is shared with other block supports such as color. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
  -->
-- `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるカスタム値のセットを保存し、色などの他のブロックサポートと共有されます。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
+- `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーが設定したカスタム値が格納され、色などの他のブロックサポートと共有されます。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
 
 ```js
 attributes: {

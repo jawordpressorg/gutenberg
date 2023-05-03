@@ -160,7 +160,7 @@ Each block in your plugin should have a corresponding `block.json` file with the
 プラグイン内の各ブロックは、対応する `block.json` ファイルと [ブロックメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) を持つ必要があります。このファイルはブロックディレクトリに、ブロックに関する重要な情報を提供します。`block.json` ファイルは、ブロックに関するコンテキスト情報、たとえば `name`、`description`、`keywords`、`category`を保存する場所であり、ブロックのファイルの場所を格納します。
 
 <!-- 
-Block plugins submitted to the Block Directory can contain mutliple blocks only if they are children of a single parent/ancestor. There should only be one main block. For example, a list block can contain list-item blocks. Children blocks must set the `parent` property in their `block.json` file.
+Block plugins submitted to the Block Directory can contain multiple blocks only if they are children of a single parent/ancestor. There should only be one main block. For example, a list block can contain list-item blocks. Children blocks must set the `parent` property in their `block.json` file.
  -->
 ブロックディレクトリにサブミットされたブロックプラグインは、単一の親や先祖を持つ場合にのみ複数のブロックを含むことができます。ブロックは、メインブロック1つのみでなければなりません。たとえば、リストブロックは複数のリスト項目ブロックを含むことができます。子ブロックは、`block.json` ファイルで `parent` プロパティを設定する必要があります。
 

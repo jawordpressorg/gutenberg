@@ -412,6 +412,7 @@ settings セクションは以下の構造を持ちます。
 			"customFontSize": true,
 			"lineHeight": false,
 			"dropCap": true,
+			"fluid": false,
 			"fontStyle": true,
 			"fontWeight": true,
 			"letterSpacing": true,
@@ -465,6 +466,9 @@ settings セクションは以下の構造を持ちます。
 			"text": true
 		},
 		"custom": {},
+		"dimensions": {
+			"minHeight": false,
+		},
 		"layout": {
 			"contentSize": "800px",
 			"wideSize": "1000px"
@@ -487,12 +491,14 @@ settings セクションは以下の構造を持ちます。
 		"typography": {
 			"customFontSize": true,
 			"dropCap": true,
+			"fluid": false,
 			"fontFamilies": [],
 			"fontSizes": [],
 			"fontStyle": true,
 			"fontWeight": true,
 			"letterSpacing": true,
 			"lineHeight": false,
+			"textColumns": false,
 			"textDecoration": true,
 			"textTransform": true
 		},
@@ -535,14 +541,10 @@ There's one special setting property, `appearanceTools`, which is a boolean and 
  -->
 特別な設定プロパティとして `appearanceTools` があります。ブール値で、デフォルト値は false です。テーマはこの設定を使用して、以下を有効化できます。
 
-<!-- 
 - border: color, radius, style, width
 - color: link
-- spacing: blockGap, margin, padding
-- typography: lineHeight
- -->
-- border: color, radius, style, width
-- color: link
+- dimensions: minHeight
+- position: sticky
 - spacing: blockGap, margin, padding
 - typography: lineHeight
 
@@ -642,10 +644,10 @@ The following presets can be defined via `theme.json`:
     - `steps`: the number of steps to generate in the spacing scale. The default is 7. To prevent the generation of the spacing presets, and to disable the related UI, this can be set to `0`.
     - `mediumStep`: the steps in the scale are generated descending and ascending from a medium step, so this should be the size value of the medium space, without the unit. The default medium step is `1.5rem` so the mediumStep value is `1.5`.
     - `unit`: the unit the scale uses, eg. `px, rem, em, %`. The default is `rem`.
-- `spacing.spacingSizes`: themes can choose to include a static `spacing.spacingSizes` array of spacing preset sizes if they have a sequence of sizes that can't be generated via an increment or mulitplier. 
+- `spacing.spacingSizes`: themes can choose to include a static `spacing.spacingSizes` array of spacing preset sizes if they have a sequence of sizes that can't be generated via an increment or multiplier.
     - `name`: a human readable name for the size, eg. `Small, Medium, Large`.
     - `slug`: the machine readable name. In order to provide the best cross site/theme compatibility the slugs should be in the format, "10","20","30","40","50","60", with "50" representing the `Medium` size value.
-    - `size`: the size, including the unit, eg. `1.5rem`. It is possible to include fluid values like `clamp(2rem, 10vw, 20rem)`. 
+    - `size`: the size, including the unit, eg. `1.5rem`. It is possible to include fluid values like `clamp(2rem, 10vw, 20rem)`.
 - `typography.fontSizes`: generates a single class and custom property per preset value.
 - `typography.fontFamilies`: generates a single custom property per preset value.
  -->
@@ -1154,6 +1156,9 @@ Each block declares which style properties it exposes via the [block supports me
 			"gradient": "value",
 			"text": "value"
 		},
+		"dimensions": {
+			"minHeight": "value"
+		},
 		"filter": {
 			"duotone": "value"
 		},
@@ -1179,6 +1184,7 @@ Each block declares which style properties it exposes via the [block supports me
 			"fontWeight": "value",
 			"letterSpacing": "value",
 			"lineHeight": "value",
+			"textColumns": "value",
 			"textDecoration": "value",
 			"textTransform": "value"
 		},
@@ -1203,6 +1209,7 @@ Each block declares which style properties it exposes via the [block supports me
 			"core/group": {
 				"border": {},
 				"color": {},
+				"dimensions": {},
 				"spacing": {},
 				"typography": {},
 				"elements": {
@@ -1512,9 +1519,9 @@ theme.json にはさらに多くのテーマのメタデータを追加するニ
  -->
 ##### 要素疑似セレクタ
 <!-- 
-Pseudo selectors `:hover`, `:focus`, `:visited` are supported by Gutenberg.
+Pseudo selectors `:hover`, `:focus`, `:visited`, `:active`, `:link`, `:any-link` are supported by Gutenberg.
  -->
-疑似セレクタ `:hover`、`:focus`、`:visited` を Gutenberg はサポートします。
+疑似セレクタ `:hover`、`:focus`、`:visited`、`:active`、`:link`、`:any-link` を Gutenberg はサポートします。
 
 ```json
 "elements": {

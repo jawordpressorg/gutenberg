@@ -40,11 +40,11 @@ Note: The text portion is equivalent to `innerText` attribute of a DOM element. 
 ## Edit と Save
 
 <!--
-The **attributes** are passed to the `edit` and `save` functions, along with a **setAttributes** function to set the values. Additional parameters are also passed in to these functions, see [the edit/save documentation](/docs/reference-guides/block-api/block-edit-save.md) for more details.
+The **attributes** are passed to both the `edit` and `save` functions. The **setAttributes** function is also passed, but only to the `edit` function. The **setAttributes** function is used to set the values. Additional parameters are also passed in to the `edit` and `save` functions, see [the edit/save documentation](/docs/reference-guides/block-api/block-edit-save.md) for more details.
 
 The `attributes` is a JavaScript object containing the values of each attribute, or default values if defined. The `setAttributes` is a function to update an attribute.
  -->
-`edit` 関数と `save` 関数には、値を設定する **setAttributes** 関数と共に **attributes** が渡されます。これらの関数には追加のパラメータも渡すことができます。詳細については [Edit と Save ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/) を参照してください。
+**attributes** は、`edit`と`save` の両方の関数に渡されます。**setAttributes** 関数も渡されますが、`edit` 関数にのみ渡されます。**setAttributes** 関数は、値の設定に使用されます。また、`edit` 関数と `save` 関数には追加のパラメータも渡されます。詳細は [Edit と Save ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/) を参照してください。
 
 `attributes` は各属性の値、または存在するならデフォルト値を含む JavaScript オブジェクトです。`setAttributes` は属性を更新する関数です。
 

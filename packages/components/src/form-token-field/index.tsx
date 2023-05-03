@@ -153,7 +153,10 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 	}
 
 	function onBlur() {
-		if ( inputHasValidValue() ) {
+		if (
+			inputHasValidValue() &&
+			__experimentalValidateInput( incompleteTokenValue )
+		) {
 			setIsActive( false );
 		} else {
 			// Reset to initial state
@@ -169,10 +172,18 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 	function onKeyDown( event: KeyboardEvent ) {
 		let preventDefault = false;
 
-		if ( event.defaultPrevented ) {
+		if (
+			event.defaultPrevented ||
+			// Ignore keydowns from IMEs
+			event.nativeEvent.isComposing ||
+			// Workaround for Mac Safari where the final Enter/Backspace of an IME composition
+			// is `isComposing=false`, even though it's technically still part of the composition.
+			// These can only be detected by keyCode.
+			event.keyCode === 229
+		) {
 			return;
 		}
-		switch ( event.code ) {
+		switch ( event.key ) {
 			case 'Backspace':
 				preventDefault = handleDeleteKey( deleteTokenBeforeInput );
 				break;
@@ -213,9 +224,9 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 
 	function onKeyPress( event: KeyboardEvent ) {
 		let preventDefault = false;
-		// TODO: replace to event.code;
-		switch ( event.charCode ) {
-			case 44: // Comma.
+
+		switch ( event.key ) {
+			case ',':
 				preventDefault = handleCommaKey();
 				break;
 			default:

@@ -133,7 +133,7 @@ Note: On macOS, the required developer tools are not installed by default, if no
  -->
 注意: macOS にはデフォルトでは必要な開発ツールがインストールされていません。この場合、開発ツールをインストールするよう以下のダイアログが表示されます。
 
-<img src="https://developer.wordpress.org/files/2020/07/git-install-prompt.png" alt="Mac git command requies command line developer tools" width="400" height="195"/>
+<img src="https://developer.wordpress.org/files/2020/07/git-install-prompt.png" alt="Mac git command requires command line developer tools" width="400" height="195"/>
 
 <!--
 After installing nvm, you need to use it to install node, to install the LTS version of node, run:

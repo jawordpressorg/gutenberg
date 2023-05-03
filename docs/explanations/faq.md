@@ -466,7 +466,7 @@ This is the canonical list of keyboard shortcuts:
 		</tr>
 		<tr>
 			<td>Remove multiple selected blocks.</td>
-			<td></td>
+			<td><kbd>del</kbd><kbd>backspace</kbd></td>
 			<td><kbd>del</kbd><kbd>backspace</kbd></td>
 		</tr>
 	</tbody>
@@ -521,7 +521,7 @@ This is the canonical list of keyboard shortcuts:
 		</tr>
 		<tr>
 			<td>選択した複数のブロックの削除</td>
-			<td></td>
+			<td><kbd>del</kbd><kbd>backspace</kbd></td>
 			<td><kbd>del</kbd><kbd>backspace</kbd></td>
 		</tr>
 	</tbody>
@@ -836,15 +836,20 @@ _See:_ [Editor Styles](/docs/how-to-guides/themes/theme-support.md#editor-styles
 <!--
 ## What browsers does Gutenberg support?
 
-Gutenberg works in modern browsers, and Internet Explorer 11.
+Gutenberg works in modern browsers.
 
-Our [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). By “modern browsers” we generally mean the _current and past two versions_ of each major browser.
+The [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). The term “modern browsers” generally refers to the _current and previous two versions_ of each major browser.
+
+Since WordPress 5.8, Gutenberg no longer supports any version of Internet Explorer. 
+
  -->
 ## Gutenberg はどのブラウザをサポートしていますか ?
 
-Gutenberg はモダンブラウザーおよび Internet Explorer 11 で動作します。
+Gutenberg はモダンブラウザーで動作します。
 
 [Make WordPress handbook に対応ブラウザーの一覧があります](https://make.wordpress.org/core/handbook/best-practices/browser-support/)。「モダンブラウザー」とは、一般にメジャーなブラウザーの最新および過去の2バージョンを意味します。
+
+WordPress 5.8以降、Gutenberg は Internet Explorer のどのバージョンもサポートしなくなりました。
 
 <!--
 ## Should I be concerned that Gutenberg will make my plugin obsolete?

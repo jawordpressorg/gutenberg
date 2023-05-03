@@ -103,7 +103,7 @@ project:
 次に、2から4のファイルを生成するために、次のコマンドをプロジェクトのルートで走らせます:
 
 ```sh
-npm run fixtures:regenerate test/integration/full-content/full-content.test.js
+npm run fixtures:regenerate
 ```
 
 <!--
@@ -134,7 +134,7 @@ Run the command to regenerate the files:
 ファイルを再生成するコマンドを実行します:
 
 ```sh
-npm run fixtures:regenerate test/integration/full-content/full-content.test.js
+npm run fixtures:regenerate
 ```
 
 <!--

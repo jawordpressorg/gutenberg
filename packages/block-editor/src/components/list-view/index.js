@@ -55,10 +55,17 @@ export const BLOCK_LIST_ITEM_HEIGHT = 36;
  * @param {Array}   props.blocks          Custom subset of block client IDs to be used instead of the default hierarchy.
  * @param {boolean} props.showBlockMovers Flag to enable block movers
  * @param {boolean} props.isExpanded      Flag to determine whether nested levels are expanded by default.
+ * @param {boolean} props.showAppender    Flag to show or hide the block appender.
  * @param {Object}  ref                   Forwarded ref
  */
-function ListView(
-	{ id, blocks, showBlockMovers = false, isExpanded = false },
+function ListViewComponent(
+	{
+		id,
+		blocks,
+		showBlockMovers = false,
+		isExpanded = false,
+		showAppender = false,
+	},
 	ref
 ) {
 	const { clientIdsTree, draggedClientIds, selectedClientIds } =
@@ -174,6 +181,11 @@ function ListView(
 		[ isMounted.current, draggedClientIds, expandedState, expand, collapse ]
 	);
 
+	// If there are no blocks to show, do not render the list view.
+	if ( ! clientIdsTree.length ) {
+		return null;
+	}
+
 	return (
 		<AsyncModeProvider value={ true }>
 			<ListViewDropIndicator
@@ -199,10 +211,15 @@ function ListView(
 						selectedClientIds={ selectedClientIds }
 						isExpanded={ isExpanded }
 						shouldShowInnerBlocks={ shouldShowInnerBlocks }
+						showAppender={ showAppender }
 					/>
 				</ListViewContext.Provider>
 			</TreeGrid>
 		</AsyncModeProvider>
 	);
 }
-export default forwardRef( ListView );
+export const PrivateListView = forwardRef( ListViewComponent );
+
+export default forwardRef( ( props, ref ) => {
+	return <PrivateListView ref={ ref } { ...props } showAppender={ false } />;
+} );

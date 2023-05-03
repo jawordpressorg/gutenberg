@@ -46,6 +46,13 @@ As an alternative to Docker setup, you can use [Local](https://localwp.com/), [W
 -->
 Docker セットアップの代替としては、[Local](https://localwp.com/)、[WampServer](http://www.wampserver.com/en/)、[MAMP](https://www.mamp.info/)を利用できます。また、リモートサーバーでも構いません。
 
+
+<!-- -   GitHub CLI
+    Although not a requirement, the [GitHub CLI](https://cli.github.com/) can be very useful in helping you checkout pull requests locally. Both from the Gutenberg repo and forked repos. This can be a major time saver while code reviewing and testing pull requests.
+ -->
+ -   GitHub CLI:
+    必須ではありませんが、[GitHub CLI](https://cli.github.com/) はローカルにプルリクエストをチェックアウトする際に非常に便利です。Gutenberg リポジトリからも、フォークされたリポジトリからも同様です。プルリクエストのコードレビューやテストに要する時間を大幅に短縮できます。    
+
 <!--
 ## Getting the Gutenberg code
 -->

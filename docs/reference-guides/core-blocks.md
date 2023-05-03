@@ -29,7 +29,7 @@ Display a date archive of your posts. ([Source](https://github.com/WordPress/gut
 
 -	**Name:** core/archives
 -	**Category:** widgets
--	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align, anchor, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayAsDropdown, showLabel, showPostCounts, type
 
 <!--
@@ -59,7 +59,7 @@ Add a user’s avatar. ([Source](https://github.com/WordPress/gutenberg/tree/tru
 
 -	**Name:** core/avatar
 -	**Category:** theme
--	**Supports:** align, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
+-	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
 -	**Attributes:** isLink, linkTarget, size, userId
 
 <!--
@@ -89,8 +89,8 @@ Prompt visitors to take action with a button-style link. ([Source](https://githu
 
 -	**Name:** core/button
 -	**Category:** design
--	**Supports:** align, anchor, color (background, gradients, text), spacing (padding), typography (fontSize, lineHeight), ~~alignWide~~, ~~reusable~~
--	**Attributes:** backgroundColor, gradient, linkTarget, placeholder, rel, text, textColor, title, url, width
+-	**Supports:** anchor, color (background, gradients, text), shadow, spacing (padding), typography (fontSize, lineHeight), ~~alignWide~~, ~~align~~, ~~reusable~~
+-	**Attributes:** backgroundColor, gradient, linkTarget, placeholder, rel, text, textAlign, textColor, title, url, width
 
 <!--
 ## Buttons
@@ -104,7 +104,7 @@ Prompt visitors to take action with a group of button-style links. ([Source](htt
 
 -	**Name:** core/buttons
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, spacing (blockGap, margin), typography (fontSize, lineHeight)
+-	**Supports:** align (full, wide), anchor, spacing (blockGap, margin), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** 
 
 <!--
@@ -119,7 +119,7 @@ A calendar of your site’s posts. ([Source](https://github.com/WordPress/gutenb
 
 -	**Name:** core/calendar
 -	**Category:** widgets
--	**Supports:** align, color (background, link, text), typography (fontSize, lineHeight)
+-	**Supports:** align, anchor, color (background, link, text), typography (fontSize, lineHeight)
 -	**Attributes:** month, year
 
 <!--
@@ -134,7 +134,7 @@ Display a list of all categories. ([Source](https://github.com/WordPress/gutenbe
 
 -	**Name:** core/categories
 -	**Category:** widgets
--	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align, anchor, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayAsDropdown, showEmpty, showHierarchy, showOnlyTopLevel, showPostCounts
 
 <!--
@@ -180,7 +180,7 @@ Display content in multiple columns, with blocks added to each column. ([Source]
 -	**Name:** core/columns
 -	**Category:** design
 -	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** isStackedOnMobile, verticalAlignment
+-	**Attributes:** isStackedOnMobile, templateLock, verticalAlignment
 
 <!-- 
 ## Comment Author Avatar (deprecated)
@@ -194,7 +194,7 @@ This block is deprecated. Please use the Avatar block instead. ([Source](https:/
 
 -	**Name:** core/comment-author-avatar
 -	**Category:** theme
--	**Supports:** color (background, ~~text~~), spacing (margin, padding), ~~html~~, ~~inserter~~
+-	**Supports:** anchor, color (background, ~~text~~), spacing (margin, padding), ~~html~~, ~~inserter~~
 -	**Attributes:** height, width
 
 <!--
@@ -209,7 +209,7 @@ Displays the name of the author of the comment. ([Source](https://github.com/Wor
 
 -	**Name:** core/comment-author-name
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, linkTarget, textAlign
 
 <!--
@@ -224,7 +224,7 @@ Displays the contents of a comment. ([Source](https://github.com/WordPress/guten
 
 -	**Name:** core/comment-content
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -239,7 +239,7 @@ Displays the date on which the comment was posted. ([Source](https://github.com/
 
 -	**Name:** core/comment-date
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** format, isLink
 
 <!--
@@ -254,7 +254,7 @@ WordPress 管理画面でコメントを編集するリンクを表示します�
 
 -	**Name:** core/comment-edit-link
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** linkTarget, textAlign
 
 <!--
@@ -269,7 +269,7 @@ Displays a link to reply to a comment. ([Source](https://github.com/WordPress/gu
 
 -	**Name:** core/comment-reply-link
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -284,7 +284,7 @@ Contains the block elements used to display a comment, like the title, date, aut
 
 -	**Name:** core/comment-template
 -	**Category:** design
--	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** align, anchor, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 
 <!-- 
@@ -299,7 +299,7 @@ An advanced block that allows displaying post comments using different visual co
 
 -	**Name:** core/comments
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** legacy, tagName
 
 <!--
@@ -314,7 +314,7 @@ Displays a paginated navigation to next/previous set of comments, when applicabl
 
 -	**Name:** core/comments-pagination
 -	**Category:** theme
--	**Supports:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** align, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** paginationArrow
 
 <!--
@@ -329,7 +329,7 @@ Displays the next comment's page link. ([Source](https://github.com/WordPress/gu
 
 -	**Name:** core/comments-pagination-next
 -	**Category:** theme
--	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label
 
 <!--
@@ -344,7 +344,7 @@ Displays a list of page numbers for comments pagination. ([Source](https://githu
 
 -	**Name:** core/comments-pagination-numbers
 -	**Category:** theme
--	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 
 <!--
@@ -359,7 +359,7 @@ Displays the previous comment's page link. ([Source](https://github.com/WordPres
 
 -	**Name:** core/comments-pagination-previous
 -	**Category:** theme
--	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label
 
 <!-- 
@@ -390,8 +390,8 @@ Add an image or video with a text overlay — great for headers. ([Source](https
 
 -	**Name:** core/cover
 -	**Category:** media
--	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, templateLock, url, useFeaturedImage
+-	**Supports:** align, anchor, color (text, ~~background~~), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, tagName, templateLock, url, useFeaturedImage
 
 <!--
 ## Embed
@@ -420,7 +420,7 @@ Add a link to a downloadable file. ([Source](https://github.com/WordPress/gutenb
 
 -	**Name:** core/file
 -	**Category:** media
--	**Supports:** align, anchor
+-	**Supports:** align, anchor, color (background, gradients, link, ~~text~~)
 -	**Attributes:** displayPreview, downloadButtonText, fileId, fileName, href, id, previewHeight, showDownloadButton, textLinkHref, textLinkTarget
 
 <!--
@@ -465,7 +465,7 @@ Gather blocks in a layout container. ([Source](https://github.com/WordPress/gute
 
 -	**Name:** core/group
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), dimensions (minHeight), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), dimensions (minHeight), position (sticky), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** tagName, templateLock
 
 <!--
@@ -480,7 +480,7 @@ Introduce new sections and organize content to help visitors (and search engines
 
 -	**Name:** core/heading
 -	**Category:** text
--	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
+-	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, className, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** content, level, placeholder, textAlign
 
 <!--
@@ -495,7 +495,7 @@ Create a link that always points to the homepage of the site. Usually not necess
 
 -	**Name:** core/home-link
 -	**Category:** design
--	**Supports:** typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label
 
 <!--
@@ -540,7 +540,7 @@ Display a list of your most recent comments. ([Source](https://github.com/WordPr
 
 -	**Name:** core/latest-comments
 -	**Category:** widgets
--	**Supports:** align, spacing (margin, padding), ~~html~~
+-	**Supports:** align, anchor, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** commentsToShow, displayAvatar, displayDate, displayExcerpt
 
 <!--
@@ -555,7 +555,7 @@ Display a list of your most recent posts. ([Source](https://github.com/WordPress
 
 -	**Name:** core/latest-posts
 -	**Category:** widgets
--	**Supports:** align, spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align, anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** addLinkToFeaturedImage, categories, columns, displayAuthor, displayFeaturedImage, displayPostContent, displayPostContentRadio, displayPostDate, excerptLength, featuredImageAlign, featuredImageSizeHeight, featuredImageSizeSlug, featuredImageSizeWidth, order, orderBy, postLayout, postsToShow, selectedAuthor
 
 <!--
@@ -598,7 +598,7 @@ Show login & logout links. ([Source](https://github.com/WordPress/gutenberg/tree
 
 -	**Name:** core/loginout
 -	**Category:** theme
--	**Supports:** className, typography (~~fontSize~~)
+-	**Supports:** anchor, className, typography (~~fontSize~~)
 -	**Attributes:** displayLoginAsForm, redirectToCurrent
 
 <!--
@@ -658,7 +658,7 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Supports:** align (full, wide), inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, inserter, spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 
 <!--
@@ -718,8 +718,23 @@ Display a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tr
 
 -	**Name:** core/page-list
 -	**Category:** widgets
--	**Supports:** ~~html~~, ~~reusable~~
--	**Attributes:** 
+-	**Supports:** anchor, typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Attributes:** isNested, parentPageID
+
+<!-- 
+## Page List Item
+ -->
+## ページリスト項目
+
+<!-- 
+Displays a page inside a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/page-list-item))
+ -->
+すべてのページの一覧の中にページを表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/page-list-item))
+
+-	**Name:** core/page-list-item
+-	**Category:** widgets
+-	**Supports:** ~~html~~, ~~inserter~~, ~~lock~~, ~~reusable~~
+-	**Attributes:** hasChildren, id, label, link, title
 
 <!--
 ## Paragraph
@@ -763,7 +778,7 @@ Display post author details such as name, avatar, and bio. ([Source](https://git
 
 -	**Name:** core/post-author
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** avatarSize, byline, isLink, linkTarget, showAvatar, showBio, textAlign
 
 <!-- 
@@ -777,7 +792,7 @@ The author biography. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 作者の経歴。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author-biography))
 -	**Name:** core/post-author-biography
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** textAlign
 
 <!-- 
@@ -792,7 +807,7 @@ The author name. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pac
 
 -	**Name:** core/post-author-name
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, linkTarget, textAlign
 
 <!--
@@ -822,7 +837,7 @@ Display a post's comments count. ([Source](https://github.com/WordPress/gutenber
 
 -	**Name:** core/post-comments-count
 -	**Category:** theme
--	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -837,7 +852,7 @@ Display a post's comments form. ([Source](https://github.com/WordPress/gutenberg
 
 -	**Name:** core/post-comments-form
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -852,7 +867,7 @@ Displays the link to the current post comments. ([Source](https://github.com/Wor
 
 -	**Name:** core/post-comments-link
 -	**Category:** theme
--	**Supports:** color (background, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -867,7 +882,7 @@ Displays the contents of a post or page. ([Source](https://github.com/WordPress/
 
 -	**Name:** core/post-content
 -	**Category:** theme
--	**Supports:** align (full, wide), dimensions (minHeight), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, dimensions (minHeight), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** 
 
 <!--
@@ -882,7 +897,7 @@ Add the date of this post. ([Source](https://github.com/WordPress/gutenberg/tree
 
 -	**Name:** core/post-date
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** displayType, format, isLink, textAlign
 
 <!--
@@ -897,8 +912,8 @@ Display a post's excerpt. ([Source](https://github.com/WordPress/gutenberg/tree/
 
 -	**Name:** core/post-excerpt
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** moreText, showMoreOnNewLine, textAlign
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** excerptLength, moreText, showMoreOnNewLine, textAlign
 
 <!--
 ## Post Featured Image
@@ -912,8 +927,8 @@ Display a post's featured image. ([Source](https://github.com/WordPress/gutenber
 
 -	**Name:** core/post-featured-image
 -	**Category:** theme
--	**Supports:** align (center, full, left, right, wide), color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
--	**Attributes:** customGradient, customOverlayColor, dimRatio, gradient, height, isLink, linkTarget, overlayColor, rel, scale, sizeSlug, width
+-	**Supports:** align (center, full, left, right, wide), anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~html~~
+-	**Attributes:** aspectRatio, customGradient, customOverlayColor, dimRatio, gradient, height, isLink, linkTarget, overlayColor, rel, scale, sizeSlug, width
 
 <!--
 ## Post Navigation Link
@@ -927,7 +942,7 @@ Displays the next or previous post link that is adjacent to the current post. ([
 
 -	**Name:** core/post-navigation-link
 -	**Category:** theme
--	**Supports:** color (background, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** arrow, label, linkLabel, showTitle, textAlign, type
 
 <!--
@@ -942,7 +957,7 @@ Contains the block elements used to render a post, like the title, date, feature
 
 -	**Name:** core/post-template
 -	**Category:** theme
--	**Supports:** align, typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** align, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 
 <!--
@@ -957,8 +972,23 @@ Post terms. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages
 
 -	**Name:** core/post-terms
 -	**Category:** theme
--	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** prefix, separator, suffix, term, textAlign
+
+<!-- 
+## Time To Read
+ -->
+## Time To Read / 所要時間
+
+<!-- 
+Show minutes required to finish reading the post. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-time-to-read))
+ -->
+投稿を読むために必要な時間を表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-time-to-read))
+
+-	**Name:** core/post-time-to-read
+-	**Category:** theme
+-	**Supports:** typography (fontSize, lineHeight), ~~html~~, ~~multiple~~
+-	**Attributes:** textAlign
 
 <!--
 ## Post Title
@@ -972,7 +1002,7 @@ Displays the title of a post, page, or any other content-type. ([Source](https:/
 
 -	**Name:** core/post-title
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, level, linkTarget, rel, textAlign
 
 <!--
@@ -1017,7 +1047,7 @@ An advanced block that allows displaying post types based on different query par
 
 -	**Name:** core/query
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), ~~html~~
+-	**Supports:** align (full, wide), anchor, ~~html~~
 -	**Attributes:** displayLayout, namespace, query, queryId, tagName
 
 <!-- 
@@ -1032,7 +1062,7 @@ Contains the block elements used to render content when no query results are fou
 
 -	**Name:** core/query-no-results
 -	**Category:** theme
--	**Supports:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** align, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 
 <!--
@@ -1047,7 +1077,7 @@ Displays a paginated navigation to next/previous set of posts, when applicable. 
 
 -	**Name:** core/query-pagination
 -	**Category:** theme
--	**Supports:** align, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** align, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** paginationArrow
 
 <!--
@@ -1062,7 +1092,7 @@ Displays the next posts page link. ([Source](https://github.com/WordPress/gutenb
 
 -	**Name:** core/query-pagination-next
 -	**Category:** theme
--	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label
 
 <!--
@@ -1077,7 +1107,7 @@ Displays a list of page numbers for pagination ([Source](https://github.com/Word
 
 -	**Name:** core/query-pagination-numbers
 -	**Category:** theme
--	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 
 <!--
@@ -1092,7 +1122,7 @@ Displays the previous posts page link. ([Source](https://github.com/WordPress/gu
 
 -	**Name:** core/query-pagination-previous
 -	**Category:** theme
--	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** label
 
 <!--
@@ -1107,7 +1137,7 @@ Display the query title. ([Source](https://github.com/WordPress/gutenberg/tree/t
 
 -	**Name:** core/query-title
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** level, showPrefix, showSearchTerm, textAlign, type
 
 <!--
@@ -1137,7 +1167,7 @@ Displays the link of a post, page, or any other content-type. ([Source](https://
 
 -	**Name:** core/read-more
 -	**Category:** theme
--	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** content, linkTarget
 
 <!--
@@ -1152,7 +1182,7 @@ RSS または Atom フィードからの投稿を表示します。([Source](htt
 
 -	**Name:** core/rss
 -	**Category:** widgets
--	**Supports:** align, ~~html~~
+-	**Supports:** align, anchor, ~~html~~
 -	**Attributes:** blockLayout, columns, displayAuthor, displayDate, displayExcerpt, excerptLength, feedURL, itemsToShow
 
 <!--
@@ -1167,7 +1197,7 @@ Help visitors find your content. ([Source](https://github.com/WordPress/gutenber
 
 -	**Name:** core/search
 -	**Category:** widgets
--	**Supports:** align (center, left, right), color (background, gradients, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (center, left, right), anchor, color (background, gradients, text), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** buttonPosition, buttonText, buttonUseIcon, label, placeholder, query, showLabel, width, widthUnit
 
 <!--
@@ -1212,7 +1242,7 @@ Display a graphic to represent this site. Update the block, and the changes appl
 
 -	**Name:** core/site-logo
 -	**Category:** theme
--	**Supports:** align, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
+-	**Supports:** align, anchor, color (~~background~~, ~~text~~), spacing (margin, padding), ~~alignWide~~, ~~html~~
 -	**Attributes:** isLink, linkTarget, shouldSyncIcon, width
 
 <!--
@@ -1227,7 +1257,7 @@ Describe in a few words what the site is about. The tagline can be used in searc
 
 -	**Name:** core/site-tagline
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -1242,7 +1272,7 @@ Displays the name of this site. Update the block, and the changes apply everywhe
 
 -	**Name:** core/site-title
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, level, linkTarget, textAlign
 
 <!--
@@ -1257,7 +1287,7 @@ Display an icon linking to a social media profile or site. ([Source](https://git
 
 -	**Name:** core/social-link
 -	**Category:** widgets
--	**Supports:** ~~html~~, ~~reusable~~
+-	**Supports:** anchor, ~~html~~, ~~reusable~~
 -	**Attributes:** label, rel, service, url
 
 <!--
@@ -1332,7 +1362,7 @@ A cloud of your most used tags. ([Source](https://github.com/WordPress/gutenberg
 
 -	**Name:** core/tag-cloud
 -	**Category:** widgets
--	**Supports:** align, spacing (margin, padding), typography (lineHeight), ~~html~~
+-	**Supports:** align, anchor, spacing (margin, padding), typography (lineHeight), ~~html~~
 -	**Attributes:** largestFontSize, numberOfTags, showTagCounts, smallestFontSize, taxonomy
 
 <!--
@@ -1347,7 +1377,7 @@ Edit the different global regions of your site, like the header, footer, sidebar
 
 -	**Name:** core/template-part
 -	**Category:** theme
--	**Supports:** align, ~~html~~, ~~reusable~~
+-	**Supports:** align, anchor, ~~html~~, ~~reusable~~
 -	**Attributes:** area, slug, tagName, theme
 
 <!--
@@ -1362,7 +1392,7 @@ Display the description of categories, tags and custom taxonomies when viewing a
 
 -	**Name:** core/term-description
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--

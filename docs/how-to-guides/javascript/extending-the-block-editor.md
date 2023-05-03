@@ -4,11 +4,11 @@
 # ブロックエディターの拡張
 
 <!--
-Let's look at using the [Block Style example](/docs/reference-guides/filters/block-filters.md#block-styles) to extend the editor. This example allows you to add your own custom CSS class name to any core block type.
+Let's look at using the [Block Style example](/docs/reference-guides/block-api/block-styles.md) to extend the editor. This example allows you to add your own custom CSS class name to any core block type.
 
 Replace the existing `console.log()` code in your `myguten.js` file with:
 -->
-[ブロックスタイルの例](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-styles)を使用してエディターを拡張します。この例は任意のコアブロックタイプにカスタム CSS クラス名を追加します。
+[ブロックスタイルの例](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/)を使用してエディターを拡張します。この例は任意のコアブロックタイプにカスタム CSS クラス名を追加します。
 
 `myguten.js` ファイル内のコード `console.log()` を以下のコードで置き換えてください。
 

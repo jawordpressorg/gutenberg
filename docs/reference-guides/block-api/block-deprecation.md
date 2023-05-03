@@ -3,6 +3,11 @@
  -->
 # 非推奨プロセス
 
+<!-- 
+> This page provides a comprehensive guide to the principles and usage of the Deprecation API. For an introduction check out the [tutorial on the basics of block deprecation](https://developer.wordpress.org/news/2023/03/block-deprecation-a-tutorial/) which can be found on the [Developer Blog](https://developer.wordpress.org/news/).
+ -->
+このページでは、Deprecation (非推奨) API の原理と使用方法について包括的に説明します。入門的なガイドとして、[開発者ブログ](https://developer.wordpress.org/news/)の[ブロック非推奨の基本に関するチュートリアル](https://developer.wordpress.org/news/2023/03/block-deprecation-a-tutorial/)を参照ください。
+
 <!--
 When updating static blocks markup and attributes, block authors need to consider existing posts using the old versions of their block. To provide a good upgrade path, you can choose one of the following strategies:
  -->
@@ -82,12 +87,45 @@ Deprecations are defined on a block type as its `deprecated` property, an array 
 -   `migrate` (Function, Optional): A function which, given the old attributes and inner blocks is expected to return either the new attributes or a tuple array of `[ attributes, innerBlocks ]` compatible with the block. As mentioned above, a deprecation's `migrate` will not be run if its `save` function does not return a valid block so you will need to make sure your migrations are available in all the deprecations where they are relevant.
 -   `isEligible` (Function, Optional): A function which, given the attributes and inner blocks of the parsed block, returns true if the deprecation can handle the block migration even if the block is valid. This is particularly useful in cases where a block is technically valid even once deprecated, and requires updates to its attributes or inner blocks. This function is not called when the results of all previous deprecations' `save` functions were invalid.
 -   `isEligible` (Function, Optional): A function which, given the attributes and inner blocks of the parsed block, returns true if the deprecation can handle the block migration even if the block is valid. This is particularly useful in cases where a block is technically valid even once deprecated, but still requires updates to its attributes or inner blocks. This function is not called when the results of all previous deprecations' `save` functions were invalid.
+
+
+
+-   `migrate`: (Function, Optional). A function which, given the old attributes and inner blocks is expected to return either the new attributes or a tuple array of attributes and inner blocks compatible with the block. As mentioned above, a deprecation's `migrate` will not be run if its `save` function does not return a valid block so you will need to make sure your migrations are available in all the deprecations where they are relevant.
+	- _Parameters_
+		- `attributes`: The block's old attributes.
+		- `innerBlocks`: The block's old inner blocks.
+	- _Return_
+		- `Object | Array`: Either the updated block attributes or tuple array `[attributes, innerBlocks]`.
+-   `isEligible`: (Function, Optional). A function which returns `true` if the deprecation can handle the block migration even if the block is valid. It is particularly useful in cases where a block is technically valid even once deprecated, but still requires updates to its attributes or inner blocks. This function is **not** called when the results of all previous deprecations' save functions were invalid.
+	- _Parameters_
+		- `attributes`: The raw block attributes as parsed from the serialized HTML, and before the block type code is applied.
+		- `innerBlocks`: The block's current inner blocks.
+		- `data`: An object containing properties representing the block node and its resulting block object.
+			- `data.blockNode`: The raw form of the block as a result of parsing the serialized HTML.
+			- `data.block`: The block object, which is the result of applying the block type to the `blockNode`.
+	- _Return_
+		- `boolean`: Whether or not this otherwise valid block is eligible to be migrated by this deprecation.
+
  -->
 - `attributes` (Object): ブロックの非推奨形式の [attributes 定義](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)。
 - `supports` (Object): ブロックの非推奨形式の [supports 定義](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/)。
 - `save` (Function): ブロックの非推奨形式の [save の実装](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)。
-- `migrate` (Function、オプション): 古い属性と内部ブロックを指定すると、新しい属性、または、ブロックと互換性のある `[ attributes, innerBlocks ]` のタブル配列を返す関数。上で説明したように、非推奨プロセスの `save` 関数が正しいブロックを返さない場合、`migrate` は実行されません。したがって関連するすべての非推奨プロセスで移行が利用可能であることを確認する必要があります。
-- `isEligible` (Function、オプション): パースされたブロックの属性と内部ブロックを指定すると、ブロックが正しく (valid) ても、非推奨プロセスがブロック移行を処理できる場合に true を返す関数。この関数が特に有用なケースはブロックが非推奨となっても技術的には正しいにも関わらず、属性や内部ブロックの更新が必要な場合です。以前のすべての非推奨プロセスの `save` 関数が不正 (invalid) の場合にはこの関数は呼ばれません。
+- `migrate` (Function、オプション): 古い属性と内部ブロックを指定すると、新しい属性、または、属性、およびブロックと互換性のある内部ブロックのタブル配列を返す関数。上で説明したように、非推奨プロセスの `save` 関数が正しいブロックを返さない場合、`migrate` は実行されません。したがって関連するすべての非推奨プロセスで移行が利用可能であることを確認する必要があります。
+	- _パラメータ_
+		- `attributes`: ブロックの古い属性
+		- `innerBlocks`: ブロックの古い内部ブロック
+	- _戻り_
+		- `Object | Array`: 更新された属性、または、タプル配列 `[attributes, innerBlocks]` のどちらか
+
+- `isEligible` (Function、オプション): ブロックが正しく (valid) ても、非推奨プロセスがブロック移行を処理できる場合に `true` を返す関数。この関数が特に有用なケースはブロックが非推奨となっても技術的には正しいにも関わらず、属性や内部ブロックの更新が必要な場合です。以前のすべての非推奨プロセスの `save` 関数が不正 (invalid) の場合にはこの関数は**呼ばれません**。
+	- _パラメータ_
+		- `attributes`: シリアライズされた HTML からパースされ、ブロックタイプコードが適用される前の、生のブロック属性
+		- `innerBlocks`: ブロックの現在の内部ブロック
+		- `data`: ブロックノードとその結果のブロックオブジェクトを表すプロパティを含むオブジェクト。
+			- `data.blockNode`: シリアライズされた HTML をパースした結果のブロックの生の形
+			- `data.block`: ブロックオブジェクト。`blockNode` にブロックタイプを適用した結果
+	- _戻り_
+		- `boolean`: この非推奨プロセスにより、この代替の正しい (valid) ブロックに移行されるかどうか
 
 <!--
 It's important to note that `attributes`, `supports`, and `save` are not automatically inherited from the current version, since they can impact parsing and serialization of a block, so they must be defined on the deprecated object in order to be processed during a migration.
@@ -120,7 +158,7 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	// ... other block properties go here
 
 	attributes,
-	
+
 	supports,
 
 	save( props ) {
@@ -130,7 +168,7 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	deprecated: [
 		{
 			attributes,
-			
+
 			supports,
 
 			save( props ) {
@@ -324,7 +362,6 @@ E.g: a block wants to migrate a title attribute to a paragraph innerBlock.
  -->
 ```js
 const { registerBlockType } = wp.blocks;
-const { omit } = lodash;
 
 registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	// ... block properties go here
@@ -344,8 +381,10 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 			},
 
 			migrate( attributes, innerBlocks ) {
+				const { title, ...restAttributes } = attributes;
+
 				return [
-					omit( attributes, 'title' ),
+					restAttributes,
 					[
 						createBlock( 'core/paragraph', {
 							content: attributes.title,
@@ -370,8 +409,7 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
  -->
 ```js
 var el = wp.element.createElement,
-	registerBlockType = wp.blocks.registerBlockType,
-	omit = lodash.omit;
+	registerBlockType = wp.blocks.registerBlockType;
 
 registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	// ... block properties go here
@@ -387,8 +425,10 @@ registerBlockType( 'gutenberg/block-with-deprecated-version', {
 			},
 
 			migrate: function ( attributes, innerBlocks ) {
+				const { title, ...restAttributes } = attributes;
+
 				return [
-					omit( attributes, 'title' ),
+					restAttributes,
 					[
 						createBlock( 'core/paragraph', {
 							content: attributes.title,

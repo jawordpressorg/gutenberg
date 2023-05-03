@@ -6,17 +6,18 @@ exports[`ColorPalette should allow disabling custom color picker 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: normal;
-  -webkit-box-align: normal;
-  -ms-flex-align: normal;
-  align-items: normal;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
   gap: calc(4px * 3);
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 .emotion-0>* {
@@ -63,10 +64,10 @@ exports[`ColorPalette should allow disabling custom color picker 1`] = `
           class="components-circular-option-picker__option-wrapper"
         >
           <button
-            aria-label="Color: white"
+            aria-label="Color: green"
             aria-pressed="false"
             class="components-button components-circular-option-picker__option"
-            style="background-color: rgb(255, 255, 255); color: rgb(255, 255, 255);"
+            style="background-color: rgb(0, 255, 0); color: rgb(0, 255, 0);"
             type="button"
           />
         </div>
@@ -103,17 +104,18 @@ exports[`ColorPalette should render a dynamic toolbar of colors 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: normal;
-  -webkit-box-align: normal;
-  -ms-flex-align: normal;
-  align-items: normal;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
   gap: calc(4px * 3);
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 .emotion-0>* {
@@ -179,7 +181,7 @@ exports[`ColorPalette should render a dynamic toolbar of colors 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="true"
-        aria-label="Custom color picker. The currently selected color is called \\"red\\" and has a value of \\"f00\\"."
+        aria-label="Custom color picker. The currently selected color is called "red" and has a value of "f00"."
         class="components-flex components-color-palette__custom-color emotion-2 emotion-1"
         data-wp-c16t="true"
         data-wp-component="Flex"
@@ -235,10 +237,10 @@ exports[`ColorPalette should render a dynamic toolbar of colors 1`] = `
           class="components-circular-option-picker__option-wrapper"
         >
           <button
-            aria-label="Color: white"
+            aria-label="Color: green"
             aria-pressed="false"
             class="components-button components-circular-option-picker__option"
-            style="background-color: rgb(255, 255, 255); color: rgb(255, 255, 255);"
+            style="background-color: rgb(0, 255, 0); color: rgb(0, 255, 0);"
             type="button"
           />
         </div>

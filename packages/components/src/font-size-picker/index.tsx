@@ -50,6 +50,7 @@ const UnforwardedFontSizePicker = (
 		disableCustomFontSizes = false,
 		onChange,
 		size = 'default',
+		units: unitsProp,
 		value,
 		withSlider = false,
 		withReset = true,
@@ -64,7 +65,7 @@ const UnforwardedFontSizePicker = (
 	}
 
 	const units = useCustomUnits( {
-		availableUnits: [ 'px', 'em', 'rem' ],
+		availableUnits: unitsProp || [ 'px', 'em', 'rem' ],
 	} );
 
 	const shouldUseSelectControl = fontSizes.length > 5;
@@ -173,7 +174,13 @@ const UnforwardedFontSizePicker = (
 									onChange?.( undefined );
 								} else {
 									onChange?.(
-										hasUnits ? newValue : Number( newValue )
+										hasUnits
+											? newValue
+											: Number( newValue ),
+										fontSizes.find(
+											( fontSize ) =>
+												fontSize.size === newValue
+										)
 									);
 								}
 							} }
@@ -193,7 +200,11 @@ const UnforwardedFontSizePicker = (
 								onChange?.( undefined );
 							} else {
 								onChange?.(
-									hasUnits ? newValue : Number( newValue )
+									hasUnits ? newValue : Number( newValue ),
+									fontSizes.find(
+										( fontSize ) =>
+											fontSize.size === newValue
+									)
 								);
 							}
 						} }

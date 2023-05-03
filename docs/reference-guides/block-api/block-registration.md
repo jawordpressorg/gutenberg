@@ -73,7 +73,7 @@ _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plu
 
 -   **Type:** `String`
 <!--
-This is the display title for your block, which can be translated with our translation functions. The title will display in the Inserter and in other areas of the editor. 
+This is the display title for your block, which can be translated with our translation functions. The title will display in the Inserter and in other areas of the editor.
 
 ```js
 // Our data object
@@ -173,13 +173,13 @@ icon: 'book-alt',
 icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 ```
 <!--
-**Note:** Custom SVG icons are automatically wrapped in the [`wp.primitives.SVG` component](/packages/primitives/src/svg/) to add accessibility attributes (`aria-hidden`, `role`, and `focusable`).
+**Note:** Custom SVG icons are automatically wrapped in the [`wp.primitives.SVG` component](/packages/primitives/README.md) to add accessibility attributes (`aria-hidden`, `role`, and `focusable`).
 
 An object can also be passed as icon, in this case, icon, as specified above, should be included in the src property.
 
 Besides src the object can contain background and foreground colors, this colors will appear with the icon when they are applicable e.g.: in the inserter.
  -->
-**注意:** カスタム SVG アイコンは自動的に [`wp.primitives.SVG` コンポーネント](/packages/primitives/src/svg/) でラップされ、アクセシビリティ属性 `aria-hidden`、`role`、`focusable` が追加されます。
+**注意:** カスタム SVG アイコンは自動的に [`wp.primitives.SVG` コンポーネント](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-primitives/) でラップされ、アクセシビリティ属性 `aria-hidden`、`role`、`focusable` が追加されます。
 
 オブジェクトもアイコンとして指定できますが、この場合にアイコンは src プロパティに含めてください。
 
@@ -258,7 +258,7 @@ styles: [
 ],
 ```
 
-Plugins and Themes can also register [custom block style](/docs/reference-guides/filters/block-filters.md#block-styles) for existing blocks.
+Plugins and Themes can also register [custom block style](/docs/reference-guides/block-api/block-styles.md) for existing blocks.
  -->
 ブロックスタイルを使用してブロックに代替のスタイルを与えられます。ブロックスタイルはブロックのラッパーにクラス名を追加することで動作します。テーマ開発者は該当のクラス名をターゲットに CSS を使用して、選択された際のブロックスタイルを指定できます。
 
@@ -282,7 +282,7 @@ styles: [
 ],
 ```
 
-プラグインやテーマは既存のブロックに対して [カスタムブロックスタイル](https://developer.wordpress.org/block-editor/developers/filters/block-filters/#block-styles) を登録することもできます。
+プラグインやテーマは既存のブロックに対して [カスタムブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) を登録することもできます。
 
 <!--
 #### attributes (optional)
@@ -346,7 +346,7 @@ attributes: {
 
 -   **Type:** `Object`
 <!--
-Example provides structured example data for the block. This data is used to construct a preview for the block to be shown in the Inspector Help Panel when the user mouses over the block.
+Example provides structured example data for the block. This data is used to construct a preview for the block to be shown in the Inspector Help Panel when the user mouses over the block and in the Styles panel when the block is selected.
 
 The data provided in the example object should match the attributes defined. For example:
 
@@ -362,7 +362,7 @@ example: {
 
 If `example` is not defined, the preview will not be shown. So even if no-attributes are defined, setting a empty example object `example: {}` will trigger the preview to show.
  -->
-`example` はブロックの構造化したサンプルデータを提供します。このデータを使用してブロックのプレビューを作成します。ユーザーがインスペクターヘルプパネルでマウスオーバーすると、プレビューが表示されます。
+`example` はブロックの構造化したサンプルデータを提供します。このデータを使用してブロックのプレビューを作成します。プレビューは、ユーザーがブロックをマウスオーバーした際のインスペクターヘルプパネル、またはブロックを選択した際のスタイルパネルで表示されます。
 
 `example` オブジェクトに提供したデータは定義された属性と合致する必要があります。たとえば
 
@@ -473,6 +473,29 @@ parent: [ 'core/columns' ],
 ```js
 // ブロックは Columns ブロックにネストする場合のみ利用可能
 parent: [ 'core/columns' ],
+```
+
+<!-- 
+#### ancestor (optional)
+ -->
+#### ancestor (オプション)
+
+-   **Type:** `Array`
+
+<!-- 
+The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a 'Comment Content' block inside a 'Column' block, as long as 'Column' is somewhere within a 'Comment Template' block. In comparison to the `parent` property blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
+ -->
+`ancestor` プロパティを使用すると、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置でブロックを利用できます。例えば、「'Comment Content' ブロックは、'Column' ブロックが 'Comment Template' ブロック内のどこかにある場合に限り、'Column' ブロック内に配置できる」等の制限が可能です。`parent` プロパティと比較すると `ancestor` を指定したブロックはサブツリーの任意の場所に配置できますが、`parent` を指定したブロックは直接の子としてのみ配置できます。
+
+<!-- 
+```js
+// Only allow this block when it is nested at any level in a Columns block.
+ancestor: [ 'core/columns' ],
+```
+ -->
+```js
+// このブロックは Columns ブロック内の任意のレベルで入れ子の場合のみ利用可能
+ancestor: [ 'core/columns' ],
 ```
 
 <!--

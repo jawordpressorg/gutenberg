@@ -169,6 +169,25 @@ export function unstable__bootstrapServerSideBlockDefinitions( definitions ) {
 				serverSideBlockDefinitions[ blockName ].ancestor =
 					definitions[ blockName ].ancestor;
 			}
+			// The `selectors` and `editorSelectors` props are not yet included
+			// in the server provided definitions. Polyfill it as well. This can
+			// be removed when the minimum supported WordPress is >= 6.3.
+			if (
+				serverSideBlockDefinitions[ blockName ].editorSelectors ===
+					undefined &&
+				definitions[ blockName ].editorSelectors
+			) {
+				serverSideBlockDefinitions[ blockName ].editorSelectors =
+					definitions[ blockName ].editorSelectors;
+			}
+			if (
+				serverSideBlockDefinitions[ blockName ].selectors ===
+					undefined &&
+				definitions[ blockName ].selectors
+			) {
+				serverSideBlockDefinitions[ blockName ].selectors =
+					definitions[ blockName ].selectors;
+			}
 			continue;
 		}
 
@@ -203,6 +222,8 @@ function getBlockSettingsFromMetadata( { textdomain, ...metadata } ) {
 		'attributes',
 		'providesContext',
 		'usesContext',
+		'selectors',
+		'editorSelectors',
 		'supports',
 		'styles',
 		'example',
@@ -253,7 +274,7 @@ function getBlockSettingsFromMetadata( { textdomain, ...metadata } ) {
  * } );
  * ```
  *
- * @return {?WPBlockType} The block, if it has been successfully registered;
+ * @return {WPBlockType | undefined} The block, if it has been successfully registered;
  *                    otherwise `undefined`.
  */
 export function registerBlockType( blockNameOrMetadata, settings ) {
@@ -290,6 +311,8 @@ export function registerBlockType( blockNameOrMetadata, settings ) {
 		attributes: {},
 		providesContext: {},
 		usesContext: [],
+		selectors: {},
+		editorSelectors: {},
 		supports: {},
 		styles: [],
 		variations: [],
@@ -424,7 +447,7 @@ export function unregisterBlockCollection( namespace ) {
  * };
  * ```
  *
- * @return {?WPBlockType} The previous block value, if it has been successfully
+ * @return {WPBlockType | undefined} The previous block value, if it has been successfully
  *                    unregistered; otherwise `undefined`.
  */
 export function unregisterBlockType( name ) {
@@ -618,7 +641,7 @@ export function isReusableBlock( blockOrType ) {
  * @return {boolean} Whether the given block is a template part.
  */
 export function isTemplatePart( blockOrType ) {
-	return blockOrType.name === 'core/template-part';
+	return blockOrType?.name === 'core/template-part';
 }
 
 /**
@@ -656,7 +679,7 @@ export const hasChildBlocksWithInserterSupport = ( blockName ) => {
 };
 
 /**
- * Registers a new block style variation for the given block.
+ * Registers a new block style for the given block.
  *
  * For more information on connecting the styles with CSS [the official documentation](/docs/reference-guides/block-api/block-styles.md#styles)
  *
@@ -691,7 +714,7 @@ export const registerBlockStyle = ( blockName, styleVariation ) => {
 };
 
 /**
- * Unregisters a block style variation for the given block.
+ * Unregisters a block style for the given block.
  *
  * @param {string} blockName          Name of block (example: “core/latest-posts”).
  * @param {string} styleVariationName Name of class applied to the block.

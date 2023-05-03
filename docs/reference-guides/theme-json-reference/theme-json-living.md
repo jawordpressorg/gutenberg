@@ -50,7 +50,7 @@ Code editors can pick up the schema and can provide help like tooltips, autocomp
 <!--
 Setting that enables the following UI tools:
 -->
-以下のUIツールを有効にする設定です。
+以下のUIツールを有効にする設定。
 
 <!--
 - border: color, radius, style, width
@@ -60,6 +60,8 @@ Setting that enables the following UI tools:
 -->
 - border: color, radius, style, width
 - color: link
+- dimensions: minHeight
+- position: sticky
 - spacing: blockGap, margin, padding
 - typography: lineHeight
 
@@ -88,7 +90,7 @@ Please note that when using this setting, `styles.spacing.padding` should always
 <!--
 Settings related to borders.
 -->
-ボーダー関連の設定です。
+ボーダー関連の設定。
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
@@ -99,12 +101,25 @@ Settings related to borders.
 
 ---
 
+### shadow
+<!-- 
+Settings related to shadows.
+ -->
+シャドー関連の設定。
+
+| Property  | Type   | Default | Props  |
+| ---       | ---    | ---    |---   |
+| defaultPresets | boolean | true |  |
+| presets | array |  | name, shadow, slug |
+
+---
+
 ### color
 
 <!--
 Settings related to colors.
 -->
-色関連の設定です。
+色関連の設定。
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
@@ -127,7 +142,7 @@ Settings related to colors.
 <!-- 
 Settings related to dimensions.
  -->
-寸法関連の設定です。
+寸法関連の設定。
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
@@ -140,7 +155,7 @@ Settings related to dimensions.
 <!--
 Settings related to layout.
 -->
-レイアウト関連の設定です。
+レイアウト関連の設定。
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
@@ -149,12 +164,25 @@ Settings related to layout.
 
 ---
 
+### position
+
+<!-- 
+Settings related to position.
+ -->
+位置関連の設定。
+
+| Property  | Type   | Default | Props  |
+| ---       | ---    | ---    |---   |
+| sticky | boolean | false |  |
+
+---
+
 ### spacing
 
 <!--
 Settings related to spacing.
 -->
-スペース関連の設定です。
+スペース関連の設定。
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
@@ -173,16 +201,17 @@ Settings related to spacing.
 <!--
 Settings related to typography.
 -->
-タイポグラフィ関連の設定です。
+タイポグラフィ関連の設定。
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
 | customFontSize | boolean | true |  |
 | fontStyle | boolean | true |  |
 | fontWeight | boolean | true |  |
-| fluid | boolean |  |  |
+| fluid | undefined | false |  |
 | letterSpacing | boolean | true |  |
 | lineHeight | boolean | false |  |
+| textColumns | boolean | false |  |
 | textDecoration | boolean | true |  |
 | textTransform | boolean | true |  |
 | dropCap | boolean | true |  |
@@ -214,10 +243,10 @@ Border styles.
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
-| color | string |  |
-| radius | undefined |  |
-| style | string |  |
-| width | string |  |
+| color | string, object |  |
+| radius | string, object |  |
+| style | string, object |  |
+| width | string, object |  |
 | top | object | color, style, width |
 | right | object | color, style, width |
 | bottom | object | color, style, width |
@@ -234,9 +263,19 @@ Color styles.
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
-| background | string |  |
-| gradient | string |  |
-| text | string |  |
+| background | string, object |  |
+| gradient | string, object |  |
+| text | string, object |  |
+
+---
+
+### dimensions
+
+寸法のスタイル。
+
+| Property  | Type   |  Props  |
+| ---       | ---    |---   |
+| minHeight | string, object |  |
 
 ---
 
@@ -249,7 +288,7 @@ Spacing styles.
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
-| blockGap | string |  |
+| blockGap | string, object |  |
 | margin | object | bottom, left, right, top |
 | padding | object | bottom, left, right, top |
 
@@ -264,14 +303,15 @@ Typography styles.
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
-| fontFamily | string |  |
-| fontSize | string |  |
-| fontStyle | string |  |
-| fontWeight | string |  |
-| letterSpacing | string |  |
-| lineHeight | string |  |
-| textDecoration | string |  |
-| textTransform | string |  |
+| fontFamily | string, object |  |
+| fontSize | string, object |  |
+| fontStyle | string, object |  |
+| fontWeight | string, object |  |
+| letterSpacing | string, object |  |
+| lineHeight | string, object |  |
+| textColumns | string |  |
+| textDecoration | string, object |  |
+| textTransform | string, object |  |
 
 ---
 
@@ -283,7 +323,7 @@ CSS と SVG フィルターのスタイル。
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
-| duotone | string |  |
+| duotone | string, object |  |
 
 ---
 
@@ -304,10 +344,19 @@ Outline styles.
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
-| color | string |  |
-| offset | string |  |
-| style | string |  |
-| width | string |  |
+| color | string, object |  |
+| offset | string, object |  |
+| style | string, object |  |
+| width | string, object |  |
+
+---
+
+### css
+<!-- 
+Sets custom CSS to apply styling not covered by other theme.json properties.
+ -->
+Sets custom CSS to apply styling not covered by other theme.json properties.
+カスタム CSS を設定します。他の theme.json プロパティではカバーされないスタイルを適用できます。
 
 ---
 

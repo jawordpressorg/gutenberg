@@ -5,14 +5,20 @@ public struct MediaInfo: Encodable {
     public let title: String?
     public let caption: String?
     public let alt: String?
+    public let metadata: [String: Any]
 
-    public init(id: Int32?, url: String?, type: String?, caption: String? = nil, title: String? = nil, alt: String? = nil) {
+    private enum CodingKeys: String, CodingKey {
+        case id, url, type, title, caption, alt
+    }
+
+    public init(id: Int32?, url: String?, type: String?, caption: String? = nil, title: String? = nil, alt: String? = nil, metadata: [String: Any] = [:]) {
         self.id = id
         self.url = url
         self.type = type
         self.caption = caption
         self.title = title
         self.alt = alt
+        self.metadata = metadata
     }
 }
 
@@ -21,6 +27,7 @@ public enum Capabilities: String {
     case contactInfoBlock
     case layoutGridBlock
     case tiledGalleryBlock
+    case videoPressBlock
     case mediaFilesCollectionBlock
     case mentions
     case xposts
@@ -33,6 +40,8 @@ public enum Capabilities: String {
     case loomEmbed
     case smartframeEmbed
     case shouldUseFastImage
+    case supportSection
+    case onlyCoreBlocks
 }
 
 /// Wrapper for single block data
