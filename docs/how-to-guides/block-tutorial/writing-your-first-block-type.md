@@ -37,7 +37,9 @@ There are two main types of blocks: static and dynamic, this guide focuses on st
 ブロックには大きく分けて静的ブロックと動的ブロックがありますが、このガイドでは静的ブロックに焦点を当てます。静的ブロックは、HTML コンテンツを投稿に挿入し、投稿と一緒に保存するために使用されます。動的ブロックは、フロントエンドでレンダーれる際に、その場でコンテンツを構築します。[動的ブロックガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を参照してください。
 
 <!-- 
+<div class="callout callout-alert">
 This guide focuses on just the block, see the [Create a Block tutorial](/docs/getting-started/create-block/README.md) for a complete setup.
+</div>
  -->
 このガイドではブロックだけを取り上げていますが、完全なセットアップについては [ブロックの作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) をご覧ください。
 
@@ -330,8 +332,6 @@ npm run build
 <!-- 
 Create the asset file to load the dependencies for the scripts. The name of this file should be the name of the js file then .asset.php. For this example, create `block.asset.php` with the following:
  -->
-Create the asset file to load the dependencies for the scripts. The name of this file should be the name of the js file then .asset.php. For this example, create `block.asset.php` with the following:
-
 スクリプトの依存関係を読み込むアセットファイルを作成します。このファイルの名前は、js ファイルの名前に.asset.php を加えたものにする必要があります。この例では、`block.asset.php` を以下のように作成します。
 
 ```php

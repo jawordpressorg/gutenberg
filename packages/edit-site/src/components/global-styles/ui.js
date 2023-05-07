@@ -10,27 +10,30 @@ import {
 } from '@wordpress/components';
 import { getBlockTypes, store as blocksStore } from '@wordpress/blocks';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import {
+	privateApis as blockEditorPrivateApis,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { moreVertical } from '@wordpress/icons';
 import { store as coreStore } from '@wordpress/core-data';
+import { useEffect, useRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import ScreenRoot from './screen-root';
-import ScreenBlockList from './screen-block-list';
+import {
+	useBlockHasGlobalStyles,
+	default as ScreenBlockList,
+} from './screen-block-list';
 import ScreenBlock from './screen-block';
 import ScreenTypography from './screen-typography';
 import ScreenTypographyElement from './screen-typography-element';
 import ScreenFilters from './screen-filters';
 import ScreenColors from './screen-colors';
 import ScreenColorPalette from './screen-color-palette';
-import ScreenBackgroundColor from './screen-background-color';
-import ScreenLinkColor from './screen-link-color';
-import ScreenHeadingColor from './screen-heading-color';
-import ScreenColorElement from './screen-color-element';
 import ScreenLayout from './screen-layout';
 import ScreenStyleVariations from './screen-style-variations';
 import { ScreenVariation } from './screen-variations';
@@ -39,6 +42,7 @@ import StyleBook from '../style-book';
 import ScreenCSS from './screen-css';
 import { unlock } from '../../private-apis';
 import ScreenEffects from './screen-effects';
+import { store as editSiteStore } from '../../store';
 
 const SLOT_FILL_NAME = 'GlobalStylesMenu';
 const { Slot: GlobalStylesMenuSlot, Fill: GlobalStylesMenuFill } =
@@ -205,52 +209,8 @@ function ContextScreens( { name, parentMenu = '', variation = '' } ) {
 				<ScreenColorPalette name={ name } />
 			</GlobalStylesNavigationScreen>
 
-			<GlobalStylesNavigationScreen
-				path={ parentMenu + '/colors/background' }
-			>
-				<ScreenBackgroundColor name={ name } variation={ variation } />
-			</GlobalStylesNavigationScreen>
-
 			<GlobalStylesNavigationScreen path={ parentMenu + '/filters' }>
 				<ScreenFilters name={ name } />
-			</GlobalStylesNavigationScreen>
-
-			<GlobalStylesNavigationScreen path={ parentMenu + '/colors/text' }>
-				<ScreenColorElement
-					name={ name }
-					variation={ variation }
-					element="text"
-				/>
-			</GlobalStylesNavigationScreen>
-
-			<GlobalStylesNavigationScreen path={ parentMenu + '/colors/link' }>
-				<ScreenLinkColor name={ name } variation={ variation } />
-			</GlobalStylesNavigationScreen>
-
-			<GlobalStylesNavigationScreen
-				path={ parentMenu + '/colors/heading' }
-			>
-				<ScreenHeadingColor name={ name } variation={ variation } />
-			</GlobalStylesNavigationScreen>
-
-			<GlobalStylesNavigationScreen
-				path={ parentMenu + '/colors/button' }
-			>
-				<ScreenColorElement
-					name={ name }
-					variation={ variation }
-					element="button"
-				/>
-			</GlobalStylesNavigationScreen>
-
-			<GlobalStylesNavigationScreen
-				path={ parentMenu + '/colors/caption' }
-			>
-				<ScreenColorElement
-					name={ name }
-					variation={ variation }
-					element="caption"
-				/>
 			</GlobalStylesNavigationScreen>
 
 			<GlobalStylesNavigationScreen path={ parentMenu + '/border' }>
@@ -280,7 +240,7 @@ function ContextScreens( { name, parentMenu = '', variation = '' } ) {
 	);
 }
 
-function GlobalStylesStyleBook( { onClose } ) {
+function GlobalStylesStyleBook() {
 	const navigator = useNavigator();
 	const { path } = navigator.location;
 	return (
@@ -298,14 +258,51 @@ function GlobalStylesStyleBook( { onClose } ) {
 				// Now go to the selected block.
 				navigator.goTo( '/blocks/' + encodeURIComponent( blockName ) );
 			} }
-			onClose={ onClose }
 		/>
 	);
 }
 
-function GlobalStylesUI( { isStyleBookOpened, onCloseStyleBook } ) {
-	const blocks = getBlockTypes();
+function GlobalStylesBlockLink() {
+	const navigator = useNavigator();
+	const isMounted = useRef();
+	const { selectedBlockName, selectedBlockClientId } = useSelect(
+		( select ) => {
+			const { getSelectedBlockClientId, getBlockName } =
+				select( blockEditorStore );
+			const clientId = getSelectedBlockClientId();
+			return {
+				selectedBlockName: getBlockName( clientId ),
+				selectedBlockClientId: clientId,
+			};
+		},
+		[]
+	);
+	const blockHasGlobalStyles = useBlockHasGlobalStyles( selectedBlockName );
+	useEffect( () => {
+		// Avoid navigating to the block screen on mount.
+		if ( ! isMounted.current ) {
+			isMounted.current = true;
+			return;
+		}
+		if ( ! selectedBlockClientId || ! blockHasGlobalStyles ) {
+			return;
+		}
+		const path = '/blocks/' + encodeURIComponent( selectedBlockName );
+		// Avoid navigating to the same path. This can happen when selecting
+		// a new block of the same type.
+		if ( path !== navigator.location.path ) {
+			navigator.goTo( path, { skipFocus: true } );
+		}
+	}, [ selectedBlockClientId, selectedBlockName, blockHasGlobalStyles ] );
+}
 
+function GlobalStylesUI() {
+	const blocks = getBlockTypes();
+	const editorCanvasContainerView = useSelect(
+		( select ) =>
+			unlock( select( editSiteStore ) ).getEditorCanvasContainerView(),
+		[]
+	);
 	return (
 		<NavigatorProvider
 			className="edit-site-global-styles-sidebar__navigator-provider"
@@ -350,11 +347,12 @@ function GlobalStylesUI( { isStyleBookOpened, onCloseStyleBook } ) {
 					/>
 				);
 			} ) }
-			{ isStyleBookOpened && (
-				<GlobalStylesStyleBook onClose={ onCloseStyleBook } />
+			{ 'style-book' === editorCanvasContainerView && (
+				<GlobalStylesStyleBook />
 			) }
 
 			<GlobalStylesActionMenu />
+			<GlobalStylesBlockLink />
 		</NavigatorProvider>
 	);
 }

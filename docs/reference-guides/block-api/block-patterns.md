@@ -348,7 +348,7 @@ register_block_pattern(
 );
 ```
 <!-- 
-In the above example if we select **one of the two** block types, either a paragraph or a heading block, this pattern will be suggested by transforming the selected block using its content and will also add the remaing blocks from the pattern. If on the other hand we multi select one paragraph and one heading block, both blocks will be transformed.
+In the above example if we select **one of the two** block types, either a paragraph or a heading block, this pattern will be suggested by transforming the selected block using its content and will also add the remaining blocks from the pattern. If on the other hand we multi select one paragraph and one heading block, both blocks will be transformed.
  -->
 上の例では、**2つのブロックタイプのうち1つ**、段落または見出しブロックのどちらかを選択すると、選択したブロックをその内容を使って変換し、パターンから残りのブロックを追加して、このパターンが提案されます。一方、1つの段落と1つの見出しブロックを複数選択すると、両方のブロックが変換されます。
 

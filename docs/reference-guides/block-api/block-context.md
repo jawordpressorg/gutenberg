@@ -50,7 +50,9 @@ A block can provide a context value by assigning a `providesContext` property in
 	},
 ```
 <!--
-For complete example, refer below section.
+For complete example, refer to the section below.
+
+#### Include a namespace
 
 As seen in the above example, it is recommended that you include a namespace as part of the name of the context key so as to avoid potential conflicts with other plugins or default context values provided by WordPress. The context namespace should be specific to your plugin, and in most cases can be the same as used in the name of the block itself.
  -->
@@ -173,9 +175,9 @@ registerBlockType( 'my-plugin/record-title', {
 } );
 ```
 <!--
-3. Edit `src/edit.js`. Replace `Edit` function by following code.
+3. Edit `src/edit.js` for the `record` block. Replace `Edit` function by following code.
  -->
-3. `src/edit.js` を編集します。`Edit` 関数を以下のコードで置き換えます。
+3. `record` ブロックの `src/edit.js` を編集します。`Edit` 関数を以下のコードで置き換えます。
 
 ```js
 import { TextControl } from '@wordpress/components';
@@ -202,9 +204,9 @@ export default function Edit( props ) {
 }
 ```
 <!--
-4. Edit `src/save.js`. Replace `save` function by following code.
+4. Edit `src/save.js` for the `record` block. Replace `save` function by following code.
  -->
-4. `src/save.js` を編集します。`save` 関数を以下のコードで置き換えます。
+4. `record` ブロックの `src/save.js` を編集します。`save` 関数を以下のコードで置き換えます。
 
 ```js
 export default function save( props ) {
@@ -212,10 +214,12 @@ export default function save( props ) {
 }
 ```
 <!--
-5. Create new post and add `record` block. If you type number in the above box, you'll see the same number is shown in below box.
+5. Create new post and add the `record` block. If you type a number in the text box, you'll see the same number is shown in the `record-title` block below it.
  -->
-5. 新しい投稿を作成し、`record` ブロックを追加します。上のテキストボックスに数を入力すると、同じ数が下のボックスに表示されます。
-
+5. 新しい投稿を作成し、`record` ブロックを追加します。テキストボックスに数を入力すると、同じ数が下の `record-title` ブロックに表示されます。
+<!-- 
 ![Block Context Example](https://user-images.githubusercontent.com/8876600/93000215-c8570380-f561-11ea-9bd0-0b2bd0ca1752.png)
+ -->
+![ブロックコンテキストの例](https://user-images.githubusercontent.com/8876600/93000215-c8570380-f561-11ea-9bd0-0b2bd0ca1752.png)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-context.md)

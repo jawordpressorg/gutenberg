@@ -21,11 +21,11 @@ JavaScript コードと PHP コードベース間で共有可能なメタデー�
 -   ブロックタイプの属性を定義します。
 -   ブロックタイプのすべてのスクリプトとスタイルを登録します。
  -->
-<!--
 
-Starting in WordPress 5.8 release, we encourage using the `block.json` metadata file as the canonical way to register block types. Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
+<!--
+Starting in WordPress 5.8 release, we recommend using the `block.json` metadata file as the canonical way to register block types with both PHP (server-side) and JavaScript (client-side). Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
  -->
-WordPress 5.8のリリースから、ブロックタイプを登録する標準の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
+WordPress 5.8のリリースから、PHP (サーバーサイド) と JavaScript (クライアントサイド) の両方でブロックタイプを登録する正規の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
 
 <!--
 **Example:**
@@ -56,9 +56,6 @@ WordPress 5.8のリリースから、ブロックタイプを登録する標準�
 		"my-plugin/message": "message"
 	},
 	"usesContext": [ "groupId" ],
-	"editorSelectors": {
-		"root": ".editor-styles-wrapper .wp-block-my-plugin-notice"
-	},
 	"selectors": {
 		"root": ".wp-block-my-plugin-notice"
 	},
@@ -423,9 +420,10 @@ An implementation should expect and tolerate unknown categories, providing some 
 ```
 
 <!-- 
-The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a ‘Comment Content’ block inside a ‘Column’ block, as long as ‘Column’ is somewhere within a ‘Comment Template’ block. In comparrison to the `parent` property blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
+The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a ‘Comment Content’ block inside a ‘Column’ block, as long as ‘Column’ is somewhere within a ‘Comment Template’ block. In comparison to the `parent` property blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
  -->
-`ancestor` プロパティは、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置において、ブロックを利用可能にします。例えば、`Column` ブロックが `Comment Template` ブロック内のどこかにいる限り、`Comment Content` ブロックを `Column` ブロックの中に配置可能にすることができます。`parent` プロパティと比較すると、 `ancestor` を指定したブロックはサブツリーのどこにでも配置できますが、 `parent` を指定したブロックは直接の子である必要があります。
+`ancestor` プロパティは、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置において、ブロックを利用可能にします。例えば、`Column` ブロックが `Comment Template` ブロック内のどこかにいる限り、`Comment Content` ブロックを `Column` ブロックの中に配置できます。`parent` プロパティと比較すると、 `ancestor` を指定したブロックはサブツリーのどこにでも配置できますが、 `parent` を指定したブロックは直接の子である必要があります。
+
 
 ### Icon
 
@@ -656,8 +654,9 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 	"usesContext": [ "message" ]
 }
 ```
-
+<!-- 
 ### Editor Selectors
+ -->
 <!-- 
 -   Type: `object`
 -   Optional
@@ -666,13 +665,14 @@ See [the block context documentation](/docs/reference-guides/block-api/block-con
 -   Default: `{}`
 -   Since: `WordPress 6.3.0`
  -->
+<!-- 
 -   型: `object`
 -   オプション
 -   ローカライズ: 不可
 -   プロパティ: `editorSelectors`
 -   デフォルト: `{}`
 -   Since: `WordPress 6.3.0`
-
+ -->
 <!-- 
 Any editor specific custom CSS selectors, keyed by `root`, feature, or
 sub-feature, to be used when generating block styles for theme.json
@@ -682,6 +682,7 @@ Editor only selectors override those defined within the `selectors` property.
 
 See the [the selectors documentation](/docs/reference-guides/block-api/block-selectors.md) for more details.
  -->
+<!-- 
 エディターの theme.json (グローバルスタイル) スタイルシートのブロックスタイルを生成する際に使用される、`root`、フィーチャー、サブフィーチャーをキーとする任意のエディター固有カスタム CSS セレクタ。
 
 エディター固有セレクタは `selectors` プロパティ内部で定義されたスタイルを上側期します。
@@ -702,7 +703,7 @@ See the [the selectors documentation](/docs/reference-guides/block-api/block-sel
 	}
 }
 ```
-
+ -->
 ### Selectors
 
 <!-- 

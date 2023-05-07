@@ -12,7 +12,20 @@ Block registration API reference.
 **Note:** You can use the functions documented on this page, but a flexible method to register new block types is to use the block.json metadata file. See [metadata documentation for complete information](/docs/reference-guides/block-api/block-metadata.md).
 **Note:** You can use the functions documented on this page to register a block on the client-side only, but a flexible method to register new block types is to use the `block.json` metadata file. See [metadata documentation for complete information](/docs/reference-guides/block-api/block-metadata.md).
  -->
+<!-- 
 **注意:** このページで紹介する関数を使用しても、クライアント側でのみブロックを登録できますが、block.json メタデータファイルを使用した方がフレキシブルです。メタデータの完全な情報については、[こちらのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/)を参照してください。
+ -->
+<!-- 
+<div class="callout callout-alert">
+You can use the functions documented on this page to register a block with JavaScript only on the client, but the recommended method is to register new block types also with PHP on the server using the `block.json` metadata file. See <a href="https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/">metadata documentation for complete information</a>
+<br/>
+<a href="https://developer.wordpress.org/block-editor/getting-started/create-block/">Learn how to create your first block</a> for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all you need to know to get started with creating blocks.
+</div>
+ -->
+
+注意: このページで説明した関数を使用してもクライアント側で JavaScript だけでブロックを登録できますが、サーバー上の PHP も含め、新しいブロックタイプを登録する推奨の方法はメタデータファイル `block.json` です。<a href="https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/">完全な情報についてはメタデータのドキュメント</a>を参照してください。
+
+WordPress ブロックエディターの<a href="https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/">はじめてのブロックの作り方を学習してください</a>。開発環境のセットアップ、ツール、新しい開発モデルに慣れるまで、このチュートリアルでは、ブロックの作成を始めるために必要なすべてをカバーしています。
 
 <!--
 ## `registerBlockType`
@@ -487,7 +500,10 @@ The `ancestor` property makes a block available inside the specified block types
  -->
 `ancestor` プロパティを使用すると、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置でブロックを利用できます。例えば、「'Comment Content' ブロックは、'Column' ブロックが 'Comment Template' ブロック内のどこかにある場合に限り、'Column' ブロック内に配置できる」等の制限が可能です。`parent` プロパティと比較すると `ancestor` を指定したブロックはサブツリーの任意の場所に配置できますが、`parent` を指定したブロックは直接の子としてのみ配置できます。
 
+<<<<<<< HEAD
 <!-- 
+=======
+>>>>>>> upstream/trunk
 ```js
 // Only allow this block when it is nested at any level in a Columns block.
 ancestor: [ 'core/columns' ],

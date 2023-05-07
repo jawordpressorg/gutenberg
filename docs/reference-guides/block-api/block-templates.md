@@ -1,16 +1,17 @@
 <!--
-# Block Templates
+# Templates
  -->
-# ブロックテンプレート
+# テンプレート
 
 <!--
-A block template is defined as a list of block items. Such blocks can have predefined attributes, placeholder content, and be static or dynamic. Block templates allow specifying a default initial state for an editor session. 
+A block template is defined as a list of block items. Such blocks can have predefined attributes, placeholder content, and be static or dynamic. Block templates allow specifying a default initial state for an editor session.
 
 The scope of templates include:
  -->
 ブロックテンプレートはブロックアイテムのリストとして定義されます。定義済みの属性やプレースホルダーコンテンツを含めることができ、静的にも動的にもできます。ブロックテンプレートを使用して、エディターセッションのデフォルトの初期状態を指定できます。
 
 テンプレートの範囲は次のとおりです
+
 <!--
 -   Setting a default state dynamically on the client. (like `defaultBlock`)
 -   Registered as a default for a given post type.
@@ -207,8 +208,10 @@ attributes: {
   }
 }
 ```
+
 <!--
 _Options:_
+
 -   `remove` — Locks the ability of a block from being removed.
 -   `move` — Locks the ability of a block from being moved.
  -->

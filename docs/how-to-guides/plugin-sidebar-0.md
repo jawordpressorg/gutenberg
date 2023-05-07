@@ -550,4 +550,54 @@ A complete example is available, download the [plugin-sidebar example](https://g
 -->
 完全なサンプルは、[gutenberg-examples](https://github.com/WordPress/gutenberg-examples) リポジトリから、[plugin-sidebar サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/plugin-sidebar)をダウンロードしてください。
 
+<!-- 
+### Note
+ -->
+### 注意
+
+<!-- 
+If you have enabled Custom Fields in the 'Panels' page of the Editor 'Preferences' (via the three dots in top right), a field with the same name as the TextControl, in this case `sidebar_plugin_meta_block_field`, will also appear in the custom fields panel at the bottom of the editor window. These two fields have access to the same meta property.
+ -->
+エディターの「設定」の「パネル」ページ内で (右上の3つの点から) カスタムフィールドを有効にすると、TextControl と同じ名前のフィールド、この場合は `sidebar_plugin_meta_block_field` が、エディターウィンドウの下部にあるカスタムフィールドパネルにも表示されます。これら2つのフィールドは、同じメタプロパティにアクセスします。
+
+<!-- 
+![Text Control and Custom Field](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-sidebar-text-control-custom-field.png)
+ -->
+![TextControl とカスタムフィールド](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-sidebar-text-control-custom-field.png)
+
+<!-- 
+On saving the post the value in the TextControl will be saved first and the value in the custom field will be saved second, so that is the one that ends up persisting in the database. So if you change the value in the TextControl it is still the one in the custom field that ends up getting saved.
+ -->
+投稿を保存すると、TextControl の値が最初に保存され、次にカスタムフィールドの値が保存されるため、最終的にデータベースに永続化される値はカスタムフィールドの値です。このため、TextControl の値を変更しても、最終的にはカスタムフィールドの値が保存されます。
+
+<!-- 
+This problem does not exist if Custom Fields is not enabled.
+ -->
+この問題はカスタムフィールドが有効でなければ発生しません。
+
+<!-- 
+If you need to have Custom Fields enabled and also have post meta in the sidebar there are two possible solutions:
+ -->
+カスタムフィールドを有効にし、かつ、サイドバーに投稿メタを表示する必要がある場合は、2つの解決策があります。
+
+<!-- 
+1. Precede the name of the meta field with an underscore, so the name in the above example would be `_sidebar_plugin_meta_block_field`. This indicates that the post meta should be treated as private so it will not be visible in the Custom Fields section of a post. With this solution an error will be generated when you save the post unless you add an `auth_callback` property to the `args` array passed to `register_post_meta` with a function that ultimately returns `true`.  See the `args` documentation in the [post_meta](https://developer.wordpress.org/reference/functions/register_meta/#parameters) page for more info.
+2. In the TextControl's `onChange` function, target the Value field textarea and set the value there to be the same as the value in the TextControl meta field. The value will then be identical in both places and so you can be assured that if the value is changed in the TextControl then it will still be saved to the database.
+ -->
+1. メタフィールドの名前の前にアンダースコアを付ける。上の例では名前は `_sidebar_plugin_meta_block_field` になります。これで投稿メタはプライベートとして扱われるため、投稿のカスタムフィールドセクションに表示されません。ただしこのままでは投稿を保存する際にエラーが発生するため、`register_post_meta` に渡す `args` 配列に `auth_callback` プロパティと、最終的に `true` を返す関数を追加する必要があります。詳しくは [post_meta](https://developer.wordpress.org/reference/functions/register_meta/#parameters) ページの `args` ドキュメントを参照してください。
+2. TextControl の `onChange` 関数内で、Value フィールドの textarea に対して、TextControl の meta フィールド値と同じになるように設定する。両方の場所で値が同じになるため、TextControl で値を変更しても、データベースに保存されることを保証できます。
+
+```js
+return el( TextControl, {
+  label: 'Meta Block Field',
+  value: metaFieldValue,
+  onChange: function ( content ) {
+    editPost( {
+      meta: { sidebar_plugin_meta_block_field: content }
+    })
+    document.querySelector( {the-value-textarea} ).innerHTML = content;
+  },
+} );
+```
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/plugin-sidebar-0.md)

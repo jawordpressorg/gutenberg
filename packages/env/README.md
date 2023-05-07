@@ -9,7 +9,7 @@ Ensure that Docker is running, then:
  -->
 # `@wordpress/env`
 
-`wp-env` を使用してプラグインやテーマのビルド用とテスト用の WordPress ローカル環境を簡単にセットアップできます。シンプルにインストールできて構成する必要もありません。
+`wp-env` を使用してプラグインやテーマのビルド用とテスト用の WordPress ローカル環境を簡単にセットアップできます。簡単にインストールできて構成する必要もありません。
 
 ## クイック (tl;dr) インストラクション
 
@@ -25,22 +25,38 @@ $ wp-env start
 The local environment will be available at http://localhost:8888 (Username: `admin`, Password: `password`).
 
 The database credentials are: user `root`, password `password`. For a comprehensive guide on connecting directly to the database, refer to [Accessing the MySQL Database](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/getting-started-with-code-contribution.md#accessing-the-mysql-database).
-
-## Prerequisites
-
-`wp-env` requires Docker to be installed. There are instructions available for installing Docker on [Windows](https://docs.docker.com/desktop/install/windows-install/), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/desktop/install/linux-install/).
-
-Node.js and npm are required. The latest LTS version of Node.js is used to develop `wp-env` and is recommended.
  -->
 http://localhost:8888 (ユーザー名: `admin`、パスワード: `password`) でローカル環境が利用できます。
 
 データベースの認証情報は、ユーザー `root`、パスワード `password` です。データベースに直接接続するための完全なガイドは「[Accessing the MySQL Database](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/getting-started-with-code-contribution.md#accessing-the-mysql-database)」を参照してください。
 
+<!-- 
+## Prerequisites
+ -->
 ## 前提ソフトウエア
-
+<!-- 
 `wp-env` を使用するにはまず Docker をインストールしてください。インストールの詳細については以下の OS ごとのドキュメントを参照してください。[Windows](https://docs.docker.com/desktop/install/windows-install/)、[macOS](https://docs.docker.com/docker-for-mac/install/)、[Linux](https://docs.docker.com/desktop/install/linux-install/)
-
+ -->
+<!-- 
+Node.js and npm are required. The latest LTS version of Node.js is used to develop `wp-env` and is recommended.
+ -->
+<!-- 
 Node.js と npm も必要です。`wp-env` の開発には最新の LTS バージョンの Node.js を使用しているため、これを推奨します。
+ -->
+
+<!-- 
+`wp-env` relies on a few commonly used developer tools:
+ -->
+`wp-env` は以下の一般に使用される開発ツールを必要とします。
+
+<!-- 
+-   **Docker**. `wp-env` is powered by Docker. There are instructions available for installing Docker on [Windows](https://docs.docker.com/desktop/install/windows-install/) (we recommend the WSL2 backend), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/desktop/install/linux-install/).
+-   **Node.js**. `wp-env` is written as a Node script. We recommend using a Node version manager like [nvm](https://github.com/nvm-sh/nvm) to install the latest LTS version. Alternatively, you can [download it directly here](https://nodejs.org/en/download).
+-   **git**. Git is used for downloading software from source control, such as WordPress, plugins, and themes. [You can find the installation instructions here.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+ -->
+-   **Docker**: `wp-env` は Docker を利用します。OS ごとの Docker のインストール手順を参照してください。[Windows](https://docs.docker.com/desktop/install/windows-install/) (WSL2 バックエンドを推奨)、[macOS](https://docs.docker.com/docker-for-mac/install/)、[Linux](https://docs.docker.com/desktop/install/linux-install/)。
+-   **Node.js**: `wp-env` は Node スクリプトとして書かれています。最新の LTS バージョンのインストールには [nvm](https://github.com/nvm-sh/nvm) のような Node バージョンマネージャを使用してください。代替として、[ここから直接ダウンロード](https://nodejs.org/en/download)もできます。
+-   **git**: Git は、WordPress、プラグイン、テーマなどのソース管理からのソフトウエアのダウンロードに使用されます。[ここにインストール手順があります](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)。
 
 <!--
 ## Installation
@@ -53,7 +69,7 @@ After confirming that the prerequisites are installed, you can install `wp-env` 
 
 ### グローバルパッケージとしてのインストール
 
-前提ソフトウエアをインストールを確認できたら、グローバルに `wp-env` をインストールできます。
+前提ソフトウエアのインストールを確認できたら、グローバルに `wp-env` をインストールできます。
 
 ```sh
 $ npm -g i @wordpress/env
@@ -158,7 +174,7 @@ Finally, navigate to http://localhost:8888 in your web browser to see WordPress 
 
 To stop the local environment:
  -->
-Web ブラウザーで http://localhost:8888 を開きます。ローカルのプラグインやテーマがインストール、有効化された状態で WordPress が表示されます。デフォルトのログインアカウントはユーザー名 `admin`、パスワード `password` です。
+Web ブラウザで http://localhost:8888 を開きます。ローカルのプラグインやテーマがインストール、有効化された状態で WordPress が表示されます。デフォルトのログインアカウントはユーザー名 `admin`、パスワード `password` です。
 
 ### 環境の停止
 
@@ -179,7 +195,7 @@ First, check that `wp-env` is running. One way to do this is to have Docker prin
  -->
 ## 一般的な問題のトラブルシューティング
 
-以下のトラブルシューティングを順に実行することで多くの一般的な問題を解決できます。
+以下のトラブルシューティングを順に実行することで、多くの一般的な問題を解決できます。
 
 ### 1. `wp-env` が動作していることの確認
 
@@ -299,20 +315,32 @@ To do so:
 
 **⚠️ 警告: 次のコマンドは、ローカル WordPress 環境内の投稿、ページ、メディア等を完全に削除します。**
 
+<!-- 
 ```sh
 $ wp-env destroy
 # This new instance is a fresh start with no existing data:
 $ wp-env start
 ```
+ -->
+```sh
+$ wp-env destroy
+# この新しいインスタンスは、既存データのないクリーンなものです。
+$ wp-env start
+```
+
+
 <!--
 ### 7. Debug mode and inspecting the generated dockerfile.
  -->
+<!-- 
 ### 7. デバッグモードと生成された docker ファイルの確認
+ -->
 <!--
 `wp-env` uses docker behind the scenes. Inspecting the generated docker-compose file can help to understand what's going on.
 
 Start `wp-env` in debug mode
  -->
+<!-- 
 `wp-env` は裏側で docker を使用しています。生成された docker-compose ファイルを調べると何が起きているかを理解できます。
 
 `wp-env` をデバッグモードで開始します。
@@ -320,9 +348,11 @@ Start `wp-env` in debug mode
 ```sh
 wp-env start --debug
 ```
+ -->
 <!--
 `wp-env` will output its config which includes `dockerComposeConfigPath`.
  -->
+<!-- 
 `wp-env` `dockerComposeConfigPath` を含む構成情報を出力します。
 
 ```sh
@@ -331,8 +361,9 @@ wp-env start --debug
 	"dockerComposeConfigPath": "/Users/$USERNAME/.wp-env/5a619d332a92377cd89feb339c67b833/docker-compose.yml",
 	...
 ```
-
+ -->
 <!-- 
+
 ## Using included WordPress PHPUnit test files
  -->
 ## 同梱された WordPress PHPUnit テストファイルの使用
@@ -350,7 +381,7 @@ Out of the box `wp-env` includes the [WordPress' PHPUnit test files](https://dev
 <!-- 
 While we do provide a default `wp-tests-config.php` file within the environment, there may be cases where you want to use your own. WordPress provides a `WP_TESTS_CONFIG_FILE_PATH` constant that you can use to change the `wp-config.php` file used for testing. Set this to a desired path in your `bootstrap.php` file and the file you've chosen will be used instead of the one included in the environment.
  -->
-環境内にはデフォルトで `wp-tests-config.php` ファイルがありますが、独自のファイルを使いたい場合もあるでしょう。WordPress には `WP_TESTS_CONFIG_FILE_PATH` 定数があり、これを使用するとテストに使用する `wp-config.php` ファイルを変更できます。これを `bootstrap.php` ファイル内の任意のパスに設定すると、環境に含まれるファイルの代わりに、選択したファイルが使用されます。
+環境内にはデフォルトで `wp-tests-config.php` ファイルがありますが、独自のファイルを使いたい場合もあります。WordPress の `WP_TESTS_CONFIG_FILE_PATH` 定数を使用すると、テストで使用する `wp-config.php` ファイルを変更できます。これを `bootstrap.php` ファイル内の任意のパスに設定すると、環境に含まれるファイルの代わりに選択したファイルを使用できます。
 
 <!--
 ## Using Xdebug
@@ -388,7 +419,7 @@ wp-env start --xdebug=profile,trace,debug
 <!-- 
 When you're running `wp-env` using `npm run`, like when working in the Gutenberg repo or when `wp-env` is a local project dependency, don't forget to add an extra double dash before the `--xdebug` command:
  -->
-`npm run` を使って `wp-env` を実行する場合、たとえば、Gutenberg リポジトリで作業刷る場合や、`wp-env` にプロジェクトのローカルな依存関係がある場合、`--xdebug` コマンドの前に、忘れずに二重ダッシュを追加してください。
+`npm run` を使って `wp-env` を実行する場合、たとえば、Gutenberg リポジトリで作業する場合や、`wp-env` にプロジェクトのローカルな依存関係がある場合、`--xdebug` コマンドの前に、忘れずに二重ダッシュを追加してください。
 
 ```sh
 npm run wp-env start -- --xdebug
@@ -427,13 +458,13 @@ IDE から Xdebug に接続するには以下の IDE 設定を使用できます
 
 ```json
 {
-  "name": "Listen for XDebug",
-  "type": "php",
-  "request": "launch",
-  "port": 9003,
-  "pathMappings": {
-    "/var/www/html/wp-content/plugins/gutenberg": "${workspaceFolder}/"
-  }
+	"name": "Listen for XDebug",
+	"type": "php",
+	"request": "launch",
+	"port": 9003,
+	"pathMappings": {
+		"/var/www/html/wp-content/plugins/gutenberg": "${workspaceFolder}/"
+	}
 }
 ```
 <!-- 
@@ -470,7 +501,7 @@ Here is a summary:
  -->
 ## コマンドリファレンス
 
-`wp-env` は生成したファイルを `wp-env` ホームディレクトリー、デフォルトでは `~/.wp-env` に置きます。例外は Linux で [Snap パッケージの互換性のため](https://github.com/WordPress/gutenberg/issues/20180#issuecomment-587046325)、ファイルは `~/wp-env` に置かれます。`wp-env` ホームディレクトリーには各プロジェクトのサブディレクトリーが `/$md5_of_project_path` として作成されます。`wp-env` ホームディレクトリーを変更するには、`WP_ENV_HOME` 環境変数を設定してください。例えば `WP_ENV_HOME="something" wp-env start` と実行すると、プロジェクトファイルは現行ディレクトリーからの相対パスでディレクトリー `./something/$md5_of_project_path` にダウンロードされます。
+`wp-env` は生成したファイルを `wp-env` ホームディレクトリ、デフォルトでは `~/.wp-env` に置きます。例外は Linux で、[Snap パッケージの互換性のため](https://github.com/WordPress/gutenberg/issues/20180#issuecomment-587046325)、ファイルは `~/wp-env` に置かれます。`wp-env` ホームディレクトリには各プロジェクトのサブディレクトリが `/$md5_of_project_path` として作成されます。`wp-env` ホームディレクトリを変更するには、`WP_ENV_HOME` 環境変数を設定してください。例えば `WP_ENV_HOME="something" wp-env start` と実行すると、プロジェクトファイルは現行ディレクトリからの相対パスでディレクトリ `./something/$md5_of_project_path` にダウンロードされます。
 
 <!--
 ### `wp-env start`
@@ -479,21 +510,20 @@ The start command installs and initializes the WordPress environment, which incl
  -->
 ### wp-env start
 
-start コマンドは WordPress 環境をインストールし初期化します。これには指定された任意のリモートのソースのダウンロードも含まれます。`wp-env` はデフォルトでは構成ファイルが変更されない限り、環境を更新も再考性もしません。ソースを更新し、構成オプションを再度適用するには `wp-env start --update` を使用してください。既存のコンテンツは上書きされません。
+start コマンドは WordPress 環境をインストールし、初期化します。これには指定された任意のリモートのソースのダウンロードも含まれます。`wp-env` はデフォルトでは構成ファイルが変更されない限り、環境を更新も再構成もしません。ソースを更新し、構成オプションを再度適用するには `wp-env start --update` を使用してください。既存のコンテンツは上書きされません。
 
 <!--
 ```sh
 wp-env start
 
-Starts WordPress for development on port 8888 (override with WP_ENV_PORT) and
-tests on port 8889 (override with WP_ENV_TESTS_PORT). The current working
-directory must be a WordPress installation, a plugin, a theme, or contain a
-.wp-env.json file. After first install, use the '--update' flag to download
-updates to mapped sources and to re-apply WordPress configuration options.
+Starts WordPress for development on port 8888 (​http://localhost:8888​)
+(override with WP_ENV_PORT) and tests on port 8889 (​http://localhost:8889​)
+(override with WP_ENV_TESTS_PORT). The current working directory must be a
+WordPress installation, a plugin, a theme, or contain a .wp-env.json file. After
+first install, use the '--update' flag to download updates to mapped sources and
+to re-apply WordPress configuration options.
 
 Options:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
   --debug    Enable debug output.                     [boolean] [default: false]
   --update   Download source updates and apply WordPress configuration.
                                                       [boolean] [default: false]
@@ -502,6 +532,7 @@ Options:
              them in a comma-separated list: `--xdebug=develop,coverage`. See
              https://xdebug.org/docs/all_settings#mode for information about
              Xdebug modes.                                              [string]
+  --scripts  Execute any configured lifecycle scripts. [boolean] [default: true]
 ```
  -->
 ```sh
@@ -509,14 +540,20 @@ wp-env start
 
 WordPress 開発環境をポート 8888 (​http://localhost:8888​) で (ポートは WP_ENV_PORT で指定可)、
 テスト環境を 8889 (​http://localhost:8889​) で (ポートは WP_ENV_TESTS_PORT で指定可) 開始します。
-コマンドは WordPress インストールディレクトリー、プラグインやテーマのディレクトリー、
-または .wp-env.json ファイルのあるディレクトリーで実行する必要があります。最初のインストール後、
+コマンドは WordPress インストールディレクトリ、プラグインやテーマのディレクトリ、
+または .wp-env.json ファイルのあるディレクトリで実行する必要があります。最初のインストール後、
 '--update' フラグを使用して更新をマップされたソースにダウンロードし、WordPress 構成オプションに
 再適用します。
 
-引数:
+オプション:
+  --debug    デバッグ出力の有効化                         [boolean] [デフォルト: false]
   --update   ソースの更新をダウンロードし、WordPress 構成に適用する
                                                       [boolean] [デフォルト: false]
+  --xdebug   Xdebug を有効化する。指定しなければ Xdebug はオフ。モードがセットされていなければ、
+             "debug" を使用する。複数の Xdebug モードを設定でき、コンマで区切る。
+			 `--xdebug=develop,coverage`. Xdebug モードの情報については、
+             https://xdebug.org/docs/all_settings#mode 参照        [string]
+  --scripts  構成済みのライフサイクルスクリプトを実行        [boolean] [デフォルト: true]
 ```
 
 <!--
@@ -526,6 +563,9 @@ WordPress 開発環境をポート 8888 (​http://localhost:8888​) で (ポ�
 wp-env stop
 
 Stops running WordPress for development and tests and frees the ports.
+
+Options:
+  --debug            Enable debug output.             [boolean] [default: false]
 ```
  -->
 ### wp-env stop
@@ -534,6 +574,9 @@ Stops running WordPress for development and tests and frees the ports.
 wp-env stop
 
 実行中の WordPress 開発環境、テスト環境を停止し、ポートを解放します。
+
+オプション:
+  --debug    デバッグ出力の有効化                         [boolean] [デフォルト: false]
 ```
 
 <!--
@@ -547,6 +590,10 @@ Cleans the WordPress databases.
 Positionals:
   environment  Which environments' databases to clean.
             [string] [choices: "all", "development", "tests"] [default: "tests"]
+
+Options:
+  --debug    Enable debug output.                     [boolean] [default: false]
+  --scripts  Execute any configured lifecycle scripts. [boolean] [default: true]
 ```
  -->
 ### wp-env clean
@@ -559,6 +606,10 @@ WordPress データベースをクリアします。
 引数:
   environment  どの環境のデータベースをクリアするか。
             [string] [選択: "all", "development", "tests"] [デフォルト: "tests"]
+
+オプション:
+  --debug    デバッグ出力の有効化                         [boolean] [デフォルト: false]
+  --scripts  構成済みのライフサイクルスクリプトを実行        [boolean] [デフォルト: true]
 ```
 
 <!--
@@ -583,9 +634,15 @@ In some cases, `wp-env` may consume options that you are attempting to pass to
 the container. This happens with options that `wp-env` has already declared,
 such as `--debug`, `--help`, and `--version`. When this happens, you should fall
 back to using quotation marks; `wp-env` considers everything inside the
+ -->
+<!--
+<div class="callout callout-alert">In some cases, <code>wp-env</code> may consume options that you are attempting to pass to
+the container. This happens with options that <code>wp-env</code> has already declared,
+such as <code>--env-cwd</code>, <code>--debug</code>, <code>--help</code>, and <code>--version</code>. When this happens, you should fall
+back to using quotation marks; <code>wp-env</code> considers everything inside the
 quotation marks to be command argument.
  -->
-いくつかのケースでは、コンテナに渡したいオプションを `wp-env` が奪ってしまう場合があります。これは、`wp-env` が同じオプションを宣言する場合、例えば、`--debug`、`--help`、`--version` などで発生します。これを防ぐには引用符 (`"`) を使用してください。`wp-env` は、引用符内のすべてをコマンド引数とみなします。
+いくつかのケースでは、コンテナに渡したいオプションを `wp-env` が奪ってしまう場合があります。これは、`wp-env` が同じオプションを宣言する場合、例えば、`--env-cwd`、`--debug`、`--help`、`--version` などで発生します。これを防ぐには引用符 (`"`) を使用してください。`wp-env` は、引用符内のすべてをコマンド引数とみなします。
 
 <!-- 
 For example, to list cron schedules with optional arguments that specify the fields returned and the format of the output:
@@ -595,23 +652,30 @@ For example, to list cron schedules with optional arguments that specify the fie
  -->
 
 <!-- 
-For example, to ask `WP-CLI` for its help text:
+For example, to ask <code>WP-CLI</code> for its help text:
  -->
 たとえば、`WP-CLI` のヘルプメッセージを表示するには、
 
+<!-- 
+<pre>sh
+<code class="language-sh">wp-env run cli "wp --help"</code></pre>
+ -->
 ```sh
 wp-env run cli "wp --help"
 ```
+
 <!-- 
 Without the quotation marks, WP-CLI lists the schedule in its default format, ignoring the `fields` and `format` arguments.
  -->
 <!-- 
 引用符がない場合、WP-CLI は `fields` と `format` の引数を無視して、デフォルトのフォーマットでスケジュールをリストします。
  -->
+
 <!-- 
-Without the quotation marks, `wp-env` will print its own help text instead of
+Without the quotation marks, <code>wp-env</code> will print its own help text instead of
 passing it to the container. If you experience any problems where the command
 is not being passed correctly, fall back to using quotation marks.
+
 </div>
  -->
 引用符がない場合、`wp-env` は、コンテナにオプションを渡す代わりに、自身のヘルプメッセージを表示します。コマンドが正しく渡らない問題が発生した場合は、引用符を使用してください。
@@ -646,9 +710,10 @@ Positionals:
   command    The command to run.                           [array] [default: []]
 
 Options:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
   --debug    Enable debug output.                     [boolean] [default: false]
+  --env-cwd  The command's working directory inside of the container. Paths
+             without a leading slash are relative to the WordPress root.
+                                                         [string] [default: "."]
 ```
 
 For example:
@@ -667,9 +732,9 @@ wp-env run <container> [command..]
   command    実行するコマンド                [array] [デフォルト: []]
 
 オプション:
-  --help     ヘルプの表示                                              [boolean]
-  --version  バージョン番号の表示                                       [boolean]
-  --debug    デバッグ出力の有効化                     [boolean] [でファルト: false]
+  --debug    デバッグ出力の有効化                     [boolean] [デフォルト: false]
+  --env-cwd  コマンドのコンテナ内でのワークディレクトリ。先頭にスラッシュのないパスは、
+             WordPress のルートからの相対パス         [string] [デフォルト: "."]
 ```
 
 例:
@@ -739,11 +804,38 @@ Success: Installed 1 of 1 plugins.
 <!--
 **NOTE**: Depending on your host OS, you may experience errors when trying to install plugins or themes (e.g. `Warning: Could not create directory.`). This is typically because the user ID used within the container does not have write access to the mounted directories created by `wp-env`. To resolve this, run the `docker-compose` command directly from the directory created by `wp-env` and add `-u $(id -u)` and `-e HOME=/tmp` the `run` command as options:
  -->
+<!-- 
 **注意**: ホスト OS によっては、プラグインやテーマをインストールしようとすると、エラーが発生する場合があります (例: `Warning: Could not create directory.`）。これは通常、コンテナ内で使用されているユーザー ID が、`wp-env` で作成、マウントしたディレクトリへの書き込み権限を持っていないことが原因です。この問題を解決するには、`wp-env` で作成したディレクトリから直接 `docker-compose` コマンドを使用します。`run`コマンドに、`-u $(id -u)` と `-e HOME=/tmp` オプションを追加してください。
+ -->
+<!-- 
+#### Changing the permalink structure
+ -->
+#### パーマリンク構造の変更
 
-```sh
-$ cd ~/wp-env/500cd328b649d63e882d5c4695871d04
-$ docker-compose run --rm -u $(id -u) -e HOME=/tmp cli [plugin|theme] install <plugin|theme>
+<!-- 
+You might want to do this to enable access to the REST API (`wp-env/wp/v2/`) endpoint in your wp-env environment. The endpoint is not available with plain permalinks.
+ -->
+wp-env 環境で REST API (`wp-env/wp/v2/`) のエンドポイントにアクセスするには、この操作を行います。プレーンなパーマリンクでは、エンドポイントは利用できません。
+
+<!-- 
+**Examples**
+ -->
+**例**
+<!-- 
+To set the permalink to just the post name:
+ -->
+パーマリンクを投稿名だけに設定する
+
+```
+wp-env run cli "wp rewrite structure /%postname%/"
+```
+<!-- 
+To set the permalink to the year, month, and post name:
+ -->
+パーマリンクを年、月、投稿名に設定する
+
+```
+wp-env run cli "wp rewrite structure /%year%/%monthnum%/%postname%/"
 ```
 
 <!--
@@ -754,6 +846,9 @@ wp-env destroy
 
 Destroy the WordPress environment. Deletes docker containers, volumes, and
 networks associated with the WordPress environment and removes local files.
+
+Options:
+  --debug            Enable debug output.             [boolean] [default: false]
 ```
  -->
 ### wp-env destroy
@@ -763,6 +858,10 @@ wp-env destroy
 
 WordPress 環境を破壊します。WordPress 環境と関連する Docker コンテナ、ボリューム、
 ネットワークを削除し、ローカルファイルを削除します。
+
+オプション:
+  --debug    デバッグ出力の有効化                         [boolean] [デフォルト: false]
+
 ```
 <!--
 ### `wp-env logs [environment]`
@@ -777,8 +876,6 @@ Positionals:
       [string] [choices: "development", "tests", "all"] [default: "development"]
 
 Options:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
   --debug    Enable debug output.                     [boolean] [default: false]
   --watch    Watch for logs as they happen.            [boolean] [default: true]
 ```
@@ -795,8 +892,6 @@ wp-env logs [environment]
       [string] [選択: "development", "tests", "all"] [デフォルト: "development"]
 
 オプション:
-  --help     ヘルプの表示                [boolean]
-  --version  バージョン番号の表示         [boolean]
   --debug    デバッグ出力の有効化         [boolean] [デフォルト: false]
   --watch    ログをウオッチする          [boolean] [デフォルト: true]
 ```
@@ -804,12 +899,13 @@ wp-env logs [environment]
 ### `wp-env install-path`
  -->
 ### wp-env install-path
+
 <!-- 
-Outputs the absolute path to the WordPress environment files.
+Get the path where all of the environment files are stored. This includes the Docker files, WordPress, PHPUnit files, and any sources that were downloaded.
 
 Example:
  -->
-WordPress 環境ファイルへの絶対パスを出力します。
+すべての環境ファイルが格納されているパスを取得します。これには、Docker ファイル、WordPress、PHPUnit ファイル、ダウンロードしたソースが含まれます。
 
 例:
 
@@ -824,13 +920,13 @@ $ wp-env install-path
 
 You can customize the WordPress installation, plugins and themes that the development environment will use by specifying a `.wp-env.json` file in the directory that you run `wp-env` from.
 
-`.wp-env.json` supports six fields for options applicable to both the tests and development instances.
+`.wp-env.json` supports fields for options applicable to both the tests and development instances.
  -->
 ## .wp-env.json
 
 WordPress のインストールや開発環境で使用するプラグインやテーマをカスタマイズできます。`.wp-env.json` ファイルに指定し、同じディレクトリーで `wp-env` を実行してください。
 
-`.wp-env.json` はテストと開発の両方のインスタンスに適用可能なオプションとして、6つのフィールドをサポートします。
+`.wp-env.json` はテストと開発の両方のインスタンスに適用可能なオプションとしてフィールドをサポートします。
 
 <!--
 | Field          | Type           | Default                                | Description                                                                                                                      |
@@ -840,6 +936,7 @@ WordPress のインストールや開発環境で使用するプラグインや�
 | `"plugins"`    | `string[]`     | `[]`                                   | A list of plugins to install and activate in the environment.                                                                    |
 | `"themes"`     | `string[]`     | `[]`                                   | A list of themes to install in the environment.                                                                                  |
 | `"port"`       | `integer`      | `8888` (`8889` for the tests instance) | The primary port number to use for the installation. You'll access the instance through the port: 'http://localhost:8888'.       |
+| `"testsPort"`  | `integer`      | `8889`                                 | The port number for the test site. You'll access the instance through the port: 'http://localhost:8889'.                         |
 | `"config"`     | `Object`       | See below.                             | Mapping of wp-config.php constants to their desired values.                                                                      |
 | `"mappings"`   | `Object`       | `"{}"`                                 | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                                   |
  -->
@@ -850,6 +947,7 @@ WordPress のインストールや開発環境で使用するプラグインや�
 | `"plugins"`   | `string[]`    | `[]`                                       | 環境にインストール、有効化するプラグインのリスト                                                             |
 | `"themes"`    | `string[]`    | `[]`                                       | 環境にインストールするテーマのリスト                            |
 | `"port"`      | `integer`      | `8888` (テストインスタンスでは `8889`)        | インストールに使用するポート番号。インスタンスには 'http://localhost:8888' でアクセスできる |
+| `"testsPort"`  | `integer`      | `8889`                                 | テストサイトのポート番号。インスタンスにはこのポート、'http://localhost:8889' でアクセスできる                         |
 | `"config"`    | `Object`      | 以下を参照                                    | wp-config.php の定数とその値のマッピング                                                               |
 | `"mappings"`  | `Object`       | `"{}"`                                     | WordPress インスタンス内にマウントされるローカルディレクトリと WordPress ディレクトリのマッピング                                      |
 
@@ -863,21 +961,21 @@ _注意: ポート番号に関する環境変数 (`WP_ENV_PORT` と `WP_ENV_TEST
 `core`、`plugins`、`themes`、`mappings` フィールドに指定できる文字列のタイプを以下に示します。
 
 <!-- 
-| Type              | Format                                       | Example(s)                                               |
-| ----------------- | -------------------------------------------- | -------------------------------------------------------- |
-| Relative path     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
-| Absolute path     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                   |
+| Type              | Format                                       | Example(s)                                                                                                                         |
+| ----------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Relative path     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"`                                                                           |
+| Absolute path     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                                                                                             |
 | GitHub repository | `<owner>/<repo>[#<ref>]`                     | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`, if no branch is provided wp-env will fall back to the repos default branch |
-| SSH repository    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`         |
-| ZIP File          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
+| SSH repository    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`                                                                                   |
+| ZIP File          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`                                                                                  |
  -->
-| タイプ             | 形式                                      | 例                                               |
-| ----------------- | -------------------------------------------- | -------------------------------------------------------- |
-| 相対パス     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"` |
-| 絶対パス     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                   |
+| タイプ              | 形式                                       | 例(s)                                                                                                                         |
+| ----------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 相対パス     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"`                                                                           |
+| 絶対パス     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                                                                                             |
 | GitHub リポジトリ | `<owner>/<repo>[#<ref>]`                     | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`, ブランチが指定されない場合、wp-env はリポジトリのデフォルトブランチを使用する |
-| SSH リポジトリ    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`         |
-| ZIP ファイル          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`        |
+| SSH リポジトリ    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`                                                                                   |
+| ZIP ファイル          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`                                                                                  |
 
 <!--
 Remote sources will be downloaded into a temporary directory located in `~/.wp-env`.
@@ -891,22 +989,22 @@ Additionally, the key `env` is available to override any of the above options on
 
 ```json
 {
-  "plugins": ["."],
-  "config": {
-    "KEY_1": true,
-    "KEY_2": false
-  },
-  "env": {
-    "development": {
-      "themes": ["./one-theme"]
-    },
-    "tests": {
-      "config": {
-        "KEY_1": false
-      },
-      "port": 3000
-    }
-  }
+	"plugins": [ "." ],
+	"config": {
+		"KEY_1": true,
+		"KEY_2": false
+	},
+	"env": {
+		"development": {
+			"themes": [ "./one-theme" ]
+		},
+		"tests": {
+			"config": {
+				"KEY_1": false
+			},
+			"port": 3000
+		}
+	}
 }
 ```
 <!--
@@ -965,22 +1063,53 @@ tests インスタンスでは同じすべての値が定義されますが、`W
 また URL を参照する値には環境で指定されたポート番号が含まれます。たとえば `testsPort: 3000, port: 2000` を設定すると、`WP_HOME` は tests インスタンスでは `http://localhost:3000`、development インスタンスでは `http://localhost:2000` になります。
 
 <!--
-### Examples
+## Lifecycle Hooks
+ -->
+## ライフサイクルフック
 
-#### Latest stable WordPress + current directory as a plugin
+<!-- 
+These hooks are executed at certain points during the lifecycle of a command's execution. Keep in mind that these will be executed on both fresh and existing
+environments, so, ensure any commands you build won't break on subsequent executions. 
+ -->
+これらのフックは、コマンドの実行ライフサイクル中の特定の時点で実行されます。これらのフックは、新規環境でも、既存環境でも実行されることに注意してください。したがってビルドしたコマンドが連続した実行で環境を壊さないようにしてください。
 
+### After Setup
+<!-- 
+Using the `afterSetup` option in `.wp-env.json` files will allow you to configure an arbitrary command to execute after the environment's setup is complete:
+ -->
+`.wp-env.json` ファイルで `afterSetup` オプションを使用すると、環境のセットアップが完了した後に実行する任意のコマンドを設定できます。
+
+<!-- 
+- `wp-env start`: Runs when the config changes, WordPress updates, or you pass the `--update` flag.
+- `wp-env clean`: Runs after the selected environments have been cleaned.
+ -->
+- `wp-env start`: 設定が変更されたとき、WordPress が更新されたとき、`--update` フラグを渡したときに実行されます。
+- `wp-env clean`: 選択した環境がクリアされた後に実行されます。
+
+<!-- 
+You can override the `afterSetup` option using the `WP_ENV_AFTER_SETUP` environment variable.
+ -->
+`afterSetup` オプションは、環境変数 `WP_ENV_AFTER_SETUP` を使用して上書きできます。
+
+<!-- 
+## Examples
+ -->
+## 例
+
+<!-- 
+### Latest stable WordPress + current directory as a plugin
+ -->
+### 最新の安定版 WordPress + 現行ディレクトリーのプラグインをインストールし有効化
+
+<!-- 
 This is useful for plugin development.
  -->
-### 例
-
-#### 最新の安定版 WordPress + 現行ディレクトリーのプラグインをインストールし有効化
-
 この設定はプラグイン開発時に便利です。
 
 ```json
 {
-  "core": null,
-  "plugins": ["."]
+	"core": null,
+	"plugins": [ "." ]
 }
 ```
 
@@ -995,16 +1124,16 @@ This is useful for plugin development when upstream Core changes need to be test
 
 ```json
 {
-  "core": "WordPress/WordPress#master",
-  "plugins": ["."]
+	"core": "WordPress/WordPress#master",
+	"plugins": [ "." ]
 }
 ```
 <!--
-#### Local `wordpress-develop` + current directory as a plugin
+### Local `wordpress-develop` + current directory as a plugin
 
 This is useful for working on plugins and WordPress Core at the same time.
  -->
-#### ローカルの `wordpress-develop` + 現行ディレクトリーのプラグインをインストール
+### ローカルの `wordpress-develop` + 現行ディレクトリーのプラグインをインストール
 
 プラグインと WordPress コアで同時に作業する場合に便利です。
 
@@ -1015,8 +1144,8 @@ If you are running a _build_ of `wordpress-develop`, point `core` to the `build`
 
 ```json
 {
-  "core": "../wordpress-develop/build",
-  "plugins": ["."]
+	"core": "../wordpress-develop/build",
+	"plugins": [ "." ]
 }
 ```
 <!-- 
@@ -1026,108 +1155,109 @@ If you are running `wordpress-develop` in a dev mode (e.g. the watch command `de
 
 ```json
 {
-  "core": "../wordpress-develop/src",
-  "plugins": ["."]
+	"core": "../wordpress-develop/src",
+	"plugins": [ "." ]
 }
 ```
 
 <!--
-#### A complete testing environment
+### A complete testing environment
 
 This is useful for integration testing: that is, testing how old versions of WordPress and different combinations of plugins and themes impact each other.
  -->
-#### 完全なテスト環境
+### 完全なテスト環境
 
 インテグレショーンテストで便利です。古いバージョンの WordPress と異なるプラグインの組み合わせで互いに与える影響をテストできます。
 
 ```json
 {
-  "core": "WordPress/WordPress#5.2.0",
-  "plugins": ["WordPress/wp-lazy-loading", "WordPress/classic-editor"],
-  "themes": ["WordPress/theme-experiments"]
+	"core": "WordPress/WordPress#5.2.0",
+	"plugins": [ "WordPress/wp-lazy-loading", "WordPress/classic-editor" ],
+	"themes": [ "WordPress/theme-experiments" ]
 }
 ```
 <!--
-#### Add mu-plugins and other mapped directories
+### Add mu-plugins and other mapped directories
 
 You can add mu-plugins via the mapping config. The mapping config also allows you to mount a directory to any location in the wordpress install, so you could even mount a subdirectory. Note here that theme-1, will not be activated.
  -->
-#### mu-plugins とマッピングディレクトリの追加
+### mu-plugins とマッピングディレクトリの追加
 
 マッピング構成を使用して mu-plugins を追加できます。マッピング構成を使用すると、WordPress インストール内の任意の場所にディレクトリをマウントできます。サブディレクトリにマウントすることも可能です。ただし theme-1 は有効化されないことに注意してください。
 
 ```json
 {
-  "plugins": ["."],
-  "mappings": {
-    "wp-content/mu-plugins": "./path/to/local/mu-plugins",
-    "wp-content/themes": "./path/to/local/themes",
-    "wp-content/themes/specific-theme": "./path/to/local/theme-1"
-  }
+	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/mu-plugins": "./path/to/local/mu-plugins",
+		"wp-content/themes": "./path/to/local/themes",
+		"wp-content/themes/specific-theme": "./path/to/local/theme-1"
+	}
 }
 ```
 <!--
-#### Avoid activating plugins or themes on the instance
+### Avoid activating plugins or themes on the instance
 
 Since all plugins in the `plugins` key are activated by default, you should use the `mappings` key to avoid this behavior. This might be helpful if you have a test plugin that should not be activated all the time.
  -->
-#### インスタンスのプラグインやテーマを有効化しない
+### インスタンスのプラグインやテーマを有効化しない
 
 デフォルトでは `plugins` キーのすべてのプラグインは有効化されます。この動きを避けるには `mappings` キーを使用してください。この方法は常には有効化すべきでない、テスト用のプラグインがある場合に便利です。
 
 ```json
 {
-  "plugins": ["."],
-  "mappings": {
-    "wp-content/plugins/my-test-plugin": "./path/to/test/plugin"
-  }
+	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/plugins/my-test-plugin": "./path/to/test/plugin"
+	}
 }
 ```
 
 <!--
-#### Map a plugin only in the tests environment
+### Map a plugin only in the tests environment
 
 If you need a plugin active in one environment but not the other, you can use `env.<envName>` to set options specific to one environment. Here, we activate cwd and a test plugin on the tests instance. This plugin is not activated on any other instances.
  -->
-#### テスト環境にのみプラグインをマップする
+### テスト環境にのみプラグインをマップする
 
 1つの環境でのみプラグインを有効化し、他の環境では有効化しない場合、`env.<envName>` を使用して1つの環境でのみオプションを設定できます。ここではテストインスタンスでのみ現行ディレクトリとテストプラグインを有効化しています。他のインスタンスではプラグインは有効化されません。
 
 ```json
 {
-  "plugins": ["."],
-  "env": {
-    "tests": {
-      "plugins": [".", "path/to/test/plugin"]
-    }
-  }
+	"plugins": [ "." ],
+	"env": {
+		"tests": {
+			"plugins": [ ".", "path/to/test/plugin" ]
+		}
+	}
 }
 ```
 
 <!--
-#### Custom Port Numbers
+### Custom Port Numbers
 
 You can tell `wp-env` to use a custom port number so that your instance does not conflict with other `wp-env` instances.
  -->
-#### カスタムポート番号
+### カスタムポート番号
 
 `wp-env` にカスタムポート番号を指定することで、他の `wp-env` インスタンスとの衝突を避けられます。
 
 ```json
 {
-  "plugins": ["."],
-  "port": 4013,
-  "env": {
-    "tests": {
-      "port": 4012
-    }
-  }
+	"plugins": [ "." ],
+	"port": 4013,
+	"env": {
+		"tests": {
+			"port": 4012
+		}
+	}
 }
 ```
 <!--
-#### Specific PHP Version
+### Specific PHP Version
  -->
-#### PHP バージョンの指定
+### PHP バージョンの指定
+
 
 <!--
 You can tell `wp-env` to use a specific PHP version for compatibility and testing. This can also be set via the environment variable `WP_ENV_PHP_VERSION`.
@@ -1136,8 +1266,23 @@ You can tell `wp-env` to use a specific PHP version for compatibility and testin
 
 ```json
 {
-  "phpVersion": "7.2",
-  "plugins": ["."]
+	"phpVersion": "7.2",
+	"plugins": [ "." ]
+}
+```
+<!-- 
+### Node Lifecycle Script
+ -->
+### Node ライフサイクルスクリプト
+
+<!-- 
+This is useful for performing some actions after setting up the environment, such as bootstrapping an E2E test environment.
+ -->
+環境設定後にいくつかのアクションを実行する際に便利です。例えば E2E テスト環境のブートストラップなど。
+
+```json
+{
+	"afterSetup": "node tests/e2e/bin/setup-env.js"
 }
 ```
 

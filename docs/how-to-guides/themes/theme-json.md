@@ -50,6 +50,7 @@ WordPress 5.8ではエディターを構成する[新しいメカニズム](http
         - Top-level
         - Block-level
         - Elements
+        - Variations
     - customTemplates
     - templateParts
     - patterns
@@ -91,12 +92,12 @@ WordPress 5.8ではエディターを構成する[新しいメカニズム](http
 <!--
 The Block Editor API has evolved at different velocities and there are some growing pains, specially in areas that affect themes. Examples of this are: the ability to [control the editor programmatically](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/), or [a block style system](https://github.com/WordPress/gutenberg/issues/9534) that facilitates user, theme, and core style preferences.
  -->
-ブロックエディター API は、さまざまな速度で進化しているため、苦痛に感じられる部分が大きくなってきました。これは特にテーマに影響する部分で顕著です。たとえば、[エディターのプログラム的な制御](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/)や、ユーザー、テーマ、コアスタイルの好みを取りまとめる[ブロックスタイルシステム](https://github.com/WordPress/gutenberg/issues/9534) などです。
+ブロックエディター API はさまざまな速度で進化しているため、苦痛に感じられる部分が大きくなってきました。これは特にテーマに影響する部分で顕著です。たとえば、[エディターのプログラム的な制御](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/)や、ユーザー、テーマ、コアスタイルの好みを取りまとめる[ブロックスタイルシステム](https://github.com/WordPress/gutenberg/issues/9534) などです。
 
 <!--
 This describes the current efforts to consolidate the various APIs related to styles into a single point – a `theme.json` file that should be located inside the root of the theme directory.
  -->
-この文書では、現在行われている、スタイルに関連するさまざまな API を一箇所に集める努力について、すなわち、テーマディレクトリのルートに配置する `theme.json` ファイルについて説明します。
+この文書では現在行われている、スタイルに関連するさまざまな API を一箇所に集める努力について、すなわち、テーマディレクトリのルートに配置する `theme.json` ファイルについて説明します。
 
 <!--
 ### Settings for the block editor
@@ -106,7 +107,7 @@ This describes the current efforts to consolidate the various APIs related to st
 <!--
 Instead of the proliferation of theme support flags or alternative methods, the `theme.json` files provides a canonical way to define the settings of the block editor. These settings includes things like:
  -->
-ブロックエディターの設定を定義する際、ネズミ算式に増えるテーマサポートフラグや代替方式の代わりに、`theme.json` ファイルでは理想の正しい方法が提供されます。例えば以下の設定が可能です。
+ブロックエディターの設定を定義する際、ねずみ算式に増えるテーマサポートフラグや代替方式の代わりに `theme.json` ファイルは正規の方法を提供します。例えば以下の設定が可能です。
 
 <!--
 -   What customization options should be made available or hidden from the user.
@@ -312,11 +313,11 @@ There are a few cases in whiche a single block can represent different HTML mark
   }
 }
 ```
- -->
+
 <!--
 Additionally, there are two other block selectors: `root` and `defaults`. The `root` block selector represents the root of the site. The `defaults` block selector represents the defaults to be used by blocks if they don't declare anything.
  -->
-また、さらに2つの別のブロックセレクタ `root` と `defaults` があります。`root` ブロックセレクタは、サイトのルートを表します。`defaults` ブロックセレクタは、何もせんげされなかった場合にブロックで使用されるデフォルトを表します。
+また、さらに2つの別のブロックセレクタ `root` と `defaults` があります。`root` ブロックセレクタは、サイトのルートを表します。`defaults` ブロックセレクタは、何も宣言されなかった場合にブロックで使用されるデフォルトを表します。
 
 <!--
 ### Version
@@ -1538,6 +1539,50 @@ Pseudo selectors `:hover`, `:focus`, `:visited`, `:active`, `:link`, `:any-link`
 	}
 ```
 
+#### Variations
+
+<!-- 
+A block can have a "style variation", as defined per the [block.json specification](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#styles-optional). Theme authors can define the style attributes for an existing style variation using the theme.json file. Styles for unregistered style variations will be ignored.
+
+Note that variations are a "block concept", they only exist bound to blocks. The `theme.json` specification respects that distinction by only allowing `variations` at the block-level but not at the top-level. It's also worth highlighting that only variations defined in the `block.json` file of the block are considered "registered": so far, the style variations added via `register_block_style` or in the client are ignored, see [this issue](https://github.com/WordPress/gutenberg/issues/49602) for more information.
+
+For example, this is how to provide styles for the existing `plain` variation for the `core/quote` block:
+ -->
+ブロックは、[block.json の仕様](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/#styles-%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3)で定義されているように「スタイルのバリエーション」を持つことができます。テーマ作成者は、theme.json ファイルを使用して、既存のスタイルバリエーションのスタイル属性を定義できます。登録されていないスタイルバリエーションのスタイルは、無視されます。
+
+ここでバリエーションは「ブロックの概念」であり、ブロックと関連してのみ存在することに注意してください。`theme.json` の仕様は、ブロックレベルでのみ `バリエーション`を許可し、トップレベルでは許可しないことでこの区別を大切にしています。また、ブロックの `block.json` ファイルで定義されたバリエーションのみを「登録」されたとものとしてみなすことも強調しておきます。現在 `register_block_style` やクライアントで追加されたスタイルバリエーションは無視されます。詳しくは [この issue](https://github.com/WordPress/gutenberg/issues/49602) を参照してください。
+
+例えば、`core/quote` ブロックの既存の `plain` バリエーションにスタイルを当てる方法です。
+
+```json
+{
+	"version": 2,
+	"styles":{
+		"blocks": {
+			"core/quote": {
+				"variations": {
+					"plain": {
+						"color": {
+							"background": "red"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+```
+<!-- 
+The resulting CSS output is this:
+ -->
+結果の CSS 出力は以下です。
+
+```css
+.wp-block-quote.is-style-plain {
+	background-color: red;
+}
+```
+
 ### customTemplates
 
 <!-- 
@@ -1614,10 +1659,8 @@ Currently block variations exist for "header" and "footer" values of the area te
 	]
 }
 ```
-<!-- 
 ### patterns
- -->
-### patterns
+
 <!-- 
 <div class="callout callout-alert">
 This field requires the Gutenberg plugin active and using the [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) of `theme.json`.
@@ -1929,8 +1972,9 @@ The value defined for the root `styles.spacing.blockGap` style is also output as
 ### なぜ、ブラウザのスタイルの更新に長い時間がかかるのか ?
 
 <!-- 
-When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#wp_debug) or [`SCRIPT_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#script_debug) to 'true' in your [`wp-config.php`](https://wordpress.org/support/article/editing-wp-config-php/). This tells WordPress to skip the cache and always use fresh data.
+When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#wp_debug) or [`SCRIPT_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#script_debug) to 'true' in your [`wp-config.php`](https://wordpress.org/documentation/article/editing-wp-config-php/). This tells WordPress to skip the cache and always use fresh data.
+
  -->
-theme.json を使用して開発を行っていると、変更内容がブラウザに表示されるまでに30秒以上かかることに気がつくかもしれません。これは、`theme.json` がキャッシュされているためです。このキャッシュの問題を解決するには、[`wp-config.php`](https://wordpress.org/support/article/editing-wp-config-php/) の [`WP_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#wp_debug) または [`SCRIPT_DEBUG`](https://wordpress.org/support/article/debugging-in-wordpress/#script_debug) を 'true' に設定します。これにより、WordPress はキャッシュをスキップし、常に新しいデータを使用します。
+theme.json を使用して開発を行っていると、変更内容がブラウザに表示されるまでに30秒以上かかることに気がつくかもしれません。これは、`theme.json` がキャッシュされているためです。このキャッシュの問題を解決するには、[`wp-config.php`](https://wordpress.org/documentation/article/editing-wp-config-php/) の [`WP_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#wp_debug) または [`SCRIPT_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#script_debug) を 'true' に設定します。これにより、WordPress はキャッシュをスキップし、常に新しいデータを使用します。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-json.md)

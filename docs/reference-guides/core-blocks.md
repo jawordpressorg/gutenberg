@@ -393,6 +393,51 @@ Add an image or video with a text overlay — great for headers. ([Source](https
 -	**Supports:** align, anchor, color (text, ~~background~~), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, tagName, templateLock, url, useFeaturedImage
 
+<!-- 
+## Details
+ -->
+## Details / 詳細
+
+<!-- 
+A block that displays a summary and shows or hides additional content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details))
+ -->
+要約を表示し、追加コンテンツを表示 / 非表示できるブロックです。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details))
+
+-	**Name:** core/details
+-	**Category:** text
+-	**Supports:** align, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** showContent
+
+<!-- 
+## Details Content
+ -->
+## Details Content / 詳細コンテンツ
+
+<!-- 
+Add content that may be shown or hidden via a Details block. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-content))
+ -->
+詳細ブロックで表示 / 非表示されるコンテンツを追加します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-content))
+
+-	**Name:** core/details-content
+-	**Category:** text
+-	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~align~~, ~~html~~, ~~lock~~, ~~multiple~~, ~~reusable~~
+-	**Attributes:** 
+
+<!-- 
+## Details Summary
+ -->
+## Details Summary / 詳細要約
+
+
+<!-- Provide summary text used to toggle the display of content inside a Details block. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-summary))
+ -->
+詳細ブロックで追加コンテンツの表示の切り替えに使用される要約テキストを設定します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-summary))
+
+-	**Name:** core/details-summary
+-	**Category:** text
+-	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~align~~, ~~html~~, ~~lock~~, ~~multiple~~, ~~reusable~~
+-	**Attributes:** summary
+
 <!--
 ## Embed
 -->
@@ -405,7 +450,7 @@ Twitter、YouTube など他サイトからコンテンツを引用表示する�
 
 -	**Name:** core/embed
 -	**Category:** embed
--	**Supports:** align
+-	**Supports:** align, spacing (margin)
 -	**Attributes:** allowResponsive, caption, previewable, providerNameSlug, responsive, type, url
 
 <!--
@@ -466,7 +511,7 @@ Gather blocks in a layout container. ([Source](https://github.com/WordPress/gute
 -	**Name:** core/group
 -	**Category:** design
 -	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, link, text), dimensions (minHeight), position (sticky), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** tagName, templateLock
+-	**Attributes:** allowedBlocks, tagName, templateLock
 
 <!--
 ## Heading
@@ -525,7 +570,7 @@ Insert an image to make a visual statement. ([Source](https://github.com/WordPre
 
 -	**Name:** core/image
 -	**Category:** media
--	**Supports:** anchor, color (~~background~~, ~~text~~)
+-	**Supports:** anchor, color (~~background~~, ~~text~~), filter (duotone)
 -	**Attributes:** align, alt, caption, height, href, id, linkClass, linkDestination, linkTarget, rel, sizeSlug, title, url, width
 
 <!--
@@ -614,7 +659,7 @@ Set media and words side-by-side for a richer layout. ([Source](https://github.c
 -	**Name:** core/media-text
 -	**Category:** media
 -	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** align, focalPoint, href, imageFill, isStackedOnMobile, linkClass, linkDestination, linkTarget, mediaAlt, mediaId, mediaLink, mediaPosition, mediaSizeSlug, mediaType, mediaUrl, mediaWidth, rel, verticalAlignment
+-	**Attributes:** align, allowedBlocks, focalPoint, href, imageFill, isStackedOnMobile, linkClass, linkDestination, linkTarget, mediaAlt, mediaId, mediaLink, mediaPosition, mediaSizeSlug, mediaType, mediaUrl, mediaWidth, rel, verticalAlignment
 
 <!--
 ## Unsupported
@@ -957,7 +1002,7 @@ Contains the block elements used to render a post, like the title, date, feature
 
 -	**Name:** core/post-template
 -	**Category:** theme
--	**Supports:** align, anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** 
 
 <!--
@@ -987,7 +1032,7 @@ Show minutes required to finish reading the post. ([Source](https://github.com/W
 
 -	**Name:** core/post-time-to-read
 -	**Category:** theme
--	**Supports:** typography (fontSize, lineHeight), ~~html~~, ~~multiple~~
+-	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
 <!--
@@ -1152,7 +1197,7 @@ Give quoted text visual emphasis. "In quoting others, we cite ourselves." — Ju
 
 -	**Name:** core/quote
 -	**Category:** text
--	**Supports:** anchor, color (background, gradients, link, text), typography (fontSize, lineHeight)
+-	**Supports:** anchor, color (background, gradients, link, text), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** align, citation, value
 
 <!-- 
@@ -1236,9 +1281,9 @@ WordPress ショートコードで追加のカスタム要素を挿入します�
 ## Site Logo / サイトロゴ
 
 <!--
-Display a graphic to represent this site. Update the block, and the changes apply everywhere it’s used. This is different than the site icon, which is the smaller image visible in your dashboard, browser tabs, etc used to help others recognize this site. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-logo))
+Display an image to represent this site. Update this block and the changes apply everywhere. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-logo))
 -->
-このサイトを表すグラフィックを表示します。更新すると、このブロックが使用されているすべての場所で変更が適用されます。これはサイトのアイコンとは異なる小さな画像で、ダッシュボードやブラウザのタブなどに表示されて、ユーザーによるサイトの認識に使用されます。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-logo))
+このサイトを表す画像を表示します。このブロックを更新すると、変更はすべての場所で適用されます。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/site-logo))
 
 -	**Name:** core/site-logo
 -	**Category:** theme

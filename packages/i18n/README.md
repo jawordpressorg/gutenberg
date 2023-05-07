@@ -143,10 +143,7 @@ _戻り値_
 <!--
 Check if current locale is RTL.
 
-**RTL (Right To Left)** is a locale property indicating that text is written from right to left.
-For example, the `he` locale (for Hebrew) specifies right-to-left. Arabic (ar) is another common
-language written RTL. The opposite of RTL, LTR (Left To Right) is used in other languages,
-including English (`en`, `en-US`, `en-GB`, etc.), Spanish (`es`), and French (`fr`).
+**RTL (Right To Left)** is a locale property indicating that text is written from right to left. For example, the `he` locale (for Hebrew) specifies right-to-left. Arabic (ar) is another common language written RTL. The opposite of RTL, LTR (Left To Right) is used in other languages, including English (`en`, `en-US`, `en-GB`, etc.), Spanish (`es`), and French (`fr`).
 
 _Returns_
 
@@ -166,8 +163,7 @@ _戻り値_
 ### resetLocaleData
 
 <!--
-Resets all current Tannin instance locale data and sets the specified
-locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
+Resets all current Tannin instance locale data and sets the specified locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
 
 _Related_
 
@@ -192,8 +188,7 @@ _パラメータ_
 ### setLocaleData
 
 <!--
-Merges locale data into the Tannin instance by domain. Accepts data in a
-Jed-formatted JSON object shape.
+Merges locale data into the Tannin instance by domain. Accepts data in a Jed-formatted JSON object shape.
 
 _Related_
 
@@ -218,8 +213,7 @@ _パラメータ_
 ### sprintf
 
 <!--
-Returns a formatted string. If an error occurs in applying the format, the
-original format string is returned.
+Returns a formatted string. If an error occurs in applying the format, the original format string is returned.
 
 _Related_
 
@@ -275,8 +269,7 @@ _戻り値_
 ### \_n
 
 <!--
-Translates and retrieves the singular or plural form based on the supplied
-number.
+Translates and retrieves the singular or plural form based on the supplied number.
 
 _Related_
 
@@ -313,8 +306,7 @@ _戻り値_
 ### \_nx
 
 <!--
-Translates and retrieves the singular or plural form based on the supplied
-number, with gettext context.
+Translates and retrieves the singular or plural form based on the supplied number, with gettext context.
 
 _Related_
 

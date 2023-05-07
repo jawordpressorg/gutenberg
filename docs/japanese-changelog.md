@@ -2,6 +2,17 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/05/03
+- [トップ](https://ja.wordpress.org/team/handbook/block-editor/) - 全面改訂
+- [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) - 全面改訂 [#49184](https://github.com/WordPress/gutenberg/pull/49184)
+- [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) - カスタムフィールド表示時の注意 [#49622](https://github.com/WordPress/gutenberg/pull/49622)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - variations 追加 [#49826](https://github.com/WordPress/gutenberg/pull/49826)
+- [block.json のメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - editorStyle 削除 [#49393](https://github.com/WordPress/gutenberg/pull/49393)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - color.__experimentalDuotone -> filter.duotone [#49423](https://github.com/WordPress/gutenberg/pull/49423)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 所要時間 multiple: false の削除 [#49253](https://github.com/WordPress/gutenberg/pull/49253)、spacing 追加 [#49392](https://github.com/WordPress/gutenberg/pull/49392)、color 追加 [#49496](https://github.com/WordPress/gutenberg/pull/49496)、引用 html 削除 [#49426](https://github.com/WordPress/gutenberg/pull/49426)、投稿テンプレート full、wide 追加 [#49411](https://github.com/WordPress/gutenberg/pull/49411)、画像 duotone [#49423](https://github.com/WordPress/gutenberg/pull/49423)、詳細、詳細コンテンツ、詳細要約追加 [#45055](https://github.com/WordPress/gutenberg/pull/45055)、埋め込み spacing 追加 [#39384](https://github.com/WordPress/gutenberg/pull/39384)、グループ allowedBlocks 追加 [#49128](https://github.com/WordPress/gutenberg/pull/49128)、メディアとテキスト allowedBlocks 追加 [#49981](https://github.com/WordPress/gutenberg/pull/49981)
+ - [バージョン 2 (現在のリファレンス)](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - customTemplates、templateParts、Pattern 追加 [#48250](https://github.com/WordPress/gutenberg/pull/48250)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) -  --env-cwd 追加 [#49908](https://github.com/WordPress/gutenberg/pull/49908)、afterSetup 追加 [#50196](https://github.com/WordPress/gutenberg/pull/50196)、パーマリンクの変更 [#50251](https://github.com/WordPress/gutenberg/pull/50251)
+
 2023/03/25
 - [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - NPMへの発行 [#46555](https://github.com/WordPress/gutenberg/pull/46555)、RCパッチ作成 [#47372](https://github.com/WordPress/gutenberg/pull/47372)
 - [End-to-End Testing](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/e2e/) - 新規

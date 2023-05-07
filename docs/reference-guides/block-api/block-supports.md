@@ -247,7 +247,6 @@ supports: {
 -   Default value: null
 -   Subproperties:
     -   `background`: type `boolean`, default value `true`
-    -   `__experimentalDuotone`: type `string`, default value undefined
     -   `gradients`: type `boolean`, default value `false`
     -   `link`: type `boolean`, default value `false`
     -   `text`: type `boolean`, default value `true`
@@ -454,13 +453,15 @@ When the block declares support for `color.background`, the attributes definitio
 <!--
 This property adds UI controls which allow to apply a duotone filter to a block or part of a block.
  -->
-このプロパティは UI コントロールを追加します。ブロック、またはブロックの一部にデュオトーンフィルターを適用できます。
 
+<!-- このプロパティは UI コントロールを追加します。ブロック、またはブロックの一部にデュオトーンフィルターを適用できます。
+ -->
 <!--
 The parent selector is automatically added much like nesting in Sass/SCSS (however, the `&` selector is not supported).
  -->
+<!-- 
 親のセレクタが、Sass/SCSS でのネストのように自動で追加されます (しかし、`&` セレクタはサポートされません)。
-
+ -->
 <!--
 ```js
 supports: {
@@ -475,6 +476,7 @@ supports: {
 }
 ```
  -->
+<!-- 
 ```js
 supports: {
     color: {
@@ -486,26 +488,30 @@ supports: {
         text: false
     }
 }
-```
+ -->```
 
 <!--
 Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/theme-json.md).
  -->
+<!-- 
 デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
-
+ -->
 <!--
 When the block declares support for `color.__experimentalDuotone`, the attributes definition is extended to include the attribute `style`:
  -->
+<!-- 
 ブロックが `color.__experimentalDuotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
-
+ -->
 <!--
 - `style`: attribute of `object` type with no default assigned.
  -->
+<!-- 
 - `style`: タイプ `object` の属性。デフォルト値なし。
-
+ -->
 <!--
   The block can apply a default duotone color by specifying its own attribute with a default e.g.:
  -->
+<!-- 
   ブロックはデフォルトのデュオトーンカラーを適用できます。これには 自身の属性に default で指定します。
 
   ```js
@@ -523,6 +529,16 @@ When the block declares support for `color.__experimentalDuotone`, the attribute
       }
   }
   ```
+ -->
+
+<!-- 
+_**Note:** Deprecated since WordPress 6.3._
+
+This property has been replaced by [`filter.duotone`](#filter-duotone). 
+ -->
+_**注意:** WordPress 6.3から非推奨となりました。_
+
+このプロパティは `filter.duotone` で置換されました。 
 
 ### color.gradients
 
@@ -986,7 +1002,7 @@ _**注意:** WordPress 6.2以降_
 -   Subproperties:
     -   `minHeight`: type `boolean`, default value `false`
  -->
--   型: `Object`
+-   タイプ: `Object`
 -   デフォルト値: null
 -   サブプロパティ:
     -   `minHeight`: タイプ `boolean`, デフォルト値 `false`
@@ -1030,6 +1046,100 @@ attributes: {
     }
 }
 ```
+
+## filter
+
+<!-- 
+-   Type: `Object`
+-   Default value: null
+-   Subproperties:
+    -   `duotone`: type `boolean`, default value `false`
+ -->
+-   タイプ: `Object`
+-   デフォルト値: null
+-   サブプロパティ:
+    -   `duotone`: タイプ `boolean`, デフォルト値 `false`
+
+<!-- 
+This value signals that a block supports some of the properties related to filters. When it does, the block editor will show UI controls for the user to set their values.
+ -->
+この値はブロックがフィルターに関連するプロパティの一部をサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+
+### filter.duotone
+
+<!-- 
+This property adds UI controls which allow the user to apply a duotone filter to
+a block or part of a block.
+ -->
+このプロパティは、ユーザーがブロックまたはブロックの一部にデュオトーンフィルタを適用できる、UIコントロールを追加します。
+
+<!-- 
+```js
+supports: {
+    filter: {
+        // Enable duotone support
+        duotone: true
+    }
+},
+selectors: {
+    filter: {
+        // Apply the filter to img elements inside the image block
+        duotone: '.wp-block-image img'
+    }
+}
+```
+ -->
+```js
+supports: {
+    filter: {
+        // デュオトーンサポートを有効化
+        duotone: true
+    }
+},
+selectors: {
+    filter: {
+        // 画像ブロック内の img 要素にフィルターを適用
+        duotone: '.wp-block-image img'
+    }
+}
+```
+
+<!-- 
+The filter can be applied to an element inside the block by setting the `selectors.filter.duotone` selector.
+
+Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/theme-json.md).
+ -->
+セレクタ `selectors.filter.duotone` を設定することで、ブロック内の要素にフィルタを適用できます。
+
+デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
+<!-- 
+When the block declares support for `filter.duotone`, the attributes definition is extended to include the attribute `style`:
+ -->
+ブロックが `filter.duotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
+<!--  
+- `style`: attribute of `object` type with no default assigned.
+ -->
+- `style`: タイプ `object` の属性。デフォルト値なし。
+<!-- 
+  The block can apply a default duotone color by specifying its own attribute with a default e.g.:
+ -->
+  ブロックはデフォルトのデュオトーンカラーを適用できます。これには 自身の属性に default で指定します。
+
+  ```js
+  attributes: {
+      style: {
+          type: 'object',
+          default: {
+              color: {
+                  duotone: [
+                      '#FFF',
+                      '#000'
+                  ]
+              }
+          }
+      }
+  }
+  ```
 
 ## html
 <!--
@@ -1176,10 +1286,10 @@ _**注意:** WordPress 6.2以降_
 -   Subproperties:
     -   `sticky`: type `boolean`, default value `false`
  -->
--   型: `Object`
+-   タイプ: `Object`
 -   デフォルト値: null
 -   サブプロパティ:
-    -   `sticky`: 型 `boolean`, デフォルト値 `false`
+    -   `sticky`: タイプ `boolean`, デフォルト値 `false`
 
 <!-- 
 This value signals that a block supports some of the CSS style properties related to position. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/theme-json/#opt-in-into-ui-controls).

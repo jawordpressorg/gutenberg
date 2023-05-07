@@ -11,7 +11,7 @@
 <!--
 Blocks are an abstract unit for structuring and interacting with content. When composed together they create the content for a webpage. Everything from a paragraph, to a video, to the site title is represented as a block.
  -->
-ブロックはコンテンツを構成し、相互に作用し合う抽象的なユニットです。一緒に組み合わせることで Web ページのコンテンツが作成されます。段落やビデオからサイトのタイトルまで、あらゆるものをブロックとして表現できます。
+ブロックはコンテンツを構成し、相互に作用し合う抽象的なユニットです。ブロックを組み合わせることで Web ページのコンテンツを作成できます。段落やビデオからサイトのタイトルまで、あらゆるものをブロックとして表現できます。
 
 <!--
 Blocks come in many different forms but also provide a consistent interface. They can be inserted, moved, reordered, copied, duplicated, transformed, deleted, dragged, and combined. Blocks can also be reused, allowing them to be shared across posts and post types and/or used multiple times in the same post. If it helps, you can think of blocks as a more graceful shortcode, with rich formatting tools for users to compose content.
@@ -56,26 +56,29 @@ Each block contains Attributes or configuration settings, which can be sourced f
  -->
 ブロックは静的にも動的にもなります。静的ブロックに含まれるものは、レンダーされたコンテンツと、変更に基づいての再レンダーに使用される Attributes のオブジェクトです。ダイナミックブロックで必要とされるものは、サーバーサイドデータと、投稿コンテンツが生成 (レンダリング) される間のレンダリングです。
 
-各ブロックは Attributes、または構成設定を含みます。これらは、メタ、または他のカスタマイズ可能な方法で、コンテンツ内の生の HTML から取得されます。
+各ブロックは Attributes、または構成設定を含みます。これらは、メタ、または他のカスタマイズ可能な方法で、コンテンツ内の生の HTML から取得できます。
+
+詳細については、[データフォーマットとデータフロー](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/)を参照してください。
 
 <!--
-### Transformations
+### Block Transforms
  -->
-### 変換
-<!--
-Blocks have the ability to be transformed into other block types. This allows basic operations like converting a paragraph into a heading, but also more intricate ones like multiple images becoming a gallery. Transformations work for single blocks and for multi-block selections. Internal block variations are also possible transformation targets.
- -->
-ブロックは、他のブロックタイプに変換できます。この働きにより、段落ブロックを見出しブロックに変換するような簡単な操作から、複数の画像ブロックをギャラリーブロックに変換するような複雑な操作まで可能になります。変換は単一のブロックに対しても、複数のブロックに対しても働きます。また内部のブロックバリエーションも変換の対象になります。
+### ブロックの変換
 
 <!--
-### Variations
+Blocks have the ability to be transformed into other block types. This allows basic operations like converting a paragraph into a heading, but also more intricate ones like multiple images becoming a gallery. Block transforms work for single blocks and for multi-block selections. Internal block variations are also possible transformation targets.
  -->
-### バリエーション
+ブロックは、他のブロックタイプに変換できます。この働きにより、段落ブロックを見出しブロックに変換するような簡単な操作から、複数の画像ブロックをギャラリーブロックに変換するような複雑な操作まで可能になります。ブロックの変換は単一のブロックに対しても、複数のブロックに対しても働きます。また内部のブロックバリエーションも変換の対象になります。
+
+<!--
+### Block Variations
+ -->
+### ブロックのバリエーション
 
 <!--
 Given a block type, a block variation is a predefined set of its initial attributes. This API allows creating a single block from which multiple configurations are possible. Variations provide different possible interfaces, including showing up as entirely new blocks in the library, or as presets when inserting a new block. Read [the API documentation](/docs/reference-guides/block-api/block-registration.md#variations-optional) for more details.
  -->
-ブロックタイプを与えられると、ブロックバリエーションは、事前定義済みの初期属性セットになります。この API を使用して、複数の構成から単一のブロックを作成できます。バリエーションは、ライブラリ内で完全に新しいブロックとして表示したり、新しいブロックを挿入した際のプリセットになったり、さまざまなインターフェースを提供します。詳細については [API ドキュメント](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#variations-optional) を参照してください。
+ブロックの種類によってブロックバリエーションは、事前定義済みの初期属性セットになります。この API を使用して、複数の構成から単一のブロックを作成できます。バリエーションは異なる可能なインターフェースを提供し、例えばライブラリ内での完全に新しいブロック、あるいは新しいブロックを挿入した際のプリセットとして表示できます。詳細については [API ドキュメント](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#variations-optional) を参照してください。
 
 <!--
 **More on Blocks**
@@ -95,9 +98,9 @@ Given a block type, a block variation is a predefined set of its initial attribu
 ## 再利用可能ブロック
 
 <!--
-A reusable blocks is a block (or multiple blocks) that can be inserted and edited globally at once. If a reusable block is edited in one place, those changes are reflected across all posts and pages that block is used. Examples of reusable blocks include a block consisting of a heading whose content and a custom color that would be appear on multiple pages of the site and sidebar widgets that would appear on every page.
+A reusable blocks is **an instance** of a block (or multiple blocks) that can be inserted and edited in multiples places, remaining in sync everywhere. If a reusable block is edited in one place, those changes are reflected across all posts and pages that block is used. Examples of reusable blocks include a block consisting of a heading whose content and a custom color that would be appear on multiple pages of the site and sidebar widgets that would appear on every page.
  -->
-再利用可能ブロックは、挿入し、一度にまとめて編集できる単一または複数のブロックです。ある場所で再利用可能ブロックを編集すると、同じブロックを使用しているすべての投稿や固定ページで変更が反映されます。例えば、見出しのコンテンツとカスタムカラーを含むブロックを再利用可能ブロックとして、サイトの複数のページや、全ページに表示されるサイドバーウィジェット内で使用できます。
+再利用可能ブロックは単一または複数のブロックの**インスタンス**で、複数の場所に挿入、編集でき、同期します。ある場所で再利用可能ブロックを編集すると、同じブロックを使用しているすべての投稿や固定ページで変更が反映されます。例えば、見出しのコンテンツとカスタムカラーを含むブロックを再利用可能ブロックとしてサイトの複数のページや、全ページに表示されるサイドバーウィジェット内で使用できます。
 
 <!--
 Any edits to a reusable block will appear on every other use of that block, saving time from having to make the same edit on different posts.
@@ -105,9 +108,9 @@ Any edits to a reusable block will appear on every other use of that block, savi
 再利用可能ブロックの編集は、同じブロックを使用しているすべての場所に反映されるため、異なる投稿で同じ編集を行う手間を省き時間の節約になります。
 
 <!--
-In technical details, reusable blocks are stored as a hidden post type (`wp_block`) and are dynamic blocks that "ref" or reference the `post_id` and return the `post_content` for that block.
+Internally, reusable blocks are stored as a hidden post type (`wp_block`) and are dynamic blocks that "ref" or reference the `post_id` and return the `post_content` for that block.
  -->
-技術的には再利用可能ブロックは、隠し投稿タイプ `wp_block` として保存され、 `post_id` を参照して、ブロックの `post_content` を返すダイナミックブロックです。
+内部で再利用可能ブロックは、隠し投稿タイプ `wp_block` として保存され、 `post_id` を参照して、ブロックの `post_content` を返すダイナミックブロックです。
 
 <!--
 ## Patterns
@@ -115,20 +118,29 @@ In technical details, reusable blocks are stored as a hidden post type (`wp_bloc
 ## パターン
 
 <!--
-A [block pattern](/docs/reference-guides/block-api/block-patterns.md) is a group of blocks that have been combined together creating a design pattern. These design patterns provide a starting point for building more advanced pages and layouts quickly. A block pattern can be as small as a single block or as large as a full page of content. Unlike reusable blocks, once a pattern is inserted it doesn't remain in sync with the original content as the blocks contained are meant to be edited and customized by the user. Underneath the surface, patterns are just regular blocks composed together. Themes can register patterns to offer users quick starting points with a design language familiar to that theme's aesthetics.
+A [block pattern](/docs/reference-guides/block-api/block-patterns.md) is a group of blocks that have been combined together creating a design pattern. These design patterns provide a starting point for building more advanced pages and layouts quickly, instead of inserting individual blocks. A block pattern can be as small as a single block or as large as a full page of content. Unlike reusable blocks, once a pattern is inserted it doesn't remain in sync with the original content as the blocks contained are meant to be edited and customized by the user. Underneath the surface, patterns are just regular blocks composed together. Themes can register patterns to offer users quick starting points with a design language familiar to that theme's aesthetics.
  -->
-
-[ブロックパターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/)は、一緒に組み合わせてデザインパターンを作成する、ブロックのグループです。このデザインパターンは高度なページやレイアウトを素早く作る、最初のスタート地点となります。ブロックパターンは、単一ブロックのような小さなものから、完全なページコンテンツのような大きなものまで可能です。再利用可能ブロックとは異なり、一度パターンが挿入されるとオリジナルのコンテンツとは同期せず、ブロック内のコンテンツのみがユーザーの編集やカスタマイズの対象となります。内部の実装から見るとパターンは、一緒に組み合わされた通常のブロックに過ぎません。テーマはパターンを登録することで、ユーザーにテーマの美しさに合わせたスタート地点を提供することができます。
+[ブロックパターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/)は、一緒に組み合わせてデザインパターンを作成するブロックのグループです。このデザインパターンを使用すると個別にブロックを挿入する必要はなく、高度なページやレイアウトを素早く作る最初のスタート地点となります。ブロックパターンは、単一ブロックのような小さなものから、完全なページコンテンツのような大きなものまで可能です。再利用可能ブロックとは異なり、一度パターンが挿入されるとオリジナルのコンテンツとは同期せず、ブロック内のコンテンツのみがユーザーの編集やカスタマイズの対象となります。内部の実装から見るとパターンは、一緒に組み合わされた通常のブロックに過ぎません。テーマはパターンを登録することで、ユーザーにテーマの美しさに合わせたスタート地点を提供することができます。
 
 <!--
-## Templates (in progress)
+## Templates
  -->
-## テンプレート (進行中)
+## テンプレート
 
 <!--
 While the post editor concentrates on the content of a post, the [template](/docs/reference-guides/block-api/block-templates.md) editor allows declaring and editing an entire site using blocks, from header to footer. To support these efforts there's a collection of blocks that interact with different parts of a site (like the site title, description, logo, navigation, etc) as well as semantic areas like header, sidebar, and footer. Templates are broken down between templates (that describe a full page) and template parts (that describe reusable areas within a template). These templates and template parts can be composed together and registered by a theme. They are also entirely editable by users using the block editor. Customized templates are saved in a `wp_template` post type. Block templates include both static pages and dynamic ones, like archives, singular, home, 404, etc.
  -->
 投稿エディターが投稿のコンテンツを処理するように、[テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/)エディターを使用するとブロックを使用して、ヘッダーからフッターまで、サイト全体を宣言し、編集できます。この機能をサポートするため、サイトタイトル、説明、ロゴ、ナビゲーションなどのサイトの異なる場所、そしてヘッダー、サイドバー、フッターなどのセマンティック領域と通信するブロックのコレクションがあります。テンプレートは、ページ全体を表すテンプレートと、テンプレート内の再利用可能な領域を表すテンプレートパーツとに分解されます。これらのテンプレートとテンプレートパーツは一緒に組み合わされ、テーマにより登録されます。これらはまたブロックエディターを使用して完全に編集できます。カスタマイズされたテンプレートは `wp_template` 投稿タイプに保存されます。ブロックテンプレートは静的ページと動的ページの両方を含み、たとえば、archive、singular、home、404等があります。
+
+<!-- 
+While the post editor concentrates on the content of a post, the [template](/docs/reference-guides/block-api/block-templates.md) editor allows declaring and editing an entire site using blocks, from header to footer. Templates are broken down between templates (that describe a full page) and template parts (that describe reusable areas within a template, including semantic areas like header, sidebar, and footer).
+ -->
+投稿エディターが投稿のコンテンツに集中するように、[テンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-templates/)エディターを使用するとブロックを使用して、ヘッダーからフッターまで、サイト全体を宣言し、編集できます。テンプレートは、ページ全体を表す「テンプレート」と、ヘッダー、サイドバー、フッターなどのセマンティック領域を含むテンプレート内の再利用可能な領域を表す「テンプレートパーツ」とに分解されます。
+
+<!-- 
+These templates and template parts can be composed together and registered by a theme. They are also entirely editable by users using the block editor; a collection of blocks that interact with different properties and settings of the site (like the site title, description, logo, navigation, etc) are especially useful when editing templates and template parts. Customized templates are saved in a `wp_template` post type. Block templates include both static pages and dynamic ones, like archives, singular, home, 404, etc.
+ -->
+これらのテンプレートやテンプレートパーツは組み合わせることができ、テーマにより登録されます。これらはまたブロックエディターを使用して完全に編集できます。サイトの異なるプロパティや設定、例えばサイトタイトル、説明、ロゴ、ナビゲーション等と通信するブロックのコレクションは、特にテンプレートとテンプレートパーツを編集している際に有用です。カスタマイズされたテンプレートは `wp_template` 投稿タイプに保存されます。ブロックテンプレートは静的ページと動的ページの両方を含み、たとえば、archive、singular、home、404等があります。
 
 <!--
 Note: custom post types can also be initialized with a starting `post_content` template that should not be confused with the theme template system described above.
@@ -136,15 +148,23 @@ Note: custom post types can also be initialized with a starting `post_content` t
 注意: カスタム投稿タイプはまた、開始 `post_content` テンプレートでも初期化されます。これを上で説明したテーマテンプレートシステムと混同しないでください。
 
 <!-- 
-## Global Styles
+More on [Site editing templates](/docs/explanations/architecture/full-site-editing-templates.md).
  -->
-## グローバルスタイル
+詳細は[サイト編集テンプレート](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/full-site-editing-templates)を参照してください。
 
 <!-- 
-Global Styles is both an interface (which users access through the site editor) and a configuration system done through [a `theme.json` file](/docs/how-to-guides/themes/theme-json.md). This file absorbs most of the configuration aspects usually scattered through various `add_theme_support` calls to simplify communicating with the editor. It thus aims to improve declaring what settings should be enabled, what specific tools a theme offers (like a custom color palette), the available design tools present, and an infrastructure that allows to coordinate the styles coming from WordPress, the active theme, and the user.
+## Styles
  -->
-グローバルスタイルは、ユーザーがサイトエディターにアクセスする際に使用する「インターフェース」と、[`theme.json` ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) を介して実行される「構成システム」の2つから成ります。`theme.json` ファイルは、通常であればさまざまな `add_theme_support` 呼び出しに散らばる構成要素の大部分を吸収し、エディターとの通信を簡素化します。したがって、グローバルスタイルは以下に挙げるような宣言を改良します。すなわち、どの設定を有効化するか、テーマはどの特定ツールをサポートするか (カスタムカラーパレットなど)、利用可能なデザインツール、そして、WordPress、有効化されたテーマ、ユーザーから来るスタイルを調整するインフラ。
+## スタイル
 
+<!-- 
+Styles, formerly known as Global Styles and as such referenced in the code, is both an interface that users access through the editor and a configuration system done through [a `theme.json` file](/docs/how-to-guides/themes/theme-json.md). This file absorbs most of the configuration aspects usually scattered through various `add_theme_support` calls to simplify communicating with the editor. It thus aims to improve declaring what settings should be enabled, what specific tools a theme offers (like a custom color palette), the available design tools present, and an infrastructure that allows to coordinate the styles coming from WordPress, the active theme, and the user.
+ -->
+スタイルは、従来「グローバルスタイル」と呼ばれ、コードの中ではそのように参照されています。エディターを介してユーザーがアクセスする「インターフェース」と、[`theme.json` ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) を介して実行される「構成システム」の2つから成ります。`theme.json` ファイルは、通常であればさまざまな `add_theme_support` 呼び出しに散らばる構成要素の大部分を吸収し、エディターとの通信を簡素化します。したがって、グローバルスタイルは以下に挙げるような宣言を改良します。すなわち、どの設定を有効化するか、テーマはどの特定ツールをサポートするか (カスタムカラーパレットなど)、利用可能なデザインツール、そして、WordPress、有効化されたテーマ、ユーザーから来るスタイルを調整するインフラ。
+
+<!-- 
+Learn more about [Global Styles](/docs/explanations/architecture/styles.md#global-styles).
+ -->
 詳細については、[グローバルスタイル](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles.md#global-styles) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/explanations/architecture/key-concepts.md)

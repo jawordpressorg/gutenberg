@@ -32,7 +32,7 @@ _Create Block は [create-react-app](https://create-react-app.dev/docs/getting-s
 > _詳細については [Gutenberg ハンドブックのブロック API](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/) を参照してください。_
 
 <!-- 
-## Table of Contents 
+## Table of Contents
 
 - [Quick start](#quick-start)
 - [Usage](#usage)
@@ -66,6 +66,11 @@ $ npm start
 ```
 
 <!--
+The `slug` provided (`todo-list` in the example) defines the folder name for the scaffolded plugin and the internal block name. The WordPress plugin generated must [be installed manually](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation).
+ -->
+指定した `slug` (この例では `todo-list`) は、ひな形プラグインのフォルダ名と内部のブロック名を定義します。生成された WordPress プラグインは、[手動でインストールする](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation)必要があります。
+
+<!--
 _(requires `node` version `14.0.0` or above, and `npm` version `6.14.4` or above)_
 
 It creates a WordPress plugin that you need to [install manually](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
@@ -76,7 +81,6 @@ It creates a WordPress plugin that you need to [install manually](https://wordpr
 <!--
 [Watch a video introduction to create-block on Learn.wordpress.org](https://learn.wordpress.org/tutorial/using-the-create-block-tool/)
  -->
-指定した `slug` (この例では `todo-list`) は、ひな形プラグインのフォルダ名と内部のブロック名を定義します。生成された WordPress プラグインは、[手動でインストールする](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation)必要があります。
 
 <!-- 
 _(requires `node` version `14.0.0` or above, and `npm` version `6.14.4` or above)_
@@ -145,12 +149,12 @@ When no `slug` is provided, the script will run in interactive mode and will sta
 ### slug
 
 <!-- 
-The use of `slug` is optional. 
+The use of `slug` is optional.
 
 When provided it triggers the _quick mode_, where this `slug` is used:
 - as the block slug (required for its identification)
 - as the output location (folder name) for scaffolded files
-- as the name of the WordPress plugin. 
+- as the name of the WordPress plugin.
 
 The rest of the configuration is set to all default values unless overridden with some options listed below.
  -->
@@ -334,7 +338,7 @@ When bootstrapped with the `static` template (or any other project template with
 #### --wp-env
 
 <!-- 
-With this argument, the `create-block` package will add to the generated plugin the configuration and the script to run [`wp-env` package](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) within the plugin. This will allow you to easily set up a local WordPress environment (via Docker) for building and testing the generated plugin. 
+With this argument, the `create-block` package will add to the generated plugin the configuration and the script to run [`wp-env` package](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) within the plugin. This will allow you to easily set up a local WordPress environment (via Docker) for building and testing the generated plugin.
  -->
 この引数を指定すると、`create-block` パッケージは生成されたプラグインに、プラグイン内で [`wp-env` パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)を実行するための構成やスクリプトを追加します。生成されたプラグインをビルド、テストする、Docker 利用のローカル WordPress 環境を簡単にセットアップできます。
 
@@ -415,9 +419,9 @@ WordPress パッケージを最新版に更新。[詳細](https://github.com/Wor
 ## ひな形プロジェクト内で利用可能なコマンド
 
 <!-- 
-The plugin folder created when executing this command, is a node package with a modern build setup that requires no configuration. 
+The plugin folder created when executing this command, is a node package with a modern build setup that requires no configuration.
 
-A set of scripts is available from inside that folder (provided by the `scripts` package) to make your work easier. [Click here](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#available-scripts) for a full description of these commands. 
+A set of scripts is available from inside that folder (provided by the `scripts` package) to make your work easier. [Click here](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#available-scripts) for a full description of these commands.
  -->
 このコマンドを実行して作成される plugin フォルダは、モダンなビルド環境が設定された node パッケージです。追加の構成を必要ありません。
 

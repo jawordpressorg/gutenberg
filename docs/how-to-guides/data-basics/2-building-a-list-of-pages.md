@@ -354,7 +354,7 @@ Let’s take a pause for a moment to consider the downsides of an alternative ap
 ここで少し小休止して、API を直接操作した場合のデメリットについて考えてみます。API リクエストを直接送ったと想像してください。
 
 ```js
-import { apiFetch } from '@wordpress/api-fetch';
+import apiFetch from '@wordpress/api-fetch';
 function MyFirstApp() {
 	// ...
 	const [pages, setPages] = useState( [] );
