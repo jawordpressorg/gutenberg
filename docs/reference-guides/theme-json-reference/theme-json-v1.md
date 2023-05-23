@@ -1,12 +1,12 @@
 <!-- 
-# Version 1 Reference
+# Theme.json Version 1 Reference
  -->
-# バージョン 1 リファレンス
+# theme.json バージョン1 リファレンス
 
 <!-- 
 Theme.json version 2 has been released, see the [theme.json migration guide](/docs/reference-guides/theme-json-reference/theme-json-migrations.md#migrating-from-v1-to-v2) for updating to the latest version.
  -->
-theme.json バージョン 2 がリリースされました。最新バージョンに移行するには [theme.json 移行ガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) を参照してください。
+theme.json バージョン2 がリリースされました。最新バージョンに移行するには [theme.json 移行ガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) を参照してください。
 
 <!-- 
 ## Settings

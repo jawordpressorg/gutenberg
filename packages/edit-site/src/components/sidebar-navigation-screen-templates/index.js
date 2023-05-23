@@ -11,6 +11,7 @@ import { useEntityRecords } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useViewportMatch } from '@wordpress/compose';
+import { getTemplatePartIcon } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -74,14 +75,16 @@ export default function SidebarNavigationScreenTemplates() {
 		}
 	);
 	const sortedTemplates = templates ? [ ...templates ] : [];
-	sortedTemplates.sort( ( a, b ) => a.slug.localeCompare( b.slug ) );
+	sortedTemplates.sort( ( a, b ) =>
+		a.title.rendered.localeCompare( b.title.rendered )
+	);
 
 	const browseAllLink = useLink( {
 		path: '/' + postType + '/all',
 	} );
 
 	const canCreate = ! isMobileViewport && ! isTemplatePartsMode;
-
+	const isTemplateList = postType === 'wp_template';
 	return (
 		<SidebarNavigationScreen
 			isRoot={ isTemplatePartsMode }
@@ -113,6 +116,10 @@ export default function SidebarNavigationScreenTemplates() {
 									postId={ template.id }
 									key={ template.id }
 									withChevron
+									icon={
+										! isTemplateList &&
+										getTemplatePartIcon( template.area )
+									}
 								>
 									{ decodeEntities(
 										template.title?.rendered ||

@@ -392,7 +392,7 @@ When writing `raw` transforms you can control this by supplying a `schema` which
 
 
 ```js
-schema = { span: { children: { '#text': {} } } }
+schema = { span: { children: { '#text': {} } } };
 ```
 <!-- 
 **Example: a custom content model**
@@ -406,8 +406,8 @@ Suppose we want to match the following HTML snippet and turn it into some kind o
 
 ```html
 <div data-post-id="13">
-    <h2>The Post Title</h2>
-    <p>Some <em>great</em> content.</p>
+	<h2>The Post Title</h2>
+	<p>Some <em>great</em> content.</p>
 </div>
 ```
 <!-- 
@@ -455,14 +455,14 @@ A transformation of type `shortcode` is an object that takes the following param
 <!--
 -   **type** _(string)_: the value `shortcode`.
 -   **tag** _(string|array)_: the shortcode tag or list of shortcode aliases this transform can work with.
--   **transform** _(function, optional): a callback that receives the shortcode attributes as the first argument and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as the second. It should return a block object or an array of block objects. When this parameter is defined, it will take precedence over the `attributes` parameter.
+-   **transform** _(function, optional)_: a callback that receives the shortcode attributes as the first argument and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as the second. It should return a block object or an array of block objects. When this parameter is defined, it will take precedence over the `attributes` parameter.
 -   **attributes** _(object, optional)_: object representing where the block attributes should be sourced from, according to the attributes shape defined by the [block configuration object](./block-registration.md). If a particular attribute contains a `shortcode` key, it should be a function that receives the shortcode attributes as the first arguments and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as second, and returns a value for the attribute that will be sourced in the block's comment.
 -   **isMatch** _(function, optional)_: a callback that receives the shortcode attributes per the [Shortcode API](https://codex.wordpress.org/Shortcode_API) and should return a boolean. Returning `false` from this function will prevent the shortcode to be transformed into this block.
 -   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `shortcode`。
 - **tag** _(string|array)_: この変換が動作可能なショートコードタグ、またはショートコードエイリアスのリスト。
-- **transform** _(function, オプション): 第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取るコールバック。ブロックオブジェクト、またはブロックオブジェクトの配列を返さなければならない。このパラメータが定義されると、`attributes` パラメータに優先する。
+- **transform** _(function, オプション)_: 第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取るコールバック。ブロックオブジェクト、またはブロックオブジェクトの配列を返さなければならない。このパラメータが定義されると、`attributes` パラメータに優先する。
 - **attributes** _(object, オプション)_: [block 構成オブジェクト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) で定義された属性の形に従い、ブロック属性がどこを source とするかを表したオブジェクト。特定の属性が `shortcode` キーを含む場合には関数であり、第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取り、ブロックのコメントを source とする属性の値を返さなければならない。
 - **isMatch** _(function、オプション)_: [Shortcode API](https://codex.wordpress.org/Shortcode_API) ごとにショートコード属性を受け取り、ブール値を返すコールバック。`false` を返すとショートコードのブロックへの変換を適用しない。
 - **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
@@ -592,6 +592,39 @@ transforms: {
         },
     ]
 },
+```
+<!-- 
+## `ungroup` blocks
+ -->
+## ungroup ブロック
+<!-- 
+Via the optional `transforms` key of the block configuration, blocks can use the `ungroup` subkey to define the blocks that will replace the block being processed. These new blocks will usually be a subset of the existing inner blocks, but could also include new blocks.
+
+If a block has an `ungroup` transform, it is eligible for ungrouping, without the requirement of being the default grouping block. The UI used to ungroup a block with this API is the same as the one used for the default grouping block. In order for the Ungroup button to be displayed, we must have a single grouping block selected, which also contains some inner blocks.
+
+**ungroup** is a callback function that receives the attributes and inner blocks of the block being processed. It should return an array of block objects.
+ -->
+ブロックは、ブロック構成のオプションの `transforms` キーで `ungroup` サブキーを使用して、処理中のブロックを置換するブロックを定義できます。通常これらの新しいブロックは既存のインナーブロックのサブセットですが、新しいブロックも含められます。
+
+ブロックが `ungroup` 変換を持つ場合、デフォルトのグループ化ブロックである必要性なしに、グループを解除できます。この API でブロックのグループ解除に使用する UI は、デフォルトのブロックのグループ化で使用される UI と同じです。グループ解除ボタンを表示するには、1つのグループ化ブロックを選択し、その中にいくつかのインナーブロックを含む必要があります。
+
+**ungroup** はコールバック関数で、処理中のブロックの属性とインナーブロックを受け取ります。ブロックオブジェクトの配列を返す必要があります。
+
+<!-- 
+Example:
+ -->
+例:
+
+```js
+export const settings = {
+	title: 'My grouping Block Title',
+	description: 'My grouping block description',
+	/* ... */
+	transforms: {
+		ungroup: ( attributes, innerBlocks ) =>
+			innerBlocks.flatMap( ( innerBlock ) => innerBlock.innerBlocks ),
+	},
+};
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-transforms.md)

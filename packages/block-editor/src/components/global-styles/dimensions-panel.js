@@ -103,8 +103,9 @@ function useHasSpacingPresets( settings ) {
 }
 
 function filterValuesBySides( values, sides ) {
-	if ( ! sides ) {
-		// If no custom side configuration all sides are opted into by default.
+	// If no custom side configuration, all sides are opted into by default.
+	// Without any values, we have nothing to filter either.
+	if ( ! sides || ! values ) {
 		return values;
 	}
 
@@ -184,12 +185,12 @@ function DimensionsToolsPanel( {
 }
 
 const DEFAULT_CONTROLS = {
-	contentSize: false,
-	wideSize: false,
-	padding: false,
-	margin: false,
-	blockGap: false,
-	minHeight: false,
+	contentSize: true,
+	wideSize: true,
+	padding: true,
+	margin: true,
+	blockGap: true,
+	minHeight: true,
 	childLayout: true,
 };
 

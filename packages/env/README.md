@@ -383,6 +383,41 @@ While we do provide a default `wp-tests-config.php` file within the environment,
  -->
 環境内にはデフォルトで `wp-tests-config.php` ファイルがありますが、独自のファイルを使いたい場合もあります。WordPress の `WP_TESTS_CONFIG_FILE_PATH` 定数を使用すると、テストで使用する `wp-config.php` ファイルを変更できます。これを `bootstrap.php` ファイル内の任意のパスに設定すると、環境に含まれるファイルの代わりに選択したファイルを使用できます。
 
+<!-- 
+## Using `composer`, `phpunit`, and `wp-cli` tools.
+ -->
+## composer、phpunit、wp-cli ツールの使用
+
+<!-- 
+For ease of use, Composer, PHPUnit, and wp-cli are available for in the environment. To run these executables, use `wp-env run <env> <tool> <command>`. For example, `wp-env run cli composer install`, or `wp-env run tests-cli phpunit`. You can also access various shells like `wp-env run cli bash` or `wp-env run cli wp shell`.
+
+For the `env` part, `cli` and `wordpress` share a database and mapped volumes, but more tools are available in the cli environment. You should use the `tests-cli` / `tests-wordpress` environments for a separate testing database.
+ -->
+環境内では利便性のため Composer、PHPUnit、wp-cli を利用できます。これらの実行ファイルを実行するには、`wp-env run <env> <tool> <command>` を使用してください。例えば、`wp-env run cli composer install`、`wp-env run tests-cli phpunit` などです。また、`wp-env run cli bash` や `wp-env run cli wp shell` のように様々なシェルにアクセスできます。
+
+`env` では、`cli` と `wordpress` はデータベースとマップされたボリュームを共有しますが、cli 環境ではより多くのツールを使用できます。別個のテスト用データベースには `tests-cli` または `tests-wordpress` 環境を使用する必要があります。
+
+<!-- 
+By default, the cwd of the run command is the root of the WordPress install. If you're working on a plugin, you likely need to pass `--env-cwd` to make sure composer/phpunit commands are executed relative to the plugin you're working on. For example, `wp-env run cli --env-cwd=wp-content/plugins/gutenberg composer install`.
+
+To make this easier, it's often helpful to add scripts in your `package.json` file:
+ -->
+デフォルトでは、run コマンドの cwd (ワークディレクトリ) は、WordPress のインストールルートです。プラグインで作業している場合、composer や phpunit コマンドが、作業中のプラグインに関連して実行するよう、`--env-cwd` を渡す必要があります。例えば、`wp-env run cli --env-cwd=wp-content/plugins/gutenberg composer install` です。
+
+これを簡単に実行するには、`package.json` ファイルにスクリプトを追加します。
+
+```json
+{
+	"scripts": {
+		"composer": "wp-env run cli --env-cwd=wp-content/plugins/gutenberg composer"
+	}
+}
+```
+<!-- 
+Then, `npm run composer install` would run composer install in the environment. You could also do this for phpunit, wp-cli, etc.
+ -->
+`npm run composer install` を実行すると、その環境で composer install が実行されます。これは phpunit や wp-cli などでも同様です。
+
 <!--
 ## Using Xdebug
  -->
@@ -1069,7 +1104,7 @@ tests インスタンスでは同じすべての値が定義されますが、`W
 
 <!-- 
 These hooks are executed at certain points during the lifecycle of a command's execution. Keep in mind that these will be executed on both fresh and existing
-environments, so, ensure any commands you build won't break on subsequent executions. 
+environments, so, ensure any commands you build won't break on subsequent executions.
  -->
 これらのフックは、コマンドの実行ライフサイクル中の特定の時点で実行されます。これらのフックは、新規環境でも、既存環境でも実行されることに注意してください。したがってビルドしたコマンドが連続した実行で環境を壊さないようにしてください。
 
@@ -1080,8 +1115,8 @@ Using the `afterSetup` option in `.wp-env.json` files will allow you to configur
 `.wp-env.json` ファイルで `afterSetup` オプションを使用すると、環境のセットアップが完了した後に実行する任意のコマンドを設定できます。
 
 <!-- 
-- `wp-env start`: Runs when the config changes, WordPress updates, or you pass the `--update` flag.
-- `wp-env clean`: Runs after the selected environments have been cleaned.
+-   `wp-env start`: Runs when the config changes, WordPress updates, or you pass the `--update` flag.
+-   `wp-env clean`: Runs after the selected environments have been cleaned.
  -->
 - `wp-env start`: 設定が変更されたとき、WordPress が更新されたとき、`--update` フラグを渡したときに実行されます。
 - `wp-env clean`: 選択した環境がクリアされた後に実行されます。
@@ -1285,6 +1320,39 @@ This is useful for performing some actions after setting up the environment, suc
 	"afterSetup": "node tests/e2e/bin/setup-env.js"
 }
 ```
+<!-- 
+### Advanced PHP settings
+ -->
+### 高度な PHP 設定
+
+<!-- 
+You can set PHP settings by mapping an `.htaccess` file. This maps an `.htaccess` file to the WordPress root (`/var/www/html`) from the directory in which you run `wp-env`.
+ -->
+PHP の設定は、`.htaccess` ファイルをマッピングすることで可能です。`.htaccess` ファイルは、`wp-env` を実行したディレクトリから、WordPressのルート (`/var/www/html`) にマップされます。
+
+```json
+{
+	"mappings": {
+		".htaccess": ".htaccess"
+	}
+}
+```
+
+<!-- 
+Then, your .htaccess file can contain various settings like this:
+ -->
+.htaccess ファイルには、次のような様々な設定を記入できます。
+
+```
+# Note: the default upload value is 1G.
+php_value post_max_size 2G
+php_value upload_max_filesize 2G
+php_value memory_limit 2G
+```
+<!-- 
+This is useful if there are options you'd like to add to `php.ini`, which is difficult to access in this environment.
+ -->
+これは、この環境ではアクセスが難しい `php.ini` に追加したいオプションがある場合に便利です。
 
 <!-- 
 ## Contributing to this package

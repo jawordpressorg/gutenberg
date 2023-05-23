@@ -128,9 +128,11 @@ Deprecations are defined on a block type as its `deprecated` property, an array 
 		- `boolean`: この非推奨プロセスにより、この代替の正しい (valid) ブロックに移行されるかどうか
 
 <!--
-It's important to note that `attributes`, `supports`, and `save` are not automatically inherited from the current version, since they can impact parsing and serialization of a block, so they must be defined on the deprecated object in order to be processed during a migration.
+<div class="callout callout-alert">
+It's important to note that <code>attributes</code>, <code>supports</code>, and <code>save</code> are not automatically inherited from the current version, since they can impact parsing and serialization of a block, so they must be defined on the deprecated object in order to be processed during a migration.
+</div>
  -->
-重要な点として `attributes`、`supports`、`save` は自動で現行バージョンから継承されないことに注意してください。これはブロックのパースとシリアライゼーションに影響を与えるためです。移行中に処理されるためには非推奨オブジェクトで定義する必要があります。
+> 重要な点として `attributes`、`supports`、`save` は自動で現行バージョンから継承されないことに注意してください。これはブロックのパースとシリアライゼーションに影響を与えるためです。移行中に処理されるためには非推奨オブジェクトで定義する必要があります。
 
 <!--
 ### Example:

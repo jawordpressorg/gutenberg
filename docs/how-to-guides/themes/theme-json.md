@@ -1670,7 +1670,7 @@ This field requires the Gutenberg plugin active and using the [version 2](https:
 注意: このフィールドは、Gutenberg プラグインが有効で、`theme.json`の [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) が必要です。
  -->
 <!-- 
-<div class="callout callout-alert">Supported in WordPress from version 6.0 using [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) of `theme.json`.</div>
+<div class="callout callout-alert">Supported in WordPress from version 6.0 using <a href="https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/">version 2</a> of <code>theme.json</code>.</div>
  -->
 > `theme.json` の [version 2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) を使用して、WordPress Version 6.0 からサポートされます。
 

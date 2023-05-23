@@ -149,7 +149,7 @@ Display code snippets that respect your spacing and tabs. ([Source](https://gith
 
 -	**Name:** core/code
 -	**Category:** text
--	**Supports:** anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight)
+-	**Supports:** align (wide), anchor, color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** content
 
 <!--
@@ -384,9 +384,9 @@ Displays a title with the number of comments ([Source](https://github.com/WordPr
 ## Cover / カバー
 
 <!--
-Add an image or video with a text overlay — great for headers. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/cover))
+Add an image or video with a text overlay. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/cover))
 -->
-テキストオーバーレイを含む画像または動画を追加します。ヘッダーに最適です。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/cover))
+テキストオーバーレイを含む画像または動画を追加します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/cover))
 
 -	**Name:** core/cover
 -	**Category:** media
@@ -398,45 +398,58 @@ Add an image or video with a text overlay — great for headers. ([Source](https
  -->
 ## Details / 詳細
 
+追加コンテンツの表示 / 非表示を切り替えます。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details))
+
+-	**Name:** core/details
+-	**Category:** text
+-	**Supports:** align (full, wide), color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Attributes:** showContent, summary
+
 <!-- 
 A block that displays a summary and shows or hides additional content. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details))
  -->
+<!-- 
 要約を表示し、追加コンテンツを表示 / 非表示できるブロックです。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details))
 
 -	**Name:** core/details
 -	**Category:** text
 -	**Supports:** align, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** showContent
-
+ -->
 <!-- 
 ## Details Content
  -->
+<!--  
 ## Details Content / 詳細コンテンツ
-
+ -->
 <!-- 
 Add content that may be shown or hidden via a Details block. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-content))
  -->
+<!-- 
 詳細ブロックで表示 / 非表示されるコンテンツを追加します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-content))
 
 -	**Name:** core/details-content
 -	**Category:** text
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~align~~, ~~html~~, ~~lock~~, ~~multiple~~, ~~reusable~~
 -	**Attributes:** 
-
+ -->
 <!-- 
 ## Details Summary
  -->
+<!-- 
 ## Details Summary / 詳細要約
-
+ -->
 
 <!-- Provide summary text used to toggle the display of content inside a Details block. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-summary))
  -->
+<!-- 
 詳細ブロックで追加コンテンツの表示の切り替えに使用される要約テキストを設定します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/details-summary))
 
 -	**Name:** core/details-summary
 -	**Category:** text
 -	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~align~~, ~~html~~, ~~lock~~, ~~multiple~~, ~~reusable~~
 -	**Attributes:** summary
+ -->
 
 <!--
 ## Embed
@@ -643,7 +656,7 @@ Show login & logout links. ([Source](https://github.com/WordPress/gutenberg/tree
 
 -	**Name:** core/loginout
 -	**Category:** theme
--	**Supports:** anchor, className, typography (~~fontSize~~)
+-	**Supports:** anchor, className, typography (fontSize, lineHeight)
 -	**Attributes:** displayLoginAsForm, redirectToCurrent
 
 <!--
@@ -809,7 +822,7 @@ Show a block pattern. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 -	**Name:** core/pattern
 -	**Category:** theme
 -	**Supports:** ~~html~~, ~~inserter~~
--	**Attributes:** slug
+-	**Attributes:** slug, syncStatus
 
 <!--
 ## Post Author

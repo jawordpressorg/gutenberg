@@ -10,15 +10,11 @@ This package includes a library of generic WordPress components to be used for c
 <!--
 ## Installation
 
-Install the module
-
 ```bash
 npm install @wordpress/components --save
 ```
 -->
 ## インストール
-
-モジュールのインストール
 
 ```bash
 npm install @wordpress/components --save
@@ -50,11 +46,11 @@ export default function MyButton() {
 ```
 
 <!--
-Many components include CSS to add style, you will need to add in order to appear correctly. Within WordPress, add the `wp-components` stylesheet as a dependency of your plugin's stylesheet. See [wp_enqueue_style documentation](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters) for how to specify dependencies.
+Many components include CSS to add styles, which you will need to load in order for them to appear correctly. Within WordPress, add the `wp-components` stylesheet as a dependency of your plugin's stylesheet. See [wp_enqueue_style documentation](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters) for how to specify dependencies.
 
 In non-WordPress projects, link to the `build-style/style.css` file directly, it is located at `node_modules/@wordpress/components/build-style/style.css`.
 -->
-多くのコンポーネントには期待する表示のため、スタイルを追加する CSS が含まれています。WordPress プロジェクトの場合はプラグインのスタイルシートの依存として `wp-components` スタイルシートを追加してください。依存性の指定については [wp_enqueue_style のドキュメント](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters)を参照してください。
+多くのコンポーネントにはスタイルを追加する CSS が含まれ、期待する表示のためにはそれらを読み込む必要があります。WordPress プロジェクトの場合、プラグインのスタイルシートの依存として `wp-components` スタイルシートを追加してください。依存性の指定については [wp_enqueue_style のドキュメント](https://developer.wordpress.org/reference/functions/wp_enqueue_style/#parameters)を参照してください。
 
 WordPress 以外のプロジェクトの場合は、直接 `build-style/style.css` ファイルをリンクしてください。`node_modules/@wordpress/components/build-style/style.css` にあります。
 
