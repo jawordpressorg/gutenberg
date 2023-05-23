@@ -308,6 +308,11 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/05/23
+- [変換](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) - ungroup 追加 [#50385](https://github.com/WordPress/gutenberg/pull/50385)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ログイン / ログアウト typography [#49160](https://github.com/WordPress/gutenberg/pull/49160)、パターン syncStatus [#50533](https://github.com/WordPress/gutenberg/pull/50533)、コード align (wide) [#50710](https://github.com/WordPress/gutenberg/pull/50710)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - composer、phpunit、wp-cli、.htaccess [#50490](https://github.com/WordPress/gutenberg/pull/50490)
+
 2023/05/03
 - [トップ](https://ja.wordpress.org/team/handbook/block-editor/) - 全面改訂
 - [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/) - 全面改訂 [#49184](https://github.com/WordPress/gutenberg/pull/49184)
