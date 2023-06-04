@@ -38,12 +38,14 @@ Let’s look at the big picture and the architectural and UX principles of the b
 <!-- 
 -   [Key concepts](/docs/explanations/architecture/key-concepts.md).
 -   [Data format and data flow](/docs/explanations/architecture/data-flow.md).
+-   [Entities and undo/redo](/docs/explanations/architecture/entities.md).
 -   [Site editing templates](/docs/explanations/architecture/full-site-editing-templates.md).
 -   [Styles in the editor](/docs/explanations/architecture/styles.md).
 -   [Performance](/docs/explanations/architecture/performance.md).
  -->
 -   [キーコンセプト](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/)
 -   [データフォーマットとデータフロー](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/)
+-   [エンティティと取り消し / やり直し](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/entities/)
 -   [サイト編集テンプレート](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/full-site-editing-templates)
 -   [エディター内のスタイル](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles)
 -   [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance)
@@ -53,6 +55,11 @@ Let’s look at the big picture and the architectural and UX principles of the b
  -->
 ## Gutenberg リポジトリ
 
+<!-- 
+-   [Modularity and WordPress Packages](/docs/explanations/architecture/modularity.md).
+-   [Understand the repository folder structure](/docs/contributors/folder-structure.md).
+-   **Outdated!** [Why is Puppeteer the tool of choice for end-to-end tests?](/docs/explanations/architecture/automated-testing.md).
+ -->
 -   [モジュラリティと WordPress パッケージ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/modularity).
 -   [リポジトリフォルダ構造の理解](https://ja.wordpress.org/team/handbook/block-editor/contributors/folder-structure).
 -   **古い !** [なぜ、エンドツーエンドのテストで選択されたツールが Puppeteer なのか ?](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/automated-testing)

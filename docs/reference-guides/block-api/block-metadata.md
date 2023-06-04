@@ -35,7 +35,7 @@ WordPress 5.8のリリースから、PHP (サーバーサイド) と JavaScript 
 ```json
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "my-plugin/notice",
 	"title": "Notice",
 	"category": "text",
@@ -270,13 +270,13 @@ This section describes all the properties that can be added to the `block.json` 
 -   デフォルト: `1`
 
 ```json
-{ "apiVersion": 2 }
+{ "apiVersion": 3 }
 ```
 
 <!--
-The version of the Block API used by the block. The most recent version is `2` and it was introduced in WordPress 5.6.
+The version of the Block API used by the block. The most recent version is `3` and it was introduced in WordPress 6.3.
  -->
-ブロックが使用するBlock APIのバージョン。最新のバージョンは `2` で、WordPress 5.6 で導入されました。
+ブロックが使用するBlock APIのバージョン。最新のバージョンは `3` で、WordPress 6.3 で導入されました。
 
 <!--
 See the [the API versions documentation](/docs/reference-guides/block-api/block-api-versions.md) for more details.

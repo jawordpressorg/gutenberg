@@ -91,24 +91,16 @@ If your project already has a package.json, it's also possible to use `wp-env` a
 ```sh
 $ npm i @wordpress/env --save-dev
 ```
-<!--
-Then modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
- -->
-<!-- 
-次に package.json を変更し、npm `scripts` (https://docs.npmjs.com/misc/scripts) にコマンドを追加します。
- -->
 
 <!-- 
-At this point, you can use the local, project-level version of wp-env via [`npx`](https://www.npmjs.com/package/npx), a utility automatically installed with `npm`.`npx` finds binaries like wp-env installed through node modules. As an example: `npx wp-env start --update`.
-
-If you don't wish to use `npx`, modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
+If you have also installed `wp-env` globally, running it will automatically execute the local, project-level package. Alternatively, you can execute `wp-env` via [`npx`](https://www.npmjs.com/package/npx), a utility automatically installed with `npm`.`npx` finds binaries like `wp-env` installed through node modules. As an example: `npx wp-env start --update`.
  -->
-この時点で、ローカルのプロジェクトレベルの wp-env を [`npx`](https://www.npmjs.com/package/npx) で使用できます。これは `npm` とともに自動的にインストールされるユーティリティです。`npx` は node モジュールを通してインストールされた wp-env などのバイナリを見つけます。例: `npx wp-env start --update`。
+グローバルに `wp-env` をインストールしている場合、これを実行すると、自動的にローカルのプロジェクトレベルのパッケージが実行されます。代替として `wp-env` を、[`npx`](https://www.npmjs.com/package/npx) で実行できます。`npx` は `npm` とともに自動的にインストールされるユーティリティです。`npx` は node モジュールを通してインストールされた `wp-env` などのバイナリを見つけます。例: `npx wp-env start --update`。
 
 <!-- 
-If you don't wish to use `npx`, modify your package.json and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
+If you don't wish to use the global installation or `npx`, modify your `package.json` and add an extra command to npm `scripts` (https://docs.npmjs.com/misc/scripts):
  -->
-`npx` を使いたくなければ、package.json を変更し、npm `scripts` (https://docs.npmjs.com/misc/scripts) にコマンドを追加します。
+グローバルインストールや `npx` を使いたくなければ、`package.json` を変更し、npm `scripts` (https://docs.npmjs.com/misc/scripts) にコマンドを追加してください。
 
 ```json
 "scripts": {
@@ -650,12 +642,15 @@ WordPress データベースをクリアします。
 <!--
 ### `wp-env run [container] [command]`
  -->
+<!-- 
 ### wp-env run [container] [command]
-
+ -->
 <!-- 
 The run command can be used to open shell sessions or invoke WP-CLI commands.
  -->
+<!-- 
 run コマンドは、シェルセッションを開いたり、WP-CLI コマンドの呼び出しに使用できます。
+ -->
 
 <!-- 
 <div class="callout callout-alert">
@@ -677,8 +672,9 @@ such as <code>--env-cwd</code>, <code>--debug</code>, <code>--help</code>, and <
 back to using quotation marks; <code>wp-env</code> considers everything inside the
 quotation marks to be command argument.
  -->
+<!-- 
 いくつかのケースでは、コンテナに渡したいオプションを `wp-env` が奪ってしまう場合があります。これは、`wp-env` が同じオプションを宣言する場合、例えば、`--env-cwd`、`--debug`、`--help`、`--version` などで発生します。これを防ぐには引用符 (`"`) を使用してください。`wp-env` は、引用符内のすべてをコマンド引数とみなします。
-
+ -->
 <!-- 
 For example, to list cron schedules with optional arguments that specify the fields returned and the format of the output:
  -->
@@ -689,16 +685,18 @@ For example, to list cron schedules with optional arguments that specify the fie
 <!-- 
 For example, to ask <code>WP-CLI</code> for its help text:
  -->
+<!-- 
 たとえば、`WP-CLI` のヘルプメッセージを表示するには、
-
+ -->
 <!-- 
 <pre>sh
 <code class="language-sh">wp-env run cli "wp --help"</code></pre>
  -->
+<!-- 
 ```sh
 wp-env run cli "wp --help"
 ```
-
+ -->
 <!-- 
 Without the quotation marks, WP-CLI lists the schedule in its default format, ignoring the `fields` and `format` arguments.
  -->
@@ -710,11 +708,39 @@ Without the quotation marks, WP-CLI lists the schedule in its default format, ig
 Without the quotation marks, <code>wp-env</code> will print its own help text instead of
 passing it to the container. If you experience any problems where the command
 is not being passed correctly, fall back to using quotation marks.
+ -->
+<!-- 
+引用符がない場合、`wp-env` は、コンテナにオプションを渡す代わりに、自身のヘルプメッセージを表示します。コマンドが正しく渡らない問題が発生した場合は、引用符を使用してください。
+ --> 
 
+<!-- 
+### `wp-env run <container> [command...]`
+ -->
+### wp-env run <container> [command...]
+
+<!-- 
+The run command can be used to open shell sessions, invoke WP-CLI commands, or run any arbitrary commands inside of a container.
+ -->
+run コマンドを使用して、シェルセッションを開いたり、WP-CLI コマンドを呼び出したり、コンテナ内で任意の代替コマンドを実行できます。
+
+<!-- 
+<div class="callout callout-alert">
+<p>
+In some cases <code class="language-sh">wp-env run</code> may conflict with options that you are passing to the container.
+When this happens, <code class="language-sh">wp-env</code> will treat the option as its own and take action accordingly.
+For example, if you try <code class="language-sh">wp-env run cli php --help</code>, you will receive the <code class="language-sh">wp-env</code> help text.
+</p>
+<p>
+You can get around this by passing any conflicting options after a double dash. <code class="language-sh">wp-env</code> will not process anything after
+the double dash and will simply pass it on to the container. To get the PHP help text you would use <code class="language-sh">wp-env run cli php -- --help</code>.
+</p>
 </div>
  -->
-引用符がない場合、`wp-env` は、コンテナにオプションを渡す代わりに、自身のヘルプメッセージを表示します。コマンドが正しく渡らない問題が発生した場合は、引用符を使用してください。
-
+> いくつかのケースでは、`wp-env run` は、コンテナに渡すオプションと競合します。
+> このとき `wp-env` は自身のオプションとして扱い、応じた処理を行います。
+> 例えば、`wp-env run cli php --help` を実行すると、 `wp-env run` のヘルプが表示されます。
+> 
+> こレを回避するには、競合するオプションをダッシュ2つ (`--`) の後に渡します。`wp-env` は、ダッシュ2つ以降を処理せず、単純にコンテナに渡します。例えば、PHP のヘルプを表示するには、`wp-env run cli php -- --help` を使用します。
 
 <!-- 
 Note that quotation marks are not required for a WP-CLI command that excludes optional arguments, although it does not hurt to include them. For example, the following command syntaxes return identical results: `wp-env run cli "wp cron schedule list"` or `wp-env run cli wp cron schedule list`.
@@ -731,18 +757,20 @@ For more information about all the available commands, see [WP-CLI Commands](htt
 
 <!--
 ```sh
-wp-env run <container> [command..]
+wp-env run <container> [command...]
 
-Runs an arbitrary command in one of the underlying Docker containers. The
-"container" param should reference one of the underlying Docker services like
-"development", "tests", or "cli". To run a wp-cli command, use the "cli" or
-"tests-cli" service. You can also use this command to open shell sessions like
-bash and the WordPress shell in the WordPress instance. For example, `wp-env run
-cli bash` will open bash in the development WordPress instance.
+Runs an arbitrary command in one of the underlying Docker containers. A double
+dash can be used to pass arguments to the container without parsing them. This
+is necessary if you are using an option that is defined below. You can use
+`bash` to open a shell session and both `composer` and `phpunit` are available
+in all WordPress and CLI containers. WP-CLI is also available in the CLI
+containers.
 
 Positionals:
-  container  The container to run the command on.            [string] [required]
-  command    The command to run.                           [array] [default: []]
+  container  The Docker service to run the command on.
+              [string] [required] [choices: "mysql", "tests-mysql", "wordpress",
+                   "tests-wordpress", "cli", "tests-cli", "composer", "phpunit"]
+  command    The command to run.                                      [required]
 
 Options:
   --debug    Enable debug output.                     [boolean] [default: false]
@@ -754,17 +782,18 @@ Options:
 For example:
  -->
 ```sh
-wp-env run <container> [command..]
+wp-env run <container> [command...]
 
-動作している Docker コンテナ内で任意のコマンドを実行します。
-"container" パラメータは Docker サービス "development"、"tests"、"cli"の1つを指定する必要が
-あります。wp-cli コマンドを実行するには "cli" または "tests-cli" サービスを使用してください。
-また bash のようなシェルセッションや、WordPress インスタンス内の WordPress シェルを開くためにも
-使用できます。たとえば `wp-env run cli bash` は開発 WordPress インスタンス内で bash を開きます。
+動作している Docker コンテナ内で任意のコマンドを実行します。ダッシュ2つ (`--`) を使用すると、
+引数をパースせずにコンテナに渡します。これは、以下で定義されるオプションを使用する際に必要です。
+シェルセッションを開くには `bash` を使用します。`composer` と `phpunit` の両方は、
+すべての WordPress と CLI コンテナで利用可能です。WP-CLI も CLI コンテナで利用可能です。
 
 引数:
-  container  コマンドを実行するコンテナ        [string] [必須]
-  command    実行するコマンド                [array] [デフォルト: []]
+  container  コマンドを実行する Docker サービス                     [string] [必須]
+             [選択: "mysql", "tests-mysql", "wordpress",
+                   "tests-wordpress", "cli", "tests-cli", "composer", "phpunit"]
+  command    実行するコマンド                                      [必須]
 
 オプション:
   --debug    デバッグ出力の有効化                     [boolean] [デフォルト: false]
@@ -883,7 +912,8 @@ Destroy the WordPress environment. Deletes docker containers, volumes, and
 networks associated with the WordPress environment and removes local files.
 
 Options:
-  --debug            Enable debug output.             [boolean] [default: false]
+  --debug    Enable debug output.                     [boolean] [default: false]
+  --scripts  Execute any configured lifecycle scripts. [boolean] [default: true]
 ```
  -->
 ### wp-env destroy
@@ -896,6 +926,7 @@ WordPress 環境を破壊します。WordPress 環境と関連する Docker コ�
 
 オプション:
   --debug    デバッグ出力の有効化                         [boolean] [デフォルト: false]
+  --scripts  構成済みのライフサイクルスクリプトを実行        [boolean] [デフォルト: true]
 
 ```
 <!--
@@ -1100,32 +1131,61 @@ tests インスタンスでは同じすべての値が定義されますが、`W
 <!--
 ## Lifecycle Hooks
  -->
+<!-- 
 ## ライフサイクルフック
-
+ -->
 <!-- 
 These hooks are executed at certain points during the lifecycle of a command's execution. Keep in mind that these will be executed on both fresh and existing
 environments, so, ensure any commands you build won't break on subsequent executions.
  -->
+<!--  
 これらのフックは、コマンドの実行ライフサイクル中の特定の時点で実行されます。これらのフックは、新規環境でも、既存環境でも実行されることに注意してください。したがってビルドしたコマンドが連続した実行で環境を壊さないようにしてください。
-
+ -->
+<!-- 
 ### After Setup
+ -->
 <!-- 
 Using the `afterSetup` option in `.wp-env.json` files will allow you to configure an arbitrary command to execute after the environment's setup is complete:
  -->
+<!-- 
 `.wp-env.json` ファイルで `afterSetup` オプションを使用すると、環境のセットアップが完了した後に実行する任意のコマンドを設定できます。
-
+ -->
 <!-- 
 -   `wp-env start`: Runs when the config changes, WordPress updates, or you pass the `--update` flag.
 -   `wp-env clean`: Runs after the selected environments have been cleaned.
  -->
+<!-- 
 - `wp-env start`: 設定が変更されたとき、WordPress が更新されたとき、`--update` フラグを渡したときに実行されます。
 - `wp-env clean`: 選択した環境がクリアされた後に実行されます。
-
+ -->
 <!-- 
 You can override the `afterSetup` option using the `WP_ENV_AFTER_SETUP` environment variable.
  -->
+<!-- 
 `afterSetup` オプションは、環境変数 `WP_ENV_AFTER_SETUP` を使用して上書きできます。
+ -->
 
+<!-- 
+## Lifecycle Scripts
+ -->
+## ライフサイクルスクリプト
+
+<!-- 
+Using the `lifecycleScripts` option in `.wp-env.json` will allow you to set arbitrary commands to be executed at certain points in the lifecycle. This configuration
+can also be overridden using `WP_ENV_LIFECYCLE_SCRIPT_{LIFECYCLE_EVENT}` environment variables, with the remainder being the all-caps snake_case name of the option, for
+example, `WP_ENV_LIFECYCLE_SCRIPT_AFTER_START`. Keep in mind that these will be executed on both fresh and existing environments, so, ensure any commands you
+build won't break on subsequent executions.
+ -->
+`.wp-env.json` の `lifecycleScripts` オプションを使用すると、ライフサイクルの特定の時点で実行される任意のコマンドを設定できます。この設定は `WP_ENV_LIFECYCLE_SCRIPT_{LIFECYCLE_EVENT}` 環境変数を使用して上書きできます。このとき、残りは例えば `WP_ENV_LIFECYCLE_SCRIPT_AFTER_START` のように、オプション名をすべて大文字の snake_case で指定します。これらは新しい環境でも、既存の環境でも、実行されることに注意してください。ビルドしたコマンドが連続した実行で環境を壊さないようにしてください。
+
+<!-- 
+* `afterStart`: Runs after `wp-env start` has finished setting up the environment.
+* `afterClean`: Runs after `wp-env clean` has finished cleaning the environment.
+* `afterDestroy`: Runs after `wp-env destroy` has destroyed the environment.
+ -->
+* `afterStart`: `wp-env start` が完了し、環境がセットアップされた後で実行されます。
+* `afterClean`: `wp-env clean` が完了し、環境がクリーンアップされた後で実行されます。
+* `afterDestroy`: `wp-env destroy` が環境を破壊した後で、実行されます。
 <!-- 
 ## Examples
  -->
@@ -1317,7 +1377,9 @@ This is useful for performing some actions after setting up the environment, suc
 
 ```json
 {
-	"afterSetup": "node tests/e2e/bin/setup-env.js"
+	"lifecycleScripts": {
+		"afterStart": "node tests/e2e/bin/setup-env.js"
+	}
 }
 ```
 <!-- 

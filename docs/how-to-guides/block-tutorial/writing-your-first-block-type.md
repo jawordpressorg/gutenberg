@@ -127,7 +127,7 @@ Create a basic `block.json` file there:
  -->
 ```json
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"title": "Example: Basic (ESNext)",
 	"name": "gutenberg-examples/example-01-basic-esnext",
 	"category": "layout",
@@ -145,7 +145,7 @@ Note the above example, shows using the [wp-scripts build step](/docs/how-to-gui
  -->
 ```json
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"title": "Example: Basic",
 	"name": "gutenberg-examples/example-01-basic",
 	"category": "layout",

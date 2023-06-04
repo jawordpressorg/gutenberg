@@ -2,6 +2,15 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/6/4
+- 多数 - apiVersion: 3 [#48286](https://github.com/WordPress/gutenberg/pull/48286)
+- Block Grammer - 削除
+- Upcoming Projects & Roadmap - 削除
+- [Entities and Undo/Redo.](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/entities/) - 新規
+- [スタイルとスタイルシートの利用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/applying-styles-with-stylesheets/) - iframe の注意 [#50091](https://github.com/WordPress/gutenberg/pull/50091)、iframe [#48286](https://github.com/WordPress/gutenberg/pull/48286)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - カラム design に [#46048](https://github.com/WordPress/gutenberg/pull/46048)、parent、experimental 追加 [#48269](https://github.com/WordPress/gutenberg/pull/48269)、画像 behaviors [#49972](https://github.com/WordPress/gutenberg/pull/49972)、詳細 experimental 削除 [#50997](https://github.com/WordPress/gutenberg/pull/50997)、ページネーション showLabel [#50779](https://github.com/WordPress/gutenberg/pull/50779)、タイトル [#50147](https://github.com/WordPress/gutenberg/pull/50147)、投稿テンプレート blockGap、クエリーループ displayLayout 削除 [#49050](https://github.com/WordPress/gutenberg/pull/49050)、検索 buttonBehavior、isSearchFieldHidden [#50487](https://github.com/WordPress/gutenberg/pull/50487)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - ライフサイクルスクリプト [#50570](https://github.com/WordPress/gutenberg/pull/50570)、run の整理 [#50559](https://github.com/WordPress/gutenberg/pull/50559)、ローカルパッケージの使用 [#50980](https://github.com/WordPress/gutenberg/pull/50980)
+
 2023/05/23
 - [変換](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) - ungroup 追加 [#50385](https://github.com/WordPress/gutenberg/pull/50385)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ログイン / ログアウト typography [#49160](https://github.com/WordPress/gutenberg/pull/49160)、パターン syncStatus [#50533](https://github.com/WordPress/gutenberg/pull/50533)、コード align (wide) [#50710](https://github.com/WordPress/gutenberg/pull/50710)

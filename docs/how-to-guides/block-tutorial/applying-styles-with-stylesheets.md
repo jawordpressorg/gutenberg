@@ -296,6 +296,13 @@ Use the `editorStyle` property to a CSS file you want to load in the editor view
 エディタービューでロードしたい CSS ファイルには `editorStyle` プロパティを、ブロックが使用されたときにフロントエンドでロードしたい CSS ファイルには `style` プロパティを使用します。
 
 <!-- 
+It is worth noting that, if the editor content is iframed, both of these will
+load in the iframe. `editorStyle` will also load outside the iframe, so it can
+be used for editor content as well as UI. 
+ -->
+注意として、エディターコンテンツが iframe 化されている場合、これらの両方が iframe 内にロードされます。`editorStyle` は iframe の外側にも読み込まれるため、UI だけでなくエディターコンテンツにも使用できます。
+
+<!-- 
 For example:
  -->
 例:
@@ -314,7 +321,7 @@ Let's move on into code. Create a file called `editor.css`:
  -->
 ```json
 {
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "gutenberg-examples/example-02-stylesheets",
 	"title": "Example: Stylesheets",
 	"icon": "universal-access-alt",
