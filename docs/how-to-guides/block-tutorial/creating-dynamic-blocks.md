@@ -10,21 +10,21 @@ There are two primary uses for dynamic blocks:
 
 1. Blocks where content should change even if a post has not been updated. One example from WordPress itself is the Latest Posts block. This block will update everywhere it is used when a new post is published.
  -->
-ダイナミックブロックはフロントエンドでレンダーされる際に動的に構造とコンテンツを構築するブロックです。
+ダイナミックブロックは、フロントエンドでレンダーされる際に、動的に構造とコンテンツを構築するブロックです。
 
 ダイナミックブロックの代表的な使用例が2つあります。
 
-1. 投稿が更新されていなくてもコンテンツを変更するブロック。WordPress から例を挙げると「最近の更新」ブロックがあります。このブロックは新しい投稿が発行されるとすべての使用箇所を更新します。
+1. 投稿が更新されていなくてもコンテンツを変更するブロック。WordPress から例を挙げると「最近の更新」ブロックです。新しい投稿が公開されると、このブロックを使用しているすべての箇所が更新されます。
 
 <!--
 2. Blocks where updates to the code (HTML, CSS, JS) should be immediately shown on the front end of the website. For example, if you update the structure of a block by adding a new class, adding an HTML element, or changing the layout in any other way, using a dynamic block ensures those changes are applied immediately on all occurrences of that block across the site. (If a dynamic block is not used then when block code is updated Gutenberg's [validation process](/docs/reference-guides/block-api/block-edit-save.md#validation) generally applies, causing users to see the validation message, "This block appears to have been modified externally").
  -->
-2. HTML、CSS、JS などのコードを更新するとすぐにWeb サイトのフロントエンド側で反映されるブロック。たとえば新しいクラスを追加したり、HTML 要素を追加したり、その他の方法でレイアウトを変更してブロックの構造を更新した場合、ダイナミックブロックを使えばサイト内のすべてのブロックの使用箇所に即座に変更を適用できます。ダイナミックブロックを使わない場合、ブロックコードが更新されると Gutenberg の[妥当性検証プロセス](https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#validation)が適用され、ユーザーに検証メッセージ「ブロックの外観は外部で更新されました」が表示されます。
+2. HTML、CSS、JS などのコードの更新が、Web サイトのフロントエンド側にすぐに反映されるブロック。たとえば新しいクラスの追加、HTML 要素の追加、その他の方法によるレイアウトの変更でブロックの構造を更新しても、ダイナミックブロックを使用していれば、サイト内のすべてのブロックの使用箇所に、即座に変更を適用できます (ダイナミックブロックを使用せずにブロックコードを更新すると、Gutenberg の[妥当性検証プロセス](https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#validation)が適用され、ユーザーに検証メッセージ「ブロックの外観は外部で更新されました」が表示されます)。
 
 <!--
 For many dynamic blocks, the `save` callback function should be returned as `null`, which tells the editor to save only the [block attributes](/docs/reference-guides/block-api/block-attributes.md) to the database. These attributes are then passed into the server-side rendering callback, so you can decide how to display the block on the front end of your site. When you return `null`, the editor will skip the block markup validation process, avoiding issues with frequently-changing markup.
  -->
-多くのダイナミックブロックでは `save` コールバック関数は `null` として返されるべきです。これを受けてエディターはデータベースに[ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)のみを保存します。その後、これらの属性はサーバー側レンダリングコールバックに渡されるため、サイトのフロントエンドでどのようにブロックを表示するか決定できます。`null` を返すとエディターはブロックのマークアップの妥当性検査プロセスをスキップするため、頻繁にマークアップを変更する際の問題を回避できます。
+ほとんどのダイナミックブロックで `save` コールバック関数は `null` を返してください。これはエディターに、[ブロックの属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)のみをデータベースに保存するよう通知します。属性はサーバー側レンダリングコールバック内に渡されるため、サイトのフロントエンドでのブロックの表示方法を決定できます。`null` を返すとエディターはブロックのマークアップの妥当性検査プロセスをスキップするため、頻繁にマークアップを変更する際の問題を回避できます。
 
 <!--
 If you are using [InnerBlocks](/docs/how-to-guides/block-tutorial/nested-blocks-inner-blocks.md) in a dynamic block you will need to save the `InnerBlocks` in the `save` callback function using `<InnerBlocks.Content/>`
@@ -38,11 +38,11 @@ Block attributes can be used for any content or setting you want to save for tha
 
 The following code example shows how to create a dynamic block that shows only the last post as a link.
  -->
-ブロックの HTML 表現も保存できます。サーバー側レンダリングコールバックを提供すると、この HTML はコールバックの出力で置換されますが、ブロックが無効化されたり、レンダリングコールバックが削除される場合には、レンダーされます。
+ブロックの HTML 表現も保存できます。この HTML は、サーバー側レンダリングコールバックがあると、そのコールバックの出力で置換されます。しかしブロックを無効化したり、レンダリングコールバックを削除するとレンダーされます。
 
-ブロックの属性は、ブロックのために保存したい任意のコンテツや設定に対して使用できます。最初の最新の投稿ブロックの例では、フロントエンドに表示したい最新の投稿数を属性として保存できます。2番目の例では、フロントエンドで表示したい各コンテンツの部品、たとえば見出しテキスト、段落テキスト、画像、URLとして属性を使用できます。
+ブロックの属性は、そのブロックに保存したい任意のコンテツや設定に使用できます。上で紹介した最新の投稿ブロックの例では、属性としてフロントエンドに表示したい最新の投稿数を保存できます。また2番目の例では、フロントエンドで表示したいコンテンツの部品、たとえば見出しテキスト、段落テキスト、画像、URLのそれぞれに属性を使用できます。
 
-次のコード例では最後の投稿だけをリンクとして表示するダイナミックブロックを作成します。
+次のコード例は、最後の投稿のみをリンクとして表示するダイナミックブロックを作成します。
 
 **JSX**
 <!-- 
@@ -128,7 +128,7 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 <!--
 Because it is a dynamic block it doesn't need to override the default `save` implementation on the client. Instead, it needs a server component. The contents in the front of your site depend on the function called by the `render_callback` property of `register_block_type`.
  -->
-これはダイナミックブロックですのでクライアントのデフォルトの `save` 実装をオーバーライドする必要はありません。代わりにサーバーコンポーネントが必要です。サイトのフロントエンドのコンテツは `register_block_type` の `render_callback` プロパティに呼び出される関数に依存します。
+これはダイナミックブロックですのでクライアントのデフォルトの `save` 実装をオーバーライドする必要はありません。代わりにサーバーコンポーネントが必要です。サイトのフロントエンド内のコンテンツは `register_block_type` の `render_callback` プロパティに呼び出される関数に依存します。
 
 ```php
 <?php
