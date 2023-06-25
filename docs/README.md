@@ -308,6 +308,13 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/6/24
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - source 追加 [#51672](https://github.com/WordPress/gutenberg/pull/51672)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - anchor ダイナミックブロックでは未サポート [#51288](https://github.com/WordPress/gutenberg/pull/51288)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 投稿の抜粋 -> 抜粋 [#50167](https://github.com/WordPress/gutenberg/pull/50167)、画像 lightbox [#51232](https://github.com/WordPress/gutenberg/pull/51232)、多数 anchor 削除 [#51288](https://github.com/WordPress/gutenberg/pull/51288)、多数 layout 追加 [#51434](https://github.com/WordPress/gutenberg/pull/51434)、再利用ブロック -> パターン、パターン -> パターンプレースホルダー [#51144](https://github.com/WordPress/gutenberg/pull/51144)、パターンプレースホルダー syncStatus 削除 [#51719](https://github.com/WordPress/gutenberg/pull/51719)、画像 aspectRatio、scale 追加 [#51545](https://github.com/WordPress/gutenberg/pull/51545)、脚注 追加 [#51201](https://github.com/WordPress/gutenberg/pull/51201)
+- [Coding Guidelines](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/coding-guidelines/) - lock-unlock [#51322](https://github.com/WordPress/gutenberg/pull/51322)
+- [React Native Integration Test Guide](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/integration-test-guide/) - waitfor -> findxxx [#46735](https://github.com/WordPress/gutenberg/pull/46735)
+
 2023/6/4
 - 多数 - apiVersion: 3 [#48286](https://github.com/WordPress/gutenberg/pull/48286)
 - Block Grammer - 削除

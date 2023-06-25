@@ -7,7 +7,7 @@
 Block Patterns are predefined block layouts, ready to insert and tweak.
 Block Patterns are predefined block layouts, available from the patterns tab of the block inserter. Once inserted into content, the blocks are ready for additional or modified content and configuration.
  -->
-ブロックパターンは事前に定義されたブロックのレイアウトです。ブロックインサーターの「パターン」タブから利用できます。コンテンツ内に挿入すると、ブロックはコンテンツや構成を追加、変更できます。
+ブロックパターンは、あらかじめ定義されたブロックのレイアウトで、挿入して微調整できます。ブロックインサーターの「パターン」タブから利用できます。ブロックパターンをコンテンツ内に挿入すると、含まれるブロックのコンテンツや構成を追加、変更できます。
 
 <!--
 In this Document:
@@ -100,6 +100,7 @@ The properties available for block patterns are:
 -   `postTypes` (optional): An array of post types that the pattern is restricted to be used with. The pattern will only be available when editing one of the post types passed on the array, for all the other post types the pattern is not available at all.
 -   `templateTypes` (optional): An array of template types where the pattern makes sense e.g: '404' if the pattern is for a 404 page, single-post if the pattern is for showing a single post.
 -   `inserter` (optional): By default, all patterns will appear in the inserter. To hide a pattern so that it can only be inserted programmatically, set the `inserter` to `false`.
+-   `source` (optional): A string that denotes the source of the pattern. For a plugin registering a pattern, pass the string 'plugin'. For a theme, pass the string 'theme'.
  -->
 -   `title` (必須): 表示されるパターンのタイトル。
 -   `content` (必須): パターンのブロック HTML マークアップ。
@@ -111,6 +112,7 @@ The properties available for block patterns are:
 -   `postTypes` (オプション): このパターンを使用可能な投稿タイプの配列。配列で指定した投稿タイプのいずれかを編集する際にのみこのパターンを使用でき、その他のすべての投稿タイプではまったく使用できない。
 -   `templateTypes` (オプション): パターンが意味を持つ、テンプレートタイプの配列。例: パターンが 404 ページ用であれば '404'。パターンが単一の投稿用であれば single-post。
 -   `inserter` (オプション): デフォルトでは、すべてのパターンはインサーターに表示されます。プログラムでのみ挿入できるようにパターンを非表示にするには、`inserter` を `false` に設定します。
+-   `source` (オプション): パターンのソースを示す文字列。パターンを登録するプラグインの場合は、文字列 'plugin' を指定します。テーマの場合は文字列 'theme' を指定します。
 
 <!--
 The following code sample registers a block pattern named 'my-plugin/my-awesome-pattern':

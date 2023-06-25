@@ -105,7 +105,7 @@ import { MyComponentWithPopover } from './my-component';
 const Example = () => {
 	<SlotFillProvider>
 		<MyComponentWithPopover />
-		<Popover.Slot>
+		<Popover.Slot />
 	</SlotFillProvider>
 };
 ```

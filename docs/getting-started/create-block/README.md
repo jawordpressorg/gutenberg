@@ -8,9 +8,9 @@ Let's get you started creating your first block for the WordPress Block Editor. 
 
 The tutorial includes setting up your development environment, tools, and getting comfortable with the new development model. If you are already comfortable, try the quick start below, otherwise step through whatever part of the tutorial you need.
  -->
-WordPress ブロックエディター用の、はじめてのブロックを作ります。ここではメッセージを入力し、スタイリングできるシンプルなブロックを作成します。
+WordPress ブロックエディター用の、はじめてのブロックを作成します。シンプルなブロックですがユーザーはメッセージを入力し、スタイリングできます。
 
-このチュートリアルには、開発環境とツールのセットアップの他に、新しい開発モデルに親しむという目的が含まれています。すでに親しんでいる方は以下のクイックスタートを試すか、必要な箇所にジャンプしてください。
+このチュートリアルには、開発環境とツールのセットアップの他に、新しい開発モデルに親しむという目的も含まれています。すでに経験のある方は以下のクイックスタートを試すか、必要な箇所にジャンプしてください。
 
 <!--
 ## Prerequisites
@@ -31,7 +31,7 @@ The `@wordpress/create-block` package exists to create the necessary block scaff
 
 From your plugins directory, to create your block run:
  -->
-`@wordpress/create-block` パッケージはブロックを作成する際に必要なブロックのひな形を作成します。詳細については [create-block パッケージのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/)を参照してください。このクイックスタートは node や WordPress サイトを含む開発環境があることを仮定します。
+`@wordpress/create-block` パッケージはブロックを作成する際に必要なブロックのひな形を作成します。詳細については [create-block パッケージのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/)を参照してください。このクイックスタートでは node や WordPress サイトを含む開発環境があることを仮定します。
 
 プラグイン用ディレクトリで次のコマンド実行してブロックを作成します。
 
@@ -48,13 +48,13 @@ The [npx command](https://docs.npmjs.com/cli/v8/commands/npx) runs a command fro
 
 You now need to activate the plugin from inside wp-admin plugins page.
 
-After activated, go to the block editor and use the inserter to search and add your new block.
+After activation, go to the block editor and use the inserter to search and add your new block.
  -->
-[npx コマンド](https://docs.npmjs.com/cli/v8/commands/npx)は、リモートパッケージからコマンドを実行します。この場合、create-block パッケージは新しいディレクトリ `gutenpride` を作成し、必要なファイルをインストールし、ブロックプラグインをビルドします。対話モードを使用して詳細を1つずつ指定するには、名前 `gutenpride` を指定せずにコマンドを実行してください。
+[npx コマンド](https://docs.npmjs.com/cli/v8/commands/npx)は、リモートパッケージからコマンドを実行します。この場合、create-block パッケージは新しいディレクトリ `gutenpride` を作成し、必要なファイルをインストールし、ブロックプラグインをビルドします。対話モードを使用して詳細を1つずつ指定するには、「`gutenpride`」を指定せずに、コマンドを実行してください。
 
 管理画面のプラグインページでプラグインを有効化します。
 
-有効化後、ブロックエディターに行き、インサーターを使用して新しいブロックを検索し、追加してください。
+有効化後、ブロックエディターを開き、インサーターを使用して新しいブロックを検索し、追加してください。
 
 <!--
 ## Table of Contents

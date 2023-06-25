@@ -6,7 +6,7 @@
 <!-- 
 Welcome! Let's get started building with blocks. Blocks are at the core of extending WordPress. You can create custom blocks, your own block patterns, or combine them together to build a block theme. At a high level, here are a few ways to begin your journey but read on to explore more:
  -->
-ようこそ ! さっそくブロックを作っていきましょう。ブロックは、WordPress を拡張する核です。カスタムブロックや独自のブロックパターンを作成したり、ブロックを組み合わせてブロックテーマを構築できます。高いレベルでは、ブロックの作成にはいくつかの方法がありますが、まずは以下に目を通してください。
+ようこそ ! さっそくブロックを作っていきましょう。ブロックは、WordPress 拡張の中核です。カスタムブロックや独自のブロックパターンを作成したり、ブロックを組み合わせてブロックテーマを構築できます。ブロックの作成にはいくつかの方法がありますが、まずは以下に目を通してください。
 
 <!-- 
 - Learn more about where this work is going by [reviewing the long term roadmap](https://wordpress.org/about/roadmap/).
@@ -54,9 +54,9 @@ Welcome! Let's get started building with blocks. Blocks are at the core of exten
 -   [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - ブロックテーマでのブロックを使用したテンプレートの構築と、theme.json を使用したスタイルの提供を学びます。
 
 <!-- 
--   [Convert as Classic Theme to a Block Theme](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - Learn how to adopt various pieces of full site editing in your classic theme.
+-   [Convert a Classic Theme to a Block Theme](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - Learn how to adopt various pieces of full site editing in your classic theme.
  -->
--   [Convert as Classic Theme to a Block Theme](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - Learn how to adopt various pieces of full site editing in your classic theme.
+-   [クラシックテーマからブロックテーマへの変換](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - クラシックテーマでフルサイト編集の様々なパーツを採用する方法を学びます。
 
 <!-- 
 ## Ways to Stay Informed

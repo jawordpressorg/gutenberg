@@ -18,7 +18,7 @@ Some block supports — for example, `anchor` or `className` — apply their att
 <!-- 
 Opting into any of these features will register additional attributes on the block and provide the UI to manipulate that attribute.
  -->
-機能にオプトインすると、ブロックに追加の属性が登録され、属性を操作するUIが提供されます。
+機能をオプトインすると、ブロックに追加の属性が登録され、属性を操作する UI が提供されます。
 
 <!-- 
 In order for the attribute to get applied to the block the generated properties get added to the wrapping element of the block. They get added to the object you get returned from the `useBlockProps` hook.
@@ -84,7 +84,7 @@ function render_block() {
 - デフォルト値: `false`
 
 <!--
-Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link.
+Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link. _Important: It doesn't work with dynamic blocks yet._
 
 ```js
 // Declare support for anchor links.
@@ -93,10 +93,10 @@ supports: {
 }
 ```
  -->
-アンカーを使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。
+anchor を使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。_重要: ダイナミックブロックでは、まだ動作しません。_
 
 ```js
-// アンカーリンクのサポートを宣言
+// anchor リンクのサポートを宣言
 supports: {
     anchor: true
 }
@@ -534,7 +534,7 @@ When the block declares support for `color.__experimentalDuotone`, the attribute
 <!-- 
 _**Note:** Deprecated since WordPress 6.3._
 
-This property has been replaced by [`filter.duotone`](#filter-duotone). 
+This property has been replaced by [`filter.duotone`](#filter-duotone).
  -->
 _**注意:** WordPress 6.3から非推奨となりました。_
 

@@ -199,7 +199,7 @@ For the `editorScript` provided in the block metadata, the build process creates
 ブロックメタデータで提供される `editorScript` に対して、ビルドプロセスは2つ目のアセットファイル `build/index.asset.php` を作成します。ファイルには依存性とタイムスタンプに基づくファイルバージョンのリストが含まれています。
 
 <!--
-The `wp_register_script` function used internally registers a name, called the handle, and relates that name to the script file. The dependencies are used to specify if the script requires including other libraries. The version is specified so the browser will reload if the file changed.
+The `wp_register_script` function used internally registers a name, called the handle, and relates that name to the script file. The dependencies are used to specify if the script requires including other libraries. The version is specified so the browser will reload if the file is changed.
  -->
 内部で使用される `wp_register_script` は「ハンドル」と呼ばれる名前を登録し、その名前をスクリプトファイルに関連付けます。スクリプトが、他のライブラリのインクルードを必要とする場合、依存性を使用してこれを指定します。またバージョンを指定すると、ファイルが更新された場合にブラウザがリロードします。
 
