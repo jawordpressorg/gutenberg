@@ -1193,6 +1193,134 @@ supports: {
 }
 ```
 
+## layout
+
+<!-- 
+-   Type: `boolean` or `Object`
+-   Default value: null
+-   Subproperties:
+    -   `default`: type `Object`, default value null
+    -   `allowSwitching`: type `boolean`, default value `false`
+    -   `allowEditing`: type `boolean`, default value `true`
+    -   `allowInheriting`: type `boolean`, default value `true`
+    -   `allowSizingOnChildren`: type `boolean`, default value `false`
+    -   `allowVerticalAlignment`: type `boolean`, default value `true`
+    -   `allowJustification`: type `boolean`, default value `true`
+    -   `allowOrientation`: type `boolean`, default value `true`
+
+This value only applies to blocks that are containers for inner blocks. If set to `true` the layout type will be `flow`. For other layout types it's necessary to set the `type` explicitly inside the `default` object.
+ -->
+-   タイプ: `boolean` または `Object`
+-   デフォルト値: null
+-   サブプロパティ:
+    -   `default`: タイプ `Object`, デフォルト値 null
+    -   `allowSwitching`: タイプ `boolean`, デフォルト値 `false`
+    -   `allowEditing`: タイプ `boolean`, デフォルト値 `true`
+    -   `allowInheriting`: タイプ `boolean`, デフォルト値 `true`
+    -   `allowSizingOnChildren`: タイプ `boolean`, デフォルト値 `false`
+    -   `allowVerticalAlignment`: タイプ `boolean`, デフォルト値 `true`
+    -   `allowJustification`: タイプ `boolean`, デフォルト値 `true`
+    -   `allowOrientation`: タイプ `boolean`, デフォルト値 `true`
+
+この値は内部ブロックのコンテナとなるブロックにのみ適用されます。`true` に設定するとレイアウトタイプは `flow` になります。その他のレイアウトタイプでは、`default` オブジェクト内で明示的に `type` を設定する必要があります。
+
+### layout.default
+<!-- 
+-   Type: `Object`
+-   Default value: null
+
+Allows setting the `type` property to define what layout type is default for the block, and also default values for any properties inherent to that layout type, e.g., for a `flex` layout, a default value can be set for `flexWrap`.
+ -->
+-   タイプ: `Object`
+-   デフォルト値: null
+
+`type` プロパティを設定することで、ブロックのデフォルトのレイアウトタイプを定義できます。また、そのレイアウトタイプに固有のプロパティのデフォルト値も定義できます。たとえば、`flex` レイアウトに対してデフォルト値に `flexWrap` を設定できます。
+
+### layout.allowSwitching
+<!-- 
+-   Type: `boolean`
+-   Default value: `false`
+
+Exposes a switcher control that allows toggling between all existing layout types.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `false`
+
+既存のすべてのレイアウトタイプを切り替えられるスイッチャーコントロールを公開します。
+
+### layout.allowEditing
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+
+Determines display of layout controls in the block sidebar. If set to false, layout controls will be hidden.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+ブロックサイドバーのレイアウトコントロールの表示を決定できます。false に設定すると、レイアウトコントロールは表示されません。
+
+### layout.allowInheriting
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+
+For the `flow` layout type only, determines display of the "Inner blocks use content width" toggle.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+`flow` レイアウトタイプのみ。「コンテンツ幅を使用するインナーブロック」トグルの表示を決定します。
+
+### layout.allowSizingOnChildren
+<!-- 
+-   Type: `boolean`
+-   Default value: `false`
+
+For the `flex` layout type only, determines display of sizing controls (Fit/Fill/Fixed) on all child blocks of the flex block.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `false`
+
+`flex` レイアウトタイプのみ。フレックスブロックのすべての子ブロックのサイズコントロール (Fit/Fill/Fixed) の表示を決定します。
+
+### layout.allowVerticalAlignment
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+
+For the `flex` layout type only, determines display of the vertical alignment control in the block toolbar.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+`flex` レイアウトタイプのみ。ブロックツールバーの縦方向の位置揃えコントロールの表示を決定します。
+
+### layout.allowJustification
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+
+For the `flex` layout type, determines display of the justification control in the block toolbar and block sidebar. For the `constrained` layout type, determines display of justification control in the block sidebar.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+`flex` レイアウトタイプのみ。ブロックツールバーとブロックサイドバーの配置コントロールの表示を決定します。`制約`レイアウトタイプでは、ブロックサイドバーの配置コントロールの表示を決定します。
+
+### layout.allowOrientation
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+
+For the `flex` layout type only, determines display of the orientation control in the block toolbar.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+`flex` レイアウトタイプのみ。ブロックツールバーの方向コントロールの表示を決定します。
+
+
 ## multiple
 <!--
 -   Type: `boolean`

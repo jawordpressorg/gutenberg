@@ -308,6 +308,23 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/7/29
+- [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - npm run test:native [#51869](https://github.com/WordPress/gutenberg/pull/51869)
+- [Setup guide for React Native development (macOS)](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/osx-setup-guide/) - 同上
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - Creating a minor release for previous stable releases 追加 [#49968](https://github.com/WordPress/gutenberg/pull/49968)
+- [Scripts](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/) - nux [#52455](https://github.com/WordPress/gutenberg/pull/52455)
+- [Testing Overview](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/) - npm run test:native [#51869](https://github.com/WordPress/gutenberg/pull/51869)
+[WordPress に組み込まれたバージョン](https://ja.wordpress.org/team/handbook/block-editor/contributors/versions-in-wordpress/) - 6.3 [#51984](https://github.com/WordPress/gutenberg/pull/51984)
+[Entities and Undo/Redo.](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/entities/) - Transient -> Cached [#51644](https://github.com/WordPress/gutenberg/pull/51644)
+- [Styles](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles/) - layout 更新 [#52316](https://github.com/WordPress/gutenberg/pull/52316)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - link-color [#51775](https://github.com/WordPress/gutenberg/pull/51775)、border [#51777](https://github.com/WordPress/gutenberg/pull/51777)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - link-color [#51775](https://github.com/WordPress/gutenberg/pull/51775)、border [#51777](https://github.com/WordPress/gutenberg/pull/51777)、外観ツールの dimensions、position [#52785](https://github.com/WordPress/gutenberg/pull/52785)
+- [リファレンスガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/) - nux [#52455](https://github.com/WordPress/gutenberg/pull/52455)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - layout [#52673](https://github.com/WordPress/gutenberg/pull/52673)
+- [データモジュールリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/data/) - nux [#52455](https://github.com/WordPress/gutenberg/pull/52455)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - タームの説明 fse [#51053](https://github.com/WordPress/gutenberg/pull/51053)、多数 color - heading [#49131](https://github.com/WordPress/gutenberg/pull/49131)、脚注 inserter [#52445](https://github.com/WordPress/gutenberg/pull/52445)、パターン reusable block -> pattern [#52010](https://github.com/WordPress/gutenberg/pull/52010)、整形済みテキスト spacing [#45196](https://github.com/WordPress/gutenberg/pull/45196)
+- [theme.json バージョン2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - typography writingMode [#50822](https://github.com/WordPress/gutenberg/pull/50822)、behaviors [#51156](https://github.com/WordPress/gutenberg/pull/51156)
+
 2023/6/24
 - [パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/) - source 追加 [#51672](https://github.com/WordPress/gutenberg/pull/51672)
 - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - anchor ダイナミックブロックでは未サポート [#51288](https://github.com/WordPress/gutenberg/pull/51288)

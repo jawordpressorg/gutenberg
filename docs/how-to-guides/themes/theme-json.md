@@ -571,8 +571,9 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-color-palette`      | Provide the list of colors via `color.palette`.           |
 | `editor-font-sizes`         | Provide the list of font size via `typography.fontSizes`. |
 | `editor-gradient-presets`   | Provide the list of gradients via `color.gradients`.      |
-| `experimental-link-color`   | Set `color.link` to `true`. `experimental-link-color` will be removed when the plugin requires WordPress 5.9 as the minimum version. |
 | `appearance-tools`          | Set `appearanceTools` to `true`.                          |
+| `border`                    | Set `border: color, radius, style, width` to `true`.      |
+| `link-color `               | Set `color.link` to `true`.                               |
  -->
 | add_theme_support           | theme.json 設定                                        |
 | --------------------------- | --------------------------------------------------------- |
@@ -585,8 +586,9 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-color-palette`      | `color.palette` で色のリストを渡す     |
 | `editor-font-sizes`         | `typography.fontSizes` でフォントサイズのリストを渡す |
 | `editor-gradient-presets`   | `color.gradients` でグラデーションのリストを渡す      |
-| `experimental-link-color`   | `color.link` に `true` を設定。`experimental-link-color` は、プラグインのサポートする最低バージョンが WordPress 5.9 になった段階で、削除されます。                  |
 | `appearance-tools`          | `appearanceTools` に `true` を設定                          |
+| `border`                    | `border: color, radius, style, width` に `true` を設定      |
+| `link-color `               | `color.link` に `true` を設定                               |
 
 <!--
 Let's say a theme author wants to enable custom colors only for the paragraph block. This is how it can be done:

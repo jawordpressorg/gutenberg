@@ -769,9 +769,38 @@ Use this setting to enable the following Global Styles settings:
 - color: link
 - spacing: blockGap, margin, padding
 - typography: lineHeight
+- dimensions: minHeight
+- position: sticky
 
 ```php
 add_theme_support( 'appearance-tools' );
+```
+<!-- 
+## Border
+ -->
+## 枠線
+
+<!-- 
+Use this to enable all border settings:
+ -->
+すべての枠線の設定を有効化します。
+
+```php
+add_theme_support( 'border' );
+```
+
+<!-- 
+## Link color
+ -->
+## リンク色
+
+<!-- 
+Use this to enable the link color setting:
+ -->
+リンク色の設定を有効化します。
+
+```php
+add_theme_support( 'link-color' );
 ```
 
 <!-- 

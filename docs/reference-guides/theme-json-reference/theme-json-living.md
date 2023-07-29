@@ -219,6 +219,7 @@ Settings related to typography.
 | lineHeight | boolean | false |  |
 | textColumns | boolean | false |  |
 | textDecoration | boolean | true |  |
+| writingMode | boolean | false |  |
 | textTransform | boolean | true |  |
 | dropCap | boolean | true |  |
 | fontSizes | array |  | fluid, name, size, slug |
@@ -234,6 +235,19 @@ Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-
 「`--wp--custom--{key}--{nested-key}: {value};`」形式のカスタム CSS カスタムプロパティを生成します。`camelCased` のキーは、CSSプロパティ命名スキーマに従うために、 `kebab-case` に変換されます。異なる深さのレベルのキーは `--` で区切られるため、キーの名前に `--` を含めないでください。
 
 ---
+
+### behaviors
+<!-- 
+Settings related to behaviors.
+ -->
+動作関連の設定。
+
+| Property  | Type   | Default | Props  |
+| ---       | ---    | ---    |---   |
+| lightbox | boolean | false |  |
+
+---
+
 <!--
 ## Styles
 -->
@@ -317,6 +331,7 @@ Typography styles.
 | lineHeight | string, object |  |
 | textColumns | string |  |
 | textDecoration | string, object |  |
+| writingMode | string, object |  |
 | textTransform | string, object |  |
 
 ---
