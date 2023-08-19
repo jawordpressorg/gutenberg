@@ -6,7 +6,7 @@
 <!--
 What follows is a set of questions that have come up from the last few years of Gutenberg development. If you have any questions you’d like to have answered and included here, [just open up a GitHub issue](https://github.com/WordPress/gutenberg/issues) with your question. We’d love the chance to answer and provide clarity to questions we might not have thought to answer. For a look back historically, please see Matt's November 2018 post [WordPress 5.0: A Gutenberg FAQ](https://ma.tt/2018/11/a-gutenberg-faq/).
  -->
-この記事では Gutenberg 開発においてこの2年間に受けた質問と回答をまとめました。さらに追加した方がよい質問がある場合には [GitHub issue](https://github.com/WordPress/gutenberg/issues) を作成し質問してください。喜んでお答えし疑問を解消したいと思います。歴史を振り返り返るには Matt の 2018年11月の投稿 [WordPress 5.0: A Gutenberg FAQ](https://ma.tt/2018/11/a-gutenberg-faq/) を参照してください。
+この記事では Gutenberg 開発においてこの2年間に受けた質問と回答をまとめました。さらに追加したい質問がある場合は [GitHub issue](https://github.com/WordPress/gutenberg/issues) を作成し質問してください。喜んでお答えし疑問を解消したいと思います。歴史を振り返り返るには Matt の 2018年11月の投稿 [WordPress 5.0: A Gutenberg FAQ](https://ma.tt/2018/11/a-gutenberg-faq/) を参照してください。
 
 <!--
 ## Table of Contents
@@ -69,7 +69,7 @@ What follows is a set of questions that have come up from the last few years of 
 <!--
 “Gutenberg” is the name of the project to create a new editor experience for WordPress — contributors have been working on it since January 2017 and it’s one of the most significant changes to WordPress in years. It’s built on the idea of using “blocks” to write and design posts and pages. This will serve as the foundation for future improvements to WordPress, including blocks as a way not just to design posts and pages, but also entire sites. The overall goal is to simplify the first-time user experience of WordPress — for those who are writing, editing, publishing, and designing web pages. The editing experience is intended to give users a better visual representation of what their post or page will look like when they hit publish. Originally, this was the kickoff goal:
  -->
-「Gutenberg」は、WordPress で新しい編集エクスペリエンスを作り出すプロジェクトの名称です。2017年1月にコントリビューションが始まり、この数年の WordPress でもっとも大きな変化の1つとなりました。Gutenberg は投稿やページの執筆やデザインに「ブロック」を使用するというアイデアの上に構築されています。これは投稿やぺーじだけでなく、Web サイト全体のデザインにブロックを使用するという WordPress の未来の改良の基礎となります。最終的なゴールは WordPress の最初のユーザーエクスペリエンス、たとえば執筆、編集、発行、Web ページのデザイン等の簡素化です。編集エクスペリエンスではユーザーに対して、実際の投稿やページの表示と同じように見えるビジュアルな表現を与えることを目的とします。以下は、最初のキックオフ時のゴールです。
+「Gutenberg」は、WordPress で新しい編集エクスペリエンスを作り出すプロジェクトの名称です。2017年1月にコントリビューションが始まり、この数年の WordPress でもっとも大きな変化の1つとなりました。Gutenberg は投稿やページの執筆やデザインに「ブロック」を使用するというアイデアの上に構築されています。これは投稿やページだけでなく、Web サイト全体のデザインにブロックを使用するという WordPress の未来の改良の基礎となります。最終的なゴールは WordPress の最初のユーザーエクスペリエンス、たとえば執筆、編集、発行、Web ページのデザイン等の簡素化です。編集エクスペリエンスではユーザーに対して、実際の投稿やページの表示と同じように見えるビジュアルな表現を与えることを目的とします。以下は、最初のキックオフ時のゴールです。
 
 <!--
 > The editor will endeavour to create a new page and post building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery.
@@ -389,6 +389,11 @@ This is the canonical list of keyboard shortcuts:
 			<td><kbd>Esc</kbd></td>
 			<td><kbd>Esc</kbd></td>
 		</tr>
+		<tr>
+			<td>Select text across multiple blocks.</td>
+			<td></td>
+			<td><kbd>Shift</kbd>+<kbd>Arrow (⇦, ⇧, ⇨, ⇩)</kbd></td>
+		</tr>
 	</tbody>
 </table>
  -->
@@ -413,6 +418,11 @@ This is the canonical list of keyboard shortcuts:
 			<td>選択を解除</td>
 			<td><kbd>Esc</kbd></td>
 			<td><kbd>Esc</kbd></td>
+		</tr>
+		<tr>
+			<td>複数のブロックに渡ってテキストを選択</td>
+			<td></td>
+			<td><kbd>Shift</kbd>+<kbd>矢印 (⇦, ⇧, ⇨, ⇩)</kbd></td>
 		</tr>
 	</tbody>
 </table>

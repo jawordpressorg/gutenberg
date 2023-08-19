@@ -60,7 +60,7 @@ You only need to provide the `slug` – the target location for scaffolded plugi
 `slug` を指定するだけで作成できます。`slug` は、ひな形プラグインファイルの保管場所と、内部のブロック名になります。
  -->
 ```bash
-$ npx @wordpress/create-block todo-list
+$ npx @wordpress/create-block@latest todo-list
 $ cd todo-list
 $ npm start
 ```
@@ -109,7 +109,7 @@ The `create-block` command generates a project with PHP, JS, and CSS code for re
 `create-block` コマンドは、WordPress プラグインでブロックを登録する PHP、JS、CSS コードのプロジェクトを生成します。
 
 ```bash
-$ npx @wordpress/create-block [options] [slug]
+$ npx @wordpress/create-block@latest [options] [slug]
 ```
 
 <!--
@@ -228,7 +228,7 @@ This argument specifies an _external npm package_ as a template.
 この引数はテンプレートとして、_外部 npm パッケージ_ を指定します。
 
 ```bash
-$ npx @wordpress/create-block --template my-template-package
+$ npx @wordpress/create-block@latest --template my-template-package
 ```
 
 <!-- 
@@ -237,7 +237,7 @@ This argument also allows to pick a _local directory_ as a template.
 この引数を使用するとまたテンプレートとして _ローカルディレクトリ_ も選択できます。
 
 ```bash
-$ npx @wordpress/create-block --template ./path/to/template-directory
+$ npx @wordpress/create-block@latest --template ./path/to/template-directory
 ```
 
 <!-- 
@@ -251,7 +251,7 @@ With this argument, `create-block` will generate a [dynamic block](https://devel
 この引数を使用すると、`create-block` は組み込みのテンプレートを基に、[ダイナミックブロック](https://developer.wordpress.org/block-editor/explanations/glossary/#dynamic-block)を生成します。
 
 ```bash
-$ npx @wordpress/create-block --variant dynamic
+$ npx @wordpress/create-block@latest --variant dynamic
 ```
 <!-- 
 #### `--help`
@@ -263,7 +263,7 @@ With this argument, the `create-block` package outputs usage information.
 この引数を指定すると、`create-block` パッケージは使用方法の情報を表示します。
 
 ```bash
-$ npx @wordpress/create-block --help
+$ npx @wordpress/create-block@latest --help
 ```
 <!-- 
 #### `--no-plugin`
@@ -275,8 +275,9 @@ With this argument, the `create-block` package runs in _No plugin mode_ which on
 この引数を指定すると、`create-block` パッケージは _プラグインなしモード_ で実行されます。現行ディレクトリにひな形ブロックファイルのみを作成します。
 
 ```bash
-$ npx @wordpress/create-block --no-plugin
+$ npx @wordpress/create-block@latest --no-plugin
 ```
+
 <!-- 
 1. 対話モード - プロジェクト名を指定しなければスクリプトは対話モードで動作します。コードが生成される前に、もっとも重要なオプションのいくつかをカスタマイズする機会が得られます。
 
@@ -298,19 +299,19 @@ $ npx @wordpress/create-block --template ./path/to/template-directory
 4. 構築済みテンプレートを元に、ダイナミックブロックを生成
 
 ```bash
-$ npx @wordpress/create-block --variant dynamic
+$ npx @wordpress/create-block@latest --variant dynamic
 ```
 
 5. ヘルプ – 使用例の情報を出力する場合は `npx` が必要です。
 
 ```bash
-$ npx @wordpress/create-block --help
+$ npx @wordpress/create-block@latest --help
 ```
 
 6. プラグインなしのモード - また現行ディレクトリに、ひな形のブロックファイルのみを生成できます。
 
 ```bash
-$ npx @wordpress/create-block --no-plugin
+$ npx @wordpress/create-block@latest --no-plugin
 ```
  -->
 <!--
@@ -343,7 +344,7 @@ With this argument, the `create-block` package will add to the generated plugin 
 この引数を指定すると、`create-block` パッケージは生成されたプラグインに、プラグイン内で [`wp-env` パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)を実行するための構成やスクリプトを追加します。生成されたプラグインをビルド、テストする、Docker 利用のローカル WordPress 環境を簡単にセットアップできます。
 
 ```bash
-$ npx @wordpress/create-block --wp-env
+$ npx @wordpress/create-block@latest --wp-env
 ```
 
 <!--

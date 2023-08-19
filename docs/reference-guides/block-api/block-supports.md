@@ -1482,7 +1482,7 @@ supports: {
     spacing: {
         margin: true,  // Enable margin UI control.
         padding: true, // Enable padding UI control.
-        blockGap: true,  // Enables block spacing UI control.
+        blockGap: true,  // Enables block spacing UI control for blocks that also use `layout`.
     }
 }
 ```
@@ -1501,7 +1501,7 @@ supports: {
     spacing: {
         margin: true,  // margin UI コントロールを有効化
         padding: true, // padding UI コントロールを有効化
-        blockGap: true,  // block spacing UI コントロールを有効化
+        blockGap: true,  // `layout` を使用するブロックに対して block spacing UI コントロールを有効化
 }
 ```
 

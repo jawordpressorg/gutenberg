@@ -2,6 +2,17 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/8/14
+- [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - 全面改訂 [#52955](https://github.com/WordPress/gutenberg/pull/52955)
+- [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/explanations/faq/) - 複数ブロックにわたるテキスト選択のショートカット Shift + 矢印 [#43164](https://github.com/WordPress/gutenberg/pull/43164)
+- [開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) - Node v14 -> v16 [#53523](https://github.com/WordPress/gutenberg/pull/53523)
+- [カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/) - 全面改訂 [#53159](https://github.com/WordPress/gutenberg/pull/53159)
+- [Curating the Editor Experience](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) - スターターパターン [#53398](https://github.com/WordPress/gutenberg/pull/53398)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - blockGap のサポート要件を明確化 [#53254](https://github.com/WordPress/gutenberg/pull/53254)
+- [API バージョン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/versions/) - バージョン3 [#53046](https://github.com/WordPress/gutenberg/pull/53046)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 脚注 color [#52897](https://github.com/WordPress/gutenberg/pull/52897)、カバー enableContrastChecker 削除 [#53080](https://github.com/WordPress/gutenberg/pull/53080)、見出し __unstablePasteTextInline 削除 [#48254](https://github.com/WordPress/gutenberg/pull/48254)、ファイル spacing [#45107](https://github.com/WordPress/gutenberg/pull/45107)、詳細 layout、blockGap [#53282](https://github.com/WordPress/gutenberg/pull/53282)、脚注 spacing, typography [#53044](https://github.com/WordPress/gutenberg/pull/53044)、投稿コンテンツ color [#51326](https://github.com/WordPress/gutenberg/pull/51326)
+- [theme.json バージョン2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - layout allowEditing [#53378](https://github.com/WordPress/gutenberg/pull/53378)
+
 2023/7/29
 - [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - npm run test:native [#51869](https://github.com/WordPress/gutenberg/pull/51869)
 - [Setup guide for React Native development (macOS)](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/osx-setup-guide/) - 同上

@@ -45,13 +45,13 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 ```
 <!--
 Quit and restart terminal
-Install Node.js v14.
+Install Node.js v16.
  -->
 ターミナルを終了し、再起動します。
-Node.js v14 をインストールします。
+Node.js v16 をインストールします。
 
 ```
-nvm install 14
+nvm install 16
 ```
 <!--
 **2. WordPress Development Site**
@@ -136,13 +136,12 @@ Note: On macOS, the required developer tools are not installed by default, if no
 <img src="https://developer.wordpress.org/files/2020/07/git-install-prompt.png" alt="Mac git command requires command line developer tools" width="400" height="195"/>
 
 <!--
-After installing nvm, you need to use it to install node, to install the LTS version of node, run:
-After installing nvm, you need to use it to install Node.js, to install v14, run:
+After installing nvm, you need to use it to install Node.js, to install v16, run:
  -->
-nvm をインストール後はこれを使用して node をインストールします。次のコマンドを使用して v14 をインストールします。
+nvm をインストール後はこれを使用して node をインストールします。次のコマンドを使用して v16 をインストールします。
 
 ```sh
-nvm install 14
+nvm install 16
 ```
 <!--
 If there is an error running the above command, for example a common error that occurs is:
@@ -150,7 +149,7 @@ If there is an error running the above command, for example a common error that 
 上のコマンドを実行すると次のようなエラーが発生する場合があります。
 
 ```sh
-$ nvm install 14
+$ nvm install 16
 zsh: command not found: nvm
 ```
 <!--
@@ -172,7 +171,7 @@ After creating the profile file, re-run the install command:
 プロファイルファイルの作成後はインストールコマンドを再実行してください。
 
 ```sh
-nvm install 14
+nvm install 16
 ```
 <!--
 The important part after installing is being able to use them in your terminal. Open a terminal command-line and type `node -v` and `npm -v` to confirm they are installed.
@@ -182,10 +181,10 @@ The important part after installing is being able to use them in your terminal. 
 
 ```sh
 > node -v
-v14.19.0
+v16.20.1
 
 > npm -v
-6.14.16
+8.19.4
 ```
 <!--
 Your versions may not match exactly, that is fine. The minimum version for node is >= 10.x and for npm >= 6.9x, using the current LTS version will always be supported.

@@ -31,8 +31,9 @@ The InspectorPanel (the settings on the right for a block) and Block Controls (t
 **RichText コンポーネント** を使用すると通常のテキストだけでなく、太字、斜体、リンク、その他のインラインフォーマットも可能なリッチな入力フィールドを作成できます。このコンポーネントの使い方については [RichText リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/richtext/) を参照してください。
 
 ブロックの右側にある設定 InspectorPanel と、ツールバーコントロールのブロックコントロールには標準の実装方法があります。追加の情報については [ブロックコントロール チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/) を参照してください。
+
 <!-- 
-The [Sidebar tutorial](/docs/how-to-guides/sidebar-tutorial/plugin-sidebar-0.md) is a good resource on how to create a sidebar for your plugin.
+The [Sidebar tutorial](/docs/how-to-guides/plugin-sidebar-0.md) is a good resource on how to create a sidebar for your plugin.
 
 Nested blocks, a block that contains additional blocks, is a common pattern used by various blocks such as Columns, Cover, and Social Links. The **InnerBlocks component** enables this functionality, see the [Using InnerBlocks documentation](/docs/how-to-guides/block-tutorial/nested-blocks-inner-blocks.md).
  -->

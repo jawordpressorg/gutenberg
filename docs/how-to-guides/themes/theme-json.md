@@ -150,7 +150,7 @@ Examples of what can be achieved are:
 <!--
 By using the `theme.json` file to set style properties in a structured way, the Block Editor can "manage" the CSS that comes from different origins (user, theme, and core CSS). For example, if a theme and a user set the font size for paragraphs, we only enqueue the style coming from the user and not the theme's.
  -->
-`theme.json` ファイルを使用して、構造化した形式のブロックスタイルプロパティを設定することで、ブロックエディターは異なるソース (ユーザー、テーマ、コア) から来る CSS を「管理」できます。たとえば、テーマとユーザーが段落にフォントサイズを設定すると、ユーザーから来たスタイルのみをエンキューします。
+`theme.json` ファイルを使用して、構造化された形でスタイルプロパティを設定することで、ブロックエディターは異なるソース (ユーザー、テーマ、コア) から来る CSS を「管理」できます。たとえば、テーマとユーザーが段落にフォントサイズを設定しても、ユーザーのスタイルのみをエンキューし、テーマから来たスタイルをエンキューしない等。
 
 <!--
 Some of the advantages are:
@@ -172,12 +172,12 @@ Some of the advantages are:
 <!--
 There are some areas of styling that would benefit from having shared values that can change across a site.
  -->
-サイト内で一度に変更できる共有の値があることで便利になる、スタイリングの領域があります。
+スタイリングの領域には、サイト内で一度に変更できる共有の値があると便利な場合があります。
 
 <!--
 To address this need, we've started to experiment with CSS Custom Properties, aka CSS Variables, in some places:
  -->
-このニーズを満たすためいくつかの場所で CSS カスタムプロパティの実験を始めました。なお、CSS カスタムプロパティは CSS 変数とも呼ばれます。
+このニーズを満たすためいくつかの場所で、「CSS 変数」とも呼ばれる、CSS カスタムプロパティの実験を始めました。
 
 <!--
 - **Presets**: [color palettes](/docs/how-to-guides/themes/theme-support.md#block-color-palettes), [font sizes](/docs/how-to-guides/themes/theme-support.md#block-font-sizes), or [gradients](/docs/how-to-guides/themes/theme-support.md#block-gradient-presets) declared by the theme are converted to CSS Custom Properties and enqueued both the front-end and the editors.
@@ -1931,9 +1931,9 @@ As a result of this change, it’s now the block author and theme author’s res
 ### blockGap とは何か、どう使うのか ?
 
 <!-- 
-For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called _Block spacing_, located in the Dimensions panel.
+For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. For `blockGap` to work, the block must also opt in to the [`layout` block support](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#layout), which provides layout styles that can be adjusted via the block spacing controls. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called _Block spacing_, located in the Dimensions panel.
  -->
-グループ、カラム、ボタン、ソーシャルアイコンなどのインナーブロックを含むブロックでは、 `blockGap` は、内部ブロック間の間隔を制御します。ブロックのレイアウトによって、 `blockGap` 値は垂直方向のマージンか `gap` 値として出力されます。エディタでは、`blockGap`の値のコントロールは「ブロックスペース」と呼ばれ、「寸法」パネル内にあります。
+グループ、カラム、ボタン、ソーシャルアイコンなどのインナーブロックを含むブロックでは、 `blockGap` は、インナーブロック間の間隔を制御します。`blockGap` が機能するには、ブロックも [`layout` ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/#layout)をオプトインする必要があります。これにより「ブロックスペース」コントロールで調整可能なレイアウトスタイルが提供されます。ブロックのレイアウトによって、 `blockGap` 値は垂直方向のマージンか `gap` 値として出力されます。エディター内で `blockGap`値のコントロールは「ブロックスペース」と呼ばれ、「寸法」パネル内にあります。
 
 ```json
 {
