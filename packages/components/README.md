@@ -70,14 +70,26 @@ parent to which it should anchor. Depending upon the context in which the
 `Popover` is being consumed, this might lead to incorrect positioning. For
 example, when being nested within another popover.
  -->
+<!-- 
 `Popover` コンポーネントは、デフォルトではインラインでレンダーされます。すなわち、その親の中に固定されます。しかし、使用されるコンテキストによっては、`Popover` が不適切な位置に表示される場合があります。例えば、他の popover の中にネストしている場合です。
-
+ -->
 <!-- 
 This issue can be solved by rendering popovers to a specific location in the DOM via the
 `Popover.Slot`. For this to work, you will need your use of the `Popover`
 component and its `Slot` to be wrapped in a [`SlotFill`](/packages/components/src/slot-fill/README.md) provider.
  -->
+<!-- 
 この問題は、popover を `Popover.Slot` を介して DOM の特定の場所にレンダリングすることで解決できます。このためには、 `Popover` コンポーネントとその `Slot` を [`SlotFill`](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/slot-fill/README.md) プロバイダでラップする必要があります。
+ -->
+<!-- 
+By default, the `Popover` component will render within an extra element appended to the body of the document.
+ -->
+デフォルトで `Popover`コンポーネントは、ドキュメントの body に追加された、余分な要素の中にレンダーします。
+
+<!-- 
+If you want to precisely contol where the popovers render, you will need to use the `Popover.Slot` component.
+ -->
+ポップオーバーがレンダーする場所を正確にコントロールしたければ、`Popover.Slot`コンポーネントを使用する必要があります。
 
 <!-- 
 A `Popover` is also used as the underlying mechanism to display `Tooltip` components.

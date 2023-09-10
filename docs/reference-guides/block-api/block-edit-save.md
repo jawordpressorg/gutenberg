@@ -502,7 +502,7 @@ edit: ( { attributes, setAttributes } ) => {
 				value={ attributes.content }
 				onChange={ updateFieldValue }
 			/>
-		</p>
+		</div>
 	);
 },
 
@@ -594,7 +594,7 @@ edit: ( { attributes, setAttributes } ) => {
 					setAttributes( { postsToShow: parseInt( val ) } );
 				}}
 			/>
-		</p>
+		</div>
 	);
 },
 

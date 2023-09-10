@@ -2,6 +2,16 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/9/4
+- [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - Node v16 & npm v8 [#53912](https://github.com/WordPress/gutenberg/pull/53912)
+- [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - parent、ancester の説明を改定 [#53855](https://github.com/WordPress/gutenberg/pull/53855)
+- [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - プロジェクトの作成を追加 [#53689](https://github.com/WordPress/gutenberg/pull/53689)
+- [カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/) - Popover.Slot 削除 [#53889](https://github.com/WordPress/gutenberg/pull/53889)、ObserveTyping 削除 [#53875](https://github.com/WordPress/gutenberg/pull/53875)、SlotFillProvider 削除 [#53940](https://github.com/WordPress/gutenberg/pull/53940)
+- [Enqueueing assets in the Editor](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) - 新規
+- [block.json のメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - render.php の例 [#53973](https://github.com/WordPress/gutenberg/pull/53973)
+- [バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) - 全面改訂 [#53817](https://github.com/WordPress/gutenberg/pull/53817)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ブロック名から post 削除 [#53492](https://github.com/WordPress/gutenberg/pull/53492/files)、ページ番号 midSize [#51216](https://github.com/WordPress/gutenberg/pull/51216)、クエリーループ enhancedPagination [#53812](https://github.com/WordPress/gutenberg/pull/53812)、グループ button [#53667](https://github.com/WordPress/gutenberg/pull/53667)、カラム button、heading [#54104](https://github.com/WordPress/gutenberg/pull/54104)
+
 2023/8/14
 - [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - 全面改訂 [#52955](https://github.com/WordPress/gutenberg/pull/52955)
 - [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/explanations/faq/) - 複数ブロックにわたるテキスト選択のショートカット Shift + 矢印 [#43164](https://github.com/WordPress/gutenberg/pull/43164)

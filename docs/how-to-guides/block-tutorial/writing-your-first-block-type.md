@@ -65,16 +65,22 @@ Static blocks are implemented in JavaScript, so a basic level of JavaScript is h
 静的ブロックは JavaScript で実装されているため、JavaScript の基礎知識があると便利です。復習のために[JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) を参照してください。
 
 <!-- 
-Blocks are added to WordPress using plugins, so you will need:
+Blocks are added to WordPress using plugins, so you will need a WordPress development environment - see the [setup guide](/docs/getting-started/devenv/README.md).
  -->
-ブロックはプラグインを使用して WordPress に追加されます。そのため、以下が必要です。
+ブロックはプラグインを使用して WordPress に追加されます。そのため、WordPress の開発環境が必要です。[セットアップガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/)を参照してください。
 
 <!-- 
 -   WordPress development environment, see [setup guide](/docs/getting-started/devenv/README.md)
 -   JavaScript build tools (node/npm) if using JSX example
  -->
+<!-- 
 -   WordPress 開発環境。[セットアップガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) 参照
 -   JSX の例を使用する場合、JavaScript ビルドツール (node/npm)
+ -->
+<!-- 
+This tutorial demonstrates the creation of a block in two ways, using JSX and using plain JavaScript. JSX requires a build step, so if you choose to follow the JSX path you will need JavaScript build tools (node/npm). See Step 0 below for details on getting set up.
+ -->
+このチュートリアルではブロックの作成に JSX を使用する方法と、プレーンな JavaScript を使用する方法の2つの方法を紹介します。JSX ではビルド処理が必要なため、JavaScript ビルドツール (node/npm) が必要です。セットアップの詳細については、以下の「ステップ 0」を参照してください。
 
 <!-- 
 ## Step-by-step guide
@@ -82,6 +88,42 @@ Blocks are added to WordPress using plugins, so you will need:
 ## ステップバイステップガイド
 
 <!-- 
+### Step 0: Set up your project
+ -->
+### ステップ 0: プロジェクトのセットアップ
+
+<!-- 
+_**Note:** this step is only needed if you are going to use the JSX examples in the following steps. If you intend to work with the plain JavaScript examples these will run without a build step so you can proceed straight to 'Step 1: Configure block.json' below._
+ -->
+_**注意:** このステップは、以降のステップで JSX のサンプルを使用する場合にのみ必要です。プレーンな JavaScript のサンプルを使用する場合は、ビルドステップなしで実行できるため、「ステップ 1: block.json の構成」に進んでください。_
+
+<!-- 
+Before starting with the JSX examples you will need to set up your project. In your project directory run:
+ -->
+JSX のサンプルを使用する前に、プロジェクトをセットアップする必要があります。プロジェクトディレクトリで以下を実行してください。
+
+```bash
+npm init
+```
+
+このコマンドは `package.json` ファイルを作成します。
+
+次に、開発の依存として `package.json` に `@wordpress/scripts` を追加する必要があります。これは以下で実行できます。
+
+```bash
+npm install @wordpress/scripts --save-dev
+```
+
+次に、`package.json` の `scripts` プロパティに以下の2行を追加します。
+
+```json
+"start": "wp-scripts start",
+"build": "wp-scripts build"
+```
+
+以上で準備ができました。
+
+<!--
 ### Step 1: Configure block.json
  -->
 ### ステップ 1: block.json の構成

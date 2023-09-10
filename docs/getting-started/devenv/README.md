@@ -311,12 +311,13 @@ Docker is just one method to run a local WordPress environment. Block developmen
 Docker はローカルで WordPress 環境を稼働する1つの手段です。ブロック開発や WordPress の拡張は通常のプラグインを使用して可能なため任意の WordPress 環境を使用することができます。以下に Docker のインストールが不要ないくつかの代替の環境を挙げます。
 
 <!--
--   [Local](https://localwp.com/) - Local is a single application you download and install. You will need to know where the plugin directory is located after install. If you create a site called `mywp` typically the plugin directory is installed at `~\Local Sites\mywp\app\public\wp-content\plugins`
+-   [Local](https://localwp.com/) - Local is a single application you download and install. You will need to know where the plugin directory is located after install. If you create a site called `mywp` typically the plugin directory is installed at `~\Local Sites\mywp\app\public\wp-content\plugins`. When working with gutenberg it is recommended to place your install in your own gutenberg folder. This avoids potential issue with the build processes.
+ -->
+-   [Local](https://localwp.com/) - 「Local」はダウンロード、インストール可能な単一アプリケーションです。インストール後、どこにプラグインディレクトリがあるかは知っておく必要があります。`mywp` というサイトを作った場合、プラグインディレクトリは通常  `~\Local Sites\mywp\app\public\wp-content\plugins` になります。Gutenberg で作業する際は、専用の Gutenberg フォルダへのインストールを推奨します。ビルドプロセスにおける潜在的な問題を避けられます。
 
+<!--
 -   [WampServer](http://www.wampserver.com/en/) or [MAMP](https://www.mamp.info/) environments, both are quite similar to Local, combining a web server, PHP, and database. However these tools are not WordPress specific, so if you are not already using them, Local might be an easier option.
 -->
--   [Local](https://localwp.com/) - 「Local」はダウンロード、インストール可能な単一アプリケーションです。インストール後、どこにプラグインディレクトリがあるかは知っておく必要があります。`mywp` というサイトを作った場合、プラグインディレクトリは通常  `~\Local Sites\mywp\app\public\wp-content\plugins` になります。
-
 -   [WampServer](http://www.wampserver.com/en/) または [MAMP](https://www.mamp.info/) 環境は両方とも Local によく似ていて Web サーバー、PHP、データベースを一体化しています。ただしこれらのツールは WordPress 固有ではありません。すでに使っているのでなければ Local が一番簡単な選択肢かもしれません。
 
 <!-- -   Remote server - you can work on a remote server, most hosts provide a quick WordPress setup. However, this will require additional time thorughout development syncing to the server, or working directly on the remote server.

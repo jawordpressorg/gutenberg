@@ -13,12 +13,10 @@ The following guide is for setting up your local environment to contribute to th
 ## 前提条件
 
 <!--
--   Node.js
-    Gutenberg is a JavaScript project and requires [Node.js](https://nodejs.org/). The project is built using the latest active LTS release of node, and the latest version of NPM. See the [LTS release schedule](https://github.com/nodejs/Release#release-schedule) for details.
-    Gutenberg is a JavaScript project and requires [Node.js](https://nodejs.org/). The project is built using Node.js v14, and npm v6. See the [LTS release schedule](https://github.com/nodejs/Release#release-schedule) for details.
+    Gutenberg is a JavaScript project and requires [Node.js](https://nodejs.org/). The project is built using Node.js v16, and npm v8. See the [LTS release schedule](https://github.com/nodejs/Release#release-schedule) for details.
 -->
 -   Node.js:
-    Gutenbergは JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは、Node.js v14 と npm v6 を使用して構築されています。詳細は [LTS release schedule](https://github.com/nodejs/Release#release-schedule) を参照してください。
+    Gutenbergは JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは、Node.js v16 と npm v8 を使用して構築されています。詳細は [LTS release schedule](https://github.com/nodejs/Release#release-schedule) を参照してください。
 
 <!--
 We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) since it is the easiest way to install and manage node for macOS, Linux, and Windows 10 using WSL2. See [our Development Tools guide](/docs/getting-started/devenv/README.md#development-tools) or the Nodejs site for additional installation instructions.

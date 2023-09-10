@@ -1080,6 +1080,21 @@ PHP file to use when rendering the block type on the server to show on the front
 -   `$content` (`string`): ブロックのデフォルトコンテンツ
 -   `$block` (`WP_Block`): ブロックのインスタンス
 
+<!-- 
+An example implementation of the `render.php` file defined with `render` could look like:
+ -->
+`render` で定義される `render.php` ファイルの実装例は、次のようになります。
+
+```php
+<div <?php echo get_block_wrapper_attributes(); ?>>
+	<?php echo esc_html( $attributes['label'] ); ?>
+</div>
+```
+<!-- 
+_Note: This file loads for every instance of the block type when rendering the page HTML on the server. Accounting for that is essential when declaring functions or classes in the file. The simplest way to avoid the risk of errors is to consume that shared logic from another file._
+ -->
+_注意: このファイルは、サーバー上でページの HTML をレンダリングするときに、ブロックタイプのインスタンスごとにロードされます。ファイル内で関数やクラスを宣言する際には、この点を考慮する必要があります。エラーのリスクを回避する最も簡単な方法は、その共有ロジックを別のファイルから消費することです。_
+
 <!--
 ## Assets
  -->

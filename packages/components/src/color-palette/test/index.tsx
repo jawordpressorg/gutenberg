@@ -43,20 +43,6 @@ const ControlledColorPalette = ( {
 };
 
 describe( 'ColorPalette', () => {
-	it( 'should render a dynamic toolbar of colors', () => {
-		const onChange = jest.fn();
-
-		const { container } = render(
-			<ColorPalette
-				colors={ EXAMPLE_COLORS }
-				value={ INITIAL_COLOR }
-				onChange={ onChange }
-			/>
-		);
-
-		expect( container ).toMatchSnapshot();
-	} );
-
 	it( 'should render three color button options', () => {
 		const onChange = jest.fn();
 
@@ -69,7 +55,7 @@ describe( 'ColorPalette', () => {
 		);
 
 		expect(
-			screen.getAllByRole( 'button', { name: /^Color:/ } )
+			screen.getAllByRole( 'option', { name: /^Color:/ } )
 		).toHaveLength( 3 );
 	} );
 
@@ -86,7 +72,7 @@ describe( 'ColorPalette', () => {
 		);
 
 		await user.click(
-			screen.getByRole( 'button', { name: /^Color:/, pressed: true } )
+			screen.getByRole( 'option', { name: /^Color:/, selected: true } )
 		);
 
 		expect( onChange ).toHaveBeenCalledTimes( 1 );
@@ -108,9 +94,9 @@ describe( 'ColorPalette', () => {
 		// Click the first unpressed button
 		// (i.e. a button representing a color that is not the current color)
 		await user.click(
-			screen.getAllByRole( 'button', {
+			screen.getAllByRole( 'option', {
 				name: /^Color:/,
-				pressed: false,
+				selected: false,
 			} )[ 0 ]
 		);
 
@@ -137,10 +123,26 @@ describe( 'ColorPalette', () => {
 		expect( onChange ).toHaveBeenCalledWith( undefined );
 	} );
 
+	it( 'should render custom color picker', () => {
+		const onChange = jest.fn();
+
+		render(
+			<ColorPalette
+				colors={ EXAMPLE_COLORS }
+				value={ INITIAL_COLOR }
+				onChange={ onChange }
+			/>
+		);
+
+		expect(
+			screen.getByRole( 'button', { name: /^Custom color picker\./ } )
+		).toBeInTheDocument();
+	} );
+
 	it( 'should allow disabling custom color picker', () => {
 		const onChange = jest.fn();
 
-		const { container } = render(
+		render(
 			<ColorPalette
 				colors={ EXAMPLE_COLORS }
 				disableCustomColors
@@ -149,7 +151,9 @@ describe( 'ColorPalette', () => {
 			/>
 		);
 
-		expect( container ).toMatchSnapshot();
+		expect(
+			screen.queryByRole( 'button', { name: /^Custom color picker\./ } )
+		).not.toBeInTheDocument();
 	} );
 
 	it( 'should render dropdown and its content', async () => {
@@ -225,22 +229,32 @@ describe( 'ColorPalette', () => {
 
 		render( <ControlledColorPalette /> );
 
+		const { name: colorName, color: colorCode } = EXAMPLE_COLORS[ 0 ];
+
 		expect( screen.getByText( 'No color selected' ) ).toBeVisible();
 
 		// Click the first unpressed button
 		await user.click(
-			screen.getAllByRole( 'button', {
+			screen.getAllByRole( 'option', {
 				name: /^Color:/,
-				pressed: false,
+				selected: false,
 			} )[ 0 ]
 		);
 
 		// Confirm the correct color name, color value, and button label are used
-		expect( screen.getByText( EXAMPLE_COLORS[ 0 ].name ) ).toBeVisible();
-		expect( screen.getByText( EXAMPLE_COLORS[ 0 ].color ) ).toBeVisible();
+		expect(
+			screen.getByText( colorName, {
+				selector: '.components-color-palette__custom-color-name',
+			} )
+		).toBeVisible();
+		expect(
+			screen.getByText( colorCode, {
+				selector: '.components-color-palette__custom-color-value',
+			} )
+		).toBeVisible();
 		expect(
 			screen.getByRole( 'button', {
-				name: `Custom color picker. The currently selected color is called "${ EXAMPLE_COLORS[ 0 ].name }" and has a value of "${ EXAMPLE_COLORS[ 0 ].color }".`,
+				name: `Custom color picker. The currently selected color is called "${ colorName }" and has a value of "${ colorCode }".`,
 				expanded: false,
 			} )
 		).toBeInTheDocument();
@@ -248,12 +262,8 @@ describe( 'ColorPalette', () => {
 		// Clear the color, confirm that the relative values are cleared/updated.
 		await user.click( screen.getByRole( 'button', { name: 'Clear' } ) );
 		expect( screen.getByText( 'No color selected' ) ).toBeVisible();
-		expect(
-			screen.queryByText( EXAMPLE_COLORS[ 0 ].name )
-		).not.toBeInTheDocument();
-		expect(
-			screen.queryByText( EXAMPLE_COLORS[ 0 ].color )
-		).not.toBeInTheDocument();
+		expect( screen.queryByText( colorName ) ).not.toBeInTheDocument();
+		expect( screen.queryByText( colorCode ) ).not.toBeInTheDocument();
 		expect(
 			screen.getByRole( 'button', {
 				name: /^Custom color picker.$/,

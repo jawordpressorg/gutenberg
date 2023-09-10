@@ -11,7 +11,7 @@ WordPress のブロックエディターはパワフルなツールです。様�
 <!-- 
 This package can also be used to create custom block editors for virtually any other web application. This means that you can use the same blocks and block editing experience outside of WordPress.
  -->
-またこのパッケージを使用すると、事実上あらゆるウェブアプリケーション用のカスタムブロックエディターも作成できます。つまり WordPress の外でも、同じブロックと、ブロック編集の体験を利用できます。
+このパッケージを使用すると、事実上あらゆるウェブアプリケーション用のカスタムブロックエディターも作成できます。つまり WordPress の外でも、同じブロックと、ブロック編集の体験を利用できます。
 
 <!-- 
 ![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
@@ -23,9 +23,9 @@ This flexibility and interoperability makes blocks a powerful tool for building 
 
 This guide covers the basics of creating your first custom block editor.
  -->
-この柔軟性とインターオペラビリティによりブロックは、複数のアプリケーションにまたがってコンテンツを構築、管理する強力なツールとなります。また開発者は、ユーザーにとって最適なコンテンツエディターを簡易に作成できます。
+この柔軟性と相互運用性によりブロックは、複数のアプリケーションに渡ってコンテンツを構築、管理できる強力なツールとなります。また開発者は、ユーザーにとって最適なコンテンツエディターを簡単に作成できます。
 
-このガイドでは、はじめてのカスタムブロックエディターを作成するための基礎を紹介します。
+このガイドでは、はじめてのカスタムブロックエディターを作成するための、基礎を紹介します。
 
 <!-- 
 ## Table of contents
@@ -67,7 +67,7 @@ This guide covers the basics of creating your first custom block editor.
 <!-- 
 With its many packages and components, the Gutenberg codebase can be daunting at first. But at its core, it's all about managing and editing blocks. So if you want to work on the editor, it's essential to understand how block editing works at a fundamental level.
  -->
-多くのパッケージやコンポーネントが介在する Gutenberg のコードベースは、最初はとっつきにくく感じられるかもしれません。しかしその中核は、ブロックの管理と編集に過ぎません。そのためエディターを操作したいのであれば、ブロックの編集がどのように行われているのかを基礎レベルで理解することが重要です。
+多くのパッケージやコンポーネントが介在する Gutenberg のコードベースは、最初はとっつきにくく感じられるかもしれません。しかしその中核は、ブロックの管理と編集に過ぎません。そのため、エディターで開発したいのであれば、ブロックの編集がどのように行われているのかを基礎レベルで理解することが重要です。
 
 <!-- 
 This guide will walk you through building a fully functioning, custom block editor "instance" within WordPress. Along the way, we'll introduce you to the key packages and components, so you can see how the block editor works under the hood.
@@ -560,17 +560,14 @@ With these components available, you can define the `<Editor>` component.
 
 function Editor( { settings } ) {
 	return (
-		<SlotFillProvider>
-			<DropZoneProvider>
-				<div className="getdavesbe-block-editor-layout">
-					<Notices />
-					<Header />
-					<Sidebar />
-					<BlockEditor settings={ settings } />
-				</div>
-				<Popover.Slot />
-			</DropZoneProvider>
-		</SlotFillProvider>
+		<DropZoneProvider>
+			<div className="getdavesbe-block-editor-layout">
+				<Notices />
+				<Header />
+				<Sidebar />
+				<BlockEditor settings={ settings } />
+			</div>
+		</DropZoneProvider>
 	);
 }
 ```
@@ -584,22 +581,15 @@ Let's examine these in more detail:
 詳しく見ていきます。
 
 <!-- 
--   `<SlotFillProvider>` – Enables the use of the ["Slot/Fill"
-    pattern](/docs/reference-guides/slotfills/README.md) through the component tree
 -   `<DropZoneProvider>` – Enables the use of [dropzones for drag and drop functionality](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone)
 -   `<Notices>` – Provides a "snack bar" Notice that will be rendered if any messages are dispatched to the `core/notices` store
 -   `<Header>` – Renders the static title "Standalone Block Editor" at the top of the editor UI
 -   `<BlockEditor>` – The custom block editor component
--   `<Popover.Slot />` – Renders a slot into which `<Popover>`s can be rendered
-    using the Slot/Fill mechanic
  -->
-- `<SlotFillProvider>` – コンポーネントツリーを介して [「Slot/Fill」
-  パターン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/slotfills/) を利用可能にします。
 - `<DropZoneProvider>` – [ドラッグアンドドロップのためドロップゾーン機能](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone) の使用を有効化します。
 - `<Notices>` – 「スナックバー」型通知 (一瞬出てきて、すぐに消える通知) を提供します。`core/notices` ストアにメッセージがディスパッチされるとレンダーされます。
 - `<Header>` – エディター UI の先頭に静的なタイトル「Standalone Block Editor」をレンダーします。
 - `<BlockEditor>` – カスタムブロックエディターコンポーネント。
-- `<Popover.Slot />` – Slot/Fill の仕組みを使用して `<Popover>` をレンダーできるスロットをレンダーします。
 
 <!-- 
 ### Keyboard navigation
@@ -652,9 +642,7 @@ return (
 			<div className="editor-styles-wrapper">
 				<BlockEditorKeyboardShortcuts />
 				<WritingFlow>
-					<ObserveTyping>
-						<BlockList className="getdavesbe-block-editor__block-list" />
-					</ObserveTyping>
+					<BlockList className="getdavesbe-block-editor__block-list" />
 				</WritingFlow>
 			</div>
 		</BlockEditorProvider>
@@ -842,10 +830,7 @@ Jumping back to your custom `<BlockEditor>` component, it is also worth noting t
 	<BlockEditorKeyboardShortcuts /> /* 1. */
 	<WritingFlow>
 		/* 2. */
-		<ObserveTyping>
-			/* 3. */
-			<BlockList className="getdavesbe-block-editor__block-list" />
-		</ObserveTyping>
+		<BlockList className="getdavesbe-block-editor__block-list" />
 	</WritingFlow>
 </div>
 ```
@@ -857,11 +842,9 @@ These provide other important elements of functionality for the editor instance.
 <!-- 
 1. [`<BlockEditorKeyboardShortcuts />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/keyboard-shortcuts/index.js) – Enables and usage of keyboard shortcuts within the editor
 2. [`<WritingFlow>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/writing-flow/index.js) – Handles selection, focus management, and navigation across blocks
-3. [`<ObserveTyping>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/observe-typing)- Used to manage the editor's internal `isTyping` flag
  -->
 1. [`<BlockEditorKeyboardShortcuts />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/keyboard-shortcuts/index.js) – エディター内でキーボードショートカットを有効化し、使用する。
 2. [`<WritingFlow>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/writing-flow/index.js) – ブロック間の選択、フォーカス管理、ナビゲーションを処理する。
-3. [`<ObserveTyping>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/observe-typing)- エディター内部の `isTyping` フラグを管理する。
 
 <!-- 
 ## Reviewing the sidebar

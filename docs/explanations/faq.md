@@ -69,7 +69,7 @@ What follows is a set of questions that have come up from the last few years of 
 <!--
 “Gutenberg” is the name of the project to create a new editor experience for WordPress — contributors have been working on it since January 2017 and it’s one of the most significant changes to WordPress in years. It’s built on the idea of using “blocks” to write and design posts and pages. This will serve as the foundation for future improvements to WordPress, including blocks as a way not just to design posts and pages, but also entire sites. The overall goal is to simplify the first-time user experience of WordPress — for those who are writing, editing, publishing, and designing web pages. The editing experience is intended to give users a better visual representation of what their post or page will look like when they hit publish. Originally, this was the kickoff goal:
  -->
-「Gutenberg」は、WordPress で新しい編集エクスペリエンスを作り出すプロジェクトの名称です。2017年1月にコントリビューションが始まり、この数年の WordPress でもっとも大きな変化の1つとなりました。Gutenberg は投稿やページの執筆やデザインに「ブロック」を使用するというアイデアの上に構築されています。これは投稿やページだけでなく、Web サイト全体のデザインにブロックを使用するという WordPress の未来の改良の基礎となります。最終的なゴールは WordPress の最初のユーザーエクスペリエンス、たとえば執筆、編集、発行、Web ページのデザイン等の簡素化です。編集エクスペリエンスではユーザーに対して、実際の投稿やページの表示と同じように見えるビジュアルな表現を与えることを目的とします。以下は、最初のキックオフ時のゴールです。
+「Gutenberg」は、WordPress で新しい編集エクスペリエンスを作り出すプロジェクトの名称です。2017年1月にコントリビューションが始まり、この数年の WordPress でもっとも大きな変化の1つとなりました。Gutenberg は投稿やページの執筆やデザインに「ブロック」を使用するというアイデアに基づいて構築されています。これは投稿やページだけでなく、Web サイト全体のデザインにブロックを使用するという WordPress の未来の改良の基礎となります。最終的なゴールは WordPress の最初のユーザーエクスペリエンス、たとえば執筆、編集、発行、Web ページのデザイン等の簡素化です。編集エクスペリエンスではユーザーに対して、実際の投稿やページの表示と同じように見えるビジュアルな表現を与えることを目的とします。以下は、最初のキックオフ時のゴールです。
 
 <!--
 > The editor will endeavour to create a new page and post building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery.
@@ -391,7 +391,7 @@ This is the canonical list of keyboard shortcuts:
 		</tr>
 		<tr>
 			<td>Select text across multiple blocks.</td>
-			<td></td>
+			<td><kbd>Shift</kbd>+<kbd>Arrow (⇦, ⇧, ⇨, ⇩)</kbd></td>
 			<td><kbd>Shift</kbd>+<kbd>Arrow (⇦, ⇧, ⇨, ⇩)</kbd></td>
 		</tr>
 	</tbody>
@@ -421,7 +421,7 @@ This is the canonical list of keyboard shortcuts:
 		</tr>
 		<tr>
 			<td>複数のブロックに渡ってテキストを選択</td>
-			<td></td>
+			<td><kbd>Shift</kbd>+<kbd>矢印 (⇦, ⇧, ⇨, ⇩)</kbd></td>
 			<td><kbd>Shift</kbd>+<kbd>矢印 (⇦, ⇧, ⇨, ⇩)</kbd></td>
 		</tr>
 	</tbody>
@@ -767,19 +767,6 @@ Indeed. There are multiple ways in which custom post types can leverage Gutenber
 ## カスタム投稿タイプはまだサポートされますか ?
 
 もちろんです。カスタム投稿タイプが Gutenberg を活用できる方法には複数あります。計画では、カスタム投稿タイプでサポートするブロックを指定したり、デフォルトのブロックを定義できるようにします。現在はまだ未実装ですが、投稿タイプがコンテンツフィールドを無効にすれば、下部の「上級者向け」セクションがページを埋めるようになります。
-<!--
-## Does Gutenberg support columns?
-
-Yes, a columns block is available in Gutenberg.
-
-## Does Gutenberg support nested blocks?
-
-Yes, it is supported. You can have multiple levels of nesting – blocks within blocks within blocks. See the [Nested Block Tutorial](/docs/how-to-guides/block-tutorial/nested-blocks-inner-blocks.md) for more information.
-
-## Does drag and drop work for rearranging blocks?
-
-Yes, you can drag and drop blocks to rearrange their order.
--->
 
 <!--
 ## Can themes _style_ blocks?
@@ -850,7 +837,7 @@ Gutenberg works in modern browsers.
 
 The [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). The term “modern browsers” generally refers to the _current and previous two versions_ of each major browser.
 
-Since WordPress 5.8, Gutenberg no longer supports any version of Internet Explorer. 
+Since WordPress 5.8, Gutenberg no longer supports any version of Internet Explorer.
 
  -->
 ## Gutenberg はどのブラウザをサポートしていますか ?

@@ -179,7 +179,7 @@ A single column within a columns block. ([Source](https://github.com/WordPress/g
 -	**Name:** core/column
 -	**Category:** design
 -	**Parent:** core/columns
--	**Supports:** anchor, color (background, gradients, heading, link, text), layout, spacing (blockGap, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
+-	**Supports:** anchor, color (background, button, gradients, heading, link, text), layout, spacing (blockGap, padding), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
 -	**Attributes:** allowedBlocks, templateLock, verticalAlignment, width
 
 <!--
@@ -194,7 +194,7 @@ Display content in multiple columns, with blocks added to each column. ([Source]
 
 -	**Name:** core/columns
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, color (background, gradients, link, text), layout (default, ~~allowEditing~~, ~~allowInheriting~~, ~~allowSwitching~~), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, color (background, button, gradients, heading, link, text), layout (default, ~~allowEditing~~, ~~allowInheriting~~, ~~allowSwitching~~), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isStackedOnMobile, templateLock, verticalAlignment
 
 <!-- 
@@ -556,7 +556,7 @@ Gather blocks in a layout container. ([Source](https://github.com/WordPress/gute
 
 -	**Name:** core/group
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, ariaLabel, color (background, gradients, heading, link, text), dimensions (minHeight), layout (allowSizingOnChildren), position (sticky), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, ariaLabel, color (background, button, gradients, heading, link, text), dimensions (minHeight), layout (allowSizingOnChildren), position (sticky), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** allowedBlocks, tagName, templateLock
 
 <!--
@@ -820,7 +820,7 @@ Display a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tr
 <!-- 
 ## Page List Item
  -->
-## ページリスト項目
+## Page List Item / ページリスト項目
 
 <!-- 
 Displays a page inside a list of all pages. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/page-list-item))
@@ -866,10 +866,10 @@ Show a block pattern. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 -	**Supports:** ~~html~~, ~~inserter~~
 -	**Attributes:** slug
 
-<!--
-## Post Author
--->
-## Post Author / 投稿者
+<!-- 
+## Author
+ -->
+## Author / 投稿者
 
 <!--
 Display post author details such as name, avatar, and bio. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author))
@@ -881,10 +881,10 @@ Display post author details such as name, avatar, and bio. ([Source](https://git
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** avatarSize, byline, isLink, linkTarget, showAvatar, showBio, textAlign
 
-<!-- 
-## Post Author Biography
+<!--
+## Author Biography
  -->
-## Post Author Biography / 投稿者の経歴
+## Author Biography / 投稿者の経歴
 
 <!-- 
 The author biography. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author-biography))
@@ -896,9 +896,9 @@ The author biography. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 -	**Attributes:** textAlign
 
 <!-- 
-## Post Author Name
+## Author Name
  -->
-## Post Author Name / 投稿者名
+## Author Name / 投稿者名
 
 <!--
 The author name. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author-name))
@@ -910,10 +910,10 @@ The author name. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/pac
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** isLink, linkTarget, textAlign
 
-<!--
-## Post Comment (deprecated)
--->
-## Post Comment (deprecated) / 投稿のコメント (非推奨)
+<!-- 
+## Comment (deprecated)
+ -->
+## Comment (deprecated) / コメント (非推奨)
 
 <!--
 This block is deprecated. Please use the Comments block instead. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comment))
@@ -926,10 +926,10 @@ This block is deprecated. Please use the Comments block instead. ([Source](https
 -	**Supports:** ~~html~~, ~~inserter~~
 -	**Attributes:** commentId
 
-<!--
-## Post Comments Count
--->
-## Post Comments Count / 投稿コメント数
+<!-- 
+## Comments Count
+ -->
+## Comments Count / コメント数
 
 <!--
 Display a post's comments count. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments-count))
@@ -942,10 +942,10 @@ Display a post's comments count. ([Source](https://github.com/WordPress/gutenber
 -	**Supports:** color (background, gradients, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
-<!--
-## Post Comments Form
--->
-## Post Comments Form / 投稿コメントフォーム
+<!-- 
+## Comments Form
+ -->
+## Comments Form / コメントフォーム
 
 <!--
 Display a post's comments form. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments-form))
@@ -957,10 +957,10 @@ Display a post's comments form. ([Source](https://github.com/WordPress/gutenberg
 -	**Supports:** color (background, gradients, heading, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
-<!--
-## Post Comments Link
--->
-## Post Comments Link / 投稿コメントリンク
+<!-- 
+## Comments Link
+ -->
+## Comments Link / コメントリンク
 
 <!--
 Displays the link to the current post comments. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-comments-link))
@@ -973,10 +973,10 @@ Displays the link to the current post comments. ([Source](https://github.com/Wor
 -	**Supports:** color (background, link, ~~text~~), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign
 
-<!--
-## Post Content
--->
-## Post Content / 投稿コンテンツ
+<!-- 
+## Content
+ -->
+## Content / コンテンツ
 
 <!--
 Displays the contents of a post or page. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-content))
@@ -988,15 +988,14 @@ Displays the contents of a post or page. ([Source](https://github.com/WordPress/
 -	**Supports:** align (full, wide), color (background, gradients, link, text), dimensions (minHeight), layout, typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** 
 
-<!--
-## Post Date
--->
-## Post Date / 投稿日
-
-<!--
-Add the date of this post. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-date))
--->
-投稿の日付を追加します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-date))
+<!-- 
+## Date
+ -->
+## Date / 日付
+<!-- 
+Display the publish date for an entry such as a post or page. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-date))
+ -->
+投稿や固定ページなどのエントリーの公開日を表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-date))
 
 -	**Name:** core/post-date
 -	**Category:** theme
@@ -1006,7 +1005,7 @@ Add the date of this post. ([Source](https://github.com/WordPress/gutenberg/tree
 <!-- 
 ## Excerpt
  -->
-## 抜粋
+## Excerpt / 抜粋
 
 <!-- 
 Display the excerpt. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-excerpt))
@@ -1018,10 +1017,10 @@ Display the excerpt. ([Source](https://github.com/WordPress/gutenberg/tree/trunk
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** excerptLength, moreText, showMoreOnNewLine, textAlign
 
-<!--
-## Post Featured Image
--->
-## Post Featured Image / 投稿のアイキャッチ画像
+<!-- 
+## Featured Image
+ -->
+## Featured Image / アイキャッチ画像
 
 <!--
 Display a post's featured image. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-featured-image))
@@ -1153,7 +1152,7 @@ An advanced block that allows displaying post types based on different query par
 -	**Name:** core/query
 -	**Category:** theme
 -	**Supports:** align (full, wide), layout, ~~html~~
--	**Attributes:** namespace, query, queryId, tagName
+-	**Attributes:** enhancedPagination, namespace, query, queryId, tagName
 
 <!-- 
 ## No results
@@ -1217,7 +1216,7 @@ Displays a list of page numbers for pagination ([Source](https://github.com/Word
 -	**Category:** theme
 -	**Parent:** core/query-pagination
 -	**Supports:** color (background, gradients, ~~text~~), typography (fontSize, lineHeight), ~~html~~, ~~reusable~~
--	**Attributes:** 
+-	**Attributes:** midSize
 
 <!--
 ## Previous Page

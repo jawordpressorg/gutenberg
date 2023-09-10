@@ -186,9 +186,9 @@ The `InnerBlocks` template is for the component in the single block that you cre
  -->
 ### 投稿テンプレート
 
-`InnerBlocks` とは関連しませんが、ちょうどよいのでここで触れますが、投稿タイプごとに[投稿テンプレート](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/)を作ることができます。ブロックエディターをブロックの集合と共にプリロードします。
+`InnerBlocks` とは関連しませんが、投稿タイプごとに[投稿テンプレート](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/)を作れます。投稿テンプレートはブロックエディターにブロックの集合をプリロードします。
 
-`InnerBlocks` テンプレートは、作成する単一ブロック内のコンポーネントのためのものであり、投稿のそれ以外の箇所ではユーザーが好きなブロックを含めることができます。投稿テンプレートを使用すれば投稿全体をロックし、定義したテンプレートのみに制限できます。
+`InnerBlocks` テンプレートは、作成した単一ブロック内のコンポーネントのためのもので、投稿のそれ以外の箇所にはユーザーが好きなブロックを含められます。投稿テンプレートを使用すると、投稿全体を定義したテンプレートのみに固定できます。
 
 ```php
 add_action( 'init', function() {
@@ -201,21 +201,41 @@ add_action( 'init', function() {
 ```
 
 <!--
-## Child InnerBlocks: Parent and Ancestors
-
-A common pattern for using InnerBlocks is to create a custom block that will be included only in the InnerBlocks.
-
-An example of this is the Columns block, that creates a single parent block called `columns` and then creates an child block called `column`. The parent block is defined to only allow the child blocks. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
-
-When defining a child block, use the `parent` block setting to define which block is the parent. This prevents the block showing in the inserter outside of the InnerBlock it is defined for.
+## Using Parent and Ancestor Relationships in Blocks
  -->
-## 子の InnerBlocks: 親と先祖
+## ブロックでの parent 関係と ancestor 関係の使用
 
-InnerBloks を使用する一般的なパターンは InnerBlocks のみに含まれるカスタムブロックの作成です。
+<!-- 
+A common pattern for using InnerBlocks is to create a custom block that will be only be available if its parent block is inserted. This allows builders to establish a relationship between blocks, while limiting a nested block's discoverability. Currently, there are two relationships builders can use: `parent` and `ancestor`. The differences are: 
+ -->
+一般的な InnerBlock の使用パターンとして、親ブロックが挿入された場合にのみ使用可能なカスタムブロックの作成があります。これによりビルダーは、ブロック間の関係を確立し、ネストするブロックの発現を制限できます。現在、ビルダーが使用できる関係には `parent` (親) と `ancestor` (先祖) の2つがあります。違いは以下のとおりです。 
 
-この例として「カラム」ブロックがあります。「カラム」ブロックでは単一の親ブロック `columns` とその子ブロック `column` を作成します。親ブロックは子ブロックのみを許可するとして定義されます。[Column のコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
+<!-- 
+- If you assign a `parent` then you’re stating that the nested block can only be used and inserted as a __direct descendant of the parent__.
+- If you assign an `ancestor` then you’re stating that the nested block can only be used and inserted as a __descendent of the parent__.
+ -->
+- `parent` を割り当てると、ネストするブロックが __親の直接の子孫__ としてのみ使用、挿入できることの表明になります。
+- `ancestor` を割り当てると、ネストするブロックが __親の子孫__ としてのみ使用、挿入できることの表明になります。
 
-子ブロックを定義する際に `parent` ブロック設定を使用して親ブロックを定義します。こうすると定義された InnerBlock の外側ではインサーターに表示されません。
+<!-- 
+The key difference between `parent` and `ancestor` is `parent` has finer specificity, while an `ancestor` has greater flexibility in its nested hierarchy.
+ -->
+`parent` と `ancestor` の主な違いとして、`parent` はより細かな特異性を持ち、`ancestor`はそのネスト階層においてより大きな柔軟性を持ちます。
+
+<!-- 
+### Defining Parent Block Relationship
+ -->
+### parent ブロック関係の定義
+
+<!-- 
+An example of this is the Column block, which is assigned the `parent` block setting. This allows the Column block to only be available as a nested direct descendant in its parent Columns block. Otherwise, the Column block will not be available as an option within the block inserter. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
+ -->
+この例に「カラム (Column)」ブロックがあり、`parent` ブロック設定が割り当てられています。これにより、Column ブロックは、親の「カラム (Columns、複数形)」ブロックのネストした直接の子孫としてのみ利用できます。Columns ブロック以外では、Column ブロックはブロックインサーターのオプションとして利用できません。[Column ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
+
+<!-- 
+When defining a direct descendent block, use the `parent` block setting to define which block is the parent. This prevents the nested block from showing in the inserter outside of the InnerBlock it is defined for.
+ -->
+直接の子孫ブロックを定義する際には、`parent` ブロック設定を使用して、どのブロックが親であるかを定義します。これでネストするブロックは、定義された InnerBlock 以外でインサーター内には表示されません。
 
 ```json
 {
@@ -226,8 +246,25 @@ InnerBloks を使用する一般的なパターンは InnerBlocks のみに含�
 }
 ```
 
-他の例としては、`ancestors` ブロック設定を使用して、あるブロックが先祖として存在しなければならないが、`parent` のように、直接の親である必要はないブロックを定義できます。これにより、先祖がツリーに存在しない場合、インサーターにブロックは表示されず、一方で、カラムやグループブロックのように、他のブロックを間に追加できます。[コメント作者名のコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name)を参照してください。
+<!-- 
+### Defining Ancestor Block Relationship
+ -->
+### ancestor ブロック関係の定義
 
+<!-- 
+An example of this is the Comment Author Name block, which is assigned the `ancestor` block setting. This allows the Comment Author Name block to only be available as a nested descendant in its ancestral Comment Template block. Otherwise, the Comment Author Name block will not be available as an option within the block inserter. See [Comment Author Name code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name).
+ -->
+この例に「コメントの投稿者名」ブロックがあり、`ancestor` ブロック設定が割り当てられています。これにより、コメントの投稿者名ブロックは、その祖先であるコメントテンプレートブロックのネストされた子孫としてのみ利用できます。コメントテンプレートブロック以外では、コメントの投稿者名ブロックはブロックインサータのオプションとして利用できません。[コメントの投稿者名ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name)を参照してください。
+
+<!-- 
+The `ancestor` relationship allows the Comment Author Name block to be anywhere in the hierarchical tree, and not _just_ a direct child of the parent Comment Template block, while still limiting its availability within the block inserter to only be visible an an option to insert if the Comment Template block is available.
+ -->
+`ancestor` 関係により、コメントの投稿者名ブロックは階層ツリーのどこにでも置けます。親のコメントテンプレートブロックの直接の子のみには縛られません。ただしコメントテンプレートブロックがある場合にのみ、ブロックインサーター内で挿入可能なオプションとして表示されます。
+
+<!-- 
+When defining a descendent block, use the `ancestor` block setting. This prevents the nested block from showing in the inserter outside of the InnerBlock it is defined for.
+ -->
+子孫ブロックを定義する際には、`ancestor` ブロック設定を使用します。これでネストするブロックは、定義された InnerBlock 以外でインサーター内には表示されません。
 
 ```json
 {
@@ -239,9 +276,9 @@ InnerBloks を使用する一般的なパターンは InnerBlocks のみに含�
 ```
 
 <!-- 
-## Using a react hook
+## Using a React Hook
  -->
-## react フックの使用
+## React フックの使用
 
 <!-- 
 You can use a react hook called `useInnerBlocksProps` instead of the `InnerBlocks` component. This hook allows you to take more control over the markup of inner blocks areas.
