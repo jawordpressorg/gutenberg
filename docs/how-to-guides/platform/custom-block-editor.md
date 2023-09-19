@@ -639,12 +639,7 @@ return (
 			<Sidebar.InspectorFill>
 				<BlockInspector />
 			</Sidebar.InspectorFill>
-			<div className="editor-styles-wrapper">
-				<BlockEditorKeyboardShortcuts />
-				<WritingFlow>
-					<BlockList className="getdavesbe-block-editor__block-list" />
-				</WritingFlow>
-			</div>
+			<BlockCanvas height="400px" />
 		</BlockEditorProvider>
 	</div>
 );
@@ -816,13 +811,16 @@ The `@wordpress/block-editor` package components are among the most complex and 
 <!-- 
 ### Utility components in the custom block editor
  -->
+<!-- 
 ### カスタムブロックエディター内のユーティリティコンポーネント
-
+ -->
 <!-- 
 Jumping back to your custom `<BlockEditor>` component, it is also worth noting the following "utility" components:
  -->
+<!-- 
 カスタム `<BlockEditor>` コンポーネントに話しを戻すと、次の「ユーティリティ」コンポーネントにも注意してください。
-
+ -->
+<!-- 
 ```js
 // File: src/components/block-editor/index.js
 
@@ -834,17 +832,21 @@ Jumping back to your custom `<BlockEditor>` component, it is also worth noting t
 	</WritingFlow>
 </div>
 ```
+ -->
 <!-- 
 These provide other important elements of functionality for the editor instance.
  -->
+<!-- 
 これらはエディターインスタンスの機能の他の重要な要素を提供します。
-
+ -->
 <!-- 
 1. [`<BlockEditorKeyboardShortcuts />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/keyboard-shortcuts/index.js) – Enables and usage of keyboard shortcuts within the editor
 2. [`<WritingFlow>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/writing-flow/index.js) – Handles selection, focus management, and navigation across blocks
  -->
+<!-- 
 1. [`<BlockEditorKeyboardShortcuts />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/keyboard-shortcuts/index.js) – エディター内でキーボードショートカットを有効化し、使用する。
 2. [`<WritingFlow>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/writing-flow/index.js) – ブロック間の選択、フォーカス管理、ナビゲーションを処理する。
+ -->
 
 <!-- 
 ## Reviewing the sidebar
@@ -855,7 +857,6 @@ Also within the render of the `<BlockEditor>`, is the `<Sidebar>` component.
  -->
 また、`<BlockEditor>` のレンダー内には、`<Sidebar>` コンポーネントがあります。
 
-<!-- 
 ```jsx
 // File: src/components/block-editor/index.js
 
@@ -865,30 +866,12 @@ return (
             <Sidebar.InspectorFill> /* <-- SIDEBAR */
                 <BlockInspector />
             </Sidebar.InspectorFill>
-            <div className="editor-styles-wrapper">
-                // snip
-            </div>
+            <BlockCanvas height="400px" />
         </BlockEditorProvider>
     </div>
 );
 ```
- -->
-```jsx
-// File: src/components/block-editor/index.js
 
-return (
-    <div className="getdavesbe-block-editor">
-        <BlockEditorProvider>
-            <Sidebar.InspectorFill> /* <-- サイドバー */
-                <BlockInspector />
-            </Sidebar.InspectorFill>
-            <div className="editor-styles-wrapper">
-                // 省略
-            </div>
-        </BlockEditorProvider>
-    </div>
-);
-```
 <!-- 
 This is used, in part, to display advanced block settings via the `<BlockInspector>` component.
  -->

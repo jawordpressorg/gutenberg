@@ -836,7 +836,7 @@ It provides structured example data for the block. This data is used to construc
 ブロックに構造化されたサンプルデータを提供します。このデータはブロックのプレビューを構築する際に使用され、インスペクターヘルプパネルでユーザーがブロックの上にマウスを移動すると表示されます。
 
 <!--
-See the [the example documentation](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
+See the [Example documentation](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
  -->
 詳細については [ドキュメントの「example (オプション)」セクション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) を参照してください。
 
@@ -884,6 +884,37 @@ See the [the variations documentation](/docs/reference-guides/block-api/block-va
 _注: JavaScriptでは、`isActive`プロパティに関数を、`icon` に React 要素を指定できます。`block.json` ファイルでは、どちらも文字列のみをサポートします。_
 
 詳細は[ドキュメントのバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
+
+### Block Hooks
+
+<!-- 
+-   Type: `object`
+-   Optional
+-   Property: `blockHooks`
+-   Since: `WordPress 6.4.0`
+ -->
+-   型: `object`
+-   オプション
+-   プロパティ: `blockHooks`
+-   Since: `WordPress 6.4.0`
+
+```json
+{
+	"blockHooks": {
+		"my-plugin/banner": "after"
+	}
+}
+```
+
+<!-- 
+Block Hooks is an API that allows a block to automatically insert itself next to all instances of a given block type, in a relative position also specified by the "hooked" block. That is, a block can opt to be inserted before or after a given block type, or as its first or last child (i.e. to be prepended or appended to the list of its child blocks, respectively). Hooked blocks will appear both on the frontend and in the editor (to allow for customization by the user).
+ -->
+ブロックフックは指定されたブロックタイプのすべてのインスタンスの隣、「フックされた」ブロックによって指定された相対位置に、自動的にブロックを挿入する API です。つまり、選択によりブロックを、指定されたブロックタイプの前または後、または、最初の子または最後の子 (子ブロックのリストの先頭、または末尾) に挿入できます。フックされたブロックは、フロントエンドとエディターの両方に表示されます (ユーザーによるカスタマイズが可能です)。
+
+<!-- 
+The key is the name of the block (`string`) to hook into, and the value is the position to hook into (`string`). Take a look at the [Block Hooks documentation](/docs/reference-guides/block-api/block-registration.md#block-hooks-optional) for more info about available configurations.
+ -->
+キーはフックするブロックの名前 (`string`)、値はフックする位置 (`string`) です。利用可能な設定については、[ブロックフックのドキュメント](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#block-hooks-optional) を参照してください。
 
 ### Editor Script
 

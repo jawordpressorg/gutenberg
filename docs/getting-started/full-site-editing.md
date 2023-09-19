@@ -67,20 +67,16 @@ An ongoing [FSE Outreach program](https://make.wordpress.org/test/handbook/full-
  -->
 ## ブロックテーマ
 
-<!--
-If you are using the Gutenberg plugin you can run, test, and develop block themes. Block themes are themes built using templates composed using blocks. See [block theme overview](/docs/how-to-guides/themes/block-theme-overview.md) for additional details.
+<!-- 
+Block themes are themes built using templates composed using blocks. See the [block theme documentation](https://developer.wordpress.org/themes/block-themes/) for additional details.
  -->
-Gutenberg プラグインを使用していれば、ブロックテーマを実行、テスト、開発できます。ブロックテーマは、ブロックから構成されたテンプレートを使用して構築されたテーマです。追加の詳細については[ブロックテーマの概要](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview/) を参照してください。
-
-<!--
-- See the [Create a Block Theme](/docs/how-to-guides/themes/create-block-theme.md) tutorial for a walk-through of the pieces of a block theme.
- -->
-- ブロックテーマの内容を確認するには、[ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) チュートリアルを参照してください。
+ブロックテーマはテンプレートを使用して作られたテーマです。テンプレートはブロックを使用して構成されます。詳しくは[ブロックテーマドキュメント](https://developer.wordpress.org/themes/block-themes/)を参照してください。
 
 <!--
 - For examples, see the [WordPress/theme-experiments](https://github.com/WordPress/theme-experiments/) repository with several block themes there including the source for the above mentioned TT1 Blocks.
  -->
 - たとえば、[WordPress/theme-experiments](https://github.com/WordPress/theme-experiments/) リポジトリを参照すると、上述した TT1 Blocks のソースコードを含む、いくつかのブロックテーマがあります。
+
 <!--
 - Use the `empty-theme.php` script from theme-experiments repo to generate a starter block theme, it will prompt you with a few questions and create a theme.
  -->

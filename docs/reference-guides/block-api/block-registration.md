@@ -434,10 +434,12 @@ example: {
 #### variations (オプション)
 
 -   **Type:** `Object[]`
+-   **Since**: `WordPress 5.9.0`
+
 <!--
 Similarly to how the block's styles can be declared, a block type can define block variations that the user can pick from. The difference is that, rather than changing only the visual appearance, this field provides a way to apply initial custom attributes and inner blocks at the time when a block is inserted. See the [Block Variations API](/docs/reference-guides/block-api/block-variations.md) for more details.
  -->
-ブロックタイプは、ブロックスタイルの宣言と同様に、ユーザーが選択可能なブロックバリエーションを定義できます。違いとしてはビジュアルな見た目を変更するだけでなく、ブロックが挿入された際の初期カスタム属性とインナーブロックの適用方法を提供します。詳細については [ブロックバリエーション API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
+ブロックタイプは、ブロックスタイルの宣言方法と同様に、ユーザーが選択可能なブロックバリエーションを定義できます。違いはビジュアルな見た目だけを変更するのではなく、このフィールドは、ブロックが挿入された際の初期カスタム属性とインナーブロックの適用方法を提供します。詳細については [ブロックバリエーション API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
 
 
 <!--
@@ -449,8 +451,7 @@ Similarly to how the block's styles can be declared, a block type can define blo
 <!--
 Supports contains as set of options to control features used in the editor. See the [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
  -->
-`supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) を参照してください。
-
+`supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) を参照してください。
 
 <!--
 #### transforms (optional)
@@ -494,16 +495,14 @@ parent: [ 'core/columns' ],
 #### ancestor (オプション)
 
 -   **Type:** `Array`
+-   **Since**: `WordPress 6.0.0`
 
 <!-- 
 The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a 'Comment Content' block inside a 'Column' block, as long as 'Column' is somewhere within a 'Comment Template' block. In comparison to the `parent` property blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
  -->
 `ancestor` プロパティを使用すると、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置でブロックを利用できます。例えば、「'Comment Content' ブロックは、'Column' ブロックが 'Comment Template' ブロック内のどこかにある場合に限り、'Column' ブロック内に配置できる」等の制限が可能です。`parent` プロパティと比較すると `ancestor` を指定したブロックはサブツリーの任意の場所に配置できますが、`parent` を指定したブロックは直接の子としてのみ配置できます。
 
-<<<<<<< HEAD
 <!-- 
-=======
->>>>>>> upstream/trunk
 ```js
 // Only allow this block when it is nested at any level in a Columns block.
 ancestor: [ 'core/columns' ],
@@ -513,6 +512,54 @@ ancestor: [ 'core/columns' ],
 // このブロックは Columns ブロック内の任意のレベルで入れ子の場合のみ利用可能
 ancestor: [ 'core/columns' ],
 ```
+<!-- 
+#### Block Hooks (optional)
+ -->
+#### Block Hooks (オプション)
+
+-   **Type:** `Object`
+-   **Since**: `WordPress 6.4.0`
+
+<!-- 
+Block Hooks is an API that allows a block to automatically insert itself next to all instances of a given block type, in a relative position also specified by the "hooked" block. That is, a block can opt to be inserted before or after a given block type, or as its first or last child (i.e. to be prepended or appended to the list of its child blocks, respectively). Hooked blocks will appear both on the frontend and in the editor (to allow for customization by the user).
+ -->
+ブロックフックは指定されたブロックタイプのすべてのインスタンスの隣、「フックされた」ブロックによって指定された相対位置に、自動的にブロックを挿入する API です。つまり、選択によりブロックを、指定されたブロックタイプの前または後、または、最初の子または最後の子 (子ブロックのリストの先頭、または末尾) に挿入できます。フックされたブロックは、フロントエンドとエディターの両方に表示されます (ユーザーによるカスタマイズが可能です)。
+
+<!-- 
+The key is the name of the block (`string`) to hook into, and the value is the position to hook into (`string`). Allowed target values are:
+ -->
+キーはフックするブロックの名前 (`string`)、値はフックする位置 (`string`) です。指定可能な値は以下です。
+
+<!-- 
+-   `before` – inject before the target block.
+-   `after` - inject after the target block.
+-   `firstChild` - inject before the first inner block of the target container block.
+-   `lastChild` - inject after the last inner block of the target container block.
+ -->
+-   `before` – ターゲットブロックの前に挿入
+-   `after` - ターゲットブロックの後に挿入
+-   `firstChild` - ターゲットのコンテナブロックの最初のインナーブロックの前に挿入
+-   `lastChild` - ターゲットのコンテナブロックの最後のインナーブロックの後に挿入
+
+```js
+{
+	blockHooks: {
+		'core/verse': 'before'
+		'core/spacer': 'after',
+		'core/column': 'firstChild',
+		'core/group': 'lastChild',
+	}
+}
+```
+<!-- 
+It’s crucial to emphasize that the Block Hooks feature is only designed to work with _static_ block-based templates, template parts, and patterns. For patterns, this includes those provided by the theme, from [Block Pattern Directory](https://wordpress.org/patterns/), or from calls to [`register_block_pattern`](https://developer.wordpress.org/reference/functions/register_block_pattern/).
+ -->
+重要な点のため強調しますが、ブロックフック機能は、_静的な_ ブロックベースのテンプレート、テンプレートパーツ、パターンにのみ対応するように設計されています。このパターンに含まれるものは、テーマや、[ブロックパターンディレクトリ](https://wordpress.org/patterns/)、そして [`register_block_pattern`](https://developer.wordpress.org/reference/functions/register_block_pattern/) 呼び出しから提供されたものです。
+
+<!-- 
+Block Hooks will not work with post content or patterns crafted by the user, such as synced patterns, or theme templates and template parts that have been modified by the user.
+ -->
+ブロックフックは、投稿コンテンツや、ユーザーが作成したパターン (同期パターンなど)、ユーザーが変更したテーマのテンプレートやテンプレートパーツでは機能しません。
 
 <!--
 ## Block Collections

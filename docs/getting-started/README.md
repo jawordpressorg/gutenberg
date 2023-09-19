@@ -41,22 +41,52 @@ Welcome! Let's get started building with blocks. Blocks are at the core of exten
 <!-- 
 [Full Site Editing](/docs/getting-started/full-site-editing.md) - Full Site Editing (FSE) is an umbrella project name for the collection of features that bring the experience and extendability of blocks to all parts of your site—from settings and styles, to templates and themes, and more.
  -->
+<!--  
 [フルサイト編集](https://ja.wordpress.org/team/handbook/block-editor/getting-started/full-site-editing/) - フルサイト編集 (Full Site Editing, FSE) は、様々な機能を包括するプロジェクトの名前です。設定やスタイルからテンプレートやテーマまで、サイトのあらゆるパーツにブロックの操作性と拡張性を導入します。
-
+ -->
 <!-- 
 -   Learn [about using theme.json](/docs/how-to-guides/themes/theme-json.md) to define settings and styles for your theme.
  -->
+<!-- 
 -   [theme.json の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - テーマの設定とスタイルの定義を学びます。
-
+ -->
 <!-- 
 -   [Create a Block Theme](/docs/how-to-guides/themes/create-block-theme.md) - Learn how block themes use blocks to build templates and the theme.json to provide styles.
  -->
+<!-- 
 -   [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme/) - ブロックテーマでのブロックを使用したテンプレートの構築と、theme.json を使用したスタイルの提供を学びます。
-
+ -->
 <!-- 
 -   [Convert a Classic Theme to a Block Theme](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - Learn how to adopt various pieces of full site editing in your classic theme.
  -->
+<!-- 
 -   [クラシックテーマからブロックテーマへの変換](https://developer.wordpress.org/themes/block-themes/converting-a-classic-theme-to-a-block-theme/) - クラシックテーマでフルサイト編集の様々なパーツを採用する方法を学びます。
+ -->
+
+<!-- 
+## Learn WordPress Courses
+ -->
+## Learn WordPress のコース
+
+<!-- 
+At [Learn WordPress](https://learn.wordpress.org/), you can find [tutorials](https://learn.wordpress.org/tutorials/), [courses](https://learn.wordpress.org/courses/), and [online workshops](https://learn.wordpress.org/online-workshops/) to learn more about developing for the Block Editor. Here is a selection of current offerings.
+ -->
+[Learn WordPress](https://learn.wordpress.org/) には、ブロックエディター開発学習用の[チュートリアル](https://learn.wordpress.org/tutorials/)、[コース](https://learn.wordpress.org/courses/)、[オンラインワークショップ](https://learn.wordpress.org/online-workshops/) があります。現在のコースからいくつかを選びました。
+
+<!-- 
+-   [Intro to Block Development: Build Your First Custom Block](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/)
+-   [Converting a Shortcode to a Block](https://learn.wordpress.org/course/converting-a-shortcode-to-a-block/)
+-   [Using the WordPress Data Layer](https://learn.wordpress.org/course/using-the-wordpress-data-layer/)
+-   [Registering Block Patterns](https://learn.wordpress.org/workshop/registering-block-patterns/)
+-   [Intro to Gutenberg Block Development](https://learn.wordpress.org/workshop/intro-to-gutenberg-block-development/)
+-   [Intro to Publishing with the Block Editor](https://learn.wordpress.org/workshop/intro-to-publishing-with-the-block-editor/)
+ -->
+-   [Intro to Block Development: Build Your First Custom Block (ブロック開発入門: 最初のカスタムブロック作成)](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/)
+-   [Converting a Shortcode to a Block (ショートカットのブロックへの変換)](https://learn.wordpress.org/course/converting-a-shortcode-to-a-block/)
+-   [Using the WordPress Data Layer (WordPress データレイヤの利用)](https://learn.wordpress.org/course/using-the-wordpress-data-layer/)
+-   [Registering Block Patterns (ブロックパターンの登録)](https://learn.wordpress.org/workshop/registering-block-patterns/)
+-   [Intro to Gutenberg Block Development (Gutenberg ブロック開発入門)](https://learn.wordpress.org/workshop/intro-to-gutenberg-block-development/)
+-   [Intro to Publishing with the Block Editor (ブロックエディターでの公開入門)](https://learn.wordpress.org/workshop/intro-to-publishing-with-the-block-editor/)
 
 <!-- 
 ## Ways to Stay Informed
@@ -138,15 +168,15 @@ Checking in on [issues](https://github.com/WordPress/gutenberg/issues) and [PRs]
  -->
 GitHub 上の [issue](https://github.com/WordPress/gutenberg/issues) と [PR](https://github.com/WordPress/gutenberg/pulls) をチェックしてください。開発者やデザイナーが何に取り組んでいるかをほぼリアルタイムで把握できます。 
 
-<!--
--   [Glossary](/docs/explanations/glossary.md)
--   [Frequently Asked Questions](/docs/explanations/faq.md)
+<!-- 
+-   [Glossary](/docs/getting-started/glossary.md)
+-   [Frequently Asked Questions](/docs/getting-started/faq.md)
 -   [Project History](/docs/explanations/history.md)
--   [Outreach](/docs/getting-started/outreach.md)
+-   [Gutenberg related Make posts](https://make.wordpress.org/core/handbook/references/keeping-up-with-gutenberg-index/)
  -->
--   [用語集](https://ja.wordpress.org/team/handbook/block-editor/explanations/glossary/)
--   [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/explanations/faq/)
+-   [用語集](https://ja.wordpress.org/team/handbook/block-editor/getting-started/glossary/)
+-   [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/getting-started/faq/)
 -   [プロジェクトの歴史](https://ja.wordpress.org/team/handbook/block-editor/explanations/history/)
--   [アウトリーチ](https://ja.wordpress.org/team/handbook/block-editor/getting-started/outreach/)
+-   [Gutenberg 関連の Make posts](https://make.wordpress.org/core/handbook/references/keeping-up-with-gutenberg-index/)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/README.md)

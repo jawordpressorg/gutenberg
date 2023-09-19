@@ -58,12 +58,7 @@ Setting that enables the following UI tools:
 -->
 以下のUIツールを有効にする設定。
 
-<!--
-- border: color, radius, style, width
-- color: link
-- spacing: blockGap, margin, padding
-- typography: lineHeight
--->
+- background: backgroundImage
 - border: color, radius, style, width
 - color: link
 - dimensions: minHeight
@@ -144,6 +139,19 @@ Settings related to colors.
 
 ---
 
+### background
+
+<!-- 
+Settings related to background.
+ -->
+背景関連の設定。
+
+| Property  | Type   | Default | Props  |
+| ---       | ---    | ---    |---   |
+| backgroundImage | boolean | false |  |
+
+---
+
 ### dimensions
 <!-- 
 Settings related to dimensions.
@@ -168,6 +176,20 @@ Settings related to layout.
 | contentSize | string |  |  |
 | wideSize | string |  |  |
 | allowEditing | boolean | true |  |
+
+---
+
+### lightbox
+
+<!-- 
+Settings related to the lightbox.
+ -->
+lightbox 関連の設定。
+
+| Property  | Type   | Default | Props  |
+| ---       | ---    | ---    |---   |
+| enabled | boolean |  |  |
+| allowEditing | boolean |  |  |
 
 ---
 
@@ -237,10 +259,13 @@ Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-
 
 ---
 
+<!-- 
 ### behaviors
+ -->
 <!-- 
 Settings related to behaviors.
  -->
+<!--  
 動作関連の設定。
 
 | Property  | Type   | Default | Props  |
@@ -248,7 +273,7 @@ Settings related to behaviors.
 | lightbox | boolean | false |  |
 
 ---
-
+ -->
 <!--
 ## Styles
 -->

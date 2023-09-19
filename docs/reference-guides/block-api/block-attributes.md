@@ -581,16 +581,19 @@ Attribute available in the block:
 ```js
 { "content": "The inner text of the <strong>figcaption</strong> element" }
 ```
+
 <!--
 Use the `multiline` property to extract the inner HTML of matching tag names for the use in `RichText` with the `multiline` prop.
  -->
+<!-- 
 `RickText` 内から複数のタグ名に合致する內部 HTML を取り出すには `multiline` プロパティを使用してください。
-
+ -->
 <!-- 
 _Example_: Extract the `content` attribute from a blockquote element found in the block's markup.
 
 Saved content:
  -->
+<!-- 
 _例_: ブロックのマークアップにある blockquote 要素から `content` 属性を取り出す。
 
 保存されたコンテンツ:
@@ -605,9 +608,11 @@ _例_: ブロックのマークアップにある blockquote 要素から `conte
 	</blockquote>
 </div>
 ```
+ -->
 <!--
 Attribute definition:
  -->
+<!-- 
 属性定義:
 
 ```js
@@ -620,14 +625,17 @@ Attribute definition:
 	}
 }
 ```
+ -->
 <!--
 Attribute available in the block:
  -->
+<!-- 
 ブロック内で利用可能な属性:
 
 ```js
 { "content": "<p>First line</p><p>Second line</p>" }
 ```
+ -->
 <!--
 ### `query` source
  -->

@@ -67,12 +67,9 @@ There isn't an FSE specific theme type. In WordPress > 5.9 FSE is enabled for an
 **コンテンツ**
 
 <!--
-- [Block Theme Overview](/docs/how-to-guides/themes/block-theme-overview.md)
 - [Global Settings (theme.json)](/docs/how-to-guides/themes/theme-json.md)
 - [Theme Support](/docs/how-to-guides/themes/theme-support.md)
  -->
-- [ブロックテーマ概要](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/block-theme-overview)
-- [ブロックテーマの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/create-block-theme)
 - [グローバル設定 (theme.json)](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json)
 - [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support)
 

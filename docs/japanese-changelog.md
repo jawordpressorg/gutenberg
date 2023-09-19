@@ -2,6 +2,21 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/9/19
+- [トップページ](https://ja.wordpress.org/team/handbook/block-editor/) - よくある質問、Glossary の位置をはじめにに [#54117](https://github.com/WordPress/gutenberg/pull/54117)、[#54120](https://github.com/WordPress/gutenberg/pull/54120)
+- [デザインのコントリビューション](https://ja.wordpress.org/team/handbook/block-editor/contributors/design/) - ロゴ追加、Future Opportunities 削除 [#51065](https://github.com/WordPress/gutenberg/pull/51065)
+- [Design > Reference](https://ja.wordpress.org/team/handbook/block-editor/contributors/design/reference/) - 削除
+[Triage](https://ja.wordpress.org/team/handbook/block-editor/contributors/triage/) - 全面改訂 [#54258](https://github.com/WordPress/gutenberg/pull/54258)
+- [History](https://ja.wordpress.org/team/handbook/block-editor/explanations/history/) - 改訂 [#54314](https://github.com/WordPress/gutenberg/pull/54314)
+- [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 改定 [#54314](https://github.com/WordPress/gutenberg/pull/54314)
+- [カスタムブロックエディターの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/) - BlockCanvas 追加 [#54149](https://github.com/WordPress/gutenberg/pull/54149)
+- [Enqueueing assets in the Editor](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) - 全面改訂 [#54125](https://github.com/WordPress/gutenberg/pull/54125)
+- [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) - multiline 削除 [#54310](https://github.com/WordPress/gutenberg/pull/54310)
+- [block.json のメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - ブロックフック [#54293](https://github.com/WordPress/gutenberg/pull/54293)
+- [登録](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) - ブロックフック [#54293](https://github.com/WordPress/gutenberg/pull/54293)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ボタン tagName, type [#54206](https://github.com/WordPress/gutenberg/pull/54206)、ファイル、ナビゲーション、検索 interactivity [#54297](https://github.com/WordPress/gutenberg/pull/54297)、[#53343](https://github.com/WordPress/gutenberg/pull/53343)、グループ background [#53934](https://github.com/WordPress/gutenberg/pull/53934)、コンテンツ blockGap [#54282](https://github.com/WordPress/gutenberg/pull/54282)、画像 behaviors 削除 [#53851](https://github.com/WordPress/gutenberg/pull/53851)、lightbox [#54509](https://github.com/WordPress/gutenberg/pull/54509)、見出し __unstablePasteTextInline [#54301](https://github.com/WordPress/gutenberg/pull/54301)、ナビゲーション ariaLabel [#54418](https://github.com/WordPress/gutenberg/pull/54418)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - background [#53934](https://github.com/WordPress/gutenberg/pull/53934)、behaviors 削除 [#538551](https://github.com/WordPress/gutenberg/pull/53851)、lightbox [#54509](https://github.com/WordPress/gutenberg/pull/54509)
+
 2023/9/4
 - [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - Node v16 & npm v8 [#53912](https://github.com/WordPress/gutenberg/pull/53912)
 - [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - parent、ancester の説明を改定 [#53855](https://github.com/WordPress/gutenberg/pull/53855)

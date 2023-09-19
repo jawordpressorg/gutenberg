@@ -246,9 +246,10 @@ $ npx @wordpress/create-block@latest --template ./path/to/template-directory
 #### --variant
 
 <!-- 
-With this argument, `create-block` will generate a [dynamic block](https://developer.wordpress.org/block-editor/explanations/glossary/#dynamic-block) based on the built-in template.
+With this argument, `create-block` will generate a [dynamic block](https://developer.wordpress.org/block-editor/getting-started/glossary/#dynamic-block) based on the built-in template.
+
  -->
-この引数を使用すると、`create-block` は組み込みのテンプレートを基に、[ダイナミックブロック](https://developer.wordpress.org/block-editor/explanations/glossary/#dynamic-block)を生成します。
+この引数を使用すると、`create-block` は組み込みのテンプレートを基に、[ダイナミックブロック](https://developer.wordpress.org/block-editor/getting-started/glossary/#dynamic-block)を生成します。
 
 ```bash
 $ npx @wordpress/create-block@latest --variant dynamic

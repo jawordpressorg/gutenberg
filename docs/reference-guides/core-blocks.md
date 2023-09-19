@@ -17,9 +17,9 @@ Items marked with a strikeout (~~strikeout~~) are explicitly disabled.
 取り消し線の付いた項目は、明示的に無効化されています。
  -->
 <!-- 
--	Items marked with a strikeout (~~strikeout~~) are explicitly disabled.
--	Blocks marked with **Experimental:** true are only available when Gutenberg is active.
--	Blocks marked with **Experimental:** fse are only available in the Site Editor.
+-   Items marked with a strikeout (~~strikeout~~) are explicitly disabled.
+-   Blocks marked with **Experimental:** true are only available when Gutenberg is active.
+-   Blocks marked with **Experimental:** fse are only available in the Site Editor.
  -->
 -	取り消し線 (~~strikeout~~) の項目は明示的に無効化されています。
 -	**Experimental:** true と書かれたブロックは、Gutenberg が有効化されている場合のみ利用可能です。
@@ -104,7 +104,7 @@ Prompt visitors to take action with a button-style link. ([Source](https://githu
 -	**Category:** design
 -	**Parent:** core/buttons
 -	**Supports:** anchor, color (background, gradients, text), shadow, spacing (padding), typography (fontSize, lineHeight), ~~alignWide~~, ~~align~~, ~~reusable~~
--	**Attributes:** backgroundColor, gradient, linkTarget, placeholder, rel, text, textAlign, textColor, title, url, width
+-	**Attributes:** backgroundColor, gradient, linkTarget, placeholder, rel, tagName, text, textAlign, textColor, title, type, url, width
 
 <!--
 ## Buttons
@@ -499,7 +499,7 @@ Add a link to a downloadable file. ([Source](https://github.com/WordPress/gutenb
 
 -	**Name:** core/file
 -	**Category:** media
--	**Supports:** align, anchor, color (background, gradients, link, ~~text~~), spacing (margin, padding)
+-	**Supports:** align, anchor, color (background, gradients, link, ~~text~~), interactivity, spacing (margin, padding)
 -	**Attributes:** displayPreview, downloadButtonText, fileId, fileName, href, id, previewHeight, showDownloadButton, textLinkHref, textLinkTarget
 
 <!-- 
@@ -556,7 +556,7 @@ Gather blocks in a layout container. ([Source](https://github.com/WordPress/gute
 
 -	**Name:** core/group
 -	**Category:** design
--	**Supports:** align (full, wide), anchor, ariaLabel, color (background, button, gradients, heading, link, text), dimensions (minHeight), layout (allowSizingOnChildren), position (sticky), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), anchor, ariaLabel, background (backgroundImage), color (background, button, gradients, heading, link, text), dimensions (minHeight), layout (allowSizingOnChildren), position (sticky), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** allowedBlocks, tagName, templateLock
 
 <!--
@@ -617,8 +617,8 @@ Insert an image to make a visual statement. ([Source](https://github.com/WordPre
 
 -	**Name:** core/image
 -	**Category:** media
--	**Supports:** anchor, behaviors (lightbox), color (~~background~~, ~~text~~), filter (duotone)
--	**Attributes:** align, alt, aspectRatio, caption, height, href, id, linkClass, linkDestination, linkTarget, rel, scale, sizeSlug, title, url, width
+-	**Supports:** anchor, color (~~background~~, ~~text~~), filter (duotone)
+-	**Attributes:** align, alt, aspectRatio, caption, height, href, id, lightbox, linkClass, linkDestination, linkTarget, rel, scale, sizeSlug, title, url, width
 
 <!--
 ## Latest Comments
@@ -751,7 +751,7 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Supports:** align (full, wide), inserter, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), inserter, interactivity, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 
 <!--
@@ -985,7 +985,7 @@ Displays the contents of a post or page. ([Source](https://github.com/WordPress/
 
 -	**Name:** core/post-content
 -	**Category:** theme
--	**Supports:** align (full, wide), color (background, gradients, link, text), dimensions (minHeight), layout, typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), color (background, gradients, link, text), dimensions (minHeight), layout, spacing (blockGap), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** 
 
 <!-- 
@@ -1306,7 +1306,7 @@ Help visitors find your content. ([Source](https://github.com/WordPress/gutenber
 
 -	**Name:** core/search
 -	**Category:** widgets
--	**Supports:** align (center, left, right), color (background, gradients, text), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (center, left, right), color (background, gradients, text), interactivity, typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** buttonBehavior, buttonPosition, buttonText, buttonUseIcon, isSearchFieldHidden, label, placeholder, query, showLabel, width, widthUnit
 
 <!--
