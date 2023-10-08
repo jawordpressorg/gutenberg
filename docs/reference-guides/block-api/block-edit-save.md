@@ -48,7 +48,7 @@ var blockSettings = {
 	edit: function () {
 		var blockProps = wp.blockEditor.useBlockProps();
 
-		return wp.element.createElement( 'div', blockProps, 'Your block.' );
+		return React.createElement( 'div', blockProps, 'Your block.' );
 	},
 };
 ```
@@ -109,7 +109,7 @@ var blockSettings = {
 			className: 'my-random-classname',
 		} );
 
-		return wp.element.createElement( 'div', blockProps, 'Your block.' );
+		return React.createElement( 'div', blockProps, 'Your block.' );
 	},
 };
 ```
@@ -157,7 +157,7 @@ edit: ( { attributes } ) => {
 edit: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps();
 
-	return wp.element.createElement(
+	return React.createElement(
 		'div',
 		blockProps,
 		props.attributes.content
@@ -206,12 +206,12 @@ edit: ( { attributes, isSelected } ) => {
 edit: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps();
 
-	return wp.element.createElement(
+	return React.createElement(
 		'div',
 		blockProps,
 		[
 			'Your block.',
-			props.isSelected ? wp.element.createElement(
+			props.isSelected ? React.createElement(
 				'span',
 				null,
 				'Shows only when the block is selected.'
@@ -268,12 +268,12 @@ edit: function( props ) {
 
 	// Toggle a setting when the user clicks the button
 	let toggleSetting = () => props.setAttributes( { mySetting: ! mySetting } );
-	return wp.element.createElement(
+	return React.createElement(
 		'div',
 		blockProps,
 		[
 			content,
-			props.isSelected ? wp.element.createElement(
+			props.isSelected ? React.createElement(
 				'button',
 				{ onClick: toggleSetting },
 				'Toggle setting'
@@ -364,7 +364,7 @@ save: () => {
 save: function() {
 	var blockProps = wp.blockEditor.useBlockProps.save();
 
-	return wp.element.createElement(
+	return React.createElement(
 		'div',
 		blockProps,
 		'Your block.'
@@ -446,7 +446,7 @@ save: ( { attributes } ) => {
 save: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps.save();
 
-	return wp.element.createElement(
+	return React.createElement(
 		'div',
 		blockProps,
 		props.attributes.content
@@ -532,10 +532,10 @@ edit: function( props ) {
 		props.setAttributes( { content: val } );
 	}
 
-	return wp.element.createElement(
+	return React.createElement(
 		'div',
 		blockProps,
-		wp.element.createElement(
+		React.createElement(
 			wp.components.TextControl,
 			{
 				label: 'My Text Field',
@@ -550,7 +550,7 @@ edit: function( props ) {
 save: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps.save();
 
-	return wp.element.createElement( 'div', blockProps, props.attributes.content );
+	return React.createElement( 'div', blockProps, props.attributes.content );
 },
 ```
 <!-- 
@@ -617,10 +617,10 @@ attributes: {
 edit: function( props ) {
 	var blockProps = wp.blockEditor.useBlockProps();
 
-	return wp.element.createEleement(
+	return React.createEleement(
 		'div',
 		blockProps,
-		wp.element.createElement(
+		React.createElement(
 			wp.components.TextControl,
 			{
 				label: 'Number Posts to Show',

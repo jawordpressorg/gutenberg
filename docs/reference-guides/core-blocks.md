@@ -412,7 +412,7 @@ Add an image or video with a text overlay. ([Source](https://github.com/WordPres
 -	**Name:** core/cover
 -	**Category:** media
 -	**Supports:** align, anchor, color (heading, text, ~~background~~, ~~enableContrastChecker~~), layout (~~allowJustification~~), spacing (blockGap, margin, padding), typography (fontSize, lineHeight), ~~html~~
--	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, minHeight, minHeightUnit, overlayColor, tagName, templateLock, url, useFeaturedImage
+-	**Attributes:** allowedBlocks, alt, backgroundType, contentPosition, customGradient, customOverlayColor, dimRatio, focalPoint, gradient, hasParallax, id, isDark, isRepeated, isUserOverlayColor, minHeight, minHeightUnit, overlayColor, tagName, templateLock, url, useFeaturedImage
 
 <!-- 
 ## Details
@@ -507,11 +507,77 @@ Add a link to a downloadable file. ([Source](https://github.com/WordPress/gutenb
  -->
 ## Footnotes / 脚注
 
- ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/footnotes))
+<!-- 
+Display footnotes added to the page. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/footnotes))
+ -->
+ページに追加された脚注を表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/footnotes))
 
 -	**Name:** core/footnotes
 -	**Category:** text
--	**Supports:** color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~multiple~~, ~~reusable~~
+-	**Supports:** color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~, ~~inserter~~, ~~multiple~~, ~~reusable~~
+-	**Attributes:** 
+
+<!-- 
+## Form
+ -->
+## Form / フォーム
+
+<!-- 
+A form. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form))
+ -->
+フォーム。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form))
+
+-	**Name:** core/form
+-	**Category:** common
+-	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
+-	**Attributes:** action, email, method, submissionMethod
+
+<!-- 
+## Input field
+ -->
+## Input field / 入力フィールド
+
+<!-- 
+The basic building block for forms. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-input))
+ -->
+フォーム用の基本構築ブロック。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-input))
+
+-	**Name:** core/form-input
+-	**Category:** common
+-	**Parent:** core/form
+-	**Supports:** anchor, spacing (margin), ~~reusable~~
+-	**Attributes:** inlineLabel, label, name, placeholder, required, type, value, visibilityPermissions
+
+<!-- 
+## Form Submission Notification
+ -->
+## Form Submission Notification / フォーム送信通知
+
+<!-- 
+Provide a notification message after the form has been submitted. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-submission-notification))
+ -->
+フォームが送信された後の通知メッセージを設定します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-submission-notification))
+
+-	**Name:** core/form-submission-notification
+-	**Category:** common
+-	**Parent:** core/form
+-	**Supports:** 
+-	**Attributes:** type
+
+<!-- 
+## Form submit button
+ -->
+## Form submit button / フォーム送信ボタン
+
+<!-- 
+A submission button for forms. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-submit-button))
+ -->
+フォームの送信ボタン。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-submit-button))
+
+-	**Name:** core/form-submit-button
+-	**Category:** common
+-	**Parent:** core/form
+-	**Supports:** 
 -	**Attributes:** 
 
 <!--
@@ -571,7 +637,7 @@ Introduce new sections and organize content to help visitors (and search engines
 
 -	**Name:** core/heading
 -	**Category:** text
--	**Supports:** align (full, wide), anchor, className, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
+-	**Supports:** __unstablePasteTextInline, align (full, wide), anchor, className, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** content, level, placeholder, textAlign
 
 <!--
@@ -691,7 +757,7 @@ Show login & logout links. ([Source](https://github.com/WordPress/gutenberg/tree
 
 -	**Name:** core/loginout
 -	**Category:** theme
--	**Supports:** className, typography (fontSize, lineHeight)
+-	**Supports:** className, spacing (margin, padding), typography (fontSize, lineHeight)
 -	**Attributes:** displayLoginAsForm, redirectToCurrent
 
 <!--
@@ -751,7 +817,7 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Supports:** align (full, wide), inserter, interactivity, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), ariaLabel, inserter, interactivity, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 
 <!--

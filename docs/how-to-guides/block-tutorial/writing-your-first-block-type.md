@@ -38,7 +38,7 @@ There are two main types of blocks: static and dynamic, this guide focuses on st
 
 <!-- 
 <div class="callout callout-alert">
-This guide focuses on just the block, see the [Create a Block tutorial](/docs/getting-started/create-block/README.md) for a complete setup.
+This guide focuses on just the block, see the <a href="https://developer.wordpress.org/block-editor/getting-started/create-block/">Create a Block tutorial</a> for a complete setup.
 </div>
  -->
 このガイドではブロックだけを取り上げていますが、完全なセットアップについては [ブロックの作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) をご覧ください。
@@ -307,8 +307,8 @@ Add the following to `block.js`
 次のコードを `block.js` に追加してください。
 
 ```js
-( function ( blocks, element ) {
-	var el = element.createElement;
+( function ( blocks, React ) {
+	var el = React.createElement;
 
 	blocks.registerBlockType( 'gutenberg-examples/example-01-basic', {
 		edit: function () {
@@ -318,7 +318,7 @@ Add the following to `block.js`
 			return el( 'p', {}, 'Hola mundo (from the frontend).' );
 		},
 	} );
-} )( window.wp.blocks, window.wp.element );
+} )( window.wp.blocks, window.React );
 ```
 <!-- 
 {% end %}
@@ -380,8 +380,8 @@ Create the asset file to load the dependencies for the scripts. The name of this
 <?php return
 	array( 'dependencies' =>
 		array(
+			'react',
 			'wp-blocks',
-			'wp-element',
 			'wp-polyfill'
 		),
 		'version' => '0.1'

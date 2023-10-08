@@ -11,7 +11,7 @@ WordPress ブロックエディターの背景のアイデアは、独立した�
 <!--
 But the Block Editor does not embrace modularity for its behavior and output only. The Gutenberg repository is also built from the ground up as several reusable and independent modules or packages, that, combined together, lead to the application and interface we all know. These modules are known as [WordPress packages](https://www.npmjs.com/org/wordpress) and are published and updated regularly on the npm package repository.
  -->
-ただし、ブロックエディタは、動作や出力のみにモジュール性を取り入れるわけではありません。Gutenberg リポジトリもまた、再利用可能で独立したいくつかのモジュールやパッケージとしてゼロから構築されていて、モジュールやパッケージの組み合わせでアプリケーションやインターフェイスが作成されています。これらのモジュールは [WordPress パッケージ](https://www.npmjs.com/org/wordpress)と呼ばれ、npmパッケージリポジトリで定期的に公開、更新されています。
+ただし、ブロックエディターは、動作や出力のみにモジュール性を取り入れるわけではありません。Gutenberg リポジトリもまた、再利用可能で独立したいくつかのモジュールやパッケージとしてゼロから構築されていて、モジュールやパッケージの組み合わせでアプリケーションやインターフェースが作成されています。これらのモジュールは [WordPress パッケージ](https://www.npmjs.com/org/wordpress)と呼ばれ、npm パッケージリポジトリで定期的に公開、更新されています。
 
 <!--
 These packages are used to power the Block Editor, but they can be used to power any page in the WordPress Admin or outside.
@@ -87,7 +87,7 @@ function MyApp() {
 ```php
 // myplugin.php
 // Example of script registration dependending on the "components" and "element packages.
-wp_register_script( 'myscript', 'pathtomyscript.js', array ('wp-components', "wp-element" ) );
+wp_register_script( 'myscript', 'pathtomyscript.js', array ('wp-components', "react" ) );
 ```
  -->
 ```php

@@ -54,15 +54,15 @@
 ## [フックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/filters/)
 
 <!-- 
--   [Block Hooks](/docs/reference-guides/filters/block-filters.md)
+-   [Block Filters](/docs/reference-guides/filters/block-filters.md)
 -   [Editor Hooks](/docs/reference-guides/filters/editor-filters.md)
 -   [i18n Hooks](/docs/reference-guides/filters/i18n-filters.md)
 -   [Parser Hooks](/docs/reference-guides/filters/parser-filters.md)
 -   [Autocomplete](/docs/reference-guides/filters/autocomplete-filters.md)
 -   [Global Styles Hooks](/docs/reference-guides/filters/global-styles-filters.md)
  -->
--   [Block Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/)
--   [Editor Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/))
+-   [Block Filters](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/)
+-   [Editor Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/)
 -   [i18n Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/i18n-filters/)
 -   [Parser Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/parser-filters/)
 -   [Autocomplete](https://developer.wordpress.org/block-editor/reference-guides/filters/autocomplete-filters/)

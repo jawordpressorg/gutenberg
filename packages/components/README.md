@@ -57,12 +57,17 @@ WordPress 以外のプロジェクトの場合は、直接 `build-style/style.cs
 <!-- 
 ### Popovers and Tooltips
  -->
+<!--  
 ### Popover と Tooltip
+ -->
+### Popovers
 
 <!-- 
 _If you're using [`Popover`](/packages/components/src/popover/README.md) or [`Tooltip`](/packages/components/src/tooltip/README.md) components outside of the editor, make sure they are rendered within a `SlotFillProvider` and with a `Popover.Slot` somewhere up the element tree._
  -->
+<!-- 
 _もし、[`Popover`](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/popover/README.md) コンポーネント、または [`Tooltip`](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/tooltip/README.md) コンポーネントをエディターの外で使用している場合、それらのコンポーネントは、`SlotFillProvider` 内で、要素ツリーのどこかで `Popover.Slot` と一緒にレンダーされる必要があります。_
+ -->
 
 <!-- 
 By default, the `Popover` component will render inline i.e. within its
@@ -95,7 +100,9 @@ If you want to precisely contol where the popovers render, you will need to use 
 A `Popover` is also used as the underlying mechanism to display `Tooltip` components.
 So the same considerations should be applied to them.
  -->
+<!-- 
 `Popover` は `Tooltip` コンポーネントを表示するベースのメカニズムとしても使用されます。したがって、同じ考慮が、`Tooltip` でも必要です。
+ -->
 
 <!-- 
 The following example illustrates how you can wrap a component using a
@@ -118,7 +125,7 @@ const Example = () => {
 	<SlotFillProvider>
 		<MyComponentWithPopover />
 		<Popover.Slot />
-	</SlotFillProvider>
+	</SlotFillProvider>;
 };
 ```
 

@@ -311,6 +311,17 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/10/8
+- [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - Demo editor setup [#54957](https://github.com/WordPress/gutenberg/pull/54957)
+- [ブロック開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) - 全面改定 [#54395](https://github.com/WordPress/gutenberg/pull/54395)
+- [Node.js 開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/nodejs-development-environment/) - 「開発環境」から分離、補筆 [#54395](https://github.com/WordPress/gutenberg/pull/54395)
+- [wp-env 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/) - 「開発環境」から分離、補筆 [#54395](https://github.com/WordPress/gutenberg/pull/54395)
+- [How to setup local WordPress environment on Ubuntu](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/docker-ubuntu/) - 削除
+- [フルサイト編集](https://ja.wordpress.org/team/handbook/block-editor/getting-started/full-site-editing/) - 削除
+- [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) - @wordpress/element を react で置換 [#54908](https://github.com/WordPress/gutenberg/pull/54908)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ナビゲーション ariaLabel [#54418](https://github.com/WordPress/gutenberg/pull/54418)、見出し __unstablePasteTextInline [#54301](https://github.com/WordPress/gutenberg/pull/54301)、カバー isUserOverlayColor [#54054](https://github.com/WordPress/gutenberg/pull/54054)、ログイン / アウト spacing [#45147](https://github.com/WordPress/gutenberg/pull/45147)、フォーム、入力フィールド、フォーム送信通知、フォーム送信ボタン [#44214](https://github.com/WordPress/gutenberg/pull/44214)、脚注 inserter 削除 [#55058](https://github.com/WordPress/gutenberg/pull/55058)
+- [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) - tooltip は popver を使わない [#54707](https://github.com/WordPress/gutenberg/pull/54707)
+
 2023/9/19
 - [トップページ](https://ja.wordpress.org/team/handbook/block-editor/) - よくある質問、Glossary の位置をはじめにに [#54117](https://github.com/WordPress/gutenberg/pull/54117)、[#54120](https://github.com/WordPress/gutenberg/pull/54120)
 - [デザインのコントリビューション](https://ja.wordpress.org/team/handbook/block-editor/contributors/design/) - ロゴ追加、Future Opportunities 削除 [#51065](https://github.com/WordPress/gutenberg/pull/51065)

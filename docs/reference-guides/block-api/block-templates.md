@@ -63,7 +63,7 @@ The following example in JavaScript creates a new block using [InnerBlocks](http
 次の JavaScript の例では [InnerBlocks](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) とテンプレートを使用して新しいブロックを作成します。エディターに挿入されるとテンプレートに基づいて一連のブロックを作成します。
 
 ```js
-const el = wp.element.createElement;
+const el = React.createElement;
 const { registerBlockType } = wp.blocks;
 const { InnerBlocks } = wp.blockEditor;
 
