@@ -110,7 +110,7 @@ WordPress コミュニティでは、ローカルに WordPress 環境を構築�
 <!-- 
 Refer to the [Get started with `wp-env`](/docs/getting-started/devenv/get-started-with-wp-env.md) guide for setup instructions.
  -->
-セットアップ方法については、[wp-env 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env.md) ガイドを参照してください。
+セットアップ方法については、[wp-env 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/) ガイドを参照してください。
 
 <!-- 
 <div class="callout callout-info">
