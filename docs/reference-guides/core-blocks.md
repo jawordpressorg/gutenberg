@@ -950,12 +950,12 @@ Display post author details such as name, avatar, and bio. ([Source](https://git
 <!--
 ## Author Biography
  -->
-## Author Biography / 投稿者の経歴
+## Author Biography / 投稿者のプロフィール情報
 
 <!-- 
 The author biography. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author-biography))
  -->
-作者の経歴。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author-biography))
+投稿者のプロフィール情報。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/post-author-biography))
 -	**Name:** core/post-author-biography
 -	**Category:** theme
 -	**Supports:** color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight)
