@@ -11,7 +11,7 @@ This guide will help you set up the right development environment to create bloc
 <!-- 
 To contribute to the Gutenberg project itself, refer to the additional documentation in the [code contribution guide](/docs/contributors/code/getting-started-with-code-contribution.md).`
  -->
-Gutenberg プロジェクト自体に貢献するには、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) 内の追加ドキュメントを参照してください。
+Gutenberg プロジェクト自体に貢献するには、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) の中の追加ドキュメントを参照してください。
 
 <!-- 
 A block development environment includes the tools you need on your computer to successfully develop for the Block Editor. The three essential requirements are:
@@ -35,12 +35,12 @@ A block development environment includes the tools you need on your computer to 
 <!-- 
 A code editor is used to write code, and you can use whichever editor you're most comfortable with. The key is having a way to open, edit, and save text files.
  -->
-コードエディターを使用してコードを記述します。使い慣れた任意のエディターを使用できます。重要なのは、テキストファイルを開き、編集し、保存する手段があることです。
+コードの記述にはコードエディターを使用します。使い慣れたどのエディターでも使用できます。機能としてテキストファイルを開き、編集し、保存する手段があれば十分です。
 
 <!-- 
 If you do not already have a preferred code editor, [Visual Studio Code](https://code.visualstudio.com/) (VS Code) is a popular choice for JavaScript development among Core contributors. It works well across the three major platforms (Windows, Linux, and Mac) and is open-source and actively maintained by Microsoft. VS Code also has a vibrant community providing plugins and extensions, including many for WordPress development.
  -->
-好みのコードエディターがなければ、[Visual Studio Code](https://code.visualstudio.com/) (VS Code) は、JavaScript 開発においてコアコントリビューターで人気の選択肢です。3つの主要なプラットフォーム (Windows、Linux、Mac) で動作し、オープンソースで、Microsoft によって活発にメンテナンスされています。VS Code にはまた、プラグインや拡張機能 (その中には多数の WordPress 開発用のものも含まれます) を提供する活気あるコミュニティがあります。
+好みのコードエディターがなければ、[Visual Studio Code](https://code.visualstudio.com/) (VS Code) は、JavaScript で開発するコアコントリビューターの中で人気のある選択肢です。3つの主要なプラットフォーム (Windows、Linux、Mac) で動作し、オープンソースで、Microsoft によって活発にメンテナンスされています。VS Code にはまた、プラグインや拡張機能 (その中には多数の WordPress 開発用のものも含まれます) を提供する活気あるコミュニティがあります。
 
 <!-- 
 ## Node.js development tools
@@ -50,12 +50,12 @@ If you do not already have a preferred code editor, [Visual Studio Code](https:/
 <!-- 
 Node.js (`node`) is an open-source runtime environment that allows you to execute JavaScript outside of the web browser. While Node.js is not required for all WordPress JavaScript development, it's essential when working with modern JavaScript tools and developing for the Block Editor.
  -->
-Node.js (`node`) はオープンソースの実行環境で、ウェブブラウザの外で JavaScript を実行できます。Node.jsは WordPress のすべての JavaScript 開発に必要ではありませんが、最新の JavaScript ツールの使用や、ブロックエディター用の開発では不可欠です。
+Node.js (`node`) はオープンソースの実行環境で、ウェブブラウザの外で JavaScript を実行できます。Node.js は WordPress のすべての JavaScript 開発に必要ではありませんが、最新の JavaScript ツールを使用したり、ブロックエディター用に開発する場合は必須です。
 
 <!-- 
 Node.js and its accompanying development tools allow you to:
  -->
-Node.js とそれに付随する開発ツールにより、以下が可能です。
+Node.js とそれに付随する開発ツールを使用することで、以下が可能です。
 
 <!-- 
 -   Install and run WordPress packages needed for Block Editor development, such as `wp-scripts`
@@ -71,14 +71,14 @@ Node.js とそれに付随する開発ツールにより、以下が可能です
 - `create-block` パッケージを使用したカスタムブロックのひな形作成
 
 <!-- 
-The list goes on. While modern JavaScript development can be challenging, WordPress provides several tools, like [`wp-scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) and [`create-block`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/), that streamline the process and are made possible by Node.js development tools.
+The list goes on. While modern JavaScript development can be challenging, WordPress provides several tools, like [`wp-scripts`](/docs/getting-started/devenv/get-started-with-wp-scripts.md) and [`create-block`](/docs/getting-started/devenv/get-started-with-create-block.md), that streamline the process and are made possible by Node.js development tools.
  -->
-まだまだ続きます。最新の JavaScript 開発は難しいかもしれませんが、WordPressでは [`wp-scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) や [`create-block`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/)のような、プロセスを効率化するツールを提供しています。そしてこれらも Node.js 開発ツールで作成されています。
+まだまだ続きます。最新の JavaScript 開発は難しいかもしれませんが、WordPress では [`wp-scripts`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) や [`create-block`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)のような、プロセスを効率化するツールを提供しています。そしてこれらも Node.js 開発ツールで作成されています。
 
 <!-- 
 **The recommended Node.js version for block development is [Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)**. However, there are times when you  need to to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to easily change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
  -->
-**ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも Node.js と一緒に自動的にインストールされます。
+**ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも自動的に Node.js と一緒にインストールされます。
 
 <!-- 
 To be able to use the Node.js tools and [packages provided by WordPress](https://github.com/WordPress/gutenberg/tree/trunk/packages) for block development, you'll need to set a proper Node.js runtime environment on your machine.. To learn more about how to do this, refer to the links below.

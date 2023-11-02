@@ -13,6 +13,11 @@ Before following this guide, install [Node.js development tools](/docs/getting-s
 このガイドに従って実行する前に、[Node.js 開発ツール](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/#node-js-development-tools) をインストールしてください。
 
 <!-- 
+![wp-env basics diagram](https://developer.wordpress.org/files/2023/10/wp-env-diagram.png)
+ -->
+![wp-env 基本ダイアグラム](https://developer.wordpress.org/files/2023/10/wp-env-diagram.png)
+
+<!-- 
 ## Quick start
  -->
 ## クイックスタート
@@ -22,13 +27,13 @@ Before following this guide, install [Node.js development tools](/docs/getting-s
 2. Run `npm -g install @wordpress/env` in the terminal to install `wp-env` globally.
 3. In the terminal, navigate to an existing plugin directory, theme directory, or a new working directory.
 4. Run `wp-env start` in the terminal to start the local WordPress environment.
-5. After the script runs, navigate to `http://localhost:8888/wp-admin/` and log into the WordPress dashboard using username `admin` and password `password`.
+5. After the script runs, navigate to <code>http://localhost:8888/wp-admin</code> and log into the WordPress dashboard using username `admin` and password `password`.
  -->
 1. オペレーティングシステムごとの説明に従って、[Docker Desktop](https://www.docker.com/products/docker-desktop) をダウンロードし、インストール、起動する。
 2. ターミナルで `npm -g install @wordpress/env` を実行し、`wp-env` をグローバルにインストールする。
 3. ターミナルで、既存のプラグインディレクトリ、テーマディレクトリ、または新しい作業ディレクトリに移動する。
 4. ターミナルで `wp-env start` を実行して、ローカルの WordPress 環境を起動する。
-5. スクリプトの実行後、`http://localhost:8888/wp-admin/` にアクセスし、ユーザー名 `admin` とパスワード `password` を使用して WordPress ダッシュボードにログインする。
+5. スクリプトの実行後、<code>http://localhost:8888/wp-admin</code> にアクセスし、ユーザー名 `admin` とパスワード `password` を使用して WordPress ダッシュボードにログインする。
 
 <!-- 
 ## Set up Docker Desktop
@@ -87,9 +92,10 @@ Next, navigate to an existing plugin directory, theme directory, or a new workin
 wp-env start
 ```
 <!-- 
-Once the script completes, you can access the local environment at: `http://localhost:8888`. Log into the WordPress dashboard using username `admin` and password `password`.
+Once the script completes, you can access the local environment at: <code>http://localhost:8888</code>. Log into the WordPress dashboard using username `admin` and password `password`.
  -->
-スクリプトの実行が完了したら、ローカル環境に `http://localhost:8888` でアクセスします。ユーザー名 `admin`、パスワード `password` で WordPress ダッシュボードにログインできます。
+スクリプトの実行が完了したら、ローカル環境に <code>http://localhost:8888</code> でアクセスします。ユーザー名 `admin`、パスワード `password` で WordPress ダッシュボードにログインできます。
+
 <!-- 
 <div class="callout callout-tip">
     Some projects, like Gutenberg, include their own specific <code>wp-env</code> configurations, and the documentation might prompt you to run <code>npm run start wp-env</code> instead.
@@ -255,9 +261,10 @@ export DOCKER_HOST=tcp://127.0.0.1:2376
 wp-env start
 ```
 <!-- 
-Your environment should now be set up at `http://localhost:8888/`.
+Your environment should now be set up at <code>http://localhost:8888</code>.
  -->
-これで環境が `http://localhost:8888/` にセットアップされたはずです。
+これで環境が <code>http://localhost:8888</code> にセットアップされたはずです。
+
 
 <!-- 
 ## Additional resources
@@ -265,12 +272,15 @@ Your environment should now be set up at `http://localhost:8888/`.
 ## 追加のリソース
 
 <!-- 
--   [@wordpress/env](https://www.npmjs.com/package/@wordpress/env) (Official documentation)
--   [Docker Desktop](https://docs.docker.com/desktop) (Official documentation)
--   [Quick and easy local WordPress development with wp-env](https://developer.wordpress.org/news/2023/03/quick-and-easy-local-wordpress-development-with-wp-env/) (WordPress Developer Blog)
+- [@wordpress/env](https://www.npmjs.com/package/@wordpress/env) (Official documentation)
+- [Docker Desktop](https://docs.docker.com/desktop) (Official documentation)
+- [Quick and easy local WordPress development with wp-env](https://developer.wordpress.org/news/2023/03/quick-and-easy-local-wordpress-development-with-wp-env/) (WordPress Developer Blog)
+- [`wp-env` Basics diagram](https://excalidraw.com/#json=8Tp55B-R6Z6-pNGtmenU6,_DeBR1IBxuHNIKPTVEaseA) (Excalidraw)
  -->
--   [@wordpress/env](https://www.npmjs.com/package/@wordpress/env) (公式ドキュメント)
--   [Docker Desktop](https://docs.docker.com/desktop) (公式ドキュメント)
--   [wp-env を使用した素早く、お手軽なローカル WordPress 開発](https://developer.wordpress.org/news/2023/03/quick-and-easy-local-wordpress-development-with-wp-env/) (WordPress Developer Blog)
+- [@wordpress/env](https://www.npmjs.com/package/@wordpress/env) (公式ドキュメント)
+- [Docker Desktop](https://docs.docker.com/desktop) (公式ドキュメント)
+- [wp-env を使用した素早く、お手軽なローカル WordPress 開発](https://developer.wordpress.org/news/2023/03/quick-and-easy-local-wordpress-development-with-wp-env/) (WordPress Developer Blog)
+- [`wp-env` 基本ダイアグラム](https://excalidraw.com/#json=8Tp55B-R6Z6-pNGtmenU6,_DeBR1IBxuHNIKPTVEaseA) (Excalidraw)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/devenv/get-started-with-wp-env.md)
+

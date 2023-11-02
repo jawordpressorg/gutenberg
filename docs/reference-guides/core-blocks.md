@@ -87,7 +87,7 @@ Create and save content to reuse across your site. Update the pattern, and the c
 
 -	**Name:** core/block
 -	**Category:** reusable
--	**Supports:** ~~customClassName~~, ~~html~~, ~~inserter~~
+-	**Supports:** ~~customClassName~~, ~~html~~, ~~inserter~~, ~~renaming~~
 -	**Attributes:** ref
 
 <!--
@@ -528,6 +528,7 @@ A form. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/blo
 フォーム。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form))
 
 -	**Name:** core/form
+-	**Experimental:** true
 -	**Category:** common
 -	**Supports:** anchor, color (background, gradients, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~className~~
 -	**Attributes:** action, email, method, submissionMethod
@@ -543,6 +544,7 @@ The basic building block for forms. ([Source](https://github.com/WordPress/guten
 フォーム用の基本構築ブロック。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-input))
 
 -	**Name:** core/form-input
+-	**Experimental:** true
 -	**Category:** common
 -	**Parent:** core/form
 -	**Supports:** anchor, spacing (margin), ~~reusable~~
@@ -559,6 +561,7 @@ Provide a notification message after the form has been submitted. ([Source](http
 フォームが送信された後の通知メッセージを設定します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-submission-notification))
 
 -	**Name:** core/form-submission-notification
+-	**Experimental:** true
 -	**Category:** common
 -	**Parent:** core/form
 -	**Supports:** 
@@ -575,6 +578,7 @@ A submission button for forms. ([Source](https://github.com/WordPress/gutenberg/
 フォームの送信ボタン。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/form-submit-button))
 
 -	**Name:** core/form-submit-button
+-	**Experimental:** true
 -	**Category:** common
 -	**Parent:** core/form
 -	**Supports:** 
@@ -817,7 +821,7 @@ A collection of blocks that allow visitors to get around your site. ([Source](ht
 
 -	**Name:** core/navigation
 -	**Category:** theme
--	**Supports:** align (full, wide), ariaLabel, inserter, interactivity, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~
+-	**Supports:** align (full, wide), ariaLabel, inserter, interactivity, layout (allowSizingOnChildren, default, ~~allowInheriting~~, ~~allowSwitching~~, ~~allowVerticalAlignment~~), spacing (blockGap, units), typography (fontSize, lineHeight), ~~html~~, ~~renaming~~
 -	**Attributes:** __unstableLocation, backgroundColor, customBackgroundColor, customOverlayBackgroundColor, customOverlayTextColor, customTextColor, hasIcon, icon, maxNestingLevel, openSubmenusOnClick, overlayBackgroundColor, overlayMenu, overlayTextColor, ref, rgbBackgroundColor, rgbTextColor, showSubmenuIcon, templateLock, textColor
 
 <!--
@@ -929,7 +933,7 @@ Show a block pattern. ([Source](https://github.com/WordPress/gutenberg/tree/trun
 
 -	**Name:** core/pattern
 -	**Category:** theme
--	**Supports:** ~~html~~, ~~inserter~~
+-	**Supports:** ~~html~~, ~~inserter~~, ~~renaming~~
 -	**Attributes:** slug
 
 <!-- 
@@ -1554,7 +1558,7 @@ Edit the different global regions of your site, like the header, footer, sidebar
 
 -	**Name:** core/template-part
 -	**Category:** theme
--	**Supports:** align, ~~html~~, ~~reusable~~
+-	**Supports:** align, ~~html~~, ~~renaming~~, ~~reusable~~
 -	**Attributes:** area, slug, tagName, theme
 
 <!--
@@ -1568,7 +1572,6 @@ Display the description of categories, tags and custom taxonomies when viewing a
 アーカイブを表示する際、カテゴリー、タグ、カスタムタクソノミーの説明を表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/term-description))
 
 -	**Name:** core/term-description
--	**Experimental:** fse
 -	**Category:** theme
 -	**Supports:** align (full, wide), color (background, link, text), spacing (margin, padding), typography (fontSize, lineHeight), ~~html~~
 -	**Attributes:** textAlign

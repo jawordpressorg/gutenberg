@@ -542,6 +542,7 @@ There's one special setting property, `appearanceTools`, which is a boolean and 
  -->
 特別な設定プロパティとして `appearanceTools` があります。ブール値で、デフォルト値は false です。テーマはこの設定を使用して、以下を有効化できます。
 
+- background: backgroundImage
 - border: color, radius, style, width
 - color: link
 - dimensions: minHeight

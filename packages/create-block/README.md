@@ -66,9 +66,9 @@ $ npm start
 ```
 
 <!--
-The `slug` provided (`todo-list` in the example) defines the folder name for the scaffolded plugin and the internal block name. The WordPress plugin generated must [be installed manually](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation).
+The `slug` provided (`todo-list` in the example) defines the folder name for the scaffolded plugin and the internal block name. The WordPress plugin generated must [be installed manually](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation-1).
  -->
-指定した `slug` (この例では `todo-list`) は、ひな形プラグインのフォルダ名と内部のブロック名を定義します。生成された WordPress プラグインは、[手動でインストールする](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation)必要があります。
+指定した `slug` (この例では `todo-list`) は、ひな形プラグインのフォルダ名と内部のブロック名を定義します。生成された WordPress プラグインは、[手動でインストールする](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation-1)必要があります。
 
 <!--
 _(requires `node` version `14.0.0` or above, and `npm` version `6.14.4` or above)_

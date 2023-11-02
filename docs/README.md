@@ -311,6 +311,18 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/11/2
+- [React Native mobile editor](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/) - Appium 2 移行 [#55166](https://github.com/WordPress/gutenberg/pull/55166)
+- [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - Appium 2 移行 [#55166](https://github.com/WordPress/gutenberg/pull/55166)
+- [wp-env 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/) - ダイアグラム追加 [#55381](https://github.com/WordPress/gutenberg/pull/55381)
+- [Get started with create-block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) - 新規
+- [Get started with wp-scripts](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) - 新規
+- [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - デフォルトブロック [#55375](https://github.com/WordPress/gutenberg/pull/55375)
+- [ページ作成フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/4-building-a-create-page-form/) - 翻訳
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) - background: backgroundImage [#55376](https://github.com/WordPress/gutenberg/pull/55376)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - パターン、ナビゲーション、パターンプレースホルダー、テンプレートパーツ renaming 削除 [#54426](https://github.com/WordPress/gutenberg/pull/54426)、フォーム、フォーム入力フィールド、フォーム送信通知、フォーム送信ボタン experimental [#55187](https://github.com/WordPress/gutenberg/pull/55187)、タームの説明 コアでも利用可 [#55669](https://github.com/WordPress/gutenberg/pull/55669)
+
+
 2023/10/8
 - [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - Demo editor setup [#54957](https://github.com/WordPress/gutenberg/pull/54957)
 - [ブロック開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) - 全面改定 [#54395](https://github.com/WordPress/gutenberg/pull/54395)

@@ -6,12 +6,12 @@
 <!-- 
 The WordPress block editor is a powerful tool that allows you to create and format content in various ways. It is powered, in part, by the [`@wordpress/block-editor`](/packages/block-editor/README.md) package, which is a JavaScript library that provides the core functionality of the editor.
  -->
-WordPress のブロックエディターはパワフルなツールです。様々な方法でコンテンツを作成、フォーマットできます。ブロックエディター (の一部) は、[`@wordpress/block-editor`](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) パッケージによって実装されています。これはエディターのコア機能を提供する JavaScript ライブラリです。
+WordPress のブロックエディターはパワフルなツールです。様々な方法でコンテンツを作成し、フォーマットできます。ブロックエディター (の一部) は、エディターのコア機能を提供する JavaScript ライブラリ [`@wordpress/block-editor`](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/README.md) パッケージによって実装されています。
 
 <!-- 
 This package can also be used to create custom block editors for virtually any other web application. This means that you can use the same blocks and block editing experience outside of WordPress.
  -->
-このパッケージを使用すると、事実上あらゆるウェブアプリケーション用のカスタムブロックエディターも作成できます。つまり WordPress の外でも、同じブロックと、ブロック編集の体験を利用できます。
+このパッケージは事実上あらゆるウェブアプリケーション用の独自ブロックエディター作成にも使用できます。つまり WordPress の外でも同じ、ブロックとブロック編集体験を利用できます。
 
 <!-- 
 ![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
@@ -67,7 +67,7 @@ This guide covers the basics of creating your first custom block editor.
 <!-- 
 With its many packages and components, the Gutenberg codebase can be daunting at first. But at its core, it's all about managing and editing blocks. So if you want to work on the editor, it's essential to understand how block editing works at a fundamental level.
  -->
-多くのパッケージやコンポーネントが介在する Gutenberg のコードベースは、最初はとっつきにくく感じられるかもしれません。しかしその中核は、ブロックの管理と編集に過ぎません。そのため、エディターで開発したいのであれば、ブロックの編集がどのように行われているのかを基礎レベルで理解することが重要です。
+多くのパッケージやコンポーネントが介在する Gutenberg のコードベースは、最初はとっつきにくく感じられるかもしれません。しかしその中核は、ブロックの管理と編集に過ぎません。そのため、エディターで開発したいのであれば、ブロックの編集がどのように行われているのか、基礎レベルで理解することが重要です。
 
 <!-- 
 This guide will walk you through building a fully functioning, custom block editor "instance" within WordPress. Along the way, we'll introduce you to the key packages and components, so you can see how the block editor works under the hood.
@@ -165,7 +165,7 @@ Here is a brief summary of what's going on:
 - `webpack.config.js` - カスタム Webpack 構成。[`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) npm パッケージよって提供されるデフォルトを拡張し、Sass 経由のカスタム CSS スタイルをサポートする。
 
 <!-- 
-The only item not shown above is the `build/` directory, which is where the _compiled_ JS and CSS files are outputted by `@wordpress/scripts`. These files are enqueued by the plugin seperately.
+The only item not shown above is the `build/` directory, which is where the _compiled_ JS and CSS files are outputted by `@wordpress/scripts`. These files are enqueued by the plugin separately.
  -->
 上で紹介していない唯一の要素が `build/` ディレクトリです。ここには `@wordpress/scripts` で _コンパイルした_ JS と CSS ファイルが出力されます。ファイルは個別にプラグインがエンキューします。
 
@@ -355,7 +355,7 @@ To save time and space, the `$script_` variables assignment has been omitted. Yo
 時間とスペースの節約のため、`$script_` 変数の代入は省略しました。詳細は[ここで参照](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19)してください。
 
 <!-- 
-Note the third arguement for script dependencies, `$script_asset['dependencies']`. These dependencies are
+Note the third argument for script dependencies, `$script_asset['dependencies']`. These dependencies are
 dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
 [ensure that](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config) WordPress provided scripts are not included in the built
 bundle.

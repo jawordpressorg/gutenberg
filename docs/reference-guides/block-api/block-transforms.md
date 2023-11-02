@@ -6,7 +6,7 @@
 <!--
 Block Transforms is the API that allows a block to be transformed _from_ and _to_ other blocks, as well as _from_ other entities. Existing entities that work with this API include shortcodes, files, regular expressions, and raw DOM nodes.
  -->
-「ブロック変換 (Block Transforms)」API は、あるブロックを別のブロックに変換したり、エンティティからブロックに変換したりします。この API が動作する既存エンティティには、ショートコード、ファイル、正規表現、生の DOM ノードがあります。
+「ブロック変換 (Block Transforms)」API は、あるブロックを別のブロックに、あるいは、あるエンティティからブロックに変換します。この API のサポートする既存エンティティには、ショートコード、ファイル、正規表現、生の DOM ノードがあります。
 
 <!--
 ## Transform direction: `to` and `from`
@@ -170,7 +170,7 @@ A transformation of type `enter` is an object that takes the following parameter
 **例: --- から「区切り」ブロックへの変換**
 
 <!--
-To create a separator block when the user types the hypen three times and then hits the ENTER key we can use the following code:
+To create a separator block when the user types the hyphen three times and then hits the ENTER key we can use the following code:
  -->
 ユーザーが「-」を3回入力し Enter キーを押下した場合に「区切り」ブロックを作成します。
 
@@ -286,7 +286,7 @@ A transformation of type `prefix` is an object that takes the following paramete
 
 <!--
 -   **type** _(string)_: the value `prefix`.
--   **prefix** _(string)_: the character or sequence of characters that match this transfrom.
+-   **prefix** _(string)_: the character or sequence of characters that match this transform.
 -   **transform** _(function)_: a callback that receives the content introduced. It should return a block object or an array of block objects.
 -   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
@@ -435,7 +435,7 @@ When we successfully match this content every HTML attribute will be stripped aw
 このコンテンツとのマッチングに成功すると、`data-post-id` 以外のすべての HTML 属性が取り除かれます。指定された `div` の中に他の HTML の配置があると、この変換にはマッチしません。同様に、`<h2>` の代わりに `<h3>` があると、マッチングは失敗します。
 
 <!-- 
-Schemas are most-important when wanting to match HTML snippets containing non-phrasing content, such as `<details>` with a `<summary>`. Without declaring the custom schema the editor will skip over these other contructions before attempting to run them through any block transforms.
+Schemas are most-important when wanting to match HTML snippets containing non-phrasing content, such as `<details>` with a `<summary>`. Without declaring the custom schema the editor will skip over these other constructions before attempting to run them through any block transforms.
  -->
 スキーマは、フレージングコンテンツ以外を含む HTML スニペットとマッチングする場合 (例: `<summary>` を含む `<details>`) に、最も重要になります。カスタムスキーマを宣言しなければ、エディターはブロック変換を実行する前に、これらの他の構造をスキップします。
 

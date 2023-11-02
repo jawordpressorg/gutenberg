@@ -23,9 +23,9 @@ You can use the functions documented on this page to register a block with JavaS
 </div>
  -->
 
-注意: このページで説明した関数を使用してもクライアント側で JavaScript だけでブロックを登録できますが、サーバー上の PHP も含め、新しいブロックタイプを登録する推奨の方法はメタデータファイル `block.json` です。<a href="https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/">完全な情報についてはメタデータのドキュメント</a>を参照してください。
+注意: このページで説明した関数は、クライアントサイドの JavaScript でのみブロックを登録できます。しかし、サーバー上の PHP も含め、新しいブロックタイプを登録する推奨の方法は、メタデータファイル `block.json` です。メタデータファイルの<a href="https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/">完全な情報については、メタデータのドキュメント</a>を参照してください。
 
-WordPress ブロックエディターの<a href="https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/">はじめてのブロックの作り方を学習してください</a>。開発環境のセットアップ、ツール、新しい開発モデルに慣れるまで、このチュートリアルでは、ブロックの作成を始めるために必要なすべてをカバーしています。
+WordPress ブロックエディターの「<a href="https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/">はじめてのブロックの作り方</a>」を学習してください。このチュートリアルでは開発環境のセットアップ、ツール、新しい開発モデルの学習等、ブロックの作成を始めるために必要なすべてがカバーされます。
 
 <!--
 ## `registerBlockType`
@@ -372,8 +372,6 @@ example: {
 	},
 },
 ```
-
-If `example` is not defined, the preview will not be shown. So even if no-attributes are defined, setting a empty example object `example: {}` will trigger the preview to show.
  -->
 `example` はブロックの構造化したサンプルデータを提供します。このデータを使用してブロックのプレビューを作成します。プレビューは、ユーザーがブロックをマウスオーバーした際のインスペクターヘルプパネル、またはブロックを選択した際のスタイルパネルで表示されます。
 
@@ -388,7 +386,9 @@ example: {
     },
 },
 ```
-
+<!-- 
+If `example` is not defined, the preview will not be shown. So even if no attributes are defined, setting an empty example object `example: {}` will trigger the preview to show.
+ -->
 `example` が定義されていない場合、プレビューは表示されません。属性が定義されていない場合にもプレビューを表示するには、空の `example` オブジェクト `example: {}` を設定します。
 
 <!--
@@ -448,10 +448,12 @@ Similarly to how the block's styles can be declared, a block type can define blo
 #### supports (オプション)
 
 -   **_Type:_** `Object`
+
 <!--
-Supports contains as set of options to control features used in the editor. See the [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
+Supports contains a set of options to control features used in the editor. See [the `supports` documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
  -->
 `supports` にはエディター内で使用される機能を操作する、一連のオプションが含まれます。詳細については [supports のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) を参照してください。
+
 
 <!--
 #### transforms (optional)
@@ -459,8 +461,9 @@ Supports contains as set of options to control features used in the editor. See 
 #### transforms (オプション)
 
 -   **Type:** `Object`
+
 <!--
-Transforms provide rules for what a block can be transformed from and what it can be transformed to. A block can be transformed from another block, a shortcode, a regular expression, a file or a raw DOM node. Take a look at the [Block Transforms API](/docs/reference-guides/block-api/block-transforms.md) for more info about each available transformation.
+Transforms provide rules for what a block can be transformed from and what it can be transformed to. A block can be transformed from another block, a shortcode, a regular expression, a file, or a raw DOM node. Take a look at the [Block Transforms API](/docs/reference-guides/block-api/block-transforms.md) for more info about each available transformation.
  -->
 `transform` は、何をブロックに変換できるのか、またブロックは何に変換できるのかのルールを提供します。ブロックは、別のブロック、ショートコード、正規表現、ファイル、生の DOM ノードから変換できます。利用可能な個々の変換の詳細については [ブロック変換 API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-transforms/) を参照してください。
 
@@ -498,7 +501,7 @@ parent: [ 'core/columns' ],
 -   **Since**: `WordPress 6.0.0`
 
 <!-- 
-The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a 'Comment Content' block inside a 'Column' block, as long as 'Column' is somewhere within a 'Comment Template' block. In comparison to the `parent` property blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
+The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a 'Comment Content' block inside a 'Column' block, as long as 'Column' is somewhere within a 'Comment Template' block. In comparison to the `parent` property, blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
  -->
 `ancestor` プロパティを使用すると、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置でブロックを利用できます。例えば、「'Comment Content' ブロックは、'Column' ブロックが 'Comment Template' ブロック内のどこかにある場合に限り、'Column' ブロック内に配置できる」等の制限が可能です。`parent` プロパティと比較すると `ancestor` を指定したブロックはサブツリーの任意の場所に配置できますが、`parent` を指定したブロックは直接の子としてのみ配置できます。
 
