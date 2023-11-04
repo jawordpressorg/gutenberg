@@ -311,6 +311,10 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/11/4
+- [create-block 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) - 翻訳
+- [wp-scripts 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) - 翻訳
+
 2023/11/2
 - [React Native mobile editor](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/) - Appium 2 移行 [#55166](https://github.com/WordPress/gutenberg/pull/55166)
 - [Getting Started for the React Native based Mobile Gutenberg](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/react-native/getting-started-react-native/) - Appium 2 移行 [#55166](https://github.com/WordPress/gutenberg/pull/55166)
