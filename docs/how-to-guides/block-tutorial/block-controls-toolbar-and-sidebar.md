@@ -6,30 +6,28 @@
 <!--
 To simplify block customization and ensure a consistent experience for users, there are a number of built-in UI patterns to help generate the editor preview. Like with the `RichText` component covered in the previous chapter, the `wp.editor` global includes a few other common components to render editing interfaces. In this chapter, we'll explore toolbars and the block inspector.
  -->
-ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与える多数の組み込み UI パターンがあります。エディターのプレビュー生成を支援します。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には、編集インターフェースをレンダーする、その他の共通コンポーネントがいくつか含まれています。このセクションでは、ツールバーとブロックインスペクターを見ていきます。
+ブロックのカスタマイズを簡素化し、ユーザーに一貫した体験を与えるため、エディターのプレビュー生成を支援する多数の組み込み UI パターンがあります。前のセクションで触れた `RichText` コンポーネント同様、グローバル `wp.editor` には、編集インターフェースをレンダーする、その他の共通コンポーネントがいくつか含まれます。このセクションでは、ツールバーとブロックインスペクターについて説明します。
 
 <!--
 ## Block Toolbar
-
-![Screenshot of the rich text toolbar applied to a Paragraph block inside the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/toolbar-text.png)
-
-When the user selects a block, a number of control buttons may be shown in a toolbar above the selected block. Some of these block-level controls are included automatically if the editor is able to transform the block to another type, or if the focused element is a RichText component.
-
-You can also customize the toolbar to include controls specific to your block type. If the return value of your block type's `edit` function includes a `BlockControls` element, those controls will be shown in the selected block's toolbar.
  -->
 ## ブロックツールバー
 
+<!-- 
+![Screenshot of the rich text toolbar applied to a Paragraph block inside the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/toolbar-text.png)
+ -->
 ![ブロックエディター内部で段落ブロックに適用されたリッチテキストツールバー](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/toolbar-text.png)
 
+<!-- 
+When the user selects a block, a number of control buttons may be shown in a toolbar above the selected block. Some of these block-level controls are included automatically if the editor is able to transform the block to another type, or if the focused element is a RichText component.
+ -->
 ユーザーがブロックを選択するとブロックの上のツールバーに複数のコントロールボタンが表示されます。エディターがブロックを他のタイプに変換できる場合、またはフォーカスを得た要素が RichText コンポーネントの場合、ブロックレベルコントロールのいくつかは自動的に表示されます。
 
+<!-- 
+You can also customize the toolbar to include controls specific to your block type. If the return value of your block type's `edit` function includes a `BlockControls` element, those controls will be shown in the selected block's toolbar.
+ -->
 ツールバーをカスタマイズして、ブロックタイプ固有のコントロールを表示することもできます。ブロックタイプの `edit` 関数の戻り値に `BlockControls` を加えると、ブロックのツールバーにそのコントロールが表示されます。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -109,97 +107,6 @@ registerBlockType( 'gutenberg-examples/example-04-controls-esnext', {
 } );
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, blockEditor, React ) {
-	var el = React.createElement;
-	var RichText = blockEditor.RichText;
-	var AlignmentToolbar = blockEditor.AlignmentToolbar;
-	var BlockControls = blockEditor.BlockControls;
-	var useBlockProps = blockEditor.useBlockProps;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-04-controls', {
-		title: 'Example: Controls',
-		icon: 'universal-access-alt',
-		category: 'design',
-
-		attributes: {
-			content: {
-				type: 'string',
-				source: 'html',
-				selector: 'p',
-			},
-			alignment: {
-				type: 'string',
-				default: 'none',
-			},
-		},
-		example: {
-			attributes: {
-				content: 'Hello World',
-				alignment: 'right',
-			},
-		},
-		edit: function ( props ) {
-			var content = props.attributes.content;
-			var alignment = props.attributes.alignment;
-
-			function onChangeContent( newContent ) {
-				props.setAttributes( { content: newContent } );
-			}
-
-			function onChangeAlignment( newAlignment ) {
-				props.setAttributes( {
-					alignment:
-						newAlignment === undefined ? 'none' : newAlignment,
-				} );
-			}
-
-			return el(
-				'div',
-				useBlockProps(),
-				el(
-					BlockControls,
-					{ key: 'controls' },
-					el( AlignmentToolbar, {
-						value: alignment,
-						onChange: onChangeAlignment,
-					} )
-				),
-				el( RichText, {
-					key: 'richtext',
-					tagName: 'p',
-					style: { textAlign: alignment },
-					onChange: onChangeContent,
-					value: content,
-				} )
-			);
-		},
-
-		save: function ( props ) {
-			var blockProps = useBlockProps.save();
-
-			return el(
-				'div',
-				blockProps,
-				el( RichText.Content, {
-					tagName: 'p',
-					className:
-						'gutenberg-examples-align-' +
-						props.attributes.alignment,
-					value: props.attributes.content,
-				} )
-			);
-		},
-	} );
-} )( window.wp.blocks, window.wp.blockEditor, window.React );
-```
-<!-- 
-{% end %}
- -->
 <!--
 Note that `BlockControls` is only visible when the block is currently selected and in visual editing mode. `BlockControls` are not shown when editing a block in HTML editing mode.
  -->

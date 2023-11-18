@@ -2,6 +2,13 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/11/11
+- 多数 - JSXを使用しないサンプルの削除
+- 多数 - サンプルリポジトリを変更 [block-development-examples](https://github.com/WordPress/block-development-examples)
+- [ブロックの作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) - クイックスタート部分を「[クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/)」に移動
+- [クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/) - 新規
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - フォーム内のコンポーネントの自由度を上げる [#55758](https://github.com/WordPress/gutenberg/pull/55758)、引用 blockGap [#56064](https://github.com/WordPress/gutenberg/pull/56064)、allowEditing 削除 [#55240](https://github.com/WordPress/gutenberg/pull/55240)
+
 2023/11/4
 - [create-block 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) - 翻訳
 - [wp-scripts 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) - 翻訳

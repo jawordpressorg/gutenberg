@@ -609,10 +609,11 @@ All that’s left is to refresh the page and enjoy the brand new status indicato
 * **Previous part:** [Setup](/docs/how-to-guides/data-basics/1-data-basics-setup.md)
 * **Next part:** [Building an edit form](/docs/how-to-guides/data-basics/3-building-an-edit-form.md)
 * (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) in the gutenberg-examples repository
-* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) in the gutenberg-examples repository-->
+* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) in the gutenberg-examples repository
+-->
 * **前のステップ:** [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup)
 * **次のステップ:** [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/3-building-an-edit-form)
-* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) を参照
+* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
 

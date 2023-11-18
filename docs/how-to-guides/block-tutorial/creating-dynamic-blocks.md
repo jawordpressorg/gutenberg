@@ -44,11 +44,6 @@ The following code example shows how to create a dynamic block that shows only t
 
 次のコード例は、最後の投稿のみをリンクとして表示するダイナミックブロックを作成します。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
@@ -81,50 +76,6 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 } );
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, React, data, blockEditor ) {
-	var el = React.createElement,
-		registerBlockType = blocks.registerBlockType,
-		useSelect = data.useSelect,
-		useBlockProps = blockEditor.useBlockProps;
-
-	registerBlockType( 'gutenberg-examples/example-dynamic', {
-		apiVersion: 3,
-		title: 'Example: last post',
-		icon: 'megaphone',
-		category: 'widgets',
-		edit: function () {
-			var content;
-			var blockProps = useBlockProps();
-			var posts = useSelect( function ( select ) {
-				return select( 'core' ).getEntityRecords( 'postType', 'post' );
-			}, [] );
-			if ( ! posts ) {
-				content = 'Loading...';
-			} else if ( posts.length === 0 ) {
-				content = 'No posts';
-			} else {
-				var post = posts[ 0 ];
-				content = el( 'a', { href: post.link }, post.title.rendered );
-			}
-
-			return el( 'div', blockProps, content );
-		},
-	} );
-} )(
-	window.wp.blocks,
-	window.React,
-	window.wp.data,
-	window.wp.blockEditor
-);
-```
-<!-- 
-{% end %}
- -->
 <!--
 Because it is a dynamic block it doesn't need to override the default `save` implementation on the client. Instead, it needs a server component. The contents in the front of your site depend on the function called by the `render_callback` property of `register_block_type`.
  -->
@@ -207,11 +158,6 @@ Gutenberg 2.8 は [`<ServerSideRender>`](/packages/components/src/server-side-re
 
 _サーバー側レンダーはフォールバックです。常に JavaScript によるクライアントサイドレンダリングが好まれます。クライアントレンダリングは速く、エディターの操作性が高くなります)._
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import ServerSideRender from '@wordpress/server-side-render';
@@ -237,49 +183,14 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 } );
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, React, serverSideRender, blockEditor ) {
-	var el = React.createElement,
-		registerBlockType = blocks.registerBlockType,
-		ServerSideRender = serverSideRender,
-		useBlockProps = blockEditor.useBlockProps;
-
-	registerBlockType( 'gutenberg-examples/example-dynamic', {
-		apiVersion: 3,
-		title: 'Example: last post',
-		icon: 'megaphone',
-		category: 'widgets',
-
-		edit: function ( props ) {
-			var blockProps = useBlockProps();
-			return el(
-				'div',
-				blockProps,
-				el( ServerSideRender, {
-					block: 'gutenberg-examples/example-dynamic',
-					attributes: props.attributes,
-				} )
-			);
-		},
-	} );
-} )(
-	window.wp.blocks,
-	window.React,
-	window.wp.serverSideRender,
-	window.wp.blockEditor
-);
-```
-<!-- 
-{% end %}
- -->
 <!--
 Note that this code uses the `wp-server-side-render` package but not `wp-data`. Make sure to update the dependencies in the PHP code. You can use wp-scripts to automatically build dependencies (see the [gutenberg-examples repo](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/01-basic-esnext) for PHP code setup).
 
+Note that this code uses the `wp-server-side-render` package but not `wp-data`. Make sure to update the dependencies in the PHP code. You can use wp-scripts to automatically build dependencies (see the [block-development-examples repo](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62) for PHP code setup).
+
  -->
-注意: このコードは `wp-server-side-render` パッケージを使用し、`wp-data` を使用しません。PHP コード内の依存性を更新してください。自動で依存をビルドするには wp-scripts を使用してください (PHP コード設定については [gutenberg-examples リポジトリー](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/01-basic-esnext)を参照してください)。
+注意: このコードは `wp-server-side-render` パッケージを使用し、`wp-data` を使用しません。PHP コード内の依存性を更新してください。自動で依存をビルドするには wp-scripts を使用してください (PHP コード設定については [block-development-examples リポジトリー](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62)を参照してください)。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md)
+
+

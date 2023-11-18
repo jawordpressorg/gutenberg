@@ -34,7 +34,7 @@ This guide takes you through creating a basic block to display a message in a po
 <!-- 
 There are two main types of blocks: static and dynamic, this guide focuses on static blocks. A static block is used to insert HTML content into the post and save it with the post. A dynamic block builds the content on the fly when rendered on the front end, see the [dynamic blocks guide](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md).
  -->
-ブロックには大きく分けて静的ブロックと動的ブロックがありますが、このガイドでは静的ブロックに焦点を当てます。静的ブロックは、HTML コンテンツを投稿に挿入し、投稿と一緒に保存するために使用されます。動的ブロックは、フロントエンドでレンダーれる際に、その場でコンテンツを構築します。[動的ブロックガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を参照してください。
+ブロックには大きく分けて静的ブロックとダイナミックブロックがありますが、このガイドでは静的ブロックに焦点を当てます。静的ブロックは、HTML コンテンツを投稿に挿入し、投稿と一緒に保存するために使用されます。ダイナミックブロックは、フロントエンドでレンダーれる際に、その場でコンテンツを構築します。[ダイナミックブロックガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を参照してください。
 
 <!-- 
 <div class="callout callout-alert">
@@ -162,11 +162,6 @@ Create a basic `block.json` file there:
  -->
 そこに基本的な `block.json` ファイルを作成します。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```json
 {
 	"apiVersion": 3,
@@ -179,47 +174,6 @@ Create a basic `block.json` file there:
 ```
 
 <!--
-Note the above example, shows using the [wp-scripts build step](/docs/how-to-guides/javascript/js-build-setup/) that automatically sets dependencies and versions the file.
--->
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```json
-{
-	"apiVersion": 3,
-	"title": "Example: Basic",
-	"name": "gutenberg-examples/example-01-basic",
-	"category": "layout",
-	"icon": "universal-access-alt",
-	"editorScript": "file:./block.js"
-}
-```
-<!-- 
-{% end %}
- -->
-
-<!--
--   **`wp-blocks`** includes block type registration and related functions
--   **`wp-element`** includes the [WordPress Element abstraction](/packages/element/README.md) for describing the structure of your blocks
- -->
-<!-- 
-注意: 上の例では [wp-scripts ビルド手順](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/js-build-setup/) を使用して自動的に依存性やファイルのバージョンを設定しています。
-
-Plain コードを使用する場合には、依存性の配列として `array( 'wp-blocks', 'wp-element' )` を指定してください。完全な構文については Gutenberg Examples リポジトリー内の [example 01](https://github.com/WordPress/gutenberg-examples/blob/HEAD/01-basic/index.php) を参照してください。
-
-- __`wp-blocks`__ ブロックタイプの登録および関連する関数を含む
-- __`wp-element`__ ブロックの構造を記述する [WordPress Element abstraction](/packages/element/README.md) を含む
- -->
-<!--
-## Registering the Block
-
-With the script enqueued, let's look at the implementation of the block itself:
- -->
-<!-- 
-## ブロックの登録
- -->
-<!-- 
 ### Step 2: Register block in plugin
  -->
 ### ステップ 2: プラグインでのブロックの登録
@@ -266,15 +220,6 @@ The `save` function is a component that defines the final markup returned by the
 `save` 関数は、ブロックが返し、`post_content` に保存される、最終的なマークアップを定義するコンポーネントです。
 
 <!-- 
-エンキューされるスクリプトでブロックの実装を確認します。
- -->
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
-
-<!-- 
 Add the following in `src/index.js`
  -->
 次のコードを `src/index.js` に追加してください。
@@ -295,34 +240,6 @@ registerBlockType( 'gutenberg-examples/example-01-basic-esnext', {
 	},
 } );
 ```
-
-**Plain**
-<!-- 
-{% Plain %}
- -->
-
-<!-- 
-Add the following to `block.js`
- -->
-次のコードを `block.js` に追加してください。
-
-```js
-( function ( blocks, React ) {
-	var el = React.createElement;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-01-basic', {
-		edit: function () {
-			return el( 'p', {}, 'Hello World (from the editor).' );
-		},
-		save: function () {
-			return el( 'p', {}, 'Hola mundo (from the frontend).' );
-		},
-	} );
-} )( window.wp.blocks, window.React );
-```
-<!-- 
-{% end %}
- -->
 
 <!--
 _By now you should be able to see `Hello World (from the editor).` in the admin side and `Hello World (from the frontend).` on the frontend side._
@@ -351,11 +268,6 @@ In order to register the block, an asset php file is required in the same direct
  -->
 ブロックを登録するには、`register_block_type()` で使用したディレクトリと同じディレクトリに、スクリプトのファイル名で始まるアセットのphpファイルが必要です。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 
 <!-- 
 Build the scripts and asset file which is used to keep track of dependencies and the build version.
@@ -366,31 +278,7 @@ Build the scripts and asset file which is used to keep track of dependencies and
 npm run build
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-
-<!-- 
-Create the asset file to load the dependencies for the scripts. The name of this file should be the name of the js file then .asset.php. For this example, create `block.asset.php` with the following:
- -->
-スクリプトの依存関係を読み込むアセットファイルを作成します。このファイルの名前は、js ファイルの名前に.asset.php を加えたものにする必要があります。この例では、`block.asset.php` を以下のように作成します。
-
-```php
-<?php return
-	array( 'dependencies' =>
-		array(
-			'react',
-			'wp-blocks',
-			'wp-polyfill'
-		),
-		'version' => '0.1'
-	);
-```
-
-<!-- 
-{% end %}
-
+<!--
 ### Step 5: Confirm
  -->
 ### ステップ5: 確認
@@ -424,18 +312,17 @@ When you save the post and view it published, you will see the `Hola mundo (from
  -->
 ## まとめ
 <!-- 
-This shows the most basic static block. The [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository has complete examples for both.
+This shows the most basic static block. The [block-development-examples](https://github.com/WordPress/block-development-examples) repository has complete examples for both.
  -->
-最も基本的な静的ブロックを示しました。[gutenberg-examples](https://github.com/WordPress/gutenberg-examples)リポジトリには、両方の完全な例があります。
+最も基本的な静的ブロックを紹介しました。[block-development-examples](https://github.com/WordPress/block-development-examples) リポジトリには、両方の完全な例があります。
 
 <!-- 
--   [Basic Example with JSX build](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/01-basic-esnext)
+-   [Basic Example with JSX build](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62)
 
--   [Basic Example Plain JavaScript](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/01-basic),
+-   [Basic Example Plain JavaScript](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6),
  -->
--   [JSX ビルドの基本的な例](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-jsx/01-basic-esnext)
-
--   [Plain な JavaScript の基本的な例](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/01-basic),
+-   [JSX ビルドの基本的な例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62)
+-   [Plain な JavaScript の基本的な例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6),
 
 <!-- 
 **NOTE:** The examples include a more complete block setup with translation features included, it is recommended to follow those examples for a production block. The internationalization features were left out of this guide for simplicity and focusing on the very basics of a block.
@@ -453,11 +340,11 @@ A couple of things to note when creating your blocks:
 ブロックを作成する際の注意点です。
 
 <!-- 
--   A block name must be prefixed with a namespace specific to your plugin. This helps prevent conflicts when more than one plugin registers a block with the same name. In this example, the namespace is `gutenberg-examples`.
+-   A block name must be prefixed with a namespace specific to your plugin. This helps prevent conflicts when more than one plugin registers a block with the same name. In this example, the namespace is `block-development-examples`.
 
 -   Block names _must_ include only lowercase alphanumeric characters or dashes and start with a letter. Example: `my-plugin/my-custom-block`.
  -->
--   ブロック名には、プラグインに固有の名前空間をプレフィックスとして付ける必要があります。これは、複数のプラグインが同じ名前のブロックを登録した際に、衝突を防ぎます。この例では、名前空間は `gutenberg-examples` です。
+-   ブロック名には、プラグインに固有の名前空間をプレフィックスとして付ける必要があります。これは、複数のプラグインが同じ名前のブロックを登録した際に、衝突を防ぎます。この例では、名前空間は `block-development-examples` です。
 
 -   ブロック名は、小文字の英数字またはダッシュのみを含み、文字で始まらなければなりません。例: `my-plugin/my-custom-block`.
 

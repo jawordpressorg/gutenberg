@@ -16,9 +16,9 @@ One challenge of maintaining the representation of a block as a JavaScript objec
  -->
 ## 属性
 
-これまで、`edit` 関数と `save` 関数はシンプルな paragraph 要素を返しました。これらの関数はまた、ブロックの表示の構造の _記述_ に責任をもつことも学んできました。ユーザーがブロックを変更すれば、その構造も変更する必要があります。この動作を実現するには、編集セッションの間中はずっと、ブロックの状態をプレーンな JavaScript オブジェクトとして管理しておき、更新があると、`edit` 関数を再び呼び出す必要があります。別の言い方をすれば、__ブロックの出力は、ブロックの属性の関数になります。__
+これまで、`edit` 関数と `save` 関数は paragraph 要素のシンプルな表現を返してきました。またこれらの関数が、ブロックの外観の構造の _記述_ に責任をもつことも学んできました。もしユーザーがブロックを変更するなら、この構造も変更する必要があるかもしれません。これを実現するには、編集セッションの間中はずっと、ブロックの状態をプレーンな JavaScript オブジェクトとして管理しておき、更新があると、`edit` 関数を再び呼び出す必要があります。別の言い方をすれば、__ブロックの出力は、その属性の関数になります。__
 
-ブロックの表示を JavaScript オブジェクトとして管理する場合の課題は、投稿の保存されたコンテンツから再びこのオブジェクトを取り出さなければならない点です。この問題の解決にはブロックタイプの `attributes` プロパティを使用します。
+ブロックの表現を JavaScript オブジェクトとして管理する場合の課題は、投稿の保存されたコンテンツから再びこのオブジェクトを取り出さなければならない点です。これを実現するのがブロックタイプの `attributes` プロパティです。
 
 ```js
 	attributes: {
@@ -87,11 +87,6 @@ Here is the complete block definition for Example 03.
 
 Example 03 の完全なブロック定義を以下に示します。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
@@ -144,65 +139,5 @@ registerBlockType( 'gutenberg-examples/example-03-editable-esnext', {
 	},
 } );
 ```
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, blockEditor, React ) {
-	var el = React.createElement;
-	var RichText = blockEditor.RichText;
-	var useBlockProps = blockEditor.useBlockProps;
 
-	blocks.registerBlockType( 'gutenberg-examples/example-03-editable', {
-		apiVersion: 3,
-		title: 'Example: Editable',
-		icon: 'universal-access-alt',
-		category: 'design',
-
-		attributes: {
-			content: {
-				type: 'string',
-				source: 'html',
-				selector: 'p',
-			},
-		},
-		example: {
-			attributes: {
-				content: 'Hello World',
-			},
-		},
-		edit: function ( props ) {
-			var blockProps = useBlockProps();
-			var content = props.attributes.content;
-			function onChangeContent( newContent ) {
-				props.setAttributes( { content: newContent } );
-			}
-
-			return el(
-				RichText,
-				Object.assign( blockProps, {
-					tagName: 'p',
-					onChange: onChangeContent,
-					value: content,
-				} )
-			);
-		},
-
-		save: function ( props ) {
-			var blockProps = useBlockProps.save();
-			return el(
-				RichText.Content,
-				Object.assign( blockProps, {
-					tagName: 'p',
-					value: props.attributes.content,
-				} )
-			);
-		},
-	} );
-} )( window.wp.blocks, window.wp.blockEditor, window.React );
-```
-<!-- 
-{% end %}
- -->
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields.md)

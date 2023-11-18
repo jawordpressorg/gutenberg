@@ -49,8 +49,9 @@ You will need:
 
 <!-- 
 The [complete format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) is available that you can use as a reference for your setup.
+The [complete format-api example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) is available that you can use as a reference for your setup.
  -->
-セットアップのリファレンスとして、[完全な書式 API サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) を参照してください。
+セットアップのリファレンスとして、[完全な書式 API サンプル](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) を参照してください。
 
 ## ステップバイステップガイド
 
@@ -370,9 +371,9 @@ The guide showed you how to add a button to the toolbar and have it apply a form
 このガイドでは、ツールバーにボタンを追加し、選択したテキストに書式を適用する方法を紹介しました。ぜひ試してみて、次にプラグインでどんなものが作れるか考えてみてください。
 
 <!-- 
-Download the [format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/format-api) from the [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository.
-Download the [format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) from the [gutenberg-examples](https://github.com/WordPress/gutenberg-examples) repository.
+Download the [format-api example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) from the [block-development-examples](https://github.com/WordPress/block-development-examples) repository.
+
  -->
-[gutenberg-examples](https://github.com/WordPress/gutenberg-examples) リポジトリから、[書式 API サンプル](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) をダウンロードしてください。
+[block-development-examples](https://github.com/WordPress/block-development-examples) リポジトリから、[書式 API サンプル](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) をダウンロードしてください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/format-api.md)

@@ -23,7 +23,7 @@ RickText コンポーネントは非常にパワフルで、他のコンポー�
 <!--
 Unlike other components that exist in the [Component Reference](/packages/components/README.md) section, RichText lives separately because it only makes sense within the block editor, and not within other areas of WordPress.
  -->
-[コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/components/) セクション内の他のコンポーネントと異なり RichText は個別に存在します。これはブロックエディター内のみで意味があり、WordPress の他の領域では意味がないためです。
+[コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/components/) セクション内の他のコンポーネントと異なり RichText は個別に存在します。これはブロックエディター内のみで意味があり、WordPress のその他の領域では意味がないためです。
 
 <!--
 ## Property Reference
@@ -56,9 +56,6 @@ There are a number of core blocks using the RichText component. The JavaScript e
 
 <!--
 ## Example
-
-{% codetabs %}
-{% JSX %}
 
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
@@ -97,50 +94,8 @@ registerBlockType( /* ... */, {
 	}
 } );
 ```
-
-{% Plain %}
-
-```js
-wp.blocks.registerBlockType( /* ... */, {
-	// ...
-
-	attributes: {
-		content: {
-			type: 'string',
-			source: 'html',
-			selector: 'h2',
-		},
-	},
-
-	edit: function( props ) {
-		var blockProps = wp.blockEditor.useBlockProps();
-
-		return React.createElement( wp.blockEditor.RichText, Object.assign( blockProps, {
-			tagName: 'h2',  // The tag here is the element output and editable in the admin
-			value: props.attributes.content, // Any existing content, either from the database or an attribute default
-			allowedFormats: [ 'core/bold', 'core/italic' ], // Allow the content to be made bold or italic, but do not allow other formatting options
-			onChange: function( content ) {
-				props.setAttributes( { content: content } ); // Store updated content as a block attribute
-			},
-			placeholder: __( 'Heading...' ), // Display this text before any content has been added by the user
-		} ) );
-	},
-
-	save: function( props ) {
-		var blockProps = wp.blockEditor.useBlockProps.save();
-
-		return React.createElement( wp.blockEditor.RichText.Content, Object.assign( blockProps, {
-			tagName: 'h2', value: props.attributes.content // Saves <h2>Content added in the editor...</h2> to the database for frontend display
-		} ) );
-	}
-} );
-```
-
-{% end %}
  -->
 ## 例
-
-**JSX**
 
 ```js
 import { registerBlockType } from '@wordpress/blocks';
@@ -177,44 +132,6 @@ registerBlockType( /* ... */, {
 
 		return <RichText.Content { ...blockProps } tagName="h2" value={ attributes.content } />; // フロントエンド表示用に <h2>ユーザーが入力したコンテンツ</h2> をデータベースに保存
 
-	}
-} );
-```
-
-**Plain**
-
-```js
-wp.blocks.registerBlockType( /* ... */, {
-	// ...
-
-	attributes: {
-		content: {
-			type: 'string',
-			source: 'html',
-			selector: 'h2',
-		},
-	},
-
-	edit: function( props ) {
-		var blockProps = wp.blockEditor.useBlockProps();
-
-		return wp.element.createElement( wp.blockEditor.RichText, Object.assign( blockProps, {
-			tagName: 'h2',  // このタグは要素の出力。編集画面で編集可能
-			value: props.attributes.content, // データベースから、または属性デフォルトからの任意の既存コンテンツ
-			allowedFormats: [ 'core/bold', 'core/italic' ], // コンテンツは太字、斜体にできるが、他のフォーマットオプションは許可されない
-			onChange: function( content ) {
-				props.setAttributes( { content: content } ); // 更新したコンテンツはブロック属性として保存
-			},
-			placeholder: __( 'Heading...' ), // ユーザーに追加された任意のコンテツの前にこのテキストを表示
-		} ) );
-	},
-
-	save: function( props ) {
-		var blockProps = wp.blockEditor.useBlockProps.save();
-
-		return wp.element.createElement( wp.blockEditor.RichText.Content, Object.assign( blockProps, {
-			tagName: 'h2', value: props.attributes.content // 表示用に <h2>ユーザーが入力したコンテンツ</h2> をデータベースに保存
-		} ) );
 	}
 } );
 ```

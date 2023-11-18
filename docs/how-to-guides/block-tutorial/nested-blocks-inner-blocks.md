@@ -16,11 +16,6 @@ Here is the basic InnerBlocks usage.
 
 基本的な InnerBlocks の使用方法
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```js
 import { registerBlockType } from '@wordpress/blocks';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
@@ -49,38 +44,6 @@ registerBlockType( 'gutenberg-examples/example-06', {
 	},
 } );
 ```
-
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, React, blockEditor ) {
-	var el = React.createElement;
-	var InnerBlocks = blockEditor.InnerBlocks;
-	var useBlockProps = blockEditor.useBlockProps;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-06', {
-		title: 'Example: Inner Blocks',
-		category: 'design',
-
-		edit: function () {
-			var blockProps = useBlockProps();
-
-			return el( 'div', blockProps, el( InnerBlocks ) );
-		},
-
-		save: function () {
-			var blockProps = useBlockProps.save();
-
-			return el( 'div', blockProps, el( InnerBlocks.Content ) );
-		},
-	} );
-} )( window.wp.blocks, window.React, window.wp.blockEditor );
-```
-<!-- 
-{% end %}
- -->
 
 <!--
 ## Allowed Blocks
@@ -143,11 +106,6 @@ Use the template property to define a set of blocks that prefill the InnerBlocks
 
 template プロパティを使用して、InnerBlocks コンポーネントが挿入された際にデフォルトで含まれるブロックの集合を定義できます。ブロックの属性を設定して使用例を定義できます。次の例は InnerBlocks コンポーネントを使用した本のレビューのテンプレートです。placeholder 値を設定してブロックの使用例を示しています。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```js
 const MY_TEMPLATE = [
 	[ 'core/image', {} ],
@@ -167,32 +125,6 @@ const MY_TEMPLATE = [
 	},
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-const MY_TEMPLATE = [
-	[ 'core/image', {} ],
-	[ 'core/heading', { placeholder: 'Book Title' } ],
-	[ 'core/paragraph', { placeholder: 'Summary' } ],
-];
-
-//...
-
-	edit: function( props ) {
-		return el(
-			InnerBlocks,
-			{
-				template: MY_TEMPLATE,
-				templateLock: "all",
-			}
-		);
-	},
-```
-<!-- 
-{% end %}
- -->
 <!--
 Use the `templateLock` property to lock down the template. Using `all` locks the template completely so no changes can be made. Using `insert` prevents additional blocks from being inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
  -->
@@ -227,7 +159,7 @@ add_action( 'init', function() {
 ## ブロックでの parent 関係と ancestor 関係の使用
 
 <!-- 
-A common pattern for using InnerBlocks is to create a custom block that will be only be available if its parent block is inserted. This allows builders to establish a relationship between blocks, while limiting a nested block's discoverability. Currently, there are two relationships builders can use: `parent` and `ancestor`. The differences are: 
+A common pattern for using InnerBlocks is to create a custom block that will be only be available if its parent block is inserted. This allows builders to establish a relationship between blocks, while limiting a nested block's discoverability. Currently, there are two relationships builders can use: `parent` and `ancestor`. The differences are:
  -->
 一般的な InnerBlock の使用パターンとして、親ブロックが挿入された場合にのみ使用可能なカスタムブロックの作成があります。これによりビルダーは、ブロック間の関係を確立し、ネストするブロックの発現を制限できます。現在、ビルダーが使用できる関係には `parent` (親) と `ancestor` (先祖) の2つがあります。違いは以下のとおりです。 
 
@@ -314,12 +246,6 @@ react フック `useInnerBlocksProps` を、`InnerBlocks` コンポーネント�
 
 基本的な `useInnerBlocksProps` フックの使用方法です。
 
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
-**JSX**
-
 ```js
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
@@ -350,52 +276,11 @@ registerBlockType( 'gutenberg-examples/example-06', {
 	},
 } );
 ```
-<!-- 
-{% Plain %}
- -->
-**Plain**
 
-```js
-( function ( blocks, React, blockEditor ) {
-	var el = React.createElement;
-	var InnerBlocks = blockEditor.InnerBlocks;
-	var useBlockProps = blockEditor.useBlockProps;
-	var useInnerBlocksProps = blockEditor.useInnerBlocksProps;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-06', {
-		title: 'Example: Inner Blocks',
-		category: 'design',
-
-		edit: function () {
-			var blockProps = useBlockProps();
-			var innerBlocksProps = useInnerBlocksProps();
-
-			return el( 'div', blockProps, el( 'div', innerBlocksProps ) );
-		},
-
-		save: function () {
-			var blockProps = useBlockProps.save();
-			var innerBlocksProps = useInnerBlocksProps.save();
-
-			return el( 'div', blockProps, el( 'div', innerBlocksProps ) );
-		},
-	} );
-} )( window.wp.blocks, window.React, window.wp.blockEditor );
-```
-<!-- 
-{% end %}
- -->
-
-<!-- 
+<!--
 This hook can also pass objects returned from the `useBlockProps` hook to the `useInnerBlocksProps` hook. This reduces the number of elements we need to create.
  -->
 また、`useBlockProps` から返されたオブジェクトを `useInnerBlocksProps` フックに渡せます。この手法により作成する要素の数を減らせます。
-
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
-**JSX**
 
 ```js
 import { registerBlockType } from '@wordpress/blocks';
@@ -423,41 +308,8 @@ registerBlockType( 'gutenberg-examples/example-06', {
 	},
 } );
 ```
-<!-- 
-{% Plain %}
- -->
-**Plain**
 
-```js
-( function ( blocks, React, blockEditor ) {
-	var el = React.createElement;
-	var InnerBlocks = blockEditor.InnerBlocks;
-	var useBlockProps = blockEditor.useBlockProps;
-	var useInnerBlocksProps = blockEditor.useInnerBlocksProps;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-06', {
-		// ...
-
-		edit: function () {
-			var blockProps = useBlockProps();
-			var innerBlocksProps = useInnerBlocksProps();
-
-			return el( 'div', innerBlocksProps );
-		},
-
-		save: function () {
-			var blockProps = useBlockProps.save();
-			var innerBlocksProps = useInnerBlocksProps.save();
-
-			return el( 'div', innerBlocksProps );
-		},
-	} );
-} )( window.wp.blocks, window.React, window.wp.blockEditor );
-```
-<!-- 
-{% end %}
- -->
-<!-- 
+<!--
 The above code will render to the following markup in the editor:
  -->
 上のコードはエディター内で次のマークアップをレンダーします。
@@ -472,12 +324,6 @@ The above code will render to the following markup in the editor:
 Another benefit to using the hook approach is using the returned value, which is just an object, and deconstruct to get the react children from the object. This property contains the actual child inner blocks thus we can place elements on the same level as our inner blocks.
  -->
 フックによるアプローチを使用するもう一つの利点は、単なるオブジェクトである戻り値を分解して、react `children` を取得できる点です。このプロパティには実際の子のインナーブロックが含まれているため、インナーブロックと同じレベルに要素を配置できます。
-
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
-**JSX**
 
 ```js
 import { registerBlockType } from '@wordpress/blocks';
@@ -501,43 +347,6 @@ registerBlockType( 'gutenberg-examples/example-06', {
 	// ...
 } );
 ```
-<!-- 
-{% Plain %}
- -->
-**Plain**
-
-```js
-( function ( blocks, React, blockEditor ) {
-	var el = React.createElement;
-	var InnerBlocks = blockEditor.InnerBlocks;
-	var useBlockProps = blockEditor.useBlockProps;
-	var useInnerBlocksProps = blockEditor.useInnerBlocksProps;
-
-    blocks.registerBlockType( 'gutenberg-examples/example-06', {
-		// ...
-
-		edit: function () {
-			var blockProps = useBlockProps();
-			var { children, ...innerBlocksProps } = useInnerBlocksProps( blockProps );
-
-			return el(
-                'div',
-                innerBlocksProps,
-                children,
-                el(
-            	    'div',
-                    {},
-    	            '<!-- Insert any arbitrary html here at the same level as the children -->',
-	            )
-            );
-		},
-		// ...
-	} );
-} )( window.wp.blocks, window.React, window.wp.blockEditor );
-```
-<!-- 
-{% end %}
- -->
 
 ```html
 <div>

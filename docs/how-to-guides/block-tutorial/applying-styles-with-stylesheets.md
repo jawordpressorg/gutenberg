@@ -1,21 +1,3 @@
-<!--
-# Applying Styles From a Stylesheet
- -->
-<!--  
-# スタイルシートによるスタイルの適用
- -->
-<!--
-In the [previous section](/docs/how-to-guides/block-tutorial/writing-your-first-block-type.md), the block had applied its own styles by an inline `style` attribute. While this might be adequate for very simple components, you will quickly find that it becomes easier to write your styles by extracting them to a separate stylesheet file.
- -->
-<!-- 
-[前のセクション](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/)でブロックはインラインの `style` 属性でスタイルを適用しました。シンプルなコンポーネントであればこの方法でも構いませんが、スタイルは別のスタイルシートファイルに書いたほうが便利です。
- -->
-<!--
-The editor will automatically generate a class name for each block type to simplify styling. It can be accessed from the object argument passed to the edit and save functions. In this section, we will create a stylesheet to use that class name.
- -->
-<!-- 
-各ブロックタイプで簡単にスタイルできるようエディターは自動的にクラス名を生成します。クラス名は edit 関数、save 関数に渡される object 引数でアクセスできます。このセクションではクラス名を使用するスタイルシートを作成します。
- -->
 <!-- 
 # Use styles and stylesheets
  -->
@@ -63,11 +45,6 @@ The `useBlockProps` React hook is used to set and apply properties on the block'
  -->
 `useBlockProps` React フックを使用して、ブロックのラッパー要素にプロパティをセットし、適用します。以下に例を示します。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
@@ -101,52 +78,7 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	},
 } );
 ```
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, React, blockEditor ) {
-	var el = React.createElement;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
-		edit: function ( props ) {
-			const greenBackground = {
-				backgroundColor: '#090',
-				color: '#fff',
-				padding: '20px',
-			};
-			const blockProps = blockEditor.useBlockProps( {
-				style: greenBackground,
-			} );
-			return el(
-				'p',
-				blockProps,
-				'Hello World (from the editor, in green).'
-			);
-		},
-		save: function () {
-			const redBackground = {
-				backgroundColor: '#090',
-				color: '#fff',
-				padding: '20px',
-			};
-			const blockProps = blockEditor.useBlockProps.save( {
-				style: redBackground,
-			} );
-			return el(
-				'p',
-				blockProps,
-				'Hello World (from the frontend, in red).'
-			);
-		},
-	} );
-} )( window.wp.blocks, window.React, window.wp.blockEditor );
-```
-<!-- 
-{% end %}
- -->
-<!-- 
+<!--
 ## Method 2: Block classname
  -->
 ## 方法 2: ブロックのクラス名
@@ -166,11 +98,6 @@ For example the block name: `gutenberg-examples/example-02-stylesheets` would ge
  -->
 例えば、ブロック名「`gutenberg-examples/example-02-stylesheets`」は、クラス名「`wp-block-gutenberg-examples-example-02-stylesheets`」になります。少し長いかもしれませんが、他のブロックとの衝突を避けるためには最適です。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```jsx
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
@@ -193,47 +120,7 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 } );
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-( function ( blocks, React, blockEditor ) {
-	var el = React.createElement;
-
-	blocks.registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
-		edit: function ( props ) {
-			var blockProps = blockEditor.useBlockProps();
-			return el(
-				'p',
-				blockProps,
-				'Hello World (from the editor, in green).'
-			);
-		},
-		save: function () {
-			var blockProps = blockEditor.useBlockProps.save();
-			return el(
-				'p',
-				blockProps,
-				'Hello World (from the frontend, in red).'
-			);
-		},
-	} );
-} )( window.wp.blocks, window.React, window.wp.blockEditor );
-```
-<!-- 
-{% end %}
- -->
 <!--
-The class name is generated using the block's name prefixed with `wp-block-`, replacing the `/` namespace separator with a single `-`.
- -->
-<!--  
-クラス名はブロック名の前に `wp-block-` を付け、名前空間セパレーター `/` を `-` で置換して生成されます。
- -->
-<!--
-## Enqueueing Editor and Front end Assets
--->
-<!-- 
 ### Build or add dependency
  -->
 ### 依存関係のビルドまたは追加
@@ -244,11 +131,6 @@ In order to include the blockEditor as a dependency, make sure to run the build 
 blockEditor を依存関係として含めるには、ビルド手順を実行するか、アセット PHP ファイルを更新してください。
 
 <!-- 
-{% codetabs %}
-{% JSX %}
- -->
-**JSX**
-<!-- 
 Build the scripts and update the asset file which is used to keep track of dependencies and the build version.
  -->
 スクリプトをビルドし、依存関係やビルドバージョンの追跡に使用されるアセットファイルを更新します。
@@ -256,30 +138,7 @@ Build the scripts and update the asset file which is used to keep track of depen
 ```bash
 npm run build
 ```
-<!-- 
-{% Plain %}
- -->
-**Plain**
-<!-- 
-Edit the asset file to include the block-editor dependency for the scripts.
- -->
-アセットファイルを編集して、スクリプトに block-editor 依存関係を含めます。
 
-```php
-<?php return
-	array( 'dependencies' =>
-		array(
-			'react',
-			'wp-blocks',
-			'wp-block-editor',
-			'wp-polyfill'
-		),
-		'version' => '0.1'
-	);
-```
-<!-- 
-{% end %}
- -->
 <!-- 
 ### Enqueue stylesheets
  -->
@@ -298,7 +157,7 @@ Use the `editorStyle` property to a CSS file you want to load in the editor view
 <!-- 
 It is worth noting that, if the editor content is iframed, both of these will
 load in the iframe. `editorStyle` will also load outside the iframe, so it can
-be used for editor content as well as UI. 
+be used for editor content as well as UI.
  -->
 注意として、エディターコンテンツが iframe 化されている場合、これらの両方が iframe 内にロードされます。`editorStyle` は iframe の外側にも読み込まれるため、UI だけでなくエディターコンテンツにも使用できます。
 
@@ -364,54 +223,7 @@ And a `style.css` file to load on the frontend:
 	padding: 20px;
 }
 ```
-<!--
-Configure your plugin to use these new styles:
- -->
-<!--  
-新しいスタイルを使用するようにプラグインを構成します。
- -->
-<!--  
-```php
-<?php
-/**
- * Plugin Name: Gutenberg Examples Stylesheets
- */
 
-function gutenberg_examples_02_register_block() {
-	wp_register_script(
-		'gutenberg-examples-02',
-		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-element' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' )
-	);
-
-	wp_register_style(
-		'gutenberg-examples-02-editor',
-		plugins_url( 'editor.css', __FILE__ ),
-		array( 'wp-edit-blocks' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
-	);
-
-	wp_register_style(
-		'gutenberg-examples-02',
-		plugins_url( 'style.css', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-	);
-
-	// Allow inlining small stylesheets on the frontend if possible.
-	wp_style_add_data( 'gutenberg-examples-02', 'path', dirname( __FILE__ ) . '/style.css' );
-
-	register_block_type( 'gutenberg-examples/example-02-stylesheets', array(
-		'api_version' => 2,
-		'style' => 'gutenberg-examples-02',
-		'editor_style' => 'gutenberg-examples-02-editor',
-		'editor_script' => 'gutenberg-examples-02',
-	) );
-}
-add_action( 'init', 'gutenberg_examples_02_register_block' );
-```
- -->
 <!-- 
 The files will automatically be enqueued when specified in the block.json.
  -->
@@ -440,8 +252,8 @@ This guide showed a couple of different ways to apply styles to your block, by e
 このガイドでは、インラインまたは独自のスタイルシートによって、ブロックにスタイルを適用する方法を紹介しました。この方法はどちらも `useBlockProps` フックを使用します。詳細については、 [ブロックラッパーリファレンスドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#block-wrapper-props) を参照してください。
 
 <!-- 
-See the complete [example-02-stylesheets](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/02-stylesheets) code in the [gutenberg-examples repository](https://github.com/WordPress/gutenberg-examples).
+See the complete [stylesheets-79a4c3](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/stylesheets-79a4c3) code in the [block-development-examples repository](https://github.com/WordPress/block-development-examples).
  -->
-完全なサンプルコードは [gutenberg-examples リポジトリ](https://github.com/WordPress/gutenberg-examples) 内の [example-02-stylesheets](https://github.com/WordPress/gutenberg-examples/tree/trunk/blocks-non-jsx/02-stylesheets) を参照してください。
+完全なサンプルコードは [block-development-examples リポジトリ](https://github.com/WordPress/block-development-examples) 内の [stylesheets-79a4c3](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/stylesheets-79a4c3) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/applying-styles-with-stylesheets.md)

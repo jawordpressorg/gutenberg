@@ -52,10 +52,12 @@ ESNext を使用し、さらに追加の変換手順を実行するのにはい�
 ## Quick Start
 
 If you prefer a quick start, you can use one of the examples from the [Gutenberg Examples repository](https://github.com/wordpress/gutenberg-examples/) and skip below. Each one of the `-esnext` directories in the examples repository contain the necessary files for working with ESNext and JSX.
+
+If you prefer a quick start, you can use one of the examples from the [Block Development Examples repository](https://github.com/wordpress/block-development-examples/) and skip below. Each one of the `-esnext` directories in the examples repository contain the necessary files for working with ESNext and JSX.
  -->
 ## クイックスタート
 
-すぐに始めたいという方は以下の手順を省略し、[Gutenberg Examples リポジトリー](https://github.com/wordpress/gutenberg-examples/) のサンプルを使用してください。Examples リポジトリーのそれぞれのサンプルの `-esnext` ディレクトリ下に ESNext や JSX の動作に必要なファイルが含まれています。
+すぐに始めたいという方は以下の手順を省略し、[Block Development Examples リポジトリー](https://github.com/wordpress/block-development-examples/) のサンプルを使用してください。Examples リポジトリーのそれぞれのサンプルの `-esnext` ディレクトリ下に ESNext や JSX の動作に必要なファイルが含まれています。
 
 <!-- 
 ## Setup
@@ -278,8 +280,9 @@ wp_register_script(
 
 <!-- 
 See [ESNext blocks in gutenberg-examples repo](https://github.com/WordPress/gutenberg-examples) for full examples.
+See [blocks in the block-development-examples repo](https://github.com/WordPress/block-development-examples) for full examples.
  -->
-完全なサンプルについては [gutenberg-examples リポジトリー内の ESNext ブロック](https://github.com/WordPress/gutenberg-examples) を参照してください。
+完全なサンプルについては [blocks in the block-development-examples リポジトリ](https://github.com/WordPress/block-development-examples) を参照してください。
 
 <!-- 
 ## Summary

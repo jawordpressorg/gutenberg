@@ -720,7 +720,7 @@ Attribute available in the block:
 
 <!--
 <div class="callout callout-alert">
-Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="/block-editor/how-to-guides/metabox/#step-2-add-meta-block">Create Meta Block how-to</a>.
+Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="https://developer.wordpress.org/block-editor/how-to-guides/metabox/#step-2-add-meta-block">Create Meta Block how-to</a>.
 </div>
  -->
 **注意**
@@ -750,11 +750,6 @@ From here, meta attributes can be read and written by a block using the same int
  -->
 メタ属性は任意の属性と同じインターフェースを使用してブロックから読み書きできます。
 
-**JSX**
-<!-- 
-{% codetabs %}
-{% JSX %}
- -->
 ```js
 edit( { attributes, setAttributes } ) {
 	function onChange( event ) {
@@ -765,25 +760,6 @@ edit( { attributes, setAttributes } ) {
 },
 ```
 
-**Plain**
-<!-- 
-{% Plain %}
- -->
-```js
-edit: function( props ) {
-	function onChange( event ) {
-		props.setAttributes( { author: event.target.value } );
-	}
-
-	return el( 'input', {
-		value: props.attributes.author,
-		onChange: onChange,
-	} );
-},
-```
-<!-- 
-{% end %}
- -->
 <!--
 #### Considerations
  -->

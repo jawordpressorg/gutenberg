@@ -59,8 +59,10 @@ Gutenberg プロジェクトにおける GitHub の使用に関する追加情�
 
 <!--
 The workflow for code and documentation is the same, since both are managed in GitHub. You can watch a [video walk-through of contributing documentation](https://wordpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/) and the accompanying [slides for contributing to Gutenberg](https://mkaz.blog/wordpress/contribute-documentation-to-gutenberg/).
+
+The workflow for code and documentation is the same, since both are managed in GitHub. You can watch a [video walk-through of contributing documentation](https://wordpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/) and the accompanying [tutorial for contributing to Gutenberg](https://mkaz.blog/wordpress/contribute-developer-documentation-to-gutenberg/).
 -->
-コードもドキュメントもどちらも GitHub で管理されているため、ワークフローも共通です。[ドキュメントのコントリビューションに関するビデオチュートリアル](https://wordpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/)や、付属のスライド「[Gutenbergへのコントリビューション](https://mkaz.blog/wordpress/contribute-documentation-to-gutenberg/)」を参照してください。
+コードもドキュメントもどちらも GitHub で管理されているため、ワークフローも共通です。[ドキュメントのコントリビューションに関するビデオチュートリアル](https://wordpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/)や、付属の「[Gutenbergへのコントリビューションチュートリアル](https://mkaz.blog/wordpress/contribute-developer-documentation-to-gutenberg/)」を参照してください。
 
 <!--
 Here is a visual overview of the Git workflow:

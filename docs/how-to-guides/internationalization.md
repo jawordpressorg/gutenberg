@@ -81,11 +81,6 @@ In your code, you can include the i18n functions. The most common function is **
  -->
 これでコードに国際化関数を加えられます。もっともよく使われる関数が単純な文字列の翻訳を返す **__** (下線2個) です。以下は基本的なブロックの例です。
 
-
-<!--
-{% codetabs %}
-{% JSX %}
-
 ```js
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
@@ -106,103 +101,6 @@ registerBlockType( 'myguten/simple', {
 		const blockProps = useBlockProps.save( { style: { color: 'red' } } );
 
 		return <p { ...blockProps }>{ __( 'Hello World', 'myguten' ) }</p>;
-	},
-} );
-```
-
-{% Plain %}
-
-```js
-const el = React.createElement;
-const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
-const { useBlockProps } = wp.blockEditor;
-
-registerBlockType( 'myguten/simple', {
-	title: __( 'Simple Block', 'myguten' ),
-	category: 'widgets',
-
-	edit: function () {
-		const blockProps = useBlockProps( { style: { color: 'red' } } );
-
-		return el( 'p', blockProps, __( 'Hello World', 'myguten' ) );
-	},
-
-	save: function () {
-		const blockProps = useBlockProps.save( { style: { color: 'red' } } );
-		return el( 'p', blockProps, __( 'Hello World', 'myguten' ) );
-	},
-} );
-```
-
-{% end %}
- -->
-
-**JSX**
-
-`npm init @wordpress/block --namespace myguten simple-block` を実行し、`src/index/js` に次のコードを記入してください。
-
-```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
-
-registerBlockType('myguten/simple-block', {
-	apiVersion: 2,
-	title: __('Simple Block', 'myguten'),
-	category: 'widgets',
-
-	edit: () => {
-		const blockProps = useBlockProps( { style: { color: 'red' } } );
-
-		return (
-			<p {...blockProps}>
-				{ __( 'Hello World', 'myguten' ) }
-			</p>
-		);
-	},
-
-	save: () => {
-		const blockProps = useBlockProps.save( { style: { color: 'red' } } );
-
-		return (
-			<p {...blockProps}>
-				{ __( 'Hello World', 'myguten' ) }
-			</p>
-		);
-	},
-});
-```
-
-**Plain**
-
-```js
-const { __ } = wp.i18n;
-const el = wp.element.createElement;
-const { registerBlockType } = wp.blocks;
-const { useBlockProps } = wp.blockEditor;
-
-registerBlockType( 'myguten/simple', {
-	title: __( 'Simple Block', 'myguten' ),
-	category: 'widgets',
-
-	edit: function() {
-		const blockProps = useBlockProps( { style: { color: 'red' } } );
-
-		return el(
-			'p',
-			blockProps,
-			__( 'Hello World', 'myguten' )
-		);
-	},
-
-	save: function() {
-		const blockProps = useBlockProps.save( { style: { color: 'red' } } );
-		return el(
-			'p',
-			blockProps,
-			__( 'Hello World', 'myguten' )
-		);
 	},
 } );
 ```

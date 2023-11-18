@@ -184,11 +184,11 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
  -->
 - **プリセット**: [カラーパレット](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes)、[フォントサイズ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes)、[グラデーション](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) をテーマで宣言すると、CSS カスタムプロパティに変換され、フロントエンドとエディターの両方にエンキューされます。
 
-**入力**
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
+#### 入力
+
 ```json
 {
 	"version": 2,
@@ -211,29 +211,26 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 }
 ```
 
-**出力**
 <!-- 
-{% Output %}
+#### Output
  -->
+#### 出力
+
 ```css
 body {
 	--wp--preset--color--black: #000000;
 	--wp--preset--color--white: #ffffff;
 }
 ```
-<!-- 
-{% end %}
- -->
-<!--
 -   **Custom properties**: there's also a mechanism to create your own CSS Custom Properties.
  -->
 - **カスタムプロパティ**: 自身の CSS カスタムプロパティを作成する仕組みもあります。
 
-**入力**
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
+#### 入力
+
 ```json
 {
 	"version": 2,
@@ -248,19 +245,18 @@ body {
 }
 ```
 
-**出力**
 <!-- 
-{% Output %}
+#### Output
  -->
+#### 出力
+
 ```css
 body {
 	--wp--custom--line-height--body: 1.7;
 	--wp--custom--line-height--heading: 1.3;
 }
 ```
-<!-- 
-{% end %}
- -->
+
 <!--
 ## Specification
  -->
@@ -369,11 +365,8 @@ The settings section has the following structure:
  -->
 settings セクションは以下の構造を持ちます。
 
-<!--
-{% codetabs %}
-{% WordPress %}
- -->
-**WordPress**
+
+#### WordPress
 
 ```json
 {
@@ -437,10 +430,7 @@ settings セクションは以下の構造を持ちます。
 }
 ```
 
-<!--
-{% Gutenberg %}
- -->
-**Gutenberg**
+#### Gutenberg
 
 ```json
 {
@@ -519,9 +509,6 @@ settings セクションは以下の構造を持ちます。
 }
 ```
 
-<!--
-{% end %}
-  -->
 <!--
 Each block can configure any of these settings separately, providing a more fine-grained control over what exists via `add_theme_support`. The settings declared at the top-level affect to all blocks, unless a particular block overwrites it. It's a way to provide inheritance and configure all blocks at once.
  -->
@@ -685,11 +672,11 @@ The naming schema for the classes and the custom properties is as follows:
 - カスタムプロパティ: `--wp--preset--{preset-category}--{preset-slug}` 例: `--wp--preset--color--black`
 - クラス: `.has-{preset-slug}-{preset-category}` 例: `.has-black-color`.
 
-**入力**
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
+#### 入力
+
 ```json
 {
 	"version": 2,
@@ -801,10 +788,11 @@ The naming schema for the classes and the custom properties is as follows:
 }
 ```
 
-**出力**
 <!-- 
-{% Output %}
+#### Output
  -->
+#### 出力
+
 ```css
 /* Top-level custom properties */
 body {
@@ -852,9 +840,7 @@ body {
 .wp-block-group.has-white-border-color { border-color: #444 !important; }
 
 ```
-<!-- 
-{% end %}
- -->
+
 <!--
 To maintain backward compatibility, the presets declared via `add_theme_support` will also generate the CSS Custom Properties. If the `theme.json` contains any presets, these will take precedence over the ones declared via `add_theme_support`.
  -->
@@ -880,11 +866,11 @@ For example:
  -->
 例:
 
-**入力**
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
+#### 入力
+
 ```json
 {
 	"version": 2,
@@ -907,11 +893,11 @@ For example:
 	}
 }
 ```
-
-**出力**
 <!-- 
-{% Output %}
+#### Output
  -->
+#### 出力
+
 ```css
 body {
 	--wp--custom--base-font: 16;
@@ -923,9 +909,7 @@ body {
 	--wp--custom--base-font: 32;
 }
 ```
-<!-- 
-{% end %}
- -->
+
 <!--
 Note that the name of the variable is created by adding `--` in between each nesting level and `camelCase` fields are transformed to `kebab-case`.
  -->
@@ -1056,11 +1040,7 @@ Each block declares which style properties it exposes via the [block supports me
  -->
 各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用されます。テーマは `theme.json` を介して、任意のブロックのために、任意のスタイルプロパティを使用できます。ブロックマークアップ等に関して正しく動作するかどうかの検証は、テーマの責任です。
 
-<!--
-{% codetabs %}
-{% WordPress %}
- -->
-**WordPress**
+#### WordPress
 
 ```json
 {
@@ -1140,10 +1120,7 @@ Each block declares which style properties it exposes via the [block supports me
 }
 ```
 
-<!--
-{% Gutenberg %}
- -->
-**Gutenberg**
+#### Gutenberg
 
 ```json
 {
@@ -1231,9 +1208,6 @@ Each block declares which style properties it exposes via the [block supports me
 	}
 }
 ```
-<!--
-{% end %}
- -->
 
 <!--
 ### Top-level styles
@@ -1244,10 +1218,12 @@ Each block declares which style properties it exposes via the [block supports me
 Styles found at the top-level will be enqueued using the `body` selector.
  -->
 トップレベルのスタイルは `body` セレクタを使用してエンキューされます。
+
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
+#### 入力
+
 ```json
 {
 	"version": 1,
@@ -1258,17 +1234,18 @@ Styles found at the top-level will be enqueued using the `body` selector.
 	}
 }
 ```
+
 <!-- 
-{% Output %}
+#### Output
  -->
+#### 出力
+
 ```css
 body {
 	color: var( --wp--preset--color--primary );
 }
 ```
-<!-- 
-{% end %}
- -->
+
 <!--
 ### Block styles
  -->
@@ -1285,10 +1262,9 @@ By default, the block selector is generated based on its name such as `.wp-block
 デフォルトでは、ブロックセレクタは `.wp-block-<blockname-without-namespace>` のような名前を基にして生成されます。たとえば、`core/group` ブロックの `.wp-block-group` です。このデフォルトの動作をオプトアウトしたいブロックもあります。これには明示的にシステムに対してどのセレクタを使用するか、`block.json` ファイルの `supports` セクション内の `__experimentalSelector` キーで指定します。注意: スタイルエンジンが `__experimentalSelector` フィールドを利用できるようにするには、このブロックをサーバーサイドで登録する必要があります。
 
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
-**入力**
+#### 入力
 
 ```json
 {
@@ -1312,10 +1288,11 @@ By default, the block selector is generated based on its name such as `.wp-block
 	}
 }
 ```
+
 <!-- 
-{% Output %}
+#### Output
  -->
-**出力**
+#### 出力
 
 ```css
 body {
@@ -1328,9 +1305,6 @@ p { /* The core/paragraph opts out from the default behaviour and uses p as a se
 	color: var( --wp--preset--color--tertiary );
 }
 ```
-<!-- 
-{% end %}
- -->
 
 <!-- 
 #### Referencing a style
@@ -1417,10 +1391,9 @@ If they're found in the top-level the element selector will be used. If they're 
 トップレベルにあれば、要素セレクタが使用されます。ブロック内にあれば、使用されるセレクタは、対応するブロックに追加された形の要素セレクタになります。
 
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
-**入力**
+#### 入力
 
 ```json
 {
@@ -1465,10 +1438,11 @@ If they're found in the top-level the element selector will be used. If they're 
 	}
 }
 ```
+
 <!-- 
-{% Output %}
+#### Output
  -->
-**出力**
+#### 出力
 
 ```css
 body {
@@ -1490,34 +1464,7 @@ h3 {
 	font-size: var( --wp--preset--font-size--smaller );
 }
 ```
-<!-- 
-{% end %}
- -->
-<!--
-The `defaults` block selector can't be part of the `styles` section and will be ignored if it's present. The `root` block selector will generate a style rule with the `:root` CSS selector.
- -->
-<!--  
-`defaults` ブロックセレクタは、`styles` セクションの一部にはなれず、あっても無視されます。`root` ブロックセレクタはなることはできず、`:root` CSS セレクタと共にスタイルルールを生成します。
- -->
-<!--
-### Other theme metadata
- -->
-<!-- 
-### その他のテーマのメタデータ
- -->
-<!--
-There's a growing need to add more theme metadata to the theme.json. This section lists those other fields:
- -->
-<!-- 
-theme.json にはさらに多くのテーマのメタデータを追加するニーズがあります。このセクションでは、それら他のフィールドを挙げます。
- -->
-<!--
-**customTemplates**: within this field themes can list the custom templates present in the `block-templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
- -->
-<!-- 
-**customTemplates**: このフィールド内にテーマは、`block-templates` フォルダー内にあるカスタムテンプレートをリストできます。たとえば、カスタムテンプレート `my-custom-template.html` に対して、`theme.json` はどの投稿タイプが使用でき、ユーザーにどのようなタイトルを表示するか宣言できます。
- -->
- 
+
 <!-- 
 ##### Element pseudo selectors
  -->
@@ -1799,11 +1746,11 @@ For example:
 
 例:
 
-**入力**
 <!-- 
-{% codetabs %}
-{% Input %}
+#### Input
  -->
+#### 入力
+
 ```json
 {
 	"version": 2,
@@ -1818,19 +1765,18 @@ For example:
 }
 ```
 
-**出力**
 <!-- 
-{% Output %}
+#### Output
  -->
+#### 出力
+
 ```css
 body {
 	--wp--custom--line-height--body: 1.7;
 	--wp--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif";
 }
 ```
-<!-- 
-{% end %}
- -->
+
 <!--
 A few notes about this process:
 

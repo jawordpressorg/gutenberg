@@ -534,7 +534,7 @@ When the block declares support for `color.__experimentalDuotone`, the attribute
 <!-- 
 _**Note:** Deprecated since WordPress 6.3._
 
-This property has been replaced by [`filter.duotone`](#filter-duotone).
+This property has been replaced by [`filter.duotone`](#filterduotone).
  -->
 _**注意:** WordPress 6.3から非推奨となりました。_
 
