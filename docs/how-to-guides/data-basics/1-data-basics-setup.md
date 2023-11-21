@@ -256,15 +256,15 @@ Congratulations! You are now ready to start building the app!
 <!--
 ## What's next?
 -->
-## 次のステップ
+## 次は ?
 
 <!--
 -   Previous part: [Introduction](/docs/how-to-guides/data-basics/README.md)
 -   Next part: [Building a basic list of pages](/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
 -   (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
 -->
--   前のステップ: [はじめに](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/)
--   次のステップ: [簡単なページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
--   (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
+-   前のパート: [はじめに](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/)
+-   次のパート: [簡単なページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
+-   (オプション) block-development-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/1-data-basics-setup.md)

@@ -18,7 +18,7 @@ Let’s see how we can get there step by step.
 <!--
 ## Step 1: Build the PagesList component
 -->
-## ステップ 1: PagesList コンポーネントの構築
+## ステップ1: PagesList コンポーネントの構築
 
 <!--
 Let’s start by building a minimal React component to display the list of pages:
@@ -54,7 +54,7 @@ Note that this component does not fetch any data yet, only presents the hardcode
 <!--
 ## Step 2: Fetch the data
 -->
-## ステップ 2: データの取得
+## ステップ2: データの取得
 
 <!--
 The hard-coded sample page isn’t very useful. We want to display your actual WordPress pages so let’s fetch the actual list of pages from the [WordPress REST API](https://developer.wordpress.org/rest-api/).
@@ -183,7 +183,7 @@ Refreshing the page should display a list similar to this one:
 <!--
 ## Step 3: Turn it into a table
 -->
-## ステップ 3: テーブルの中へ
+## ステップ3: テーブルの中へ
 
 ```js
 function PagesList( { pages } ) {
@@ -211,7 +211,7 @@ function PagesList( { pages } ) {
 <!--
 ## Step 4: Add a search box
 -->
-## ステップ 4: 検索ボックスの追加
+## ステップ4: 検索ボックスの追加
 
 <!--
 The list of pages is short for now; however, the longer it grows, the harder it is to work with. WordPress admins typically solves this problem with a search box – let’s implement one too!
@@ -401,7 +401,7 @@ All in all, the utilities built into core-data are designed to solve the typical
 <!--
 ## Step 5: Loading Indicator
 -->
-## ステップ 5: インジケータのロード
+## ステップ5: インジケータのロード
 
 <!--
 There is one problem with our search feature. We can’t be quite sure whether it’s still searching or showing no results:
@@ -603,17 +603,16 @@ All that’s left is to refresh the page and enjoy the brand new status indicato
 <!--
 ## What's next?
 -->
-## 次のステップ
+## 次は ?
 
 <!--
 * **Previous part:** [Setup](/docs/how-to-guides/data-basics/1-data-basics-setup.md)
 * **Next part:** [Building an edit form](/docs/how-to-guides/data-basics/3-building-an-edit-form.md)
-* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/09-code-data-basics-esnext) in the gutenberg-examples repository
-* (optional) Review the [finished app](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/09-code-data-basics-esnext) in the gutenberg-examples repository
+* (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
 -->
-* **前のステップ:** [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup)
-* **次のステップ:** [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/3-building-an-edit-form)
-* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
+* **前のパート:** [セットアップ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/1-data-basics-setup)
+* **次のパート:** [編集フォームの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/3-building-an-edit-form)
+* (オプション) block-development-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
 

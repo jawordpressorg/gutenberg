@@ -48,7 +48,6 @@ You will need:
 -   JavaScript のビルドとエンキューが可能なセットアップ
 
 <!-- 
-The [complete format-api example](https://github.com/WordPress/gutenberg-examples/tree/trunk/non-block-examples/format-api) is available that you can use as a reference for your setup.
 The [complete format-api example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) is available that you can use as a reference for your setup.
  -->
 セットアップのリファレンスとして、[完全な書式 API サンプル](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) を参照してください。

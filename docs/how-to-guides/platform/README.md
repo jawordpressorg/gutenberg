@@ -83,8 +83,6 @@ You can then add a scripts section to your package.json file, for example:
 <!--
 You can then use `npm run build` to build your project with all the default webpack settings already configured, likewise for formatting and linting. The `start` command is used for development mode. See the [`@wordpress/scripts` package](/packages/scripts/README.md) for full documentation.
 
-You can also play with the [Gutenberg Example #03](https://github.com/WordPress/gutenberg-examples/tree/HEAD/03-editable-esnext) for a complete setup using the wp-scripts package.
-
 For more info, see the [Getting Started with JavaScript tutorial](/docs/how-to-guides/javascript/js-build-setup.md) in the Block Editor Handbook.
  -->
 これで `npm run build` と実行すると、構成済みのすべてのデフォルトの webpack 、たとえばフォーマットや lint を実行してプロジェクトをビルドします。`start` コマンドは開発モードで使用します。完全なドキュメントについては [`@wordpress/scripts` パッケージ](https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/README.md)を参照してください。

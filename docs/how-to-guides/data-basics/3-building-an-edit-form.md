@@ -13,7 +13,7 @@ This part is about adding an *Edit* feature to our app. Here's a glimpse of what
 <!--
 ### Step 1: Add an _Edit_ button
 -->
-### ステップ 1: 「編集」ボタンの追加
+### ステップ1: 「編集」ボタンの追加
 
 <!--
 We can't have an *Edit* form without an *Edit* button, so let's start by adding one to our `PagesList` component:
@@ -72,7 +72,7 @@ The only change in `PagesList` is the additional column labeled _Actions_:
 <!--
 ### Step 2: Display an _Edit_ form
 -->
-### ステップ 2: 「編集」フォームの表示
+### ステップ2: 「編集」フォームの表示
 
 <!--
 Our button looks nice but doesn't do anything yet. To display an edit form, we need to have one first – let's create it:
@@ -150,7 +150,7 @@ Great! We now have a basic user interface to work with.
 <!--
 ### Step 3: Populate the form with page details
 -->
-### ステップ 3: フォームへのページの詳細の挿入
+### ステップ3: フォームへのページの詳細の挿入
 
 <!--
 We want the `EditPageForm` to display the title of the currently edited page. You may have noticed that it doesn't receive a `page` prop, only `pageId`. That's okay. Gutenberg Data allows us to easily access entity records from any component.
@@ -209,7 +209,7 @@ Now it should look like this:
 <!--
 ### Step 4: Making the Page title field editable
 -->
-### ステップ 4: ページのタイトルフィールドを編集可能に
+### ステップ4: ページのタイトルフィールドを編集可能に
 
 <!--
 There's one problem with our _Page title_ field: you can't edit it. It receives a fixed `value` but doesn't update it when typing. We need an `onChange` handler.
@@ -377,7 +377,7 @@ This is what it looks like now:
 <!--
 ### Step 5: Saving the form data
 -->
-### ステップ 5: フォームデータの保存
+### ステップ5: フォームデータの保存
 
 <!--
 Now that we can edit the page title let's also make sure we can save it. In Gutenberg data, we save changes to the WordPress REST API using the `saveEditedEntityRecord` action. It sends the request, processes the result, and updates the cached data in the Redux state.
@@ -469,7 +469,7 @@ function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 <!--
 ### Step 6: Handle errors
 -->
-### ステップ 6: エラー処理
+### ステップ6: エラー処理
 
 <!--
 We optimistically assumed that a *save* operation would always succeed. Unfortunately, it may fail in many ways:
@@ -583,7 +583,7 @@ Fantastic! We can now **restore the previous version of `handleChange`** and mov
 <!--
 ### Step 7: Status indicator
 -->
-### ステップ 7: ステータスインジケータ
+### ステップ7: ステータスインジケータ
 
 <!--
 There is one last problem with our form: no visual feedback. We can’t be quite sure whether the *Save* button worked until either the form disappears or an error message shows.
@@ -760,15 +760,15 @@ function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 <!--
 ## What's next?
 -->
-## 次のステップ
+## 次は ?
 
 <!--
 * **Previous part:** [Building a list of pages](/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
 * **Next part:** Building a *New Page* form (coming soon)
 * (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
 -->
-* **前のステップ:** [ページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
-* **次のステップ:** 新規ページフォームの構築 (近日公開)
-* (オプション) gutenberg-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
+* **前のパート:** [ページリストの構築](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/2-building-a-list-of-pages)
+* **次のパート:** 新規ページフォームの構築 (近日公開)
+* (オプション) block-development-examples リポジトリ内の [完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) を参照
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/data-basics/3-building-an-edit-form.md)

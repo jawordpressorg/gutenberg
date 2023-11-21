@@ -2,6 +2,9 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/11/21
+- [削除ボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/5-adding-a-delete-button/) - 翻訳
+
 2023/11/11
 - 多数 - JSXを使用しないサンプルの削除
 - 多数 - サンプルリポジトリを変更 [block-development-examples](https://github.com/WordPress/block-development-examples)

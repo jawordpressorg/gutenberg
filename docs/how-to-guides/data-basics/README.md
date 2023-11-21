@@ -13,7 +13,7 @@ This tutorial aims to get you comfortable with the Gutenberg data layer. It guid
 <!--
 You may review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository.
 -->
-gutenberg-examplesリポジトリで、[完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8)を確認できます。
+block-development-examples リポジトリで、[完成したアプリ](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8)を確認できます。
 
 <!--
 ### Table of Contents
