@@ -34,7 +34,7 @@ This guide takes you through creating a basic block to display a message in a po
 <!-- 
 There are two main types of blocks: static and dynamic, this guide focuses on static blocks. A static block is used to insert HTML content into the post and save it with the post. A dynamic block builds the content on the fly when rendered on the front end, see the [dynamic blocks guide](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md).
  -->
-ブロックには大きく分けて静的ブロックとダイナミックブロックがありますが、このガイドでは静的ブロックに焦点を当てます。静的ブロックは、HTML コンテンツを投稿に挿入し、投稿と一緒に保存するために使用されます。ダイナミックブロックは、フロントエンドでレンダーれる際に、その場でコンテンツを構築します。[ダイナミックブロックガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を参照してください。
+ブロックには大きく分けて静的ブロックとダイナミックブロックがありますが、このガイドでは静的ブロックに焦点を当てます。静的ブロックは、HTML コンテンツを投稿に挿入し、投稿と一緒に保存するために使用されます。ダイナミックブロックは、フロントエンドでレンダーされる際に、その場でコンテンツを構築します。[ダイナミックブロックガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を参照してください。
 
 <!-- 
 <div class="callout callout-alert">

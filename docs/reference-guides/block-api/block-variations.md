@@ -237,7 +237,7 @@ If another variation for the same block uses `isDefault`, your variation will no
 <!-- 
 The solution is to unregister the other variation before registering your variation with `isDefault`. This caveat reinforces the recommendation always to provide variations with a unique `name`. Otherwise, the variation cannot be unregistered.
  -->
-これを解決するには `isDefault` でバリエーションを登録する前に、他のバリエーションの登録を解除します。この解決策、前述した、バリエーションには常に一意の `name` をつける推奨を裏付けるものです。一意の名前でなければ、バリエーションを登録解除できません。
+これを解決するには `isDefault` でバリエーションを登録する前に、他のバリエーションの登録を解除します。この解決策は前述した推奨「バリエーションには常に一意の `name` をつける」を裏付けるものです。一意の名前でなければ、バリエーションを登録解除できません。
 
 <!-- 
 ## Using `isActive`
@@ -313,7 +313,7 @@ wp.blocks.registerBlockVariation(
 <!-- 
 The `isActive` check on both variations tests the `textColor`, but each variations uses `vivid-red`. Since the `paragraph-red` variation is registered first, once the `paragraph-red-grey` variation is inserted into the Editor, it will have the title `Red Paragraph` instead of `Red/Grey Paragraph`. As soon as the Editor finds a match, it stops checking.
  -->
-両方のバリエーションの `isActive` チェックでは `textColor` がテストされますが、それぞれのバリエーションでは `vivid-red` が使用されます。`paragraph-red` バリエーションが最初に登録されるため、`paragraph-red-grey` バリエーションがエディタに挿入されると、タイトルは `Red/Grey Paragraph` ではなく、`Red Paragraph` になります。エディターは一致するものを見つけるとすぐにチェックをやめます。
+両方のバリエーションの `isActive` チェックでは `textColor` がテストされますが、それぞれのバリエーションでは `vivid-red` が使用されます。`paragraph-red` バリエーションが最初に登録されるため、`paragraph-red-grey` バリエーションがエディターに挿入されると、タイトルは `Red/Grey Paragraph` ではなく、`Red Paragraph` になります。エディターは一致するものを見つけるとすぐにチェックをやめます。
 
 <!-- 
 There have been [discussions](https://github.com/WordPress/gutenberg/issues/41303#issuecomment-1526193087) around how the API can be improved, but as of WordPress 6.3, this remains an issue to watch out for.

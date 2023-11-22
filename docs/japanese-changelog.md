@@ -4,6 +4,7 @@
 
 2023/11/21
 - [削除ボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/5-adding-a-delete-button/) - 翻訳
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-static-blocks/) - 翻訳
 
 2023/11/11
 - 多数 - JSXを使用しないサンプルの削除
