@@ -247,17 +247,17 @@ The solution is to unregister the other variation before registering your variat
 <!-- 
 While the `isActive` property is optional, you will often want to use it to display information about the block variation after the block has been inserted. For example, this API is used in `useBlockDisplayInformation` hook to fetch and display proper information in places like the `BlockCard` or `Breadcrumbs` components.
  -->
-`isActive` プロパティはオプションですが、ブロックが挿入された後にブロックバリエーションに関する情報を表示するために使用したいケースがままあります。例えば、この API は `useBlockDisplayInformation` フックで使用され、`BlockCard` や `Breadcrumbs` コンポーネントのように、その場で適切な情報を取得して表示します。
+`isActive` プロパティはオプションですが、ブロックが挿入された後にブロックバリエーションに関する情報を表示するために使用したいケースがあります。例えば、`useBlockDisplayInformation` フックはこの API を使用して適切な情報を取得し、`BlockCard` や `Breadcrumbs` コンポーネントなどに、取得した情報を表示します。
 
 <!-- 
 If `isActive` is not set, the Editor cannot distinguish between the original block and your variation, so the original block information will be displayed. 
  -->
-`isActive` が設定されていないと、エディターはオリジナルのブロックとバリエーションを区別できず、オリジナルのブロック情報が表示されます。
+`isActive` が設定されていなければ、エディターはオリジナルのブロックとバリエーションを区別できず、オリジナルのブロック情報が表示されます。
 
 <!-- 
 The property can use either a function or an array of strings (`string[]`). The function accepts `blockAttributes` and `variationAttributes`, which can be used to determine if a variation is active. In the Embed block, the primary differentiator is the `providerNameSlug` attribute, so if you wanted to determine if the YouTube Embed variation was active, you could do something like this: 
  -->
-このプロパティには、関数か文字列の配列（`string[]`）を使用できます。この関数は `blockAttributes` と `variationAttributes` を取り、バリデーションがアクティブかどうかの決定に使用できます。埋め込みブロックでの主な差別化ポイントは `providerNameSlug` 属性のため、例えば YouTube 埋め込みバリエーションがアクティブかどうかを判断するには、次のようにします。
+このプロパティには、関数か文字列の配列（`string[]`）を使用できます。関数は `blockAttributes` と `variationAttributes` を取り、バリデーションがアクティブかどうかの決定に使用できます。埋め込みブロックでの主な差別化ポイントは `providerNameSlug` 属性のため、例えば YouTube 埋め込みバリエーションがアクティブかどうかを判断するには、次のようにします。
 
 ```
 isActive: ( blockAttributes, variationAttributes ) =>
