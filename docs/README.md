@@ -315,6 +315,7 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 - [削除ボタンの追加](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/5-adding-a-delete-button/) - 翻訳
 - [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-static-blocks/) - 翻訳
 - [クエリーループブロックの拡張](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/) - 翻訳
+- [セレクタ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-selectors/) - 翻訳
 
 2023/11/11
 - 多数 - JSXを使用しないサンプルの削除
