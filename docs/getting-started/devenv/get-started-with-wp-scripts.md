@@ -6,7 +6,7 @@
 <!-- 
 The [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) package, commonly referred to as `wp-scripts`, is a set of configuration files and scripts that primarily aims to standardize and simplify the development process of WordPress projects that require a JavaScript build step.
  -->
-[`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) パッケージは構成ファイルとスクリプトのセットで、一般に `wp-scripts` と呼ばれます。その目的は主に JavaScript のビルド手順を必要とする WordPress プロジェクトの開発プロセスの標準化と簡素化です。
+[`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) パッケージは構成ファイルとスクリプトのセットで、一般に `wp-scripts` と呼ばれます。主に JavaScript のビルド手順を必要とする WordPress プロジェクトの開発プロセスの標準化と簡素化を目的とします。
 
 <!-- 
 A JavaScript build step refers to the process of transforming, bundling, and optimizing JavaScript source code and related assets into a format suitable for production environments. These build steps often take modern JavaScript (ESNext and JSX) and convert it to a version compatible with most browsers. They can also bundle multiple files into one, minify the code to reduce file size and perform various other tasks to optimize the code.
@@ -50,10 +50,10 @@ The package abstracts away much of the initial setup, configuration, and boilerp
 
 <!-- 
 <div class="callout callout-tip">
-    If you want to build a custom block, the <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@wordpress/create-block</code></a> package allows you to scaffold the structure of files needed to create and register a block. It generates all the necessary code to start a project and integrates a modern JavaScript build setup (using <code>wp-scripts</code>) with no configuration required. Refer to <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with <code>create-block</code></a> for more details.
+    If you use <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@wordpress/create-block</code></a> package to scaffold the structure of files needed to create and register a block, you'll also get a modern JavaScript build setup (using <code>wp-scripts</code>) with no configuration required, so you don't need to worry about installing <code>wp-scripts</code> or enqueuing assets. Refer to <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with <code>create-block</code></a> for more details.
 </div>
  -->
-> カスタムブロックを作成するには、<a href="https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@wordpress/create-block</code></a> パッケージを使用して、ブロックの作成と登録に必要なファイル構造の雛形を作成できます。プロジェクトを始めるために必要なすべてのコードを生成し、構成なしで最新のJavaScriptビルドセットアップ (wp-scripts を使用) を統合します。詳しくは <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>create-block</code> 入門</a>を参照してください。
+> <a href="https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@wordpress/create-block</code></a> パッケージを使用すると、ブロックの作成と登録に必要なファイル構造の雛形を作成できます。また構成なしでモダンな JavaScript ビルドセットアップ（<code>wp-scripts</code> を使用）も入手でき、<code>wp-scripts</code> のインストールやアセットのエンキューを心配する必要はありません。詳しくは <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>create-block</code> 入門</a>を参照してください。
 
 <!-- 
 ### Installation
@@ -133,10 +133,21 @@ Once installed, you can run the predefined scripts provided with `wp-scripts` by
     }
 }
 ```
+
 <!-- 
-These scripts can then be run using the command `npm run {script name}`. The two scripts you will use most often are `start` and `build` since they handle the build step. See the [package documentation](https://developer.wordpress.org/block-editor/packages/packages-scripts/) for all options.
+These scripts can then be run using the command `npm run {script name}`. 
  -->
-これらのスクリプトは `npm run {スクリプト名}` コマンドを使用して実行できます。最もよく使うスクリプトはビルド手順を処理する `start` と `build` の2つです。すべてのオプションについては [パッケージのドキュメント](https://developer.wordpress.org/block-editor/packages/packages-scripts/) を参照してください。
+これらのスクリプトは `npm run {スクリプト名}` コマンドを使用して実行できます。
+
+<!-- 
+### The build process with `wp-scripts`
+ -->
+### `wp-scripts` でのビルドプロセス
+
+<!-- 
+The two scripts you will use most often are `start` and `build` since they handle the build step. See the [package documentation](https://developer.wordpress.org/block-editor/packages/packages-scripts/) for all options.
+ -->
+最もよく使うスクリプトはビルド手順を処理する `start` と `build` の2つです。すべてのオプションについては [パッケージのドキュメント](https://developer.wordpress.org/block-editor/packages/packages-scripts/) を参照してください。
 
 <!-- 
 When working on your project, use the `npm run start` command. This will start a development server and automatically rebuild the project whenever any change is detected. Note that the compiled code in `build/index.js` will not be optimized.
@@ -149,14 +160,29 @@ When you are ready to deploy your project, use the `npm run build` command. This
 プロジェクトをデプロイする準備ができたら、 `npm run build` コマンドを使用します。コードが最適化され、本番環境に適用できます。
 
 <!-- 
-After the build finishes, you will see the compiled JavaScript file created at `build/index.js`. A `build/index.asset.php` file will also be created, which contains an array of dependencies and a version number (for cache busting). 
+After the build finishes, you will see the compiled JavaScript file created at `build/index.js`. 
  -->
-ビルドが終了すると、コンパイルされた JavaScript ファイルが `build/index.js` として作成されます。`build/index.asset.php` ファイルも作成され、中には依存関係の配列とバージョン番号 (cache busting、キャッシュ破棄のため) が含まれます。
+ビルドが終了すると、コンパイルされた JavaScript ファイルが `build/index.js` として作成されます。
 
 <!-- 
-Enqueue the file in the Editor using PHP as you would any other JavaScript file. You can refer to the [Enqueueing assets in the Editor](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) guide for more information, but here's a typical implementation. 
+A `build/index.asset.php` file will also be created in the build process, which contains an array of dependencies and a version number (for cache busting). Please, note that to register a block without this `wp-scripts` build process you'll need to manually create `*.asset.php` dependencies files (see [example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6)).
  -->
-他の JavaScript ファイルと同じように PHPを使用してエディター内でファイルをエンキューします。詳細は「[エディターでのアセットのエンキュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/)」ガイドを参照してください。
+ビルドプロセスでは `build/index.asset.php` ファイルも作成され、中には依存関係の配列とバージョン番号 (cache busting、キャッシュ破棄のため) が含まれます。この `wp-scripts` ビルドプロセスなしでブロックを登録するには、手動で `*.asset.php` 依存ファイルを作成する必要があることに注意してください ([例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6)を参照)。
+
+<!-- 
+### Enqueuing assets
+ -->
+### アセットのエンキュー
+
+<!-- 
+If you register a block via `register_block_type` the scripts defined in `block.json` will be automatically enqueued (see [example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda))
+ -->
+`register_block_type` を介してブロックを登録すると、`block.json` で定義されたスクリプトは自動的にエンキューされます ([例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda)を参照)。
+
+<!-- 
+To manually enqueue files in the editor, in any other context, you can refer to the [Enqueueing assets in the Editor](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) guide for more information, but here's a typical implementation. 
+ -->
+エディター内でファイルを手動でエンキューするには、他の任意のコンテキストにおける詳細を [エディター内でのアセットのエンキュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/)ガイドを参照できますが、ここでは典型的な実装を紹介します。
 
 ```php
 /**
@@ -174,6 +200,12 @@ function example_project_enqueue_editor_assets() {
 }
 add_action( 'enqueue_block_editor_assets', 'example_project_enqueue_editor_assets' );
 ```
+
+<!-- 
+Here's [an example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) of manually enqueuing files in the editor.
+ -->
+エディター内でファイルを手動でエンキューする[例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8)です。
+
 <!-- 
 ## Next steps
  -->

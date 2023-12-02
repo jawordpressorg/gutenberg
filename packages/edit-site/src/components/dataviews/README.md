@@ -5,6 +5,7 @@ This file documents the DataViews UI component, which provides an API to render 
 ```js
 <DataViews
 	data={ pages }
+	getItemId={ ( item ) => item.id }
 	isLoading={ isLoadingPages }
 	view={ view }
 	onChangeView={ onChangeView }
@@ -35,7 +36,7 @@ Example:
 
 ```js
 {
-	type: 'list',
+	type: LAYOUT_TABLE,
 	perPage: 5,
 	page: 1,
 	sort: {
@@ -44,15 +45,15 @@ Example:
 	},
 	search: '',
 	filters: [
-		{ field: 'author', operator: 'in', value: 2 },
-		{ field: 'status', operator: 'in', value: 'publish,draft' }
+		{ field: 'author', operator: OPERATOR_IN, value: 2 },
+		{ field: 'status', operator: OPERATOR_IN, value: 'publish,draft' }
 	],
 	hiddenFields: [ 'date', 'featured-image' ],
 	layout: {},
 }
 ```
 
--   `type`: view type, one of `list` or `grid`.
+-   `type`: view type, one of `table`, `grid`, or `side-by-side`.
 -   `perPage`: number of records to show per page.
 -   `page`: the page that is visible.
 -   `sort.field`: field used for sorting the dataset.
@@ -63,7 +64,9 @@ Example:
     -   `operator`: which type of filter it is. Only `in` available at the moment.
     -   `value`: the actual value selected by the user.
 -   `hiddenFields`: the `id` of the fields that are hidden in the UI.
--   `layout`: ...
+-   `layout`: config that is specific to a particular layout type.
+    -   `mediaField`: used by the `grid` layout. The `id` of the field to be used for rendering each card's media.
+    -   `primaryField`: used by the `grid` layout. The `id` of the field to be used for rendering each card's title.
 
 ### View <=> data
 
@@ -72,9 +75,9 @@ The view is a representation of the visible state of the dataset. Note, however,
 The following example shows how a view object is used to query the WordPress REST API via the entities abstraction. The same can be done with any other data provider.
 
 ```js
-function MyCustomPageList() {
+function MyCustomPageTable() {
 	const [ view, setView ] = useState( {
-		type: 'list',
+		type: TABLE_LAYOUT,
 		perPage: 5,
 		page: 1,
 		sort: {
@@ -83,8 +86,8 @@ function MyCustomPageList() {
 		},
 		search: '',
 		filters: [
-			{ field: 'author', operator: 'in', value: 2 },
-			{ field: 'status', operator: 'in', value: 'publish,draft' }
+			{ field: 'author', operator: OPERATOR_IN, value: 2 },
+			{ field: 'status', operator: OPERATOR_IN, value: 'publish,draft' }
 		],
 		hiddenFields: [ 'date', 'featured-image' ],
 		layout: {},
@@ -93,10 +96,10 @@ function MyCustomPageList() {
 	const queryArgs = useMemo( () => {
 		const filters = {};
 		view.filters.forEach( ( filter ) => {
-			if ( filter.field === 'status' && filter.operator === 'in' ) {
+			if ( filter.field === 'status' && filter.operator === OPERATOR_IN ) {
 				filters.status = filter.value;
 			}
-			if ( filter.field === 'author' && filter.operator === 'in' ) {
+			if ( filter.field === 'author' && filter.operator === OPERATOR_IN ) {
 				filters.author = filter.value;
 			}
 		} );
@@ -154,7 +157,7 @@ Example:
 				<a href="...">{ item.author }</a>
 			);
 		},
-		type: 'enumeration',
+		type: ENUMERATION_TYPE,
 		elements: [
 			{ value: 1, label: 'Admin' }
 			{ value: 2, label: 'User' }
@@ -183,6 +186,6 @@ Array of operations that can be performed upon each record. Each action is an ob
 -   `icon`: icon to show for primary actions. It's required for a primary action, otherwise the action would be considered secondary.
 -   `isEligible`: function, optional. Whether the action can be performed for a given record. If not present, the action is considered to be eligible for all items. It takes the given record as input.
 -   `isDestructive`: boolean, optional. Whether the action can delete data, in which case the UI would communicate it via red color.
--   `callback`: function, required. Callback function that takes the record as input and performs the required action.
--   `RenderModal`: ReactElement, optional. If an action requires to render contents in a modal, can provide a component which takes as input the record and a `closeModal` function. If this prop is provided, the `callback` property would be ignored.
+-   `callback`: function, required unless `RenderModal` is provided. Callback function that takes the record as input and performs the required action.
+-   `RenderModal`: ReactElement, optional. If an action requires that some UI be rendered in a modal, it can provide a component which takes as props the record as `item` and a `closeModal` function. When this prop is provided, the `callback` property is ignored.
 -   `hideModalHeader`: boolean, optional. This property is used in combination with `RenderModal` and controls the visibility of the modal's header. If the action renders a modal and doesn't hide the header, the action's label is going to be used in the modal's header.

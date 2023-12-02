@@ -8,7 +8,10 @@ This tutorial aims to get you comfortable with the Gutenberg data layer. It guid
 -->
 このチュートリアルは、Gutenberg のデータレイヤーを使いこなすことを目的としています。このチュートリアルでは、ユーザーが WordPress のページを管理できるシンプルなReactアプリケーションを構築する方法を説明します。完成したアプリケーションは、以下のようになります。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
+<!-- 
+[![Open demo in WordPress Playground](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/WordPress/block-development-examples/trunk/plugins/data-basics-59c8f8/_playground/blueprint.json "Opens demo in WordPress Playground")
+ -->
+[![WordPress Playground でデモを開く](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/WordPress/block-development-examples/trunk/plugins/data-basics-59c8f8/_playground/blueprint.json "WordPress Playground でデモを開く")
 
 <!--
 You may review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository.

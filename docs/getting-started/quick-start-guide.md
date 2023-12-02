@@ -38,7 +38,7 @@ Choose the folder where you want to create the plugin, and then execute the foll
 プラグインを作成するフォルダを選択し、そのフォルダ内からターミナルで以下のコマンドを実行します。
 
 ```sh
-npx @wordpress/create-block copyright-date-block --template create-block-tutorial-template
+npx @wordpress/create-block copyright-date-block --template @wordpress/create-block-tutorial-template
 ```
 
 <!-- 

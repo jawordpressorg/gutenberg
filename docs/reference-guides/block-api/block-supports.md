@@ -1207,6 +1207,7 @@ supports: {
     -   `allowVerticalAlignment`: type `boolean`, default value `true`
     -   `allowJustification`: type `boolean`, default value `true`
     -   `allowOrientation`: type `boolean`, default value `true`
+    -   `allowCustomContentAndWideSize`: type `boolean`, default value `true`
 
 This value only applies to blocks that are containers for inner blocks. If set to `true` the layout type will be `flow`. For other layout types it's necessary to set the `type` explicitly inside the `default` object.
  -->
@@ -1221,6 +1222,7 @@ This value only applies to blocks that are containers for inner blocks. If set t
     -   `allowVerticalAlignment`: タイプ `boolean`, デフォルト値 `true`
     -   `allowJustification`: タイプ `boolean`, デフォルト値 `true`
     -   `allowOrientation`: タイプ `boolean`, デフォルト値 `true`
+    -   `allowCustomContentAndWideSize`: タイプ `boolean`, デフォルト値 `true`
 
 この値は内部ブロックのコンテナとなるブロックにのみ適用されます。`true` に設定するとレイアウトタイプは `flow` になります。その他のレイアウトタイプでは、`default` オブジェクト内で明示的に `type` を設定する必要があります。
 
@@ -1320,6 +1322,17 @@ For the `flex` layout type only, determines display of the orientation control i
 
 `flex` レイアウトタイプのみ。ブロックツールバーの方向コントロールの表示を決定します。
 
+### layout.allowCustomContentAndWideSize
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+
+For the `constrained` layout type only, determines display of the custom content and wide size controls in the block sidebar.
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+`constrained` レイアウトタイプのみ。ブロックサイドバーのカスタムコンテンツとワイドサイズコントロールの表示を決定します。
 
 ## multiple
 <!--

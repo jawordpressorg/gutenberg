@@ -18,10 +18,17 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 import Page from '../page';
 import Link from '../routes/link';
-import { DataViews, viewTypeSupportsMap } from '../dataviews';
+import {
+	DataViews,
+	VIEW_LAYOUTS,
+	ENUMERATION_TYPE,
+	LAYOUT_GRID,
+	LAYOUT_TABLE,
+	OPERATOR_IN,
+} from '../dataviews';
 import { default as DEFAULT_VIEWS } from '../sidebar-dataviews/default-views';
 import {
-	useTrashPostAction,
+	trashPostAction,
 	usePermanentlyDeletePostAction,
 	useRestorePostAction,
 	postRevisionsAction,
@@ -35,9 +42,10 @@ const { useLocation } = unlock( routerPrivateApis );
 
 const EMPTY_ARRAY = [];
 const defaultConfigPerViewType = {
-	list: {},
-	grid: {
+	[ LAYOUT_TABLE ]: {},
+	[ LAYOUT_GRID ]: {
 		mediaField: 'featured-image',
+		primaryField: 'title',
 	},
 };
 
@@ -120,10 +128,16 @@ export default function PagePages() {
 	const queryArgs = useMemo( () => {
 		const filters = {};
 		view.filters.forEach( ( filter ) => {
-			if ( filter.field === 'status' && filter.operator === 'in' ) {
+			if (
+				filter.field === 'status' &&
+				filter.operator === OPERATOR_IN
+			) {
 				filters.status = filter.value;
 			}
-			if ( filter.field === 'author' && filter.operator === 'in' ) {
+			if (
+				filter.field === 'author' &&
+				filter.operator === OPERATOR_IN
+			) {
 				filters.author = filter.value;
 			}
 		} );
@@ -197,7 +211,9 @@ export default function PagePages() {
 									} }
 									onClick={ ( event ) => {
 										if (
-											viewTypeSupportsMap[ type ].preview
+											VIEW_LAYOUTS.find(
+												( v ) => v.type === type
+											)?.supports?.preview
 										) {
 											event.preventDefault();
 											setSelection( [ item.id ] );
@@ -219,15 +235,7 @@ export default function PagePages() {
 				header: __( 'Author' ),
 				id: 'author',
 				getValue: ( { item } ) => item._embedded?.author[ 0 ]?.name,
-				render: ( { item } ) => {
-					const author = item._embedded?.author[ 0 ];
-					return (
-						<a href={ `user-edit.php?user_id=${ author.id }` }>
-							{ author.name }
-						</a>
-					);
-				},
-				type: 'enumeration',
+				type: ENUMERATION_TYPE,
 				elements:
 					authors?.map( ( { id, name } ) => ( {
 						value: id,
@@ -240,7 +248,7 @@ export default function PagePages() {
 				getValue: ( { item } ) =>
 					STATUSES.find( ( { value } ) => value === item.status )
 						?.label ?? item.status,
-				type: 'enumeration',
+				type: ENUMERATION_TYPE,
 				elements: STATUSES,
 				enableSorting: false,
 			},
@@ -260,7 +268,6 @@ export default function PagePages() {
 		[ authors ]
 	);
 
-	const trashPostAction = useTrashPostAction();
 	const permanentlyDeletePostAction = usePermanentlyDeletePostAction();
 	const restorePostAction = useRestorePostAction();
 	const editPostAction = useEditPostAction();
@@ -273,12 +280,7 @@ export default function PagePages() {
 			editPostAction,
 			postRevisionsAction,
 		],
-		[
-			trashPostAction,
-			permanentlyDeletePostAction,
-			restorePostAction,
-			editPostAction,
-		]
+		[ permanentlyDeletePostAction, restorePostAction, editPostAction ]
 	);
 	const onChangeView = useCallback(
 		( viewUpdater ) => {
@@ -309,12 +311,14 @@ export default function PagePages() {
 					fields={ fields }
 					actions={ actions }
 					data={ pages || EMPTY_ARRAY }
+					getItemId={ ( item ) => item.id }
 					isLoading={ isLoadingPages || isLoadingAuthors }
 					view={ view }
 					onChangeView={ onChangeView }
 				/>
 			</Page>
-			{ viewTypeSupportsMap[ view.type ].preview && (
+			{ VIEW_LAYOUTS.find( ( v ) => v.type === view.type )?.supports
+				?.preview && (
 				<Page>
 					<div className="edit-site-page-pages-preview">
 						{ selection.length === 1 && (

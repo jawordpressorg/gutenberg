@@ -188,7 +188,10 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 #### Input
  -->
 #### 入力
-
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 2,
@@ -215,7 +218,9 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	--wp--preset--color--black: #000000;
@@ -230,7 +235,12 @@ body {
 #### Input
  -->
 #### 入力
+<!-- 
+{% end %}
 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 2,
@@ -249,7 +259,9 @@ body {
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	--wp--custom--line-height--body: 1.7;
@@ -257,6 +269,9 @@ body {
 }
 ```
 
+<!--
+{% end %}
+ -->
 <!--
 ## Specification
  -->
@@ -364,8 +379,10 @@ The tabs below show WordPress 5.8 supported settings and the ones supported by t
 The settings section has the following structure:
  -->
 settings セクションは以下の構造を持ちます。
-
-
+<!-- 
+{% codetabs %}
+{% WordPress %}
+ -->
 #### WordPress
 
 ```json
@@ -429,7 +446,9 @@ settings セクションは以下の構造を持ちます。
 	}
 }
 ```
-
+<!-- 
+{% Gutenberg %}
+ -->
 #### Gutenberg
 
 ```json
@@ -508,6 +527,9 @@ settings セクションは以下の構造を持ちます。
 	}
 }
 ```
+<!-- 
+{% end %}
+ -->
 
 <!--
 Each block can configure any of these settings separately, providing a more fine-grained control over what exists via `add_theme_support`. The settings declared at the top-level affect to all blocks, unless a particular block overwrites it. It's a way to provide inheritance and configure all blocks at once.
@@ -677,6 +699,10 @@ The naming schema for the classes and the custom properties is as follows:
  -->
 #### 入力
 
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 2,
@@ -792,7 +818,9 @@ The naming schema for the classes and the custom properties is as follows:
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 /* Top-level custom properties */
 body {
@@ -840,6 +868,9 @@ body {
 .wp-block-group.has-white-border-color { border-color: #444 !important; }
 
 ```
+<!-- 
+{% end %}
+ -->
 
 <!--
 To maintain backward compatibility, the presets declared via `add_theme_support` will also generate the CSS Custom Properties. If the `theme.json` contains any presets, these will take precedence over the ones declared via `add_theme_support`.
@@ -870,7 +901,10 @@ For example:
 #### Input
  -->
 #### 入力
-
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 2,
@@ -897,7 +931,9 @@ For example:
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	--wp--custom--base-font: 16;
@@ -909,7 +945,9 @@ body {
 	--wp--custom--base-font: 32;
 }
 ```
-
+<!-- 
+{% end %}
+ -->
 <!--
 Note that the name of the variable is created by adding `--` in between each nesting level and `camelCase` fields are transformed to `kebab-case`.
  -->
@@ -1041,7 +1079,10 @@ Each block declares which style properties it exposes via the [block supports me
 各ブロックは[ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)を介して、どのスタイルプロパティを公開するかを宣言します。サポートの宣言はエディター内でのブロックの UI コントロールを自動的に生成するために使用されます。テーマは `theme.json` を介して、任意のブロックのために、任意のスタイルプロパティを使用できます。ブロックマークアップ等に関して正しく動作するかどうかの検証は、テーマの責任です。
 
 #### WordPress
-
+<!-- 
+{% codetabs %}
+{% WordPress %}
+ -->
 ```json
 {
 	"version": 2,
@@ -1119,7 +1160,9 @@ Each block declares which style properties it exposes via the [block supports me
 	}
 }
 ```
-
+<!-- 
+{% Gutenberg %}
+ -->
 #### Gutenberg
 
 ```json
@@ -1208,6 +1251,9 @@ Each block declares which style properties it exposes via the [block supports me
 	}
 }
 ```
+<!-- 
+{% end %}
+ -->
 
 <!--
 ### Top-level styles
@@ -1223,7 +1269,10 @@ Styles found at the top-level will be enqueued using the `body` selector.
 #### Input
  -->
 #### 入力
-
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 1,
@@ -1239,13 +1288,18 @@ Styles found at the top-level will be enqueued using the `body` selector.
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	color: var( --wp--preset--color--primary );
 }
 ```
 
+<!-- 
+{% end %}
+ -->
 <!--
 ### Block styles
  -->
@@ -1265,7 +1319,10 @@ By default, the block selector is generated based on its name such as `.wp-block
 #### Input
  -->
 #### 入力
-
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 1,
@@ -1293,7 +1350,9 @@ By default, the block selector is generated based on its name such as `.wp-block
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	color: var( --wp--preset--color--primary );
@@ -1305,7 +1364,9 @@ p { /* The core/paragraph opts out from the default behaviour and uses p as a se
 	color: var( --wp--preset--color--tertiary );
 }
 ```
-
+<!-- 
+{% end %}
+ -->
 <!-- 
 #### Referencing a style
  -->
@@ -1395,6 +1456,10 @@ If they're found in the top-level the element selector will be used. If they're 
  -->
 #### 入力
 
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 1,
@@ -1443,7 +1508,9 @@ If they're found in the top-level the element selector will be used. If they're 
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	font-size: var( --wp--preset--font-size--normal );
@@ -1465,6 +1532,9 @@ h3 {
 }
 ```
 
+<!-- 
+{% end %}
+ -->
 <!-- 
 ##### Element pseudo selectors
  -->
@@ -1750,7 +1820,10 @@ For example:
 #### Input
  -->
 #### 入力
-
+<!-- 
+{% codetabs %}
+{% Input %}
+ -->
 ```json
 {
 	"version": 2,
@@ -1769,14 +1842,18 @@ For example:
 #### Output
  -->
 #### 出力
-
+<!-- 
+{% Output %}
+ -->
 ```css
 body {
 	--wp--custom--line-height--body: 1.7;
 	--wp--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif";
 }
 ```
-
+<!-- 
+{% end %}
+ -->
 <!--
 A few notes about this process:
 
