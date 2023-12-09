@@ -316,12 +316,12 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 2023/12/2
 - [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - 対象ブランチの説明 [#56183](https://github.com/WordPress/gutenberg/pull/56183)、トラブルシューティング [#56436](https://github.com/WordPress/gutenberg/pull/56436)
 - [wp-scripts 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) - 例の追加 [#56298](https://github.com/WordPress/gutenberg/pull/56298)
-- [ブロック開発の基礎](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/) - 翻訳
-- [File structure of a block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/file-structure-of-a-block/) - 新規
-- [block.json](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-json/) - 新規
-- [Registration of a block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/) - 新規
-- [The block wrapper](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-wrapper/) - 新規
-- [Working with Javascript for the Block Editor](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/) - 新規
+- [ブロック開発の基本原理](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/) - 翻訳
+- [ブロックのファイル構成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/file-structure-of-a-block/) - 翻訳
+- [block.json](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-json/) - 翻訳
+- [ブロックの登録](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/) - 翻訳
+- [ブロックラッパー](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-wrapper/) - 翻訳
+- [ブロックエディターでの JavaScript の利用](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/) - 翻訳
 - [Gutenberg Dataを使用したアプリの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) - Playgrond のデモ [#56292](https://github.com/WordPress/gutenberg/pull/56292)
 - [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - allowCustomContentAndWideSize [#56236](https://github.com/WordPress/gutenberg/pull/56236)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 引用 blockGap [#56064](https://github.com/WordPress/gutenberg/pull/56064)、allowEditing 削除 [#55240](https://github.com/WordPress/gutenberg/pull/55240)、画像 align [#55954](https://github.com/WordPress/gutenberg/pull/55954)、interactivity [#56143](https://github.com/WordPress/gutenberg/pull/56143)、カスタムリンク renaming 削除 [#56425](https://github.com/WordPress/gutenberg/pull/56425)、リスト項目 magin, padding [#55874](https://github.com/WordPress/gutenberg/pull/55874)

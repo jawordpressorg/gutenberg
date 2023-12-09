@@ -135,144 +135,6 @@ Development is improved by using a defined schema definition file. Supported edi
 ```json
 "$schema": "https://schemas.wp.org/trunk/block.json"
 ```
-
-<!--
-## Block registration
- -->
-<!-- 
-## ブロックの登録
- -->
-
-<!--
-### PHP (server-side)
- -->
-<!-- 
-### PHP (サーバー側)
- -->
-
-<!--
-The [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) function that aims to simplify the block type registration on the server, can read metadata stored in the `block.json` file.
- -->
-<!-- 
-[`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) 関数を使用すると、サーバーで `block.json` ファイル内に保存されたメタデータから簡単にブロックタイプを登録できます。
- -->
-
-<!--
-This function takes two params relevant in this context (`$block_type` accepts more types and variants):
- -->
-<!-- 
-この関数は、このコンテキストに関連する2つのパラメータを取ります (`$block_type` は、より多くのタイプやバリアントを受け入れます）。
- -->
-
-<!--
--   `$block_type` (`string`) – path to the folder where the `block.json` file is located or full path to the metadata file if named differently.
--   `$args` (`array`) – an optional array of block type arguments. Default value: `[]`. Any arguments may be defined. However, the one described below is supported by default:
-    -   `$render_callback` (`callable`) – callback used to render blocks of this block type.
-    -   `$render_callback` (`callable`) – callback used to render blocks of this block type, it's an alternative to the `render` field in `block.json`.
- -->
-<!-- 
--   `$block_type` (`string`) – `block.json` ファイルのあるフォルダーへのパス、または、名前が異なる場合、メタデータファイルへのフルパス。
--   `$args` (`array`) – ブロックタイプ引数のオプション配列。デフォルト値は `[]`。任意の引数を定義可。ただし、以下はデフォルトでサポートされる。
-    -   `$render_callback` (`callable`) – このブロックタイプのブロックをレンダーする際に使用されるコールバック。これは `block.json` 内の `render` フィールドの代替。
- -->
-
-<!--
-It returns the registered block type (`WP_Block_Type`) on success or `false` on failure.
- -->
-<!-- 
-関数は、成功すると登録されたブロックタイプ (`WP_Block_Type`)、失敗すると `false` を返します。
- -->
-
-<!--
-**Example:**
- -->
-<!-- 
-**例:**
-
-```php
-register_block_type(
-	__DIR__ . '/notice',
-	array(
-		'render_callback' => 'render_block_core_notice',
-	)
-);
-```
- -->
-<!--
-### JavaScript (client-side)
- -->
-<!-- 
-### JavaScript (クライアント側)
- -->
-
-<!--
-When the block is registered on the server, you only need to register the client-side settings on the client using the same block’s name.
- -->
-<!-- 
-サーバーでブロックを登録した場合、クライアントではクライアント側設定を同じブロック名で登録するだけで構いません。
- -->
-
-<!--
-**Example:**
- -->
-<!-- 
-**例:**
-
-```js
-registerBlockType( 'my-plugin/notice', {
-	edit: Edit,
-	// ...other client-side settings
-} );
-```
- -->
-<!--
-Although registering the block also on the server with PHP is still recommended for the reasons above, if you want to register it only client-side you can now use `registerBlockType` method from `@wordpress/blocks` package to register a block type using the metadata loaded from `block.json` file.
- -->
-<!-- 
-上述の理由により、PHP を使用してサーバー上にもブロックを登録することが推奨されていますが、クライアントサイドだけでブロックを登録する場合は、`@wordpress/blocks` パッケージの `registerBlockType` メソッドを使用して、`block.json` ファイルから読み込んだメタデータでブロックタイプを登録できます。
- -->
-
-<!--
-The function takes two params:
- -->
-<!-- 
-関数は2つの引数を取ります。
- -->
-
-<!--
--   `$blockNameOrMetadata` (`string`|`Object`) – block type name (supported previously) or the metadata object loaded from the `block.json` file with a bundler (e.g., webpack) or a custom Babel plugin.
--   `$settings` (`Object`) – client-side block settings.
- -->
-<!-- 
--   `$blockNameOrMetadata` (`string`|`Object`) – ブロックタイプ名 (以前からサポート済み)、または、webpack などのバンドラーやカスタム Babel プラグインで、`block.json`ファイルからロードされたメタデータオブジェクトです。
--   `$settings` (`Object`) – クライアント側のブロックの設定。
- -->
-
-<!--
-It returns the registered block type (`WPBlock`) on success or `undefined` on failure.
- -->
-<!-- 
-関数は、成功すると登録されたブロックタイプ (`WPBlock`)、失敗すると `undefined` を返します。
- -->
-
-<!--
-**Example:**
- -->
-<!-- 
-**例:**
-
-```js
-import { registerBlockType } from '@wordpress/blocks';
-import Edit from './edit';
-import metadata from './block.json';
-
-registerBlockType( metadata, {
-	edit: Edit,
-	// ...other client-side settings
-} );
-```
- -->
-
 <!-- 
 <div class="callout callout-info">
 Check <a href="https://developer.wordpress.org/block-editor/getting-started/fundamentals-block-development/registration-of-a-block">Registration of a block</a> to learn more about how to register a block using its metadata.
@@ -312,12 +174,12 @@ This section describes all the properties that can be added to the `block.json` 
 <!--
 The version of the Block API used by the block. The most recent version is `3` and it was introduced in WordPress 6.3.
  -->
-ブロックが使用するBlock APIのバージョン。最新のバージョンは `3` で、WordPress 6.3 で導入されました。
+ブロックが使用する Block API のバージョン。最新のバージョンは `3` で、WordPress 6.3 で導入されました。
 
 <!--
 See the [the API versions documentation](/docs/reference-guides/block-api/block-api-versions.md) for more details.
  -->
-詳細については [API バージョンのドキュメント](/docs/reference-guides/block-api/block-api-versions.md) を参照してください。
+詳細については [API バージョンのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-api-versions/) を参照してください。
 
 ### Name
 

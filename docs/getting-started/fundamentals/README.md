@@ -1,12 +1,12 @@
 <!-- 
 # Fundamentals of Block Development
  -->
-# ブロック開発の基礎
+# ブロック開発の基本原理
 
 <!-- 
 This section provides an introduction to the most relevant concepts in Block Development.
  -->
-このセクションではブロック開発における、最も関連性の高い概念について紹介します。
+このセクションではブロック開発に最も関連性の高い概念について紹介します。
 
 <!-- 
 In this section, you will learn:
@@ -23,7 +23,7 @@ In this section, you will learn:
 1. [**ブロックのファイル構造**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/file-structure-of-a-block) - ブロックで利用可能な各ファイルタイプの目的、各ファイル間の関係、ブロックの出力における役割。
 1. [**block.json**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-json) - `block.json` メタデータを使用したブロックの定義方法と、このファイルに関連するいくつかのプロパティ。
 1. [**ブロックの登録**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block) - サーバーとクライアントの両方でブロックを登録する方法。
-1. [**ブロックのラッパー**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-wrapper) - ブロックのマークアップラッパーに適切な属性を設定する方法。
-1. [**ブロックエディタでの Javascript**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor) - ブロックエディタで Javascript を使用する方法。
+1. [**ブロックラッパー**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-wrapper) - ブロックのマークアップラッパーに適切な属性を設定する方法。
+1. [**ブロックエディタでの JavaScript**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor) - ブロックエディターで JavaScript を使用する方法。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/fundamentals/README.md)
