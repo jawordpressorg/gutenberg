@@ -145,7 +145,7 @@ _例: ブロックのマークアップ表現として保管された属性_
 <!-- 
 These [`attributes`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#attributes) are passed to the React component `Edit`(to display in the Block Editor) and the `save` function (to return the markup saved to the DB) of the block, and to any server-side render definition for the block (see `render` prop above). 
  -->
-これらの [`attributes`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#%E5%B1%9E%E6%80%A7) は React コンポーネントの `Edit` (ブロックエディターに表示するため)、`save` 関数 (DB に保存されるマークアップを返すため)、そしてブロックの任意のサーバーサイドレンダー定義 (上の `render` プロパティ参照) に渡されます。
+これらの [`attributes`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#%E5%B1%9E%E6%80%A7) は React コンポーネントの `Edit` (ブロックエディターに表示するため)、`save` 関数 (データベース に保存されるマークアップを返すため)、そしてブロックの任意のサーバーサイドレンダー定義 (上の `render` プロパティ参照) に渡されます。
 
 <!-- 
 The `Edit` component receives exclusively the capability of updating the attributes via the [`setAttributes`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#setattributes) function.

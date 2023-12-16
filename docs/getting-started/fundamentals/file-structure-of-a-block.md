@@ -37,7 +37,7 @@ For more on creating a WordPress plugin see <a href="https://developer.wordpress
 <!-- 
 [`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json) is a configuration file for a Node.js project. In this file you define the NPM dependencies of the block and the scripts used for local work.
  -->
-[`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json) は Node.js プロジェクトの構成ファイルです。このファイルにはブロックの NPM 依存と、ローカルでの作業に使用するスクリプトを定義します。
+[`package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json) は Node.js プロジェクトの構成ファイルです。このファイル内に、ブロックの NPM 依存と、ローカルでの作業に使用するスクリプトを定義します。
 
 <!-- 
 ### `src` folder
@@ -160,7 +160,7 @@ In a standard project, the `build` folder contains the generated files in [the b
 <!-- 
 ## Additional resources
  -->
-## 追加のリソース
+## その他の情報
 
 <!-- 
 - [Metadata in block.json](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/)

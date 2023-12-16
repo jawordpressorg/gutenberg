@@ -191,7 +191,7 @@ _[例](https://github.com/WordPress/block-development-examples/tree/trunk/plugin
 <!-- 
 ## Additional resources
  -->
-## 追加リソース
+## その他の情報
 
 <!-- 
 - [`register_block_type` PHP function](https://developer.wordpress.org/reference/functions/register_block_type/)

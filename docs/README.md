@@ -313,6 +313,9 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 
 ### 主な変更
 
+2023/12/16
+- [ユーザーインターフェースの制限](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) - 翻訳
+
 2023/12/2
 - [Gutenberg Release Process](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/) - 対象ブランチの説明 [#56183](https://github.com/WordPress/gutenberg/pull/56183)、トラブルシューティング [#56436](https://github.com/WordPress/gutenberg/pull/56436)
 - [wp-scripts 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) - 例の追加 [#56298](https://github.com/WordPress/gutenberg/pull/56298)

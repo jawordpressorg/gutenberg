@@ -97,7 +97,7 @@ Use [`enqueue_block_editor_assets`](https://developer.wordpress.org/reference/ho
 <!-- 
 ## Additional resources
  -->
-## 追加リソース
+## その他の情報
 
 <!-- 
 - [Get started with wp-scripts](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/) 

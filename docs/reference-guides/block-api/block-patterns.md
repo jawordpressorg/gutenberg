@@ -4,10 +4,9 @@
 # パターン
 
 <!--
-Block Patterns are predefined block layouts, ready to insert and tweak.
 Block Patterns are predefined block layouts, available from the patterns tab of the block inserter. Once inserted into content, the blocks are ready for additional or modified content and configuration.
  -->
-ブロックパターンは、あらかじめ定義されたブロックのレイアウトで、挿入して微調整できます。ブロックインサーターの「パターン」タブから利用できます。ブロックパターンをコンテンツ内に挿入すると、含まれるブロックのコンテンツや構成を追加、変更できます。
+ブロックパターンは、あらかじめ定義されたブロックのレイアウトです。ブロックインサーターの「パターン」タブから利用できます。ブロックパターンをコンテンツ内に挿入すると、含まれるブロックのコンテンツや構成を追加、変更できます。
 
 <!--
 In this Document:
@@ -38,13 +37,6 @@ In this Document:
 	- ブロックタイプやパターン変換のコンテキストに応じたブロックパターン 
 	- セマンティックブロックパターン
 
-<!-- 
-* [`register_block_pattern`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#registerblockpattern)
-* [`unregister_block_pattern`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#unregisterblockpattern)
-* [`register_block_pattern_category`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#registerblockpatterncategory)
-* [`unregister_block_pattern_category`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-patterns/#unregisterblockpatterncategory)
- -->
-
 <!--
 ## Block Patterns
  -->
@@ -55,7 +47,7 @@ In this Document:
 <!--
 The editor comes with several core block patterns. Theme and plugin authors can register additional custom block patterns using the `register_block_pattern` helper function.
  -->
-エディターにはいくつかのコアブロックパターンが付属します。テーマやプラグインの作者は `register_block_pattern` ヘルパー関数を使用して、追加のカスタムブロックパターンを登録できます。
+エディターにはいくつかのコアブロックパターンが付属します。それ以外にテーマやプラグインの作者は `register_block_pattern` ヘルパー関数を使用して、追加のカスタムブロックパターンを登録できます。
 
 <!--
 The `register_block_pattern` helper function receives two arguments.
@@ -66,24 +58,6 @@ The `register_block_pattern` helper function receives two arguments.
 -   `title`: 機械が読めるタイトル。命名規約は `namespace/title`
 -	`properties`: パターンのプロパティを説明する配列
 
-<!--
-The properties of the block pattern include:
--   `title` (required): A human-readable title for the pattern.
--   `content` (required): Raw HTML content for the pattern.
--   `description`: A visually hidden text used to describe the pattern in the inserter. A description is optional but it is strongly encouraged when the title does not fully describe what the pattern does.
--   `categories`: An array of pattern categories used to group block patterns. Block patterns can be shown on multiple categories.
--   `keywords`: An array of aliases or keywords that help users discover the pattern while searching.
--   `viewportWidth`: An integer specifying the width of the pattern in the inserter.
- -->
-<!--
-ブロックパターンのプロパティを以下に示します。
-- `title` (必須): 表示されるパターンのタイトル。
-- `content` (必須): パターンの生の HTML コンテンツ。
-- `description`: インスペクター内でパターンの記述に使用される非表示のテキスト。オプションだがタイトルで十分にブロックの動作を表せない場合は強く推奨。
-- `categories`: ブロックパターンのグループ化に使用されるブロックカテゴリーの配列。ブロックパターンは複数のカテゴリーに分けて表示できる。
-- `keywords`: 検索の際に役立つ別名またはキーワードの配列。
-- `viewportWidth`: インサーター内でのパターンの幅を指定する整数
- -->
 <!--
 The properties available for block patterns are:
  -->
@@ -110,9 +84,9 @@ The properties available for block patterns are:
 -   `viewportWidth` (オプション): インサーター内でのパターンのインデント幅を指定する整数。パターンのスケールするプレビュー用。
 -   `blockTypes` (オプション): パターンが一緒に使われることを想定するブロックタイプの配列。各値は、ブロックの `name` で宣言される必要がある。
 -   `postTypes` (オプション): このパターンを使用可能な投稿タイプの配列。配列で指定した投稿タイプのいずれかを編集する際にのみこのパターンを使用でき、その他のすべての投稿タイプではまったく使用できない。
--   `templateTypes` (オプション): パターンが意味を持つ、テンプレートタイプの配列。例: パターンが 404 ページ用であれば '404'。パターンが単一の投稿用であれば single-post。
--   `inserter` (オプション): デフォルトでは、すべてのパターンはインサーターに表示されます。プログラムでのみ挿入できるようにパターンを非表示にするには、`inserter` を `false` に設定します。
--   `source` (オプション): パターンのソースを示す文字列。パターンを登録するプラグインの場合は、文字列 'plugin' を指定します。テーマの場合は文字列 'theme' を指定します。
+-   `templateTypes` (オプション): パターンの想定する、テンプレートタイプの配列。例: パターンが 404 ページ用であれば '404'。パターンが単一の投稿用であれば single-post。
+-   `inserter` (オプション): デフォルトでは、すべてのパターンはインサーターに表示される。パターンを非表示にして、プログラムでのみ挿入できるようにするには、`inserter` に `false` を設定する。
+-   `source` (オプション): パターンのソースを示す文字列。パターンを登録するプラグインの場合は、文字列 'plugin' を指定し、テーマの場合は文字列 'theme' を指定する。
 
 <!--
 The following code sample registers a block pattern named 'my-plugin/my-awesome-pattern':
@@ -374,6 +348,7 @@ Example:
  -->
 例:
 
+<!-- 
 ```php
 <?php
 register_block_pattern(
@@ -382,6 +357,20 @@ register_block_pattern(
 		'title'      => __( 'My Header', 'my-plugin' ),
 		'categories' => array( 'header' ),
 		// Assigning the pattern the "header" area.
+		'blockTypes' => array( 'core/template-part/header' ),
+		'content'    => 'Content of my block pattern',
+	)
+);
+```
+ -->
+```php
+<?php
+register_block_pattern(
+	'my-plugin/my-header',
+	array(
+		'title'      => __( 'My Header', 'my-plugin' ),
+		'categories' => array( 'header' ),
+		// パターンを「header」領域に割り当て
 		'blockTypes' => array( 'core/template-part/header' ),
 		'content'    => 'Content of my block pattern',
 	)
