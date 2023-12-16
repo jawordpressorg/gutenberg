@@ -26,7 +26,7 @@ Node Package eXecute ([`npx`](https://docs.npmjs.com/cli/v10/commands/npx)) ツ�
 <!-- 
 ## Node.js installation on Mac and Linux (with `nvm`)
  -->
-## Mac や Linux での nvm を使用した Node.js のインストール
+## Mac や Linux での nvm を使用した Node.js のインストール {#node-js-installation-on-mac-and-linux-with-nvm}
 <!-- 
 It's recommended that you use [Node Version Manager](https://github.com/nvm-sh/nvm) (`nvm`) to install Node.js. This allows you to install and manage specific versions of `node`, which are installed locally in your home directory, avoiding any global permission issues.
  -->
@@ -68,7 +68,7 @@ Gutenberg を含むいくつかのプロジェクトでは、[`.nvmrc`](https://
 <!-- 
 ## Node.js installation on Windows and others
  -->
-## Winodws やその他の OS での Node.js のインストール
+## Windows やその他の OS での Node.js のインストール {#node-js-installation-on-mac-and-linux-with-nvm}
 
 <!-- 
 You can [download a Node.js installer](https://nodejs.org/en/download/) directly from the main Node.js website. The latest version is recommended. Installers are available for Windows and Mac, and binaries are available for Linux. 

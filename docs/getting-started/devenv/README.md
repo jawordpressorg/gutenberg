@@ -89,8 +89,8 @@ To be able to use the Node.js tools and [packages provided by WordPress](https:/
 -   [Install Node.js for Mac and Linux](/docs/getting-started/devenv/nodejs-development-environment.md#node-js-installation-on-mac-and-linux-with-nvm)
 -   [Install Node.js for Windows](/docs/getting-started/devenv/nodejs-development-environment.md#node-js-installation-on-windows-and-others)
  -->
-- [Mac と Linux 用の Node.js のインストール](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/nodejs-development-environment.md#node-js-installation-on-mac-and-linux-with-nvm)
-- [Windows 用の Node.js のインストール](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/nodejs-development-environment.md#node-js-installation-on-windows-and-others)
+- [Mac と Linux 用の Node.js のインストール](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/nodejs-development-environment#node-js-installation-on-mac-and-linux-with-nvm)
+- [Windows 用の Node.js のインストール](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/nodejs-development-environment#node-js-installation-on-windows-and-others)
 
 <!-- 
 ## Local WordPress environment
