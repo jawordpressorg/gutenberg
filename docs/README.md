@@ -310,6 +310,7 @@ Everything you need to know to [start contributing to the block editor](/docs/co
 | @t-hamano | @wildworks |
 | @tecking | @tecking |
 | @s56bouya | @s56bouya |
+| @qoorus | @qoorus |
 
 ### 主な変更
 
