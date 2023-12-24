@@ -3,7 +3,7 @@
  -->
 # 国際化
 <!--
-## What is Internationalization?
+## What is internationalization?
  -->
 ## 国際化とは何か ?
 <!--
@@ -160,7 +160,7 @@ When you set script translations for a handle WordPress will automatically figur
 スクリプトの翻訳を設定すると WordPress は自動的に translate.wordpress.org で翻訳ファイルの存在を確認し、プラグインの実行前に `wp.i18n` へロードします。プラグインの作者が translate.wordpress.org にて翻訳用のインフラを準備する必要はありません。グローバルコミュニティと多数のアクティブなロケールにまかせてください。詳細については [WordPress の翻訳](https://make.wordpress.org/meta/handbook/documentation/translations/) を参照してください。
 
 <!--
-## Provide Your Own Translations
+## Provide your own translations
 
 You can create and ship your own translations with your plugin, if you have sufficient knowledge of the language(s) you can ensure the translations are available.
  -->
@@ -169,7 +169,7 @@ You can create and ship your own translations with your plugin, if you have suff
 プラグイン作者が対象の言語に対して十分なスキルをもつ場合には、自身で翻訳を作成し、リリースすることも可能です。
 
 <!--
-### Create Translation File
+### Create the translation file
 
 The translation files must be in the JED 1.x JSON format.
 
@@ -392,7 +392,7 @@ This will generate the JSON file `myguten-eo-[md5].json` with the contents:
 ```
 
 <!--
-### Load Translation File
+### Load the translation file
 
 The final part is to tell WordPress where it can look to find the translation file. The `wp_set_script_translations` function accepts an optional third argument that is the path it will first check for translations. For example:
  -->
@@ -428,7 +428,7 @@ WordPress は指定されたパスで `${domain}-${locale}-${handle}.json` 形�
 `make-json` を使用すると自動的にファイルを md5 ハッシュで名前付けするため、そのままで準備が終わります。ファイルの名前を変更して代わりにハンドルを使うこともできます。この場合ファイル名は `myguten-ja-myguten-script.json` となります。
 
 <!--
-### Test Translations
+### Test translations
 
 You will need to set your WordPress installation to Esperanto language. Go to Settings > General and change your site language to Esperanto.
 
@@ -441,9 +441,10 @@ WordPress の導入環境を日本語にする必要があります。設定 > �
 言語を設定したら、新規投稿を作成し、ブロックを追加し、翻訳が使われていることを確認します。
 
 <!--
-### Filtering Translations
+### Filtering translations
  -->
 ### 翻訳のフィルタリング
+
 <!--
 The outputs of the translation functions (`__()`, `_x()`, `_n()`, and `_nx()`) are filterable, see [i18n Filters](/docs/reference-guides/filters/i18n-filters.md) for full information.
  -->

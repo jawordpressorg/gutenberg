@@ -72,7 +72,7 @@ _注意:_ ブロック名には英小文字、数字、ダッシュのみを使�
 _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plugin/book -->` のように使用されます。コアで提供されるブロックはシリアライズの際に名前空間が削除されます。
 
 <!--
-### Block Configuration
+### Block configuration
  -->
 ### ブロック構成
 
@@ -565,7 +565,7 @@ Block Hooks will not work with post content or patterns crafted by the user, suc
 ブロックフックは、投稿コンテンツや、ユーザーが作成したパターン (同期パターンなど)、ユーザーが変更したテーマのテンプレートやテンプレートパーツでは機能しません。
 
 <!--
-## Block Collections
+## Block collections
  -->
 ## ブロックコレクション
 

@@ -39,7 +39,7 @@ The tutorial assumes you have an existing plugin setup and are ready to add PHP 
 ## ステップバイステップガイド
 
 <!--
-### Step 1: Get a Sidebar up and Running
+### Step 1: Get a sidebar up and running
 -->
 ### ステップ 1: サイドバーの起動
 
@@ -251,7 +251,7 @@ This code doesn't let users store or retrieve data just yet, so the next steps w
 このコードは、データの保存も取得もしません。次のステップでは、メタブロックフィールドとの接続方法を見ていきます。
 
 <!--
-### Step 3: Register the Meta Field
+### Step 3: Register the meta field
 -->
 ### ステップ 3: メタフィールドの登録
 
@@ -298,7 +298,7 @@ If the code returns `undefined` make sure your post type supports `custom-fields
 コードが `undefined` を返す場合、[投稿の登録時](https://developer.wordpress.org/reference/functions/register_post_type/#supports)または [add_post_type_support 関数](https://developer.wordpress.org/reference/functions/add_post_type_support/)で投稿タイプが `custom-fields` をサポートすることを確認してください。
 
 <!--
-### Step 4: Initialize the Input Control
+### Step 4: Initialize the input control
 -->
 ### ステップ 4: 入力コントロールの初期化
 
@@ -425,7 +425,7 @@ You can observe the content changing in the input component.
 入力コンポーネントのコンテンツが変更されることを確認できます。
 
 <!--
-### Step 5: Update the Meta Field When the Input's Content Changes
+### Step 5: Update the meta field when the input's content changes
 -->
 ### ステップ 5: 入力コントロールの変更でメタフィールドを更新する
 

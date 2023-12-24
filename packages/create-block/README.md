@@ -31,24 +31,6 @@ _Create Block は [create-react-app](https://create-react-app.dev/docs/getting-s
  -->
 > _詳細については [Gutenberg ハンドブックのブロック API](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/) を参照してください。_
 
-<!-- 
-## Table of Contents
-
-- [Quick start](#quick-start)
-- [Usage](#usage)
-    - [Interactive Mode](#interactive-mode)
-    - [`slug`](#slug)
-    - [`options`](#options)
-- [Available Commands](#available-commands-in-the-scaffolded-project)
-- [External Project Templates](#external-project-templates)
-- [Contributing to this package](#contributing-to-this-package)
- -->
-<!-- 
-Visit the [Gutenberg handbook](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/) to learn more about Block API.
-
-Block API の詳細については [ブロックエディターハンドブック](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/) を参照してください。
- -->
-
 <!--
 ## Quick start
  -->

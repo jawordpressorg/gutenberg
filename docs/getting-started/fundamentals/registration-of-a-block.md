@@ -19,14 +19,14 @@ For example, to allow a block [to be styled via `theme.json`](https://developer.
 例えば、あるブロックを [`theme.json` でスタイルを設定できる](https://developer.wordpress.org/themes/global-settings-and-styles/settings/blocks/)ようにするには、そのブロックをサーバーに登録する必要があります。そうしなければ `theme.json` で割り当てられたスタイルは無視されます。
 
 <!-- 
-[![Open Block Registration diagram in excalidraw](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png)](https://excalidraw.com/#json=PUQu7jpvbKsUHYfpHWn7s,61QnhpZtjykp3s44lbUN_g "Open Block Registration diagram in excalidraw")
+[![Open Block Registration diagram image](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png)](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png "Open Block Registration diagram image")
  -->
-[![ブロック登録の図解を excalidraw で開く](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png)](https://excalidraw.com/#json=PUQu7jpvbKsUHYfpHWn7s,61QnhpZtjykp3s44lbUN_g "ブロック登録の図解を excalidraw で開く")
+[![ブロック登録の図解を開く](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png)](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png "ブロック登録の図解を開く")
 
 <!-- 
-### Registration of the block with PHP (server-side)
+## Registration of the block with PHP (server-side)
  -->
-### PHP によるブロックの登録 (サーバー側)
+## PHP によるブロックの登録 (サーバー側)
 
 <!-- 
 Block registration on the server usually takes place in the main plugin PHP file with the `register_block_type` function called on the [init hook](https://developer.wordpress.org/reference/hooks/init/).
@@ -94,9 +94,9 @@ _See the [full block example](https://github.com/WordPress/block-development-exa
 _[完全なブロックの例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda)の[上のコード](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/index.php)を参照してください。_
 
 <!-- 
-### Registration of the block with JavaScript (client-side)
+## Registration of the block with JavaScript (client-side)
  -->
-### JavaScript によるブロックの登録（クライアント側）
+## JavaScript によるブロックの登録（クライアント側）
 
 <!-- 
 When the block is registered on the server, you only need to register the client-side settings on the client using the same block’s name.
@@ -142,13 +142,13 @@ The function takes two params:
 
 <!-- 
 <div class="callout callout-tip">
-The content of <code>block.json</code> (or any other <code>.json</code> file) can be imported directly in Javascript files when using <a href="/docs/getting-started/devenv/get-started-with-wp-scripts/#the-build-process-with-wp-scripts">a build process like the one available with <code>wp-scripts</code></a>
+The content of <code>block.json</code> (or any other <code>.json</code> file) can be imported directly into Javascript files when using <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/#the-build-process-with-wp-scripts">a build process like the one available with <code>wp-scripts</code></a>
 </div>
  -->
 > <code>block.json</code> の内容 (またはその他の <code>.json</code> ファイルの内容) は、<a href="https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/#the-build-process-with-wp-scripts">`wp-scripts` などのビルドプロセス</a>を使用するとき、JavaScript ファイル内に直接インポートできます。
 
 <!-- 
-The client-side block settings object passed as a second parameter include two properties that are especially relevant:
+The client-side block settings object passed as a second parameter includes two especially relevant properties:
  -->
 2番目のパラメータとして渡されるクライアント側のブロック設定オブジェクトには、特に関連性の高い2つのプロパティが含まれます。
 
@@ -197,10 +197,11 @@ _[例](https://github.com/WordPress/block-development-examples/tree/trunk/plugin
 - [`register_block_type` PHP function](https://developer.wordpress.org/reference/functions/register_block_type/)
 - [`registerBlockType` JS function](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype)
 - [Why a block needs to be registered in both the server and the client?](https://github.com/WordPress/gutenberg/discussions/55884) | GitHub Discussion
+- [Block Registration diagram](https://excalidraw.com/#json=PUQu7jpvbKsUHYfpHWn7s,61QnhpZtjykp3s44lbUN_g)
  -->
 - [`register_block_type` PHP 関数](https://developer.wordpress.org/reference/functions/register_block_type/)
 - [`registerBlockType` JS 関数](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype)
 - [Why a block needs to be registered in both the server and the client?](https://github.com/WordPress/gutenberg/discussions/55884)(なぜブロックはサーバーとクライアントの両方に登録する必要があるのか ?) | GitHub での議論
+- [ブロック登録の図解](https://excalidraw.com/#json=PUQu7jpvbKsUHYfpHWn7s,61QnhpZtjykp3s44lbUN_g)
 
-
-[原文]()
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/fundamentals/registration-of-a-block.md)

@@ -119,7 +119,7 @@ const columnsBlock = {
 ```
 
 <!--
-## Serialization and Parsing
+## Serialization and parsing
  -->
 ## シリアライゼーションとパース
 
@@ -154,7 +154,7 @@ They just happen, incidentally, to be stored inside of `post_content` in a way i
 ちなみに、これは偶然ですが `post_content` には、レガシーなシステムでも一切の変換無しで読み出し可能な形式で保存されています。確かに、保存された HTML を対応する仕組みなしでロードすればエクスペリエンスは下がりますし、コンテンツの動的ブロックの動的要素はロードされません。サーバー生成コンテンツは表示されず、インタラクティブなコンテンツも動きません。しかし、少なくとも、ブロックを知らないテーマやインストールでも「ブロックエディターの投稿」を表示でき、コンテンツに最もアクセスしやすい方法を提供します。言い換えるなら、保存されたHTMLがそのままレンダーされても、投稿はほぼ表示されます。
 
 <!--
-### Delimiters and Parsing Expression Grammar
+### Delimiters and parsing expression grammar
  -->
 ### デリミタと解析表現文法
 
@@ -189,7 +189,7 @@ _N.B.:_ The defining aspects of blocks are their semantics and the isolation mec
 _注意:_ ブロックの定義を考えてみると、それはブロックのセマンティクスであり、提供される隔離の仕組みであり、つまりは、ブロックのアイデンティティとなります。一方、ブロックのデータがどこの保存されるかという点になると、もう少し自由になります。ブロックは、静的なローカルデータだけではない、HTML コメントやブロックの HTML 内の JSON リテラルを介した、より多くの保存場所と、より多くのメカニズム (_例_ グローバルブロック、または、そうでなければ補完的な `WP_Post` オブジェクト内の領域) をサポートすることが期待されます。詳細については[属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)を参照してください。
 
 <!--
-### The Anatomy of a Serialized Block
+### The anatomy of a serialized block
  -->
 ### シリアライズされたブロックの詳細
 
@@ -214,7 +214,7 @@ A purely dynamic block that is to be server-rendered before display could look l
 ```
 
 <!--
-## The Data Lifecycle
+## The data lifecycle
  -->
 ## データのライフサイクル
 

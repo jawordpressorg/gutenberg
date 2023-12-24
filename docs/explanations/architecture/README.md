@@ -51,7 +51,7 @@ Let’s look at the big picture and the architectural and UX principles of the b
 -   [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance)
 
 <!-- 
-## Gutenberg Repository
+## Gutenberg repository
  -->
 ## Gutenberg リポジトリ
 

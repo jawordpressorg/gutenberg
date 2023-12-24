@@ -9,7 +9,7 @@ A JavaScript Build Process is recommended for most cases when working with Javas
 ブロックエディターで JavaScript を利用する場合、ほとんどのケースでは JavaScript ビルドプロセスを推奨します。ビルドプロセスを使用するとコードの中で ESNext や JSX (他にもあります) の構文や機能を使え、ほとんどのブラウザに対応したコードを作成できます。
 
 <!-- 
-## JavaScript Build Process
+## JavaScript build process
  -->
 ## JavaScript ビルドプロセス
 
@@ -39,9 +39,9 @@ Among other things, with `wp-scripts` package you can use Javascript modules to 
 特に、`wp-scripts` パッケージでは、JavaScript モジュールを使用してコードをさまざまなファイルに分散し、ビルドプロセスの最後で2、3のバンドルされたファイルを取得できます ([例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8)を参照)。
 
 <!-- 
-[![Build Process Diagram](https://developer.wordpress.org/files/2023/11/build-process.png)](https://excalidraw.com/#json=4aNG9JUti3pMnsfoga35b,ihEAI8p5dwkpjWr6gQmjuw "Open Build Process Diagram in Excalidraw")
+[![Open Build Process diagram image](https://developer.wordpress.org/files/2023/11/build-process.png)](https://developer.wordpress.org/files/2023/11/build-process.png "Open Build Process diagram image")
  -->
-[![ビルドプロセスの図解](https://developer.wordpress.org/files/2023/11/build-process.png)](https://excalidraw.com/#json=4aNG9JUti3pMnsfoga35b,ihEAI8p5dwkpjWr6gQmjuw "ビルドプロセスの図解を Excalidraw で開く")
+[![ビルドプロセスの図解を開く](https://developer.wordpress.org/files/2023/11/build-process.png)](https://developer.wordpress.org/files/2023/11/build-process.png "ビルドプロセスの図解を開く")
 
 <!-- 
 With the [proper `package.json` scripts](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/#basic-usage) you can launch the build process with `wp-scripts` in production and development mode:
@@ -100,14 +100,17 @@ Use [`enqueue_block_editor_assets`](https://developer.wordpress.org/reference/ho
 ## その他の情報
 
 <!-- 
+- [Package Reference](https://developer.wordpress.org/block-editor/reference-guides/packages/)
 - [Get started with wp-scripts](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/) 
 - [Enqueueing assets in the Editor](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) 
-- [Wordpress Packages handles](https://developer.wordpress.org/block-editor/contributors/code/scripts/) 
+- [WordPress Packages handles](https://developer.wordpress.org/block-editor/contributors/code/scripts/) 
 - [Javascript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | MDN Web Docs
 - [block-development-examples](https://github.com/WordPress/block-development-examples) | GitHub repository
 - [block-theme-examples](https://github.com/wptrainingteam/block-theme-examples) | GitHub repository
 - [How webpack and WordPress packages interact](https://developer.wordpress.org/news/2023/04/how-webpack-and-wordpress-packages-interact/) | Developer Blog
+- [Build Process Diagram](https://excalidraw.com/#json=4aNG9JUti3pMnsfoga35b,ihEAI8p5dwkpjWr6gQmjuw)
  -->
+- [パッケージリファレンス](https://developer.wordpress.org/block-editor/reference-guides/packages/)
 - [wp-scripts 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/)
 - [エディター内でのアセットのエンキュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/)
 - [WordPress パッケージのハンドル](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/)
@@ -115,5 +118,6 @@ Use [`enqueue_block_editor_assets`](https://developer.wordpress.org/reference/ho
 - [ブロック開発例](https://github.com/WordPress/block-development-examples) | GitHub リポジトリ
 - [block-theme-examples](https://github.com/wptrainingteam/block-theme-examples) | GitHub リポジトリ
 - [How webpack and WordPress packages interact](https://developer.wordpress.org/news/2023/04/how-webpack-and-wordpress-packages-interact/) (webpack と WordPress パッケージの関係) | Developer Blog
+- [ビルドプロセスの図解](https://excalidraw.com/#json=4aNG9JUti3pMnsfoga35b,ihEAI8p5dwkpjWr6gQmjuw)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/fundamentals/javascript-in-the-block-editor.md)

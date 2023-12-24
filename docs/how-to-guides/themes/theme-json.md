@@ -227,6 +227,9 @@ body {
 	--wp--preset--color--white: #ffffff;
 }
 ```
+<!--
+{% end %}
+
 -   **Custom properties**: there's also a mechanism to create your own CSS Custom Properties.
  -->
 - **カスタムプロパティ**: 自身の CSS カスタムプロパティを作成する仕組みもあります。
@@ -236,7 +239,6 @@ body {
  -->
 #### 入力
 <!-- 
-{% end %}
 
 {% codetabs %}
 {% Input %}

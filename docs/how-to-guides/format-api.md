@@ -272,7 +272,7 @@ registerFormatType( 'my-custom-format/sample-output', {
 ```
 
 <!-- 
-### Step5: Add a button outside of the dropdown (Optional)
+### Step 5: Add a button outside of the dropdown (Optional)
  -->
 ### ステップ5: ドロップダウンの外側にボタンを追加する (オプション)
 
@@ -337,9 +337,9 @@ If you run into errors:
 -   コンソールにエラーメッセージが出ていないか確認してください。
 
 <!-- 
-## Additional Resources
+## Additional resources
  -->
-## 追加リソース
+## その他の情報
 
 <!-- 
 Reference documentation used in this guide:

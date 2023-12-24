@@ -76,6 +76,10 @@ require __DIR__ . '/compat/plugin/footnotes.php';
  * always be loaded so that Gutenberg code can run the newest version of the Tag Processor.
  */
 require __DIR__ . '/compat/wordpress-6.4/html-api/class-gutenberg-html-tag-processor-6-4.php';
+require __DIR__ . '/compat/wordpress-6.5/html-api/class-gutenberg-html-attribute-token-6-5.php';
+require __DIR__ . '/compat/wordpress-6.5/html-api/class-gutenberg-html-span-6-5.php';
+require __DIR__ . '/compat/wordpress-6.5/html-api/class-gutenberg-html-text-replacement-6-5.php';
+require __DIR__ . '/compat/wordpress-6.5/html-api/class-gutenberg-html-tag-processor-6-5.php';
 
 /*
  * The HTML Processor appeared after WordPress 6.3. If Gutenberg is running on a version of
@@ -93,7 +97,6 @@ if ( ! class_exists( 'WP_HTML_Processor' ) ) {
 // WordPress 6.4 compat.
 require __DIR__ . '/compat/wordpress-6.4/blocks.php';
 require __DIR__ . '/compat/wordpress-6.4/block-hooks.php';
-require __DIR__ . '/compat/wordpress-6.4/block-patterns.php';
 require __DIR__ . '/compat/wordpress-6.4/script-loader.php';
 require __DIR__ . '/compat/wordpress-6.4/kses.php';
 
@@ -145,7 +148,9 @@ if (
 		require __DIR__ . '/experimental/fonts/font-library/class-wp-font-library.php';
 		require __DIR__ . '/experimental/fonts/font-library/class-wp-font-family-utils.php';
 		require __DIR__ . '/experimental/fonts/font-library/class-wp-font-family.php';
-		require __DIR__ . '/experimental/fonts/font-library/class-wp-rest-font-library-controller.php';
+		require __DIR__ . '/experimental/fonts/font-library/class-wp-rest-font-families-controller.php';
+		require __DIR__ . '/experimental/fonts/font-library/class-wp-rest-font-collections-controller.php';
+		require __DIR__ . '/experimental/fonts/font-library/class-wp-rest-autosave-font-families-controller.php';
 		require __DIR__ . '/experimental/fonts/font-library/font-library.php';
 	}
 

@@ -26,7 +26,7 @@ Unlike other components that exist in the [Component Reference](/packages/compon
 [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/components/) セクション内の他のコンポーネントと異なり RichText は個別に存在します。これはブロックエディター内のみで意味があり、WordPress のその他の領域では意味がないためです。
 
 <!--
-## Property Reference
+## Property reference
 
 For a list of the possible properties to pass your RichText component, [check out the component documentation on GitHub](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md).
  -->
@@ -35,7 +35,7 @@ For a list of the possible properties to pass your RichText component, [check ou
 RickText コンポーネントに渡すことができるプロパティのリストについては [GitHub 内のコンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md)を参照してください。
 
 <!--
-## Core Blocks Using the RichText Component
+## Core blocks using the RichText component
 
 There are a number of core blocks using the RichText component. The JavaScript edit function linked below for each block can be used as a best practice reference while creating your own blocks.
  -->
@@ -137,7 +137,7 @@ registerBlockType( /* ... */, {
 ```
 
 <!--
-## Common Issues & Solutions
+## Common issues and solutions
 
 While using the RichText component a number of common issues tend to appear.
  -->
@@ -167,7 +167,7 @@ RichText のプレースホルダーコンテンツが表示したい入力域�
  -->
 
 <!--
-### HTML Formatting Tags Display in the Content
+### HTML formatting tags display in the content
 
 If the HTML tags from text formatting such as `<strong>` or `<em>` are being escaped and displayed on the frontend of the site, this is likely due to an issue in your save function. Make sure your code looks something like `<RichText.Content tagName="h2" value={ heading } />` (JSX) within your save function instead of simply outputting the value with `<h2>{ heading }</h2>`.
  -->
@@ -176,7 +176,7 @@ If the HTML tags from text formatting such as `<strong>` or `<em>` are being esc
 `<strong>` や `<em>` などのテキストフォーマットの HTML タグがエスケープされてサイトのフロントエンド側に表示される場合は恐らく save 関数の問題です。save 関数のコードが `<RichText.Content tagName="h2" value={ heading } />` (JSX の場合) のようになっていることを確認してください。単純な出力 `<h2>{ heading }</h2>` は誤りです。
 
 <!--
-### Unwanted Formatting Options Still Display
+### Unwanted formatting options still display
 
 Before moving forward, consider if using the RichText component makes sense at all. Would it be better to use a basic `input` or `textarea` element? If you don't think any formatting should be possible, these HTML tags may make more sense.
 
@@ -195,7 +195,7 @@ If you want to limit the formats allowed, you can specify using `allowedFormats`
 利用可能なフォーマットを制限するには、コード内で `allowedFormats` プロパティを使用して指定してください。サンプルについては上の例、または詳細について [コンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md#allowedformats-array) を参照してください。
 
 <!--
-### Disable Specific Format Types in Editor
+### Disable specific fromat types in Editor
  -->
 ### エディター内で特定のフォーマットを無効化する
 

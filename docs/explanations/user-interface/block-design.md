@@ -6,7 +6,7 @@
 <!--
 The following are best practices for designing a new block, with recommendations and detailed descriptions of existing blocks to illustrate our approach to creating blocks.
  -->
-この記事では新しいブロックをデザインする際のベストプラクティスを紹介します。既存のブロックの詳細な説明とお勧め、ブロックを作成する際の私たちのアプローチを示します。
+この記事では新しいブロックをデザインする際のベストプラクティスを紹介します。既存のブロックの詳細な説明と推奨、ブロックを作成する際の私たちのアプローチを示します。
 
 <!--
 ## Best Practices
@@ -38,17 +38,17 @@ Since the block itself represents what will actually appear on the site, interac
 <!--
 Basic block settings won’t always make sense in the context of the placeholder/content UI. As a secondary option, options that are critical to the functionality of a block can live in the block toolbar. The Block Toolbar is still highly contextual and visible on all screen sizes. One notable constraint with the Block Toolbar is that it is icon-based UI, so any controls that live in the Block Toolbar need to be ones that can effectively be communicated via an icon or icon group.
  -->
-常にプレースホルダー / コンテンツ UI のコンテキストが基本のブロック設定で有効とは限りません。ブロックの機能に対して2番目に重要と思われるオプションは、ブロックツールバーに配置してください。ブロックツールバーもまた非常にコンテキスト指向であり、すべての画像サイズで表示されます。1点、ブロックツールバーで注意すべき制約はアイコンベースの UI であることです。ブロックツールバーに挿入するコントロールは、アイコンやアイコングループを通して効果的にコミュニケーションする必要があります。
+基本のブロック設定が、プレースホルダーやコンテンツ UI のコンテキストで常に有効とは限りません。ブロックの機能に対して2番目に重要と思うオプションは、ブロックツールバーに配置してください。ブロックツールバーもまた非常にコンテキスト指向であり、すべての画面サイズで表示されます。1点、ブロックツールバーで注意すべき制約はアイコンベースの UI であることです。ブロックツールバーに挿入するコントロールは、アイコンやアイコングループを通して効果的にコミュニケーションする必要があります。
 
 <!--
 ### Group Block Toolbar controls with related items
 -->
-### ブロックツールバーの制御を関連する要素でグループ化
+### ブロックツールバーのコントロールを関連する要素でグループ化
 
 <!--
 The Block Toolbar groups controls in segments, hierarchically. The first segment contains block type controls, such as the block switcher, the drag handle, and the mover control. The second group contains common and specific block tools that affect the entire block, followed by inline formatting, and the "More" menu. Optionally "Meta" or "Other" groups can separate some tools in their own segment.
 -->
-ブロックツールバーは階層的に区分してグループ化しています。最初の区分はブロックの変換といったブロックタイプの制御や、ドラッグなどの動きの制御がまとめられています。第2グループには、ブロック全体に影響を与える共通のブロックツールと特定のブロックツールがあり、続いてインラインフォーマット、「その他」メニューがあります。オプションで「Meta」または「Other」グループは、いくつかのツールを独自のセグメントに分けることができます。
+ブロックツールバーはコントロールを階層的に、セグメントに分けてグループ化します。最初のセグメントにはブロックタイプのコントロールが含まれ、ブロックの変換やドラッグハンドル、移動コントロールなどがあります。第2グループには、ブロック全体に影響を与える共通のブロックツールと特定のブロックツールがあり、続いてインラインフォーマット、「その他」メニューがあります。オプションで「Meta」または「Other」グループは、いくつかのツールを自身のセグメントに分けられます。
 
 <!--
 ![A screenshot showing examples of block toolbar segment groupings.](https://make.wordpress.org/design/files/2021/03/docs_block-toolbar-structure.png)
@@ -150,7 +150,7 @@ In most cases, a block’s setup state is only shown once and then further custo
 <!--
 Group toolbar controls in logical segments. Don't add a segment for each.
 -->
-ツールバーの制御を論理的な区分にまとめてください。それぞれに区分を追加しないでください。
+ツールバーのコントロールを論理的なセグメントにまとめてください。それぞれにセグメントを追加しないでください。
 
 <!--
 ![A screenshot comparing a block toolbar with good vs. bad toolbar segment groupings.](https://make.wordpress.org/design/files/2021/03/docs__block-toolbar-do-dont.png)
@@ -158,7 +158,7 @@ Group toolbar controls in logical segments. Don't add a segment for each.
 ![ブロックツールバーのグループ化の良い例と悪い例を比較したスクリーンショット](https://make.wordpress.org/design/files/2021/03/docs__block-toolbar-do-dont.png)
 
 <!--
-### Block Identification
+### Block identification
  -->
 ### ブロックの識別
 
@@ -210,7 +210,7 @@ Avoid long, multi-line block names.
 長く、複数行に渡るブロック名は避けてください。
 
 <!--
-### Block Description
+### Block description
  -->
 ### ブロックの説明
 
@@ -292,10 +292,12 @@ Provide an instructive placeholder state.
 Avoid branding and relying on the title alone to convey instructions.
  -->
 ブランドを宣伝したり、手順の説明をタイトルだけに頼るのは避けてください。
+
 <!--
-### Selected and Unselected States
+### Selected and unselected states
  -->
 ### 選択済みの状態と、未選択の状態
+
 <!--
 When unselected, your block should preview its content as closely to the front-end output as possible.
 -->
@@ -329,14 +331,14 @@ Do not put controls that are essential to the block in the sidebar, otherwise th
 サイドバーにブロックの必須のコントロールを配置しないでください。モバイルユーザーや、サイドバーを折りたたんだデスクトップユーザーには、ブロックに必須の機能がないまま表示されます。
 
 <!--
-### Advanced Block Settings
+### Advanced block settings
  -->
 ### 高度なブロック設定
 
 <!--
 The “Block” tab of the Settings Sidebar can contain additional block options and configuration. Keep in mind that a user can dismiss the sidebar and never use it. You should not put critical options in the Sidebar.
  -->
-設定サイドバーの「ブロック」タブには、追加のオプションや構成を配置できます。ただしユーザーはこのサイドバーを折り畳めること、そして決して使わないことを覚えておいてください。重要なオプションはサイドバーに配置すべきではありません。
+設定サイドバーの「ブロック」タブには、追加のオプションや構成を配置できます。ただしユーザーはこのサイドバーを折り畳んで、使わなくできることを覚えておいてください。サイドバーに重要なオプションを配置すべきではありません。
 
 <!--
 ![A screenshot of the Paragraph block's advanced settings in the sidebar](https://developer.wordpress.org/files/2022/01/advanced-settings-do.png)
@@ -394,9 +396,9 @@ The most basic unit of the editor. The Paragraph block is a simple input field.
 ![段落ブロック](https://cldup.com/HVJe5bGZ8H-3000x3000.png)
 
 <!--
-### Placeholder:
+#### Placeholder
  -->
-### プレースホルダー:
+#### プレースホルダー
 
 <!--
 -   Simple placeholder text that reads “Type / to choose a block”. The placeholder disappears when the block is selected.
@@ -404,9 +406,9 @@ The most basic unit of the editor. The Paragraph block is a simple input field.
 - シンプルなプレースホルダーテキスト「「/」を入力して、ブロックを選択」が表示されます。ブロックを選択するとプレースホルダーは消えます。
 
 <!--
-### Selected state:
+#### Selected state
  -->
-### 選択した状態:
+#### 選択した状態
 
 <!--
 -   Block Toolbar: Has a switcher to perform transformations to headings, etc.
@@ -421,6 +423,7 @@ The most basic unit of the editor. The Paragraph block is a simple input field.
 ### Image
  -->
 ### 画像
+
 <!--
 Basic image block.
  -->
@@ -430,19 +433,20 @@ Basic image block.
 ![Image block placeholder](https://cldup.com/w6FNywNsj1-3000x3000.png)
  -->
 ![画像ブロックのプレースホルダー](https://cldup.com/w6FNywNsj1-3000x3000.png)
+
 <!--
-### Placeholder:
+#### Placeholder
  -->
-### プレースホルダー:
+#### プレースホルダー
 <!--
 -   A generic gray placeholder block with options to upload an image, drag and drop an image directly on it, or pick an image from the media library.
  -->
 - 汎用的な灰色のプレースホルダーブロック。オプションには動画のアップロード、この領域への直接のドラッグアンドドロップ、メディアライブラリからの選択があります。
 
 <!--
-### Selected state:
+#### Selected state
  -->
-### 選択した状態:
+#### 選択した状態
 
 <!--
 -   Block Toolbar: Alignments, including wide and full-width if the theme supports it.
@@ -461,9 +465,9 @@ Basic image block.
 ![画像ブロック](https://cldup.com/6YYXstl_xX-3000x3000.png)
 
 <!--
-### Block settings:
+#### Block settings
  -->
-### ブロック設定
+#### ブロック設定
 
 <!--
 -   Has description: “They're worth 1,000 words! Insert a single image.”
@@ -484,20 +488,22 @@ _将来の拡張案: 画像ブロックからメディアモーダルを取り�
 ![Latest Post Block](https://cldup.com/8lyAByDpy_-3000x3000.png)
  -->
 ![最新の投稿ブロック](https://cldup.com/8lyAByDpy_-3000x3000.png)
+
 <!--
-### Placeholder:
+#### Placeholder
  -->
-### プレースホルダー
+#### プレースホルダー
+
 <!--
 Has no placeholder as it works immediately upon insertion. The default inserted state shows the last 5 posts.
  -->
 挿入と同時に動作するためプレースホルダーはありません。デフォルトの挿入状態では最新の5つの投稿が表示されます。
 
 <!--
-### Selected state:
+#### Selected state
  -->
+#### 選択した状態
 
-### 選択した状態:
 <!--
 -   Block Toolbar: Alignments
 -   Block Toolbar: Options for picking list view or grid view
@@ -511,9 +517,9 @@ _Note that the Block Toolbar does not include the Block Chip in this case, since
 _注意: このケースではブロックツールバーにブロックチップはありません。これは切り替えの対象となる類似のブロックがないためです。_
 
 <!--
-### Block settings:
+#### Block settings
  -->
-### ブロック設定
+#### ブロック設定
 
 <!--
 -   Has description: “Display a list of your most recent posts.”

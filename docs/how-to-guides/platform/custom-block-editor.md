@@ -28,38 +28,6 @@ This guide covers the basics of creating your first custom block editor.
 このガイドでは、はじめてのカスタムブロックエディターを作成するための、基礎を紹介します。
 
 <!-- 
-## Table of contents
- -->
-## 目次
-
-<!-- 
--   [Introduction](#introduction)
-- 	[Code Syntax](#code-syntax)
--   [What you're going to be building](#what-youre-going-to-be-building)
--   [Plugin setup and organization](#plugin-setup-and-organization)
--   [The "Core" of the editor](#the-core-of-the-editor)
--   [Creating the custom "Block Editor" page](#creating-the-custom-block-editor-page)
--   [Registering and rendering the custom block editor](#registering-and-rendering-the-custom-block-editor)
--   [Reviewing the `<Editor>` component](#reviewing-the-editor-component)
--   [The custom `<BlockEditor>`](#the-custom-blockeditor)
--   [Reviewing the sidebar](#reviewing-the-sidebar)
--   [Block persistence](#block-persistence)
--   [Wrapping up](#wrapping-up)
- -->
-- [はじめに](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB)
-- [コード構文](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%82%B3%E3%83%BC%E3%83%89%E6%A7%8B%E6%96%87)
-- [何を構築するのか](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E4%BD%95%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AE%E3%81%8B)
-- [プラグインのセットアップと構造](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%81%A8%E6%A7%8B%E9%80%A0)
-- [エディターの「コア」](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%83%BC%E3%81%AE%E3%80%8C%E3%82%B3%E3%82%A2%E3%80%8D)
-- [カスタムページ「ブロックエディター」の作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%80%8C%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%83%BC%E3%80%8D%E3%81%AE%E4%BD%9C%E6%88%90)
-- [カスタムブロックエディターの登録とレンダー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/tutorial/#%3Ceditor%3E-%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC)
-- [`<Editor>` コンポーネントのレビュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#ltEditorgt-%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC)
-- [カスタム `<BlockEditor>`](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0-ltBlockEditorgt)
-- [サイドバーのレビュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%82%B5%E3%82%A4%E3%83%89%E3%83%90%E3%83%BC%E3%81%AE%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC)
-- [ブロックの永続性](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E6%B0%B8%E7%B6%9A%E6%80%A7)
-- [まとめ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/platform/custom-block-editor/#%E3%81%BE%E3%81%A8%E3%82%81)
-
-<!-- 
 ## Introduction
  -->
 ## はじめに

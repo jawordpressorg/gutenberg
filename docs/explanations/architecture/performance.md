@@ -6,7 +6,7 @@
 <!--
 Performance is a key feature for editor applications and the Block editor is not an exception.
  -->
-エディターアプリケーションにとってパフォーマンスはキーとなる機能です。ブロックエディターも例外ではありません。
+エディターアプリケーションにとってパフォーマンスはキーとなる要素です。ブロックエディターも例外ではありません。
 
 <!--
 ## Metrics
@@ -26,10 +26,10 @@ To ensure the block editor stays performant across releases and development, we 
  -->
 - **ロード時間:** エディターページの読み込み時間。これには、サーバーが応答するまでの時間、最初の描画までの時間 (FP)、最初の DOM コンテンツの描画 (FCP)、DOMコンテンツのロード完了、ロード完了、最初のブロックレンダリングが含まれます。
 - **タイプ時間:** エディター上で文字を入力した際にブラウザが応答するまでの時間
-- **ブロックの選択時間：**ユーザーがブロックを選択してから、ブラウザが反応するまでの時間。ちなみに、ブロックの挿入はブロックの選択と同等のため、ブロックの選択時間を監視することで、両方の指標をカバーできます。
+- **ブロックの選択時間：** ユーザーがブロックを選択してから、ブラウザが反応するまでの時間。ちなみに、ブロックの挿入はブロックの選択と同等のため、ブロックの選択時間を監視することで、両方の指標をカバーできます。
 
 <!--
-## Key Performance Decisions and Solutions
+## Key performance decisions and solutions
  -->
 ## キーパフォーマンスの決定とソリューション
 
@@ -41,27 +41,27 @@ To ensure the block editor stays performant across releases and development, we 
 <!--
 The Data Module of the WordPress Packages and the Block Editor is based on Redux. It means the state is kept globally and whenever a change happens, the components (UI) relying on that state may update.
  -->
-WordPress パッケージのデータモジュールとブロックエディターは Reduxをベースとしています。したがって、state (状態) はグローバルに保持され、変更があるたびに、state に依存するコンポーネント (UI) が更新される可能性があります。
+WordPress パッケージのデータモジュールとブロックエディターは Redux をベースとしています。したがって、ステートはグローバルに保持され、変更があるたびに、ステートに依存するコンポーネント (UI) が更新される可能性があります。
 
 <!--
 As the number of rendered components grows (for example on long posts), the performance suffers because of the global state acting as an event dispatcher to all components. This is a common pitfall in Redux applications and the issue is solved on Gutenberg using the Data Modules Async Mode.
  -->
-長い投稿記事のように、レンダーされるコンポーネントの数が増えると、グローバル state がすべてのコンポーネントへのイベントディスパッチャとして機能するため、パフォーマンスが低下します。これは Redux アプリケーションではよくある落とし穴で、Gutenberg ではデータモジュールの非同期モードを使用することで、この問題を解決しています。
+長い投稿記事のように、レンダーされるコンポーネントの数が増えると、グローバルステートがすべてのコンポーネントへのイベントディスパッチャとして機能するため、パフォーマンスが低下します。これは Redux アプリケーションではよくある落とし穴で、Gutenberg ではデータモジュールの非同期モードを使用することで、この問題を解決しています。
 
 <!--
 The Async mode is the idea that you can decide whether to refresh/rerender a part of the React component tree synchronously or asynchronously.
  -->
-非同期モードでは、React  コンポーネントツリーの一部の更新や再レンダーを同期的に実行するか、非同期的に実行するかを決定できます。
+非同期モードでは、React コンポーネントツリーの一部の更新や再レンダーを、同期的に実行するか、非同期的に実行するかを決定できます。
 
 <!--
 Rendering asynchronously in this context means that if a change is triggered in the global state, the subscribers (components) are not called synchronously, instead, we wait for the browser to be idle and perform the updates to React Tree.
  -->
-ここでいう非同期レンダリングとは、グローバル state で変化が起きたた際、サブスクライバー（コンポーネント）が同期的に呼び出されるのではなく、ブラウザがアイドル状態になるのを待って、React ツリーの更新を実行することを意味します。
+ここでいう非同期レンダリングとは、グローバルステートで変化が起きたた際、サブスクライバー（コンポーネント）が同期的に呼び出されるのではなく、ブラウザがアイドル状態になるのを待って、React ツリーの更新を実行することを意味します。
 
 <!--
 Based on the idea that **when editing a given block, it is very rare that an update to that block affects other parts of the content**, the block editor canvas only renders the selected block is synchronous mode, all the remaining blocks are rendered asynchronously. This ensures that the editor stays responsive as the post grows.
  -->
-「**あるブロックを編集している場合、そのブロックの更新が、コンテンツの他の部分に影響を与えることは非常にまれである**」という考えに基づき、ブロックエディターキャンバスは、選択したブロックのみを同期モードでレンダリングし、残りのブロックはすべて非同期でレンダリングします。これにより、投稿記事が長くなってもエディタの応答パフォーマンスは保たれます。
+「**あるブロックを編集している場合、そのブロックの更新が、コンテンツの他の部分に影響を与えることは非常にまれである**」という考えに基づき、ブロックエディターキャンバスは、選択したブロックのみを同期モードでレンダリングし、残りのブロックはすべて非同期でレンダリングします。これにより、投稿記事が長くなってもエディターの応答パフォーマンスは保たれます。
 
 <!-- 
 ## The performance benchmark job
@@ -71,7 +71,7 @@ Based on the idea that **when editing a given block, it is very rare that an upd
 <!-- 
 A tool to compare performance across multiple branches/tags/commits is provided. You can run it locally like so: `./bin/plugin/cli.js perf [branches]`, example:
  -->
-複数のブランチ、タグ、コミット間のパフォーマンスを比較するツールが提供されています。以下のようにローカルで実行できます: `./bin/plugin/cli.js perf [branches]`。たとえば、
+複数のブランチ、タグ、コミット間のパフォーマンスを比較するツールが提供されています。これは以下のようにローカルで実行できます: `./bin/plugin/cli.js perf [branches]`。たとえば、
 
 ```
 ./bin/plugin/cli.js perf trunk v8.1.0 v8.0.0
@@ -79,7 +79,7 @@ A tool to compare performance across multiple branches/tags/commits is provided.
 <!-- 
 To get the most accurate results, it's is important to use the exact same version of the tests and environment (theme...) when running the tests, the only thing that need to be different between the branches is the Gutenberg plugin version (or branch used to build the plugin).
  -->
-最も正確な結果を得るには、テストを実行する際に、全く同じバージョンのテストとテーマなどの環境を使用することが重要です。ブランチ間で異なるのは、Gutenberg プラグインのバージョン (または、プラグインのビルドに使用するブランチ) だけであるべきです。
+最も正確な結果を得るには、テストを実行する際に、まったく同じバージョンのテストとテーマなどの環境を使用することが重要です。ブランチ間で異なるのは、Gutenberg プラグインのバージョン (または、プラグインのビルドに使用するブランチ) だけであるべきです。
 
 <!-- 
 To achieve that the command first prepares the following folder structure:
@@ -120,7 +120,7 @@ To achieve that the command first prepares the following folder structure:
 <!-- 
 Once the directory above is in place, the performance command loop over the performance test suites (post editor and site editor) and does the following:
  -->
-上のディレクトリ構造ができたら、performance コマンドは、パフォーマンステストスイート（投稿エディターとサイトエディター）をループし、以下を実行します。
+上のディレクトリ構造ができたら、パフォーマンス測定用のコマンドは、パフォーマンステストスイート（投稿エディターとサイトエディター）をループし、以下を実行します。
 
 <!-- 
 1. Start the environment for `branch1`

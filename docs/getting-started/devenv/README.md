@@ -9,7 +9,7 @@ This guide will help you set up the right development environment to create bloc
 このガイドでは WordPress のブロックエディターを拡張、変更する、ブロックや他のプラグインの作成に必要な開発環境のセットアップ方法を紹介します。
 
 <!-- 
-To contribute to the Gutenberg project itself, refer to the additional documentation in the [code contribution guide](/docs/contributors/code/getting-started-with-code-contribution.md).`
+To contribute to the Gutenberg project itself, refer to the additional documentation in the [code contribution guide](/docs/contributors/code/getting-started-with-code-contribution.md).
  -->
 Gutenberg プロジェクト自体に貢献するには、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) の中の追加ドキュメントを参照してください。
 
@@ -38,7 +38,7 @@ A code editor is used to write code, and you can use whichever editor you're mos
 コードの記述にはコードエディターを使用します。使い慣れたどのエディターでも使用できます。機能としてテキストファイルを開き、編集し、保存する手段があれば十分です。
 
 <!-- 
-If you do not already have a preferred code editor, [Visual Studio Code](https://code.visualstudio.com/) (VS Code) is a popular choice for JavaScript development among Core contributors. It works well across the three major platforms (Windows, Linux, and Mac) and is open-source and actively maintained by Microsoft. VS Code also has a vibrant community providing plugins and extensions, including many for WordPress development.
+If you do not already have a preferred code editor, [Visual Studio Code](https://code.visualstudio.com/) (VS Code) is a popular choice for JavaScript development among Core contributors. It works well across the three major platforms (Windows, Linux, and Mac), is open-source, and is actively maintained by Microsoft. VS Code also has a vibrant community providing plugins and extensions, including many for WordPress development.
  -->
 好みのコードエディターがなければ、[Visual Studio Code](https://code.visualstudio.com/) (VS Code) は、JavaScript で開発するコアコントリビューターの中で人気のある選択肢です。3つの主要なプラットフォーム (Windows、Linux、Mac) で動作し、オープンソースで、Microsoft によって活発にメンテナンスされています。VS Code にはまた、プラグインや拡張機能 (その中には多数の WordPress 開発用のものも含まれます) を提供する活気あるコミュニティがあります。
 
@@ -76,12 +76,12 @@ The list goes on. While modern JavaScript development can be challenging, WordPr
 まだまだ続きます。最新の JavaScript 開発は難しいかもしれませんが、WordPress では [`wp-scripts`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) や [`create-block`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)のような、プロセスを効率化するツールを提供しています。そしてこれらも Node.js 開発ツールで作成されています。
 
 <!-- 
-**The recommended Node.js version for block development is [Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)**. However, there are times when you  need to to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to easily change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
+**The recommended Node.js version for block development is [Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)**. However, there are times when you need to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to easily change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
  -->
 **ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも自動的に Node.js と一緒にインストールされます。
 
 <!-- 
-To be able to use the Node.js tools and [packages provided by WordPress](https://github.com/WordPress/gutenberg/tree/trunk/packages) for block development, you'll need to set a proper Node.js runtime environment on your machine.. To learn more about how to do this, refer to the links below.
+To be able to use the Node.js tools and [packages provided by WordPress](https://github.com/WordPress/gutenberg/tree/trunk/packages) for block development, you'll need to set a proper Node.js runtime environment on your machine. To learn more about how to do this, refer to the links below.
  -->
 ブロック開発に Node.js ツールと [WordPress が提供するパッケージ](https://github.com/WordPress/gutenberg/tree/trunk/packages)を使用するには、コンピュータに適切な Node.js 実行環境を設定する必要があります。この方法については、以下のリンクを参照してください。
 
@@ -103,7 +103,7 @@ A local WordPress environment (site) provides a controlled, efficient, and secur
 WordPress のローカル環境 (サイト) を準備すると、制御され、効率的で、安全な開発スペースを入手でき、本番サイトにデプロイする前にコードをビルドし、テストできます。WordPress と[同じ要件](https://en-gb.wordpress.org/about/requirements/)がローカルサイトにも適用されます。
 
 <!-- 
-In the boarder WordPress community, there are many available tools for setting up a local WordPress environment on your computer. The Block Editor Handbook covers `wp-env`, which is open-source and maintained by the WordPress project itself. It's also the recommended tool for Gutenberg development. 
+In the broader WordPress community, there are many available tools for setting up a local WordPress environment on your computer. The Block Editor Handbook covers `wp-env`, which is open-source and maintained by the WordPress project itself. It's also the recommended tool for Gutenberg development. 
  -->
 WordPress コミュニティでは、ローカルに WordPress 環境を構築するツールが数多く提供されています。ブロックエディターハンドブックでは、オープンソースで WordPress プロジェクト自身が保守している `wp-env` を取り上げます。これはまた Gutenberg 開発における推奨ツールです。
 

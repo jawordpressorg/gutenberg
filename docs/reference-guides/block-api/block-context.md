@@ -19,7 +19,7 @@ If you are familiar with [React Context](https://reactjs.org/docs/context.html),
 [React コンテキスト](https://reactjs.org/docs/context.html) を知っていれば、ブロックコンテキストは多くで同じアイデアを採用しています。実際、ブロックコンテキストのクライアント側ブロックエディターの実装は非常に簡単な React コンテキストのアプリケーションです。ブロックコンテキストは以下の例で見るようにサーバー側 `render_callback` 実装でもサポートされています。
 
 <!--
-## Defining Block Context
+## Defining block context
  -->
 ## ブロックコンテキストの定義
 
@@ -29,7 +29,7 @@ Block context is defined in the registered settings of a block. A block can prov
 ブロックコンテキストはブロックの登録設定内で定義されます。ブロックはコンテキスト値を提供したり継承した値を消費することができます。
 
 <!--
-### Providing Block Context
+### Providing block context
  -->
 ### ブロックコンテキストの提供
 
@@ -61,7 +61,7 @@ As seen in the above example, it is recommended that you include a namespace as 
 上の例で見るようにコンテキストキーには名前空間を含めることが推奨されます。他のプラグインや WordPress で提供されるデフォルトのコンテキスト値との潜在的な衝突を防ぎます。コンテキストの名前空間は、プラグイン固有にしてください。多くの場合、ブロックの名前と同じものが使用されます。
 
 <!--
-### Consuming Block Context
+### Consuming block context
  -->
 ### Block コンテキストの消費
 
@@ -79,9 +79,10 @@ registerBlockType('my-plugin/record-title', {
 
 ```
 <!--
-## Using Block Context
+## Using block context
  -->
 ## Block コンテキストの使用
+
 <!--
 Once a block has defined the context it seeks to inherit, this can be accessed in the implementation of `edit` (JavaScript) and `render_callback` (PHP). It is provided as an object (JavaScript) or associative array (PHP) of the context values which have been defined for the block. Note that a context value will only be made available if the block explicitly defines a desire to inherit that value.
  -->

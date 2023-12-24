@@ -14,7 +14,7 @@ The package is designed to help developers quickly set up a block development en
 このパッケージは開発者が、WordPress のベストプラクティスに従ってブロック開発環境を素早くセットアップできるように設計されています。
 
 <!-- 
-## Quick Start
+## Quick start
  -->
 ## クイックスタート
 

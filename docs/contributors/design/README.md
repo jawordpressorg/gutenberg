@@ -24,7 +24,7 @@ WordPress デザインチームからのアナウンス、製品ゴール、議�
 -->
 
 <!--
-## How Can Designers Contribute?
+## How can designers contribute?
 -->
 ## どうやってデザイナーがコントリビューションできるか?
 

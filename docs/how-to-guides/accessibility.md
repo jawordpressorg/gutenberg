@@ -12,7 +12,7 @@ For more information on accessibility and WordPress see the [Make WordPress Acce
 アクセシビリティと WordPress の詳細については [Make WordPress Accessibility Handbook](https://make.wordpress.org/accessibility/handbook/) および [Accessibility Team セクション](https://make.wordpress.org/accessibility/) を参照してください。
 
 <!--
-## Landmark Regions
+## Landmark regions
  -->
 ## ランドマークリージョン
 

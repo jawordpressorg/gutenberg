@@ -38,7 +38,7 @@ In this Document:
 	- セマンティックブロックパターン
 
 <!--
-## Block Patterns
+## Block patterns
  -->
 ## ブロックパターン
 
@@ -121,7 +121,9 @@ function my_plugin_register_my_patterns() {
 
 add_action( 'init', 'my_plugin_register_my_patterns' );
 ```
-
+<!-- 
+## Unregistering block patterns
+ -->
 ## ブロックパターンの登録の解除
 
 ### unregister_block_pattern
@@ -168,7 +170,7 @@ function my_plugin_unregister_my_patterns() {
 add_action( 'init', 'my_plugin_unregister_my_patterns' );
 ```
 <!--
-## Block Pattern Categories
+## Block pattern categories
  -->
 ## ブロックパターンカテゴリー
 

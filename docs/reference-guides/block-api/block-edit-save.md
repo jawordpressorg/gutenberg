@@ -31,7 +31,7 @@ const blockSettings = {
 ```
 
 <!--
-### block wrapper props
+### Block wrapper props
  -->
 ### ブロックラッパー props
 

@@ -15,28 +15,32 @@ The following guide is for setting up your local environment to contribute to th
 <!--
     Gutenberg is a JavaScript project and requires [Node.js](https://nodejs.org/). The project is built using Node.js v16, and npm v8. See the [LTS release schedule](https://github.com/nodejs/Release#release-schedule) for details.
 -->
--   Node.js:
-    Gutenbergは JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは、Node.js v16 と npm v8 を使用して構築されています。詳細は [LTS release schedule](https://github.com/nodejs/Release#release-schedule) を参照してください。
+<!-- 
+-   Node.js
+    Gutenberg is a JavaScript project that requires [Node.js](https://nodejs.org/). The project is currently built using Node.js v20 and npm v10. Though best efforts are made to always use the Active LTS version of Node.js, this will not always be the case. For more details, please refer to the [Node.js release schedule](https://github.com/nodejs/Release#release-schedule).
+ -->
+-  Node.js
+   Gutenberg は JavaScript のプロジェクトで、[Node.js](https://nodejs.org/) を必要とします。Gutenberg プロジェクトは現在、Node.js v20 と npm v10 を使用してビルドされています。Node.js の Active LTS バージョンを使用するよう最善の努力を払っていますが、常にそうとは限りません。詳細は [Node.js リリーススケジュール](https://github.com/nodejs/Release#release-schedule)を参照してください。
 
 <!--
 We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) since it is the easiest way to install and manage node for macOS, Linux, and Windows 10 using WSL2. See [our Development Tools guide](/docs/getting-started/devenv/README.md#development-tools) or the Nodejs site for additional installation instructions.
 -->
-[Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) を使用してください。nvm は、macOS、Linux、WSL2 を使用した Windows 10 において最も簡単に node をインストール、管理できます。追加のインストール方法については、[このハンドブックの開発ツールガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/#development-tools)、またはNodejs のサイトを参照してください。
+[Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) を使用してください。nvm は、macOS、Linux、WSL2 を使用した Windows 10 において最も簡単に node をインストール、管理できます。追加のインストール方法については、[このハンドブックの開発ツールガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/#development-tools)、または Nodejs のサイトを参照してください。
 
 <!--
 -   Git
     Gutenberg is using git for source control. Make sure you have an updated version of git installed on your computer, as well as a GitHub account. You can read the [Git Workflow](/docs/contributors/code/git-workflow.md) to learn more about using git and GitHub with Gutenberg
 -->
--   Git:
-    Gutenberg はソースコントロールに git を使用しています。コンピュータに最新版の git がインストールされていること、GitHub のアカウントを持っていることを確認してください。Gutenberg での git と GitHub の使用については、[Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow)を参照してください。
+-  Git
+   Gutenberg はソースコントロールに git を使用しています。コンピュータに最新版の git がインストールされていること、GitHub のアカウントを持っていることを確認してください。Gutenberg での git と GitHub の使用については、[Git ワークフロー](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/git-workflow)を参照してください。
 
 <!--
 -   [Recommended] Docker Desktop
     We recommend using the [wp-env package](/packages/env/README.md) for setting WordPress environment locally. You'll need to install Docker to use `wp-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/devenv/README.md).
     > Note: To install Docker on Windows 10 Home Edition, follow the [install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/).
 -->
--   [推奨] Docker Desktop:
-    ローカルでの WordPress 環境の設定には、[wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)の使用を推奨します。「wp-env」を使用するには、Docker のインストールが必要です。詳細については [開発環境チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) を参照してください。<br />
+-  [推奨] Docker Desktop
+   ローカルでの WordPress 環境の設定には、[wp-env パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/)の使用を推奨します。「wp-env」を使用するには、Docker のインストールが必要です。詳細については [開発環境チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) を参照してください。<br />
     **注意**: Windows 10 Home Edition に Docker をインストールするには、[install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/) に従ってください。
 
 <!--
@@ -48,8 +52,8 @@ Docker セットアップの代替としては、[Local](https://localwp.com/)�
 <!-- -   GitHub CLI
     Although not a requirement, the [GitHub CLI](https://cli.github.com/) can be very useful in helping you checkout pull requests locally. Both from the Gutenberg repo and forked repos. This can be a major time saver while code reviewing and testing pull requests.
  -->
- -   GitHub CLI:
-    必須ではありませんが、[GitHub CLI](https://cli.github.com/) はローカルにプルリクエストをチェックアウトする際に非常に便利です。Gutenberg リポジトリからも、フォークされたリポジトリからも同様です。プルリクエストのコードレビューやテストに要する時間を大幅に短縮できます。    
+-  GitHub CLI
+   必須ではありませんが、[GitHub CLI](https://cli.github.com/) はローカルにプルリクエストをチェックアウトする際に非常に便利です。Gutenberg リポジトリからも、フォークされたリポジトリからも同様です。プルリクエストのコードレビューやテストに要する時間を大幅に短縮できます。    
 
 <!--
 ## Getting the Gutenberg code
@@ -115,7 +119,7 @@ If you do not have a local WordPress environment setup, follow the steps in the 
 <!--
 ### Using Docker and wp-env
 -->
-### Docker と wp-env
+### Docker と wp-env の利用
 
 <!--
 The [wp-env package](/packages/env/README.md) was developed with the Gutenberg project as a quick way to create a standard WordPress environment using Docker. It is also published as the `@wordpress/env` npm package.
@@ -271,7 +275,7 @@ If you run into an issue, check the [troubleshooting section in `wp-env` documen
 <!--
 ### Using Local or MAMP
 -->
-### Local または MAMP
+### Local または MAMP の利用
 
 <!--
 As an alternative to Docker and `wp-env`, you can also use [Local](https://localwp.com/), [WampServer](http://www.wampserver.com/en/), or [MAMP](https://www.mamp.info/) to run a local WordPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `wp-content/plugins` directory.
@@ -374,7 +378,7 @@ If so, you need to instruct Apache to allow following such links:
 <!--
 #### Using WP-CLI
 -->
-#### WP-CLI の使用
+#### WP-CLI の利用
 
 <!--
 Tools like MAMP tend to configure MySQL to use ports other than the default 3306, often preferring 8889. This may throw off WP-CLI, which will fail after trying to connect to the database. To remedy this, edit `wp-config.php` and change the `DB_HOST` constant from `define( 'DB_HOST', 'localhost' )` to `define( 'DB_HOST', '127.0.0.1:8889' )`.
@@ -382,9 +386,9 @@ Tools like MAMP tend to configure MySQL to use ports other than the default 3306
 MAMP のようなツールでは、MySQL のポートをデフォルトの3306以外に、多くの場合8889を使用するように設定します。これにより、WP-CLI がデータベースへの接続に失敗する場合があります。この問題を解決するには、`wp-config.php` を編集して、`DB_HOST` 定数を `define( 'DB_HOST', 'localhost' )` から `define( 'DB_HOST', '127.0.0.1:8889' )` に変更します。
 
 <!--
-### On A Remote Server
+### On a remote server
 -->
-### リモートサーバー
+### リモートサーバー上にて
 
 <!--
 You can use a remote server in development by building locally and then uploading the built files as a plugin to the remote server.
@@ -432,7 +436,7 @@ You can also test Storybook for the current `trunk` branch on GitHub Pages: [htt
 また、GitHub Pages [https://wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/) では、現在の `trunk` ブランチで Storybook をテストできます。
 
 <!--
-## Developer Tools
+## Developer tools
 -->
 ## 開発者向けのツール
 

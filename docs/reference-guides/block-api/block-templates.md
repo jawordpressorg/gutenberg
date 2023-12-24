@@ -92,7 +92,7 @@ See the [Meta Block Tutorial](/docs/how-to-guides/metabox.md#step-4-finishing-to
 テンプレートを使用する完全なサンプルは [メタブロックのチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox#step-4-finishing-touches) を参照してください。
 
 <!--
-## Block Attributes
+## Block attributes
  -->
 ## ブロック属性
 
@@ -112,7 +112,7 @@ If you don't have the Gutenberg plugin installed, you can find `block.json` file
 Gutenberg プラグインをインストールしていなければ、`block.json` ファイルは `wp-includes/blocks/heading/block.json` で見つかります。
 
 <!--
-## Custom Post types
+## Custom post types
 
 A custom post type can register its own template during registration:
  -->
@@ -244,7 +244,7 @@ $template = array(
 ```
 
 <!--
-## Nested Templates
+## Nested templates
  -->
 ## ネストしたテンプレート
 

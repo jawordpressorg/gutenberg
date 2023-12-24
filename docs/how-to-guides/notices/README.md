@@ -156,7 +156,7 @@ JavaScript アプリケーションコード内から通知を生成する場合
 ブロックエディターにカスタム JavaScript をロードする方法が分からない場合は、[_JavaScript のロード_](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/loading-javascript/) チュートリアルを参照してください。
 
 <!-- 
-## Learn More
+## Learn more
 
 The block editor offers a complete API for generating notices. The official documentation is a great place to review what's possible.
 

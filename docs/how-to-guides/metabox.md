@@ -24,7 +24,7 @@ If you are interested in working with the post meta outside the editor, check ou
 エディターの外部で投稿メタを操作したい場合は、[サイドバーチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/)を参照してください。
 
 <!--
-### Use Blocks to Store Meta
+### Use blocks to store meta
 -->
 ## ブロックを使用したメタ情報の保存
 
@@ -89,7 +89,7 @@ A [complete meta-block example](https://github.com/WordPress/block-development-e
 4. 最後の仕上げ
 
 <!--
-### Step 1: Register Meta Field
+### Step 1: Register meta field
 -->
 ### ステップ 1: メタフィールドの登録
 
@@ -141,7 +141,7 @@ add_action( 'init', 'myguten_register_post_meta' );
 ```
 
 <!--
-### Step 2: Add Meta Block
+### Step 2: Add meta block
 -->
 ### ステップ 2: メタブロックの追加
 
@@ -260,7 +260,7 @@ You could also confirm the data is saved by checking the database table `wp_post
 **トラブルシューティング**: 変更の合間に忘れずにコードをビルドしてください。ステップ 1から PHP コードを更新し、JavaScript ファイルをエンキューしています。ビルドの出力と開発者コンソールのエラーを確認してください。
 
 <!--
-### Step 3: Use Post Meta Data
+### Step 3: Use post meta data
 -->
 ### ステップ 3: 投稿メタデータの使用
 
@@ -270,7 +270,7 @@ You can use the post meta data stored in the last step in multiple ways.
 前のステップで保存した投稿メタデータはいくつかの方法で使用できます。
 
 <!--
-#### Use Post Meta in PHP
+#### Use post meta in PHP
 -->
 #### PHP での投稿メタの使用
 
@@ -292,7 +292,7 @@ add_filter( 'the_content', 'myguten_content_filter' );
 ```
 
 <!--
-#### Use Post Meta in Block
+#### Use post meta in a block
 -->
 #### ブロックでの投稿メタデータの使用
 
@@ -342,7 +342,7 @@ register_block_type( 'core/paragraph', array(
 ```
 
 <!--
-### Step 4: Use Block Templates (optional)
+### Step 4: Use block templates (optional)
 -->
 ### ステップ 4: ブロックテンプレートの使用 (オプション)
 
@@ -387,12 +387,12 @@ This guide showed how using blocks you can read and write to post meta. See the 
 このガイドでは、ブロックを使って投稿メタの読み書きを行う方法を紹介しました。既存のメタボックスとの後方互換性については、以下のセクションを参照してください。
 
 <!--
-## Backward Compatibility
+## Backward compatibility
 -->
 ## 後方互換性
 
 <!--
-### Testing, Converting, and Maintaining Existing Meta Boxes
+### Testing, converting, and maintaining existing meta boxes
 -->
 ### 既存のメタボックスのテスト、変換、メンテナンス
 
@@ -440,7 +440,7 @@ When the block editor is used, this meta box will no longer be displayed in the 
 このメタボックスは後方互換性のためにのみ存在するため、ブロックエディターではメタボックス領域に表示されません。クラシックエディターでは、従来どおり表示されます。
 
 <!--
-### Meta Box Data Collection
+### Meta box data collection
 -->
 ### メタボックスデータコレクション
 
@@ -475,7 +475,7 @@ Ideally, this could be done at instantiation of the editor and help simplify thi
 理想的には、この処理をエディターのインスタンス化時に行うことで、フローを簡素化できます。しかし、`initializeEditor()` 呼び出し時の、 `admin_enqueue_scripts` より前に、メタボックスの状態を知ることはできません。フッターや `admin_head` より後に `initializeEditor()` を実行しない限り、現在の方法で対応するしかありません。ただし、最近のエディターのブートストラップに関する変更で、可能になったかもしれません。念のため、ACFでテストしてみてください。
 
 <!--
-### Redux and React Meta Box Management
+### Redux and React meta box management
 -->
 ### Redux と React のメタボックス管理
 
@@ -492,7 +492,7 @@ _Redux store は、デフォルトですべてのメタボックスを非アク�
 `INITIALIZE_META_BOX_STATE` が来ると、store は、任意のアクティブなメタボックス領域を更新し、`isActive` フラグを `true` にセットします。これが起きると、React は、`MetaBox` コンポーネントの Redux から送られた、新しい props をチェックします。その `MetaBox` がアクティブなら、null をレンダリングする代わりに、`MetaBoxArea` コンポーネントがレンダーされます。`MetaBox` コンポーネントはコンテナコンポーネントで、 `MetaBoxArea` と Redux Sotre の間を仲立ちします。_アクティブなメタボックスがなければ、何も起きません。すべてのコアのメタボックスは除外されているため、これがデフォルトの動作です。_
 
 <!--
-#### MetaBoxArea Component
+#### MetaBoxArea component
 -->
 #### MetaBoxArea コンポーネント
 
@@ -532,7 +532,7 @@ This page mimics the `post.php` post form, so when it is submitted it will fire 
 このページは `post.php` の投稿フォームを真似ており、送信されると通常のフックとアクションをすべて起動し、既存のコードを変更しなくても、任意の PHP メタボックスのあれこれを正しく起動する、適切なグローバル state を持ちます。送信が成功すると、React は `handleMetaBoxReload` をシグナルして、更新中のオーバーレイを削除します。
 
 <!--
-### Common Compatibility Issues
+### Common compatibility issues
 -->
 ### 一般的な互換性の問題
 

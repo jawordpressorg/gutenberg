@@ -46,7 +46,7 @@ registerBlockType( 'gutenberg-examples/example-06', {
 ```
 
 <!--
-## Allowed Blocks
+## Allowed blocks
  -->
 ## 許可されるブロック
 
@@ -79,7 +79,7 @@ Specifying this prop does not affect the layout of the inner blocks, but results
 このプロパティを指定しても、内側のブロックのレイアウトには影響しませんが、子ブロックのブロック移動アイコンが水平に表示され、また、ドラッグアンドドロップが正しく動作するようになります。
 
 <!-- 
-## Default Block
+## Default block
  -->
 ## デフォルトブロック
 
@@ -131,7 +131,7 @@ Use the `templateLock` property to lock down the template. Using `all` locks the
 `templateLock` プロパティを使用するとテンプレートをロックできます。テンプレートを完全にロックするには `all` を使用します。`insert` は追加ブロックのインサートを禁止しますが、既存のブロックは並べ替えられます。詳細については [templateLock のドキュメント](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock)を参照してください。
 
 <!--
-### Post Template
+### Post template
 
 Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks.
 
@@ -154,7 +154,7 @@ add_action( 'init', function() {
 ```
 
 <!--
-## Using Parent and Ancestor Relationships in Blocks
+## Using parent and ancestor relationships in blocks
  -->
 ## ブロックでの parent 関係と ancestor 関係の使用
 
@@ -176,7 +176,7 @@ The key difference between `parent` and `ancestor` is `parent` has finer specifi
 `parent` と `ancestor` の主な違いとして、`parent` はより細かな特異性を持ち、`ancestor`はそのネスト階層においてより大きな柔軟性を持ちます。
 
 <!-- 
-### Defining Parent Block Relationship
+### Defining parent block relationship
  -->
 ### parent ブロック関係の定義
 
@@ -200,7 +200,7 @@ When defining a direct descendent block, use the `parent` block setting to defin
 ```
 
 <!-- 
-### Defining Ancestor Block Relationship
+### Defining an ancestor block relationship
  -->
 ### ancestor ブロック関係の定義
 
@@ -229,7 +229,7 @@ When defining a descendent block, use the `ancestor` block setting. This prevent
 ```
 
 <!-- 
-## Using a React Hook
+## Using a React hook
  -->
 ## React フックの使用
 

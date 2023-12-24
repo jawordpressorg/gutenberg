@@ -160,7 +160,7 @@ That’s it! Once approved and merged, your change will be incorporated into the
 これで完了です。承認されてマージされると、変更がメインのリポジトリに組み込まれます。 🎉
 
 <!--
-## Branch Naming
+## Branch naming
 -->
 ## ブランチの名前付け
 
@@ -193,7 +193,7 @@ For example, `add/gallery-block` means you're working on adding a new gallery bl
 例えば、`add/gallery-block` は、新しいギャラリーブロックの追加を意味します。
 
 <!--
-## Keeping Your Branch Up To Date
+## Keeping your branch up to date
 -->
 ## ブランチを最新に保つ
 
@@ -229,7 +229,7 @@ git push --force-with-lease origin your-branch-name
 ```
 
 <!--
-## Keeping Your Fork Up To Date
+## Keeping your fork up to date
 -->
 ## フォークを最新に保つ
 
@@ -283,7 +283,7 @@ The above commands will update your `trunk` branch from _upstream_. To update an
 ## その他
 
 <!-- 
-### Git Archeology
+### Git archeology
  -->
 ### Git 考古学
 

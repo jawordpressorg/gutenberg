@@ -15,7 +15,7 @@ Ensuring proper attributes to the block wrapper is especially important when usi
 
 <!-- 
 <div class="callout callout-info">
-The use of <code>supports</code> generates a set of properties that need to be manually added to the wrapping element of the block so they're properly stored as part of the block data
+The use of <code>supports</code> generates a set of properties that need to be manually added to the wrapping element of the block so they're properly stored as part of the block data.
 </div>
  -->
 > `supports`を使用するとプロパティのセットが生成されます。ブロックデータの一部として適切に保存されるように、これらのプロパティを手動でブロックのラッパー要素に追加する必要があります。
@@ -39,7 +39,7 @@ A block can have three sets of markup defined, each one of them with a specific 
     - この定義があると、サーバー側で生成されたマークアップはフロントエンドに返されます。データベースに保存されたマークアップは無視されます。
 
 <!-- 
-For the [`edit` React component and the `save` function](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/), the block wrapper element should be a native DOM element (like `<div>`) or a React component that forwards any additional props to native DOM elements. Using a <Fragment> or <ServerSideRender> component, for instance, would be invalid.
+For the [`edit` React component and the `save` function](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/), the block wrapper element should be a native DOM element (like `<div>`) or a React component that forwards any additional props to native DOM elements. Using a `<Fragment>` or `<ServerSideRender>` component, for instance, would be invalid.
  -->
 [`edit` React コンポーネントと `save` 関数](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/)においてブロックのラッパー要素は、ネイティブのDOM要素 (例: `<div>`) か、ネイティブの DOM 要素に追加の prop を転送する React コンポーネントでなければなりません。例えば、`<Fragment>` や `<ServerSideRender>` コンポーネントは使用できません。
 
@@ -110,7 +110,7 @@ _([例](https://github.com/WordPress/block-development-examples/tree/trunk/plugi
 ```
 
 <!-- 
-Any additional classes and attributes for the `Edit` component of the block should be passed as an argument of `useBlockProps` (see [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/edit.js)). When you add `support` for any feature, they get added to the object returned by the `useBlockProps` hook.
+Any additional classes and attributes for the `Edit` component of the block should be passed as an argument of `useBlockProps` (see [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/edit.js)). When you add `supports` for any feature, they get added to the object returned by the `useBlockProps` hook.
  -->
 ブロックの `Edit` コンポーネントに追加するクラスや属性は、`useBlockProps` の引数として渡す必要があります ([例](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/edit.js) を参照)。どの機能に対しても `supports` を追加すると、それらは `useBlockProps` フックが返すオブジェクトに追加されます。
 
@@ -158,7 +158,7 @@ Any additional classes and attributes for the `save` function of the block shoul
 ブロックの `save` 関数に追加するクラスと属性は、`useBlockProps.save()` の引数として渡す必要があります ([例](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js)を参照)。
 
 <!-- 
-When you add `support` for any feature, the proper classes get added to the object returned by the `useBlockProps.save()` hook.
+When you add `supports` for any feature, the proper classes get added to the object returned by the `useBlockProps.save()` hook.
  -->
 任意の機能に `supports` を追加すると、`useBlockProps.save()` フックが返すオブジェクトに適切なクラスが追加されます。
 

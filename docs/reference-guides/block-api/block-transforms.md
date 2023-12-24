@@ -47,9 +47,10 @@ export const settings = {
 ```
 
 <!--
-## Transformations Types
+## Transformations types
  -->
 ## 変換タイプ
+
 <!--
 This section goes through the existing types of transformations blocks support:
  -->

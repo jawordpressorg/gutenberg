@@ -132,9 +132,9 @@ deprecated( 'wp.components.ClipboardButton', {
 ```
 
 <!--
-## Dev Notes
+## Dev notes
  -->
-## Dev Notes (開発ノート)
+## Dev notes (開発ノート)
 
 <!--
 Dev notes are [posts published on the make/core site](https://make.wordpress.org/core/tag/dev-notes/) prior to WordPress releases to inform third-party developers about important changes to the developer APIs, these changes can include:
@@ -150,9 +150,9 @@ Dev Notes (開発ノート) とは WordPress のリリースに先立ち [make/c
 - 重要な非推奨 (破壊がない場合も)。理由と移行フローを付記する。
 
 <!--
-### Dev Note Workflow
+### Dev note workflow
  -->
-### Dev Notes ワークフロー
+### Dev note ワークフロー
 
 <!--
 -   When working on a pull request and the need for a dev note is discovered, add the **Needs Dev Note** label to the PR.

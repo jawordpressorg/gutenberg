@@ -12,10 +12,12 @@ This reference guide lists the settings and style properties defined in the them
 -   [Version 2 (living reference)](/docs/reference-guides/theme-json-reference/theme-json-living.md)
  -->
 -   [バージョン 2 (現在のリファレンス)](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/)
+
 <!-- 
-## Older Versions
+## Older versions
  -->
 ## 旧バージョン
+
 <!-- 
 -   [Migrating to Newer Theme.json Versions](/docs/reference-guides/theme-json-reference/theme-json-migrations.md)
 -   [Version 1](/docs/reference-guides/theme-json-reference/theme-json-v1.md)

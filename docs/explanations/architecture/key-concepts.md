@@ -34,7 +34,7 @@ Blocks are meant to be combined in different ways. Blocks are hierarchical in th
 ブロックは異なる方法で組み合わされます。ブロックは階層構造を取り、別のブロックをネストできます。ネストしたブロック、およびそのコンテナはそれぞれ、「子」、「親」と呼ばれます。たとえば「カラム」ブロックは、各カラム内に複数の子ブロックを持つ親ブロックになります。`InnerBlocks` API は子ブロックの使用を統制します。
 
 <!--
-### Data & Attributes
+### Data and attributes
  -->
 ### データと属性
 
@@ -61,7 +61,7 @@ Each block contains Attributes or configuration settings, which can be sourced f
 詳細については、[データフォーマットとデータフロー](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/data-flow/)を参照してください。
 
 <!--
-### Block Transforms
+### Block transforms
  -->
 ### ブロックの変換
 
@@ -71,7 +71,7 @@ Blocks have the ability to be transformed into other block types. This allows ba
 ブロックは、他のブロックタイプに変換できます。この働きにより、段落ブロックを見出しブロックに変換するような簡単な操作から、複数の画像ブロックをギャラリーブロックに変換するような複雑な操作まで可能になります。ブロックの変換は単一のブロックに対しても、複数のブロックに対しても働きます。また内部のブロックバリエーションも変換の対象になります。
 
 <!--
-### Block Variations
+### Block variations
  -->
 ### ブロックのバリエーション
 
@@ -81,7 +81,7 @@ Given a block type, a block variation is a predefined set of its initial attribu
 ブロックの種類によってブロックバリエーションは、事前定義済みの初期属性セットになります。この API を使用して、複数の構成から単一のブロックを作成できます。バリエーションは異なる可能なインターフェースを提供し、例えばライブラリ内での完全に新しいブロック、あるいは新しいブロックを挿入した際のプリセットとして表示できます。詳細については [API ドキュメント](https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#variations-optional) を参照してください。
 
 <!--
-**More on Blocks**
+**More on blocks**
  -->
 **ブロックの追加情報**
 
@@ -93,7 +93,7 @@ Given a block type, a block variation is a predefined set of its initial attribu
 - **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/)**
 
 <!--
-## Reusable Blocks
+## Reusable blocks
  -->
 ## 再利用可能ブロック
 

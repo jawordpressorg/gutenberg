@@ -44,7 +44,7 @@ Find the section below based on what you are looking to contribute:
 - **国際化 ?** [ローカライズと翻訳セクション](https://developer.wordpress.org/block-editor/contributors/localizing/) へ
 
 <!--
-### Repository Management
+### Repository management
 -->
 ### リポジトリー管理
 

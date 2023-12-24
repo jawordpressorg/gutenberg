@@ -242,7 +242,7 @@ Regularly linting and formatting your code ensures it's functional, clear, and m
 定期的にコードを lint し、フォーマットすることで、自分自身や他の開発者にとって機能的でわかりやすく、保守しやすいコードになります。
 
 <!-- 
-### Running Tests
+### Running tests
  -->
 ### テストの実行
 

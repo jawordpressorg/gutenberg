@@ -25,7 +25,7 @@ subfeature.
 ブロックはその CSS セレクタを3つのレベル、「ルート」「フィーチャー」「サブフィーチャー」でカスタマイズできます。
 
 <!-- 
-## Root Selector
+## Root selector
  -->
 ## ルートセレクタ
 
@@ -56,7 +56,7 @@ default is generated in the form of `.wp-block-<name>`.
 ```
 
 <!-- 
-## Feature Selectors
+## Feature selectors
  -->
 ## フィーチャーセレクター
 
@@ -90,7 +90,7 @@ but applying the typography styles to an inner heading only.
 ```
 
 <!-- 
-## Subfeature Selectors
+## Subfeature selectors
  -->
 ## サブフィーチャーセレクタ
 

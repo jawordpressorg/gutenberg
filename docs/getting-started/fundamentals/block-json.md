@@ -6,9 +6,9 @@ The `block.json` file simplifies the processs of defining and registering a bloc
 `block.json` ファイルはブロックの定義と登録プロセスを簡素化します。両方のプロセスに JSON 形式の同じブロック定義を使用し、サーバーとクライアントの両方でブロックを登録します。
 
 <!-- 
-[![Open block.json diagram in excalidraw](https://developer.wordpress.org/files/2023/11/block-json.png)](https://excalidraw.com/#json=v1GrIkGsYGKv8P14irBy6,Yy0vl8q7DTTL2VsH5Ww27A "Open block.json diagram in excalidraw")
+[![Open block.json diagram image](https://developer.wordpress.org/files/2023/11/block-json.png)](https://developer.wordpress.org/files/2023/11/block-json.png "Open block.json diagram image")
  -->
-[![block.json の図解を excalidraw で開く](https://developer.wordpress.org/files/2023/11/block-json.png)](https://excalidraw.com/#json=v1GrIkGsYGKv8P14irBy6,Yy0vl8q7DTTL2VsH5Ww27A "block.json の図解を excalidraw で開く")
+[![block.json の図解を開く](https://developer.wordpress.org/files/2023/11/block-json.png)](https://developer.wordpress.org/files/2023/11/block-json.png "block.json の図解を開く")
 
 <!-- 
 <div class="callout callout-tip">
@@ -100,12 +100,30 @@ The [`render`](https://developer.wordpress.org/block-editor/reference-guides/blo
 <!-- 
 ## Data Storage in the Block with `attributes`
  -->
+<!-- 
 ## `attributes`によるブロック内へのデータ保管
-
+ -->
 <!-- 
 The [`attributes` property](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#attributes) allows a block to declare "variables" that store data or content for the block.
  -->
+<!-- 
 [`attributes`プロパティ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#Attributes)では、ブロックにデータや内容を格納する「変数」を宣言できます。
+ -->
+
+<!-- 
+## Using `attributes` to store block data
+ -->
+## attributes を使用したブロックデータの保存
+
+<!-- 
+Block [attributes](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#attributes) are settings or data assigned to blocks. They can determine various aspects of a block, such as its content, layout, style, and any other specific information you need to store along with your block's structure. If the user changes a block, such as modifying the font size, you need a way to persist these changes. Attributes are the solution. 
+ -->
+ブロックの[属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#Attributes)は、ブロックに割り当てられた設定やデータです。ブロックのさまざまな要素を決定できます。例えば、コンテンツ、レイアウト、スタイル、その他ブロックの構造とともに保存したい特定の情報などです。たとえばフォントサイズなど、ユーザーがブロックを変更すると、その変更を永続化する方法が必要です。属性はその解決策です。
+
+<!-- 
+When registering a new block type, the `attributes` property of `block.json` describes the custom data the block requires and how they're stored in the database. This allows the Editor to parse these values correctly and pass the `attributes` to the block's `Edit` and `save` functions.
+ -->
+新しいブロックタイプを登録する際、`block.json` の `attributes` プロパティに、ブロックが必要なカスタムデータとデータベースへの保存方法を記述します。これにより、エディターは値を正しく解析し、ブロックの `Edit` と `save` 関数に `attributes` を渡せます。
 
 <!-- 
 _Example: Attributes as defined in block.json_
@@ -127,9 +145,9 @@ _例: block.json で定義された属性_
 ```
 
 <!-- 
-By default `attributes` are serialized and stored in the block's delimiter but this [can be configured](https://developer.wordpress.org/news/2023/09/understanding-block-attributes/).
+By default, attributes are serialized and stored in the block's delimiter, but this [can be configured](https://developer.wordpress.org/news/2023/09/understanding-block-attributes/).
  -->
-デフォルトでは `attributes` はシリアライズされ、ブロックのデリミッタに格納されますが、これは[構成できます](https://developer.wordpress.org/news/2023/09/understanding-block-attributes/)。
+デフォルトでは属性はシリアライズされ、ブロックのデリミッタに格納されますが、これは[構成できます](https://developer.wordpress.org/news/2023/09/understanding-block-attributes/)。
 
 <!-- 
 _Example: Atributes stored in the Markup representation of the block_
@@ -143,9 +161,14 @@ _例: ブロックのマークアップ表現として保管された属性_
 ```
 
 <!-- 
-These [`attributes`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#attributes) are passed to the React component `Edit`(to display in the Block Editor) and the `save` function (to return the markup saved to the DB) of the block, and to any server-side render definition for the block (see `render` prop above). 
+These [attributes](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#attributes) are passed to the React component `Edit`(to display in the Block Editor) and the `save` function (to return the markup saved to the database) of the block, and to any server-side render definition for the block (see the `render` property above).
  -->
-これらの [`attributes`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#%E5%B1%9E%E6%80%A7) は React コンポーネントの `Edit` (ブロックエディターに表示するため)、`save` 関数 (データベース に保存されるマークアップを返すため)、そしてブロックの任意のサーバーサイドレンダー定義 (上の `render` プロパティ参照) に渡されます。
+これらの [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#%E5%B1%9E%E6%80%A7) は React コンポーネントの `Edit` (ブロックエディターに表示するため)、`save` 関数 (データベース に保存されるマークアップを返すため)、そしてブロックの任意のサーバーサイドレンダー定義 (上の `render` プロパティ参照) に渡されます。
+
+<!-- 
+### Reading and updating attributes 
+ -->
+### 属性の読み取りと更新
 
 <!-- 
 The `Edit` component receives exclusively the capability of updating the attributes via the [`setAttributes`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#setattributes) function.
@@ -165,9 +188,9 @@ Check the <a href="https://developer.wordpress.org/block-editor/reference-guides
 > Attributes API に関する完全な情報については、<a href="https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/">属性</a>のリファレンスページを参照してください。
 
 <!-- 
-[![Open Attributes diagram in excalidraw](https://developer.wordpress.org/files/2023/11/attributes.png)](https://excalidraw.com/#json=pSgCZy8q9GbH7r0oz2fL1,MFCLd6ddQHqi_UqNp5ZSgg "Open Attributes diagram in excalidraw")
+[![Open Attributes diagram image](https://developer.wordpress.org/files/2023/11/attributes.png)](https://developer.wordpress.org/files/2023/11/attributes.png "Open Attributes diagram image")
  -->
-[![属性の図解を excalidraw で開く](https://developer.wordpress.org/files/2023/11/attributes.png)](https://excalidraw.com/#json=pSgCZy8q9GbH7r0oz2fL1,MFCLd6ddQHqi_UqNp5ZSgg "属性の図解を excalidraw で開く")
+[![属性の図解を開く](https://developer.wordpress.org/files/2023/11/attributes.png)](https://developer.wordpress.org/files/2023/11/attributes.png "属性の図解を開く")
 
 <!-- 
 ## Enable UI settings panels for the block with `supports`
@@ -177,7 +200,24 @@ Check the <a href="https://developer.wordpress.org/block-editor/reference-guides
 <!-- 
 The [`supports`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#supports) property allows a block to declare support for certain features, enabling users to customize specific settings (like colors or margins) from the Settings Sidebar.
  -->
+<!-- 
 [`supports`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#Supports) プロパティを使用すると、ブロックは特定の機能のサポートを宣言でき、ユーザーは設定サイドバーから特定の設定 (色やマージンなど) をカスタマイズできます。
+ -->
+
+<!-- 
+Many blocks, including core blocks, offer similar customization options, whether changing the background color, text color, or adding padding customization options.
+ -->
+コアブロックを含む多くのブロックは、同種のカスタマイズオプションを提供します。例えば、背景色の変更、テキスト色の変更、パディングのカスタマイズオプションの追加など。
+
+<!-- 
+The [`supports`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#supports) property in `block.json` allows a block to declare support for certain features, enabling users to customize specific settings (like colors or margins) from the Settings Sidebar.
+ -->
+`block.json` の [`supports`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#Supports) プロパティは、ブロックの特定機能のサポートを宣言します。ユーザーは設定サイドバーから特定の設定 (色やマージンなど) をカスタマイズできます。
+
+<!-- 
+Using the available block `supports` allows you to align your block's behavior with core blocks and avoid replicating the same functionality yourself.
+ -->
+利用可能なブロック `supports` を使用することで、ブロックの動作をコアブロックに合わせられ、同じ機能を自分で繰り返さずにすみます。
 
 <!-- 
 _Example: Supports as defined in block.json_
@@ -200,9 +240,14 @@ The use of `supports` generates a set of properties that need to be manually add
 `supports`を使用すると、プロパティのセットが生成されます。このプロパティは手動でブロックのラッピング要素に追加して、ブロックデータの一部として適切に保存されるようにする必要があります。
 
 <!-- 
+The use of `supports` generates a set of properties that need to be manually added to the [wrapping element of the block](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-wrapper/). This ensures they're properly stored as part of the block data and taken into account when generating the markup of the block that will be delivered to the front end.
+ -->
+`supports`を使用するとプロパティのセットが生成されますが、これは手動で[ブロックのラッピング要素](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-wrapper/)に追加する必要があります。これにより、ブロックデータの一部として適切に保存され、フロントエンドに配信されるブロックのマークアップを生成する際に考慮されることが保証されます。
+
+<!-- 
 _Example: Supports custom settings stored in the Markup representation of the block_
  -->
-_例: ブロックのマークアップ表現として保存されるカスタム設定をサポート_
+_例: ブロックのマークアップ表現として保存される supports のカスタム設定_
 
 ```html
 <!-- wp:block-development-examples/block-supports-6aa4dd {"backgroundColor":"contrast","textColor":"accent-4"} -->
@@ -222,4 +267,18 @@ Check the <a href="https://developer.wordpress.org/block-editor/reference-guides
  -->
 > Supports APIに関する詳細な情報については、<a href="https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/">サポート</a>のリファレンスページを参照してください。
 
+<!-- 
+## Additional resources
+ -->
+## その他の情報
+
+<!-- 
+- [block.json diagram](https://excalidraw.com/#json=v1GrIkGsYGKv8P14irBy6,Yy0vl8q7DTTL2VsH5Ww27A)
+- [Attributes diagram](https://excalidraw.com/#json=pSgCZy8q9GbH7r0oz2fL1,MFCLd6ddQHqi_UqNp5ZSgg)
+ -->
+- [block.json の図解](https://excalidraw.com/#json=v1GrIkGsYGKv8P14irBy6,Yy0vl8q7DTTL2VsH5Ww27A)
+- [属性の図解](https://excalidraw.com/#json=pSgCZy8q9GbH7r0oz2fL1,MFCLd6ddQHqi_UqNp5ZSgg)
+
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/fundamentals/block-json.md)
+

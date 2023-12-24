@@ -9,7 +9,7 @@ The Gutenberg Project is not only building a better editor for WordPress, but al
 Gutenberg プロジェクトは、より良い WordPress エディターを作るだけでなく、その上で構築するプラットフォームの作成を目指しています。プラットフォームは JavaScript パッケージとツールから構成され、Web アプリケーションで利用できます。[npm で利用可能なパッケージのリストを参照してください](https://www.npmjs.com/org/wordpress)。
 
 <!--
-## UI Components
+## UI components
  -->
 ## UI コンポーネント
 
@@ -47,7 +47,7 @@ Many components include CSS to add style, you will need to include for the compo
 多くのコンポーネントはスタイルの追加のために CSS を含むため、コンポーネントを正しく表示するには追加が必要です。コンポーネントのスタイルシートは `node_modules/@wordpress/components/build-style/style.css` にあります。直接リンクするか、プロジェクトにコピーして include してください。
 
 <!--
-## Development Scripts
+## Development scripts
  -->
 ## 開発スクリプト
 

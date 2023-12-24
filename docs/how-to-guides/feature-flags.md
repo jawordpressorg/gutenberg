@@ -55,7 +55,7 @@ When the codebase is built for the plugin, this variable will be set to `true`. 
 プラグイン用にコードベースがビルドされると、この変数は `true` に設定されます。WordPress コア用にビルドする場合は、`false` または `undefined` に設定されます。
 
 <!--
-## Basic Use
+## Basic usage
 
 A phase 2 function or constant should be exported using the following ternary syntax:
  -->
@@ -75,6 +75,7 @@ A plugin-only function or constant should be exported using the following ternar
  -->
 プラグイン専用の関数や定数は、次の三項構文を使用してエクスポートしてください。
 
+<!-- 
 ```js
 function myPluginOnlyFeature() {
 	// implementation
@@ -83,6 +84,17 @@ function myPluginOnlyFeature() {
 export const pluginOnlyFeature =
 	process.env.IS_GUTENBERG_PLUGIN ? myPluginOnlyFeature : undefined;
 ```
+ -->
+```js
+function myPluginOnlyFeature() {
+	// ここに実装
+}
+
+export const pluginOnlyFeature =
+	process.env.IS_GUTENBERG_PLUGIN ? myPluginOnlyFeature : undefined;
+```
+
+
 <!--
 In phase 1 environments the `phaseTwoFeature` export will be `undefined`.
 
@@ -151,11 +163,20 @@ When building the codebase for the plugin the variable will be replaced with the
  -->
 – 変数 `process.env.IS_GUTENBERG_PLUGIN` は、プラグインのビルドでのみ、ブール値 `true` で置き換えられます。
 
+<!-- 
 ```js
 if ( true ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with `true`
 	pluginOnlyFeature();
 }
 ```
+ -->
+```js
+if ( true ) { // wepack が process.env.IS_GUTENBERG_PLUGIN を true に置換した
+	pluginOnlyFeature();
+}
+```
+
+
 <!--
 Any code within the body of the if statement will be executed within the gutenberg plugin since `2 === 2` evaluates to `true`.
 
@@ -181,11 +202,19 @@ In WordPress core, the `process.env.IS_GUTENBERG_PLUGIN` variable is replaced wi
 
 WordPress コアでは、`process.env.IS_GUTENBERG_PLUGIN` 変数は `undefined` で置換されるため、ビルドされたコードは以下のようになります。
 
+<!-- 
 ```js
 if ( undefined ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with `undefined`
 	pluginOnlyFeature();
 }
 ```
+ -->
+```js
+if ( undefined ) { // wepack が process.env.IS_GUTENBERG_PLUGIN を undefined に置換した
+	pluginOnlyFeature();
+}
+```
+
 <!--
 `1 === 2` evaluates to false so the phase 2 feature will not be executed within core.
  -->
@@ -198,7 +227,7 @@ if ( undefined ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with
 `undefined` は `false` と評価されるため、プラグインのみの機能は実行されません。
 
 <!--
-### Dead Code Elimination
+### Dead code elimination
 
 For production builds, webpack ['minifies'](https://en.wikipedia.org/wiki/Minification_(programming)) the code, removing as much unnecessary JavaScript as it can. 
 
@@ -220,8 +249,13 @@ The condition will always evaluate to `true`, so webpack removes it, leaving beh
  -->
 条件は常に `true` と評価されるため、webpack は if 文を削除し、次のコードだけが残ります。
 
+<!-- 
 ```js
 pluginOnlyFeature(); // The `if` condition block has been removed. Only the body remains.
+```
+ -->
+```js
+pluginOnlyFeature(); // if 条件ブロックが削除され、本体だけが残った
 ```
 
 <!--
@@ -286,14 +320,23 @@ Here an early return is used to avoid execution of a phase 2 feature, but becaus
 
 <!--
 #### Why shouldn't I assign the result of an expression involving `IS_GUTENBERG_PLUGIN` to a variable, e.g. `const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2`?
+ -->
 
+<!-- 
+## Frequently asked questions
+ -->
+## よくある質問
+
+<!-- 
+### Why shouldn't I assign the result of an expression involving `IS_GUTENBERG_PLUGIN` to a variable, e.g. `const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2`?
+ -->
+#### なぜ IS_GUTENBERG_PLUGIN 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2 ではいけないのですか ?
+
+<!-- 
 The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.
 
 Introducing complexity may prevent webpack's minifier from identifying and therefore eliminating dead code. Therefore it is recommended to use the examples in this document to ensure your feature flag functions as intended. For further details, see the [Dead Code Elimination](#dead-code-elimination) section.
-
  -->
-#### なぜ IS_GUTENBERG_PLUGIN 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === true ではいけないのですか ?
-
 webpack のミニファイが呼ばれないコードを削除できるよう、コードに複雑性を持ち込まないようにするためです。詳細については上の「呼ばれないコードの削除」セクションを参照してください。
 
 複雑にすると、webpack のミニファイアが呼ばれないコードを識別できず、また削除できなくなる可能性があるためです。そのため、このドキュメントにある例を使用して、フィーチャーフラグが意図したとおりに機能することを確認してください。詳細については上の「呼ばれないコードの削除」セクションを参照してください。

@@ -2,6 +2,19 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/12/24
+- [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - Node.js v20 と npm v10 [#56331](https://github.com/WordPress/gutenberg/pull/56331)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - グループ backgroundSize [#57005](https://github.com/WordPress/gutenberg/pull/57005)
+- [The block in the Editor](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-in-the-editor/) - 新規
+- [Markup representation of a block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/markup-representation-block/) - 新規
+- [Tutorial: Build your first block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/) - 新規
+- [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) - ディレクトリ以下削除 [#56931](https://github.com/WordPress/gutenberg/pull/56931)
+- [属性と編集可能フィールド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/) - 削除 [#57120](https://github.com/WordPress/gutenberg/pull/57120)
+- [ブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-static-blocks/) - 削除 [#57120](https://github.com/WordPress/gutenberg/pull/57120)
+- [ダイナミックブロック内のブロックサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-supports-in-dynamic-blocks/) - 削除 [#57120](https://github.com/WordPress/gutenberg/pull/57120)
+- [WP-CLI を使用したブロックの生成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/generate-blocks-with-wp-cli/) - 削除 [#57120](https://github.com/WordPress/gutenberg/pull/57120)
+- [ブロックエディターでの JavaScript の使用方法](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) - ディレクトリ以下削除 [#57166](https://github.com/WordPress/gutenberg/pull/57166)
+
 2023/12/22
 - [ユーザーインターフェースの制限](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) - 翻訳
 - [エディターでのアセットのエンキュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) - 翻訳

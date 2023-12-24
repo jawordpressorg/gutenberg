@@ -9,7 +9,7 @@ The new editor is highly flexible, like most of WordPress. You can build custom 
 新しいエディターは WordPress と同様に、非常にフレキシブルです。カスタムブロックを作成したり、エディターの外観を変更したり、特別なプラグインを追加することができます。
 
 <!--
-## Creating Blocks
+## Creating blocks
 
 The editor is about blocks, and the main extensibility API is the Block API. It allows you to create your own static blocks, [Dynamic Blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) ( rendered on the server ) and also blocks capable of saving data to Post Meta for more structured content.
 
@@ -22,7 +22,7 @@ If you want to learn more about block creation, see the [Create a Block tutorial
 ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) を参照してください。
 
 <!--
-## Extending Blocks
+## Extending blocks
 
 It is also possible to modify the behavior of existing blocks or even remove them completely using filters.
 
@@ -57,7 +57,7 @@ You can also filter certain aspects of the editor; this is documented on the [Ed
 エディターのいくつかの部分はフィルタリングできます。詳細については [Editor Filters](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/editor-filters.md) ページを参照してください。
 
 <!--
-## Meta Boxes
+## Meta boxes
 
 Porting PHP meta boxes to blocks or sidebar plugins is highly encouraged, learn how in the [meta box](/docs/how-to-guides/metabox.md) and [sidebar plugin](/docs/how-to-guides/plugin-sidebar-0.md) guides.
 -->
@@ -66,7 +66,7 @@ Porting PHP meta boxes to blocks or sidebar plugins is highly encouraged, learn 
 PHP メタボックスからブロックやサイドバープラグインへのポーティングは強く奨励されます。詳細については [メタボックス](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/metabox/) および [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) を参照してください。
 
 <!--
-## Theme Support
+## Theme support
 
 By default, blocks provide their styles to enable basic support for blocks in themes without any change. Themes can add/override these styles, or rely on defaults.
 
@@ -88,7 +88,7 @@ Autocompleters within blocks may be extended and overridden. Learn more about th
 ブロック内のオートコンプリートは拡張したり、上書きできます。詳細については [Autocomplete](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/autocomplete-filters.md) フィルターを参照してください。
 
 <!--
-## Block Parsing and Serialization
+## Block parsing and serialization
 
 Posts in the editor move through a couple of different stages between being stored in `post_content` and appearing in the editor. Since the blocks themselves are data structures that live in memory it takes a parsing and serialization step to transform out from and into the stored format in the database.
 

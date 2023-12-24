@@ -103,9 +103,9 @@ The same file is also used when [submitting block to Block Directory](/docs/gett
  -->
 
 <!--
-## Benefits using the metadata file
+## Benefits of using the metadata file
  -->
-## メタデータファイルの利点
+## メタデータファイルを使用する利点
 
 <!--
 The block definition allows code sharing between JavaScript, PHP, and other languages when processing block types stored as JSON, and registering blocks with the `block.json` metadata file provides multiple benefits on top of it.
@@ -152,7 +152,7 @@ This section describes all the properties that can be added to the `block.json` 
  -->
 このセクションでは、`block.json` ファイルに追加可能な、ブロックタイプの振る舞いとメタデータを定義するすべてのプロパティを紹介します。
 
-### API Version
+### API version
 
 <!--
 -   Type: `number`
@@ -342,8 +342,9 @@ The `ancestor` property makes a block available inside the specified block types
 
 <!--
 An icon property should be specified to make it easier to identify a block. These can be any of WordPress' Dashicons (slug serving also as a fallback in non-js contexts).
+An icon property should be specified to make it easier to identify a block. These can be any of [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/) (slug serving also as a fallback in non-js contexts).
  -->
-ブロックを識別しやすくするために icon プロパティを指定してください。任意の WordPress Dashicons を指定できます。またスラッグは 非 js コンテキストでのフォールバックとなります。
+ブロックを識別しやすくするために icon プロパティを指定してください。任意の [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/) を指定できます。またスラッグは 非 js コンテキストでのフォールバックとなります。
 
 <!--
 **Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
@@ -814,7 +815,7 @@ The key is the name of the block (`string`) to hook into, and the value is the p
  -->
 キーはフックするブロックの名前 (`string`)、値はフックする位置 (`string`) です。利用可能な設定については、[ブロックフックのドキュメント](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#block-hooks-optional) を参照してください。
 
-### Editor Script
+### Editor script
 
 <!--
 -   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
@@ -879,7 +880,7 @@ _Note: An option to pass also an array of scripts exists since WordPress `6.1.0`
  -->
 _注意: スクリプトの配列を渡すオプションもあります。 WordPress `6.1.0` 以降。_
 
-### View Script
+### View script
 
 <!-- 
 -   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
@@ -913,7 +914,7 @@ _Note: An option to pass also an array of view scripts exists since WordPress `6
  -->
 _注意: ビュースクリプトの配列を渡すオプションもあります。 WordPress `6.1.0` 以降。_
 
-### Editor Style
+### Editor style
 
 <!--
 -   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
@@ -1146,7 +1147,7 @@ return array(
 );
 ```
 <!-- 
-### Frontend Enqueueing
+### Frontend enqueueing
  -->
 ### フロントエンドでのエンキュー
 
@@ -1240,7 +1241,7 @@ registerBlockType( metadata, {
 ```
 
 <!--
-## Backward Compatibility
+## Backward compatibility
  -->
 ## 後方互換性
 

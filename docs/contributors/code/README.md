@@ -39,7 +39,7 @@ Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find 
 [issue リスト](https://github.com/wordpress/gutenberg/issues)を検索して、取りかかれそうな issue を探してください。[Good first issue](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) ラベルや [Good first review](https://github.com/WordPress/gutenberg/pulls?q=is%3Aopen+is%3Apr+label%3A%22Good+First+Review%22) ラベルが良い出発点になるでしょう。
 
 <!--
-## Contributor Resources
+## Contributor resources
 -->
 ## コントリビューターリソース
 

@@ -108,7 +108,7 @@ If an attributes change over time then a [block deprecation](/docs/reference-gui
 属性が時間の経過とともに変化する場合は、[非推奨プロセス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/)に従って、古い属性から移行するか、完全に削除できます。
 
 <!--
-## Type Validation
+## Type validation
  -->
 ## タイプの検証
 
@@ -175,7 +175,7 @@ Note that the validity of an `object` is determined by your `source`. For an exa
 `object` の検証は、`source` によって決定されることに注意してください。例として、以下の「query」の詳細を参照してください。
 
 <!--
-## Enum Validation
+## Enum validation
  -->
 ## enum の検証
 
@@ -198,7 +198,7 @@ _例_: `enum` の例
 ```
 
 <!--
-## Value Source
+## Value source
  -->
 ## 値のソース
 
@@ -821,7 +821,7 @@ function onChange( event ) {
 ```
 
 <!--
-## Default Value
+## Default value
  -->
 ## デフォルト値
 

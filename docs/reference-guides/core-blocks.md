@@ -389,9 +389,9 @@ Displays the previous comment's page link. ([Source](https://github.com/WordPres
 ## Comments Title / コメントタイトル
 
 <!-- 
-Displays a title with the number of comments ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-title))
+Displays a title with the number of comments. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-title))
  -->
-タイトルをコメント数と一緒に表示します ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-title))
+タイトルをコメント数と一緒に表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/comments-title))
 
 -	**Name:** core/comments-title
 -	**Category:** theme
@@ -1275,9 +1275,9 @@ Displays the next posts page link. ([Source](https://github.com/WordPress/gutenb
 ## Page Numbers / ページ番号
 
 <!--
-Displays a list of page numbers for pagination ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/query-pagination-numbers))
+Displays a list of page numbers for pagination. ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/query-pagination-numbers))
 -->
-ページネーション用のページ番号のリストを表示します ([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/query-pagination-numbers))
+ページネーション用のページ番号のリストを表示します。([Source](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/query-pagination-numbers))
 
 -	**Name:** core/query-pagination-numbers
 -	**Category:** theme

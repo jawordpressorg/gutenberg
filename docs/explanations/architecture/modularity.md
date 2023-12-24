@@ -6,12 +6,12 @@
 <!--
 The WordPress block editor is based around the idea that you can combine independent blocks together to write your post or build your page. Blocks can also use and interact with each other. This makes it very modular and flexible.
  -->
-WordPress ブロックエディターの背景のアイデアは、独立したブロックの組み合わせによる記事の執筆やページの構築です。ブロックは、互いに使用したり交信でき、可搬性や柔軟性に優れます。
+WordPress ブロックエディターの背景にあるアイデアは、独立したブロックの組み合わせによる記事の執筆やページの構築です。ブロックは、互いに使用したり交信でき、可搬性や柔軟性に優れます。
 
 <!--
 But the Block Editor does not embrace modularity for its behavior and output only. The Gutenberg repository is also built from the ground up as several reusable and independent modules or packages, that, combined together, lead to the application and interface we all know. These modules are known as [WordPress packages](https://www.npmjs.com/org/wordpress) and are published and updated regularly on the npm package repository.
  -->
-ただし、ブロックエディターは、動作や出力のみにモジュール性を取り入れるわけではありません。Gutenberg リポジトリもまた、再利用可能で独立したいくつかのモジュールやパッケージとしてゼロから構築されていて、モジュールやパッケージの組み合わせでアプリケーションやインターフェースが作成されています。これらのモジュールは [WordPress パッケージ](https://www.npmjs.com/org/wordpress)と呼ばれ、npm パッケージリポジトリで定期的に公開、更新されています。
+ただし、ブロックエディターは、動作や出力のみにモジュール性を取り入れたわけではありません。Gutenberg リポジトリもまた、再利用可能で独立したいくつかのモジュールやパッケージとしてゼロから構成され、アプリケーションやインターフェースは、モジュールやパッケージの組み合わせで構築されています。これらのモジュールは [WordPress パッケージ](https://www.npmjs.com/org/wordpress)と呼ばれ、npm パッケージリポジトリで定期的に公開、更新されています。
 
 <!--
 These packages are used to power the Block Editor, but they can be used to power any page in the WordPress Admin or outside.
@@ -26,16 +26,16 @@ These packages are used to power the Block Editor, but they can be used to power
 <!--
 Using a modular architecture has several benefits for all the actors involved:
  -->
-モジューラーアーキテクチャは、関与するすべての人に利点があります。
+モジューラーアーキテクチャは、関係するすべての人に利点があります。
 
 <!--
 -   Each package is an independent unit and has a well defined public API that is used to interact with other packages and third-party code. This makes it easier for **Core Contributors** to reason about the codebase. They can focus on a single package at a time, understand it and make updates while knowing exactly how these changes could impact all the other parts relying on the given package.
 -   A module approach is also beneficial to the **end-user**. It allows to selectively load scripts on different WordPress Admin pages while keeping the bundle size contained. For instance, if we use the components package to power our plugin's settings page, there's no need to load the block-editor package on that page.
 -   This architecture also allows **third-party developers** to reuse these packages inside and outside the WordPress context by using these packages as npm or WordPress script dependencies.
  -->
--   各パッケージは独立した単位であり、明確に定義された公開 API を持ちます。API を使用してパッケージは、他のパッケージやサードパーティのコードと交信でき、**コアコントリビューター** もコードベースを推測しやすくなります。コアコントリビューターは一度に1つのパッケージに集中して理解すればよく、その変更がパッケージに依存する他のすべての部分に与える影響を正確に理解しながら、更新できます。
+-   各パッケージは独立した単位であり、明確に定義された公開 API を持ちます。API を使用してパッケージは、他のパッケージやサードパーティのコードと交信でき、**コアコントリビューター** もコードベースを推測しやすくなります。コアコントリビューターは、一度に1つのパッケージに集中して理解すればよく、その変更がパッケージに依存する他のすべての部分に与える影響を正確に理解しながら、更新できます。
 -   またモジュールによるアプローチは、**エンドユーザー** にも利点があります。バンドルするサイズを抑えながら、異なる WordPress 管理画面に選択したスクリプトをロードできます。たとえば、プラグイン設定画面の実装に components パッケージを使用すれば、同じ画面で block-editor パッケージをロードする必要はありません。
--   **サードパーティ開発者** もまたこのアーキテクチャにより、 WordPress コンテキストの内、または外でパッケージを再利用できます。パッケージは npm として、あるいは WordPress スクリプト依存で使用できます。
+-   **サードパーティ開発者** もまたこのアーキテクチャにより、 WordPress コンテキストの中、または外でパッケージを再利用できます。パッケージは npm として、あるいは WordPress スクリプト依存で使用できます。
 
 <!--
 ## Types of packages
@@ -150,12 +150,12 @@ In the context of existing WordPress pages, if you omit to define the scripts or
 <!--
 Some WordPress production packages define data stores to handle their state. These stores can also be used by third-party plugins and themes to retrieve data and to manipulate it. The name of these data stores is also normalized following this format `core/package-name` (E.g. the `@wordpress/block-editor` package defines and uses the `core/block-editor` data store).
  -->
-WordPress 製品パッケージには、ステート管理のためにデータストアを定義するものもあります。このデータストアは、サードパーティのプラグインやテーマもデータの取得や操作に使用できます。このデータストアの名前もまた `core/package-name` の形で正規化されます。例えば `@wordpress/block-editor` パッケージは `core/block-editor` データストアを定義し、使用します。
+WordPress 製品パッケージには、ステート管理のためにデータストアを定義するものもあります。サードパーティのプラグインやテーマも、データの取得や操作にこれを使用できます。このデータストアの名前もまた `core/package-name` の形で正規化されます。例えば `@wordpress/block-editor` パッケージは `core/block-editor` データストアを定義し、使用します。
 
 <!--
 If you're using one of these stores to access and manipulate WordPress data in your plugins, don't forget to add the corresponding WordPress script to your own script dependencies for your plugin to work properly. (For instance, if you're retrieving data from the `core/block-editor` store, you should add the `wp-block-editor` package to your script dependencies like shown above).
  -->
-プラグインからこれらのデータストアを使用して Wordpress データにアクセスし、操作する場合は、正しく動作するために、スクリプトの依存に忘れずに対応する WordPress スクリプトを追加してください。例えば、`core/block-editor` からデータを取得するには、上での説明と同様にスクリプトの依存に `wp-block-editor` パッケージを追加してください。
+プラグインからこれらのデータストアを使用して、Wordpress データにアクセスし操作する場合は、正しい動作のため、スクリプト依存に対応する WordPress スクリプトを追加してください。例えば、`core/block-editor` からデータを取得するには、上の説明と同様にスクリプト依存に `wp-block-editor` パッケージを追加します。
 
 <!--
 ### Development packages
@@ -168,7 +168,7 @@ These are packages used in development mode to help developers with daily tasks 
 「開発パッケージ (Development packages)」は、開発モードで使用され、開発、ビルド、JavaScript アプリケーション、WordPress プラグインやテーマのリリースなど、開発者の日々のタスクを支援するパッケージです。コードベースの lint や、ビルド、テスト等々のツールも含まれます。
 
 <!--
-## Editor Packages
+## Editor packages
  -->
 ## editor パッケージ
 
@@ -190,7 +190,7 @@ It's often surprising to new contributors to discover that the post editor is co
 <!--
 The above [Why?](#why) section should provide some context for how individual packages aim to satisfy specific requirements. That applies to these packages as well:
  -->
-上の「なぜ ?」節でもある程度のコンテキストが示されたように、個々のパッケージは特定の要求を満たすことを目的とします。それはこの3つのパッケージも当てはまります。
+上の「なぜ ?」節でもある程度のコンテキストが示されたように、個々のパッケージは特定の要求を満たすことを目的とします。それはこの3つのパッケージにも当てはまります。
 
 <!--
 -   `@wordpress/block-editor` provides components for implementing a block editor, operating on a primitive value of an array of block objects. It makes no assumptions for how this value is saved, and has no awareness (or requirement) of a WordPress site.
