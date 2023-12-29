@@ -136,7 +136,7 @@ An `editor` file with any of the extensions `.css`, `.scss` or `.sass`, contains
 <!-- 
 The `render.php` file (or any other file defined in the [`render`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#render) property of `block.json`) defines the server side process that returns the markup for the block when there is a request from the frontend. If this file is defined, it will take precedence over any other ways to render the block's markup for the frontend.
  -->
-`render.php` ファイル (または `block.json` の [`render`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#Render) プロパティで定義されたファイル) は、フロントエンドからのリクエストがあったときにブロックのマークアップを返すサーバー側の処理を定義します。このファイルが定義されていると、フロントエンドでブロックのマークアップをレンダーするする他の方法に優先されます。
+`render.php` ファイル (または `block.json` の [`render`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#Render) プロパティで定義されたファイル) には、フロントエンドからのリクエストに対してブロックのマークアップを返す、サーバー側の処理を定義します。このファイルを定義すると、フロントエンドでブロックのマークアップをレンダーするする他の方法に優先されます。
 
 ### `view.js`
 
