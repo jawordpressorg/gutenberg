@@ -2,6 +2,15 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2023/12/29
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - グループ backgroundSize [#57005](https://github.com/WordPress/gutenberg/pull/57005)
+- [ユーザーインターフェースのカスタマイズ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) - 以下のファイルに分割 [#57289](https://github.com/WordPress/gutenberg/pull/57289)
+- [Block Locking API](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/block-locking) - 新規
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/patterns) - 新規
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/theme-json) - 新規
+- [フィルターとフック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/filters-and-hooks) - 新規
+- [エディター機能の無効化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/disable-editor-functionality) - 新規
+
 2023/12/24
 - [コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) - Node.js v20 と npm v10 [#56331](https://github.com/WordPress/gutenberg/pull/56331)
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - グループ backgroundSize [#57005](https://github.com/WordPress/gutenberg/pull/57005)

@@ -1008,9 +1008,9 @@ _**注意:** WordPress 6.2以降_
     -   `minHeight`: タイプ `boolean`, デフォルト値 `false`
 
 <!-- 
-This value signals that a block supports some of the CSS style properties related to dimensions. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/theme-json/#opt-in-into-ui-controls).
+This value signals that a block supports some of the CSS style properties related to dimensions. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/global-settings-and-styles.md#opt-in-into-ui-controls).
  -->
-この値は、ブロックが寸法に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
+この値は、ブロックが寸法に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
 
 <!-- 
 ```js
@@ -1107,11 +1107,11 @@ selectors: {
 <!-- 
 The filter can be applied to an element inside the block by setting the `selectors.filter.duotone` selector.
 
-Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/theme-json.md).
+Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/global-settings-and-styles.md).
  -->
 セレクタ `selectors.filter.duotone` を設定することで、ブロック内の要素にフィルタを適用できます。
 
-デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
+デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/) の `color.duotone` がソースです。
 <!-- 
 When the block declares support for `filter.duotone`, the attributes definition is extended to include the attribute `style`:
  -->
@@ -1433,9 +1433,9 @@ _**注意:** WordPress 6.2以降_
     -   `sticky`: タイプ `boolean`, デフォルト値 `false`
 
 <!-- 
-This value signals that a block supports some of the CSS style properties related to position. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/theme-json/#opt-in-into-ui-controls).
+This value signals that a block supports some of the CSS style properties related to position. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/global-settings-and-styles.md#opt-in-into-ui-controls).
  -->
-この値は、ブロックが位置に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
+この値は、ブロックが位置に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
 
 <!-- 
 Note that sticky position controls are currently only available for blocks set at the root level of the document. Setting a block to the `sticky` position will stick the block to its most immediate parent when the user scrolls the page.

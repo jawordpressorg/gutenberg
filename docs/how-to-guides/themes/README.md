@@ -37,9 +37,9 @@ The block editor provides a number of options for theme designers and developers
 ### クラシックテーマ
 
 <!-- 
-In terms of block editor terminology this is any theme that defines its templates in the traditional `.php` file format, and that doesn't have an `index.html` format template in the `/block-templates` or `/templates` folders. A `Classic` theme has the ability to provide configuration and styling options to the block editor, and block content, via [Theme Supports](/docs/how-to-guides/themes/theme-support.md), or by including a [theme.json](/docs/how-to-guides/themes/theme-json.md) file. A theme does not have to be a `Block` theme in order to take advantage of some of the flexibility provided by the use of a `theme.json` file.
+In terms of block editor terminology this is any theme that defines its templates in the traditional `.php` file format, and that doesn't have an `index.html` format template in the `/block-templates` or `/templates` folders. A `Classic` theme has the ability to provide configuration and styling options to the block editor, and block content, via [Theme Supports](/docs/how-to-guides/themes/theme-support.md), or by including a [theme.json](/docs/how-to-guides/themes/global-settings-and-styles.md) file. A theme does not have to be a `Block` theme in order to take advantage of some of the flexibility provided by the use of a `theme.json` file.
  -->
-ブロックエディターの用語として「クラシックテーマ」は、伝統的な `.php` ファイル形式でテンプレートを定義し、`/block-templates` または `/templates` フォルダ内に `index.html` 形式のテンプレートを持たないテーマを指します。クラシックテーマは、[テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) や [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) ファイルを介して、ブロックエディタやブロックコンテンツに構成やスタイルオプションを提供する機能があります。ブロックテーマでないテーマでも `theme.json` ファイルの使用により得られる柔軟性の一部を利用できます。
+ブロックエディターの用語として「クラシックテーマ」は、伝統的な `.php` ファイル形式でテンプレートを定義し、`/block-templates` または `/templates` フォルダ内に `index.html` 形式のテンプレートを持たないテーマを指します。クラシックテーマは、[テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) や [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/) ファイルを介して、ブロックエディタやブロックコンテンツに構成やスタイルオプションを提供する機能があります。ブロックテーマでないテーマでも `theme.json` ファイルの使用により得られる柔軟性の一部を利用できます。
 
 <!-- 
 ### Block theme
@@ -67,10 +67,10 @@ There isn't an FSE specific theme type. In WordPress > 5.9 FSE is enabled for an
 **コンテンツ**
 
 <!--
-- [Global Settings (theme.json)](/docs/how-to-guides/themes/theme-json.md)
+- [Global Settings (theme.json)](/docs/how-to-guides/themes/global-settings-and-styles.md)
 - [Theme Support](/docs/how-to-guides/themes/theme-support.md)
  -->
-- [グローバル設定 (theme.json)](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json)
+- [グローバル設定 (theme.json)](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles)
 - [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/README.md)

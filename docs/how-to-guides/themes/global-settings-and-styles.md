@@ -61,6 +61,7 @@ WordPress 5.8ではエディターを構成する[新しいメカニズム](http
     - Why does it take so long to update the styles in the browser?
 
  -->
+<!-- 
 - 論拠
     - ブロックエディターのための設定
     - 設定をブロックごとに制御できる
@@ -83,7 +84,7 @@ WordPress 5.8ではエディターを構成する[新しいメカニズム](http
   - CSS カスタムプロパティの命名体系
   - なぜ、セパレータとして、「--」を使用するのか ?
   - 「custom」下の設定は、どのように新しい CSS カスタムプロパティとなるのか ?
-
+ -->
 <!--
 ## Rationale
  -->

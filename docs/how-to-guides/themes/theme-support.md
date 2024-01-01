@@ -459,8 +459,9 @@ add_theme_support( 'disable-layout-styles' );
 
 <!-- 
 For themes looking to customize `blockGap` styles or block spacing, see [the developer docs on Global Settings & Styles](/docs/how-to-guides/themes/theme-json/#what-is-blockgap-and-how-can-i-use-it).
+For themes looking to customize `blockGap` styles or block spacing, see [the developer docs on Global Settings & Styles](/docs/how-to-guides/themes/global-settings-and-styles.md#what-is-blockgap-and-how-can-i-use-it).
  -->
-`blockGap` スタイルやブロック間隔をカスタマイズしたいテーマは、[グローバル設定とスタイルに関する開発者向けドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/)を参照してください。
+`blockGap` スタイルやブロック間隔をカスタマイズしたいテーマは、[グローバル設定とスタイルに関する開発者向けドキュメント](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#blockGap-%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B%E3%80%81%E3%81%A9%E3%81%86%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%8B-)を参照してください。
 
 
 <!--
@@ -682,9 +683,9 @@ add_theme_support('experimental-link-color');
  -->
 
 <!--
-Link support has been made stable as part of WordPress 5.8. It's `false` by default and themes can enable it via the [theme.json file](./theme-json.md):
+Link support has been made stable as part of WordPress 5.8. It's `false` by default and themes can enable it via the [theme.json file](/docs/how-to-guides/curating-the-editor-experience/theme-json.md):
  -->
-link サポートは WordPress 5.8の一部として安定動作します。デフォルトは `false` ですが、テーマは [theme.json ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) を通して有効化できます。
+link サポートは WordPress 5.8の一部として安定動作します。デフォルトは `false` ですが、テーマは [theme.json ファイル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/theme-json) を通して有効化できます。
 
 ```json
 {

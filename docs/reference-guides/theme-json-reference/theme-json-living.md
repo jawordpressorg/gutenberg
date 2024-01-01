@@ -18,8 +18,9 @@
 
 <!-- 
 This reference guide lists the settings and style properties defined in the `theme.json` schema. See the [theme.json how to guide](/docs/how-to-guides/themes/theme-json.md) for examples and guidance on how to use the `theme.json` file in your theme.
+This reference guide lists the settings and style properties defined in the `theme.json` schema. See the [theme.json how to guide](/docs/how-to-guides/themes/global-settings-and-styles.md) for examples and guidance on how to use the `theme.json` file in your theme.
  -->
-このリファレンスガイドは、`theme.json` スキーマで定義された設定 (settings) とスタイル (styles) プロパティの一覧です。テーマ内での `theme.json` で使用する例や指針については、[theme.json ガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json) を参照してください。
+このリファレンスガイドは、`theme.json` スキーマで定義された設定 (settings) とスタイル (styles) プロパティの一覧です。テーマ内での `theme.json` で使用する例や指針については、[theme.json ガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles) を参照してください。
 
 <!-- 
 ## Schema
