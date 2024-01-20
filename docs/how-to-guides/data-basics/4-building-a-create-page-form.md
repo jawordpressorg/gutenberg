@@ -346,12 +346,12 @@ And that’s it! Here's what our new form looks like in action:
 <!-- 
 ### Wiring it all together
  -->
-### すべてを一つに
+### すべてをひとつに
 
 <!-- 
 Here’s everything we built in this chapter in one place:
  -->
-この章で構築したすべてを一つにまとめます。
+この章で構築したすべてをひとつにまとめます。
 
 ```js
 function CreatePageForm( { onCancel, onSaveFinished } ) {
