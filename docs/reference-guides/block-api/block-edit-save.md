@@ -5,7 +5,7 @@
 <!--
 When registering a block with JavaScript on the client, the `edit` and `save` functions provide the interface for how a block is going to be rendered within the editor, how it will operate and be manipulated, and how it will be saved.
  -->
-クライアント上で JavaScript を使用してブロックを登録する際、`edit` 関数と `save` 関数を使用して、ブロックがどのようにレンダー、操作、保存されるかのインターフェイスを提供します。
+クライアント上で JavaScript を使用してブロックを登録する際、`edit` 関数と `save` 関数は、ブロックがどのようにレンダー、操作、保存されるかのインターフェースを提供します。
 
 ## edit
 <!--
@@ -38,12 +38,12 @@ const blockSettings = {
 <!--
 The first thing to notice here is the use of the `useBlockProps` React hook on the block wrapper element. In the example above, the block wrapper renders a "div" in the editor, but in order for the Gutenberg editor to know how to manipulate the block, add any extra classNames that are needed for the block... the block wrapper element should apply props retrieved from the `useBlockProps` react hook call. The block wrapper element should be a native DOM element, like `<div>` and `<table>`, or a React component that forwards any additional props to native DOM elements. Using a `<Fragment>` or `<ServerSideRender>` component, for instance, would be invalid.
  -->
-ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に "div" をレンダーしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。ブロックラッパー要素はネイティブの DOM 要素、例えば `<div>` や `<table>` か、または、任意の追加 props をネイティブの DOM 要素にフォワードする React コンポーネントでなければなりません。たとえば、`<Fragment>` や `<ServerSideRender>` コンポーネントは使用できません。
+ここで最初に注意するのが、ブロックラッパー要素での `useBlockProps` React フックの使用です。上の例でブロックラッパーはエディター内に `div` をレンダーしますが、Gutenberg エディターがどのようにブロックを操作すべきか知らせるために、ブロックに必要な追加の className を加えます。すなわち、ブロックラッパー要素は `useBlockProps` React フックコールから取得した props を適用する必要があります。ブロックラッパー要素はネイティブの DOM 要素、例えば `<div>` や `<table>` か、または、任意の追加 props をネイティブの DOM 要素にフォワードする React コンポーネントでなければなりません。たとえば、`<Fragment>` や `<ServerSideRender>` コンポーネントは使用できません。
 
 <!--
 If the element wrapper needs any extra custom HTML attributes, these need to be passed as an argument to the `useBlockProps` hook. For example to add a `my-random-classname` className to the wrapper, you can use the following code:
  -->
-要素ラッパーで追加のカスタム HTML 属性が必要であれば、`useBlockProps` フックに引数として追加する必要があります。たとえば次のコードではラッパーに  `my-random-classname` className を追加します。
+要素ラッパーで追加のカスタム HTML 属性が必要であれば、`useBlockProps` フックに引数として追加します。たとえば次のコードはラッパーに  `my-random-classname` className を追加します。
 
 ```jsx
 import { useBlockProps } from '@wordpress/block-editor';
@@ -122,7 +122,7 @@ edit: ( { attributes, isSelected } ) => {
 <!--
 This function allows the block to update individual attributes based on user interactions.
  -->
-ブロックは `setAttributes` 関数を使用して、ユーザーの操作に基づき個々の属性を更新できます。
+ブロックは `setAttributes` 関数を使用して、ユーザーの操作に基づいて、個々の属性を更新できます。
 
 ```jsx
 edit: ( { attributes, setAttributes, isSelected } ) => {
@@ -190,7 +190,7 @@ For most blocks, the return value of `save` should be an [instance of WordPress 
 <!--
 _Note:_ While it is possible to return a string value from `save`, it _will be escaped_. If the string includes HTML markup, the markup will be shown on the front of the site verbatim, not as the equivalent HTML node content. If you must return raw HTML from `save`, use `wp.element.RawHTML`. As the name implies, this is prone to [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting) and therefore is discouraged in favor of a WordPress Element hierarchy whenever possible.
  -->
-_注意:_ `save` から文字列値を返すことができますが、この値は_エスケープされます_。文字列が HTML マークアップを含む場合、サイトのフロントエンドには、同等の HTML ノードコンテンツではなくマークアップがそのまま表示されます。`save` から生の HTML を返す必要がある場合は `wp.element.RawHTML` を使用してください。名前が示すとおり、これは [クロスサイトスクリプティング](https://en.wikipedia.org/wiki/Cross-site_scripting) が発生しやすいため、可能な場合は WordPress Element 階層の使用を推奨します。
+_注意:_ `save` から文字列値を返すことができますが、この値は _エスケープされます_。文字列が HTML マークアップを含む場合、サイトのフロントエンドには、同等の HTML ノードコンテンツではなくマークアップがそのまま表示されます。`save` から生の HTML を返す必要がある場合は `wp.element.RawHTML` を使用してください。名前が示すとおり、これは [クロスサイトスクリプティング](https://en.wikipedia.org/wiki/Cross-site_scripting) が発生しやすいため、可能な場合は WordPress Element 階層の使用を推奨します。
 
 <!--
 _Note:_ The save function should be a pure function that depends only on the attributes used to invoke it.
@@ -201,7 +201,7 @@ If there is a need to have other information as part of the save, developers can
 -   Store the external value as an attribute which is dynamically updated in the block's `edit` function as changes occur.
  -->
 _注意:_ `save` 関数は、呼び出し時に使用された属性にのみ依存する純粋関数でなければなりません。どのようなサイドイフェクトも与えられず、別のソースからの情報も取得できません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することはできません。
-これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「妥当性検証 (Validation)」を参照してください。
+これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「バリデーション」を参照してください。
 保存の流れで他の情報が必要になった場合、開発者には2つの選択肢があります。
  - [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) を使用してサーバー上で動的に必要な情報を取得する。
  - 外部の値を属性として保存し、変更があった場合にはブロックの `edit` 関数内で動的に更新する。
@@ -337,12 +337,12 @@ save: () => {
 <!--
 ## Validation
  -->
-## 妥当性検証 (Validation)
+## バリデーション
 
 <!--
 When the editor loads, all blocks within post content are validated to determine their accuracy in order to protect against content loss. This is closely related to the saving implementation of a block, as a user may unintentionally remove or modify their co ntent if the editor is unable to restore a block correctly. During editor initialization, the saved markup for each block is regenerated using the attributes that were parsed from the post's content. If the newly-generated markup does not match what was already stored in post content, the block is marked as invalid. This is because we assume that unless the user makes edits, the markup should remain identical to the saved content.
  -->
-エディターがブロックをロードする際、コンテンツの消失を防止するため投稿コンテンツ内のすべてのブロックは妥当性検証 (validatite) され、その正しさが確かめられます。これはブロックを保存する実装と密接な関係があります。なぜならエディターが正しくブロックをリストアしなければユーザーは意図せずにコンテンツを削除したり、変更するためです。エディターの初期化中、各ブロックのマークアップは、投稿コンテンツからパースされた属性を使用して再生成されます。新しく生成されたマークアップが投稿コンテンツ内の保存済みマークアップと異なる場合、ブロックは不正 (invalid) とマークされます。これはユーザーが編集していない限り、マークアップは保存されたコンテンツと同じはずだと仮定しているためです。
+エディターがブロックをロードする際、コンテンツの消失を防止するため投稿コンテンツ内のすべてのブロックは検証 (validate) され、その正しさが確かめられます。これはブロックを保存する実装と密接な関係があります。なぜならエディターが正しくブロックをリストアしなければ、ユーザーは意図せずにコンテンツを削除したり、変更するためです。エディターの初期化中、各ブロックのマークアップは、投稿コンテンツからパースされた属性を使用して再生成されます。新しく生成されたマークアップが投稿コンテンツ内の保存済みマークアップと異なる場合、ブロックは不正 (invalid) とマークされます。これはユーザーが編集していない限り、マークアップは保存されたコンテンツと同じはずだと仮定しているためです。
 
 <!--
 If a block is detected to be invalid, the user will be prompted to choose how to handle the invalidation:
@@ -351,7 +351,7 @@ If a block is detected to be invalid, the user will be prompted to choose how to
 
 Clicking **Attempt Block Recovery** button will attempt recovery action as much as possible.
  -->
-ブロックが不正とマークされると、ユーザーには妥当性検証の失敗をどのように処理するか求められます。
+ブロックが不正とマークされると、ユーザーにはバリデーションの失敗をどのように処理するか求められます。
 
 ![不正なブロックのプロンプト](https://user-images.githubusercontent.com/7753001/88754471-4cf7e900-d191-11ea-9123-3cee20719d10.png)
 
@@ -377,7 +377,7 @@ Clicking the "3-dot" menu on the side of the block displays three options:
 <!--
 ### Validation FAQ
  -->
-### 妥当性検証 FAQ
+### バリデーション FAQ
 <!--
 **How do blocks become invalid?**
  -->
@@ -406,7 +406,7 @@ If you're using [attribute sources](/docs/reference-guides/block-api/block-attri
 
 When a block is detected as invalid, a warning will be logged into your browser's developer tools console. The warning will include specific details about the exact point at which a difference in markup occurred. Be sure to look closely at any differences in the expected and actual markups to see where problems are occurring.
  -->
-デバッグを始める前に、上に記述された妥当性検証のステップと、ブロックが不正と検知されるプロセスについて理解してください。ブロックが不正となるのは再生成されたマークアップが投稿コンテンツ内の保存済みマークアップと合致しない場合です。したがって保存されたコンテンツからブロックの属性が正しくパースされなかった場合にしばしば発生します。
+デバッグを始める前に、上に記述されたバリデーションのステップと、ブロックが不正と検知されるプロセスについて理解してください。ブロックが不正となるのは再生成されたマークアップが投稿コンテンツ内の保存済みマークアップと合致しない場合です。したがって保存されたコンテンツからブロックの属性が正しくパースされなかった場合にしばしば発生します。
 
 [属性ソース](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)を使用している場合には、マークアップのソースの属性が期待したとおりに正しいタイプ (通常は `'string'` か `'number'`) で保存されていることを確認してください。
 

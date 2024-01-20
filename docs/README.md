@@ -182,6 +182,9 @@ This handbook should be considered the canonical resource for all things related
 
 ### 主な変更
 
+2024/1/20
+- [チュートリアル: はじめてのブロック作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/) - 翻訳
+
 2023/12/29
 - [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - グループ backgroundSize [#57005](https://github.com/WordPress/gutenberg/pull/57005)
 - [ユーザーインターフェースのカスタマイズ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) - 以下のファイルに分割 [#57289](https://github.com/WordPress/gutenberg/pull/57289)
