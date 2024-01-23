@@ -6,7 +6,7 @@
 <!-- 
 In this tutorial, you will build a "Copyright Date Block"—a basic yet practical block that displays the copyright symbol (©), the current year, and an optional starting year. This type of content is commonly used in website footers.
  -->
-このチュートリアルでは「Copyright Date ブロック」(著作権と年表示ブロック) を作成します。著作権シンボル (©)、現在の年、開始の年 (オプション) を表示する、基本的ながら実用的なブロックです。この種のコンテンツはサイトのフッターでよく使用されます。
+このチュートリアルでは「Copyright Date ブロック」(著作権と年表示ブロック) を作成します。著作権シンボル (©)、現在の年、開始の年 (オプション) を表示する、基本的ながら実用的な、しばしばサイトのフッターでよく見かけるタイプのブロックです。
 
 <!-- 
 The tutorial will guide you through the complete process, from scaffolding the block plugin using the [`create-block`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/) package to modifying each file. While previous WordPress development experience is beneficial, it's not a prerequisite for this tutorial.
