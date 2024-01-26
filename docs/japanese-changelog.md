@@ -2,6 +2,9 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2024/1/26
+- [用語集](https://ja.wordpress.org/team/handbook/block-editor/getting-started/glossary/) - 翻訳
+
 2024/1/24
 - [チュートリアル: はじめてのブロック作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/) - 翻訳
 - [エディター内のブロック](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-in-the-editor/) - 翻訳
