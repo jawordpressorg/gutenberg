@@ -9,7 +9,7 @@ Each block's markup is wrapped by a container HTML tag that needs to have the pr
 それぞれのブロックのマークアップは、コンテナ HTML タグによってラップされます。コンテナ HTML タグは適切な属性を持つ必要があり、ブロックエディターで完全に動作し、ブロックエディターとフロントエンドの両方でレンダーされたときに適切なブロックスタイル設定を反映しなければなりません。開発者はブロックのマークアップを完全にコントロールできますし、WordPress にはブロックのマークアップのラッパーに必要な属性を追加するツールがあります。
 
 <!-- 
-Ensuring proper attributes to the block wrapper is especially important when using custom styling or features like `supports`. 
+Ensuring proper attributes to the block wrapper is especially important when using custom styling or features like `supports`.
  -->
 ブロックラッパーに適切な属性を付けることは、カスタムスタイルや `supports` のような機能を使用する場合に、特に重要です。
 
@@ -26,8 +26,8 @@ A block can have three sets of markup defined, each one of them with a specific 
 ブロックには3つのマークアップセットを定義できます。それぞれに特定のターゲットと目的があります。
 
 <!-- 
-- The one for the **Block Editor**, defined through a `edit` React component passed to [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#registerblocktype) when registering the block in the client. 
-- The one used to **save the block in the DB**, defined through a `save` function passed to `registerBlockType` when registering the block in the client. 
+- The one for the **Block Editor**, defined through a `edit` React component passed to [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#registerblocktype) when registering the block in the client.
+- The one used to **save the block in the DB**, defined through a `save` function passed to `registerBlockType` when registering the block in the client.
     - This markup will be returned to the front end on request if no dynamic render has been defined for the block.
 - The one used to **dynamically render the markup of the block** returned to the front end on request, defined through the `render_callback` on [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) or the [`render`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#render) PHP file in `block.json`
     - If defined, this server-side generated markup will be returned to the front end, ignoring the markup stored in DB.
@@ -49,16 +49,17 @@ For the [`edit` React component and the `save` function](https://developer.wordp
 ## Edit コンポーネントのマークアップ
 
 <!-- 
-The [`useBlockProps()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops) hook available on the [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor) allows passing the required attributes for the Block Editor to the `edit` block's outer wrapper. 
+The [`useBlockProps()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops) hook available on the [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor) allows passing the required attributes for the Block Editor to the `edit` block's outer wrapper.
  -->
 [`useBlockProps()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops) フックは [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor) で利用可能で、ブロックエディタに必要な属性を `edit` ブロックの外側のラッパーに渡せます。
 
 <!-- 
 Among other things, the `useBlockProps()` hook takes care of including in this wrapper:
-- An `id` for the block's markup 
-- Some accesibility and `data-` attributes
+
+- An `id` for the block's markup
+- Some accessibility and `data-` attributes
 - Classes and inline styles reflecting custom settings, which include by default:
-    - The `wp-block` class 
+    - The `wp-block` class
     - A class that contains the name of the block with its namespace
  -->
 特に、`useBlockProps()`フックは、このラッパーに以下が含まれるようにします。
@@ -92,18 +93,18 @@ _([例](https://github.com/WordPress/block-development-examples/tree/trunk/plugi
 ... ブロックエディター内のブロックのマークアップは以下のようになります。
 
 ```html
-<p 
-    tabindex="0" 
-    id="block-4462939a-b918-44bb-9b7c-35a0db5ab8fe" 
-    role="document" 
-    aria-label="Block: Minimal Gutenberg Block ca6eda" 
-    data-block="4462939a-b918-44bb-9b7c-35a0db5ab8fe" 
-    data-type="block-development-examples/minimal-block-ca6eda" 
-    data-title="Minimal Gutenberg Block ca6eda" 
+<p
+    tabindex="0"
+    id="block-4462939a-b918-44bb-9b7c-35a0db5ab8fe"
+    role="document"
+    aria-label="Block: Minimal Gutenberg Block ca6eda"
+    data-block="4462939a-b918-44bb-9b7c-35a0db5ab8fe"
+    data-type="block-development-examples/minimal-block-ca6eda"
+    data-title="Minimal Gutenberg Block ca6eda"
     class="
-        block-editor-block-list__block 
-        wp-block 
-        is-selected 
+        block-editor-block-list__block
+        wp-block
+        is-selected
         wp-block-block-development-examples-minimal-block-ca6eda
     "
 >Hello World - Block Editor</p>
@@ -153,7 +154,7 @@ _([例](https://github.com/WordPress/block-development-examples/tree/trunk/plugi
 ```
 
 <!-- 
-Any additional classes and attributes for the `save` function of the block should be passed as an argument of `useBlockProps.save()` (see [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js)). 
+Any additional classes and attributes for the `save` function of the block should be passed as an argument of `useBlockProps.save()` (see [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js)).
  -->
 ブロックの `save` 関数に追加するクラスと属性は、`useBlockProps.save()` の引数として渡す必要があります ([例](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js)を参照)。
 
@@ -164,10 +165,10 @@ When you add `supports` for any feature, the proper classes get added to the obj
 
 ```html
 <p class="
-    wp-block-block-development-examples-block-supports-6aa4dd 
-    has-accent-4-color 
-    has-contrast-background-color 
-    has-text-color 
+    wp-block-block-development-examples-block-supports-6aa4dd
+    has-accent-4-color
+    has-contrast-background-color
+    has-text-color
     has-background
 ">Hello World</p>
 ```
@@ -182,7 +183,7 @@ _フロントエンドで上の HTML を生成する[例](https://github.com/Wor
 ## サーバー側でのマークアップのレンダー
 
 <!-- 
-Any markup in the server-side render definition for the block can use the [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) function to generate the string of attributes required to reflect the block settings (see [example](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)). 
+Any markup in the server-side render definition for the block can use the [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) function to generate the string of attributes required to reflect the block settings (see [example](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)).
  -->
 ブロックのサーバー側レンダー定義にあるマークアップは [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) 関数を使用して、ブロックの設定を反映するために必要な属性の文字列を生成できます。[例](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)を参照してください。
 

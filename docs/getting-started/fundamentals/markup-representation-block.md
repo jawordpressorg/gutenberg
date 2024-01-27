@@ -4,12 +4,13 @@
 # ブロックのマークアップ表現
 
 <!-- 
-When stored, in the database (DB) or in templates as HTML files, blocks are represented using a [specific HTML grammar](https://developer.wordpress.org/block-editor/explanations/architecture/key-concepts/#data-and-attributes), which is technically valid HTML based on HTML comments that act as explicit block delimiters 
+When stored in the database or in templates as HTML files, blocks are represented using a [specific HTML grammar](https://developer.wordpress.org/block-editor/explanations/architecture/key-concepts/#data-and-attributes), which is technically valid HTML based on HTML comments that act as explicit block delimiters 
  -->
 データベースやテンプレート内に HTML ファイルとして保存されるとき、ブロックは[特別な HTML 文法](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E5%B1%9E%E6%80%A7)を使用して表現されます。これは技術的に正しい (valid) な HTML で、明示的なブロック区切りとして機能する HTML コメントをベースとします。
 
 <!-- 
 These are some of the rules for the markup used to represent a block:
+
 - All core block comments start with a prefix and the block name: `wp:blockname`
 - For custom blocks, `blockname` is `namespace/blockname`
 - The comment can be a single line, self-closing, or wrapper for HTML content.
@@ -34,6 +35,7 @@ _例: `image` コアブロックのマークアップ表現_
 
 <!-- 
 The [markup representation of a block is parsed for the Block Editor](https://developer.wordpress.org/block-editor/explanations/architecture/data-flow/) and the block's output for the front end:
+
 - In the editor, WordPress parses this block markup, captures its data and loads its `edit` version
 - In the front end, WordPress parses this block markup, captures its data and generates its final HTML markup
  -->
@@ -48,17 +50,20 @@ Whenever a block is saved, the `save` function, defined when the [block is regis
 
 <!-- 
 The Post Editor checks that the markup created by the `save` function is identical to the block's markup saved to the database:
-- If there are any differences, the Post Editor trigger a **block validation error**.
+ -->
+投稿エディターは `save` 関数によって作成されたマークアップが、データベースに保存されたブロックのマークアップと同一かどうかをチェックします。
+
+<!-- 
+- If there are any differences, the Post Editor triggers a [block validation error](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#validation).
 - Block validation errors usually happen when a block’s `save` function is updated to change the markup produced by the block.
 - A block developer can mitigate these issues by adding a [**block deprecation**](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-deprecation/) to register the change in the block.
  -->
-投稿エディターは `save` 関数によって作成されたマークアップが、データベースに保存されたブロックのマークアップと同一かどうかをチェックします。
-- もし違いがあれば、投稿エディターは**ブロック検証 (validation) エラー**を起こします。
+- もし違いがあれば、投稿エディターは[ブロック検証 (validation) エラー](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/#%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)を起こします。
 - ブロック検証エラーは通常、ブロックの `save` 関数が更新され、ブロックが生成したマークアップが変更された際に発生します。
 - ブロック開発者は[**ブロックの非推奨プロセス**](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/)を追加してブロックに変更を登録することで、これらの問題を軽減できます。
 
 <!-- 
-The markup of a **block with dynamic rendering** is expected to change so the markup of these blocks is not saved to the database. What is saved in the DB as representation of the block, for blocks with dynamic rendering, is a single line of HTML consisting on just the block delimiter's comment (including block attributes values). That HTML is not subject to the Post Editor’s validation.
+The markup of a **block with dynamic rendering** is expected to change so the markup of these blocks is not saved to the database. What is saved in the database as representation of the block, for blocks with dynamic rendering, is a single line of HTML consisting on just the block delimiter's comment (including block attributes values). That HTML is not subject to the Post Editor’s validation.
  -->
 **動的レンダリングのブロック**のマークアップは変更が予想されるため、これらのブロックのマークアップはデータベースに保存されません。ブロックの表現としてデータベースに保存されるのは、ブロック区切り文字のコメント (ブロック属性値を含む)だけで構成される1行の HTML です。この HTML は投稿エディターの検証の対象になりません。
 

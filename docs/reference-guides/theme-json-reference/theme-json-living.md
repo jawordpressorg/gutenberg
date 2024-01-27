@@ -62,7 +62,7 @@ Setting that enables the following UI tools:
 - background: backgroundImage
 - border: color, radius, style, width
 - color: link
-- dimensions: minHeight
+- dimensions: aspectRatio, minHeight
 - position: sticky
 - spacing: blockGap, margin, padding
 - typography: lineHeight
@@ -163,6 +163,7 @@ Settings related to dimensions.
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
+| aspectRatio | boolean | false |  |
 | minHeight | boolean | false |  |
 
 ---
@@ -238,6 +239,7 @@ Settings related to typography.
 
 | Property  | Type   | Default | Props  |
 | ---       | ---    | ---    |---   |
+| defaultFontSizes | boolean | true |  |
 | customFontSize | boolean | true |  |
 | fontStyle | boolean | true |  |
 | fontWeight | boolean | true |  |
@@ -325,6 +327,7 @@ Color styles.
 
 | Property  | Type   |  Props  |
 | ---       | ---    |---   |
+| aspectRatio | string, object |  |
 | minHeight | string, object |  |
 
 ---

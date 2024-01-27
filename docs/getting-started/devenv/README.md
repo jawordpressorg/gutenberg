@@ -76,9 +76,9 @@ The list goes on. While modern JavaScript development can be challenging, WordPr
 まだまだ続きます。最新の JavaScript 開発は難しいかもしれませんが、WordPress では [`wp-scripts`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) や [`create-block`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)のような、プロセスを効率化するツールを提供しています。そしてこれらも Node.js 開発ツールで作成されています。
 
 <!-- 
-**The recommended Node.js version for block development is [Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)**. However, there are times when you need to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to easily change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
+**The recommended Node.js version for block development is [Active LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support)**. However, there are times when you need to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to easily change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
  -->
-**ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.dev/en/about/releases/) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも自動的に Node.js と一緒にインストールされます。
+**ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも自動的に Node.js と一緒にインストールされます。
 
 <!-- 
 To be able to use the Node.js tools and [packages provided by WordPress](https://github.com/WordPress/gutenberg/tree/trunk/packages) for block development, you'll need to set a proper Node.js runtime environment on your machine. To learn more about how to do this, refer to the links below.
@@ -119,5 +119,15 @@ Refer to the [Get started with `wp-env`](/docs/getting-started/devenv/get-starte
  -->
 
 > またハンドブック全体を通して、<code><a href="https://github.com/WordPress/playground-tools/tree/trunk/packages/wp-now">wp-now</a></code> への言及を目にすることがあるかもしれません。これは <a hre="https://developer.wordpress.org/playground/">WordPress Playground</a> を利用した軽量なツールで、シンプルなローカル WordPress 環境のセットアップを効率化します。まだ実験段階ですが、WordPress のリリース、プラグイン、テーマを素早くテストするのに適しています。
+
+<!-- 
+This list is not exhaustive, but here are several additional options to choose from if you prefer not to use `wp-env`:
+ -->
+完全なリストではありませんが、`wp-env` を使いたくない場合の選択肢をいくつか紹介します。
+
+- [Local](https://localwp.com/)
+- [XAMPP](https://www.apachefriends.org/)
+- [MAMP](https://www.mamp.info/en/mamp/mac/)
+- [Varying Vagrant Vagrants](https://varyingvagrantvagrants.org/) (VVV)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/devenv/README.md)

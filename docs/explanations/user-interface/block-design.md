@@ -182,9 +182,9 @@ When referring to a block in documentation or UI, use title case for the block t
 - Media & Text block
 
 <!--
-Blocks should have an identifying icon, ideally using a single color. Try to avoid using the same icon used by an existing block. The core block icons are based on [Material Design Icons](https://material.io/tools/icons/). Look to that icon set, or to [Dashicons](https://developer.wordpress.org/resource/dashicons/) for style inspiration.
+Blocks should have an identifying icon, ideally using a single color. Try to avoid using the same icon used by an existing block. The core block icons are based on [Material Design Icons](https://fonts.google.com/icons). Look to that icon set, or to [Dashicons](https://developer.wordpress.org/resource/dashicons/) for style inspiration.
  -->
-ブロックには認知しやすいアイコン、できれば単一色のアイコンを準備してください。既存のブロックで使用されているものと同じアイコンは避けてください。コアのブロックのアイコンは [マテリアルデザインアイコン](https://material.io/tools/icons/) に基づいています。 [Dashicons](https://developer.wordpress.org/resource/dashicons/) と共にスタイルのインスピレーションとして参考にしてください。
+ブロックには認知しやすいアイコン、できれば単一色のアイコンを準備してください。既存のブロックで使用されているものと同じアイコンは避けてください。コアのブロックのアイコンは [マテリアルデザインアイコン](https://fonts.google.com/icons) に基づいています。 [Dashicons](https://developer.wordpress.org/resource/dashicons/) と共にスタイルのインスピレーションとして参考にしてください。
 
 <!--
 ![A screenshot of the block library with concise block names](https://developer.wordpress.org/files/2022/01/blocks-do.png)

@@ -10,6 +10,7 @@ The Block Editor is a React Single Page Application (SPA) and every block in the
 
 <!-- 
 The `props` object received by the block's `Edit` React component includes:
+
 - [`attributes`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#attributes) - attributes object
 - [`setAttributes`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#setattributes) - method to update the attributes object
 - [`isSelected`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#isselected) - boolean that communicates whether the block is currently selected
@@ -33,6 +34,7 @@ The WordPress Gutenberg project uses <a href="https://wordpress.github.io/gutenb
 
 <!-- 
 Custom settings controls for the block in the Block Toolbar or the Settings Sidebar can also be defined through this `Edit` React component via built-in components such as:
+
 - [`InspectorControls`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inspector-controls/README.md) 
 - [`BlockControls`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/block-controls) 
  -->
@@ -82,6 +84,7 @@ The package <a href="https://developer.wordpress.org/block-editor/reference-guid
 
 <!-- 
 A good workflow when using a component for the Block Editor is:
+
 - Import the component from a WordPress package
 - Add the corresponding code for the component to your project in JSX format
 - Most built-in components will be used to set [block attributes](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-attributes-to-store-block-data), so define any necessary attributes in `block.json` and create event handlers to update those attributes with `setAttributes` in your component

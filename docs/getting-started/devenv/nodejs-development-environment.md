@@ -49,11 +49,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 
 <!-- 
 2. Quit and restart the terminal.
-3. Run `nvm install --lts` in the terminal to install the latest [LTS](https://nodejs.dev/en/about/releases/) (Long Term Support) version of Node.js.
+3. Run `nvm install --lts` in the terminal to install the latest [LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support) version of Node.js.
 4. Run `node -v` and `npm -v` in the terminal to verify the installed `node` and `npm` versions.
  -->
 2. ターミナルを終了し、再起動する。
-3. ターミナルで `nvm install --lts` を実行し、最新の [LTS](https://nodejs.dev/en/about/releases/) (Long Term Support) バージョンの Node.js をインストールする。
+3. ターミナルで `nvm install --lts` を実行し、最新の [LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support) バージョンの Node.js をインストールする。
 4. ターミナルで `node -v` と `npm -v` を実行して、インストールされた `node` と `npm` のバージョンを確認する。
 
 <!-- 

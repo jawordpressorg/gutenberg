@@ -4,9 +4,11 @@
 # クイックスタートガイド
 
 <!-- 
-This guide is designed to demonstrate the basic principles of block development in WordPress using a hands-on approach. Following the steps below, you will create a custom block plugin that uses modern JavaScript (ESNext and JSX) in a matter of minutes. The example block displays the copyright symbol (©) and the current year, the perfect addition to any website's footer.
+This guide is designed to demonstrate the basic principles of block development in WordPress using a hands-on approach. Following the steps below, you will create a custom block plugin that uses modern JavaScript (ESNext and JSX) in a matter of minutes. The example block displays the copyright symbol (©) and the current year, the perfect addition to any website's footer. You can see these steps in action through this short video demonstration.
  -->
-このガイドでは WordPress におけるブロック開発の基本原則をハンズオン形式で説明します。以下の手順に従うだけで、モダンなJavaScript (ESNext と JSX) を使用したカスタムブロックプラグインを数分で作成できます。ブロックのサンプル例では、著作権シンボル (©) と現在の年を表示します。どのウェブサイトのフッターにも最適でしょう。
+このガイドは WordPress でのブロック開発の基本原則をハンズオン形式で説明します。以下の手順に従うだけで、モダンな JavaScript (ESNext と JSX) を使用したカスタムブロックプラグインを数分で作成できます。ブロックのサンプル例では、著作権シンボル (©) と現在の年を表示します。どのウェブサイトのフッターにも最適でしょう。以下の短いデモ動画で、一連の手順の様子を見ることができます。
+
+<iframe width="960" height="540" src="https://www.youtube.com/embed/nrut8SfXA44?si=YxvmHmAoYx-BDCog" title="WordPress Block Development: Quick Start Guide Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe>
 
 <!-- 
 ## Scaffold the block plugin
@@ -57,7 +59,7 @@ WordPress のプラグインページに移動し、「Copyright Date Block」�
 ## 基本の使い方
 
 <!-- 
-With the plugin activated, you can  explore how the block works. Use the following command to move into the newly created plugin folder and start the development process.
+With the plugin activated, you can explore how the block works. Use the following command to move into the newly created plugin folder and start the development process.
  -->
 プラグインを有効化すると、ブロックがどのように動作するかを調べられます。次のコマンドを使用して、新しく作成したプラグインフォルダーに移動し、開発プロセスを始めてください。
 
@@ -80,6 +82,26 @@ When you are finished making changes, run the `npm run build` command. This opti
 変更が終わったら `npm run build` コマンドを実行します。ブロックのコードが最適化され、本番環境への適用が可能になります。
 
 <!-- 
+## View the block in action
+ -->
+## ブロックの動きの確認
+
+<!-- 
+You can use any local WordPress development environment to test your new block, but the scaffolded plugin includes configuration for `wp-env`. You must have [Docker](https://www.docker.com/products/docker-desktop) already installed and running on your machine, but if you do, run the `npx wp-env start` command. 
+ -->
+新しいブロックのテストには、任意のローカル WordPress 開発環境を使用できますが、ひな形のプラグインには`wp-env` の設定が含まれています。コンピュータに [Docker](https://www.docker.com/products/docker-desktop) がインストール、実行されている必要があります。準備を終えたら `npx wp-env start`コマンドを実行してください。
+
+<!-- 
+Once the script finishes running, you can access the local environment at: <code>http://localhost:8888</code>. Log into the WordPress dashboard using username `admin` and password `password`. The plugin will already be installed and activated. Open the Editor or Site Editor, and insert the Copyright Date Block as you would any other block.
+ -->
+スクリプトの実行が終わると、ローカル環境に <code>http://localhost:8888</code> でアクセスできます。ユーザー名 `admin` とパスワード `password` を使用して WordPress のダッシュボードにログインします。プラグインはすでにインストールされ、有効化されています。エディターまたはサイトエディターを開き、他のブロックと同じようにCopyright Date ブロックを挿入してください。
+
+<!-- 
+Visit the [Getting started](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/) guide to learn more about `wp-env`.
+ -->
+`wp-env` の詳細については、[wp-env 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/) を参照してください。
+
+<!--
 ## Additional resources
  -->
 ## その他のリソース

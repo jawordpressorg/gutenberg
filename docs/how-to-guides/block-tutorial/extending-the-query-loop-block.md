@@ -440,13 +440,13 @@ export const withBookQueryControls = ( BlockEdit ) => ( props ) => {
 	// function to handle that.
 	return isMyBooksVariation( props ) ? (
 		<>
-			<BlockEdit { ...props } />
+			<BlockEdit key="edit" { ...props } />
 			<InspectorControls>
 				<BookAuthorSelector /> { /** Our custom component */ }
 			</InspectorControls>
 		</>
 	) : (
-		<BlockEdit { ...props } />
+		<BlockEdit key="edit" { ...props } />
 	);
 };
 
@@ -462,13 +462,13 @@ export const withBookQueryControls = ( BlockEdit ) => ( props ) => {
 	// 以下では、これを処理するカスタム関数 `isMyBooksVariation` を記述したとします。
 	return isMyBooksVariation( props ) ? (
 		<>
-			<BlockEdit { ...props } />
+			<BlockEdit key="edit" { ...props } />
 			<InspectorControls>
 				<BookAuthorSelector /> { /** カスタムコンポーネント */ }
 			</InspectorControls>
 		</>
 	) : (
-		<BlockEdit { ...props } />
+		<BlockEdit key="edit" { ...props } />
 	);
 };
 

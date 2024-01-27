@@ -67,7 +67,7 @@ Among other data it provides properties to define the paths of the files involve
 他のデータとしてはブロックの動作、出力、スタイルに関係するファイルのパスを定義するプロパティを提供します。ビルドプロセスがある場合、この `block.json` は、生成されたファイルと一緒に保存先フォルダ (通常は `build` フォルダ) に配置されます。したがって指定するパスも、これらのファイルのバンドルされたバージョンを対象とします。
 
 <!-- 
-The most relevant properties that can be defined in a `block.json` to set the files involved in the block's behaviour, output or style are:
+The most relevant properties that can be defined in a `block.json` to set the files involved in the block's behaviour, output, or style are:
  -->
 `block.json` で定義可能な、ブロックの動作や出力、スタイル関連のファイル設定と最も関連性の高いプロパティを以下に挙げます。
 

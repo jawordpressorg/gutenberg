@@ -49,9 +49,9 @@ This guide assumes you are already familiar with WordPress plugins, post meta, a
 このガイドでは、すでに WordPressのプラグイン、投稿メタ、基本的な JavaScript に親しんでいることを前提としています。入門としては、[JavaScript 入門 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) を参照してください。
 
 <!--
-The guide will walk through creating a basic block, but recommended to go through the [Create Block tutorial](/docs/getting-started/create-block/README.md) for a deeper understanding of creating custom blocks.
+The guide will walk through creating a basic block, but recommended to go through the [Create Block tutorial](/docs/getting-started/devenv/get-started-with-create-block.md) for a deeper understanding of creating custom blocks.
 -->
-このガイドでは、基本的なブロックの作成方法を説明します。しかし、カスタムブロックの作成をより深く理解するには、[ブロック作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/)の参照を推奨します。
+このガイドでは、基本的なブロックの作成方法を説明します。しかし、カスタムブロックの作成をより深く理解するには、[ブロック作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)の参照を推奨します。
 
 <!--
 You will need:

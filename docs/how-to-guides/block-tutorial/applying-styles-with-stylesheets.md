@@ -18,7 +18,10 @@ A block typically inserts markup (HTML) into post content that you want to style
  -->
 ## はじめる前に
 
-このガイドで紹介する例を実装するには、基本的なブロックと WordPress の開発環境が必要です。[基本ブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) または [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) を参照して、セットアップしてください。
+<!-- 
+You will need a basic block and WordPress development environment to implement the examples shown in this guide. See the [create a basic block](/docs/how-to-guides/block-tutorial/writing-your-first-block-type.md) or [block tutorial](/docs/getting-started/devenv/get-started-with-create-block.md) to get setup.
+ -->
+このガイドで紹介する例を実装するには、基本的なブロックと WordPress の開発環境が必要です。[基本ブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) または [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) を参照して、セットアップしてください。
 
 <!-- 
 ## Methods to add style

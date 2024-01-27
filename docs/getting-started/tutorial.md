@@ -389,9 +389,9 @@ Open the [`index.js`](https://developer.wordpress.org/block-editor/getting-start
 [`index.js`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/file-structure-of-a-block/#indexjs) ファイルを開いてください。これはブロックのメインの JavaScript ファイルで、クライアントでのブロックの登録に使用されます。クライアントサイドとサーバーサイドの登録については、[ブロックの登録](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/)を参照してください。
 
 <!-- 
-Start by looking at the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/) function. This function accepts the name of the block, which we are getting from the imported `block.js` file, and the block configuration object.
+Start by looking at the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/) function. This function accepts the name of the block, which we are getting from the imported `block.json` file, and the block configuration object.
  -->
-まず、[`registerBlockType`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) 関数を見てください。この関数は、インポートした `block.js` ファイルから取得したブロックの名前と、ブロックの設定オブジェクトを受け取ります。
+まず、[`registerBlockType`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) 関数を見てください。この関数は、インポートした `block.json` ファイルから取得したブロックの名前と、ブロックの設定オブジェクトを受け取ります。
 
 ```js
 import Edit from './edit';
@@ -586,7 +586,7 @@ Save the file and confirm that the block appears correctly in the Editor and on 
 ### クリーンアップ
 
 <!-- 
-When you use the `create-block` package to scaffold a block, it might include files that you don't need. In the case of this tutorial, the block doesn't use stylesheets or font end JavaScipt. Clean up the plugin's `src/` folder with the following actions.
+When you use the `create-block` package to scaffold a block, it might include files that you don't need. In the case of this tutorial, the block doesn't use stylesheets or front end JavaScript. Clean up the plugin's `src/` folder with the following actions.
  -->
 `create-block` パッケージを使用してブロックのひな形を作成すると、必要のないファイルが含まれる場合があります。このチュートリアルでも、ブロックはスタイルシートやフロントエンド JavaScipt を使用していませんので、以下の操作でプラグインの `src/` フォルダをクリーンアップします。
 
@@ -718,7 +718,7 @@ Next, update the Edit function to return the current block content and an `Inspe
 
 ```js
 export default function Edit() {
-const currentYear = new Date().getFullYear().toString();
+	const currentYear = new Date().getFullYear().toString();
 
 	return (
 		<>
@@ -767,7 +767,7 @@ Then wrap the "Testing" message in the `PanelBody` component and set the `title`
 
 ```js
 export default function Edit() {
-const currentYear = new Date().getFullYear().toString();
+	const currentYear = new Date().getFullYear().toString();
 
 	return (
 		<>
@@ -1635,12 +1635,12 @@ You will not get any block validation errors, but the Editor will detect that ch
 #### render.php の最適化
 
 <!-- 
-The final step is to optimize the `render.php` file. If the `currentYear` and the `fallbackCurrentYear` attribute are the same, then there is no need to dynamically create the block content. It is already saved in the database and is available in the  `render.php` file via the `$block_content` variable.
+The final step is to optimize the `render.php` file. If the `currentYear` and the `fallbackCurrentYear` attribute are the same, then there is no need to dynamically create the block content. It is already saved in the database and is available in the  `render.php` file via the `$content` variable.
  -->
 最後のステップは `render.php` ファイルの最適化です。`currentYear` 属性と `fallbackCurrentYear` 属性が同じであれば、ブロックのコンテンツを動的に作成する必要はありません。既にデータベースに保存されていて、`$content` 変数を通じて `render.php` ファイルで利用できます。
 
 <!-- 
-Therefore, update the file to render the `$block_content` if `currentYear` and `fallbackCurrentYear` match.
+Therefore, update the file to render the generated content if `currentYear` and `fallbackCurrentYear` do not match.
  -->
 一方 `currentYear` と `fallbackCurrentYear` が一致しなければ、生成したコンテンツをレンダーするようにファイルを更新します。
 

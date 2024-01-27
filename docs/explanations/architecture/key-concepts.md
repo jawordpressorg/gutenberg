@@ -87,10 +87,10 @@ Given a block type, a block variation is a predefined set of its initial attribu
 
 <!--
 -   **[Block API](/docs/reference-guides/block-api/README.md)**
--   **[Tutorial: Building A Custom Block](/docs/getting-started/create-block/README.md)**
+-   **[Tutorial: Building A Custom Block](/docs/getting-started/devenv/get-started-with-create-block.md)**
  -->
 - **[ブロック API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/)**
-- **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/)**
+- **[チュートリアル: カスタムブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)**
 
 <!--
 ## Reusable blocks

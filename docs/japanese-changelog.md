@@ -2,6 +2,16 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2024/1/27
+
+- [Documentation Contributions](https://ja.wordpress.org/team/handbook/block-editor/contributors/documentation/) - 動画の追加方法 [#58029](https://github.com/WordPress/gutenberg/pull/58029)
+- [クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/) - wp-env セクション追加 [#57559](https://github.com/WordPress/gutenberg/pull/57559)、動画追加 [#57834](https://github.com/WordPress/gutenberg/pull/57834)
+- [Static or Dynamic rendering of a block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/static-dynamic-rendering/) - 新規
+- [クエリーループブロックの拡張](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/) - key の追加 [#58119](https://github.com/WordPress/gutenberg/pull/58119)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - 外観ツール aspectRatio [#56897](https://github.com/WordPress/gutenberg/pull/56897)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ギャラリー randomOrder [#57477](https://github.com/WordPress/gutenberg/pull/57477)、アイキャッチ画像 useFirstImageFromPost [#56573](https://github.com/WordPress/gutenberg/pull/56573)、検索 buttonBehavior 削除 [#53467](https://github.com/WordPress/gutenberg/pull/53467)、投稿ナビゲーションリンク taxonomy [#48912](https://github.com/WordPress/gutenberg/pull/48912)、プルクオート spacing [#45731](https://github.com/WordPress/gutenberg/pull/45731)、パターン overrides [#58102](https://github.com/WordPress/gutenberg/pull/58102)、カバー、グループ aspectRatio [#56897](https://github.com/WordPress/gutenberg/pull/56897)、クエリーループ interactivity [#58316](https://github.com/WordPress/gutenberg/pull/58316)
+- [theme.json バージョン2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - typography defaultFontSizes [#56661](https://github.com/WordPress/gutenberg/pull/56661)、appearanceTools、dimensions aspectRatio [#56897](https://github.com/WordPress/gutenberg/pull/56897)
+
 2024/1/26
 - [用語集](https://ja.wordpress.org/team/handbook/block-editor/getting-started/glossary/) - 翻訳
 

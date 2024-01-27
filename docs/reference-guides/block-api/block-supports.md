@@ -18,7 +18,7 @@ Some block supports — for example, `anchor` or `className` — apply their att
 <!-- 
 Opting into any of these features will register additional attributes on the block and provide the UI to manipulate that attribute.
  -->
-機能をオプトインすると、ブロックに追加の属性が登録され、属性を操作する UI が提供されます。
+任意の機能をオプトインすると、ブロックに追加の属性が登録され、属性を操作する UI が提供されます。
 
 <!-- 
 In order for the attribute to get applied to the block the generated properties get added to the wrapping element of the block. They get added to the object you get returned from the `useBlockProps` hook.
@@ -488,8 +488,8 @@ supports: {
         text: false
     }
 }
- -->```
-
+```
+ -->
 <!--
 Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/theme-json.md).
  -->
@@ -648,12 +648,19 @@ This property adds block controls which allow the user to set link color in a bl
  -->
 このプロパティは、ユーザーがブロック内のリンクの色を設定できるブロックコントロールを追加します。デフォルトではリンクの色は無効です。
 
-
+<!-- 
 ```js
 supports: {
     color: true // Enables only background and text
 }
 ```
+ -->
+```js
+supports: {
+    color: true // background と text のみを有効化
+}
+```
+
 <!--
 To enable link color support, set to `true`.
  -->
@@ -1010,12 +1017,13 @@ _**注意:** WordPress 6.2以降_
 <!-- 
 This value signals that a block supports some of the CSS style properties related to dimensions. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/global-settings-and-styles.md#opt-in-into-ui-controls).
  -->
-この値は、ブロックが寸法に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
+この値は、ブロックが寸法に関連する CSS スタイルプロパティのいくつかをサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディターはユーザーが値を設定できる UI コントロールを表示します。
 
 <!-- 
 ```js
 supports: {
     dimensions: {
+        aspectRatio: true // Enable aspect ratio control.
         minHeight: true // Enable min height control.
     }
 }
@@ -1031,16 +1039,17 @@ supports: {
 <!-- 
 When a block declares support for a specific dimensions property, its attributes definition is extended to include the `style` attribute.
 
-- `style`: attribute of `object` type with no default assigned. This is added when `minHeight` support is declared. It stores the custom values set by the user, e.g.:
+- `style`: attribute of `object` type with no default assigned. This is added when `aspectRatio` or `minHeight` support is declared. It stores the custom values set by the user, e.g.:
  -->
 ブロックが特定の dimensions プロパティのサポートを宣言すると、その属性定義は `style` 属性を含むように拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。これは `minHeight` のサポートが宣言されると追加されます。ユーザーが設定したカスタム値が格納されます。例:
+- `style`: デフォルトの割り当てのない `object` タイプの属性。`aspectRatio` または `minHeight` のサポートが宣言されると追加され、ユーザーが設定したカスタム値を格納します。例:
 
 ```js
 attributes: {
     style: {
         dimensions: {
+            aspectRatio: "16/9",
             minHeight: "50vh"
         }
     }
@@ -1063,7 +1072,7 @@ attributes: {
 <!-- 
 This value signals that a block supports some of the properties related to filters. When it does, the block editor will show UI controls for the user to set their values.
  -->
-この値はブロックがフィルターに関連するプロパティの一部をサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+この値はブロックがフィルターに関連するプロパティのいくつかをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 ### filter.duotone
 
@@ -1435,7 +1444,7 @@ _**注意:** WordPress 6.2以降_
 <!-- 
 This value signals that a block supports some of the CSS style properties related to position. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/global-settings-and-styles.md#opt-in-into-ui-controls).
  -->
-この値は、ブロックが位置に関連する CSS スタイルプロパティの一部をサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
+この値は、ブロックが位置に関連する CSS スタイルプロパティのいくつかをサポートすることを通知します。通知すると、[テーマがサポートを宣言していれば](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/#ui-%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%b8%e3%81%ae%e3%82%aa%e3%83%97%e3%83%88%e3%82%a4%e3%83%b3)、ブロックエディタはユーザーが値を設定できる UI コントロールを表示します。
 
 <!-- 
 Note that sticky position controls are currently only available for blocks set at the root level of the document. Setting a block to the `sticky` position will stick the block to its most immediate parent when the user scrolls the page.

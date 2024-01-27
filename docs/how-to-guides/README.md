@@ -13,13 +13,13 @@ The new editor is highly flexible, like most of WordPress. You can build custom 
 
 The editor is about blocks, and the main extensibility API is the Block API. It allows you to create your own static blocks, [Dynamic Blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) ( rendered on the server ) and also blocks capable of saving data to Post Meta for more structured content.
 
-If you want to learn more about block creation, see the [Create a Block tutorial](/docs/getting-started/create-block/README.md) for the best place to start.
+If you want to learn more about block creation, see the [Create a Block tutorial](/docs/getting-started/devenv/get-started-with-create-block.md) for the best place to start.
 -->
 ## ブロックの作成
 
 エディターは「ブロック」であり、主な拡張 API は「ブロック API」です。ブロック API を使用してユーザーは静的ブロックやサーバー側でレンダリングされる[ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/)を作成できます。またブロックは構造化されたコンテンツのため投稿メタにデータを保存できます。
 
-ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/) を参照してください。
+ブロックの作成について学習するには、まずはじめに [ブロックの作成 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) を参照してください。
 
 <!--
 ## Extending blocks
