@@ -190,7 +190,7 @@ icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="no
 
 An object can also be passed as icon, in this case, icon, as specified above, should be included in the src property.
 
-Besides src the object can contain background and foreground colors, this colors will appear with the icon when they are applicable e.g.: in the inserter.
+Besides src the object can contain background and foreground colors, these colors will appear with the icon when they are applicable e.g.: in the inserter.
  -->
 **注意:** カスタム SVG アイコンは自動的に [`wp.primitives.SVG` コンポーネント](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-primitives/) でラップされ、アクセシビリティ属性 `aria-hidden`、`role`、`focusable` が追加されます。
 
@@ -271,7 +271,7 @@ styles: [
 ],
 ```
 
-Plugins and Themes can also register [custom block style](/docs/reference-guides/block-api/block-styles.md) for existing blocks.
+Plugins and Themes can also register [custom block styles](/docs/reference-guides/block-api/block-styles.md) for existing blocks.
  -->
 ブロックスタイルを使用してブロックに代替のスタイルを与えられます。ブロックスタイルはブロックのラッパーにクラス名を追加することで動作します。テーマ開発者は該当のクラス名をターゲットに CSS を使用して、選択された際のブロックスタイルを指定できます。
 
@@ -516,9 +516,33 @@ ancestor: [ 'core/columns' ],
 ancestor: [ 'core/columns' ],
 ```
 <!-- 
-#### Block Hooks (optional)
+#### allowedBlocks (optional)
  -->
-#### Block Hooks (オプション)
+#### allowedBlocks (オプション)
+
+-   **Type:** `Array`
+-   **Since**: `WordPress 6.5.0`
+
+<!-- 
+Setting the `allowedBlocks` property will limit which block types can be nested as direct children of the block.
+ -->
+`allowedBlocks` プロパティを設定することで、ブロックの直接の子としてネストできるブロックタイプを制限できます。
+
+<!-- 
+```js
+// Only allow the Columns block to be nested as direct child of this block
+allowedBlocks: [ 'core/columns' ],
+```
+ -->
+```js
+// このブロックの直接の子としてネストされるブロックを、カラム (Columns) ブロックのみを許可する。
+allowedBlocks: [ 'core/columns' ],
+```
+
+<!-- 
+#### blockHooks (optional)
+ -->
+#### blockHooks (オプション)
 
 -   **Type:** `Object`
 -   **Since**: `WordPress 6.4.0`
@@ -547,7 +571,7 @@ The key is the name of the block (`string`) to hook into, and the value is the p
 ```js
 {
 	blockHooks: {
-		'core/verse': 'before'
+		'core/verse': 'before',
 		'core/spacer': 'after',
 		'core/column': 'firstChild',
 		'core/group': 'lastChild',

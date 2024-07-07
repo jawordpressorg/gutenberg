@@ -41,16 +41,16 @@ The `process.env.GUTENBERG_PHASE` is an environment variable containing a number
 「フィーチャーフラグ」とは、Gutenberg プロジェクト内の特定のコードを WordPress コアとしてリリースされないようにし、特定の実験的な機能をプラグイン内だけで実行できるようにする変数です。
 
 <!-- 
-## Introducing `process.env.IS_GUTENBERG_PLUGIN`
+## Introducing `globalThis.IS_GUTENBERG_PLUGIN`
  -->
-## process.env.IS_GUTENBERG_PLUGIN の導入
+## globalThis.IS_GUTENBERG_PLUGIN の導入
 
 <!-- 
-The `process.env.IS_GUTENBERG_PLUGIN` is an environment variable whose value 'flags' whether code is running within the Gutenberg plugin. 
+The `globalThis.IS_GUTENBERG_PLUGIN` is an environment variable whose value 'flags' whether code is running within the Gutenberg plugin.
 
 When the codebase is built for the plugin, this variable will be set to `true`. When building for WordPress core, it will be set to `false` or `undefined`.
  -->
-`process.env.IS_GUTENBERG_PLUGIN` は、環境変数です。その値は、コードが Gutenberg プラグイン内で実行されているかどうかを示します。
+`globalThis.IS_GUTENBERG_PLUGIN` は、環境変数です。その値は、コードが Gutenberg プラグイン内で実行されているかどうかを示します。
 
 プラグイン用にコードベースがビルドされると、この変数は `true` に設定されます。WordPress コア用にビルドする場合は、`false` または `undefined` に設定されます。
 
@@ -81,8 +81,9 @@ function myPluginOnlyFeature() {
 	// implementation
 }
 
-export const pluginOnlyFeature =
-	process.env.IS_GUTENBERG_PLUGIN ? myPluginOnlyFeature : undefined;
+export const pluginOnlyFeature = globalThis.IS_GUTENBERG_PLUGIN
+	? myPluginOnlyFeature
+	: undefined;
 ```
  -->
 ```js
@@ -90,8 +91,9 @@ function myPluginOnlyFeature() {
 	// ここに実装
 }
 
-export const pluginOnlyFeature =
-	process.env.IS_GUTENBERG_PLUGIN ? myPluginOnlyFeature : undefined;
+export const pluginOnlyFeature = globalThis.IS_GUTENBERG_PLUGIN
+	? myPluginOnlyFeature
+	: undefined;
 ```
 
 
@@ -130,25 +132,25 @@ If you're attempting to import and call a plugin-only feature, be sure to wrap t
 ```js
 import { pluginOnlyFeature } from '@wordpress/foo';
 
-if ( process.env.IS_GUTENBERG_PLUGIN ) {
+if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 	pluginOnlyFeature();
 }
 ```
 <!--
 ## How it works
 
-During the webpack build, instances of `process.env.IS_GUTENBERG_PLUGIN` will be replaced using webpack's [define plugin](https://webpack.js.org/plugins/define-plugin/).
+During the webpack build, instances of `globalThis.IS_GUTENBERG_PLUGIN` will be replaced using webpack's [define plugin](https://webpack.js.org/plugins/define-plugin/).
 
 For example, in the following code –
  -->
 ## 動作原理
 
-webpack のビルド時、`process.env.IS_GUTENBERG_PLUGIN` は webpack の [define プラグイン](https://webpack.js.org/plugins/define-plugin/) を使用して置き換えられます。
+webpack のビルド時、`globalThis.IS_GUTENBERG_PLUGIN` は webpack の [define プラグイン](https://webpack.js.org/plugins/define-plugin/) を使用して置き換えられます。
 
 たとえば、次のコードでは、
 
 ```js
-if ( process.env.IS_GUTENBERG_PLUGIN ) {
+if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 	pluginOnlyFeature();
 }
 ```
@@ -159,19 +161,20 @@ When building the codebase for the plugin the variable will be replaced with the
 コードベースをプラグインとしてビルドすると、変数は数値リテラル `2` で置き換えられます。
  -->
 <!-- 
-– the variable `process.env.IS_GUTENBERG_PLUGIN` will be replaced with the boolean `true` during the plugin-only build:
+– the variable `globalThis.IS_GUTENBERG_PLUGIN` will be replaced with the boolean `true` during the plugin-only build:
  -->
-– 変数 `process.env.IS_GUTENBERG_PLUGIN` は、プラグインのビルドでのみ、ブール値 `true` で置き換えられます。
+– 変数 `globalThis.IS_GUTENBERG_PLUGIN` は、プラグインのビルドでのみ、ブール値 `true` で置き換えられます。
 
 <!-- 
 ```js
-if ( true ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with `true`
+if ( true ) {
+	// Wepack has replaced `globalThis.IS_GUTENBERG_PLUGIN` with `true`
 	pluginOnlyFeature();
 }
 ```
  -->
 ```js
-if ( true ) { // wepack が process.env.IS_GUTENBERG_PLUGIN を true に置換した
+if ( true ) { // wepack が globalThis.IS_GUTENBERG_PLUGIN を true に置換した
 	pluginOnlyFeature();
 }
 ```
@@ -196,21 +199,22 @@ if 文の本体内にあるコードは、この `true` のため、実行され
 <!-- 
 This ensures that code within the body of the `if` statement will always be executed.
 
-In WordPress core, the `process.env.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`. The built code looks like this:
+In WordPress core, the `globalThis.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`. The built code looks like this:
  -->
 これにより、`if` 文の中にあるコードが、常に実行されます。
 
-WordPress コアでは、`process.env.IS_GUTENBERG_PLUGIN` 変数は `undefined` で置換されるため、ビルドされたコードは以下のようになります。
+WordPress コアでは、`globalThis.IS_GUTENBERG_PLUGIN` 変数は `undefined` で置換されるため、ビルドされたコードは以下のようになります。
 
 <!-- 
 ```js
-if ( undefined ) { // Wepack has replaced `process.env.IS_GUTENBERG_PLUGIN` with `undefined`
+if ( undefined ) {
+	// Webpack has replaced `globalThis.IS_GUTENBERG_PLUGIN` with `undefined`
 	pluginOnlyFeature();
 }
 ```
  -->
 ```js
-if ( undefined ) { // wepack が process.env.IS_GUTENBERG_PLUGIN を undefined に置換した
+if ( undefined ) { // wepack が globalThis.IS_GUTENBERG_PLUGIN を undefined に置換した
 	pluginOnlyFeature();
 }
 ```
@@ -328,9 +332,9 @@ Here an early return is used to avoid execution of a phase 2 feature, but becaus
 ## よくある質問
 
 <!-- 
-### Why shouldn't I assign the result of an expression involving `IS_GUTENBERG_PLUGIN` to a variable, e.g. `const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2`?
+### Why shouldn't I assign the result of an expression involving `IS_GUTENBERG_PLUGIN` to a variable, e.g. `const isMyFeatureActive = ! Object.is( undefined, globalThis.IS_GUTENBERG_PLUGIN )`?
  -->
-#### なぜ IS_GUTENBERG_PLUGIN 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = process.env.IS_GUTENBERG_PLUGIN === 2 ではいけないのですか ?
+#### なぜ IS_GUTENBERG_PLUGIN 関連の評価結果を変数に割り当てるべきではないのですか ? たとえば const isMyFeatureActive = ! Object.is( undefined, globalThis.IS_GUTENBERG_PLUGIN ) ではいけないのですか ?
 
 <!-- 
 The aim here is to avoid introducing any complexity that could result in webpack's minifier not being able to eliminate dead code. See the [Dead Code Elimination](#dead-code-elimination) section for further details.

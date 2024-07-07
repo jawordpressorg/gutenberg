@@ -4,7 +4,7 @@
 # エディター機能の無効化
 
 <!-- 
-This page is dedicated to the many ways you can disable specific functionality in the Post Editor and Site Editor that are not covered in other areas of the curation documentation. 
+This page is dedicated to the many ways you can disable specific functionality in the Post Editor and Site Editor that are not covered in other areas of the curation documentation.
  -->
 このページでは、このセクションの他のドキュメントではカバーされない、投稿エディターとサイトエディターで特定の機能を無効にするさまざまな方法について説明します。
 
@@ -14,7 +14,7 @@ This page is dedicated to the many ways you can disable specific functionality i
 ## ブロックオプションの制限
 
 <!-- 
-There might be times when you don’t want access to a block at all to be available for users. To control what’s available in the inserter, you can take two approaches: [an allow list](/docs/reference-guides/filters/block-filters.md#using-an-allow-list) that disables all blocks except those on the list or a [deny list that unregisters specific blocks](/docs/reference-guides/filters/block-filters.md#using-a-deny-list). 
+There might be times when you don’t want access to a block at all to be available for users. To control what’s available in the inserter, you can take two approaches: [an allow list](/docs/reference-guides/filters/block-filters.md#using-an-allow-list) that disables all blocks except those on the list or a [deny list that unregisters specific blocks](/docs/reference-guides/filters/block-filters.md#using-a-deny-list).
  -->
 特定のブロックをユーザーにまったく利用させたくない場合があります。インサーターで利用可能なブロックを制御するアプローチには2種類の方法があります。[許可リスト](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#using-an-allow-list)は、リストにあるブロック以外のすべてのブロックを無効にします。[拒否リスト](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#using-a-deny-list)は、特定のブロックの登録を解除します。
 
@@ -24,7 +24,7 @@ There might be times when you don’t want access to a block at all to be availa
 ## パターンディレクトリの無効化
 
 <!-- 
-To fully remove patterns bundled with WordPress core from being accessed in the Inserter, the following can be added to your `functions.php` file: 
+To fully remove patterns bundled with WordPress core from being accessed in the Inserter, the following can be added to your `functions.php` file:
  -->
 WordPress コアにバンドルされたパターンをインサーターから完全に削除するには、`functions.php` ファイルに以下を追加します。
 
@@ -46,7 +46,7 @@ Some Core blocks are actually [block variations](https://developer.wordpress.org
 コアのいくつかのブロックは実際には、[ブロックのバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/)です。例えば、Row (横並び) ブロックや Stack (縦積み) ブロックは、実際には Group (グループ) ブロックのバリエーションです。これらの「ブロック」を無効にしたい場合は、それぞれのバリエーションを無効にします。
 
 <!-- 
-Block variations are registered using JavaScript and need to be disabled with JavaScript. The code below will disable the Row variation. 
+Block variations are registered using JavaScript and need to be disabled with JavaScript. The code below will disable the Row variation.
  -->
 ブロックのバリエーションは JavaScript を使用して登録されており、無効にする場合も JavaScript を使用します。以下のコードは、Row バリエーションを無効にします。
 
@@ -85,7 +85,7 @@ There are a few Core blocks that include their own [block styles](https://develo
 コアブロックの中には自身の[ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/)を持つものがいくつかあります。例えば、画像ブロックはには丸みを帯びた画像用のブロックスタイル「rounded」があります。しかしユーザーに画像を丸めさせたくない場合や、ブロックスタイルの代わりに border-radius コントロールを使いたい場合もああります。どちらの場合も、不要なブロックスタイルは簡単に無効化できます。
 
 <!-- 
-Unlike block variations, you can register styles in either JavaScript or PHP. If a style was registered in JavaScript, it must be disabled with JavaScript. If registered using PHP, the style can be disabled with either. All Core block styles are registed in JavaScript.
+Unlike block variations, you can register styles in either JavaScript or PHP. If a style was registered in JavaScript, it must be disabled with JavaScript. If registered using PHP, the style can be disabled with either. All Core block styles are registered in JavaScript.
  -->
 ブロックバリエーションと異なりスタイルは、JavaScript でも PHP でも登録できます。スタイルを JavaScript で登録した場合は、JavaScript で無効化する必要があります。PHP で登録した場合は、どちらでもスタイルを無効にできます。すべてのコアブロックのスタイルはJavaScript で登録されています。
 
@@ -101,7 +101,7 @@ wp.domReady( () => {
 ```
 
 <!-- 
-This JavaScript should be enqueued much like the block variation example above. Refer to the [block styles](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/) documentation for how to register and unregister styles using PHP. 
+This JavaScript should be enqueued much like the block variation example above. Refer to the [block styles](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/) documentation for how to register and unregister styles using PHP.
  -->
 この JavaScript は上のブロックバリエーションの例と同じように、エンキューしなければなりません。PHP を使用したスタイルの登録や解除方法については、[ブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/)のドキュメントを参照してください。
 
@@ -122,7 +122,7 @@ function example_theme_support() {
 add_action( 'after_setup_theme', 'example_theme_support' );
 ```
 <!-- 
-This prevents both the ability to create new block templates or edit them from within the Post Editor. 
+This prevents both the ability to create new block templates or edit them from within the Post Editor.
  -->
 このコードにより、投稿エディターからの新規ブロックテンプレートの作成と編集の両方が抑止されます。
 

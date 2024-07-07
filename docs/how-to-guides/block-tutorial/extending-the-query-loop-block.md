@@ -385,7 +385,7 @@ Gutenberg バージョン14.2では、以下のコントロールを利用でき
 -   `sticky` - Shows a dropdown to select how to handle sticky posts.
 -   `taxQuery` - Shows available taxonomies filters for the currently selected post type.
 -   `author` - Shows an input field to filter the query by author.
--   `search` - Shows an input filed to filter the query by keywords.
+-   `search` - Shows an input field to filter the query by keywords.
  -->
 
 - `inherit` - テンプレートから直接クエリを継承するためのトグルスイッチを表示する。

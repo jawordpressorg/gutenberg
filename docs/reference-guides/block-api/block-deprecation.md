@@ -59,9 +59,9 @@ For blocks with multiple deprecations, it may be easier to save each deprecation
 複数の非推奨プロセスを持つブロックの場合、各非推奨プロセスを適用するブロックのバージョンを示す定数に保存し、これらをブロックの `deprecated` 配列に追加すると分かりやすいでしょう。配列内の非推奨プロセスは時系列の逆順 (新しいものが先) で格納します。ブロックエディターはまず、最新の、恐らく適切な非推奨プロセスを最初に適用し、不要で高価な処理を避けられます。
 
 <!--
-### Example:
+**Example**
  -->
-### 例:
+**例**
 
 ```js
 const v1 = {};
@@ -135,9 +135,9 @@ It's important to note that <code>attributes</code>, <code>supports</code>, and 
 > 重要な点として `attributes`、`supports`、`save` は自動で現行バージョンから継承されないことに注意してください。これはブロックのパースとシリアライゼーションに影響を与えるためです。移行中に処理されるためには非推奨オブジェクトで定義する必要があります。
 
 <!--
-### Example:
+**Example**
  -->
-### 例:
+**例**
 
 ```js
 const { registerBlockType } = wp.blocks;
@@ -192,9 +192,9 @@ Sometimes, you need to update the attributes set to rename or modify old attribu
 場合によっては属性の集合を更新して、古い属性の名前を変更したり変更する必要があります。
 
 <!--
-### Example:
+**Example**
  -->
-### 例:
+**例**
 
 ```js
 const { registerBlockType } = wp.blocks;
@@ -254,9 +254,9 @@ E.g: a block wants to migrate a title attribute to a paragraph innerBlock.
 例: ブロックの title 属性を段落 innerBlock に変更する。
 
 <!--
-### Example:
+**Example**
  -->
-### 例:
+**例**
 
 ```js
 const { registerBlockType } = wp.blocks;

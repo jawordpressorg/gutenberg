@@ -14,8 +14,8 @@ const meta: Meta< typeof ProgressBar > = {
 	argTypes: {
 		value: { control: { type: 'number', min: 0, max: 100, step: 1 } },
 	},
+	tags: [ 'status-private' ],
 	parameters: {
-		badges: [ 'private' ],
 		controls: {
 			expanded: true,
 		},

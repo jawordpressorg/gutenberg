@@ -83,12 +83,17 @@ add_action( 'after_setup_theme', 'mytheme_setup_theme_supported_features' );
 <!--
 Core blocks include default structural styles. These are loaded in both the editor and the front end by default. An example of these styles is the CSS that powers the columns block. Without these rules, the block would result in a broken layout containing no columns at all.
  -->
-コアブロックにはデフォルトの構造化スタイルが含まれていてエディター、フロントエンドの両方でロードされます。このスタイルの例は「カラム」ブロックで利用されている CSS です。このルールがなければブロックはまったくカラムを含まない壊れたレイアウトになります。
+コアブロックにはデフォルトで構造化スタイルが含まれていて、エディター、フロントエンドの両方で読み込まれます。このスタイルの例は「カラム」ブロックで利用されている CSS です。このルールがなければブロックは、まったくカラムを含まない壊れたレイアウトになります。
 
- <!--
-The block editor allows themes to opt-in to slightly more opinionated styles for the front end. An example of these styles is the default color bar to the left of blockquotes. If you'd like to use these opinionated styles in your theme, add theme support for `wp-block-styles`:
+<!-- 
+### Opinionated block styles
  -->
-ブロックエディターでテーマはフロントエンドに拡張したスタイルをオプトインできます。このスタイルの例は「引用」ブロックの左側のデフォルトのカラーバーです。テーマでこのスタイルを使用する場合はテーマサポートに `wp-block-styles` を追加します。
+### 拡張したブロックスタイル
+
+<!-- 
+The block editor allows themes to opt in to slightly more opinionated styles for the front end. An example of these styles is the default color bar to the left of blockquotes. If you'd like to use these opinionated styles in a classic theme, add theme support for `wp-block-styles`:
+ -->
+ブロックエディターでは、テーマがフロントエンドに拡張したスタイルをオプトインできます。このスタイルの例は「引用」ブロックの左側のデフォルトのカラーバーです。クラシックテーマでこの拡張スタイルを使用する場合はテーマサポートに `wp-block-styles` を追加します。
 
 ```php
 add_theme_support( 'wp-block-styles' );
@@ -98,6 +103,11 @@ add_theme_support( 'wp-block-styles' );
 You can see the CSS that will be included in the [block library theme file](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss).
  -->
 [ブロックライブラリーテーマファイル](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss)内で、含まれる CSS を参照できます。
+
+<!-- 
+For block themes or themes providing a `theme.json` file, it is not recommended to use this theme support. Instead, to ensure there is no styling conflict between global styles rules and block styles, add the desired block styles to the theme's `theme.json` file.
+ -->
+ブロックテーマや `theme.json` ファイルを提供するテーマの場合、このテーマサポートの使用は推奨されません。代わりに、グローバルスタイルのルールとブロックスタイルの間でスタイルが衝突しないように、必要なブロックスタイルはテーマの `theme.json` ファイルに追加してください。
 
 <!--
 ### Wide Alignment:
@@ -689,7 +699,6 @@ link サポートは WordPress 5.8の一部として安定動作します。デ�
 
 ```json
 {
-	"version": 1,
 	"settings": {
 		"color": {
 			"link": true

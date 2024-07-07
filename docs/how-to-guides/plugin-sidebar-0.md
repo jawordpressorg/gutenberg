@@ -19,9 +19,9 @@ How to add a sidebar to your plugin. A sidebar is the region to the far right of
 ![サイドバーの例](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
 
 <!--
-_Note: this tutorial covers a custom sidebar, if you are looking to add controls to the sidebar see the [Block Toolbar and Settings Sidebar](/docs/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar.md)_
+_Note: this tutorial covers a custom sidebar, if you are looking to add controls to the sidebar see the [Block Toolbar and Settings Sidebar](/docs/getting-started/fundamentals/block-in-the-editor.md)_
 -->
-_注意: このチュートリアルではカスタムサイドバーを扱います。 サイドバーへのコントロールの追加については、[ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar)を参照してください。_
+_注意: このチュートリアルではカスタムサイドバーを扱います。 サイドバーへのコントロールの追加については、[ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-in-the-editor/)を参照してください。_
 
 <!--
 ## Before you start
@@ -29,9 +29,9 @@ _注意: このチュートリアルではカスタムサイドバーを扱い�
 ## はじめる前に
 
 <!--
-The tutorial assumes you have an existing plugin setup and are ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/how-to-guides/javascript/README.md) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
+The tutorial assumes you have an existing plugin setup and are ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
 -->
-このチュートリアルでは、設定済みのプラグインがあり、PHP と JavaScript のコードを追加できることを前提としています。WordPress プラグインの入門、ブロックエディター拡張プラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) チュートリアルを参照してください。
+このチュートリアルでは、設定済みのプラグインがあり、PHP と JavaScript のコードを追加できることを前提としています。WordPress プラグインの入門、ブロックエディター拡張プラグインの使用法については [JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/) チュートリアルを参照してください。
 
 <!--
 ## Step-by-step guide
@@ -44,9 +44,9 @@ The tutorial assumes you have an existing plugin setup and are ready to add PHP 
 ### ステップ 1: サイドバーの起動
 
 <!--
-The first step is to tell the editor that there is a new plugin that will have its own sidebar. Use the [registerPlugin](/packages/plugins/README.md), [PluginSidebar](/packages/edit-post/README.md#pluginsidebar), and [createElement](/packages/element/README.md) utilities provided by the `@wordpress/plugins`, `@wordpress/edit-post`, and `react` packages, respectively.
+The first step is to tell the editor that there is a new plugin that will have its own sidebar. Use the [registerPlugin](/packages/plugins/README.md), [PluginSidebar](/packages/editor/README.md#pluginsidebar), and [createElement](/packages/element/README.md) utilities provided by the `@wordpress/plugins`, `@wordpress/editor`, and `react` packages, respectively.
 -->
-最初のステップではまずエディターに対して新しいプラグインが自身のサイドバーを持つことを伝えます。これには [registerPlugin](https://developer.wordpress.org/block-editor/packages/packages-plugins/)、[PluginSidebar](https://developer.wordpress.org/block-editor/packages/packages-edit-post/#pluginsidebar)、[createElement](https://developer.wordpress.org/block-editor/packages/packages-element/) ユーティリティを使用します。それぞれ `@wordpress/plugins`、 `@wordpress/edit-post`、`react` パッケージに含まれます。
+最初のステップではまずエディターに対して新しいプラグインが自身のサイドバーを持つことを伝えます。これには [registerPlugin](https://developer.wordpress.org/block-editor/packages/packages-plugins/)、[PluginSidebar](https://developer.wordpress.org/block-editor/packages/editor/#pluginsidebar)、[createElement](https://developer.wordpress.org/block-editor/packages/element/) ユーティリティを使用します。それぞれ `@wordpress/plugins`、 `@wordpress/editor`、`react` パッケージに含まれます。
 
 <!--
 Add the following code to a JavaScript file called `plugin-sidebar.js` and save it within your plugin's directory:
@@ -57,7 +57,7 @@ Add the following code to a JavaScript file called `plugin-sidebar.js` and save 
 ( function ( wp, React ) {
 	var el = React.createElement;
 	var registerPlugin = wp.plugins.registerPlugin;
-	var PluginSidebar = wp.editPost.PluginSidebar;
+	var PluginSidebar = wp.editor.PluginSidebar;
 
 	registerPlugin( 'my-plugin-sidebar', {
 		render: function () {
@@ -96,7 +96,7 @@ function sidebar_plugin_register() {
 	wp_register_script(
 		'plugin-sidebar-js',
 		plugins_url( 'plugin-sidebar.js', __FILE__ ),
-		array( 'wp-plugins', 'wp-edit-post', 'react' )
+		array( 'wp-plugins', 'wp-editor', 'react' )
 	);
 }
 add_action( 'init', 'sidebar_plugin_register' );
@@ -136,7 +136,7 @@ To visualize and edit the meta field value you'll use an input component. The `@
 ( function ( wp ) {
 	var el = React.createElement;
 	var registerPlugin = wp.plugins.registerPlugin;
-	var PluginSidebar = wp.editPost.PluginSidebar;
+	var PluginSidebar = wp.editor.PluginSidebar;
 	var TextControl = wp.components.TextControl;
 
 	registerPlugin( 'my-plugin-sidebar', {
@@ -217,7 +217,7 @@ function sidebar_plugin_register() {
 		array(
 			'react',
 			'wp-plugins',
-			'wp-edit-post',
+			'wp-editor',
 			'wp-components'
 		)
 	);
@@ -311,7 +311,7 @@ With the field available in the editor store, it can now be surfaced to the UI. 
 ( function ( wp ) {
 	var el = React.createElement;
 	var registerPlugin = wp.plugins.registerPlugin;
-	var PluginSidebar = wp.editPost.PluginSidebar;
+	var PluginSidebar = wp.editor.PluginSidebar;
 	var TextControl = wp.components.TextControl;
 
 	var MetaBlockField = function () {
@@ -358,7 +358,7 @@ The `useSelect` function is used to fetch data when the component loads and will
 ( function ( wp ) {
 	var el = React.createElement;
 	var registerPlugin = wp.plugins.registerPlugin;
-	var PluginSidebar = wp.editPost.PluginSidebar;
+	var PluginSidebar = wp.editor.PluginSidebar;
 	var Text = wp.components.TextControl;
 	var useSelect = wp.data.useSelect;
 
@@ -439,7 +439,7 @@ The `useDispatch` function takes a store name as its only argument and returns m
 ( function ( wp ) {
 	var el = React.createElement;
 	var registerPlugin = wp.plugins.registerPlugin;
-	var PluginSidebar = wp.editPost.PluginSidebar;
+	var PluginSidebar = wp.editor.PluginSidebar;
 	var TextControl = wp.components.TextControl;
 	var useSelect = wp.data.useSelect;
 	var useDispatch = wp.data.useDispatch;

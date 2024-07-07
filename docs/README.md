@@ -11,43 +11,43 @@ Welcome to the Block Editor Handbook.
 ブロックエディターハンドブックへようこそ。
 
 <!-- 
-The [**Block Editor**](https://wordpress.org/gutenberg/) is a modern and up-to-date paradigm for WordPress site building and publishing. It uses a modular system of **Blocks** to compose and format content and is designed to create rich and flexible layouts for websites and digital products.
+The [**Block Editor**](https://wordpress.org/gutenberg/) is a modern paradigm for WordPress site building and publishing. It uses a modular system of **blocks** to compose and format content and is designed to create rich and flexible layouts for websites and digital products.
  -->
-[**ブロックエディター**](https://wordpress.org/gutenberg/)は、WordPress のサイト構築と公開のためのモダンな最新のパラダイムです。コンテンツの構成とフォーマットに、「**ブロック**」によるモジュラーシステムを採用し、ウェブサイトやデジタル製品用の、リッチでフレキシブルなレイアウト作成を念頭に設計されています。
+[**ブロックエディター**](https://wordpress.org/gutenberg/)は、WordPress のサイト構築と公開のためのモダンなパラダイムです。コンテンツの構成とフォーマットに、「**ブロック**」によるモジュラーシステムを採用し、ウェブサイトやデジタル製品用の、リッチでフレキシブルなレイアウト作成を念頭に設計されています。
 
 <!-- 
-The editor consists of several primary elements, as shown in the following figure:
+The Block Editor consists of several primary elements, as shown in the following figure:
  -->
-エディターは下図に示すいくつかの主要な要素で構成されています。
+ブロックエディターは下図に示すいくつかの主要な要素で構成されています。
 
 <!--  
-![Quick view of the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/assets/overview-block-editor-2023.png)
+![Quick view of the Block Editor](https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/assets/overview-block-editor-2023.png)
  --> 
 ![ブロックエディターの外観](https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/assets/overview-block-editor-2023.png)
 
 <!-- 
-The elements highlighted in the figure are:
+The elements highlighted are:
  -->
-図中にハイライトされている要素は、
+ハイライトされている要素は、
 
 <!-- 
-1. **Inserter**: A panel for inserting blocks into the content canvas
-2. **Content canvas**: The content editor, which holds content created with blocks
-3. **Settings Sidebar**: A sidebar panel for configuring a block’s settings (among other things)
+1. **Inserter:** A panel for inserting blocks into the content canvas
+2. **Content canvas:** The content editor, which holds content created with blocks
+3. **Settings Panel** A panel for configuring a block’s settings when selected or the settings of the post
  -->
-1. **インサーター**: コンテンツキャンバス内にブロックを挿入するためのパネル
-2. **コンテンツキャンバス**: コンテンツエディター。ブロックで作成されたコンテンツを保持
-3. **設定サイドバー**: ブロックの設定を構成するサイドバーパネルなど
+1. **インサーター:** コンテンツキャンバス内にブロックを挿入するためのパネル
+2. **コンテンツキャンバス:** コンテンツエディター。ブロックで作成されたコンテンツを保持
+3. **設定パネル:** ブロックが選択された際のブロックの設定や、投稿の設定を構成するパネル
 
 <!-- 
-Through the Block editor, you create content modularly using Blocks. There are many [core blocks](https://developer.wordpress.org/block-editor/reference-guides/core-blocks/) ready to be used, and you can also [create your own custom block](https://developer.wordpress.org/block-editor/getting-started/create-block/).
+Through the Block Editor, you create content modularly using blocks. Many [blocks](https://developer.wordpress.org/block-editor/reference-guides/core-blocks/) are available in WordPress by default, and you can also [create your own](https://developer.wordpress.org/block-editor/getting-started/create-block/).
  -->
-ブロックエディターではブロックを使用して、モジュール的にコンテンツを作成します。すぐに使用できる多くの[コアブロック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/)があり、自分でも[オリジナルのブロックを作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/)できます。
+ブロックエディターではブロックを使用して、モジュール的にコンテンツを作成します。WordPress ではデフォルトで多くの[ブロック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/)を利用でき、また[自分でも作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/)できます。
 
 <!-- 
-A [Block](https://developer.wordpress.org/block-editor/explanations/architecture/key-concepts/#blocks) is a discrete element such as a Paragraph, Heading, Media, or Embed. Each block is treated as a separate element with individual editing and format controls. When all these components are pieced together, they make up the content that is then [stored in the WordPress database](https://developer.wordpress.org/block-editor/explanations/architecture/data-flow/#serialization-and-parsing).
+A [block](https://developer.wordpress.org/block-editor/explanations/architecture/key-concepts/#blocks) is a discrete element such as a Paragraph, Heading, Media, or Embed. Each block is treated as a separate element with individual editing and format controls. When all these components are pieced together, they make up the content of the page or post, which is then [stored in the WordPress database](https://developer.wordpress.org/block-editor/explanations/architecture/data-flow/#serialization-and-parsing).
  -->
-[ブロック](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF)は、段落、見出し、メディア、埋め込みなどの個別の要素です。各ブロックは独立した要素として扱われ、個別の編集や書式の制御が可能です。これらの要素をすべてつなぎ合わせてコンテンツとなり、[WordPress のデータベースに保存されます](https://developer.wordpress.org/block-editor/explanations/architecture/data-flow/#serialization-and-parsing)。
+[ブロック](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/key-concepts/#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF)は、段落、見出し、メディア、埋め込みなどの個別の要素です。各ブロックは独立した要素として扱われ、個別の編集や書式の制御が可能です。これらの要素をすべてつなぎ合わせて固定ページや投稿のコンテンツとなり、[WordPress のデータベースに保存されます](https://developer.wordpress.org/block-editor/explanations/architecture/data-flow/#serialization-and-parsing)。
 
 <!-- 
 The Block Editor is the result of the work done on the [**Gutenberg project**](https://developer.wordpress.org/block-editor/getting-started/faq/#what-is-gutenberg), which aims to revolutionize the WordPress editing experience.
@@ -55,9 +55,10 @@ The Block Editor is the result of the work done on the [**Gutenberg project**](h
 ブロックエディターは、WordPress の編集体験に革命を起こすことを目的とした [**Gutenberg プロジェクト**で行われた作業](https://ja.wordpress.org/team/handbook/block-editor/getting-started/faq/#gutenberg-%e3%82%b0%e3%83%bc%e3%83%86%e3%83%b3%e3%83%99%e3%83%ab%e3%82%af-%e3%81%a8%e3%81%af)の成果です。
 
 <!-- 
-Besides offering an [enhanced editing experience](https://wordpress.org/gutenberg/) through visual content creation tools, the Block Editor is also a powerful developer platform with a [rich feature set of APIs](https://developer.wordpress.org/block-editor/reference-guides/) that allow it to be manipulated and extended many different ways.
+Besides offering an [enhanced editing experience](https://wordpress.org/gutenberg/) through visual content creation tools, the Block Editor is also a powerful developer platform with a [rich feature set of APIs](https://developer.wordpress.org/block-editor/reference-guides/) that allow it to be manipulated and extended in countless ways.
  -->
-ブロックエディターはビジュアルコンテンツ作成ツールを介して、[拡張された編集体験](https://wordpress.org/gutenberg/)を提供するだけでなく、[豊富な API 機能セット](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/)によって、多くの異なる方法で操作、拡張できる強力な開発者プラットフォームです。
+ブロックエディターはビジュアルコンテンツ作成ツールを介して、[拡張された編集体験](https://wordpress.org/gutenberg/)を提供するだけでなく、[豊富な API 機能セット](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/)によって、無数の方法で操作、拡張できる強力な開発者プラットフォームです。
+
 
 <!-- 
 ## Navigating this handbook
@@ -65,34 +66,37 @@ Besides offering an [enhanced editing experience](https://wordpress.org/gutenber
 ## ハンドブックの歩き方
 
 <!-- 
-This handbook is focused on block development and is divided into five sections, each serving a different purpose.
+This handbook is focused on block development and is divided into five major sections.
  -->
-このハンドブックはブロック開発に焦点を当てています。5つのセクションに分かれていて、それぞれに異なる目的があります。
+このハンドブックはブロック開発に焦点を当てていて、大きく5つのセクションに分かれます。
 
 <!-- 
-- [**Getting Started**](https://developer.wordpress.org/block-editor/getting-started/) - For those just starting out with block development, this is where you can get set up with a [development environment](https://developer.wordpress.org/block-editor/getting-started/devenv/) and learn the [fundamentals of block development](https://developer.wordpress.org/block-editor/getting-started/fundamentals/). Its [Quick Start Guide](https://developer.wordpress.org/block-editor/getting-started/quick-start-guide/) and [Tutorial: Build your first block](https://developer.wordpress.org/block-editor/getting-started/tutorial/) are probably the best places to start learning block development.
+- **[Getting Started](https://developer.wordpress.org/block-editor/getting-started/):** For those just starting out with block development, this is where you can get set up with a [development environment](https://developer.wordpress.org/block-editor/getting-started/devenv/) and learn the [fundamentals of block development](https://developer.wordpress.org/block-editor/getting-started/fundamentals/). Its [Quick Start Guide](https://developer.wordpress.org/block-editor/getting-started/quick-start-guide/) and [Tutorial: Build your first block](https://developer.wordpress.org/block-editor/getting-started/tutorial/) are great places to start learning block development.
  -->
-- [**はじめに**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - これからブロック開発を始める方はこのセクションで[開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/)をセットアップし、[ブロック開発の基本原理](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/) を学習できます。[クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/)、および[チュートリアル: はじめてのブロック作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/)は、ブロック開発の学習を始めるにあたって最良のスタート地点でしょう。
+- **[はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/):** これからブロック開発を始める方はこのセクションで[開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/)をセットアップし、[ブロック開発の基本原理](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/) を学習できます。[クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/)、および[チュートリアル: はじめてのブロック作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/)は、ブロック開発の学習を始めるにあたっての素晴らしいスタート地点です。
 
 <!-- 
-- [**How-to Guides**](https://developer.wordpress.org/block-editor/how-to-guides/) - Here, you can build on what you learned in the Getting Started section and learn how to solve particular problems you might encounter. You can also get tutorials and example code that you can reuse for projects such as [working with WordPress’ data](https://developer.wordpress.org/block-editor/how-to-guides/data-basics/) or [Curating the Editor Experience](https://developer.wordpress.org/block-editor/how-to-guides/curating-the-editor-experience/).
+- **[How-to Guides](https://developer.wordpress.org/block-editor/how-to-guides/):** Here, you can build on what you learned in the Getting Started section and learn how to solve particular problems. You will also find tutorials and example code to reuse in your own projects, such as [working with WordPress data](https://developer.wordpress.org/block-editor/how-to-guides/data-basics/) or [Curating the Editor Experience](https://developer.wordpress.org/block-editor/how-to-guides/curating-the-editor-experience/).
  -->
-- [**開発ガイド**](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/) - 「はじめに」のセクションで学んだことをベースに、開発中に出会うさまざまな問題の解決方法を学びます。またチュートリアルや再利用可能なサンプルコードも取得できます。例えば、[WordPress のデータの操作](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) や [ユーザーインターフェースの制限](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) など。
+- **[開発ガイド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/):** 「はじめに」のセクションで学んだことをベースに、特定の問題の解決方法を学びます。チュートリアルやプロジェクト内で再利用可能なサンプルコードも含まれます。例えば、[WordPress のデータの操作](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/data-basics/) や [ユーザーインターフェースの制限](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/) など。
 
 <!-- 
-- [**Reference Guides**](https://developer.wordpress.org/block-editor/reference-guides/) - This section is the heart of the handbook and is where you can get down to the nitty-gritty and look up the details of the particular API you’re working with or need information on. Among other things, the [Block API Reference](https://developer.wordpress.org/block-editor/reference-guides/block-api/) covers most of what you will want to do with a block, and each [component](https://developer.wordpress.org/block-editor/reference-guides/components/) and [package](https://developer.wordpress.org/block-editor/reference-guides/packages/) is also documented here. _Components are also documented via [Storybook](https://wordpress.github.io/gutenberg/?path=/story/docs-introduction--page)._
+- **[Reference Guides](https://developer.wordpress.org/block-editor/reference-guides/):** This section is the heart of the handbook and is where you can get down to the nitty-gritty and look up the details of the particular API you’re working with or need information on. Among other things, the [Block API Reference](https://developer.wordpress.org/block-editor/reference-guides/block-api/) covers most of what you will want to do with a block, and each [component](https://developer.wordpress.org/block-editor/reference-guides/components/) and [package](https://developer.wordpress.org/block-editor/reference-guides/packages/) is also documented here. _Components are also documented via [Storybook](https://wordpress.github.io/gutenberg/?path=/story/docs-introduction--page)._
  -->
-- [**リファレンスガイド**](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/) - このセクションがこのハンドブックの心臓部です。作業中あるいは調査中に細かな部分まで調べたり、特定の API の詳細を調べる際に利用できます。[ブロック API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/) は、ブロックで実行したいほぼすべてのトピックをカバーしています。また、各 [コンポーネント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) と [パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/) もここでドキュメント化されています。_なおコンポーネントは、[Storybook](https://wordpress.github.io/gutenberg/?path=/story/docs-introduction--page) 経由でもドキュメント化されています。_
+- **[リファレンスガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/):** このセクションがこのハンドブックの心臓部です。作業中あるいは調査中に細かな部分まで調べたり、特定の API の詳細を調べる際に利用できます。[ブロック API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/) は、ブロックで実行したいほぼすべてのトピックをカバーしています。また、各 [コンポーネント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) と [パッケージ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/) もここでドキュメント化されています。_なおコンポーネントは、[Storybook](https://wordpress.github.io/gutenberg/?path=/story/docs-introduction--page) 経由でもドキュメント化されています。_
 
 <!-- 
-- [**Explanations**](https://developer.wordpress.org/block-editor/explanations/) - This section enables you to go deeper and reinforce your practical knowledge with a theoretical understanding of the [Architecture](https://developer.wordpress.org/block-editor/explanations/architecture/) of the block editor.
+- **[Explanations](https://developer.wordpress.org/block-editor/explanations/):** This section enables you to go deeper and reinforce your practical knowledge with a theoretical understanding of the [Architecture](https://developer.wordpress.org/block-editor/explanations/architecture/) of the Block Editor.
  -->
-- [**概説**](https://ja.wordpress.org/team/handbook/block-editor/explanations/) - このセクションではさらに深く、ブロックエディター[アーキテクチャ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/)の理論的な理解により、実践的な知識を強化できます。
+- **[概説](https://ja.wordpress.org/team/handbook/block-editor/explanations/):** このセクションではさらに深く、ブロックエディター[アーキテクチャ](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/)の理論的な理解により、実践的な知識を強化できます。
 
 <!-- 
 - [**Contributor Guide**](https://developer.wordpress.org/block-editor/contributors/) - Gutenberg is open source software, and anyone is welcome to contribute to the project. This section details how to contribute and can help you choose in which way you want to contribute, whether with [code](https://developer.wordpress.org/block-editor/contributors/code/), [design](https://developer.wordpress.org/block-editor/contributors/design/), [documentation](https://developer.wordpress.org/block-editor/contributors/documentation/), or in some other way.
+
+- **[Contributor Guide](https://developer.wordpress.org/block-editor/contributors/):** Gutenberg is open-source software, and everyone is welcome to contribute to the project. This section details how to contribute, whether with [code](https://developer.wordpress.org/block-editor/contributors/code/), [design](https://developer.wordpress.org/block-editor/contributors/design/), [documentation](https://developer.wordpress.org/block-editor/contributors/documentation/), or in some other way.
+
  -->
-- [**コントリビュータガイド**](https://ja.wordpress.org/team/handbook/block-editor/contributors/) - Gutenbergはオープンソースソフトウェアであり、誰でもこのプロジェクトに貢献できます。このセクションでは、どの領域に貢献するかを選択できるよう、[コード](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/)、[デザイン](https://ja.wordpress.org/team/handbook/block-editor/contributors/design/)、[ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/contributors/documentation/)、その他の貢献方法を詳しく説明します。
+- **[コントリビュータガイド](https://ja.wordpress.org/team/handbook/block-editor/contributors/):** Gutenbergはオープンソースソフトウェアであり、誰でもこのプロジェクトに貢献できます。このセクションでは[コード](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/)、[デザイン](https://ja.wordpress.org/team/handbook/block-editor/contributors/design/)、[ドキュメント](https://ja.wordpress.org/team/handbook/block-editor/contributors/documentation/)、その他の貢献方法を詳しく説明します。
 
 <!-- 
 ## Further resources
@@ -105,17 +109,17 @@ This handbook should be considered the canonical resource for all things related
 このハンドブックは、ブロック開発に関連するすべての情報の正規のリソースです。しかし、他にも参考になる資料があります。
 
 <!-- 
-- [**WordPress Developer Blog**](https://developer.wordpress.org/news/) - An ever-growing resource of technical articles covering specific topics related to block development and a wide variety of use cases. The blog is also an excellent way to [keep up with the latest developments in WordPress](https://developer.wordpress.org/news/tag/roundup/).
-- [**Learn WordPress**](https://learn.wordpress.org/) - The WordPress hub for learning resources where you can find courses like [Introduction to Block Development: Build your first custom block](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/), [Converting a Shortcode to a Block](https://learn.wordpress.org/course/converting-a-shortcode-to-a-block/) or [Using the WordPress Data Layer](https://learn.wordpress.org/course/using-the-wordpress-data-layer/)
-- [**WordPress.tv**](https://wordpress.tv/) - A hub of WordPress-related videos (from talks at WordCamps to recordings of online workshops) curated and moderated by the WordPress.org community. You’re sure to find something to aid your learning about [block development](https://wordpress.tv/?s=block%20development&sort=newest) or the [Block Editor](https://wordpress.tv/?s=block%20editor&sort=relevance) here.
-- [**Gutenberg repository**](https://github.com/WordPress/gutenberg/) - Development of the block editor project is carried out in this GitHub repository. It contains the code of interesting packages such as [`block-library`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src) (core blocks) or [`components`](https://github.com/WordPress/gutenberg/tree/trunk/packages/components) (common UI elements). _The [block-development-examples](https://github.com/WordPress/block-development-examples) repository is another useful reference._
-- [**End User Documentation**](https://wordpress.org/documentation/) - This documentation site is targeted to the end user (not developers), where you can also find documentation about the [Block Editor](https://wordpress.org/documentation/category/block-editor/) and [working with blocks](https://wordpress.org/documentation/article/work-with-blocks/).
+- **[WordPress Developer Blog](https://developer.wordpress.org/news/):** An ever-growing resource of technical articles covering specific topics related to block development and a wide variety of use cases. The blog is also an excellent way to [keep up with the latest developments in WordPress](https://developer.wordpress.org/news/tag/roundup/).
+- **[Learn WordPress](https://learn.wordpress.org/):** The WordPress hub for learning resources where you can find courses like [Introduction to Block Development: Build your first custom block](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/), [Converting a Shortcode to a Block](https://learn.wordpress.org/course/converting-a-shortcode-to-a-block/), or [Using the WordPress Data Layer](https://learn.wordpress.org/course/using-the-wordpress-data-layer/)
+- **[WordPress.tv](https://wordpress.tv/):** A hub of WordPress-related videos (from talks at WordCamps to recordings of online workshops) curated and moderated by the WordPress community. You’re sure to find something to aid your learning about [block development](https://wordpress.tv/?s=block%20development&sort=newest) or the [Block Editor](https://wordpress.tv/?s=block%20editor&sort=relevance) here.
+- **[Gutenberg repository](https://github.com/WordPress/gutenberg/):** Development of the Block Editor takes place on GitHub. The repository contains the code of interesting packages such as [`block-library`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src) (core blocks) or [`components`](https://github.com/WordPress/gutenberg/tree/trunk/packages/components) (common UI elements). _The [block-development-examples](https://github.com/WordPress/block-development-examples) repository is another useful reference._
+- **[End User Documentation](https://wordpress.org/documentation/):** This documentation site is targeted to the end user (not developers), where you can also find documentation about the [Block Editor](https://wordpress.org/documentation/category/block-editor/) and [working with blocks](https://wordpress.org/documentation/article/work-with-blocks/).
  -->
-- [**WordPress 開発者ブログ**](https://developer.wordpress.org/news/) - ここにはブロック開発に関連する特定のトピックやさまざまなユースケースをカバーする技術記事が日々アップされています。また [WordPress の最新動向を知る](https://developer.wordpress.org/news/tag/roundup/)ための優れたリソースでもあります。
-- [**Learn WordPress**](https://learn.wordpress.org/?locale=ja) - 学習リソースのための WordPress ハブです。コースには「[Introduction to Block Development: Build your first custom block (ブロック開発入門: 最初のカスタムブロックを構築する)](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/)」、「[Converting a Shortcode to a Block (ショートコードをブロックに変換する)](https://learn.wordpress.org/course/converting-a-shortcode-to-a-block/)」、「[Using the WordPress Data Layer (WordPress データレイヤーの使用)](https://learn.wordpress.org/course/using-the-wordpress-data-layer/)」など。
-- [**WordPress.tv**](https://wordpress.tv/) - WordPress.org コミュニティが監修した WordPress 関連動画のハブです。WordCamp でのセッションからオンラインワークショップの録画まで。[ブロック開発](https://wordpress.tv/?s=block%20development&sort=newest)や[ブロックエディター](https://wordpress.tv/?s=block%20editor&sort=relevance)の学習に役立つ情報も見つかるはずです。
-- [**Gutenberg リポジトリ**](https://github.com/WordPress/gutenberg/) - ブロックエディタープロジェクトの開発は、このGitHubリポジトリで行われています。このリポジトリには [`block-library`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src) (コアブロック) や [`components`](https://github.com/WordPress/gutenberg/tree/trunk/packages/components) (共通 UI 要素) などの興味深いパッケージのコードが含まれています。_[block-development-examples](https://github.com/WordPress/block-development-examples) リポジトリも有用なリファレンスです。_
-- [**エンドユーザードキュメント**](https://wordpress.org/documentation/) - エンドユーザー (開発者でなく) をターゲットとしたドキュメントサイト。ここには[ブロックエディター](https://wordpress.org/documentation/category/block-editor/)や[ブロックの操作](https://wordpress.org/documentation/article/work-with-blocks/)に関するドキュメントがあります。
+- **[WordPress 開発者ブログ](https://developer.wordpress.org/news/):** ここにはブロック開発に関連する特定のトピックやさまざまなユースケースをカバーする技術記事が日々アップされています。また [WordPress の最新動向を知る](https://developer.wordpress.org/news/tag/roundup/)ための優れたリソースでもあります。
+- **[Learn WordPress](https://learn.wordpress.org/?locale=ja):** 学習リソースのための WordPress ハブです。コースには「[Introduction to Block Development: Build your first custom block (ブロック開発入門: 最初のカスタムブロックを構築する)](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/)」、「[Converting a Shortcode to a Block (ショートコードをブロックに変換する)](https://learn.wordpress.org/course/converting-a-shortcode-to-a-block/)」、「[Using the WordPress Data Layer (WordPress データレイヤーの使用)](https://learn.wordpress.org/course/using-the-wordpress-data-layer/)」など。
+- **[WordPress.tv](https://wordpress.tv/):** WordPress コミュニティが監修した WordPress 関連動画のハブです。WordCamp でのセッションからオンラインワークショップの録画まで。[ブロック開発](https://wordpress.tv/?s=block%20development&sort=newest)や[ブロックエディター](https://wordpress.tv/?s=block%20editor&sort=relevance)の学習に役立つ情報も見つかるはずです。
+- **[Gutenberg リポジトリ](https://github.com/WordPress/gutenberg/):** ブロックエディタープロジェクトの開発は、この GitHub リポジトリで行われています。このリポジトリには [`block-library`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src) (コアブロック) や [`components`](https://github.com/WordPress/gutenberg/tree/trunk/packages/components) (共通 UI 要素) などの興味深いパッケージのコードが含まれています。_[block-development-examples](https://github.com/WordPress/block-development-examples) リポジトリも有用なリファレンスです。_
+- **[エンドユーザードキュメント](https://wordpress.org/documentation/):** エンドユーザー (開発者でなく) をターゲットとしたドキュメントサイト。ここには[ブロックエディター](https://wordpress.org/documentation/category/block-editor/)や[ブロックの操作](https://wordpress.org/documentation/article/work-with-blocks/)に関するドキュメントがあります。
 
 <!-- 
 ## Are you in the right place?
@@ -123,24 +127,16 @@ This handbook should be considered the canonical resource for all things related
 ## 正しいハンドブックを見ていますか ?
 
 <!-- 
-[This handbook](https://developer.wordpress.org/block-editor) is targeted at those seeking to develop for the block editor, but several other handbooks exist for WordPress developers under [developer.wordpress.org](http://developer.wordpress.org/):
+The Block Editor Handbook is designed for those looking to create and develop for the Block Editor. However, it's important to note that there are multiple other handbooks available within the [Developer Resources](http://developer.wordpress.org/) that you may find beneficial:
  -->
-[このハンドブック](https://ja.wordpress.org/team/handbook/block-editor/)はブロックエディター関連の開発を目指す方を対象としています。[developer.wordpress.org](http://developer.wordpress.org/) にはこの他にもいくつかの WordPress 開発者向けのハンドブックがあります。 
+ブロックエディターハンドブックは、ブロックエディター用の作成、開発を目指しているしかし、[Developer Resources](http://developer.wordpress.org/)には、他にも複数の有益なハンドブックが用意されていることに留意してください：
 
-<!-- 
-- [/themes](https://developer.wordpress.org/themes) - Theme Handbook
-- [/plugins](https://developer.wordpress.org/plugins) - Plugin Handbook
-- [/apis](https://developer.wordpress.org/apis) - Common APIs Handbook
-- [/advanced-administration](https://developer.wordpress.org/advanced-administration) - WP Advanced Administration Handbook
-- [/rest-api](https://developer.wordpress.org/rest-api/) - REST API Handbook
-- [/coding-standards](https://developer.wordpress.org/coding-standards) - Best practices for WordPress developers
- -->
-- [/themes](https://developer.wordpress.org/themes) - テーマハンドブック
-- [/plugins](https://developer.wordpress.org/plugins) - プラグインハンドブック
-- [/apis](https://developer.wordpress.org/apis) - 共通 API ハンドブック
-- [/advanced-administration](https://developer.wordpress.org/advanced-administration) - 高度な管理ハンドブック
-- [/rest-api](https://developer.wordpress.org/rest-api/) - REST API ハンドブック
-- [/coding-standards](https://developer.wordpress.org/coding-standards) - WordPress 開発者向けのベストプラクティス
+- [Theme Handbook](https://developer.wordpress.org/themes)
+- [Plugin Handbook](https://developer.wordpress.org/plugins)
+- [Common APIs Handbook](https://developer.wordpress.org/apis)
+- [Advanced Administration Handbook](https://developer.wordpress.org/advanced-administration)
+- [REST API Handbook](https://developer.wordpress.org/rest-api/)
+- [Coding Standards Handbook](https://developer.wordpress.org/coding-standards)
 
 <br />
 <hr />
@@ -181,6 +177,44 @@ This handbook should be considered the canonical resource for all things related
 | @qoorus | @qoorus |
 
 ### 主な変更
+
+2024/5/26
+- [TOP](https://ja.wordpress.org/team/handbook/block-editor/) - 全面改訂 [#58652](https://github.com/WordPress/gutenberg/pull/58652)、sidebar -> panel [#57546](https://github.com/WordPress/gutenberg/issues/57546)
+- [Coding Guidelines](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/coding-guidelines/) - className -> clsx [#61138](https://github.com/WordPress/gutenberg/pull/61138)、process.env -> globalThis [#61486](https://github.com/WordPress/gutenberg/pull/61486)
+- [End-to-End Testing](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/testing-overview/e2e/) - playwright キーワード削除 [#60376](https://github.com/WordPress/gutenberg/pull/60376)
+- [パフォーマンス](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/performance/) - コードバイタルとリファレンスコミット追記 [#58927](https://github.com/WordPress/gutenberg/pull/58927)
+- [はじめに](https://ja.wordpress.org/team/handbook/block-editor/getting-started/) - 全面改訂 [#58624](https://github.com/WordPress/gutenberg/pull/58624)
+- [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/getting-started/faq/) - キーボードショートカットのリスト削除 [#61591](https://github.com/WordPress/gutenberg/pull/61591)
+- [Static or Dynamic rendering of a block](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/static-dynamic-rendering/) - 校正 [#58681](https://github.com/WordPress/gutenberg/pull/58681)
+- [ブロックコントロール: ブロックツールバーと設定サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/block-controls-toolbar-and-sidebar/) - 削除
+- [ネストしたブロック: InnerBlocks の使用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) - allowedBlocks 追加 [#58262](https://github.com/WordPress/gutenberg/pull/58262)
+- [基本的なブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) - 削除
+- [フィルターとフック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/filters-and-hooks/) - エディター設定 [#61597](https://github.com/WordPress/gutenberg/pull/61597)、ブロックフィルター [#61771](https://github.com/WordPress/gutenberg/pull/61771)
+- [パターン](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/patterns/) - theme.json v3 対応 [#58409](https://github.com/WordPress/gutenberg/pull/58409)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/theme-json/) - Version 3 [#61221](https://github.com/WordPress/gutenberg/pull/61221)
+- [フィーチャーフラグ](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/feature-flags/) - process.env -> globalThis [#61486](https://github.com/WordPress/gutenberg/pull/61486)
+- [プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) - PluginSidebar を @wordpress/editor に移動 [#60815](https://github.com/WordPress/gutenberg/pull/60815)
+- [Propagating updates for block types](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/propagating-updates/) - reusable block -> synched pattern [#58633](https://github.com/WordPress/gutenberg/pull/58633)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/) - aspectRatio [#56897](https://github.com/WordPress/gutenberg/pull/56897)、backgroundSize [#59165](https://github.com/WordPress/gutenberg/pull/59165)、textAlign [#59531](https://github.com/WordPress/gutenberg/pull/59531)、Version 3 [#61221](https://github.com/WordPress/gutenberg/pull/61221)、defaultSpacingSizes [#61842](https://github.com/WordPress/gutenberg/pull/61842)、editor-spacing-sizes [#62252](https://github.com/WordPress/gutenberg/pull/62252)
+- [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/) - wp-block-styles の明確化 [#58915](https://github.com/WordPress/gutenberg/pull/58915)、Version 3 [#61221](https://github.com/WordPress/gutenberg/pull/61221)
+- [block.json のメタデータ](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/) - allowedBlocks [#58262](https://github.com/WordPress/gutenberg/pull/58262)、viewStyle [#56492](https://github.com/WordPress/gutenberg/pull/55492)、viewScriptModule [#58731](https://github.com/WordPress/gutenberg/pull/58731)
+[登録](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) - allowedBlocks [#58262](https://github.com/WordPress/gutenberg/pull/58262)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - defaultStylePicker 削除 [#58930]、interactivity [#59152](https://github.com/WordPress/gutenberg/pull/59152)、background, color.button, color.enableContrastChecker, color.heading, renaming, shadow [#59862](https://github.com/WordPress/gutenberg/pull/59862)、textAlign [#59531](https://github.com/WordPress/gutenberg/pull/59531)
+- [バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) - isActive 補筆 [#60801](https://github.com/WordPress/gutenberg/pull/60801) [#62088](https://github.com/WordPress/gutenberg/pull/62088)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - グループ aspectRatio 削除 [#58414](https://github.com/WordPress/gutenberg/pull/58414)、ページネーション parent 削除 [#58602](https://github.com/WordPress/gutenberg/pull/58602)、interactivity [#58132](https://github.com/WordPress/gutenberg/pull/58132)、パターン overrides -> content [#58596](https://github.com/WordPress/gutenberg/pull/58596)、カラム、画像 shadow [#57982](https://github.com/WordPress/gutenberg/pull/57982)、ancestor [#59390](https://github.com/WordPress/gutenberg/pull/59390)、Allowed Blocks [#59424](https://github.com/WordPress/gutenberg/pull/59424)、引用 align -> textAlign、メディアとテキスト useFeaturedImage [#51491](https://github.com/WordPress/gutenberg/pull/51491)、アイキャッチ画像 shadow [#59616](https://github.com/WordPress/gutenberg/pull/59616)、filter [#60184](https://github.com/WordPress/gutenberg/pull/60184)、サイトのキャッチコピー label [#59654](https://github.com/WordPress/gutenberg/pull/59654)、リスト html 無効化 [#55656](https://github.com/WordPress/gutenberg/pull/55656)、ボタン、見出し、リスト項目、段落 splitting [#54543](https://github.com/WordPress/gutenberg/pull/54543)、リスト className [#56469](https://github.com/WordPress/gutenberg/pull/56469)、カバー shadow [#61883](https://github.com/WordPress/gutenberg/pull/61883)
+- [Interactivity API Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/) - 新規
+- [Quick start guide](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-quick-start-guide/) - 新規
+- [API Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/) - 新規
+- [About the Interactivity API](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-about/) - 新規
+- [Frequently Asked Questions](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-faq/) - 新規
+- [SlotFill リフレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/slotfills/) - PluginPostStatusInfo を edit-post から editor へ [#60814](https://github.com/WordPress/gutenberg/pull/60814)
+- [theme.json リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/) - Version 3 追加 [#61221](https://github.com/WordPress/gutenberg/pull/61221)
+[theme.json バージョン2 リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v2/) - 新規
+- [theme.json v3](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - fontFamilies preview 削除 [#58395](https://github.com/WordPress/gutenberg/pull/58395)、defaultFontSizes 削除 [#58456](https://github.com/WordPress/gutenberg/pull/58456)、backgroundSize [#59127](https://github.com/WordPress/gutenberg/pull/59127) [#59165](https://github.com/WordPress/gutenberg/pull/59165)、appearanceTools 説明 [#59499](https://github.com/WordPress/gutenberg/pull/59499)、color.caption [#60017](https://github.com/WordPress/gutenberg/pull/60017)、textAlign [#59531](https://github.com/WordPress/gutenberg/pull/59531)、blockGap & fluid [#61024](https://github.com/WordPress/gutenberg/pull/61024)、defaultFontSizes & V3 [#58409](https://github.com/WordPress/gutenberg/pull/58409) [#61221](https://github.com/WordPress/gutenberg/pull/61221)、aspectRatios [#47271](https://github.com/WordPress/gutenberg/pull/47271)
+- [theme.json の新しいバージョンへの移行](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) - defaultFontSizes [#58409](https://github.com/WordPress/gutenberg/pull/58409)、V3 [#61221](https://github.com/WordPress/gutenberg/pull/61221)
+- [コンポーネントリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/components/) - TypeScript [#60350](https://github.com/WordPress/gutenberg/pull/60350)
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - node 20.10.0、npm 10.2.3 [#61430](https://github.com/WordPress/gutenberg/pull/61430)
+- [外部プロジェクトテンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/packages-create-block-external-template/) - variants [#60095](https://github.com/WordPress/gutenberg/pull/60095)、transformer [#60445](https://github.com/WordPress/gutenberg/pull/60445)
 
 2024/1/27
 

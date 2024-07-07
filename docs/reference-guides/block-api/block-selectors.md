@@ -4,15 +4,6 @@
 # セレクタ
 
 <!-- 
-<div class="callout callout-alert">
-	This API was stabilized in Gutenberg 15.5 and is planned for core release
-	in WordPress 6.3. To use this prior to WordPress 6.3, you will need to
-	install and activate Gutenberg >= 15.5.
-</div>
- -->
-> この API は Gutenberg 15.5 で安定版となり、WordPress 6.3でコアリリースされる予定です。WordPress 6.3より前にこの API を使用するには Gutenberg 15.5以上をインストールして、有効化する必要があります。
-
-<!-- 
 Block Selectors is the API that allows blocks to customize the CSS selector used
 when their styles are generated.
  -->

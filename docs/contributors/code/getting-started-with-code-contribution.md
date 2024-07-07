@@ -258,9 +258,9 @@ Port: {MYSQL_PORT_NUMBER}
 **注意してください**: MySQL のポート番号は、`wp-env` を再起動するたびに変わります。もしデータベースにアクセスできなくなった場合は、上の手順を繰り返して新しいポート番号を見つけ、接続を回復してください。
 
 <!--
-**Tip**: [Sequel Ace](https://sequel-ace.com/) is a useful GUI tool for accessing a MySQL database. Other tools are available and documented in this [article on accessing the WordPress database](https://wordpress.org/documentation/article/creating-database-for-wordpress/).
+**Tip**: [Sequel Ace](https://sequel-ace.com/) is a useful GUI tool for accessing a MySQL database. Other tools are available and documented in this [article on accessing the WordPress database](https://developer.wordpress.org/advanced-administration/before-install/creating-database/).
 -->
-**ヒント**: [Sequel Ace](https://sequel-ace.com/)は、MySQLデータベースにアクセスする便利な GUI ツールです。その他の利用可能なツールについては、WordPressデータベースへのアクセスに関する[こちらの記事](https://ja.wordpress.org/support/article/creating-database-for-wordpress/)を参照してください。
+**ヒント**: [Sequel Ace](https://sequel-ace.com/)は、MySQLデータベースにアクセスする便利な GUI ツールです。その他の利用可能なツールについては、WordPressデータベースへのアクセスに関する[こちらの記事](https://developer.wordpress.org/advanced-administration/before-install/creating-database/)を参照してください。
 
 <!--
 #### Troubleshooting

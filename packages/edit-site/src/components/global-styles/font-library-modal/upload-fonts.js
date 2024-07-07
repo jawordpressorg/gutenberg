@@ -1,13 +1,14 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import {
-	Button,
-	DropZone,
 	__experimentalSpacer as Spacer,
 	__experimentalText as Text,
 	__experimentalVStack as VStack,
+	Button,
+	DropZone,
+	Notice,
 	FormFileUpload,
 	FlexItem,
 	privateApis as componentsPrivateApis,
@@ -22,19 +23,14 @@ import { FontLibraryContext } from './context';
 import { Font } from '../../../../lib/lib-font.browser';
 import makeFamiliesFromFaces from './utils/make-families-from-faces';
 import { loadFontFaceInBrowser } from './utils';
-import TabPanelLayout from './tab-panel-layout';
 import { unlock } from '../../../lock-unlock';
 
 const { ProgressBar } = unlock( componentsPrivateApis );
 
 function UploadFonts() {
-	const { installFont, notice, setNotice } = useContext( FontLibraryContext );
+	const { installFonts, notice, setNotice } =
+		useContext( FontLibraryContext );
 	const [ isUploading, setIsUploading ] = useState( false );
-	const supportedFormats =
-		ALLOWED_FILE_EXTENSIONS.slice( 0, -1 )
-			.map( ( extension ) => `.${ extension }` )
-			.join( ', ' ) +
-		` ${ __( 'and' ) } .${ ALLOWED_FILE_EXTENSIONS.slice( -1 ) }`;
 
 	const handleDropZone = ( files ) => {
 		handleFilesUpload( files );
@@ -49,25 +45,50 @@ function UploadFonts() {
 	 * @param {Array} files The files to be filtered
 	 * @return {void}
 	 */
-	const handleFilesUpload = ( files ) => {
+	const handleFilesUpload = async ( files ) => {
 		setNotice( null );
 		setIsUploading( true );
 		const uniqueFilenames = new Set();
 		const selectedFiles = [ ...files ];
-		const allowedFiles = selectedFiles.filter( ( file ) => {
-			if ( uniqueFilenames.has( file.name ) ) {
-				return false; // Discard duplicates
+		let hasInvalidFiles = false;
+
+		// Use map to create a promise for each file check, then filter with Promise.all.
+		const checkFilesPromises = selectedFiles.map( async ( file ) => {
+			const isFont = await isFontFile( file );
+			if ( ! isFont ) {
+				hasInvalidFiles = true;
+				return null; // Return null for invalid files.
 			}
-			// Eliminates files that are not allowed
+			// Check for duplicates
+			if ( uniqueFilenames.has( file.name ) ) {
+				return null; // Return null for duplicates.
+			}
+			// Check if the file extension is allowed.
 			const fileExtension = file.name.split( '.' ).pop().toLowerCase();
 			if ( ALLOWED_FILE_EXTENSIONS.includes( fileExtension ) ) {
 				uniqueFilenames.add( file.name );
-				return true; // Keep file if the extension is allowed
+				return file; // Return the file if it passes all checks.
 			}
-			return false; // Discard file extension not allowed
+			return null; // Return null for disallowed file extensions.
 		} );
+
+		// Filter out the nulls after all promises have resolved.
+		const allowedFiles = ( await Promise.all( checkFilesPromises ) ).filter(
+			( file ) => null !== file
+		);
+
 		if ( allowedFiles.length > 0 ) {
 			loadFiles( allowedFiles );
+		} else {
+			const message = hasInvalidFiles
+				? __( 'Sorry, you are not allowed to upload this file type.' )
+				: __( 'No fonts found to install.' );
+
+			setNotice( {
+				type: 'error',
+				message,
+			} );
+			setIsUploading( false );
 		}
 	};
 
@@ -91,6 +112,23 @@ function UploadFonts() {
 		);
 		handleInstall( fontFacesLoaded );
 	};
+
+	/**
+	 * Checks if a file is a valid Font file.
+	 *
+	 * @param {File} file The file to be checked.
+	 * @return {boolean} Whether the file is a valid font file.
+	 */
+	async function isFontFile( file ) {
+		const font = new Font( 'Uploaded Font' );
+		try {
+			const buffer = await readFileAsArrayBuffer( file );
+			await font.fromDataBuffer( buffer, 'font' );
+			return true;
+		} catch ( error ) {
+			return false;
+		}
+	}
 
 	// Create a function to read the file as array buffer
 	async function readFileAsArrayBuffer( file ) {
@@ -142,19 +180,8 @@ function UploadFonts() {
 	const handleInstall = async ( fontFaces ) => {
 		const fontFamilies = makeFamiliesFromFaces( fontFaces );
 
-		if ( fontFamilies.length > 1 ) {
-			setNotice( {
-				type: 'error',
-				message: __(
-					'Variants from only one font family can be uploaded at a time.'
-				),
-			} );
-			setIsUploading( false );
-			return;
-		}
-
 		try {
-			await installFont( fontFamilies[ 0 ] );
+			await installFonts( fontFamilies );
 			setNotice( {
 				type: 'success',
 				message: __( 'Fonts were installed successfully.' ),
@@ -163,6 +190,7 @@ function UploadFonts() {
 			setNotice( {
 				type: 'error',
 				message: error.message,
+				errors: error?.installationErrors,
 			} );
 		}
 
@@ -170,9 +198,25 @@ function UploadFonts() {
 	};
 
 	return (
-		<TabPanelLayout notice={ notice }>
+		<div className="font-library-modal__tabpanel-layout">
 			<DropZone onFilesDrop={ handleDropZone } />
 			<VStack className="font-library-modal__local-fonts">
+				{ notice && (
+					<Notice
+						status={ notice.type }
+						__unstableHTML
+						onRemove={ () => setNotice( null ) }
+					>
+						{ notice.message }
+						{ notice.errors && (
+							<ul>
+								{ notice.errors.map( ( error, index ) => (
+									<li key={ index }>{ error }</li>
+								) ) }
+							</ul>
+						) }
+					</Notice>
+				) }
 				{ isUploading && (
 					<FlexItem>
 						<div className="font-library-modal__upload-area">
@@ -185,30 +229,26 @@ function UploadFonts() {
 						accept={ ALLOWED_FILE_EXTENSIONS.map(
 							( ext ) => `.${ ext }`
 						).join( ',' ) }
-						multiple={ true }
+						multiple
 						onChange={ onFilesUpload }
 						render={ ( { openFileDialog } ) => (
 							<Button
 								className="font-library-modal__upload-area"
 								onClick={ openFileDialog }
 							>
-								<span>{ __( 'Upload font' ) }</span>
+								{ __( 'Upload font' ) }
 							</Button>
 						) }
 					/>
 				) }
 				<Spacer margin={ 2 } />
 				<Text className="font-library-modal__upload-area__text">
-					{ sprintf(
-						/* translators: %s: supported font formats: ex: .ttf, .woff and .woff2 */
-						__(
-							'Uploaded fonts appear in your library and can be used in your theme. Supported formats: %s.'
-						),
-						supportedFormats
+					{ __(
+						'Uploaded fonts appear in your library and can be used in your theme. Supported formats: .ttf, .otf, .woff, and .woff2.'
 					) }
 				</Text>
 			</VStack>
-		</TabPanelLayout>
+		</div>
 	);
 }
 

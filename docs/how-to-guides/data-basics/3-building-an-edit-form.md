@@ -158,7 +158,7 @@ We want the `EditPageForm` to display the title of the currently edited page. Yo
 `EditPageForm` には、現在編集中のページのタイトルを表示するつもりですが、見て分かるように `page` ではなく、`pageId` プロパティしか受け取りません。でも大丈夫。Gutenberg Data を使えば、どのコンポーネントからでも簡単にエンティティレコードにアクセスできます。
 
 <!--
-In this case, we need to use the [`getEntityRecord`](/docs/reference-guides/data/data-core/#getentityrecord) selector. The list of records is already available thanks to the `getEntityRecords` call in `MyFirstApp`, so there won't even be any additional HTTP requests involved – we'll get the cached record right away.
+In this case, we need to use the [`getEntityRecord`](/docs/reference-guides/data/data-core.md#getentityrecord) selector. The list of records is already available thanks to the `getEntityRecords` call in `MyFirstApp`, so there won't even be any additional HTTP requests involved – we'll get the cached record right away.
 -->
 この場合、[`getEntityRecord`](https://developer.wordpress.org/block-editor/reference-guides/data/data-core/#getentityrecord) セレクタを使用する必要があります。`MyFirstApp` の `getEntityRecords` 呼び出しのおかげで、レコードのリストはすでに利用可能で、追加の HTTP リクエストは必要ありません。キャッシュされたレコードをすぐに取得できます。
 

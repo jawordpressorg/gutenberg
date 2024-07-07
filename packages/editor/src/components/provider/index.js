@@ -23,11 +23,34 @@ import useBlockEditorSettings from './use-block-editor-settings';
 import { unlock } from '../../lock-unlock';
 import DisableNonPageContentBlocks from './disable-non-page-content-blocks';
 import NavigationBlockEditingMode from './navigation-block-editing-mode';
+import { useHideBlocksFromInserter } from './use-hide-blocks-from-inserter';
+import useCommands from '../commands';
+import BlockRemovalWarnings from '../block-removal-warnings';
+import StartPageOptions from '../start-page-options';
+import KeyboardShortcutHelpModal from '../keyboard-shortcut-help-modal';
+import ContentOnlySettingsMenu from '../block-settings-menu/content-only-settings-menu';
+import StartTemplateOptions from '../start-template-options';
+import EditorKeyboardShortcuts from '../global-keyboard-shortcuts';
+import PatternRenameModal from '../pattern-rename-modal';
+import PatternDuplicateModal from '../pattern-duplicate-modal';
 
 const { ExperimentalBlockEditorProvider } = unlock( blockEditorPrivateApis );
 const { PatternsMenuItems } = unlock( editPatternsPrivateApis );
 
 const noop = () => {};
+
+/**
+ * These are global entities that are only there to split blocks into logical units
+ * They don't provide a "context" for the current post/page being rendered.
+ * So we should not use their ids as post context. This is important to allow post blocks
+ * (post content, post title) to be used within them without issues.
+ */
+const NON_CONTEXTUAL_POST_TYPES = [
+	'wp_block',
+	'wp_template',
+	'wp_navigation',
+	'wp_template_part',
+];
 
 /**
  * Depending on the post, template and template mode,
@@ -113,7 +136,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		const rootLevelPost = shouldRenderTemplate ? template : post;
 		const defaultBlockContext = useMemo( () => {
 			const postContext =
-				rootLevelPost.type !== 'wp_template' || shouldRenderTemplate
+				! NON_CONTEXTUAL_POST_TYPES.includes( rootLevelPost.type ) ||
+				shouldRenderTemplate
 					? { postId: post.id, postType: post.type }
 					: {};
 
@@ -124,7 +148,13 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 						? rootLevelPost.slug
 						: undefined,
 			};
-		}, [ post.id, post.type, rootLevelPost.type, rootLevelPost.slug ] );
+		}, [
+			shouldRenderTemplate,
+			post.id,
+			post.type,
+			rootLevelPost.type,
+			rootLevelPost.slug,
+		] );
 		const { editorSettings, selection, isReady } = useSelect(
 			( select ) => {
 				const {
@@ -144,7 +174,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		const blockEditorSettings = useBlockEditorSettings(
 			editorSettings,
 			type,
-			id
+			id,
+			mode
 		);
 		const [ blocks, onInput, onChange ] = useBlockEditorProps(
 			post,
@@ -209,6 +240,11 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 			setRenderingMode( settings.defaultRenderingMode ?? 'post-only' );
 		}, [ settings.defaultRenderingMode, setRenderingMode ] );
 
+		useHideBlocksFromInserter( post.type, mode );
+
+		// Register the editor commands.
+		useCommands();
+
 		if ( ! isReady ) {
 			return null;
 		}
@@ -230,12 +266,24 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 							useSubRegistry={ false }
 						>
 							{ children }
-							<PatternsMenuItems />
-							{ mode === 'template-locked' && (
-								<DisableNonPageContentBlocks />
-							) }
-							{ type === 'wp_navigation' && (
-								<NavigationBlockEditingMode />
+							{ ! settings.__unstableIsPreviewMode && (
+								<>
+									<PatternsMenuItems />
+									<ContentOnlySettingsMenu />
+									{ mode === 'template-locked' && (
+										<DisableNonPageContentBlocks />
+									) }
+									{ type === 'wp_navigation' && (
+										<NavigationBlockEditingMode />
+									) }
+									<EditorKeyboardShortcuts />
+									<KeyboardShortcutHelpModal />
+									<BlockRemovalWarnings />
+									<StartPageOptions />
+									<StartTemplateOptions />
+									<PatternRenameModal />
+									<PatternDuplicateModal />
+								</>
 							) }
 						</BlockEditorProviderComponent>
 					</BlockContextProvider>

@@ -486,7 +486,7 @@ Returns an array containing the clientIds of all descendants of the blocks given
 _Parameters_
 
 -   _state_ `Object`: Global application state.
--   _clientIds_ `string|string[]`: Client ID(s) for which descendant blocks are to be returned.
+-   _rootIds_ `string|string[]`: Client ID(s) for which descendant blocks are to be returned.
 
 _Returns_
 
@@ -515,7 +515,7 @@ _Parameters_
 
 _Returns_
 
--   `?WPDirectInsertBlock`: The block type to be directly inserted.
+-   `WPDirectInsertBlock|undefined`: The block type to be directly inserted.
 
 _Type Definition_
 
@@ -1263,7 +1263,7 @@ Action that hides the insertion point.
 
 ### insertAfterBlock
 
-Action that inserts an empty block after a given block.
+Action that inserts a default block after a given block.
 
 _Parameters_
 
@@ -1271,7 +1271,7 @@ _Parameters_
 
 ### insertBeforeBlock
 
-Action that inserts an empty block before a given block.
+Action that inserts a default block before a given block.
 
 _Parameters_
 
@@ -1841,11 +1841,11 @@ _Returns_
 
 ### updateBlockListSettings
 
-Action that changes the nested settings of a given block.
+Action that changes the nested settings of the given block(s).
 
 _Parameters_
 
--   _clientId_ `string`: Client ID of the block whose nested setting are being received.
+-   _clientId_ `string | SettingsByClientId`: Client ID of the block whose nested setting are being received, or object of settings by client ID.
 -   _settings_ `Object`: Object with the new settings for the nested block.
 
 _Returns_

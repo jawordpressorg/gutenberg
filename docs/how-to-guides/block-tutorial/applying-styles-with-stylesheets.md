@@ -19,9 +19,9 @@ A block typically inserts markup (HTML) into post content that you want to style
 ## はじめる前に
 
 <!-- 
-You will need a basic block and WordPress development environment to implement the examples shown in this guide. See the [create a basic block](/docs/how-to-guides/block-tutorial/writing-your-first-block-type.md) or [block tutorial](/docs/getting-started/devenv/get-started-with-create-block.md) to get setup.
+You will need a basic block and WordPress development environment to implement the examples shown in this guide. See the [Quick Start Guide](/docs/getting-started/quick-start-guide.md) or [block tutorial](/docs/getting-started/tutorial.md) to get set up.
  -->
-このガイドで紹介する例を実装するには、基本的なブロックと WordPress の開発環境が必要です。[基本ブロックの作成](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) または [ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) を参照して、セットアップしてください。
+このガイドで紹介する例を実装するには、基本的なブロックと WordPress の開発環境が必要です。[クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/)、または[ブロックチュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/)を参照してください。
 
 <!-- 
 ## Methods to add style
@@ -153,16 +153,22 @@ Like scripts, you can enqueue your block's styles using the `block.json` file.
 スクリプトと同様に、ブロックのスタイルも `block.json` ファイルを使用してエンキューできます。
 
 <!-- 
-Use the `editorStyle` property to a CSS file you want to load in the editor view, and use the `style` property for a CSS file you want to load on the frontend when the block is used.
+Use the `editorStyle` property to a CSS file you want to load in the editor view only, use the `style` property for a CSS file you want to load both in the editor view and on the frontend when the block is used, and use the `viewStyle` property for a CSS file you want to load only on the frontend when the block is used.
  -->
-エディタービューでロードしたい CSS ファイルには `editorStyle` プロパティを、ブロックが使用されたときにフロントエンドでロードしたい CSS ファイルには `style` プロパティを使用します。
+エディタービューのみに読み込みたい CSS ファイルには `editorStyle` プロパティを使用してください。ブロックが使用されるときにエディタービューとフロントエンド上に読み込みたい CSS ファイルには `style` プロパティを使用してください。ブロックが使用されるときにフロントエンド上のみに読み込みたい CSS ファイルには `viewStyle` プロパティを使用してください。
 
 <!-- 
 It is worth noting that, if the editor content is iframed, both of these will
 load in the iframe. `editorStyle` will also load outside the iframe, so it can
 be used for editor content as well as UI.
  -->
+<!-- 
 注意として、エディターコンテンツが iframe 化されている場合、これらの両方が iframe 内にロードされます。`editorStyle` は iframe の外側にも読み込まれるため、UI だけでなくエディターコンテンツにも使用できます。
+ -->
+<!-- 
+It is worth noting that, if the editor content is iframed, both the `style` and `editorStyle` will load in the iframe. `editorStyle` will also load outside the iframe, so it can be used for editor content as well as UI.
+ -->
+注意として、エディターコンテンツが iframe 化されている場合、`style` と `editorStyle`の両方が iframe 内に読み込まれます。`editorStyle` は iframe の外側にも読み込まれるため、UI だけでなくエディターのコンテンツにも使用できます。
 
 <!-- 
 For example:
@@ -241,8 +247,8 @@ block.jsonで指定されたファイルは、自動的にエンキューされ�
 -   `enqueue_block_editor_assets` - to load only in editor view
 -   `enqueue_block_assets` - loads both on frontend and editor view
  -->
--   `enqueue_block_editor_assets` - エディタービューのみにロードする
--   `enqueue_block_assets` - フロントエンドとエディタービューの両方にロードする
+-   `enqueue_block_editor_assets` - エディタービュー内のみに読み込む
+-   `enqueue_block_assets` - フロントエンドとエディタービューの両方で読み込む
 
 <!-- 
 ## Conclusion

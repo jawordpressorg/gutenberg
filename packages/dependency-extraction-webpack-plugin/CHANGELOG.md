@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+
+## 5.9.0 (2024-05-16)
+
+## 5.8.0 (2024-05-02)
+
+## 5.7.0 (2024-04-19)
+
+## 5.6.0 (2024-04-03)
+
+## 5.5.0 (2024-03-21)
+
+## 5.4.0 (2024-03-06)
+
+## 5.3.0 (2024-02-21)
+
+## 5.2.0 (2024-02-09)
+
+### Bug fixes
+
+-   Fix import type field in script module asset files ([#58770](https://github.com/WordPress/gutenberg/pull/58770)).
+
 ## 5.1.0 (2024-01-24)
 
 ## 5.0.0 (2024-01-10)

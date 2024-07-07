@@ -103,7 +103,7 @@ The saved HTML will contain the `title` and `size` in the comment delimiter, and
 ```
 
 <!--
-If an attributes change over time then a [block deprecation](/docs/reference-guides/block-api/block-deprecation.md) can help migrate from an older attribute, or remove it entirely.
+If an attribute changes over time then a [block deprecation](/docs/reference-guides/block-api/block-deprecation.md) can help migrate from an older attribute, or remove it entirely.
  -->
 属性が時間の経過とともに変化する場合は、[非推奨プロセス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-deprecation/)に従って、古い属性から移行するか、完全に削除できます。
 

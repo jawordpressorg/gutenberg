@@ -44,14 +44,14 @@ This guide shows how to create a block that prompts a user for a single value, a
 ## はじめる前に
 
 <!--
-This guide assumes you are already familiar with WordPress plugins, post meta, and basic JavaScript. Review the [Getting started with JavaScript tutorial](/docs/how-to-guides/javascript/README.md) for an introduction.
+This guide assumes you are already familiar with WordPress plugins, post meta, and basic JavaScript. Review the [Getting started with JavaScript tutorial](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) for an introduction.
 -->
-このガイドでは、すでに WordPressのプラグイン、投稿メタ、基本的な JavaScript に親しんでいることを前提としています。入門としては、[JavaScript 入門 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/) を参照してください。
+このガイドでは、すでに WordPressのプラグイン、投稿メタ、基本的な JavaScript に親しんでいることを前提としています。入門としては、[JavaScript 入門 チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/) を参照してください。
 
 <!--
-The guide will walk through creating a basic block, but recommended to go through the [Create Block tutorial](/docs/getting-started/devenv/get-started-with-create-block.md) for a deeper understanding of creating custom blocks.
+The guide will walk through creating a basic block, but recommended to go through the [Create Block tutorial](/docs/getting-started/tutorial.md) for a deeper understanding of creating custom blocks.
 -->
-このガイドでは、基本的なブロックの作成方法を説明します。しかし、カスタムブロックの作成をより深く理解するには、[ブロック作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)の参照を推奨します。
+このガイドでは、基本的なブロックの作成方法を説明します。しかし、カスタムブロックの作成をより深く理解するには、[ブロック作成チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/)の参照を推奨します。
 
 <!--
 You will need:
@@ -244,20 +244,19 @@ registerBlockType( 'myguten/meta-block', {
 ```
 
 <!--
-Confirm this works by creating a post and add the Meta Block. You will see your field that you can type a value in. When you save the post, either as a draft or published, the post meta value will be saved too. You can verify by
-saving and reloading your draft, the form will still be filled in on reload.
+Confirm this works by creating a post and add the Meta Block. You will see your field that you can type a value in. When you save the post, either as a draft or published, the post meta value will be saved too. You can verify by saving and reloading your draft, the form will still be filled in on reload.
 -->
-動作を確認するには、投稿を作成し、メタブロックを追加してください。値を入力できるフィールドが表示されます。下書きまたは公開で、投稿を保存すると、投稿のメタ値も保存されます。下書きを保存し、再読み込みすると、フォームが入力されたままになることで検証できます。
+動作を確認するには、投稿を作成し、メタブロックを追加してください。値を入力できるフィールドが表示されます。下書きまたは公開で投稿を保存すると、投稿のメタ値も保存されます。下書きを保存し、再読み込みすると、フォームが入力されたままになることで検証できます。
 
 <!--
 You could also confirm the data is saved by checking the database table `wp_postmeta` and confirm the new post id contains the new field data.
 -->
-また、データの保存を確認する別の方法として、データベーステーブル `wp_postmeta` をチェックして、新しい投稿 ID が新しいフィールドデータを含んでいることを確認してください。
+また、データが保存されたことを確認する別の方法として、データベーステーブル `wp_postmeta` をチェックして、新しい投稿 ID に新しいフィールドデータが含まれていることを確認してください。
 
 <!--
 **Troubleshooting**: Be sure to build your code between changes, you updated the PHP code from Step 1, and JavaScript files are enqueued. Check the build output and developer console for errors.
 -->
-**トラブルシューティング**: 変更の合間に忘れずにコードをビルドしてください。ステップ 1から PHP コードを更新し、JavaScript ファイルをエンキューしています。ビルドの出力と開発者コンソールのエラーを確認してください。
+**トラブルシューティング**: 変更の途中では忘れずにコードをビルドしてください。ステップ 1から PHP コードを更新し、JavaScript ファイルをエンキューしています。ビルドの出力と開発者コンソールのエラーを確認してください。
 
 <!--
 ### Step 3: Use post meta data
@@ -539,20 +538,30 @@ This page mimics the `post.php` post form, so when it is submitted it will fire 
 <!--
 Most PHP meta boxes should continue to work in the block editor, but some meta boxes that include advanced functionality could break. Here are some common reasons why meta boxes might not work as expected in the block editor:
 -->
-ほとんどの PHP メタボックスはブロックエディタでも引き続き動作するはずです。しかし、高度な機能を含む一部のメタボックスは壊れる可能性があります。以下は、ブロックエディタでメタボックスが期待どおりに動作しない一般的な理由です。
+ほとんどの PHP メタボックスはブロックエディターでも引き続き動作するはずですが、高度な機能を含む一部のメタボックスは壊れる可能性があります。以下は、ブロックエディターでメタボックスが期待どおりに動作しない一般的な理由です。
 
 <!--
 -   Plugins relying on selectors that target the post title, post content fields, and other metaboxes (of the old editor).
 -   Plugins relying on TinyMCE's API because there's no longer a single TinyMCE instance to talk to in the block editor.
 -   Plugins making updates to their DOM on "submit" or on "save".
 -->
-- 投稿タイトル、投稿コンテンツフィールド、その他の旧エディタのメタボックスを対象とするセレクタに依存するプラグイン
-- TinyMCE の API に依存するプラグイン。ブロックエディタ内には対話する単一の TinyMCE インスタンスがない。
+- 投稿タイトル、投稿コンテンツフィールド、その他の旧エディターのメタボックスを対象とするセレクタに依存するプラグイン
+- TinyMCE の API に依存するプラグイン。ブロックエディター内には対話する単一の TinyMCE インスタンスがありません。
 - 「公開」や「保存」の DOM を更新するプラグイン
 
 <!--
 Please also note that if your plugin triggers a PHP warning or notice to be output on the page, this will cause the HTML document type (`<!DOCTYPE html>`) to be output incorrectly. This will cause the browser to render using "Quirks Mode", which is a compatibility layer that gets enabled when the browser doesn't know what type of document it is parsing. The block editor is not meant to work in this mode, but it can _appear_ to be working just fine. If you encounter issues such as _meta boxes overlaying the editor_ or other layout issues, please check the raw page source of your document to see that the document type definition is the first thing output on the page. There will also be a warning in the JavaScript console, noting the issue.
 -->
-また、プラグインが PHP の警告や通知をページ上に出力しないかを注意してください。HTML ドキュメントタイプ（`<!DOCTYPE html>`）が正しく出力されません。結果、ブラウザは「Quirks Mode」を使用してレンダーします。これはブラウザがパースしているドキュメントのタイプが分からない場合に有効化される互換性レイヤーです。ブロックエディターは、このモードでは動作しませんが、正常に動作しているように見える場合があります。メタボックスがエディターと重なったり、その他のレイアウトの問題が発生した場合、ドキュメントの生のページソースをチェックして、ページの最初にドキュメントタイプの定義が出力されていることを確認してください。また、JavaScript コンソールには、問題を示す警告が表示されます。
+またプラグインがページ上に、PHP の警告や通知を出力しないかにも注意してください。こうした出力があると HTML ドキュメントタイプ（`<!DOCTYPE html>`）が正しく出力されないため、ブラウザは「Quirks Mode」を使用してレンダーします。これはブラウザがパースしているドキュメントのタイプが分からない場合に有効化する互換性レイヤーです。ブロックエディターは、このモードでは動作しませんが、正常に動作している _ように見える_ 場合があります。_メタボックスがエディターと重なったり_、その他のレイアウトの問題が発生した場合はドキュメントの生のページソースをチェックして、ページの最初にドキュメントタイプの定義が出力されていることを確認してください。また、JavaScript コンソールには問題を示す警告があるかもしれません。
+
+<!-- 
+## Additional resources
+ -->
+## その他の情報
+
+<!-- 
+- [Creating a custom block that stores post meta](https://developer.wordpress.org/news/2023/03/03/creating-a-custom-block-that-stores-post-meta/)
+ -->
+- [投稿メタを保存するカスタムブロックの作成](https://developer.wordpress.org/news/2023/03/03/creating-a-custom-block-that-stores-post-meta/)
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/metabox.md)

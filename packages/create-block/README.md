@@ -53,7 +53,7 @@ The `slug` provided (`todo-list` in the example) defines the folder name for the
 指定した `slug` (この例では `todo-list`) は、ひな形プラグインのフォルダ名と内部のブロック名を定義します。生成された WordPress プラグインは、[手動でインストールする](https://wordpress.org/documentation/article/manage-plugins/#manual-plugin-installation-1)必要があります。
 
 <!--
-_(requires `node` version `14.0.0` or above, and `npm` version `6.14.4` or above)_
+_(requires `node` version `20.10.0` or above, and `npm` version `10.2.3` or above)_
 
 It creates a WordPress plugin that you need to [install manually](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
  -->
@@ -67,7 +67,7 @@ It creates a WordPress plugin that you need to [install manually](https://wordpr
 <!-- 
 _(requires `node` version `14.0.0` or above, and `npm` version `6.14.4` or above)_
  -->
-_(`node` version `14.0.0` 以上、`npm` version `6.14.4` 以上が必要です)_
+_(`node` version `20.10.0` 以上、`npm` version `10.2.3` 以上が必要です)_
 
 <!-- 
 > [Watch a video introduction to create-block on Learn.wordpress.org](https://learn.wordpress.org/tutorial/using-the-create-block-tool/)

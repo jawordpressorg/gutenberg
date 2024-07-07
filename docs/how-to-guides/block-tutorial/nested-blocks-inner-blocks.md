@@ -53,13 +53,25 @@ registerBlockType( 'gutenberg-examples/example-06', {
 <!--
 Using the `allowedBlocks` property, you can define the set of blocks allowed in your InnerBlock. This restricts the blocks that can be included only to those listed, all other blocks will not show in the inserter.
  -->
+<!-- 
 `allowedBlocks` プロパティを使用すると、InnerBlock 内で許可されるブロックの集合を定義できます。インサーターに含まれるブロックはリストされたブロックのみに制限され、その他のすべてのブロックは表示されません。
+ -->
+
+<!-- 
+Using the `allowedBlocks` prop, you can further limit, in addition to the `allowedBlocks` field in `block.json`, which blocks can be inserted as direct descendants of this block. It is useful to determine the list of allowed blocks dynamically, individually for each block. For example, determined by a block attribute:
+ -->
+`allowedBlocks` prop を使用するとさらに制限でき、`block.json` の `allowedBlocks` フィールドに加えて、このブロックの直接の子孫として挿入できるブロックを指定できます。これは個別のブロックごとに、動的に許可するブロックのリストを決定する際に便利です。例えば、ブロック属性によって決定できます。
 
 ```js
-const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
+const { allowedBlocks } = attributes;
 //...
-<InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } />;
+<InnerBlocks allowedBlocks={ allowedBlocks } />;
 ```
+
+<!-- 
+If the list of allowed blocks is always the same, prefer the [`allowedBlocks` block setting](#defining-a-children-block-relationship) instead.
+ -->
+許可されるブロックのリストが常に同じ場合は、代わりに `allowedBlocks` ブロック設定を使用します。後述の「child ブロックの関係の定義」を参照してください。
 
 <!--
 ## Orientation
@@ -155,20 +167,29 @@ add_action( 'init', function() {
 
 <!--
 ## Using parent and ancestor relationships in blocks
+## Using parent, ancestor and children relationships in blocks
  -->
-## ブロックでの parent 関係と ancestor 関係の使用
+## ブロックでの parent 関係、ancestor 関係、children 関係の使用
 
 <!-- 
 A common pattern for using InnerBlocks is to create a custom block that will be only be available if its parent block is inserted. This allows builders to establish a relationship between blocks, while limiting a nested block's discoverability. Currently, there are two relationships builders can use: `parent` and `ancestor`. The differences are:
  -->
+<!-- 
 一般的な InnerBlock の使用パターンとして、親ブロックが挿入された場合にのみ使用可能なカスタムブロックの作成があります。これによりビルダーは、ブロック間の関係を確立し、ネストするブロックの発現を制限できます。現在、ビルダーが使用できる関係には `parent` (親) と `ancestor` (先祖) の2つがあります。違いは以下のとおりです。 
+ -->
+<!-- 
+A common pattern for using InnerBlocks is to create a custom block that will only be available if its parent block is inserted. This allows builders to establish a relationship between blocks, while limiting a nested block's discoverability. There are three relationships that builders can use: `parent`, `ancestor` and `allowedBlocks`. The differences are:
+ -->
+InnerBlock を使用する一般的なパターンは、その親ブロックが挿入された場合にのみ使用できる、カスタムブロックの作成です。これにより、ビルダーはブロック間の関係を確立し、ネストするブロックの発現を制限できます。ビルダーが使用できる関係には3つあります：`parent`、`ancestor`、`allowedBlocks` です。違いは以下のとおりです。
 
 <!-- 
 - If you assign a `parent` then you’re stating that the nested block can only be used and inserted as a __direct descendant of the parent__.
 - If you assign an `ancestor` then you’re stating that the nested block can only be used and inserted as a __descendent of the parent__.
+- If you assign the `allowedBlocks` then you’re stating a relationship in the opposite direction, i.e., which blocks can be used and inserted as __direct descendants of this block__.
  -->
 - `parent` を割り当てると、ネストするブロックが __親の直接の子孫__ としてのみ使用、挿入できることの表明になります。
 - `ancestor` を割り当てると、ネストするブロックが __親の子孫__ としてのみ使用、挿入できることの表明になります。
+- `allowedBlocks` を割り当てると、逆方向の関係の表明になります。つまり __このブロックの直接の子孫__ として、どのブロックを使用、挿入できるかの表明になります。
 
 <!-- 
 The key difference between `parent` and `ancestor` is `parent` has finer specificity, while an `ancestor` has greater flexibility in its nested hierarchy.
@@ -183,7 +204,7 @@ The key difference between `parent` and `ancestor` is `parent` has finer specifi
 <!-- 
 An example of this is the Column block, which is assigned the `parent` block setting. This allows the Column block to only be available as a nested direct descendant in its parent Columns block. Otherwise, the Column block will not be available as an option within the block inserter. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
  -->
-この例に「カラム (Column)」ブロックがあり、`parent` ブロック設定が割り当てられています。これにより、Column ブロックは、親の「カラム (Columns、複数形)」ブロックのネストした直接の子孫としてのみ利用できます。Columns ブロック以外では、Column ブロックはブロックインサーターのオプションとして利用できません。[Column ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
+この例として「カラム (Column)」ブロックがあり、`parent` ブロック設定が割り当てられています。これにより、Column ブロックは、親の「カラム (Columns、複数形)」ブロックのネストした直接の子孫としてのみ利用できます。Columns ブロック以外では、Column ブロックはブロックインサーターのオプションとして利用できません。[Column ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column)を参照してください。
 
 <!-- 
 When defining a direct descendent block, use the `parent` block setting to define which block is the parent. This prevents the nested block from showing in the inserter outside of the InnerBlock it is defined for.
@@ -207,7 +228,7 @@ When defining a direct descendent block, use the `parent` block setting to defin
 <!-- 
 An example of this is the Comment Author Name block, which is assigned the `ancestor` block setting. This allows the Comment Author Name block to only be available as a nested descendant in its ancestral Comment Template block. Otherwise, the Comment Author Name block will not be available as an option within the block inserter. See [Comment Author Name code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name).
  -->
-この例に「コメントの投稿者名」ブロックがあり、`ancestor` ブロック設定が割り当てられています。これにより、コメントの投稿者名ブロックは、その祖先であるコメントテンプレートブロックのネストされた子孫としてのみ利用できます。コメントテンプレートブロック以外では、コメントの投稿者名ブロックはブロックインサータのオプションとして利用できません。[コメントの投稿者名ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name)を参照してください。
+この例として「コメントの投稿者名」ブロックがあり、`ancestor` ブロック設定が割り当てられています。これにより、コメントの投稿者名ブロックは、その祖先であるコメントテンプレートブロックのネストされた子孫としてのみ利用できます。コメントテンプレートブロック以外では、コメントの投稿者名ブロックはブロックインサータのオプションとして利用できません。[コメントの投稿者名ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name)を参照してください。
 
 <!-- 
 The `ancestor` relationship allows the Comment Author Name block to be anywhere in the hierarchical tree, and not _just_ a direct child of the parent Comment Template block, while still limiting its availability within the block inserter to only be visible an an option to insert if the Comment Template block is available.
@@ -229,6 +250,35 @@ When defining a descendent block, use the `ancestor` block setting. This prevent
 ```
 
 <!-- 
+### Defining a children block relationship
+ -->
+### children ブロック関係の定義
+
+<!-- 
+An example of this is the Navigation block, which is assigned the `allowedBlocks` block setting. This makes only a certain subset of block types to be available as direct descendants of the Navigation block. See [Navigation code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/navigation).
+ -->
+この例として「ナビゲーション」ブロックがあり、`allowedBlocks` ブロック設定が割り当てられています。これにより、ブロックタイプの特定のサブセットのみを、ナビゲーションブロックの直接の子孫として利用できます。[ナビゲーションブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/navigation)を参照してください。
+
+<!-- 
+The `allowedBlocks` setting can be extended by builders of custom blocks. The custom block can hook into the `blocks.registerBlockType` filter and add itself to the available children of the Navigation.
+ -->
+`allowedBlocks` の設定はカスタムブロックの作成者により拡張できます。カスタムブロックは `blocks.registerBlockType` フィルタにフックし、自身をナビゲーションブロックの利用可能な子として追加できます。
+
+<!-- 
+When defining a set of possible descendant blocks, use the `allowedBlocks` block setting. This limits what blocks are showing in the inserter when inserting a new child block.
+ -->
+挿入可能な子孫ブロックのセットを定義する際には、`allowedBlocks` ブロック設定を使用します。新しい子ブロックを挿入するときにインサーターに表示されるブロックが制限されます。
+
+```json
+{
+	"title": "Navigation",
+	"name": "core/navigation",
+	"allowedBlocks": [ "core/navigation-link", "core/search", "core/social-links", "core/page-list", "core/spacer" ],
+	// ...
+}
+```
+
+<!-- 
 ## Using a React hook
  -->
 ## React フックの使用
@@ -240,7 +290,7 @@ The `useInnerBlocksProps` is exported from the `@wordpress/block-editor` package
 
 Here is the basic `useInnerBlocksProps` hook usage.
  -->
-react フック `useInnerBlocksProps` を、`InnerBlocks` コンポーネントの代わりに使用できます。このフックを使用すると、インナーブロック領域のマークアップをより詳細に制御できます。
+React フック `useInnerBlocksProps` を、`InnerBlocks` コンポーネントの代わりに使用できます。このフックを使用すると、インナーブロック領域のマークアップをより詳細に制御できます。
 
 `useInnerBlocksProps` は `InnerBlocks` コンポーネント自身と同様に `@wordpress/block-editor` パッケージからエクスポートされ、`InnerBlocks` コンポーネントのすべてをサポートします。また、`useInnerBlocksProps` は `useBlockProps` フックと同様に機能します。
 

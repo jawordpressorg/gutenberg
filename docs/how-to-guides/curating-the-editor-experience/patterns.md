@@ -121,15 +121,14 @@ WordPress 6.0からテーマは、theme.json を通して[パターンディレ�
 
 ```json
 {
-    "version": 2,
     "patterns": [ "short-text-surrounded-by-round-images", "partner-logos" ]
 }
 ```
 
 <!-- 
-Note that this field requires using [version 2 of theme.json](/docs/reference-guides/theme-json-reference/theme-json-living.md). The content creator will then find the respective Pattern in the inserter “Patterns” tab in the categories that match the categories from the Pattern Directory.
+The content creator will then find the respective Pattern in the inserter “Patterns” tab in the categories that match the categories from the Pattern Directory.
  -->
-注意: このフィールドは、[theme.json バージョン2](/docs/reference-guides/theme-json-reference/theme-json-living.md)の使用が必須です。コンテンツ作成者は、インサーターの「パターン」タブ内の、パターンディレクトリのカテゴリと一致するカテゴリ内でそれぞれのパターンを見つけられます。
+コンテンツ作成者は、インサーターの「パターン」タブ内の、パターンディレクトリのカテゴリと一致するカテゴリ内でそれぞれのパターンを見つけられます。
 
 <!-- 
 ## Additional resources

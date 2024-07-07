@@ -23,7 +23,7 @@ SlotFill を使用するには [@wordpress/plugins](https://github.com/WordPress
 In order to access the SlotFills, we need to do four things:
 
 1. Import the `registerPlugin` method from `wp.plugins`.
-2. Import the SlotFill we want from `wp.editPost`.
+2. Import the SlotFill we want from `wp.editor`.
 3. Define a method to render our changes. Our changes/additions will be wrapped in the SlotFill component we imported.
 4. Register the plugin.
 
@@ -33,7 +33,7 @@ Here is an example using the `PluginPostStatusInfo` slotFill:
 SlotFill にアクセスするには4つの手順が必要です。
 
 1. `wp.plugins` から `registerPlugin` メソッドを import します。
-2. `wp.editPost` から必要な SlotFill を import します。
+2. `wp.editor` から必要な SlotFill を import します。
 3. 変更をレンダリングするメソッドを定義します。変更や追加は import した SlotFill コンポーネントにラップされます。
 4. プラグインを登録します。
 
@@ -41,7 +41,7 @@ SlotFill にアクセスするには4つの手順が必要です。
 
 ```js
 import { registerPlugin } from '@wordpress/plugins';
-import { PluginPostStatusInfo } from '@wordpress/edit-post';
+import { PluginPostStatusInfo } from '@wordpress/editor';
 
 const PluginPostStatusInfoTest = () => (
 	<PluginPostStatusInfo>
@@ -134,6 +134,7 @@ const PostStatus = ( { isOpened, onTogglePanel } ) => (
 
 <!--
 The following SlotFills are available in the `edit-post` package. Please refer to the individual items below for usage and example details:
+The following SlotFills are available in the `edit-post` or `editor` packages. Please refer to the individual items below for usage and example details:
 
 -   [MainDashboardButton](/docs/reference-guides/slotfills/main-dashboard-button.md)
 -   [PluginBlockSettingsMenuItem](/docs/reference-guides/slotfills/plugin-block-settings-menu-item.md)
@@ -146,7 +147,7 @@ The following SlotFills are available in the `edit-post` package. Please refer t
 -   [PluginSidebarMoreMenuItem](/docs/reference-guides/slotfills/plugin-sidebar-more-menu-item.md)
  -->
 
-`edit-post` パッケージでは以下の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
+`edit-post` パッケージ、または `editor` パッケージでは以下の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
 
 - [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button/)
 - [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)

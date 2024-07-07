@@ -4,9 +4,9 @@
 # はじめに
 
 <!-- 
-Welcome! Let's get started building with blocks. Blocks are at the core of extending WordPress. You can create custom blocks, your own block patterns, or combine them together to build a block theme. 
+Welcome to the Getting Started documentation. From setting up your development environment and building your first block to understanding the fundamentals, this section is the perfect starting point if you are new to block development or want to improve your skills.
  -->
-ようこそ ! さっそくブロックを作っていきましょう。ブロックは、WordPress の拡張における中核です。カスタムブロックや独自のブロックパターンを作成したり、ブロックを組み合わせてブロックテーマを構築できます。
+「はじめに」へようこそ。開発環境のセットアップから、最初のブロックの構築、基礎の理解まで、このセクションはブロック開発の初心者やスキルアップを目指す方に最適な出発点です。
 
 <!-- 
 ## Navigating this chapter
@@ -14,85 +14,71 @@ Welcome! Let's get started building with blocks. Blocks are at the core of exten
 ## この章について
 
 <!-- 
-For those starting with block development, this section is the perfect starting point as it provides the knowledge you need to start creating your own custom blocks.
+Use the following links to locate a topic within this chapter. If you have never built a block before, consider reading through the documentation in the order listed.
  -->
-ブロック開発を始める人にとって、このセクションは完璧なスタート地点です。ここにはカスタムブロック作成に必要な知識が詰まっています。
+この章のトピックを探すには、以下のリンクを使用してください。これまでにブロックを構築したことがなければ、記載された順序でドキュメントに目を通すことを検討してください。
 
 <!-- 
-- [**Block Development Environment**](https://developer.wordpress.org/block-editor/getting-started/devenv/) - Set up the right development environment to create blocks and get introduced to basic tools for block development such as [`wp-env`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/), [`create-block`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/) and [`wp-scripts`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/)
-- [**Quick Start Guide**](https://developer.wordpress.org/block-editor/getting-started/quick-start-guide/) - Get a block up and running in less than 1 min.
-- [**Tutorial: Build your first block**](https://developer.wordpress.org/block-editor/getting-started/tutorial/) - The tutorial will guide you, step by step, through the complete process of creating a fully functional custom block.
-- [**Fundamentals of Block Development**](https://developer.wordpress.org/block-editor/getting-started/fundamentals/) - This section provides an introduction to the most relevant concepts in Block Development.
-- [**Glossary**](https://developer.wordpress.org/block-editor/getting-started/glossary/) - Glossary of terms related to the Block Editor and Full Site Editing
-- [**Frequently Asked Questions**](https://developer.wordpress.org/block-editor/getting-started/faq/) - Set of questions (and answers) that have come up from the last few years of Gutenberg development. 
+- **[Block Development Environment](https://developer.wordpress.org/block-editor/getting-started/devenv/):** Set up the right development environment to create blocks and get introduced to basic tools for block development such as [`wp-env`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/), [`create-block`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/), and [`wp-scripts`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/)
+- **[Quick Start Guide](https://developer.wordpress.org/block-editor/getting-started/quick-start-guide/):** Get a custom block up and running in less than one minute.
+- **[Tutorial: Build your first block](https://developer.wordpress.org/block-editor/getting-started/tutorial/):** Learn how to build a fully functional custom block from the ground up.
+- **[Fundamentals of Block Development](https://developer.wordpress.org/block-editor/getting-started/fundamentals/):** Learn the most relevant concepts in block development.
+- **[Glossary](https://developer.wordpress.org/block-editor/getting-started/glossary/):** A glossary of common terms you will encounter when working with the Block Editor.
+- **[Frequently Asked Questions](https://developer.wordpress.org/block-editor/getting-started/faq/):** Common questions (and answers) that have come up from the last few years of Gutenberg's development. 
  -->
-- [**ブロック開発環境**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) - ブロックを作成するための適切な開発環境を設定し、ブロック開発のための基本的なツール、[`wp-env`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/)、[`create-block`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block//)、[`wp-scripts`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) などを紹介します。
-- [**クイックスタートガイド**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/) - ブロックを立ち上げて実行します、1分以内で。
-- [**チュートリアル: はじめてのブロック作成**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/) - このチュートリアルでは、完全に機能するカスタムブロック作成のための完全なプロセスをステップバイステップで説明します。
-- [**ブロック開発の基本原理**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/) - このセクションでは、ブロック開発に最も関連性の高い概念について紹介します。
-- [**用語集**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/glossary/) - ブロックエディターとフルサイト編集に関する用語集
-- [**よくある質問**](https://ja.wordpress.org/team/handbook/block-editor/getting-started/faq/) - ここ数年の Gutenberg 開発で出てきた質問とその回答 
+- **[ブロック開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/):** ブロックを作成するための適切な開発環境を設定し、ブロック開発のための基本的なツール、[`wp-env`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/)、[`create-block`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block//)、[`wp-scripts`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) などを紹介します。
+- **[クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/getting-started/quick-start-guide/):** カスタムブロックを立ち上げて実行します、1分以内で。
+- **[チュートリアル: はじめてのブロック作成](https://ja.wordpress.org/team/handbook/block-editor/getting-started/tutorial/):** 完全に機能するカスタムブロックをゼロから作成する方法を学びまます。
+- **[ブロック開発の基本原理](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/):** ブロック開発に最も関連性の高い概念について学びます。
+- **[用語集](https://ja.wordpress.org/team/handbook/block-editor/getting-started/glossary/):** ブロックエディターで使用される一般的な用語集です。
+- **[よくある質問](https://ja.wordpress.org/team/handbook/block-editor/getting-started/faq/):** ここ数年の Gutenberg 開発で出てきた一般的な質問とその回答。
 
 <!-- 
-## Getting Started on the WordPress project and Gutenberg
+## Keeping up with the WordPress project
  -->
-## WordPress プロジェクトと Gutenberg を始める
+## WordPress プロジェクトをキャッチアップし続ける
 
 <!-- 
-At a high level, here are a few ways to begin your journey but read on to explore more:
+Once you have finished reviewing this chapter, you will have a solid understanding of blocks and how to develop for the Block Editor, but what's next? 
  -->
-旅を始める最初のステップをいくつか紹介します。詳細を知るには更に読み進めてください。
+この章を読み終えると、ブロックとブロックエディター用の開発方法について確かな理解を得られると思います。ではその次は何をすればよいのでしょう ?
 
 <!-- 
-- Learn more about where this work is going by [reviewing the long term roadmap](https://wordpress.org/about/roadmap/).
-- Explore the [GitHub repo](https://github.com/WordPress/gutenberg/) to see the latest issues and PRs folks are working on, especially [Good First Issues](https://github.com/WordPress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22).
-- Join the [Slack community](https://make.wordpress.org/chat/) to join meetings, ongoing conversations, and more. 
-- Take courses on how to use the block editor and more on [Learn WordPress](https://learn.wordpress.org/). 
-- Expand your knowledge by reviewing more developer docs at the overall [developer.wordpress.org resource](https://developer.wordpress.org/).
-- Subscribe to [updates on Make Core](https://make.wordpress.org/core/), the main site where ongoing project updates happen.
+The WordPress project, and Gutenberg in particular, iterates quickly. Staying up-to-date on all the changes can be challenging. So, here are a few essential developer resources you should be aware of. Each person will have their own unique needs in keeping up with a project of this scale, so choose what's right for you.
  -->
-- この Gutenberg プロジェクトがどこに向かっているのか、[長期ロードマップを参照](https://wordpress.org/about/roadmap/)してください。
-- [GitHub リポジトリ](https://github.com/WordPress/gutenberg/)を探索し、最新の issue とプルリクを参照してください。特に、[Good First Issues](https://github.com/WordPress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) は良いスタート地点です。
-- [Slack コミュニティ](https://make.wordpress.org/chat/)にアクセスし、ミーティングや進行中の会話に参加してください。
-- [Learn WordPress](https://learn.wordpress.org/) で、ブロックエディターに関するコースを受講してください。 
-- [developer.wordpress.org リソース](https://developer.wordpress.org/) 全体の開発者ドキュメントを参照し、知識を拡げてください。
-- 実施中のプロジェクトの更新が掲載される、[Make Core の更新](https://make.wordpress.org/core/) を購読してください。
+WordPress プロジェクト、特に Gutenberg は、急速に開発フェーズを繰り返していて、そのすべての変更に対して最新の状態を維持することは困難です。そこで、開発者が知っておくべき必須の情報源をいくつかご紹介します。このような規模のプロジェクトを追いかけるには人それぞれのニーズがありますから、自分に合ったものを選んでください。
 
 <!-- 
-### Ways to Stay Informed
+- **[WordPress Roadmap](https://wordpress.org/about/roadmap/):** The high-level roadmap for WordPress and Gutenberg.
+- **[Make Core](https://make.wordpress.org/core/):** The primary blog for WordPress Core where all major project updates are posted.
+- **[WordPress Slack](https://make.wordpress.org/chat/):** The official Slack community for all WordPress contributors is the hub for team meetings, ongoing conversations, and more. Make sure to join the `#core` and `#core-editor` channels.
+- **[Gutenberg GitHub repository](https://github.com/WordPress/gutenberg/):** This is where all Block Editor development happens. Keeping a close eye on the repository will give you a real-time understanding of what’s being worked on by fellow contributors.
+- **[Keeping up with Gutenberg](https://make.wordpress.org/core/handbook/references/keeping-up-with-gutenberg-index/):** A compilation of Gutenberg-related posts from the many [Make teams](https://make.wordpress.org/), including Core, Design, Meta, and Themes.
+- **["What's new in Gutenberg?"](https://make.wordpress.org/core/tag/gutenberg-new/):** Biweekly posts published on Make Core with each Gutenberg release. They are a great way to review the most relevant new features and the full changelog.
+- **["What's new for developers?"](https://developer.wordpress.org/news/):** Monthly posts on the WordPress Developer Blog that showcase the most important developer-related changes that happened in WordPress the previous month.
  -->
-### 最新情報を得るには
+- **[WordPress ロードマップ](https://wordpress.org/about/roadmap/):** WordPress と Gutenberg のハイレベルなロードマップ。
+- **[Make Core](https://make.wordpress.org/core/):** WordPress コアのメインのブログ。すべての主要なプロジェクトの更新が投稿されます。
+- **[WordPress Slack](https://make.wordpress.org/chat/):** すべての WordPress コントリビューターのための公式 Slack コミュニティ。チームミーティングや進行中の会話などのハブです。`#core` と `#core-editor` チャンネルに参加してください。
+- **[Gutenberg GitHub リポジトリ](https://github.com/WordPress/gutenberg/):** ブロックエディターのすべての開発が行われている場所。リポジトリを注視すると、エキスパートのコントリビューターが取り組んでいることをリアルタイムで理解できます。
+- **[Keeping up with Gutenberg](https://make.wordpress.org/core/handbook/references/keeping-up-with-gutenberg-index/):** 多くの [Make teams](https://make.wordpress.org/) からの Gutenberg 関連投稿を集めたページ。Core、Design、Meta、Themes が含まれます。
+- **["What's new in Gutenberg?"](https://make.wordpress.org/core/tag/gutenberg-new/):** Gutenberg のリリースごとに隔週で Make Core に公開される投稿。最も関連性の高い新機能や、完全な変更履歴を確認するのに最適です。
+- **["What's new for developers?"](https://developer.wordpress.org/news/):** WordPress Developer Blog の毎月の投稿。前月に WordPress 界隈で起きた最も重要な開発者関連の変更を紹介しています。
 
 <!-- 
-New features and changes are important to keep up to date on as the Gutenberg project continues. Each person will have their own unique needs in keeping up with a project of this scale. What follows is more of a catalogue of ways to keep up rather than a recommendation for how to do so. 
- -->
-Gutenberg プロジェクトが継続する中、常に新機能や変更点を入手することは重要です。しかし、このような規模のプロジェクトを追いかけるにも、人それぞれのニーズがあります。以下は、継続的に最新情報を得るための方法を、推奨と言うよりもカタログ的に挙げたものです。
-
-<!-- 
-- [Keeping up with Gutenberg](https://make.wordpress.org/core/handbook/references/keeping-up-with-gutenberg-index/) - compilation of Gutenberg-related team posts of Core, Core-Editor, Core-js, Core-css, Design, Meta, and Themes, and other teams.
-- [“What’s New In Gutenberg?” release posts](https://make.wordpress.org/core/tag/gutenberg-new/). These updates are wrangled by the Core Editor team and focus on what’s been released in each biweekly Gutenberg release. They include the most relevant features released and a full changelog.
-- [Core Editor meetings](https://make.wordpress.org/core/tag/core-editor-summary/). These meetings are wrangled by volunteer members in the #core-editor Slack channel. [Agendas](https://make.wordpress.org/core/tag/core-editor-summary/) and [summaries](https://make.wordpress.org/core/tag/core-editor-summary/) are shared on the [Make Core blog](https://make.wordpress.org/core/). They focus on task coordination and relevant discussions around Gutenberg releases. There is an Open Floor period in each chat where people can suggest topics to discuss.
-- Checking in on [issues](https://github.com/WordPress/gutenberg/issues) and [PRs](https://github.com/WordPress/gutenberg/pulls) on GitHub. This will give you a nearly real-time understanding of what’s being worked on by the developers and designers. 
- -->
-- [Keeping up with Gutenberg](https://make.wordpress.org/core/handbook/references/keeping-up-with-gutenberg-index/) - Gutenberg 関連チームの投稿を集めたもの。Core、Core-Editor、Core-js、Core-css、Design、Meta、Themes など。 
-- [“What’s New In Gutenberg?” リリース記事](https://make.wordpress.org/core/tag/gutenberg-new/) - この記事はコアエディターチームによって管理され、隔週でリリースされる Gutenberg の新版にフォーカスします。記事にはリリースの中で最も顕著な機能や、完全な変更履歴が含まれます。
-- [コアエディターミーティング](https://make.wordpress.org/core/tag/core-editor-summary/) -  #core-editor Slackチャンネルのボランティアメンバーが運営しています。[アジェンダ](https://make.wordpress.org/core/tag/core-editor-summary/) と [サマリー](https://make.wordpress.org/core/tag/core-editor-summary/) は、[Make Core ブログ](https://make.wordpress.org/core/) で共有されます。タスクの調整や Gutenberg のリリースに関連した議論が中心となります。各チャットには、議論するトピックを提案できる「オープンフロア」の時間があります。
-- GitHub 上の [issue](https://github.com/WordPress/gutenberg/issues) と [PR](https://github.com/WordPress/gutenberg/pulls) をチェックしてください。開発者やデザイナーが何に取り組んでいるかをほぼリアルタイムで把握できます。 
-
-<!-- 
-## Additional Resources
+## Additional resources
  -->
 ## その他の情報
 
 <!-- 
-The [block-development-examples](https://github.com/wptrainingteam/block-development-examples) repo is the central hub of examples for block development referenced from this handbook.
+For more resources on block development and extending the Block Editor, review the additional sections here in the Block Editor Handbook. Further practical examples are also available in the [block-development-examples](https://github.com/wptrainingteam/block-development-examples) GitHub repository.
  -->
-[block-development-examples](https://github.com/wptrainingteam/block-development-examples) リポジトリは、このハンドブックで参照されるブロック開発のサンプルプログラムの中心的なハブです。
+ブロック開発とブロックエディターの拡張に関するその他の情報は、このブロックエディターハンドブックの追加セクションを参照してください。さらに実用的なサンプルが [block-development-examples](https://github.com/wptrainingteam/block-development-examples) GitHub リポジトリにもあります。
 
 <!-- 
-At [Learn WordPress](https://learn.wordpress.org/), you can find [tutorials](https://learn.wordpress.org/tutorials/), [courses](https://learn.wordpress.org/courses/), and [online workshops](https://learn.wordpress.org/online-workshops/) to learn more about developing for the Block Editor. Here is a selection of current offerings:
+If you are looking for more educational content, check out [Learn WordPress](https://learn.wordpress.org/), where you can find [tutorials](https://learn.wordpress.org/tutorials/), [courses](https://learn.wordpress.org/courses/), and [online workshops](https://learn.wordpress.org/online-workshops/). Here is a selection of current offerings:
  -->
-[Learn WordPress](https://learn.wordpress.org/) には、ブロックエディター開発学習用の[チュートリアル](https://learn.wordpress.org/tutorials/)、[コース](https://learn.wordpress.org/courses/)、[オンラインワークショップ](https://learn.wordpress.org/online-workshops/) があります。現在のコースからいくつかを選びました。
+もっと教育的なコンテンツを探しているなら、[Learn WordPress](https://learn.wordpress.org/) をご覧ください。[チュートリアル](https://learn.wordpress.org/tutorials/) や [コース](https://learn.wordpress.org/courses/) 、[オンラインワークショップ](https://learn.wordpress.org/online-workshops/) があります。現在提供されているコンテンツからいくつかを選びました。
 
 <!-- 
 -   [Intro to Block Development: Build Your First Custom Block](https://learn.wordpress.org/course/introduction-to-block-development-build-your-first-custom-block/)
@@ -108,6 +94,5 @@ At [Learn WordPress](https://learn.wordpress.org/), you can find [tutorials](htt
 -   [Registering Block Patterns (ブロックパターンの登録)](https://learn.wordpress.org/workshop/registering-block-patterns/)
 -   [Intro to Gutenberg Block Development (Gutenberg ブロック開発入門)](https://learn.wordpress.org/workshop/intro-to-gutenberg-block-development/)
 -   [Intro to Publishing with the Block Editor (ブロックエディターでの公開入門)](https://learn.wordpress.org/workshop/intro-to-publishing-with-the-block-editor/)
-
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/README.md)

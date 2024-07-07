@@ -29,9 +29,9 @@ WordPress の世界で「書式」とは、[テキストレベルのセマンテ
 ## はじめる前に
 
 <!-- 
-This guide assumes you are already familiar with WordPress plugins and loading JavaScript with them, see the [Plugin Handbook](https://developer.wordpress.org/plugins/) or [JavaScript Tutorial](/docs/how-to-guides/javascript/README.md) to brush up.
+This guide assumes you are already familiar with WordPress plugins and loading JavaScript with them, see the [Plugin Handbook](https://developer.wordpress.org/plugins/) or [JavaScript Tutorial](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) to brush up.
  -->
-このガイドでは、すでに WordPress プラグインと JavaScript の読み込みに精通していることを前提としています。必要に応じて、[プラグインハンドブック](https://developer.wordpress.org/plugins/) または [JavaScript チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/)を参照してください。
+このガイドでは、すでに WordPress プラグインと JavaScript の読み込みに精通していることを前提としています。必要に応じて、[プラグインハンドブック](https://developer.wordpress.org/plugins/) または [JavaScript チュートリアル](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/)を参照してください。
 
 <!-- 
 You will need:

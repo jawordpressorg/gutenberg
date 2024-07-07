@@ -4,26 +4,7 @@
 # block.json のメタデータ
 
 <!--
-To register a new block type using metadata that can be shared between codebase that uses JavaScript and PHP, start by creating a `block.json` file. This file:
- -->
-<!--
-JavaScript コードと PHP コードベース間で共有可能なメタデータを使用して、新しいブロックタイプを登録できます。これにはまず `block.json` ファイルを作成します。`block.json` ファイルは、
- -->
-<!--
--   Gives a name to the block type.
--   Defines some important metadata about the registered block type (title, category, icon, description, keywords).
--   Defines the attributes of the block type.
--   Registers all the scripts and styles for your block type.
- -->
-<!--
--   ブロックタイプに名前を付与します。
--   登録されるブロックタイプの重要なメタデータを定義します。例: title、category、icon、description、keywords
--   ブロックタイプの属性を定義します。
--   ブロックタイプのすべてのスクリプトとスタイルを登録します。
- -->
-
-<!--
-Starting in WordPress 5.8 release, we recommend using the `block.json` metadata file as the canonical way to register block types with both PHP (server-side) and JavaScript (client-side). Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
+Starting with the WordPress 5.8 release, we recommend using the `block.json` metadata file as the canonical way to register block types with both PHP (server-side) and JavaScript (client-side). Here is an example `block.json` file that would define the metadata for a plugin create a notice block.
  -->
 WordPress 5.8のリリースから、PHP (サーバーサイド) と JavaScript (クライアントサイド) の両方でブロックタイプを登録する正規の方法として、`block.json` メタデータファイルの使用が推奨されています。以下は、通知ブロックを作成するプラグインのメタデータを定義する `block.json` ファイルの例です。
 
@@ -85,6 +66,7 @@ WordPress 5.8のリリースから、PHP (サーバーサイド) と JavaScript 
 	"viewScript": [ "file:./view.js", "example-shared-view-script" ],
 	"editorStyle": "file:./index.css",
 	"style": [ "file:./style.css", "example-shared-style" ],
+	"viewStyle": [ "file:./view.css", "example-view-style" ],
 	"render": "file:./render.php"
 }
 ```
@@ -123,9 +105,9 @@ Furthermore, because the [Block Type REST API Endpoint](https://developer.wordpr
 さらに、[ブロックタイプ REST API エンドポイント](https://developer.wordpress.org/rest-api/reference/block-types/)では、サーバー上で登録されたブロックしか一覧できないため、サーバーサイドでブロックを登録することが推奨されます。`block.json`ファイルを使用すると、この登録が簡単になります。
 
 <!--
-The [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to [submit your block(s) to the Block Directory](/docs/getting-started/create-block/submitting-to-block-directory.md), all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
+The [WordPress Plugins Directory](https://wordpress.org/plugins/) can detect `block.json` files, highlight blocks included in plugins, and extract their metadata. If you wish to submit your block(s) to the Block Directory all blocks contained in your plugin must have a `block.json` file for the Block Directory to recognize them.
  -->
-[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。[ブロックディレクトリに自分のブロックを登録する](https://ja.wordpress.org/team/handbook/block-editor/getting-started/create-block/submitting-to-block-directory/)場合、ブロックディレクトリに認識させるには、プラグインに含まれるすべてのブロックに `block.json` ファイルが必要です。
+[WordPress プラグインディレクトリ](https://wordpress.org/plugins/)は、`block.json` ファイルを検出し、プラグインに含まれるブロックをハイライトし、そのメタデータを抽出できます。ブロックディレクトリに自分のブロックを登録する場合は、ブロックディレクトリが認識できるよう、プラグインに含まれるすべてのブロックに `block.json` ファイルを含めてください。
 
 <!-- 
 Development is improved by using a defined schema definition file. Supported editors can provide help like tooltips, autocomplete, and schema validation. To use the schema, add the following to the top of the `block.json`.
@@ -323,6 +305,20 @@ The `ancestor` property makes a block available inside the specified block types
 `ancestor` プロパティは、指定されたブロックタイプの中で、祖先ブロックサブツリーの任意の位置において、ブロックを利用可能にします。例えば、`Column` ブロックが `Comment Template` ブロック内のどこかにいる限り、`Comment Content` ブロックを `Column` ブロックの中に配置できます。`parent` プロパティと比較すると、 `ancestor` を指定したブロックはサブツリーのどこにでも配置できますが、 `parent` を指定したブロックは直接の子である必要があります。
 
 
+### Allowed Blocks
+
+-   Type: `string[]`
+-   Optional
+-   Localized: No
+-   Property: `allowedBlocks`
+-   Since: `WordPress 6.5.0`
+
+```json
+{ "allowedBlocks": [ "my-block/product" ] }
+```
+
+The `allowedBlocks` specifies which block types can be the direct children of the block. For example, a ‘List’ block can allow only ‘List Item’ blocks as children.
+
 ### Icon
 
 <!--
@@ -347,10 +343,9 @@ An icon property should be specified to make it easier to identify a block. Thes
 ブロックを識別しやすくするために icon プロパティを指定してください。任意の [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/) を指定できます。またスラッグは 非 js コンテキストでのフォールバックとなります。
 
 <!--
-**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. This colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
+**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. These colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
  -->
 **注意:** このプロパティはまた、クライアントサイドで、SVG 要素のソースで上書きすることもできます。加えて、このプロパティは背景色や前景色を含むオブジェクトとして、 JavaScript で定義できます。この色は、たとえばインサーター内で表示される場合にアイコンと一緒に使用されます。カスタム SVG アイコンは自動で [wp.primitives.SVG](https://github.com/WordPress/gutenberg/tree/trunk/packages/primitives) コンポーネントにラップされ、アクセシビリティ属性 (aria-hidden、role、focusable) が追加されます。
-
 
 ### Description
 
@@ -486,7 +481,7 @@ Attributes provide the structured data needs of a block. They can exist in diffe
 attributes (属性) は、ブロックに必要な構造化データを提供します。シリアライズされる際には異なる形式で存在できますが、共通インターフェースの下で一緒に宣言されます。
 
 <!--
-See the [the attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
+See [the attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
  -->
 詳細については、[属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) を参照してください。
 
@@ -506,7 +501,7 @@ See the [the attributes documentation](/docs/reference-guides/block-api/block-at
 -   デフォルト: `{}`
 
 <!--
-Context provided for available access by descendants of blocks of this type, in the form of an object which maps a context name to one of the block's own attribute.
+Context provided for available access by descendants of blocks of this type, in the form of an object which maps a context name to one of the block's own attributes.
  -->
 このタイプのブロックの子孫ブロックによる、利用可能なアクセスのために提供されるコンテキスト。形式は、コンテキスト名をブロック自身の属性とマップするオブジェクト。
 
@@ -631,7 +626,7 @@ theme.json (グローバルスタイル) スタイルシートのブロックス
 カスタムセレクタを提供することで、どのブロック要素にどのスタイルを適用するかを細かく制御できます。例えば、typoraphy スタイルは内部の見出しだけに適用し、color は外部のブロックラッパー全体に適用するなど。
 
 <!-- 
-See the [the selectors documentation](/docs/reference-guides/block-api/block-selectors.md) for more details.
+See [the selectors documentation](/docs/reference-guides/block-api/block-selectors.md) for more details.
  -->
 詳細については[セレクタのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-selectors/)を参照してください。
 
@@ -666,7 +661,7 @@ See the [the selectors documentation](/docs/reference-guides/block-api/block-sel
 -   デフォルト: `{}`
 
 <!--
-It contains as set of options to control features used in the editor. See the [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
+It contains a set of options to control features used in the editor. See [the supports documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
  -->
 エディターで使用される機能を制御するオプションのセットとして含みます。詳細については [サポートのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)) を参照してください。
 
@@ -701,7 +696,7 @@ Block styles can be used to provide alternative styles to block. It works by add
 ブロックスタイルを使用すると、ブロックに代替のスタイルを与えられます。ブロックのラッパーにクラス名が追加されます。テーマ開発者は CSS を使用して、選択された際のブロックスタイルのターゲットにこのクラス名を指定できます。
 
 <!--
-Plugins and Themes can also register [custom block style](/docs/reference-guides/block-api/block-styles.md) for existing blocks.
+Plugins and Themes can also register [custom block styles](/docs/reference-guides/block-api/block-styles.md) for existing blocks.
  -->
 プラグインやテーマはまた既存のブロックに対して、[カスタムブロックスタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) を登録できます。
 
@@ -776,7 +771,7 @@ Block Variations is the API that allows a block to have similar versions of it, 
 
 _Note: In JavaScript you can provide a function for the `isActive` property, and a React element for the `icon`. In the `block.json` file both only support strings_
 
-See the [the variations documentation](/docs/reference-guides/block-api/block-variations.md) for more details.
+See [the variations documentation](/docs/reference-guides/block-api/block-variations.md) for more details.
  -->
 ブロックバリエーションは、あるブロックに類似のバージョンを持たせられる API ですが、これらのバージョンはすべて、共通の機能を共有します。各ブロックバリエーションは、いくつかの初期属性やインナーブロックの設定により、他のブロックと区別されます。ブロックを挿入すると、これらの属性やインナーブロックが適用されます。
 
@@ -914,6 +909,26 @@ _Note: An option to pass also an array of view scripts exists since WordPress `6
  -->
 _注意: ビュースクリプトの配列を渡すオプションもあります。 WordPress `6.1.0` 以降。_
 
+### View script module
+
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Optional
+-   Localized: No
+-   Property: `viewScriptModule`
+-   Since: `WordPress 6.5.0`
+
+```json
+{ "viewScriptModule": [ "file:./view.js", "example-shared-script-module-id" ] }
+```
+
+Block type frontend script module definition. They will be enqueued only when viewing the content on the front of the site.
+
+It's possible to pass a script module ID registered with the [`wp_register_script_module`](https://developer.wordpress.org/reference/functions/wp_register_script_module/) function, a path to a JavaScript module relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+
+WordPress scripts and WordPress script modules are not compatible at the moment. If frontend view assets depend on WordPress scripts, `viewScript` should be used. If they depend on WordPress script modules —the Interactivity API at this time— `viewScriptModule` should be used. [More functionality](https://core.trac.wordpress.org/ticket/60647) will gradually become available to Script Modules.
+
+_Note: Available since WordPress `6.5.0`._
+
 ### Editor style
 
 <!--
@@ -978,6 +993,24 @@ _Note: An option to pass also an array of styles exists since WordPress `5.9.0`.
  -->
 _注意: スタイルの配列を渡すオプションもあります。 WordPress `5.9.0` 以降。_
 
+### View Style
+
+-   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Optional
+-   Localized: No
+-   Property: `viewStyle`
+-   Since: `WordPress 6.5.0`
+
+```json
+{ "viewStyle": [ "file:./view.css", "example-view-style" ] }
+```
+
+Block type frontend styles definition. They will be enqueued only when viewing the content on the front of the site.
+
+It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+
+Frontend-only styles are especially useful for interactive blocks, to style parts that will only be visible after a user performs some action and where those styles will never be needed in the editor. You can start with using the `style` property to put all your common styles in one stylesheet. Only when you need editor-specific styling or frontend-specific styling, you can expand to `editorStyle` and `viewStyle`, but still keep the common part of your styling in the main stylesheet.
+
 ### Render
 <!-- 
 -   Type: `WPDefinedPath` ([learn more](#wpdefinedpath))
@@ -1033,7 +1066,7 @@ _注意: このファイルは、サーバー上でページの HTML をレン�
 ### WPDefinedPath
 
 <!-- 
-The `WPDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
+The `WPDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where the `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
  -->
 `WPDefinedPath` タイプは string のサブタイプです。値は、`block.json` ファイルのある場所から JavaScript、CSS、PHP ファイルへの相対パスで表します。提供されるパスには、接頭辞 `file:` を付ける必要があります。この方法は npm のパッケージの[ローカルパス](https://docs.npmjs.com/files/package.json#local-paths) を扱う方法に基づいています。
 
@@ -1056,9 +1089,9 @@ In `block.json`:
 ### WPDefinedAsset
 
 <!-- 
-It extends `WPDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script or style handle name referencing an already registered asset using WordPress helpers.
+It extends `WPDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script handle, script module ID, or style handle referencing an already registered asset using WordPress helpers.
  -->
-JavaScript や CSS ファイル用に `WPDefinedPath` を拡張します。ファイルパスの代わりに、WordPress ヘルパーを使用して既に登録されているアセットを参照するスクリプトやスタイルハンドル名を使用できます。
+JavaScript や CSS ファイル用に `WPDefinedPath` を拡張します。ファイルパスの代わりに、WordPress ヘルパーを使用して登録済みのアセットを参照するスクリプトハンドル、スクリプトモジュール ID、スタイルハンドルを使用できます。
 
 <!--
 **Example:**
@@ -1074,38 +1107,40 @@ In `block.json`:
 {
 	"editorScript": "file:./index.js",
 	"script": "file:./script.js",
-	"viewScript": [ "file:./view.js", "example-shared-view-script" ],
+	"viewScriptModule": [
+		"file:./view.js",
+		"example-registered-script-module-id"
+	],
 	"editorStyle": "file:./index.css",
-	"style": [ "file:./style.css", "example-shared-style" ]
+	"style": [ "file:./style.css", "example-shared-style" ],
+	"viewStyle": [ "file:./view.css", "example-view-style" ]
 }
 ```
 
 <!--
-In the context of WordPress, when a block is registered with PHP, it will automatically register all scripts and styles that are found in the `block.json` file and use file paths rather than asset handles.
+In the context of WordPress, when a block is registered with PHP, it will automatically register all scripts, script modules, and styles that are found in the `block.json` file and use file paths rather than asset handles.
  -->
-WordPress のコンテキストで、PHP でブロックを登録すると、`block.json` ファイル内に見つかるすべてのスクリプトとスタイルは自動的に登録され、アセットハンドルでなくファイルパスが使用されます。
+WordPress のコンテキスト内で、PHP でブロックが登録されると、自動的に `block.json` ファイル内に見つかるすべてのスクリプト、スクリプトモジュール、スタイルを登録し、アセットハンドルでなくファイルパスを使用します。
 
 <!--
-That's why, the `WPDefinedAsset` type has to offer a way to mirror also the shape of params necessary to register scripts and styles using [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) and [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/), and then assign these as handles associated with your block using the `script`, `style`, `editor_script`, and `editor_style` block type registration settings.
+That's why the `WPDefinedAsset` type has to offer a way to mirror the parameters necessary to register scripts, script modules, and styles using [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/), [`wp_register_script_module`](https://developer.wordpress.org/reference/functions/wp_register_script_module/), and [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/), and then assign these as handles or script module IDs associated with the block.
  -->
-`WPDefinedAsset` タイプがミラーする方法だけでなく、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) と [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) を使用してスクリプトとスタイルを登録する際に必要なパラメータも提供する必要があるのはこのためです。ブロックタイプ登録設定 `script`、`style`、`editor_script`、`editor_style` を使用して、ブロックに関連付けられたハンドルとして割り当てます。
+`WPDefinedAsset` タイプが、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/)、[`wp_register_script_module`](https://developer.wordpress.org/reference/functions/wp_register_script_module/)、[`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) を使用した、スクリプト、スクリプトモジュール、スタイルの登録に必要なパラメータをミラーする方法を提供し、ブロックと関連するハンドルやスクリプトモジュール ID を割り当てなければならないのはこのためです。
 
 <!--
 It's possible to provide an object which takes the following shape:
  -->
-次の形式を取るオブジェクトを提供することができます。
+次の形式を取るオブジェクトを指定できます。
 
-<!--
--   `handle` (`string`) - the name of the script. If omitted, it will be auto-generated.
--   `dependencies` (`string[]`) - an array of registered script handles this script depends on. Default value: `[]`.
--   `version` (`string`|`false`|`null`) - string specifying the script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If the version is set to `false`, a version number is automatically added equal to current installed WordPress version. If set to `null`, no version is added. Default value: `false`.
+<!-- 
+-   `dependencies` (`string[]`|`{ id: string, import?: 'dynamic'|'static' }[]`) - an array of registered script handles this script depends on. Script modules may use a simple string for static dependencies or the object form to indicate a dynamic dependency. Dynamic dependencies are dependencies that may or may not be used at runtime and are typically used with the dynamic `import('module-id')` syntax. Default value: `[]`.
+-   `version` (`string`|`false`|`null`) - string specifying the script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If the version is set to `false`, a version number is automatically added equal to the currently installed WordPress version. If set to `null`, no version is added. Default value: `false`.
  -->
--   `handle` (`string`) - スクリプトの名前。省略すると、自動的に生成される。
--   `dependencies` (`string[]`) - このスクリプトが依存する、登録されたスクリプトのハンドルの配列。デフォルト値: `[]`。
--   `version` (`string`|`false`|`null`) - スクリプトのバージョン番号を指定する文字列。バージョンを指定すると、番号は URL にクエリ文字列として追加されます。これはキャッシュを避けるためです。`false` に設定すると、バージョン番号は自動的に、現在インストールされている WordPress のバージョンが追加されます。`null` に設定すると、バージョンは追加されません。デフォルト値: `false`。
+- `dependencies` (`string[]`|`{ id: string, import?: 'dynamic'|'static' }[]`) - このスクリプトが依存する、登録済みのスクリプトハンドルの配列。スクリプトモジュールは、静的な依存関係には単純な文字列を、動的な依存関係を示すにはオブジェクト形式を使用します。動的な依存関係は、実行時に使用されるかどうかわからない依存関係で、通常は動的な `import('module-id')` 構文を使用します。デフォルト値: `[]`.
+- `version` (`string`|`false`|`null`) - スクリプトのバージョン番号を指定する文字列 (バージョン番号がある場合)。バージョン番号が `false` に設定されている場合は、現在インストールされている WordPress のバージョン番号が自動的に追加されます。`null` に設定すると、バージョンは追加されません。デフォルト値: `false`.
 
 <!--
-The definition is stored inside separate PHP file which ends with `.asset.php` and is located next to the JS/CSS file listed in `block.json`. WordPress will automatically detect this file through pattern matching. This option is the preferred one as it is expected it will become an option to auto-generate those asset files with `@wordpress/scripts` package.
+The definition is stored inside a separate PHP file which ends with `.asset.php` and is located next to the JS/CSS file listed in `block.json`. WordPress will automatically detect this file through pattern matching. This option is the preferred one as it is expected it will become an option to auto-generate those asset files with `@wordpress/scripts` package.
  -->
 定義は、個別の PHP ファイル内に保存されます。ファイル名の最後は `.asset.php` で、`block.json` にリストされた JavaScript や CSS ファイルの隣に配置されます。WordPress は自動的にこのファイルをパターンマッチで検知します。`@wordpress/scripts` パッケージでこれらのアセットファイルを自動生成するオプションになると期待されるため、このオプションが好まれます。
 
@@ -1159,6 +1194,7 @@ WordPress 5.8リリースから、フロントエンドでレンダーされる�
 -   `script`
 -   `viewScript`
 -   `style`
+-   `viewStyle` (Added in WordPress 6.5.0)
 
 <!--
 ## Internationalization
@@ -1295,10 +1331,8 @@ registerBlockType( 'my-plugin/block-name', {
 ```
 
 <!--
-In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should be still possible to register `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) and `register_block_type_from_metadata` functions on the server.
-In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should be still possible to register `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) function on the server.
+In the case of [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) supported by WordPress, it should still be possible to register the `render_callback` property using both [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) functions on the server.
  -->
-WordPress にサポートされる [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) 関数を使用して `render_callback` プロパティを登録することは変わらず可能です。
+WordPress でサポートされる [動的ブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) の場合、サーバー上で [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) 関数を使用して `render_callback` プロパティを登録することは変わらず可能です。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md)
-

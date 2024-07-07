@@ -9,11 +9,6 @@ This guide will help you set up the right development environment to create bloc
 このガイドでは WordPress のブロックエディターを拡張、変更する、ブロックや他のプラグインの作成に必要な開発環境のセットアップ方法を紹介します。
 
 <!-- 
-To contribute to the Gutenberg project itself, refer to the additional documentation in the [code contribution guide](/docs/contributors/code/getting-started-with-code-contribution.md).
- -->
-Gutenberg プロジェクト自体に貢献するには、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) の中の追加ドキュメントを参照してください。
-
-<!-- 
 A block development environment includes the tools you need on your computer to successfully develop for the Block Editor. The three essential requirements are:
  -->
 ブロック開発環境には、ブロックエディター開発の成功に必要なツールが含まれます。3つの主要な要素があります。
@@ -23,17 +18,26 @@ A block development environment includes the tools you need on your computer to 
 2.  [Node.js development tools](#node-js-development-tools)
 3.  [Local WordPress environment (site)](#local-wordpress-environment)
  -->
-1.  [コードエディター](#code-editor)
-2.  [Node.js 開発ツール](#node-js-development-tools)
-3.  [ローカルのWordPress 環境 (サイト)](#local-wordpress-environment)
+1.  コードエディター
+2.  Node.js 開発ツール
+3.  ローカルのWordPress 環境 (サイト)
 
 <!-- 
+<div class="callout callout-info">
+    To contribute to the Gutenberg project itself, refer to the additional documentation in the <a href="https://developer.wordpress.org/block-editor/contributors/code/getting-started-with-code-contribution">code contribution guide</a>.
+</div>
+ -->
+> Gutenberg プロジェクト自体に貢献するには、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution/) の中の追加ドキュメントを参照してください。
+
+
+
+<!--
 ## Code editor
  -->
 ## コードエディター
 
 <!-- 
-A code editor is used to write code, and you can use whichever editor you're most comfortable with. The key is having a way to open, edit, and save text files.
+A code editor is used to write code. You can use whichever editor you're most comfortable with. The key is having a way to open, edit, and save text files.
  -->
 コードの記述にはコードエディターを使用します。使い慣れたどのエディターでも使用できます。機能としてテキストファイルを開き、編集し、保存する手段があれば十分です。
 
@@ -76,9 +80,9 @@ The list goes on. While modern JavaScript development can be challenging, WordPr
 まだまだ続きます。最新の JavaScript 開発は難しいかもしれませんが、WordPress では [`wp-scripts`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-scripts/) や [`create-block`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/)のような、プロセスを効率化するツールを提供しています。そしてこれらも Node.js 開発ツールで作成されています。
 
 <!-- 
-**The recommended Node.js version for block development is [Active LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support)**. However, there are times when you need to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to easily change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
+**The recommended Node.js version for block development is [Active LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support)**. However, there are times when you need to use different versions. A Node.js version manager tool like `nvm` is strongly recommended and allows you to change your `node` version when required. You will also need Node Package Manager (`npm`) and the Node Package eXecute (`npx`) to work with some WordPress packages. Both are installed automatically with Node.js.
  -->
-**ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも自動的に Node.js と一緒にインストールされます。
+**ブロック開発に推奨される Node.js のバージョンは、[Active LTS](https://nodejs.org/en/about/previous-releases) (Long Term Support)** です。しかし、異なるバージョンが必要な場合もあります。このため、`nvm` のような Node.js バージョン管理ツールの使用を強く推奨します。必要な場合に `node` のバージョンを切り替えられます。Node Package Manager (`npm`) と Node Package eXecute (`npx`) も WordPress パッケージの利用では必要です。どちらも自動的に Node.js と一緒にインストールされます。
 
 <!-- 
 To be able to use the Node.js tools and [packages provided by WordPress](https://github.com/WordPress/gutenberg/tree/trunk/packages) for block development, you'll need to set a proper Node.js runtime environment on your machine. To learn more about how to do this, refer to the links below.
@@ -98,12 +102,12 @@ To be able to use the Node.js tools and [packages provided by WordPress](https:/
 ## ローカルの WordPress 環境
 
 <!-- 
-A local WordPress environment (site) provides a controlled, efficient, and secure space for development, allowing you to build and test your code before deploying it to a production site. The [same requirements](https://en-gb.wordpress.org/about/requirements/) for WordPress apply to local sites.
+A local WordPress environment (site) provides a controlled, efficient, and secure space for development, allowing you to build and test your code before deploying it to a production site. The same [requirements](https://en-gb.wordpress.org/about/requirements/) for WordPress apply to local sites.
  -->
-WordPress のローカル環境 (サイト) を準備すると、制御され、効率的で、安全な開発スペースを入手でき、本番サイトにデプロイする前にコードをビルドし、テストできます。WordPress と[同じ要件](https://en-gb.wordpress.org/about/requirements/)がローカルサイトにも適用されます。
+WordPress のローカル環境 (サイト) を準備すると、制御可能な、効率的で、安全な開発スペースを入手でき、本番サイトにデプロイする前にコードをビルドし、テストできます。WordPress と同じ[要件](https://en-gb.wordpress.org/about/requirements/)がローカルサイトにも適用されます。
 
 <!-- 
-In the broader WordPress community, there are many available tools for setting up a local WordPress environment on your computer. The Block Editor Handbook covers `wp-env`, which is open-source and maintained by the WordPress project itself. It's also the recommended tool for Gutenberg development. 
+In the broader WordPress community, many tools are available for setting up a local WordPress environment on your computer. The Block Editor Handbook covers `wp-env`, which is open-source and maintained by the WordPress project itself. It's also the recommended tool for Gutenberg development. 
  -->
 WordPress コミュニティでは、ローカルに WordPress 環境を構築するツールが数多く提供されています。ブロックエディターハンドブックでは、オープンソースで WordPress プロジェクト自身が保守している `wp-env` を取り上げます。これはまた Gutenberg 開発における推奨ツールです。
 

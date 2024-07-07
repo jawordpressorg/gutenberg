@@ -195,7 +195,7 @@ If you want to limit the formats allowed, you can specify using `allowedFormats`
 利用可能なフォーマットを制限するには、コード内で `allowedFormats` プロパティを使用して指定してください。サンプルについては上の例、または詳細について [コンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md#allowedformats-array) を参照してください。
 
 <!--
-### Disable specific fromat types in Editor
+### Disable specific format types in Editor
  -->
 ### エディター内で特定のフォーマットを無効化する
 

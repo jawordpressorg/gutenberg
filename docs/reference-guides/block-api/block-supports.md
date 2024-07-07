@@ -34,9 +34,7 @@ In order for the attribute to get applied to the block the generated properties 
 function BlockEdit() {
 	const blockProps = useBlockProps();
 
-	return (
-		<div {...blockProps}>Hello World!</div>
-	);
+	return <div { ...blockProps }>Hello World!</div>;
 }
 ```
 <!-- 
@@ -48,9 +46,7 @@ function BlockEdit() {
 function BlockEdit() {
 	const blockProps = useBlockProps.save();
 
-	return (
-		<div {...blockProps}>Hello World!</div>
-	);
+	return <div { ...blockProps }>Hello World!</div>;
 }
 ```
 <!-- 
@@ -111,11 +107,12 @@ supports: {
 - デフォルト値: `false`
 
 <!-- 
-This property adds block controls which allow to change block's alignment.
+This property adds block controls, which enable changes to a block's alignment.
  -->
  このプロパティはブロックの配置を変更するブロックコントロールを追加します。
  
 <!--
+
 ```js
 supports: {
 	// Declare support for block's alignment.
@@ -149,9 +146,10 @@ supports: {
 }
 ```
 <!--
-When the block declares support for `align`, the attributes definition is extended to include an align attribute with a `string` type. By default, no alignment is assigned. The block can apply a default alignment by specifying its own `align` attribute with a default e.g.:
+When the block declares support for `align`, the attributes definition is extended to include an align attribute with a `string` type. By default, no alignment is assigned. The block can apply a default alignment by specifying its own `align` attribute with a default. For example:
  -->
 ブロックが `align` サポートを宣言するとブロック属性定義が拡張され、`string` タイプの align 属性が含まれます。デフォルトでは配置は割り当てられません。ブロックにデフォルトの配置を適用するには、デフォルト値と共に `align` 属性を指定します。たとえば
+
 
 ```js
 attributes: {
@@ -193,21 +191,85 @@ supports: {
 ## ariaLabel
 
 <!-- 
-- Type: `boolean`
-- Default value: `false`
+-   Type: `boolean`
+-   Default value: `false`
  -->
-- タイプ: `boolean`
-- デフォルト値: `false`
+-   タイプ: `boolean`
+-   デフォルト値: `false`
 
 <!-- 
 ARIA-labels let you define an accessible label for elements. This property allows enabling the definition of an aria-label for the block, without exposing a UI field.
  -->
 要素にアクセス可能なラベルを定義できます。このプロパティを使用すると、UI フィールドを公開せずに、ブロックの aria-label を定義できます。
 
+<!-- 
+```js
+supports: {
+	// Add support for an aria label.
+	ariaLabel: true
+}
+```
+ -->
 ```js
 supports: {
 	// aria ラベルのサポートを追加
 	ariaLabel: true
+}
+```
+
+## background
+
+_**Note:** Since WordPress 6.5._
+
+-   Type: `Object`
+-   Default value: `null`
+-   Subproperties
+    -   `backgroundImage`: type `boolean`, default value `false`
+    -   `backgroundSize`: type `boolean`, default value `false`
+
+This value signals that a block supports some of the CSS style properties related to background. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/global-settings-and-styles.md#opt-in-into-ui-controls).
+
+`backgroundImage` adds UI controls which allow the user to select a background image.
+`backgroundSize` adds the FocalPointPicker to pick the position of the background image and allow the user to select the background size (cover, contain, fixed).
+
+```js
+supports: {
+	background: {
+		backgroundImage: true // Enable background image control.
+		backgroundSize: true // Enable background image + size control.
+	}
+}
+```
+
+When a block declares support for a specific background property, its attributes definition is extended to include the `style` attribute.
+
+When a background image is selected, the image data is stored in the `style.background.backgroundImage`.
+
+When a background images is selected and its position or size are changed, the background-position is stored in the `style.background.backgroundPosition` and its background-size in `style.background.backgroundSize` attribute.
+
+-   `style`: an attribute of `object` type with no default assigned. This is added when `backgroundImage` or `backgroundSize` support is declared. It stores the custom values set by the user.
+    -   `background`: an attribute of `object` type.
+        - `backgroundImage`: an attribute of `object` type, containing information about the selected image
+            - `url`: type `string`, URL to the image
+            - `id`: type `int`, media attachment ID
+            - `source`: type `string`, at the moment the only value is `file`
+            - `title`: type `string`, title of the media attachment
+        - `backgroundPosition`: an attribute of `string` type, defining the background images position, selected by FocalPointPicker and used in CSS as the [`background-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) value.
+        - `backgroundSize`: an attribute of `string` type. defining the CSS [`background-size`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-size) value.
+
+The block can apply a default background image, position and size by specifying its own attribute with a default. For example:
+
+```js
+attributes: {
+    style: {
+        background: {
+            backgroundImage: {
+				"url":"IMAGE_URL"
+			}
+			backgroundPosition:"50% 50%",
+            backgroundSize: "cover"
+        }
+    }
 }
 ```
 
@@ -221,9 +283,10 @@ supports: {
 - デフォルト値: `true`
 
 <!--
-By default, the class `.wp-block-your-block-name` is added to the root element of your saved markup. This helps having a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.
+By default, the class `.wp-block-your-block-name` is added to the root element of your saved markup. This helps by providing a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.
  -->
 デフォルトでは保存したマークアップの root 要素にクラス `.wp-block-your-block-name` が追加されます。この結果、テーマやプラグインがブロックをスタイリングする際に利用可能な一貫した機構が実現します。何らかの理由によりこのクラスをマークアップに付加したくない場合、この機能を無効化できます。
+
 
 <!--
 ```js
@@ -247,7 +310,10 @@ supports: {
 -   Default value: null
 -   Subproperties:
     -   `background`: type `boolean`, default value `true`
+    -   `button`: type `boolean`, default value `false`
+    -   `enableContrastChecker`: type `boolean`, default value `true`
     -   `gradients`: type `boolean`, default value `false`
+    -   `heading`: type `boolean`, default value `false`
     -   `link`: type `boolean`, default value `false`
     -   `text`: type `boolean`, default value `true`
  -->
@@ -255,41 +321,38 @@ supports: {
 - デフォルト値: null
 - サブプロパティ:
     -   `background`: タイプ `boolean`, デフォルト値 `true`
-    -   `__experimentalDuotone`: タイプ `string`, デフォルト値なし
+    -   `button`: タイプ `boolean`, デフォルト値 `false`
+    -   `enableContrastChecker`: タイプ `boolean`, デフォルト値 `true`
     -   `gradients`: タイプ `boolean`, デフォルト値 `false`
+    -   `heading`: タイプ `boolean`, デフォルト値 `false`
     -   `link`: タイプ `boolean`, デフォルト値 `false`
     -   `text`: タイプ `boolean`, デフォルト値 `true`
 
 <!--
-This value signals that a block supports some of the properties related to color. When it does, the block editor will show UI controls for the user to set their values.
+This value signals that a block supports some of the properties related to color. When this value is present, the block editor will show UI controls for the user to set their values.
  -->
-この値はブロックが色に関連するプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
+この値はブロックが色に関連するプロパティをサポートすることを通知します。この値があると、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 <!--
-The controls for background and text will source their colors from the `editor-color-palette` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes), while the gradient's from `editor-gradient-presets` [theme support](https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-gradient-presets).
- -->
-<!-- 背景とテキストのコントロールは色を `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) から、グラデーションは `editor-gradient-presets` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) から取得します。
- -->
-
-<!--
-Note that the `text` and `background` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
-Note that the `background` and `text` keys have a default value of `true`, so if the `color` property is present they'll also be considered enabled:
+Note that the `background` and `text` keys have a default value of `true`, so if the `color` property is present they will also be considered enabled:
  -->
 注意: `background` キーと`text` キーのデフォルト値は `true` です。`color` プロパティを宣言するとこれらも有効化されます。
+
 
 <!--
 ```js
 supports: {
 	color: {
 		// This also enables text and background UI controls.
-		gradients: true // Enable gradients UI control.
+		gradients: true // Enables the gradients UI control.
 	}
 }
 ```
  -->
 ```js
 supports: {
-    color: { // 同時にテキスト UI コントロールと背景 UI コントロールも有効化
+    color: {
+		// 同時にテキスト UI コントロールと背景 UI コントロールも有効化
         gradients: true // グラデーション UI コントロールを有効化
     }
 }
@@ -303,8 +366,8 @@ It's possible to disable them individually:
 ```js
 supports: {
     color: { // Text UI control is enabled.
-        background: false, // Disable background UI control.
-        gradients: true // Enable gradients UI control.
+        background: false, // Disables the background UI control.
+        gradients: true // Enables the gradients UI control.
     }
 }
 ```
@@ -317,19 +380,6 @@ supports: {
     }
 }
 ```
-<!--
-When the block has support for a specific color property, the attributes definition is extended to include some attributes.
- -->
-<!--
-ブロックが color プロパティをサポートすると、attributes の定義もいくつかの属性を含むよう拡張されます。
- -->
-
-<!--
--   `style`: attribute of `object` type with no default assigned. This is added when any of support color properties are declared. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
- -->
-<!--
-- `style`: デフォルトの割り当てのない `object` タイプの属性。任意の color プロパティのサポートを宣言すると追加されます。ユーザーによるカスタム値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトスタイルを適用できます。
- -->
 
 ### color.background
 
@@ -346,7 +396,7 @@ color サポートを宣言すると、background プロパティは text プロ
 <!--
 ```js
 supports: {
-    color: true // Enables background and text
+    color: true // Enables background and text color support.
 }
 ```
  -->
@@ -365,7 +415,7 @@ To disable background support while keeping other color supports enabled, set to
 ```js
 supports: {
     color: {
-        // Disable background support. Text color support is still enabled.
+        // Disables background support. Text color support is still enabled.
         background: false
     }
 }
@@ -381,155 +431,131 @@ supports: {
 ```
 
 <!--
--   When `background` support is declared: it'll be added a new `backgroundColor` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default background color by specifying its own attribute with a default e.g.:
- -->
-<!--
-- `background` サポートを宣言すると、新しく `string` タイプの `backgroundColor` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトの背景色を適用できます。
- -->
-<!--
 When the block declares support for `color.background`, the attributes definition is extended to include two new attributes: `backgroundColor` and `style`:
  -->
 ブロックが `color.background` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `backgroundColor` と `style` が含まれます。
 
 <!--
-- `backgroundColor`: attribute of `string` type with no default assigned.
+-   `backgroundColor`: an attribute of `string` type with no default assigned.
  -->
-- `backgroundColor`: タイプ `string` の属性。デフォルト値なし。
+-   `backgroundColor`: タイプ `string` の属性。デフォルト値なし。
 
 <!--
-  When a user chooses from the list of preset background colors, the preset slug is stored in the `backgroundColor` attribute.
+    When a user chooses from the list of preset background colors, the preset slug is stored in the `backgroundColor` attribute.
+
  -->
-  プリセットのリストからユーザーが背景色を選択すると、プリセットのスラッグが `backgroundColor` 属性に保存されます。
+    プリセットのリストからユーザーが背景色を選択すると、プリセットのスラッグが `backgroundColor` 属性に保存されます。
 
 <!--
-  Background color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
+    Background color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
+
  -->
-  背景色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) がソースです。
+    背景色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes) がソースです。
 
 <!--
-  The block can apply a default preset background color by specifying its own attribute with a default e.g.:
+    The block can apply a default preset background color by specifying its own attribute with a default. For example:
  -->
-  ブロックはデフォルトのプリセット背景色を適用できます。これには 自身の属性に default で指定します。
+    ブロックはデフォルトのプリセット背景色を適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      backgroundColor: {
-          type: 'string',
-          default: 'some-preset-background-slug',
-      }
-  }
-  ```
-
-<!--
-- `style`: attribute of `object` type with no default assigned.
- -->
-- `style`: タイプ `object` の属性。デフォルト値なし。
+    ```js
+    attributes: {
+        backgroundColor: {
+            type: 'string',
+            default: 'some-preset-background-slug',
+        }
+    }
+    ```
 
 <!--
-  When a custom background color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.background` attribute.
+-   `style`: attribute of `object` type with no default assigned.
  -->
-  カスタムカラーピッカーを使用するなどして、カスタム背景色を選択すると、カスタムカラー値が `style.color.background` 属性に保存されます。
+-   `style`: タイプ `object` の属性。デフォルト値なし。
 
 <!--
-  The block can apply a default custom background color by specifying its own attribute with a default e.g.:
+    When a custom background color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.background` attribute.
+
  -->
-  ブロックはデフォルトのカスタム背景色を適用できます。これには 自身の属性に default で指定します。
-
-  ```js
-  attributes: {
-      style: {
-          type: 'object',
-          default: {
-              color: {
-                  background: '#aabbcc',
-              }
-          }
-      }
-  }
-  ```
-
-### color.__experimentalDuotone
+    カスタムカラーピッカーを使用するなどして、カスタム背景色を選択すると、カスタムカラー値が `style.color.background` 属性に保存されます。
 
 <!--
-This property adds UI controls which allow to apply a duotone filter to a block or part of a block.
+    The block can apply a default custom background color by specifying its own attribute with a default. For example:
  -->
+    ブロックはデフォルトのカスタム背景色を適用できます。これには 自身の属性に default で指定します。
 
-<!-- このプロパティは UI コントロールを追加します。ブロック、またはブロックの一部にデュオトーンフィルターを適用できます。
- -->
-<!--
-The parent selector is automatically added much like nesting in Sass/SCSS (however, the `&` selector is not supported).
- -->
-<!-- 
-親のセレクタが、Sass/SCSS でのネストのように自動で追加されます (しかし、`&` セレクタはサポートされません)。
- -->
-<!--
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                color: {
+                    background: '#aabbcc',
+                }
+            }
+        }
+    }
+    ```
+
+### color.button
+
+_**Note:** Since WordPress 6.5._
+
+This property adds block controls which allow the user to set button colors (text, background) in a block. Button colors are disabled by default.
+
+To enable button color support, set `color.button` to `true`.
+
 ```js
 supports: {
-    color: {
-        // Apply the filter to the same selector in both edit and save.
-        __experimentalDuotone: '> .duotone-img, > .duotone-video',
-
-        // Default values must be disabled if you don't want to use them with duotone.
-        background: false,
-        text: false
-    }
+	color: {
+		button: true
+	}
 }
 ```
- -->
-<!-- 
+
+Button color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
+
+When the block declares support for `color.button`, the attributes definition is extended to include the `style` attribute:
+
+-   `style`: an attribute of `object` type with no default assigned.
+
+    When a button color is selected, the color value is stored in the `style.elements.button.color.text` and `style.elements.button.color.background` attribute.
+
+    The block can apply a default button colors by specifying its own attribute with a default. For example:
+
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                elements: {
+                    button: {
+                        color: {
+                            text: 'var:preset|color|contrast',
+    					    background: '#000000',
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ```
+
+### color.enableContrastChecker
+
+_**Note:** Since WordPress 6.5._
+
+Determines whether the contrast checker widget displays in the block editor UI.
+
+The contrast checker appears only if the block declares support for color. It tests the readability of color combinations and warns if there is a potential issue. The property is enabled by default. Set to `false` to explicitly disable:
+
 ```js
 supports: {
-    color: {
-        // edit と save 両方の同じセレクタにフィルターを適用する。
-        __experimentalDuotone: '> .duotone-img, > .duotone-video',
-
-        // デュオトーンと一緒にデフォルト値を使いたくない場合は、無効化する必要がある
-        background: false,
-        text: false
-    }
+	color: {
+		enableContrastChecker: false
+	}
 }
 ```
- -->
-<!--
-Duotone presets are sourced from `color.duotone` in [theme.json](/docs/how-to-guides/themes/theme-json.md).
- -->
-<!-- 
-デュオトーンプリセットは、[theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-json/) の `color.duotone` がソースです。
- -->
-<!--
-When the block declares support for `color.__experimentalDuotone`, the attributes definition is extended to include the attribute `style`:
- -->
-<!-- 
-ブロックが `color.__experimentalDuotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
- -->
-<!--
-- `style`: attribute of `object` type with no default assigned.
- -->
-<!-- 
-- `style`: タイプ `object` の属性。デフォルト値なし。
- -->
-<!--
-  The block can apply a default duotone color by specifying its own attribute with a default e.g.:
- -->
-<!-- 
-  ブロックはデフォルトのデュオトーンカラーを適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      style: {
-          type: 'object',
-          default: {
-              color: {
-                  duotone: [
-                      '#FFF',
-                      '#000'
-                  ]
-              }
-          }
-      }
-  }
-  ```
- -->
+### color.\_\_experimentalDuotone
 
 <!-- 
 _**Note:** Deprecated since WordPress 6.3._
@@ -543,13 +569,6 @@ _**注意:** WordPress 6.3から非推奨となりました。_
 ### color.gradients
 
 <!--
--   When `gradients` support is declared: it'll be added a new `gradient` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
- -->
-<!--
-- `gradients` サポートを宣言すると、新しく `string` タイプの `gradients` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのグラデーションを適用できます。
- -->
-
-<!--
 This property adds UI controls which allow the user to apply a gradient background to a block.
  -->
 このプロパティは UI コントロールを追加します。ユーザーは UI コントロールを使用して、ブロックにグラデーション背景を適用できます。
@@ -559,8 +578,7 @@ This property adds UI controls which allow the user to apply a gradient backgrou
 supports: {
     color: {
         gradients: true,
-
-        // Default values must be disabled if you don't want to use them with gradient.
+        // Default values must be disabled if you don't want to use them with gradients.
         background: false,
         text: false
     }
@@ -571,7 +589,6 @@ supports: {
 supports: {
     color: {
         gradients: true,
-
         // グラデーションと一緒にデフォルト値を使いたくない場合は、無効化する必要がある
         background: false,
         text: false
@@ -590,68 +607,73 @@ When the block declares support for `color.gradient`, the attributes definition 
 ブロックが `color.gradient` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `gradient` と `style` が含まれます。
 
 <!--
-- `gradient`: attribute of `string` type with no default assigned.
+-   `gradient`: an attribute of `string` type with no default assigned.
  -->
-- `gradient`: タイプ `string` の属性。デフォルト値なし。
+-   `gradient`: タイプ `string` の属性。デフォルト値なし。
 
 <!--
-  When a user chooses from the list of preset gradients, the preset slug is stored in the `gradient` attribute.
+    When a user chooses from the list of preset gradients, the preset slug is stored in the `gradient` attribute.
  -->
-  プリセットのリストからユーザーがグラデーションを選択すると、プリセットのスラッグが `gradient` 属性に保存されます。
+    プリセットのリストからユーザーがグラデーションを選択すると、プリセットのスラッグが `gradient` 属性に保存されます。
 
 <!--
-  The block can apply a default preset gradient by specifying its own attribute with a default e.g.:
+    The block can apply a default preset gradient by specifying its own attribute with a default. For example:
  -->
-  ブロックはデフォルトのグラデーションプリセットを適用できます。これには 自身の属性に default で指定します。
+    ブロックはデフォルトのグラデーションプリセットを適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      gradient: {
-          type: 'string',
-          default: 'some-preset-gradient-slug',
-      }
-  }
-  ```
+    ```js
+    attributes: {
+        gradient: {
+            type: 'string',
+            default: 'some-preset-gradient-slug',
+        }
+    }
+    ```
 
 <!--
-- `style`: attribute of `object` type with no default assigned.
+-   `style`: an attribute of `object` type with no default assigned.
  -->
-- `style`: タイプ `object` の属性。デフォルト値なし。
+-   `style`: タイプ `object` の属性。デフォルト値なし。
 
 <!--
-  When a custom gradient is selected (i.e. using the custom gradient picker), the custom gradient value is stored in the `style.color.gradient` attribute.
+    When a custom gradient is selected (i.e. using the custom gradient picker), the custom gradient value is stored in the `style.color.gradient` attribute.
  -->
-  カスタムグラデーションピッカーを使用するなどして、カスタムグラデーションを選択すると、カスタムグラデーション値が `style.color.gradient` 属性に保存されます。
+    カスタムグラデーションピッカーを使用するなどして、カスタムグラデーションを選択すると、カスタムグラデーション値が `style.color.gradient` 属性に保存されます。
 
 <!--
-  The block can apply a default custom gradient by specifying its own attribute with a default e.g.:
+    The block can apply a default custom gradient by specifying its own attribute with a default. For example:
  -->
-  ブロックはデフォルトのカスタムグラデーションを適用できます。これには 自身の属性に default で指定します。
+    ブロックはデフォルトのカスタムグラデーションを適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      style: {
-          type: 'object',
-          default: {
-              color: {
-                  gradient: 'linear-gradient(135deg,rgb(170,187,204) 0%,rgb(17,34,51) 100%)',
-              }
-          }
-      }
-  }
-  ```
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                color: {
+                    gradient: 'linear-gradient(135deg,rgb(170,187,204) 0%,rgb(17,34,51) 100%)',
+                }
+            }
+        }
+    }
+    ```
 
-### color.link
-
-<!--
-This property adds block controls which allow the user to set link color in a block, link color is disabled by default.
- -->
-このプロパティは、ユーザーがブロック内のリンクの色を設定できるブロックコントロールを追加します。デフォルトではリンクの色は無効です。
-
+### color.heading
 <!-- 
+_**Note:** Since WordPress 6.5._
+ -->
+_**注意:** WordPress 6.5以降_
+
+This property adds block controls which allow the user to set heading colors in a block. Heading colors are disabled by default.
+
+To enable heading color support, set `color.heading` to `true`.
+
 ```js
 supports: {
-    color: true // Enables only background and text
+	color: {
+		// Enable heading color support.
+		heading: true
+	}
 }
 ```
  -->
@@ -661,16 +683,51 @@ supports: {
 }
 ```
 
+Heading color presets are sourced from the `editor-color-palette` [theme support](/docs/how-to-guides/themes/theme-support.md#block-color-palettes).
+
+When the block declares support for `color.heading`, the attributes definition is extended to include the `style` attribute:
+
+-   `style`: an attribute of `object` type with no default assigned.
+
+    When a heading color is selected, the color value is stored in the `style.elements.heading.color.text` and `style.elements.heading.color.background` attribute.
+
+    The block can apply default heading colors by specifying its own attribute with a default. For example:
+
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                elements: {
+                    heading: {
+                        color: {
+                            text: 'var:preset|color|contrast',
+    					    background: '#000000',
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ```
+
+### color.link
+
 <!--
-To enable link color support, set to `true`.
+This property adds block controls which allow the user to set link colors in a block. Link colors are disabled by default.
  -->
-リンクの色のサポートを有効にするには、`true` に設定します。
+このプロパティは、ユーザーがブロック内のリンクの色を設定できるブロックコントロールを追加します。デフォルトではリンクの色は無効です。
+
+<!--
+To enable link color support, set `color.link` to `true`.
+ -->
+リンクの色のサポートを有効にするには、`color.link` を `true` に設定します。
 
 ```js
 supports: {
-    color: {
-        link: true
-    }
+	color: {
+		link: true
+	}
 }
 ```
 <!--
@@ -678,91 +735,48 @@ Link color presets are sourced from the `editor-color-palette` [theme support](/
  -->
 リンクの色のプリセットは、`editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-color-palettes)をソースとしています。
 
-<!--
-When the block declares support for `color.link`, the attributes definition is extended to include two new attributes: `linkColor` and `style`:
- -->
-<!-- 
-ブロックが `color.link` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `linkColor` と `style` が追加されます。
- -->
 <!-- 
 When the block declares support for `color.link`, the attributes definition is extended to include the `style` attribute:
  -->
 ブロックが `color.link` のサポートを宣言すると、属性定義が拡張され、`style` が追加されます。
 
 <!--
-- `linkColor`: attribute of `string` type with no default assigned.
+-   `style`: an attribute of `object` type with no default assigned.
  -->
-<!-- 
-- `linkColor`: `string` 型の属性で、デフォルトは割り当てられていません。
- -->
-<!--
-  When a user chooses from the list of preset link colors, the preset slug is stored in the `linkColor` attribute.
+-   `style`: `object` 型の属性で、デフォルトは割り当てられていません。
 
-  The block can apply a default preset text color by specifying its own attribute with a default e.g.:
- -->
-<!-- 
-  ユーザーがプリセットのリンクの色のリストから選択すると、プリセットのスラッグが `linkColor` 属性に格納されます。
-
-  ブロックにデフォルトのプリセットのテキスト色を適用するには、自身の属性にデフォルトを指定します。例:
-
-  ```js
-  attributes: {
-      linkColor: {
-          type: 'string',
-          default: 'some-preset-link-color-slug',
-      }
-  }
-  ```
- -->
-<!--
-- `style`: attribute of `object` type with no default assigned.
- -->
-- `style`: `object` 型の属性で、デフォルトは割り当てられていません。
-
-<!--
-  When a custom link color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.link` attribute.
-
-  The block can apply a default custom link color by specifying its own attribute with a default e.g.:
- -->
-<!-- 
-  カスタム色ピッカーを使用するなどして、カスタムリンクの色が選択されると、カスタム色の値が `style.color.link` 属性に格納されます。
-
-  ブロックにデフォルトのカスタムリンクの色を適用するには、自身の属性をデフォルトで指定します。
- -->  
   <!-- 
-  When a link color is selected, the color value is stored in the `style.elements.link.color.text` attribute.
+    When a link color is selected, the color value is stored in the `style.elements.link.color.text` and `style.elements.link.:hover.color.text` attribute.
 
-  The block can apply a default link color by specifying its own attribute with a default e.g.:
+    The block can apply default link colors by specifying its own attribute with a default. For example:
  -->
-リンクの色が選択されると、色の値が `style.elements.link.color.text` 属性に格納されます。
+    リンクの色が選択されると、色の値が `style.elements.link.color.text` 属性と `style.elements.link.:hover.color.text` 属性に格納されます。
 
-ブロックにデフォルトのリンクの色を適用するには、自身の属性をデフォルトで指定します。
+    ブロックにデフォルトのリンクの色を適用するには、自身の属性をデフォルトで指定します。
 
-  ```js
-  attributes: {
-      style: {
-          type: 'object',
-          default: {
-              elements: {
-                  link: {
-                      color: {
-                          text: '#ff0000',
-                      }
-                  }
-              }
-          }
-      }
-  }
-  ```
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                elements: {
+                    link: {
+                        color: {
+                            text: 'var:preset|color|contrast',
+                        },
+						":hover": {
+							color: {
+								text: "#000000"
+							}
+						}
+                    }
+                }
+            }
+        }
+    }
+    ```
 
 ### color.text
-
-<!--
--   When `text` support is declared: it'll be added a new `textColor` attribute of type `string` with no default assigned. It stores the preset values set by the user. The block can apply a default text color by specifying its own attribute with a default e.g.:
- -->
-<!--
-- `text` サポートを宣言すると、新しく `string` タイプの `textColor` 属性がデフォルトの割り当てなしで追加されます。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の属性とデフォルトを指定することで、デフォルトのテキスト色を適用できます。
- -->
 
 <!--
 This property adds block controls which allow the user to set text color in a block.
@@ -777,7 +791,7 @@ color サポートを宣言すると、text プロパティは background プロ
 <!--
 ```js
 supports: {
-    color: true // Enables background and text, but not link.
+	color: true // Enables background and text, but not link.
 }
 ```
  -->
@@ -788,24 +802,24 @@ supports: {
 ```
 
 <!--
-To disable text color support while keeping other color supports enabled, set to `false`.
+To disable text color support while keeping other color supports enabled, set `color.text` to `false`.
  -->
-他の color サポートは有効化しながら text サポートを無効化するには、`false` を設定します。
+他の color サポートは有効化しながら text サポートを無効化するには、`color.text` に `false` を設定します。
 
 <!--
 ```js
 supports: {
-    color: {
-        // Disable text color support.
-        text: false
-    }
+	color: {
+		// Disable text color support.
+		text: false
+	}
 }
 ```
  -->
 ```js
 supports: {
     color: {
-        // text サポートを無効化。
+        // text color サポートを無効化。
         text: false
     }
 }
@@ -816,63 +830,62 @@ Text color presets are sourced from the `editor-color-palette` [theme support](/
  -->
 テキスト色プリセットは `editor-color-palette` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-gradient-presets) がソースです。
 
-
 <!--
 When the block declares support for `color.text`, the attributes definition is extended to include two new attributes: `textColor` and `style`:
  -->
 ブロックが `color.text` のサポートを宣言すると、属性定義が拡張され、2つの新しい属性 `textColor` と `style` が含まれます。
 
 <!--
-- `textColor`: attribute of `string` type with no default assigned.
+-   `textColor`: an attribute of `string` type with no default assigned.
  -->
-- `textColor`: タイプ `string` の属性。デフォルト値なし。
+-   `textColor`: タイプ `string` の属性。デフォルト値なし。
 
 <!--
-  When a user chooses from the list of preset text colors, the preset slug is stored in the `textColor` attribute.
+    When a user chooses from the list of preset text colors, the preset slug is stored in the `textColor` attribute.
  -->
-  プリセットのリストからユーザーがテキスト色を選択すると、プリセットのスラッグが `textColor` 属性に保存されます。
+    プリセットのリストからユーザーがテキスト色を選択すると、プリセットのスラッグが `textColor` 属性に保存されます。
 
 <!--
-  The block can apply a default preset text color by specifying its own attribute with a default e.g.:
+    The block can apply a default preset text color by specifying its own attribute with a default. For example:
  -->
-  ブロックはデフォルトのプリセットテキスト色を適用できます。これには 自身の属性に default で指定します。
+    ブロックはデフォルトのプリセットテキスト色を適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      textColor: {
-          type: 'string',
-          default: 'some-preset-text-color-slug',
-      }
-  }
-  ```
+    ```js
+    attributes: {
+        textColor: {
+            type: 'string',
+            default: 'some-preset-text-color-slug',
+        }
+    }
+    ```
 
 <!--
-- `style`: attribute of `object` type with no default assigned.
+-   `style`: an attribute of `object` type with no default assigned.
  -->
-- `style`: タイプ `object` の属性。デフォルト値なし。
+-   `style`: タイプ `object` の属性。デフォルト値なし。
 
 <!--
-  When a custom text color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.text` attribute.
+    When a custom text color is selected (i.e. using the custom color picker), the custom color value is stored in the `style.color.text` attribute.
  -->
-  カスタムカラーピッカーを使用するなどして、カスタムテキスト色を選択すると、カスタムカラー値が `style.color.gradient` 属性に保存されます。
+    カスタムカラーピッカーを使用するなどして、カスタムテキスト色を選択すると、カスタムカラー値が `style.color.gradient` 属性に保存されます。
 
 <!--
-  The block can apply a default custom text color by specifying its own attribute with a default e.g.:
+    The block can apply a default custom text color by specifying its own attribute with a default. For example:
  -->
-  ブロックはデフォルトのカスタムテキスト色を適用できます。これには 自身の属性に default で指定します。
+    ブロックはデフォルトのカスタムテキスト色を適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      style: {
-          type: 'object',
-          default: {
-              color: {
-                  text: '#aabbcc',
-              }
-          }
-      }
-  }
-  ```
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                color: {
+                    text: '#aabbcc',
+                }
+            }
+        }
+    }
+    ```
 
 ## customClassName
 
@@ -900,9 +913,9 @@ supports: {
     customClassName: false
 }
 ```
-
+<!-- 
 ## defaultStylePicker
-
+ -->
 <!--
 -   Type: `boolean`
 -   Default value: `true`
@@ -916,6 +929,7 @@ supports: {
 }
 ```
  -->
+<!-- 
 - タイプ: `boolean`
 - デフォルト値: `true`
 
@@ -927,9 +941,11 @@ supports: {
     defaultStylePicker: false
 }
 ```
+ -->
 
+<!-- 
 ## fontSize
-
+ -->
 <!--
 -   Type: `boolean`
 -   Default value: `false`
@@ -938,13 +954,14 @@ This value signals that a block supports the font-size CSS style property. When 
 
 The values shown in this control are the ones declared by the theme via the `editor-font-sizes` [theme support](/docs/how-to-guides/themes/theme-support.md#block-font-sizes), or the default ones if none is provided.
  -->
+<!-- 
 - タイプ: `boolean`
 - デフォルト値: `false`
 
 この値はブロックが font-size CSS スタイルプロパティをサポートすることを通知します。サポートする場合、ブロックエディターはユーザーがプロパティ値を設定できる UI コントロールを表示します。
 
 このコントロール内に表示される値は `editor-font-sizes` [テーマサポート](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/theme-support/#block-font-sizes) でテーマが宣言したもの、または指定がなければデフォルトのものになります。
-
+ -->
 <!--
 ```js
 supports: {
@@ -953,18 +970,20 @@ supports: {
 }
 ```
  -->
+<!-- 
 ```js
 supports: {
     // font-size UI コントールの有効化
     fontSize: true,
 }
 ```
-
+ -->
 <!--
 When the block declares support for `fontSize`, the attributes definition is extended to include two new attributes: `fontSize` and `style`:
 
 -   `fontSize`: attribute of `string` type with no default assigned. It stores the preset values set by the user. The block can apply a default fontSize by specifying its own `fontSize` attribute with a default e.g.:
  -->
+<!-- 
 ブロックが `fontSize` サポートを宣言すると、attributes の定義も新しい属性 `fontSize` と `style` を含むよう拡張されます。
 
 - `fontSize`: `string` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `fontSize` 属性とデフォルトを指定することで、デフォルトの fontSize を適用できます。
@@ -977,9 +996,11 @@ attributes: {
     }
 }
 ```
+ -->
 <!--
 -   `style`: attribute of `object` type with no default assigned. It stores the custom values set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
  -->
+<!-- 
 - `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
 
 ```js
@@ -995,6 +1016,7 @@ attributes: {
 	defaultStylePicker: false
 }
 ```
+ -->
 
 ## dimensions
 
@@ -1022,10 +1044,10 @@ This value signals that a block supports some of the CSS style properties relate
 <!-- 
 ```js
 supports: {
-    dimensions: {
-        aspectRatio: true // Enable aspect ratio control.
-        minHeight: true // Enable min height control.
-    }
+	dimensions: {
+		aspectRatio: true // Enable aspect ratio control.
+		minHeight: true // Enable min height control.
+	}
 }
 ```
  -->
@@ -1039,11 +1061,11 @@ supports: {
 <!-- 
 When a block declares support for a specific dimensions property, its attributes definition is extended to include the `style` attribute.
 
-- `style`: attribute of `object` type with no default assigned. This is added when `aspectRatio` or `minHeight` support is declared. It stores the custom values set by the user, e.g.:
+-   `style`: an attribute of `object` type with no default assigned. This is added when `aspectRatio` or `minHeight` support is declared. It stores the custom values set by the user. For example:
  -->
 ブロックが特定の dimensions プロパティのサポートを宣言すると、その属性定義は `style` 属性を含むように拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。`aspectRatio` または `minHeight` のサポートが宣言されると追加され、ユーザーが設定したカスタム値を格納します。例:
+-   `style`: デフォルトの割り当てのない `object` タイプの属性。`aspectRatio` または `minHeight` のサポートが宣言されると追加され、ユーザーが設定したカスタム値を格納します。例:
 
 ```js
 attributes: {
@@ -1126,29 +1148,29 @@ When the block declares support for `filter.duotone`, the attributes definition 
  -->
 ブロックが `filter.duotone` のサポートを宣言すると、属性定義が拡張され、属性 `style` が含まれます。
 <!--  
-- `style`: attribute of `object` type with no default assigned.
+-   `style`: an attribute of `object` type with no default assigned.
  -->
-- `style`: タイプ `object` の属性。デフォルト値なし。
+-   `style`: タイプ `object` の属性。デフォルト値なし。
 <!-- 
-  The block can apply a default duotone color by specifying its own attribute with a default e.g.:
+    The block can apply a default duotone color by specifying its own attribute with a default. For example:
  -->
-  ブロックはデフォルトのデュオトーンカラーを適用できます。これには 自身の属性に default で指定します。
+    ブロックはデフォルトのデュオトーンカラーを適用できます。これには 自身の属性に default で指定します。
 
-  ```js
-  attributes: {
-      style: {
-          type: 'object',
-          default: {
-              color: {
-                  duotone: [
-                      '#FFF',
-                      '#000'
-                  ]
-              }
-          }
-      }
-  }
-  ```
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+                color: {
+                    duotone: [
+                        '#FFF',
+                        '#000'
+                    ]
+                }
+            }
+        }
+    }
+    ```
 
 ## html
 <!--
@@ -1202,6 +1224,21 @@ supports: {
 }
 ```
 
+## interactivity
+
+-   Type: `boolean` or `object`
+-   Default value: `false`
+-   Subproperties:
+    -   `clientNavigation`: type `boolean`, default value `false`
+    -   `interactive`: type `boolean`, default value `false`
+
+Indicates if the block is using Interactivity API features.
+
+The `clientNavigation` sub-property indicates whether a block is compatible with the Interactivity API client-side navigation.
+Set it to true only if the block is not interactive or if it is interactive using the Interactivity API. Set it to false if the block is interactive but uses vanilla JS, jQuery or another JS framework/library other than the Interactivity API.
+
+The `interactive` sub-property indicates whether the block is using the Interactivity API directives.
+
 ## layout
 
 <!-- 
@@ -1240,7 +1277,7 @@ This value only applies to blocks that are containers for inner blocks. If set t
 -   Type: `Object`
 -   Default value: null
 
-Allows setting the `type` property to define what layout type is default for the block, and also default values for any properties inherent to that layout type, e.g., for a `flex` layout, a default value can be set for `flexWrap`.
+Allows setting the `type` property to define what layout type is default for the block, and also default values for any properties inherent to that layout type. For example, for a `flex` layout, a default value can be set for `flexWrap`.
  -->
 -   タイプ: `Object`
 -   デフォルト値: null
@@ -1343,58 +1380,6 @@ For the `constrained` layout type only, determines display of the custom content
 
 `constrained` レイアウトタイプのみ。ブロックサイドバーのカスタムコンテンツとワイドサイズコントロールの表示を決定します。
 
-## multiple
-<!--
--   Type: `boolean`
--   Default value: `true`
-
-A non-multiple block can be inserted into each post, one time only. For example, the built-in 'More' block cannot be inserted again if it already exists in the post being edited. A non-multiple block's icon is automatically dimmed (unclickable) to prevent multiple instances.
-
-```js
-supports: {
-	// Use the block just once per post
-	multiple: false
-}
-```
- -->
-- タイプ: `boolean`
-- デフォルト値: `true`
-
-非 multiple ブロックは各投稿に1回だけ挿入できます。たとえば組み込みの「続きを読む」ブロックは、編集中の投稿にすでに存在する場合は挿入できません。非 multiple ブロックのアイコンはクリックできないよう自動的にグレイアウトされ、複数インスタンスの作成を回避します。
-
-```js
-supports: {
-    // ブロックは投稿ごとに1度だけ使用できる
-    multiple: false
-}
-```
-
-## reusable
-<!--
--   Type: `boolean`
--   Default value: `true`
-
-A block may want to disable the ability of being converted into a reusable block. By default all blocks can be converted to a reusable block. If supports reusable is set to false, the option to convert the block into a reusable block will not appear.
-
-```js
-supports: {
-	// Don't allow the block to be converted into a reusable block.
-	reusable: false,
-}
-```
- -->
-- タイプ: `boolean`
-- デフォルト値: `true`
-
-ブロックを再利用可能なブロックに変換する機能を無効化したい場合があります。デフォルトではすべてのブロックは再利用可能ブロックに変換できます。reusable サポートを false に設定すると、再利用可能ブロックするに変換するオプションが表示されません。
-
-```js
-supports: {
-    // 再利用可能ブロックへの変換を許可しない
-    reusable: false,
-}
-```
-
 ## lock
 
 <!-- 
@@ -1423,6 +1408,34 @@ supports: {
 	lock: false
 }
 ```
+
+## multiple
+<!--
+-   Type: `boolean`
+-   Default value: `true`
+
+A non-multiple block can be inserted into each post, one time only. For example, the built-in 'More' block cannot be inserted again if it already exists in the post being edited. A non-multiple block's icon is automatically dimmed (unclickable) to prevent multiple instances.
+
+```js
+supports: {
+	// Use the block just once per post
+	multiple: false
+}
+```
+ -->
+- タイプ: `boolean`
+- デフォルト値: `true`
+
+非 multiple ブロックは各投稿に1回だけ挿入できます。たとえば組み込みの「続きを読む」ブロックは、編集中の投稿にすでに存在する場合は挿入できません。非 multiple ブロックのアイコンはクリックできないよう自動的にグレイアウトされ、複数インスタンスの作成を回避します。
+
+```js
+supports: {
+    // ブロックは投稿ごとに1度だけ使用できる
+    multiple: false
+}
+```
+
+
 
 ## position
 <!-- 
@@ -1454,9 +1467,9 @@ Note that sticky position controls are currently only available for blocks set a
 <!-- 
 ```js
 supports: {
-    position: {
-        sticky: true // Enable selecting sticky position.
-    }
+	position: {
+		sticky: true // Enable selecting sticky position.
+	}
 }
 ```
  -->
@@ -1470,11 +1483,11 @@ supports: {
 <!-- 
 When the block declares support for a specific position property, its attributes definition is extended to include the `style` attribute.
 
-- `style`: attribute of `object` type with no default assigned. This is added when `sticky` support is declared. It stores the custom values set by the user, e.g.:
+-   `style`: an attribute of `object` type with no default assigned. This is added when `sticky` support is declared. It stores the custom values set by the user. For example:
  -->
 ブロックが特定の position プロパティのサポートを宣言すると、その属性定義は `style` 属性を含むように拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。これは `sticky` サポートが宣言されると追加されます。ユーザーが設定したカスタム値が格納されます。例:
+-   `style`: デフォルトの割り当てのない `object` タイプの属性。これは `sticky` サポートが宣言されると追加されます。ユーザーが設定したカスタム値が格納されます。例:
 
 ```js
 attributes: {
@@ -1486,6 +1499,85 @@ attributes: {
     }
 }
 ```
+
+## renaming
+
+_**Note:** Since WordPress 6.5._
+
+-   Type: `boolean`
+-   Default value: `true`
+
+By default, a block can be renamed by a user from the block 'Options' dropdown or the 'Advanced' panel. To disable this behavior, set renaming to false.
+
+```js
+supports: {
+	// Don't allow the block to be renamed in the editor.
+	renaming: false,
+}
+```
+
+## reusable
+
+<!--
+-   Type: `boolean`
+-   Default value: `true`
+
+A block may want to disable the ability of being converted into a reusable block. By default all blocks can be converted to a reusable block. If supports reusable is set to false, the option to convert the block into a reusable block will not appear.
+
+```js
+supports: {
+	// Don't allow the block to be converted into a reusable block.
+	reusable: false,
+}
+```
+ -->
+- タイプ: `boolean`
+- デフォルト値: `true`
+
+ブロックを再利用可能なブロックに変換する機能を無効化したい場合があります。デフォルトではすべてのブロックは再利用可能ブロックに変換できます。reusable サポートを false に設定すると、再利用可能ブロックするに変換するオプションが表示されません。
+
+```js
+supports: {
+    // 再利用可能ブロックへの変換を許可しない
+    reusable: false,
+}
+```
+
+## shadow
+
+_**Note:** Since WordPress 6.5._
+
+-   Type: `boolean`
+-   Default value: `false`
+
+This property adds block controls which allow the user to set a box shadow for a block. Shadows are disabled by default.
+
+```js
+supports: {
+	shadow: true // Enable the box-shadow picker.
+}
+```
+
+Shadow presets are sourced from the shadow presets defined in `theme.json`.
+
+When the block declares support for `shadow`, the attributes definition is extended to include the `style` attribute:
+
+-   `style`: an attribute of `object` type with no default assigned.
+
+    When a shadow is selected, the color value is stored in the `style.shadow`.
+
+    The block can apply a default shadow by specifying its own attribute with a default. For example:
+
+    ```js
+    attributes: {
+        style: {
+            type: 'object',
+            default: {
+    			shadow: "var:preset|shadow|deep"
+            }
+        }
+    }
+    ```
 
 ## spacing
 
@@ -1530,11 +1622,11 @@ supports: {
 <!--
 When the block declares support for a specific spacing property, its attributes definition is extended to include the `style` attribute.
 
-- `style`: attribute of `object` type with no default assigned. This is added when `margin` or `padding` support is declared. It stores the custom values set by the user, e.g.:
+-   `style`: an attribute of `object` type with no default assigned. This is added when `margin` or `padding` support is declared. It stores the custom values set by the user. For example:
  -->
 ブロックが特定の spacing プロパティのサポートを宣言すると、その attributes の定義も `style` 属性を含むよう拡張されます。
 
-- `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーが設定したカスタム値が格納されます。例:
+-   `style`: デフォルトの割り当てのない `object` タイプの属性。`margin` または `padding` サポートを宣言すると追加されます。ユーザーが設定したカスタム値が格納されます。例:
 
 ```js
 attributes: {
@@ -1589,8 +1681,9 @@ supports: {
 -   Type: `Object`
 -   Default value: `null`
 -   Subproperties:
-    - `fontSize`: type `boolean`, default value `false`
-    - `lineHeight`: type `boolean`, default value `false`
+    -   `fontSize`: type `boolean`, default value `false`
+    -   `lineHeight`: type `boolean`, default value `false`
+    -   `textAlign`: type `boolean` or `array`, default value `false`
 
 The presence of this object signals that a block supports some typography related properties. When it does, the block editor will show a typography UI allowing the user to control their values.
  -->
@@ -1610,6 +1703,8 @@ supports: {
         fontSize: true,
         // Enable support and UI control for line-height.
         lineHeight: true,
+        // Enable support and UI control for text alignment.
+        textAlign: true,
     },
 }
 ```
@@ -1663,11 +1758,11 @@ supports: {
 <!-- 
 When the block declares support for `fontSize`, the attributes definition is extended to include two new attributes: `fontSize` and `style`:
 
--   `fontSize`: attribute of `string` type with no default assigned. It stores any preset value selected by the user. The block can apply a default fontSize by specifying its own `fontSize` attribute with a default e.g.:
+-   `fontSize`: an attribute of `string` type with no default assigned. It stores any preset value selected by the user. The block can apply a default fontSize by specifying its own `fontSize` attribute with a default. For example:
  -->
 ブロックが `fontSize` サポートを宣言すると、attributes の定義も新しい属性 `fontSize` と `style` を含むよう拡張されます。
 
-- `fontSize`: `string` タイプの属性で、デフォルトの割り当てはありません。ユーザーが選択したプリセット値のセットを保存します。ブロックは自身の `fontSize` 属性とデフォルトを指定することで、デフォルトの fontSize を適用できます。
+-    `fontSize`: `string` タイプの属性で、デフォルトの割り当てはありません。ユーザーが選択したプリセット値のセットを保存します。ブロックは自身の `fontSize` 属性とデフォルトを指定することで、デフォルトの fontSize を適用できます。
 
 ```js
 attributes: {
@@ -1679,9 +1774,9 @@ attributes: {
 ```
 
 <!-- 
--   `style`: attribute of `object` type with no default assigned. It stores the custom values set by the user and is shared with other block supports such as color. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+-   `style`: an attribute of `object` type with no default assigned. It stores the custom values set by the user and is shared with other block supports such as color. The block can apply a default style by specifying its own `style` attribute with a default. For example:
  -->
-- `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーが設定したカスタム値が格納され、色などの他のブロックサポートと共有されます。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
+-   `style`: `object` タイプの属性で、デフォルトの割り当てはありません。ユーザーが設定したカスタム値が格納され、色などの他のブロックサポートと共有されます。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトのスタイルを適用できます。
 
 ```js
 attributes: {
@@ -1729,7 +1824,7 @@ supports: {
 ```
 
 <!-- 
-When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default e.g.:
+When the block declares support for `lineHeight`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default. For example:
  -->
 ブロックが `lineHeight` プロパティのサポートを宣言すると、attributes の定義も新しい属性 `style` を含むよう拡張されます。`style` は `obuject` タイプの属性で、デフォルトの割り当てはありません。ユーザーによるプリセットした値のセットを保存します。ブロックは自身の `style` 属性とデフォルトを指定することで、デフォルトの style を適用できます。
 
@@ -1740,6 +1835,50 @@ attributes: {
         default: {
             typography: {
                 lineHeight: 'value'
+            }
+        }
+    }
+}
+```
+
+### typography.textAlign
+
+_**Note:** Since WordPress 6.6._
+
+-   Type: `boolean` or `array`
+-   Default value: `false`
+
+This property adds block toolbar controls which allow to change block's text alignment.
+
+```js
+supports: {
+    typography: {
+        // Declare support for block's text alignment.
+        // This adds support for all the options:
+        // left, center, right.
+        textAlign: true
+    }
+}
+```
+
+```js
+supports: {
+    typography: {
+        // Declare support for specific text alignment options.
+        textAlign: [ 'left', 'right' ]
+    }
+}
+```
+
+When the block declares support for `textAlign`, the attributes definition is extended to include a new attribute `style` of `object` type with no default assigned. It stores the custom value set by the user. The block can apply a default style by specifying its own `style` attribute with a default. For example:
+
+```js
+attributes: {
+    style: {
+        type: 'object',
+        default: {
+            typography: {
+                textAlign: 'value'
             }
         }
     }

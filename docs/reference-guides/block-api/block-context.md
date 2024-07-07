@@ -34,7 +34,7 @@ Block context is defined in the registered settings of a block. A block can prov
 ### ブロックコンテキストの提供
 
 <!--
-A block can provide a context value by assigning a `providesContext` property in its registered settings. This is an object which maps a context name to one of the block's own attribute. The value corresponding to that attribute value is made available to descendent blocks and can be referenced by the same context name. Currently, block context only supports values derived from the block's own attributes. This could be enhanced in the future to support additional sources of context values.
+A block can provide a context value by assigning a `providesContext` property in its registered settings. This is an object which maps a context name to one of the block's own attributes. The value corresponding to that attribute value is made available to descendent blocks and can be referenced by the same context name. Currently, block context only supports values derived from the block's own attributes. This could be enhanced in the future to support additional sources of context values.
  -->
 コンテキスト値を提供するには、登録設定の中で `providesContext` プロパティに割り当てます。`providesContext` プロパティはコンテキスト名をブロック自身の属性のどれか1つとマップするオブジェクトです。属性値に関連付けられた値は子孫のブロックで利用でき、同じコンテキスト名で参照できます。現行ではブロックコンテキストはブロック自身の属性から派生した値のみをサポートしますが、将来的には拡張されコンテキスト値の追加ソースをサポートする予定です。
 
@@ -50,7 +50,7 @@ A block can provide a context value by assigning a `providesContext` property in
 	},
 ```
 <!--
-For complete example, refer to the section below.
+For a complete example, refer to the section below.
 
 #### Include a namespace
 
@@ -119,7 +119,7 @@ register_block_type( 'my-plugin/record-title', array(
 <!--
 ## Example
 
-1. Create `record` block.
+1. Create a `record` block.
  -->
 ## 例
 
@@ -130,10 +130,9 @@ npm init @wordpress/block --namespace my-plugin record
 cd record
 ```
 <!--
-2. Edit `src/index.js`. Insert `recordId` attribute and `providesContext` property in `registerBlockType` function and add registration of `record-title` block at the bottom.
+2. Edit `src/index.js`. Insert the `recordId` attribute and `providesContext` property in the `registerBlockType` function and add the registration of the `record-title` block at the bottom:
  -->
 2. `src/index.js` を編集します。`recordId` 属性と `providesContext` プロパティを `registerBlockType` 関数内に挿入し、末尾に `record-title` ブロックの登録を追加します。
-
 
 ```js
 registerBlockType( 'my-plugin/record', {
@@ -176,7 +175,7 @@ registerBlockType( 'my-plugin/record-title', {
 } );
 ```
 <!--
-3. Edit `src/edit.js` for the `record` block. Replace `Edit` function by following code.
+3. Edit `src/edit.js` for the `record` block. Replace the `Edit` function with the following code:
  -->
 3. `record` ブロックの `src/edit.js` を編集します。`Edit` 関数を以下のコードで置き換えます。
 
@@ -205,7 +204,7 @@ export default function Edit( props ) {
 }
 ```
 <!--
-4. Edit `src/save.js` for the `record` block. Replace `save` function by following code.
+4. Edit `src/save.js` for the `record` block. Replace the `save` function with the following code:
  -->
 4. `record` ブロックの `src/save.js` を編集します。`save` 関数を以下のコードで置き換えます。
 
@@ -215,7 +214,7 @@ export default function save( props ) {
 }
 ```
 <!--
-5. Create new post and add the `record` block. If you type a number in the text box, you'll see the same number is shown in the `record-title` block below it.
+5. Create a new post and add the `record` block. If you type a number in the text box, you'll see the same number is shown in the `record-title` block below it.
  -->
 5. 新しい投稿を作成し、`record` ブロックを追加します。テキストボックスに数を入力すると、同じ数が下の `record-title` ブロックに表示されます。
 <!-- 

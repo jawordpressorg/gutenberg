@@ -4,7 +4,7 @@
 # バリエーション
 
 <!-- 
-The Block Variations API  allows you to define multiple versions (variations) of a block. A block variation differs from the original block by a set of initial attributes or inner blocks. When you insert the block variation into the Editor, these attributes and/or inner blocks are applied. 
+The Block Variations API  allows you to define multiple versions (variations) of a block. A block variation differs from the original block by a set of initial attributes or inner blocks. When you insert the block variation into the Editor, these attributes and/or inner blocks are applied.
  -->
 ブロックバリエーション API を使用すると、ブロックの複数のバージョン (バリエーション) を定義できます。ブロックバリエーションは元のブロックと比べて、初期属性またはインナーブロックのセットが異なります。ブロックバリエーションをエディターに挿入すると、これらの属性やインナーブロックが適用されます。
 
@@ -99,8 +99,8 @@ To create a variation for an existing block, such as a Core block, use `wp.block
 コアブロックのような既存ブロックにバリエーションを作成するには、`wp.blocks.registerBlockVariation()` を使用します。この関数はブロックの名前と、バリエーションを定義するオブジェクトを取ります。
 
 ```js
-wp.blocks.registerBlockVariation( 
-	'core/embed', 
+wp.blocks.registerBlockVariation(
+	'core/embed',
 	{
 		name: 'custom-embed',
 		attributes: { providerNameSlug: 'custom' },
@@ -113,7 +113,7 @@ wp.blocks.registerBlockVariation(
 ## ブロックバリエーションの削除
 
 <!-- 
-Block variations can also be easily removed. To do so, use `wp.blocks.unregisterBlockVariation()`. This function accepts the name of the block and the `name` of the variation that should be unregistered. 
+Block variations can also be easily removed. To do so, use `wp.blocks.unregisterBlockVariation()`. This function accepts the name of the block and the `name` of the variation that should be unregistered.
  -->
 ブロックバリエーションはまた、簡単に削除できます。それには `wp.blocks.unregisterBlockVariation()` を使用します。この関数はブロックの名前と、登録を解除するバリエーションの `name` を取ります。
 
@@ -141,9 +141,9 @@ variations: [
 		name: 'blue',
 		title: __( 'Blue Quote' ),
 		isDefault: true,
-		attributes: { 
-			color: 'blue', 
-			className: 'is-style-blue-quote' 
+		attributes: {
+			color: 'blue',
+			className: 'is-style-blue-quote'
 		},
 		icon: 'format-quote',
 		isActive: ( blockAttributes, variationAttributes ) =>
@@ -188,18 +188,18 @@ By default, all variations will show up in the Inserter in addition to the origi
 デフォルトでは、すべてのバリエーションは元のブロックタイプのアイテムと共に、インサーターに表示されます。しかし、リストされる任意のバリエーションに `isDefault` フラグを設定すると、インサーターで通常のブロックタイプが上書きされます。これは特定のニーズに合わせてエディター体験を向上する、素晴らしい仕組みです。
 
 <!-- 
-For example, if you want Media & Text block to display the image on the right by default, you could create a variation like this: 
+For example, if you want Media & Text block to display the image on the right by default, you could create a variation like this:
  -->
 例えば「メディアとテキスト」ブロックで、デフォルトで右側に画像を表示するには、次のようなバリエーションを作成できます。 
 
 ```js
  wp.blocks.registerBlockVariation(
-	'core/media-text', 
+	'core/media-text',
 	{
 		name: 'media-text-media-right',
 		title: __( 'Media & Text' ),
 		isDefault: true,
-		attributes: { 
+		attributes: {
 			mediaPosition: 'right'
 		}
 	}
@@ -247,19 +247,74 @@ The solution is to unregister the other variation before registering your variat
 <!-- 
 While the `isActive` property is optional, you will often want to use it to display information about the block variation after the block has been inserted. For example, this API is used in `useBlockDisplayInformation` hook to fetch and display proper information in places like the `BlockCard` or `Breadcrumbs` components.
  -->
+<!-- 
 `isActive` プロパティはオプションですが、ブロックが挿入された後にブロックバリエーションに関する情報を表示するために使用したいケースがあります。例えば、`useBlockDisplayInformation` フックはこの API を使用して適切な情報を取得し、`BlockCard` や `Breadcrumbs` コンポーネントなどに、取得した情報を表示します。
+ -->
+<!-- 
+While the `isActive` property is optional, it's recommended. This API is used by the block editor to check which variation is active, and display the correct variation's title, icon and description when an instance of the variation is selected in the editor.
+ -->
+`isActive` プロパティはオプションですが、推奨です。この API はブロックエディターで使用され、どのバリエーションがアクティブかをチェックし、エディターでバリエーションのインスタンスが選択されたときに、正しいバリエーションのタイトル、アイコン、説明を表示します。
 
 <!-- 
-If `isActive` is not set, the Editor cannot distinguish between the original block and your variation, so the original block information will be displayed. 
+If `isActive` is not set, the Editor cannot distinguish between an instance of the original block and your variation, so the original block information will be displayed.
+
  -->
-`isActive` が設定されていなければ、エディターはオリジナルのブロックとバリエーションを区別できず、オリジナルのブロック情報が表示されます。
+`isActive` が設定されていなければ、エディターはオリジナルのブロックとバリエーションのインスタンスを区別できず、オリジナルのブロック情報が表示されます。
 
 <!-- 
 The property can use either a function or an array of strings (`string[]`). The function accepts `blockAttributes` and `variationAttributes`, which can be used to determine if a variation is active. In the Embed block, the primary differentiator is the `providerNameSlug` attribute, so if you wanted to determine if the YouTube Embed variation was active, you could do something like this: 
  -->
+<!-- 
 このプロパティには、関数か文字列の配列（`string[]`）を使用できます。関数は `blockAttributes` と `variationAttributes` を取り、バリデーションがアクティブかどうかの決定に使用できます。埋め込みブロックでの主な差別化ポイントは `providerNameSlug` 属性のため、例えば YouTube 埋め込みバリエーションがアクティブかどうかを判断するには、次のようにします。
+ -->
 
+<!-- 
+The property can be set to either a function or an array of strings (`string[]`).
+ -->
+このプロパティには、関数、または文字列の配列（`string[]`）を設定できます。
+
+<!-- 
+The function version of this property accepts a block instance's `blockAttributes` as the first argument, and the `variationAttributes` declared for a variation as the second argument. These arguments can be used to determine if a variation is active by comparing them and returning a `true` or `false` (indicating whether this variation is inactive for this block instance).
+ -->
+このプロパティの関数バージョンは、ブロックインスタンスの `blockAttributes` を第1引数、バリエーションに対して宣言された `variationAttributes` を第2引数として受け取ります。これらの引数を比較して、このバリエーションがこのブロックインスタンスに対してアクティブかどうかを示す `true` または `false` を返すことで、バリエーションがアクティブかどうかを決定できます。
+
+<!-- 
+As an example, in the core Embed block, the `providerNameSlug` attribute is used to determine the embed provider (e.g. 'youtube' or 'twitter'). The variations may be declared like this:
+ -->
+例として、コアの埋め込みブロックでは、`providerNameSlug` 属性が埋め込みプロバイダの決定に使用されます (例えば、'youtube' や 'twitter')。バリエーションは次のように宣言します。
+
+```js
+const variations = [
+	{
+		name: 'twitter',
+		title: 'Twitter',
+		icon: embedTwitterIcon,
+		keywords: [ 'tweet', __( 'social' ) ],
+		description: __( 'Embed a tweet.' ),
+		patterns: [ /^https?:\/\/(www\.)?twitter\.com\/.+/i ],
+		attributes: { providerNameSlug: 'twitter', responsive: true },
+	},
+	{
+		name: 'youtube',
+		title: 'YouTube',
+		icon: embedYouTubeIcon,
+		keywords: [ __( 'music' ), __( 'video' ) ],
+		description: __( 'Embed a YouTube video.' ),
+		patterns: [
+			/^https?:\/\/((m|www)\.)?youtube\.com\/.+/i,
+			/^https?:\/\/youtu\.be\/.+/i,
+		],
+		attributes: { providerNameSlug: 'youtube', responsive: true },
+	},
+	// ...
+]
 ```
+<!-- 
+ The `isActive` function can compare the block instance value for `providerNameSlug` to the value declared in the variation's declaration (the values in the code snippet above) to determine which embed variation is active:
+ -->
+ `isActive` 関数は、ブロックインスタンスの `providerNameSlug` 値と、バリエーションの宣言で宣言された値 (上のコードスニペット内の値) を比較して、どの埋め込みバリエーションがアクティブかを決定します。
+
+```js
 isActive: ( blockAttributes, variationAttributes ) =>
 	blockAttributes.providerNameSlug === variationAttributes.providerNameSlug,
 ```
@@ -267,9 +322,15 @@ isActive: ( blockAttributes, variationAttributes ) =>
 <!-- 
 You can also use a `string[]` to tell which attributes should be compared as a shorthand. Each attribute will be checked and the variation will be active if all of them match. Using the same example of the YouTube Embed variation, the string version would look like this:
  -->
+<!-- 
 また、`string[]` を使用して、どの属性を比較するかを省略して指定できます。この場合、それぞれの属性がチェックされ、すべての属性が一致した場合にそのバリエーションがアクティブになります。YouTube 埋め込みバリエーションの同じ例を使用すると、文字列バージョンは次のようになります。
+ -->
+<!-- 
+The `string[]` version is used to declare which attributes should be compared as a shorthand. Each attribute will be checked and the variation will be active if all of them match. Using the same example for the embed block, the string version would look like this:
+ -->
+`string[]` バージョンは、どの属性を比較するかを宣言する省略記法として使用されます。それぞれの属性がチェックされ、すべての属性が一致した場合にそのバリエーションがアクティブとなります。埋め込みブロックと同じ例を使用すると、文字列バージョンは次のようになります。
 
-```
+```js
 isActive: [ 'providerNameSlug' ]
 ```
 

@@ -133,9 +133,9 @@ This will run jest, targetting the spec file currently open in the editor. `vsco
 これにより、エディタで現在開いている spec ファイルをターゲットにして、jest が実行されます。`vscode` デバッガーを使用して、Chrome DevTools のようにブレークポイントを追加したり、テストをチェックできます。
 
 <!--
-**Note**: This package requires Node.js 12.0.0 or later. It is not compatible with older versions.
+**Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
  -->
-**注意**: このパッケージは Node.js 14.0.0 以降が必要です。古いバージョンと互換性はありません。
+**注意**：このパッケージは、Node.js の LTS (long-term support 長期サポート) バージョンが必要です ([Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases) を確認してください)。古いバージョンとの互換性はありません。
 
 <!-- 
 ## Contributing to this package

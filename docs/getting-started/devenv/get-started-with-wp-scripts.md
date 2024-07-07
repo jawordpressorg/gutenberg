@@ -14,9 +14,9 @@ A JavaScript build step refers to the process of transforming, bundling, and opt
 JavaScript のビルド手順とは、JavaScript のソースコードと関連アセットを本番環境に適した形式に変換、バンドル、最適化するプロセスを指します。これらのビルド手順は多くの場合、最新の JavaScript (ESNext と JSX) をほとんどのブラウザと互換性のあるバージョンに変換します。また、複数のファイルを1つにバンドルし、コードを最小化してファイルサイズを縮小し、コードを最適化するその他のさまざまなタスクを実行します。
 
 <!-- 
-You will typically be working with ESNext and JSX when building for the Block Editor, and most examples in the Block Editor Handbook are written in these syntaxes. Learning how to set up a build step is essential. However, configuring the necessary tools like [webpack](https://webpack.js.org/), [Babel](https://babeljs.io/), and [ESLint](https://eslint.org/) can become complex. This is where `wp-scripts` comes in. 
+You will typically be working with ESNext and JSX when building for the Block Editor, and all examples in the Block Editor Handbook are written in these syntaxes. Learning how to set up a build step is essential. However, configuring the necessary tools like [webpack](https://webpack.js.org/), [Babel](https://babeljs.io/), and [ESLint](https://eslint.org/) can become complex. This is where `wp-scripts` comes in.
  -->
-ブロックエディター用にビルドする場合、通常は ESNext と JSX を使用します。ブロックエディターハンドブックのほとんどの例もこの構文で書かれています。したがってビルド手順の設定方法の学習が重要になりますが、[webpack](https://webpack.js.org/) や [Babel](https://babeljs.io/) や [ESLint](https://eslint.org/) のような必須ツールの構成は複雑です。ここで `wp-scripts` の出番です。
+ブロックエディター用にビルドする場合、通常は ESNext と JSX を使用します。ブロックエディターハンドブックのすべての例もこの構文で書かれています。したがってビルド手順の設定方法の学習が重要になりますが、[webpack](https://webpack.js.org/) や [Babel](https://babeljs.io/) や [ESLint](https://eslint.org/) のような必須ツールの構成は複雑です。ここで `wp-scripts` の出番です。
 
 <!-- 
 Here are a few things that `wp-scripts` can do:

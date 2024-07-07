@@ -59,9 +59,9 @@ By the end of this article, you will have a solid understanding of the block edi
  -->
 ## コード構文
 <!-- 
-The code snippets in this guide use JSX syntax. However, you could use plain JavaScript if you prefer. However, once familiar with JSX, many developers find it easier to read and write, so most code examples in the Block Editor Handbook use this syntax.
+The code snippets in this guide use JSX syntax. However, you could use plain JavaScript if you prefer. However, once familiar with JSX, many developers find it easier to read and write, so all code examples in the Block Editor Handbook use this syntax.
  -->
-このガイドのコードスニペットでは JSX 構文を使用します。そちらの方が好みであれば、プレーンな JavaScript も使えますが、一度 JSX に慣れると、多くの開発者が、JSX の方が読みやすく書きやすいと感じます。このため、ブロックエディターハンドブックのほとんどのコード例では、JSX 構文を使用しています。
+このガイドのコードスニペットでは JSX 構文を使用します。そちらの方が好みであれば、プレーンな JavaScript も使えますが、一度 JSX に慣れると、多くの開発者が、JSX の方が読みやすく書きやすいと感じます。このため、ブロックエディターハンドブックのすべてのコード例では、JSX 構文を使用しています。
 
 <!-- 
 ## What you're going to be building

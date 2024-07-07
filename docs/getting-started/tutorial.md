@@ -681,8 +681,8 @@ Open the `edit.js` file. You will need to accomplish two tasks.
 `edit.js` ファイルを開きます。2つの作業を行う必要があります。
 
 <!-- 
-Add a user interface that allows the user to enter a starting year, toggle the functionality on or off, and store these settings as attributes
-Update the block to display the correct content depending on the defined attributes
+- Add a user interface that allows the user to enter a starting year, toggle the functionality on or off, and store these settings as attributes.
+- Update the block to display the correct content depending on the defined attributes.
  -->
 - ユーザーが開始年を入力でき、機能のオンオフを切り替えられるユーザーインターフェースを追加し、これらの設定を属性として保存する。
 - 定義した属性に応じて、正しいコンテンツを表示するようにブロックを更新する。
@@ -1207,9 +1207,10 @@ The HTML of the paragraph is stored in post content and saved in the database.
 段落の HTML は投稿コンテンツに格納され、データベースに保存されます。
 
 <!-- 
-You can learn more about dynamic and static rendering in the [Fundamentals documentation](https://developer.wordpress.org/block-editor/getting-started/fundamentals/). While most blocks are either dynamically or statically rendered, you can build a block that utilizes both methods.
+You can learn more about dynamic and static rendering in the [Fundamentals documentation](https://developer.wordpress.org/block-editor/getting-started/fundamentals/static-dynamic-rendering/). While most blocks are either dynamically or statically rendered, you can build a block that utilizes both methods.
  -->
-動的レンダリングと静的レンダリングについては、[ブロック開発の基本原理](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/)を参照してください。ほとんどのブロックは動的または静的のどちらかでレンダーされますが、両方の方法を利用するブロックも作成できます。
+動的レンダリングと静的レンダリングについては、[ブロック開発の基本原理](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/static-dynamic-rendering/)を参照してください。ほとんどのブロックは動的または静的のどちらかでレンダーされますが、両方の方法を利用するブロックも作成できます。
+
 
 <!-- 
 ### Why add static rendering?

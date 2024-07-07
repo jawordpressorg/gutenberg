@@ -22,7 +22,7 @@ theme.json は構成ツールとして機能し、どのオプションが利用
 
 ```json
 {
-"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"customDuotone": true,
@@ -41,7 +41,7 @@ theme.json は構成ツールとして機能し、どのオプションが利用
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"duotone": [
@@ -74,8 +74,7 @@ theme.json は構成ツールとして機能し、どのオプションが利用
 
 ```json
 {
-	"schema": "https://schemas.wp.org/trunk/theme.json",
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"custom": true,
@@ -112,8 +111,7 @@ theme.json は構成ツールとして機能し、どのオプションが利用
 
 ```json
 {
-	"schema": "https://schemas.wp.org/trunk/theme.json",
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"custom": true,
@@ -170,8 +168,7 @@ Continuing the examples with duotone, this means you could allow full access to 
 
 ```json
 {
-	"schema": "https://schemas.wp.org/trunk/theme.json",
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"custom": true,
@@ -229,8 +226,7 @@ When using theme.json in a block or classic theme, these settings will stop the 
 
 ```json
 {
-	"$schema": "http://schemas.wp.org/trunk/theme.json",
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"layout": {
 			"contentSize": "750px"

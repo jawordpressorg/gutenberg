@@ -17,8 +17,9 @@ module.exports = {
 	...baseConfig,
 	name: 'interactivity',
 	entry: {
-		index: `./packages/interactivity/src/index.js`,
-		router: `./packages/interactivity-router/src/index.js`,
+		index: './packages/interactivity',
+		debug: './packages/interactivity/src/debug',
+		router: './packages/interactivity-router',
 		navigation: './packages/block-library/src/navigation/view.js',
 		query: './packages/block-library/src/query/view.js',
 		image: './packages/block-library/src/image/view.js',
@@ -57,13 +58,7 @@ module.exports = {
 							configFile: false,
 							presets: [
 								'@babel/preset-typescript',
-								[
-									'@babel/preset-react',
-									{
-										runtime: 'automatic',
-										importSource: 'preact',
-									},
-								],
+								'@babel/preset-react',
 							],
 						},
 					},

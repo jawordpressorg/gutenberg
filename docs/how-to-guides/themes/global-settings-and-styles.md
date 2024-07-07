@@ -4,87 +4,10 @@
 # グローバル設定とスタイル (theme.json)
 
 <!--
-<div class="callout callout-alert">
+WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file.
  -->
-<!--
-These features are still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
- -->
-<!--
-> この機能は現在、実験中です。初期の実装であり、将来、大規模で後方互換性のない変更があるという意味で、「実験中」です。
- -->
-<!--
-Documentation has been shared early to surface what’s being worked on and invite feedback from those experimenting with the APIs. Please share your feedback in the weekly #core-editor or #fse-outreach-experiment channels in Slack, or async in GitHub issues.
- -->
-<!--
-> 現在何を行っているのかを明らかにし、API を使用した実験からフィードバックを得るため、早い段階でドキュメントを共有します。フィードバックを Slack の週次の #core-editor または #fse-outreach-experiment チャンネルで共有するか、非同期に GitHub で issue を作成してください。
- -->
-<!--
-</div>
- -->
+WordPress 5.8ではエディターを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されました。きめ細かな制御を可能にし、将来の WordPress リリースにおけるスタイル管理の最初のステップとなる `theme.json` ファイルです。
 
-<!--
-This is documentation for the current direction and work in progress about how themes can hook into the various sub-systems that the Block Editor provides.
- -->
-<!--
-この文書ではテーマがブロックエディターの提供するさまざまなサブシステムとどのように連携するのか、その方向性と現在進行中の作業について記述します。
- -->
-<!--
-WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file. Then `theme.json` [evolved to a v2](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) with WordPress 5.9 release. This page documents its format.
- -->
-WordPress 5.8ではエディターを構成する[新しいメカニズム](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/)が搭載されました。きめ細かな制御を可能にし、将来の WordPress リリースにおけるスタイル管理の最初のステップとなる `theme.json` ファイルです。その後、WordPress 5.9のリリースに伴い `theme.json` も [v2へと進化](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)しました。このページでは、`theme.json` ファイルのフォーマットについて説明します。
-
-<!--
-- Rationale
-    - Settings for the block editor
-    - Settings can be controlled per block
-    - Styles are managed
-    - CSS Custom Properties: presets & custom
-- Specification
-    - version
-    - settings
-        - Backward compatibility with add_theme_support
-        - Presets
-        - Custom
-        - Setting examples
-    - styles
-        - Top-level
-        - Block-level
-        - Elements
-        - Variations
-    - customTemplates
-    - templateParts
-    - patterns
-- FAQ
-    - The naming schema of CSS Custom Properties
-    - Why using -- as a separator?
-    - How settings under "custom" create new CSS Custom Properties
-    - Why does it take so long to update the styles in the browser?
-
- -->
-<!-- 
-- 論拠
-    - ブロックエディターのための設定
-    - 設定をブロックごとに制御できる
-    - スタイルは管理できる
-    - CSS カスタムプロパティ: プリセット & カスタム
-- 仕様
-    - version
-    - settings
-	    - add_theme_support との後方互換性
-        - プリセット
-        - カスタム
-		- 例
-    - styles
-        - トップレベル
-        - ブロックレベル
-        - 要素
-    - customTemplates
-    - templateParts
-- FAQ
-  - CSS カスタムプロパティの命名体系
-  - なぜ、セパレータとして、「--」を使用するのか ?
-  - 「custom」下の設定は、どのように新しい CSS カスタムプロパティとなるのか ?
- -->
 <!--
 ## Rationale
  -->
@@ -195,7 +118,7 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
  -->
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"palette": [
@@ -246,7 +169,7 @@ body {
  -->
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"custom": {
 			"line-height": {
@@ -305,7 +228,7 @@ Both settings and styles can contain subsections for any registered block. As a 
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {},
 	"styles": {},
 	"customTemplates": {},
@@ -338,29 +261,25 @@ Additionally, there are two other block selectors: `root` and `defaults`. The `r
  -->
 ### version
 
-<!--
-This field describes the format of the `theme.json` file. The current and only version is 1.
- -->
-<!--  
-このフィールドは、`theme.json` ファイルのフォーマットを表します。現在の唯一のバージョンは1です。
- -->
 <!-- 
-
-This field describes the format of the `theme.json` file. The current version is [v2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/), [introduced in WordPress 5.9](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). It also works with the current Gutenberg plugin.
+This field describes the format of the `theme.json` file. The latest version is [version 3](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) introduced in WordPress 6.6.
  -->
-このフィールドは、`theme.json` ファイルのフォーマットを表します。現在のバージョンは [v2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) で、[WordPress 5.9 で導入されました](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/)。現行の Gutenberg プラグインでも動作します。
+このフィールドは、`theme.json` ファイルのフォーマットを表します。最新のバージョンは [version 3](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) で WordPress 6.6 で導入されました。
 
 <!-- 
-If you have used [v1](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-v1/) previously, you don’t need to update the version in the v1 file to v2, as it’ll be [migrated](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) into v2 at runtime for you.
+New versions are introduced when a breaking change needs to be made. This allows theme authors to choose when to opt-in to the breaking changes and migrate their theme.json files to the new format.
  -->
-過去に [v1](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-v1/) を使っていた場合、v1 ファイルの version を v2 に更新する必要はありません。実行時に v2 に [移行](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) されます。
+新しいバージョンは、破壊的な変更を加える必要がある場合に導入されます。これにより、テーマの作者は、いつ破壊的な変更に対応し、theme.json ファイルを新しい形式に移行するかを選択できます。
 
-<!--
-WordPress 5.8 will ignore the contents of any `theme.json` whose version is not equals to the current. Should the Gutenberg plugin need it, it'll update the version and will add the corresponding migration mechanisms from older versions.
- -->
 <!-- 
-WordPress 5.8 は、現行バージョンと異なる `theme.json` の内容を無視します。Gutenberg プラグインは必要があれば、バージョンを更新し、古いバージョンからの移行メカニズムを追加します。
+Older versions of `theme.json` are backwards-compatible and will continue to work with newer versions of WordPress and the Gutenberg plugin. However new features will be developed on the latest version.
  -->
+古いバージョンの `theme.json` には後方互換性があり、新しいバージョンの WordPress や Gutenberg プラグインでも引き続き動作します。ただし、新しい機能は最新バージョンの上で開発されます。
+
+<!-- 
+Follow the instructions in [migrating to newer versions](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) for details on updating to the latest version.
+ -->
+最新バージョンへのアップデートの詳細については、[新しいバージョンへの移行](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/)の指示に従ってください。
 
 <!--
 ### Settings
@@ -390,7 +309,7 @@ settings セクションは以下の構造を持ちます。
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"border": {
 			"radius": false,
@@ -456,7 +375,7 @@ settings セクションは以下の構造を持ちます。
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"appearanceTools": false,
 		"border": {
@@ -512,6 +431,7 @@ settings セクションは以下の構造を持ちます。
 			"fontWeight": true,
 			"letterSpacing": true,
 			"lineHeight": false,
+			"textAlign": true,
 			"textColumns": false,
 			"textDecoration": true,
 			"textTransform": true
@@ -555,10 +475,10 @@ There's one special setting property, `appearanceTools`, which is a boolean and 
  -->
 特別な設定プロパティとして `appearanceTools` があります。ブール値で、デフォルト値は false です。テーマはこの設定を使用して、以下を有効化できます。
 
-- background: backgroundImage
+- background: backgroundImage, backgroundSize
 - border: color, radius, style, width
 - color: link
-- dimensions: minHeight
+- dimensions: aspectRatio, minHeight
 - position: sticky
 - spacing: blockGap, margin, padding
 - typography: lineHeight
@@ -709,7 +629,7 @@ The naming schema for the classes and the custom properties is as follows:
  -->
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"duotone": [
@@ -911,7 +831,7 @@ For example:
  -->
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"custom": {
 			"baseFont": 16,
@@ -969,7 +889,7 @@ Note that the name of the variable is created by adding `--` in between each nes
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"custom": false
@@ -991,7 +911,7 @@ Note that the name of the variable is created by adding `--` in between each nes
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"blocks": {
 			"core/button": {
@@ -1008,7 +928,7 @@ Note that the name of the variable is created by adding `--` in between each nes
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"color": {
 			"palette": [
@@ -1089,7 +1009,7 @@ Each block declares which style properties it exposes via the [block supports me
  -->
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"styles": {
 		"border": {
 			"radius": "value",
@@ -1171,7 +1091,7 @@ Each block declares which style properties it exposes via the [block supports me
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"styles": {
 		"border": {
 			"color": "value",
@@ -1280,7 +1200,7 @@ Styles found at the top-level will be enqueued using the `body` selector.
  -->
 ```json
 {
-	"version": 1,
+	"version": 3,
 	"styles": {
 		"color": {
 			"text": "var(--wp--preset--color--primary)"
@@ -1330,7 +1250,7 @@ By default, the block selector is generated based on its name such as `.wp-block
  -->
 ```json
 {
-	"version": 1,
+	"version": 3,
 	"styles": {
 		"color": {
 			"text": "var(--wp--preset--color--primary)"
@@ -1467,7 +1387,7 @@ If they're found in the top-level the element selector will be used. If they're 
  -->
 ```json
 {
-	"version": 1,
+	"version": 3,
 	"styles": {
 		"typography": {
 			"fontSize": "var(--wp--preset--font-size--normal)"
@@ -1581,7 +1501,7 @@ For example, this is how to provide styles for the existing `plain` variation fo
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"styles":{
 		"blocks": {
 			"core/quote": {
@@ -1631,7 +1551,7 @@ Within this field themes can list the custom templates present in the `templates
 
 ```json
 {
-    "version": 2,
+    "version": 3,
 	"customTemplates": [
 		{
 			"name": "my-custom-template",
@@ -1674,7 +1594,7 @@ Currently block variations exist for "header" and "footer" values of the area te
 
 ```json
 {
-    "version": 2,
+    "version": 3,
 	"templateParts": [
 		{
 			"name": "my-template-part",
@@ -1695,9 +1615,9 @@ This field requires the Gutenberg plugin active and using the [version 2](https:
 注意: このフィールドは、Gutenberg プラグインが有効で、`theme.json`の [version 2](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) が必要です。
  -->
 <!-- 
-<div class="callout callout-alert">Supported in WordPress from version 6.0 using <a href="https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/">version 2</a> of <code>theme.json</code>.</div>
+<div class="callout callout-alert">Supported in WordPress from version 6.0.</div>
  -->
-> `theme.json` の [version 2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) を使用して、WordPress Version 6.0 からサポートされます。
+> WordPress Version 6.0 からサポートされます。
 
 <!-- 
 Within this field themes can list patterns to register from [Pattern Directory](https://wordpress.org/patterns/). The `patterns` field is an array of pattern `slugs` from the Pattern Directory. Pattern slugs can be extracted by the `url` in single pattern view at the Pattern Directory. For example in this url `https://wordpress.org/patterns/pattern/partner-logos` the slug is `partner-logos`.
@@ -1706,7 +1626,7 @@ Within this field themes can list patterns to register from [Pattern Directory](
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"patterns": [ "short-text-surrounded-by-round-images", "partner-logos" ]
 }
 ```
@@ -1721,9 +1641,34 @@ It can be difficult to remember the theme.json settings and properties while you
 
 Code editors can pick up the schema and can provide help like tooltips, autocomplete, or schema validation in the editor. To use the schema in Visual Studio Code, add `"$schema": "https://schemas.wp.org/trunk/theme.json"` to the beginning of your theme.json file.
  -->
-開発中に theme.json の設定やプロパティを覚えておくのは困難です。そのため、 JSON スキーマが作成されました。このスキーマは https://schemas.wp.org/trunk/theme.json で利用可能です。
-
+<!-- 
 コードエディターはスキーマを取り、ツールチップやオートコンプリート、エディタ内でのスキーマ検証などの支援機能を提供できます。Visual Studio Code でスキーマを使用するには、`"$schema": "https://schemas.wp.org/trunk/theme.json"` を theme.json ファイルの先頭に追加します。
+ -->
+
+<!-- 
+It can be difficult to remember the theme.json settings and properties and which versions of WordPress support which settings while you develop, so it can be helpful to use the provided JSON schema for theme.json.
+ -->
+開発中に theme.json の設定やプロパティ、あるいは、どの WordPress がどの設定をサポートするかを覚えておくことは困難です。そのため、theme.json に提供された JSON スキーマの使用は有用です。
+
+<!-- 
+Many code editors support JSON schema and can provide help like tooltips, autocomplete, or schema validation right in your editor.
+ -->
+多くのコードエディターが JSON スキーマをサポートし、ツールチップ、オートコンプリート、スキーマ検証などのヘルプをエディター上で支援を提供します。
+
+<!-- 
+Theme.json schemas for each WordPress version are available at `https://schemas.wp.org/wp/{{version}}/theme.json`. For example a schema for WordPress 5.8 is available at `https://schemas.wp.org/wp/5.8/theme.json`. To ensure that you're only using features available to your users, it's best to use the oldest version that your theme supports.
+ -->
+各 WordPress バージョンの theme.json スキーマは、`https://schemas.wp.org/wp/{{version}}/theme.json` から利用できます。例えば、WordPress 5.8用のスキーマは `https://schemas.wp.org/wp/5.8/theme.json` にあります。テーマのユーザーが利用可能な機能のみを使用するには、テーマがサポートする最も古いバージョンを使用してください。
+
+<!-- 
+The latest schema including all the latest changes from the Gutenberg plugin is available at `https://schemas.wp.org/trunk/theme.json`.
+ -->
+Gutenberg プラグインからのすべての最新の変更を含む最新のスキーマは、`https://schemas.wp.org/trunk/theme.json` にあります。
+
+<!-- 
+Check your editor's documentation for JSON schema support. In Visual Studio Code, for example, you need to add `"$schema": "https://schemas.wp.org/wp/x.x/theme.json"` as a top-level property of your theme.json file, but other editors may be configured differently.
+ -->
+JSON スキーマのサポートについては、使用するエディターのドキュメントを確認してください。例えば、Visual Studio Code では、`"$schema"：「https://schemas.wp.org/wp/x.x/theme.json"` を theme.json ファイルのトップレベルのプロパティに追加する必要があります。他のエディターでは設定が異なるかもしれません。
 
 <!-- 
 ![Example using validation with schema](https://developer.wordpress.org/files/2021/11/theme-json-schema-updated.gif)
@@ -1831,7 +1776,7 @@ For example:
  -->
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"custom": {
 			"lineHeight": {
@@ -1874,7 +1819,7 @@ A few notes about this process:
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"custom": {
 			"line--height": { // DO NOT DO THIS
@@ -1938,6 +1883,11 @@ In v1, when a user selected a link color for a specific block we attached a clas
  -->
 v1 では、ユーザーが特定のブロックのリンク色を選択すると、そのブロックに `.wp-element-<ID>` という形でクラスをアタッチし、次のスタイルをキューに入れました。
 
+<!-- 
+In WordPress 5.8, when a user selected a link color for a specific block we attached a class to that block in the form of `.wp-element-<ID>` and then enqueued the following style:
+ -->
+WordPress 5.8では、ユーザーが特定のブロックのリンク色を選択すると、そのブロックにクラス `.wp-element-<ID>` をアタッチし、次のスタイルをエンキューしていました。
+
 ```css
 .wp-element-<ID> a { color: <USER_COLOR_VALUE> !important; }
 ```
@@ -1966,7 +1916,7 @@ For blocks that contain inner blocks, such as Group, Columns, Buttons, and Socia
 
 ```json
 {
-	"version": 2,
+	"version": 3,
 	"settings": {
 		"spacing": {
 			"blockGap": true,
@@ -2005,7 +1955,9 @@ The value defined for the root `styles.spacing.blockGap` style is also output as
 <!-- 
 When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#wp_debug) or [`SCRIPT_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#script_debug) to 'true' in your [`wp-config.php`](https://wordpress.org/documentation/article/editing-wp-config-php/). This tells WordPress to skip the cache and always use fresh data.
 
+When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#wp_debug) or [`SCRIPT_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#script_debug) to 'true' in your [`wp-config.php`](https://developer.wordpress.org/advanced-administration/wordpress/wp-config/). This tells WordPress to skip the cache and always use fresh data.
+
  -->
-theme.json を使用して開発を行っていると、変更内容がブラウザに表示されるまでに30秒以上かかることに気がつくかもしれません。これは、`theme.json` がキャッシュされているためです。このキャッシュの問題を解決するには、[`wp-config.php`](https://wordpress.org/documentation/article/editing-wp-config-php/) の [`WP_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#wp_debug) または [`SCRIPT_DEBUG`](https://wordpress.org/documentation/article/debugging-in-wordpress/#script_debug) を 'true' に設定します。これにより、WordPress はキャッシュをスキップし、常に新しいデータを使用します。
+theme.json を使用して開発を行っていると、変更内容がブラウザに表示されるまでに30秒以上かかることに気がつくかもしれません。これは、`theme.json` がキャッシュされているためです。このキャッシュの問題を解決するには、[`wp-config.php`](https://developer.wordpress.org/advanced-administration/wordpress/wp-config/) の [`WP_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#wp_debug) または [`SCRIPT_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#script_debug) を 'true' に設定します。これにより、WordPress はキャッシュをスキップし、常に新しいデータを使用します。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/themes/theme-json.md)

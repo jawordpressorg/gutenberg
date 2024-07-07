@@ -99,7 +99,14 @@
  -->
 ## [theme.json リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/)
 
--   [バージョン 2 (現在のリファレンス)](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/)
+<!-- 
+-   [Version 3 (latest)](/docs/reference-guides/theme-json-reference/theme-json-living.md)
+-   [Version 2](/docs/reference-guides/theme-json-reference/theme-json-v2.md)
+-   [Version 1](/docs/reference-guides/theme-json-reference/theme-json-v1.md)
+-   [Migrating to Newer Versions](/docs/reference-guides/theme-json-reference/theme-json-migrations.md)
+ -->
+-   [バージョン 3 (最新)](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/)
+-   [バージョン 2](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v2/)
 -   [バージョン 1](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-v1/)
 -   [新しいバージョンへの移行](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/)
 

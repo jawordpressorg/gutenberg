@@ -129,6 +129,22 @@ const Example = () => {
 };
 ```
 
+### TypeScript
+
+<!-- 
+This package exposes its own types for the components it exports, however it doesn't export its own types for component props. If you need to extract the props type, please use `React.ComponentProps` to get the types from the element.
+ -->
+このパッケージは、エクスポートするコンポーネントに対して独自の型を公開しますが、コンポーネントの props に対しては独自の型をエクスポートしません。props の型を抽出する必要がある場合は、`React.ComponentProps` を使用して要素から型を取得してください。
+
+```tsx
+import type { ComponentProps } from 'react';
+import { Button } from '@wordpress/components';
+
+export default function MyButton( props: ComponentProps< typeof Button > ) {
+	return <Button { ...props }>Click Me!</Button>;
+}
+```
+
 <!--
 ## Docs & examples
  -->

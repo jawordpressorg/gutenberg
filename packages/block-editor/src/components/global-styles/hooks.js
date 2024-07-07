@@ -27,6 +27,7 @@ const VALID_SETTINGS = [
 	'background.backgroundImage',
 	'background.backgroundRepeat',
 	'background.backgroundSize',
+	'background.backgroundPosition',
 	'border.color',
 	'border.radius',
 	'border.style',
@@ -203,6 +204,11 @@ export function useGlobalStyle(
 	}
 
 	return [ result, setStyle ];
+}
+
+export function useGlobalStyleLinks() {
+	const { merged: mergedConfig } = useContext( GlobalStylesContext );
+	return mergedConfig?._links;
 }
 
 /**
