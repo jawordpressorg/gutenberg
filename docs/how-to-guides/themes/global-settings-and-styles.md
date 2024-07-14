@@ -493,24 +493,25 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
  -->
 後方互換性のため、ブロックエディターを構成する既存の `add_theme_support` の宣言は、トップレベルのセクションの適切なカテゴリーに割り当てられます。たとえば、テーマが `add_theme_support('disable-custom-colors')` を使用している場合、これは `settings.color.custom` に `false` を設定したことと同じです。`theme.json` 内に設定があれば、 `add_theme_support` を介して宣言された値に優先します。以下は、完全な対応リストです。
 
-<!--
-| add_theme_support           | theme.json setting                                        |
-| --------------------------- | --------------------------------------------------------- |
-| `custom-line-height`        | Set `typography.lineHeight` to `true`.              |
-| `custom-spacing`            | Set `spacing.padding` to `true`.                    |
-| `custom-units`              | Provide the list of units via `spacing.units`.            |
-| `disable-custom-colors`     | Set `color.custom` to `false`.                            |
-| `disable-custom-font-sizes` | Set `typography.customFontSize` to `false`.               |
-| `disable-custom-gradients`  | Set `color.customGradient` to `false`.                    |
-| `editor-color-palette`      | Provide the list of colors via `color.palette`.           |
-| `editor-font-sizes`         | Provide the list of font size via `typography.fontSizes`. |
-| `editor-gradient-presets`   | Provide the list of gradients via `color.gradients`.      |
-| `appearance-tools`          | Set `appearanceTools` to `true`.                          |
-| `border`                    | Set `border: color, radius, style, width` to `true`.      |
-| `link-color `               | Set `color.link` to `true`.                               |
+<!-- 
+| add_theme_support           | theme.json setting                                            |
+| --------------------------- | ------------------------------------------------------------- |
+| `custom-line-height`        | Set `typography.lineHeight` to `true`.                        |
+| `custom-spacing`            | Set `spacing.padding` to `true`.                              |
+| `custom-units`              | Provide the list of units via `spacing.units`.                |
+| `disable-custom-colors`     | Set `color.custom` to `false`.                                |
+| `disable-custom-font-sizes` | Set `typography.customFontSize` to `false`.                   |
+| `disable-custom-gradients`  | Set `color.customGradient` to `false`.                        |
+| `editor-color-palette`      | Provide the list of colors via `color.palette`.               |
+| `editor-font-sizes`         | Provide the list of font size via `typography.fontSizes`.     |
+| `editor-gradient-presets`   | Provide the list of gradients via `color.gradients`.          |
+| `editor-spacing-sizes`      | Provide the list of spacing sizes via `spacing.spacingSizes`. |
+| `appearance-tools`          | Set `appearanceTools` to `true`.                              |
+| `border`                    | Set `border: color, radius, style, width` to `true`.          |
+| `link-color `               | Set `color.link` to `true`.                                   |
  -->
-| add_theme_support           | theme.json 設定                                        |
-| --------------------------- | --------------------------------------------------------- |
+| add_theme_support           | theme.json 設定                                            |
+| --------------------------- | ------------------------------------------------------------- |
 | `custom-line-height`        | `typography.lineHeight` に `true` を設定       |
 | `custom-spacing`            | `spacing.padding` に `true` を設定            |
 | `custom-units`              | `spacing.units` で単位のリストを渡す            |
@@ -520,6 +521,7 @@ To retain backward compatibility, the existing `add_theme_support` declarations 
 | `editor-color-palette`      | `color.palette` で色のリストを渡す     |
 | `editor-font-sizes`         | `typography.fontSizes` でフォントサイズのリストを渡す |
 | `editor-gradient-presets`   | `color.gradients` でグラデーションのリストを渡す      |
+| `editor-spacing-sizes`      | `spacing.spacingSizes` でスペースサイズのリストを渡す |
 | `appearance-tools`          | `appearanceTools` に `true` を設定                          |
 | `border`                    | `border: color, radius, style, width` に `true` を設定      |
 | `link-color `               | `color.link` に `true` を設定                               |
@@ -575,16 +577,7 @@ The following presets can be defined via `theme.json`:
 - `color.palette`:
     - generates 3 classes per preset value: color, background-color, and border-color.
     - generates a single custom property per preset value.
-- `spacing.spacingScale`: used to generate an array of spacing preset sizes for use with padding, margin, and gap settings.
-    - `operator`: specifies how to calculate the steps with either `*` for multiplier, or `+` for sum.
-    - `increment`: the amount to increment each step by. Core by default uses a 'perfect 5th' multiplier of `1.5`.
-    - `steps`: the number of steps to generate in the spacing scale. The default is 7. To prevent the generation of the spacing presets, and to disable the related UI, this can be set to `0`.
-    - `mediumStep`: the steps in the scale are generated descending and ascending from a medium step, so this should be the size value of the medium space, without the unit. The default medium step is `1.5rem` so the mediumStep value is `1.5`.
-    - `unit`: the unit the scale uses, eg. `px, rem, em, %`. The default is `rem`.
-- `spacing.spacingSizes`: themes can choose to include a static `spacing.spacingSizes` array of spacing preset sizes if they have a sequence of sizes that can't be generated via an increment or multiplier.
-    - `name`: a human readable name for the size, eg. `Small, Medium, Large`.
-    - `slug`: the machine readable name. In order to provide the best cross site/theme compatibility the slugs should be in the format, "10","20","30","40","50","60", with "50" representing the `Medium` size value.
-    - `size`: the size, including the unit, eg. `1.5rem`. It is possible to include fluid values like `clamp(2rem, 10vw, 20rem)`.
+- `spacing.spacingSizes`/`spacing.spacingScale`: generates a single custom property per preset value.
 - `typography.fontSizes`: generates a single class and custom property per preset value.
 - `typography.fontFamilies`: generates a single custom property per preset value.
  -->
@@ -593,16 +586,7 @@ The following presets can be defined via `theme.json`:
 - `color.palette`:
     - プリセット値ごとに3つのクラスを生成します: color、background-color、border-color
     - プリセット値ごとに1つのカスタムプロパティを生成します。
-- `spacing.spacingScale`: padding、margin、gap の設定に使用する、spacing プリセットサイズの配列の生成に使用されます。
-    - `operator`: ステップを掛け算で計算するか(`*`)、足し算で計算するか(`+`)を指定します。
-    - `increment`: 各ステップの増加量。コアはデフォルトで `1.5` の掛け算、「完全五度」を使用します。
-    - `steps`: spacing スケールを生成するステップ数。デフォルトは7。spacing プリセットを生成せず、関連する UI を無効にするには、`0`に設定します。
-    - `mediumStep`: スケールのステップは、中間のステップから減少、増加の2方向に生成されるため、これは中間の space のサイズ値でなければならず、単位を含みません。デフォルトの中間のステップは `1.5rem` のため、mediumStep の値は `1.5` です。
-    - `unit`: スケールの使用する単位。例えば、`px, rem, em, %`。デフォルトは `rem`。
-- `spacing.spacingSizes`: 足し算や掛け算で生成できないサイズの並びがある場合、テーマは spacing プリセットサイズの静的配列 `spacing.spacingSizes` を含めることを選択できます。
-    - `name`: 人が読めるサイズの名前。例: `Small, Medium, Large`。
-    - `slug`: 機械が読める名前。サイトやテーマ間の互換性を保つため、slug は "10", "20", "30", "40", "50", "60" の形式で、"50"は `Medium` サイズの値を表してください。
-    - `size`: 単位を含むサイズ。例: `1.5rem`. fluid 値を含むことも可能。例: `clamp(2rem, 10vw, 20rem)`
+- `spacing.spacingSizes`/`spacing.spacingScale`: プリセット値ごとに1つのカスタムプロパティを生成します。
 - `typography.fontSizes`: プリセット値ごとに1つのクラスとカスタムプロパティを生成します。
 - `typography.fontFamilies`: プリセット値ごとに1つのカスタムプロパティを生成します。
 

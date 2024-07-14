@@ -5,8 +5,9 @@
 
 <!--
 Block Styles allow alternative styles to be applied to existing blocks. They work by adding a className to the block's wrapper. This className can be used to provide an alternative styling for the block if the block style is selected. See the [Getting Started with JavaScript tutorial](/docs/how-to-guides/javascript/) for a full example.
+Block Styles allow alternative styles to be applied to existing blocks. They work by adding a className to the block's wrapper. This className can be used to provide an alternative styling for the block if the block style is selected. See the [Use styles and stylesheets](/docs/how-to-guides/block-tutorial/applying-styles-with-stylesheets.md) for a full example on how to apply styles to a block.
  -->
-ブロックスタイルを使用すると、既存のブロックに対して別のスタイルを適用できます。ブロックスタイルは、ブロックのラッパーに className を追加することで機能します。ブロックスタイルが選択された場合、このclassName を使用してブロックに代替のスタイルを提供できます。詳細は、「[JavaScript 入門](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/javascript/)」を参照してください。
+ブロックスタイルを使用すると、既存のブロックに対して別のスタイルを適用できます。ブロックスタイルは、ブロックのラッパーに className を追加することで機能します。ブロックスタイルが選択された場合、このclassName を使用してブロックに代替のスタイルを提供できます。ブロックにスタイルを適用する詳細なサンプルプログラムについては、「[スタイルとスタイルシートの利用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/applying-styles-with-stylesheets/)」を参照してください。
 
 <!--
 _Example:_

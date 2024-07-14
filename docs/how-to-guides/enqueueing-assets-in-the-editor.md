@@ -54,7 +54,7 @@ Whenever you need to enqueue assets for the Editor itself (i.e. not the user-gen
 エディター自身にアセットをエンキューする場合 (逆に言えば、ユーザー生成コンテンツ (ブロック) のエンキューでない場合)、[`enqueue_block_editor_assets`](https://developer.wordpress.org/reference/hooks/enqueue_block_editor_assets/) フックと、関連する標準の [`wp_enqueue_script`](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) 関数と [`wp_enqueue_style`](https://developer.wordpress.org/reference/functions/wp_enqueue_style/) 関数を使用します。
 
 <!-- 
-Examples might be adding custom inspector or toolbar controls, registering block styles and variations in Javascript, registering Editor plugins, etc.
+Examples might be adding custom inspector or toolbar controls, registering block styles and variations in JavaScript, registering Editor plugins, etc.
  -->
 例としては、カスタムインスペクタやツールバーコントロールの追加、ブロックスタイルや JavaScript のバリエーションの登録、エディタ ープラグインの登録などが考えられます。
 
@@ -70,7 +70,7 @@ function example_enqueue_editor_assets() {
     );
     wp_enqueue_style(
         'example-editor-styles',
-        plugins_url( 'editor-styles.css', __FILE__ ) 
+        plugins_url( 'editor-styles.css', __FILE__ )
     );
 }
 add_action( 'enqueue_block_editor_assets', 'example_enqueue_editor_assets' );

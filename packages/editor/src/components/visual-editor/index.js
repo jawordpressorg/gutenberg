@@ -103,6 +103,7 @@ function VisualEditor( {
 	disableIframe = false,
 	iframeProps,
 	contentRef,
+	className,
 } ) {
 	const [ resizeObserver, sizes ] = useResizeObserver();
 	const isMobileViewport = useViewportMatch( 'small', '<' );
@@ -340,7 +341,7 @@ function VisualEditor( {
 	const zoomOutProps = isZoomOutMode
 		? {
 				scale: 'default',
-				frameSize: '20px',
+				frameSize: '48px',
 		  }
 		: {};
 
@@ -357,10 +358,12 @@ function VisualEditor( {
 		! isMobileViewport &&
 		// Dsiable resizing in zoomed-out mode.
 		! isZoomOutMode;
+	const shouldIframe =
+		! disableIframe || [ 'Tablet', 'Mobile' ].includes( deviceType );
 
 	const iframeStyles = useMemo( () => {
 		return [
-			...styles,
+			...( styles ?? [] ),
 			{
 				css: `.is-root-container{display:flow-root;${
 					// Some themes will have `min-height: 100vh` for the root container,
@@ -373,10 +376,17 @@ function VisualEditor( {
 
 	return (
 		<div
-			className={ clsx( 'editor-visual-editor', {
-				'has-padding': isFocusedEntity || enableResizing,
-				'is-resizable': enableResizing,
-			} ) }
+			className={ clsx(
+				'editor-visual-editor',
+				// this class is here for backward compatibility reasons.
+				'edit-post-visual-editor',
+				className,
+				{
+					'has-padding': isFocusedEntity || enableResizing,
+					'is-resizable': enableResizing,
+					'is-iframed': shouldIframe,
+				}
+			) }
 		>
 			<ResizableEditor
 				enableResizing={ enableResizing }
@@ -385,10 +395,7 @@ function VisualEditor( {
 				}
 			>
 				<BlockCanvas
-					shouldIframe={
-						! disableIframe ||
-						[ 'Tablet', 'Mobile' ].includes( deviceType )
-					}
+					shouldIframe={ shouldIframe }
 					contentRef={ contentRef }
 					styles={ iframeStyles }
 					height="100%"

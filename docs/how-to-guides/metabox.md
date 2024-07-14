@@ -515,10 +515,7 @@ An example save url would look like:
 -->
 以下に、保存用 URL の例を挙げます。
 
-<!--
-`mysite.com/wp-admin/post.php?post=1&action=edit&meta-box-loader=1`
--->
-`mysite.com/wp-admin/post.php?post=1&action=edit&meta-box-loader=1`
+`example.org/wp-admin/post.php?post=1&action=edit&meta-box-loader=1`
 
 <!--
 This url is automatically passed into React via a `_wpMetaBoxUrl` global variable.

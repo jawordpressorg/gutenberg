@@ -1249,9 +1249,9 @@ $metadata = array(
 ```
 
 <!--
-Implementation follows the existing [get_plugin_data](https://codex.wordpress.org/Function_Reference/get_plugin_data) function which parses the plugin contents to retrieve the plugin’s metadata, and it applies translations dynamically.
+Implementation follows the existing [get_plugin_data](https://developer.wordpress.org/reference/functions/get_plugin_data) function which parses the plugin contents to retrieve the plugin’s metadata, and it applies translations dynamically.
  -->
-実装は既存の [get_plugin_data](https://codex.wordpress.org/Function_Reference/get_plugin_data) 関数に従い、プラグインのコンテンツをパースしてプラグインのメタデータを取得し、動的に翻訳を適用します。
+実装は既存の [get_plugin_data](https://developer.wordpress.org/reference/functions/get_plugin_data) 関数に従い、プラグインのコンテンツをパースしてプラグインのメタデータを取得し、動的に翻訳を適用します。
 
 ### JavaScript
 

@@ -1,5 +1,5 @@
 <!-- 
-# Working with Javascript for the Block Editor
+# Working with JavaScript for the Block Editor
  -->
 # ブロックエディターでの JavaScript の利用
 
@@ -9,7 +9,7 @@ Developing blocks for the Block Editor often involves using modern JavaScript (E
 ブロックエディター用のブロックを開発する場合、通常はモダンな JavaScript (ESNext と JSX)を使用します。このブロックエディターハンドブック内のほとんどのサンプルコードもこの構文で記述されています。
 
 <!-- 
-However, this form of JavaScript must be transformed into a browser-compatible format, necessitating a build step. This process transforms, bundles, and optimizes JavaScript source code and related assets into a format suitable for production environments. 
+However, this form of JavaScript must be transformed into a browser-compatible format, necessitating a build step. This process transforms, bundles, and optimizes JavaScript source code and related assets into a format suitable for production environments.
  -->
 ただしこの形式の JavaScript は、ブラウザと互換性のある形に変換しなければならず、ビルドのステップが必要です。このビルドプロセスでは、JavaScriptのソースコードと関連するアセットを本番環境に適した形に変換、バンドル、最適化します。
 
@@ -30,7 +30,7 @@ Using a build process for block development unlocks the full potential of modern
 ブロック開発にビルドプロセスを使用することで、モダンな JavaScript の可能性を最大限、引き出し、ESNext と JSX の使用を促進します。
 
 <!-- 
-[ESNext](https://developer.mozilla.org/en-US/docs/Web/JavaScript/JavaScript_technologies_overview#standardization_process) refers to Javascript's most recent syntax and features. [JSX](https://react.dev/learn/writing-markup-with-jsx) is a syntax extension developed by the React project that enables you to write JavaScript that resembles HTML.
+[ESNext](https://developer.mozilla.org/en-US/docs/Web/JavaScript/JavaScript_technologies_overview#standardization_process) refers to JavaScript's most recent syntax and features. [JSX](https://react.dev/learn/writing-markup-with-jsx) is a syntax extension developed by the React project that enables you to write JavaScript that resembles HTML.
  -->
 [ESNext](https://developer.mozilla.org/en-US/docs/Web/JavaScript/JavaScript_technologies_overview#standardization_process) は、JavaScript の最新の構文と機能を指します。[JSX](https://react.dev/learn/writing-markup-with-jsx) は、React プロジェクトによって開発された JavaScript の構文拡張で、HTML に似た JavaScript を書けます。
 
@@ -45,7 +45,7 @@ Since browsers cannot directly execute ESNext and JSX, these syntaxes must be tr
 [webpack](https://webpack.js.org/concepts/why-webpack/) はプラグインで拡張可能なツールで、ブラウザ互換のために JavaScript を処理し、バンドルします。[Babel](https://babeljs.io/) はwebpack のプラグインで、ESNext や JSX を標準的な JavaScript に変換します。
 
 <!-- 
-Configuring webpack and Babel can be challenging, so it's recommended that you use the [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) package. This tool simplifies development by preconfiguring both, so you rarely need to write custom webpack or Babel configurations. 
+Configuring webpack and Babel can be challenging, so it's recommended that you use the [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) package. This tool simplifies development by preconfiguring both, so you rarely need to write custom webpack or Babel configurations.
  -->
 webpack と Babel の構成は難しいため、[`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) パッケージの利用を推奨します。このツールは webpack と Babel を事前に構成し、開発を簡素化します。カスタム webpack や Babel 構成を書く必要は滅多にありません。
 
@@ -97,7 +97,7 @@ With the [proper `package.json` scripts](https://developer.wordpress.org/block-e
 - **開発モード (`npm run start`):** このモードはアクティブな開発用に作成されています。デバッグを容易にするために最小化をスキップし、エラー追跡のためにソースマップを生成し、ソースファイルの変更を監視します。変更を検出すると、自動的に影響を受けるファイルをリビルドするため、リアルタイムで更新を確認できます。
 
 <!-- 
-The `wp-scripts` package also facilitates the use of JavaScript modules, allowing code distribution across multiple files and resulting in a streamlined bundle after the build process. The [block-development-example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) GitHub repository provides some good examples. 
+The `wp-scripts` package also facilitates the use of JavaScript modules, allowing code distribution across multiple files and resulting in a streamlined bundle after the build process. The [block-development-example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) GitHub repository provides some good examples.
  -->
 また、`wp-scripts`パッケージは JavaScript モジュールの使用を促進します。複数のファイルにわたってコードを配布できるため、ビルドプロセス後には整理されたバンドルを作成できます。[block-development-example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8)の GitHub リポジトリに良い例があります。
 
@@ -109,7 +109,7 @@ The `wp-scripts` package also facilitates the use of JavaScript modules, allowin
 >`wp-scripts` に<a href="https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#provide-your-own-webpack-config">自身のカスタム `webpack.config.js`</a> を指定することで、ニーズに合わせてビルドプロセスをカスタマイズできます。
 
 <!-- 
-## Javascript without a build process
+## JavaScript without a build process
  -->
 ## ビルドプロセスなしの JavaScript
 
@@ -132,9 +132,9 @@ Without a build process, you access the methods directly from the `wp` global ob
 ビルドプロセスなしの場合、`wp` グローバルオブジェクトから直接メソッドにアクセスし、手動でスクリプトをエンキューしなければなりません。[WordPress JavaScript パッケージ](https://developer.wordpress.org/block-editor/reference-guides/packages/) には `wp` [グローバル変数](https://developer.mozilla.org/en-US/docs/Glossary/Global_variable) を通してアクセスできますが、この `wp` オブジェクトを通して使用したいすべてのスクリプトには、登録時、[パッケージのハンドル](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/)を依存配列に追加する責任があります。
  -->
 <!-- 
-When you opt out of a build process, you interact directly with WordPress's [Javascript APIs](/docs/reference-guides/packages/) through the global `wp` object. This means that all the methods and packages provided by WordPress are readily available, but with one caveat: you must manually manage script dependencies. This is done by adding [the handle](/docs/contributors/code/scripts.md) of each corresponding package to the dependency array of your enqueued JavaScript file.
+When you opt out of a build process, you interact directly with WordPress's [JavaScript APIs](/docs/reference-guides/packages/) through the global `wp` object. This means that all the methods and packages provided by WordPress are readily available, but with one caveat: you must manually manage script dependencies. This is done by adding [the handle](/docs/contributors/code/scripts.md) of each corresponding package to the dependency array of your enqueued JavaScript file.
  -->
-ビルドプロセスを使用しない場合は、グローバルな `wp` オブジェクトを通して WordPress の [Javascript API](https://developer.wordpress.org/block-editor/reference-guides/packages/) と直接やりとりします。WordPress が提供するすべてのメソッドとパッケージをすぐに利用できます。ただし、1つ注意点があり、スクリプトの依存関係を手動で管理しなければなりません。これには、対応する各パッケージの[ハンドル](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/)を、エンキューする JavaScript ファイルの依存配列に追加します。
+ビルドプロセスを使用しない場合は、グローバルな `wp` オブジェクトを通して WordPress の [JavaScript API](https://developer.wordpress.org/block-editor/reference-guides/packages/) と直接やりとりします。WordPress が提供するすべてのメソッドとパッケージをすぐに利用できます。ただし、1つ注意点があり、スクリプトの依存関係を手動で管理しなければなりません。これには、対応する各パッケージの[ハンドル](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/)を、エンキューする JavaScript ファイルの依存配列に追加します。
 
 <!-- 
 So, for example if a script wants to register a block variation using the `registerBlockVariation` method out of the ["blocks" package](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/), the `wp-blocks` handle would need to get added to the dependency array to ensure that `wp.blocks.registerBlockVariation` is defined when the script tries to access it (see [example](https://github.com/wptrainingteam/block-theme-examples/blob/master/example-block-variation/functions.php)). 
@@ -148,7 +148,7 @@ For example, suppose you're creating a script that registers a new block [variat
 例えば、[`blocks`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/) パッケージの `registerBlockVariation` 関数を使用して、新しいブロック[バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を登録するスクリプトを作成するとします。このときスクリプトの依存関係の配列に `wp-blocks` を含める必要があります。これにより、スクリプトが実行される時点で `wp.blocks.registerBlockVariation` メソッドが利用可能で、定義されていることが保証されます。
 
 <!-- 
-In the following example, the `wp-blocks` dependency is defined when enqueuing the `variations.js` file. 
+In the following example, the `wp-blocks` dependency is defined when enqueuing the `variations.js` file.
  -->
 次の例では、`variations.js` ファイルをエンキューする際に `wp-blocks` の依存関係を定義しています。
 
@@ -236,10 +236,10 @@ Use [`enqueue_block_editor_assets`](https://developer.wordpress.org/reference/ho
  -->
 <!-- 
 - [Package reference](/docs/reference-guides/packages.md)
-- [Get started with wp-scripts](/docs/getting-started/devenv/get-started-with-wp-scripts.md) 
-- [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) 
-- [WordPress package handles](/docs/contributors/code/scripts.md) 
-- [Javascript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | MDN Web Docs
+- [Get started with wp-scripts](/docs/getting-started/devenv/get-started-with-wp-scripts.md)
+- [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets-in-the-editor.md)
+- [WordPress package handles](/docs/contributors/code/scripts.md)
+- [JavaScript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | MDN Web Docs
 - [block-development-examples](https://github.com/WordPress/block-development-examples) | GitHub repository
 - [block-theme-examples](https://github.com/wptrainingteam/block-theme-examples) | GitHub repository
 - [How webpack and WordPress packages interact](https://developer.wordpress.org/news/2023/04/how-webpack-and-wordpress-packages-interact/) | Developer Blog

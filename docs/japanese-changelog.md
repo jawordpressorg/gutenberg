@@ -2,6 +2,20 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2024/7/7
+
+- [エディター機能の無効化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/disable-editor-functionality/) - RichText の例 [#63065](https://github.com/WordPress/gutenberg/pull/63065)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/) - spacing の説明の削除 [#61842](https://github.com/WordPress/gutenberg/pull/61842)、editor-spacing-sizes [#62252](https://github.com/WordPress/gutenberg/pull/62252)
+- [サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) - splitting [#63016](https://github.com/WordPress/gutenberg/pull/63016)
+- [バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) - isActive でのドット表記 [#62088](https://github.com/WordPress/gutenberg/pull/62088)、getActiveBlockVariation の戻り値 [#62031](https://github.com/WordPress/gutenberg/pull/62031)、Version 6.6の変更明記 [#62399](https://github.com/WordPress/gutenberg/pull/62399)
+- [SlotFill リフレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/slotfills/) - サンプル更新 [#62271](https://github.com/WordPress/gutenberg/pull/62271)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 詩 background, dimensions [#62498](https://github.com/WordPress/gutenberg/pull/62498)、引用 background, dimensions [#62497](https://github.com/WordPress/gutenberg/pull/62497)、 投稿コンテンツ background [#62499](https://github.com/WordPress/gutenberg/pull/62499)、 リスト項目 color [#59892](https://github.com/WordPress/gutenberg/pull/59892)
+- [Interactivity API Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/) - API の追加方法 [#63493](https://github.com/WordPress/gutenberg/pull/63439)
+- [API Reference](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/) - wp-on-async [#62663](https://github.com/WordPress/gutenberg/pull/62663)、toMainThread -> splitTask [#62665](https://github.com/WordPress/gutenberg/pull/62665) [#62759](https://github.com/WordPress/gutenberg/pull/62759)、data-wp-run の ref [#62835](https://github.com/WordPress/gutenberg/pull/62835)、data-wp-class ではケバブ [#62817](https://github.com/WordPress/gutenberg/pull/62817)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - defaultSpacingSizes [#61842](https://github.com/WordPress/gutenberg/pull/61842)、グローバルスタイル background [#60100](https://github.com/WordPress/gutenberg/pull/60100)
+- [theme.json の新しいバージョンへの移行](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) - defaultSpacingSizes [#61842](https://github.com/WordPress/gutenberg/pull/61842)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - mysqlPort [#61057](https://github.com/WordPress/gutenberg/pull/61057)
+
 2024/5/26
 
 - [TOP](https://ja.wordpress.org/team/handbook/block-editor/) - 全面改訂 [#58652](https://github.com/WordPress/gutenberg/pull/58652)、sidebar -> panel [#57546](https://github.com/WordPress/gutenberg/issues/57546)

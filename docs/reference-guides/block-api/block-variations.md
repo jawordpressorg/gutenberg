@@ -4,9 +4,9 @@
 # バリエーション
 
 <!-- 
-The Block Variations API  allows you to define multiple versions (variations) of a block. A block variation differs from the original block by a set of initial attributes or inner blocks. When you insert the block variation into the Editor, these attributes and/or inner blocks are applied.
+The Block Variations API allows you to define multiple versions (variations) of a block. A block variation differs from the original block by a set of initial attributes or inner blocks. When you insert the block variation into the Editor, these attributes and/or inner blocks are applied.
  -->
-ブロックバリエーション API を使用すると、ブロックの複数のバージョン (バリエーション) を定義できます。ブロックバリエーションは元のブロックと比べて、初期属性またはインナーブロックのセットが異なります。ブロックバリエーションをエディターに挿入すると、これらの属性やインナーブロックが適用されます。
+ブロックバリエーション API を使用すると、ブロックの複数のバージョン (バリエーション) を定義できます。ブロックバリエーションは元のブロックと比べて、初期属性やインナーブロックのセットが異なります。ブロックバリエーションをエディターに挿入すると、これらの属性やインナーブロックが適用されます。
 
 <!-- 
 Variations are an excellent way to create iterations of existing blocks without building entirely new blocks from scratch.
@@ -54,7 +54,7 @@ A block variation is defined by an object that can contain the following fields:
 -   `innerBlocks` (optional, type `Array[]`) – Initial configuration of nested blocks.
 -   `example` (optional, type `Object`) – Provides structured data for the block preview. Set to `undefined` to disable the preview. See the [Block Registration API](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
 -   `scope` (optional, type `WPBlockVariationScope[]`) - Defaults to `block` and `inserter`. The list of scopes where the variation is applicable. Available options include:
-	- `block` - Used by blocks to filter specific block variations. `Columns` and `Query` blocks have such variations, which are passed to the [experimental BlockVariationPicker](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md) component. This component handles displaying the variations and allows users to choose one of them.
+    -   `block` - Used by blocks to filter specific block variations. `Columns` and `Query` blocks have such variations, which are passed to the [experimental BlockVariationPicker](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md) component. This component handles displaying the variations and allows users to choose one of them.
     -   `inserter` - Block variation is shown on the inserter.
     -   `transform` - Block variation is shown in the component for variation transformations.
 -   `isDefault` (optional, type `boolean`) – Defaults to `false`. Indicates whether the current variation is the default one (details below).
@@ -99,13 +99,10 @@ To create a variation for an existing block, such as a Core block, use `wp.block
 コアブロックのような既存ブロックにバリエーションを作成するには、`wp.blocks.registerBlockVariation()` を使用します。この関数はブロックの名前と、バリエーションを定義するオブジェクトを取ります。
 
 ```js
-wp.blocks.registerBlockVariation(
-	'core/embed',
-	{
-		name: 'custom-embed',
-		attributes: { providerNameSlug: 'custom' },
-	}
-);
+wp.blocks.registerBlockVariation( 'core/embed', {
+	name: 'custom-embed',
+	attributes: { providerNameSlug: 'custom' },
+} );
 ```
 <!-- 
 ## Removing a block variation
@@ -193,17 +190,14 @@ For example, if you want Media & Text block to display the image on the right by
 例えば「メディアとテキスト」ブロックで、デフォルトで右側に画像を表示するには、次のようなバリエーションを作成できます。 
 
 ```js
- wp.blocks.registerBlockVariation(
-	'core/media-text',
-	{
-		name: 'media-text-media-right',
-		title: __( 'Media & Text' ),
-		isDefault: true,
-		attributes: {
-			mediaPosition: 'right'
-		}
-	}
-)
+wp.blocks.registerBlockVariation( 'core/media-text', {
+	name: 'media-text-media-right',
+	title: __( 'Media & Text' ),
+	isDefault: true,
+	attributes: {
+		mediaPosition: 'right',
+	},
+} );
 ```
 
 <!--
@@ -269,14 +263,14 @@ The property can use either a function or an array of strings (`string[]`). The 
  -->
 
 <!-- 
-The property can be set to either a function or an array of strings (`string[]`).
+The property can be set to either an array of strings (`string[]`), or a function. It is recommended to use the string array version whenever possible.
  -->
-このプロパティには、関数、または文字列の配列（`string[]`）を設定できます。
+このプロパティには文字列の配列 (`string[]`)、または関数を設定できますが、可能な限り、文字列配列のバージョンを使用することを推奨します。
 
 <!-- 
-The function version of this property accepts a block instance's `blockAttributes` as the first argument, and the `variationAttributes` declared for a variation as the second argument. These arguments can be used to determine if a variation is active by comparing them and returning a `true` or `false` (indicating whether this variation is inactive for this block instance).
+The `string[]` version is used to declare which of the block instance's attributes should be compared to the given variation's. Each attribute will be checked and the variation will be active if all of them match.
  -->
-このプロパティの関数バージョンは、ブロックインスタンスの `blockAttributes` を第1引数、バリエーションに対して宣言された `variationAttributes` を第2引数として受け取ります。これらの引数を比較して、このバリエーションがこのブロックインスタンスに対してアクティブかどうかを示す `true` または `false` を返すことで、バリエーションがアクティブかどうかを決定できます。
+`string[]` バージョンを使用して、ブロックインスタンスのどの属性を与えられたバリエーションと比較すればよいかを宣言します。それぞれの属性がチェックされ、すべてが一致した場合にバリエーションが有効になります。
 
 <!-- 
 As an example, in the core Embed block, the `providerNameSlug` attribute is used to determine the embed provider (e.g. 'youtube' or 'twitter'). The variations may be declared like this:
@@ -307,12 +301,47 @@ const variations = [
 		attributes: { providerNameSlug: 'youtube', responsive: true },
 	},
 	// ...
-]
+];
 ```
 <!-- 
  The `isActive` function can compare the block instance value for `providerNameSlug` to the value declared in the variation's declaration (the values in the code snippet above) to determine which embed variation is active:
  -->
+<!-- 
  `isActive` 関数は、ブロックインスタンスの `providerNameSlug` 値と、バリエーションの宣言で宣言された値 (上のコードスニペット内の値) を比較して、どの埋め込みバリエーションがアクティブかを決定します。
+ -->
+
+<!-- 
+The `isActive` property would then look like this:
+ -->
+`isActive` プロパティは次のようになります。
+
+```js
+isActive: [ 'providerNameSlug' ];
+```
+
+<!-- 
+This will cause the block instance value for `providerNameSlug` to be compared to the value declared in the variation's declaration (the values in the code snippet above) to determine which embed variation is active.
+ -->
+これにより、`providerNameSlug`のブロックインスタンスの値が、バリエーションの宣言で宣言された値 (上のコードスニペットの値) と比較され、どの埋め込みバリエーションがアクティブかを決定します。
+
+<!-- 
+Nested object paths are also supported since WordPress `6.6.0`. For example, consider a block variation that has a `query` object as an attribute. It is possible to determine if the variation is active solely based on that object's `postType` property (while ignoring all its other properties):
+ -->
+WordPress `6.6.0`からはネストしたオブジェクトパスもサポートされます。例えば、属性として `query` オブジェクトを持つブロックバリエーションを考えます。そのオブジェクトの `postType` プロパティだけで (その他のプロパティは無視して)、バリエーションがアクティブかどうかを決定できるなら
+
+```js
+isActive: [ 'query.postType' ];
+```
+
+<!-- 
+The function version of this property accepts a block instance's `blockAttributes` as the first argument, and the `variationAttributes` declared for a variation as the second argument. These arguments can be used to determine if a variation is active by comparing them and returning a `true` or `false` (indicating whether this variation is inactive for this block instance).
+ -->
+このプロパティの関数バージョンは、ブロックインスタンスの `blockAttributes` を第1引数、バリエーションに対して宣言された `variationAttributes` を第2引数として受け取ります。これらの引数を比較して、このバリエーションがこのブロックインスタンスに対してアクティブかどうかを示す `true` または `false` を返すことで、バリエーションがアクティブかどうかを決定できます。
+
+<!-- 
+Using the same example for the embed block, the function version would look like this:
+ -->
+埋め込みブロックの同じ例を使用すると、関数バージョンは次のようになります。
 
 ```js
 isActive: ( blockAttributes, variationAttributes ) =>
@@ -328,22 +357,68 @@ You can also use a `string[]` to tell which attributes should be compared as a s
 <!-- 
 The `string[]` version is used to declare which attributes should be compared as a shorthand. Each attribute will be checked and the variation will be active if all of them match. Using the same example for the embed block, the string version would look like this:
  -->
+<!-- 
 `string[]` バージョンは、どの属性を比較するかを宣言する省略記法として使用されます。それぞれの属性がチェックされ、すべての属性が一致した場合にそのバリエーションがアクティブとなります。埋め込みブロックと同じ例を使用すると、文字列バージョンは次のようになります。
+ -->
+
+<!-- 
+### Specificity of `isActive` matches
+ -->
+### `isActive` マッチの詳細度
+
+<!-- 
+_Note: Improved handling since WordPress `6.6.0`._
+ -->
+_注意: WordPress `6.6.0` 以降で改良された処理です。_
+
+<!-- 
+If there are multiple variations whose `isActive` check matches a given block instance, and all of them are string arrays, then the variation with the highest _specificity_ will be chosen. Consider the following example:
+ -->
+与えられたブロックインスタンスに対して、`isActive` チェックがマッチする複数のバリエーションがあり、それらすべてが文字列配列である場合、最も高い _詳細度 (specificity)_ を持つバリエーションが選択されます。次の例を考えます。
 
 ```js
-isActive: [ 'providerNameSlug' ]
+wp.blocks.registerBlockVariation( 'core/paragraph', {
+	name: 'paragraph-red',
+	title: 'Red Paragraph',
+	attributes: {
+		textColor: 'vivid-red',
+	},
+	isActive: [ 'textColor' ],
+} );
+
+wp.blocks.registerBlockVariation( 'core/paragraph', {
+	name: 'paragraph-red-grey',
+	title: 'Red/Grey Paragraph',
+	attributes: {
+		textColor: 'vivid-red',
+		backgroundColor: 'cyan-bluish-gray',
+	},
+	isActive: [ 'textColor', 'backgroundColor' ],
+} );
 ```
 
 <!-- 
+If a block instance has attributes `textColor: vivid-red` and `backgroundColor: cyan-bluish-gray`, both variations' `isActive` criterion will match that block instance. In this case, the more _specific_ match will be determined to be the active variation, where specificity is calculated as the length of each `isActive` array. This means that the `Red/Grey Paragraph` will be shown as the active variation.
+ -->
+あるブロックインスタンスに `textColor: vivid-red` と `backgroundColor: cyan-bluish-gray` の属性があれば、上の両方のバリエーションの `isActive` 条件にマッチします。このケースでは、より _詳細 (specific)_ なマッチがアクティブバリエーションと判断され、その詳細度は各 `isActive` 配列の長さとして計算されます。つまり、`Red/Grey Paragraph` がアクティブバリエーションとして表示されます。
+
+<!-- 
+Note that specificity cannot be determined for a matching variation if its `isActive` property is a function rather than a `string[]`. In this case, the first matching variation will be determined to be the active variation. For this reason, it is generally recommended to use a `string[]` rather than a `function` for the `isActive` property.
+ -->
+注意: `isActive` プロパティが `string[]` ではなく、関数の場合、バリエーションのマッチにおいて特異性を決定できません。このとき、最初にマッチしたバリエーションがアクティブなバリエーションとして決定されます。この理由により、一般には `isActive` プロパティに `function` ではなく `string[]` を使用することが推奨されます。
+<!-- 
 ### Caveats to using `isActive`
  -->
+<!-- 
 ### isActive を使用する際の注意点
-
+ -->
 <!-- 
 The `isActive` property can return false positives if multiple variations exist for a specific block and the `isActive` checks are not specific enough. To demonstrate this, consider the following example:
  -->
+<!-- 
 `isActive` プロパティは、特定のブロックに複数のバリエーションが存在し、`isActive` チェックが十分にスコープを絞っていないと、偽陽性を返すことがあります。次の例を考えます。
-
+ -->
+<!-- 
 ```js
 wp.blocks.registerBlockVariation(
 	'core/paragraph',
@@ -370,15 +445,18 @@ wp.blocks.registerBlockVariation(
 	}
 );
 ```
-
+ -->
 <!-- 
 The `isActive` check on both variations tests the `textColor`, but each variations uses `vivid-red`. Since the `paragraph-red` variation is registered first, once the `paragraph-red-grey` variation is inserted into the Editor, it will have the title `Red Paragraph` instead of `Red/Grey Paragraph`. As soon as the Editor finds a match, it stops checking.
  -->
+<!-- 
 両方のバリエーションの `isActive` チェックでは `textColor` がテストされますが、それぞれのバリエーションでは `vivid-red` が使用されます。`paragraph-red` バリエーションが最初に登録されるため、`paragraph-red-grey` バリエーションがエディターに挿入されると、タイトルは `Red/Grey Paragraph` ではなく、`Red Paragraph` になります。エディターは一致するものを見つけるとすぐにチェックをやめます。
-
+ -->
 <!-- 
 There have been [discussions](https://github.com/WordPress/gutenberg/issues/41303#issuecomment-1526193087) around how the API can be improved, but as of WordPress 6.3, this remains an issue to watch out for.
  -->
+<!-- 
 API をどのように改善するかについて[議論](https://github.com/WordPress/gutenberg/issues/41303#issuecomment-1526193087)が行われてきましたが、WordPress 6.3現在、依然として注意すべき問題のままです。
-
+ -->
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-variations.md)
+

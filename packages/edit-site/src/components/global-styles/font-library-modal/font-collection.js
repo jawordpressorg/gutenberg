@@ -24,7 +24,7 @@ import {
 	Button,
 	DropdownMenu,
 	SearchControl,
-	privateApis as componentsPrivateApis,
+	ProgressBar,
 } from '@wordpress/components';
 import { debounce } from '@wordpress/compose';
 import { sprintf, __, _x } from '@wordpress/i18n';
@@ -45,8 +45,6 @@ import GoogleFontsConfirmDialog from './google-fonts-confirm-dialog';
 import { downloadFontFaceAssets } from './utils';
 import { sortFontFaces } from './utils/sort-font-faces';
 import CollectionFontVariant from './collection-font-variant';
-import { unlock } from '../../../lock-unlock';
-const { ProgressBar } = unlock( componentsPrivateApis );
 
 const DEFAULT_CATEGORY = {
 	slug: 'all',
@@ -352,7 +350,7 @@ function FontCollection( { slug } ) {
 												font={
 													font.font_family_settings
 												}
-												navigatorPath={ '/fontFamily' }
+												navigatorPath="/fontFamily"
 												onClick={ () => {
 													setSelectedFont(
 														font.font_family_settings
@@ -440,7 +438,7 @@ function FontCollection( { slug } ) {
 								disabled={
 									fontsToInstall.length === 0 || isInstalling
 								}
-								__experimentalIsFocusable
+								accessibleWhenDisabled
 							>
 								{ __( 'Install' ) }
 							</Button>
@@ -457,7 +455,7 @@ function FontCollection( { slug } ) {
 								size="compact"
 								onClick={ () => setPage( 1 ) }
 								disabled={ page === 1 }
-								__experimentalIsFocusable
+								accessibleWhenDisabled
 							>
 								<span>«</span>
 							</Button>
@@ -466,7 +464,7 @@ function FontCollection( { slug } ) {
 								size="compact"
 								onClick={ () => setPage( page - 1 ) }
 								disabled={ page === 1 }
-								__experimentalIsFocusable
+								accessibleWhenDisabled
 							>
 								<span>‹</span>
 							</Button>
@@ -504,7 +502,7 @@ function FontCollection( { slug } ) {
 														parseInt( newPage )
 													)
 												}
-												size={ 'compact' }
+												size="compact"
 												__nextHasNoMarginBottom
 											/>
 										),
@@ -516,7 +514,7 @@ function FontCollection( { slug } ) {
 								size="compact"
 								onClick={ () => setPage( page + 1 ) }
 								disabled={ page === totalPages }
-								__experimentalIsFocusable
+								accessibleWhenDisabled
 							>
 								<span>›</span>
 							</Button>
@@ -525,7 +523,7 @@ function FontCollection( { slug } ) {
 								size="compact"
 								onClick={ () => setPage( totalPages ) }
 								disabled={ page === totalPages }
-								__experimentalIsFocusable
+								accessibleWhenDisabled
 							>
 								<span>»</span>
 							</Button>

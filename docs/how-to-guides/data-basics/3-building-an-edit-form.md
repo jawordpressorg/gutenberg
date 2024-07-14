@@ -322,9 +322,9 @@ This is no accident. Fields like `title`, `excerpt`, and `content` may contain [
 これは偶然ではありません。`title`、`excerpt`、`content` などのフィールドは [ショートコード](https://codex.wordpress.org/Shortcode_API) や [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks) を含む場合あります。つまり、これらのフィールドはサーバー上でのみレンダリング可能です。このようなフィールドに対して、REST API は `raw` マークアップ _および_ `rendered` 文字列の両方を公開します。例えば、ブロックエディタでは、 `content.rendered` をビジュアルプレビューとして、 `content.raw` をコードエディタの入力として使用できます。
 
 <!--
-So why is the `content` of an Edited Entity Record a string? Since Javascript is not be able to properly render arbitrary block markup, it stores only the `raw` markup without the `rendered` part. And since that's a string, the entire field becomes a string.
+So why is the `content` of an Edited Entity Record a string? Since JavaScript is not be able to properly render arbitrary block markup, it stores only the `raw` markup without the `rendered` part. And since that's a string, the entire field becomes a string.
 -->
-では、なぜ「編集されたエンティティレコード」の `content` は文字列なのでしょうか ? Javascript は任意のブロックマークアップを適切にレンダリングできないため、`rendered` 部分を除いた、`raw`マークアップだけを保存します。そして、それが文字列であるため、フィールド全体も文字列になります。
+では、なぜ「編集されたエンティティレコード」の `content` は文字列なのでしょうか ? JavaScript は任意のブロックマークアップを適切にレンダリングできないため、`rendered` 部分を除いた、`raw`マークアップだけを保存します。そして、それが文字列であるため、フィールド全体も文字列になります。
 
 <!--
 We can now update `EditPageForm` accordingly. We can access the actions using the [`useDispatch`](/packages/data/README.md#usedispatch) hook similarly to how we use `useSelect` to access selectors:

@@ -1,9 +1,14 @@
 /**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+import type * as Ariakit from '@ariakit/react';
+
+/**
  * WordPress dependencies
  */
-import { createContext, useMemo } from '@wordpress/element';
+import { createContext, useCallback, useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { Icon, chevronDown } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -14,13 +19,12 @@ import type {
 	CustomSelectContext as CustomSelectContextType,
 	CustomSelectStore,
 	CustomSelectButtonProps,
+	CustomSelectButtonSize,
+	_CustomSelectInternalProps,
 	_CustomSelectProps,
 } from './types';
-import {
-	contextConnectWithoutRef,
-	useContextSystem,
-	type WordPressComponentProps,
-} from '../context';
+import InputBase from '../input-control/input-base';
+import SelectControlChevronDown from '../select-control/chevron-down';
 
 export const CustomSelectContext =
 	createContext< CustomSelectContextType >( undefined );
@@ -46,23 +50,18 @@ function defaultRenderSelectedValue(
 	return value;
 }
 
-const UnconnectedCustomSelectButton = (
-	props: Omit<
-		WordPressComponentProps<
-			CustomSelectButtonProps & CustomSelectStore,
-			'button',
-			false
-		>,
-		'onChange'
-	>
-) => {
-	const {
-		renderSelectedValue,
-		size = 'default',
-		store,
-		...restProps
-	} = useContextSystem( props, 'CustomSelectControlButton' );
-
+const CustomSelectButton = ( {
+	renderSelectedValue,
+	size = 'default',
+	store,
+	...restProps
+}: Omit<
+	React.ComponentProps< typeof Ariakit.Select > &
+		CustomSelectButtonProps &
+		CustomSelectButtonSize &
+		CustomSelectStore,
+	'onChange'
+> ) => {
 	const { value: currentValue } = store.useState();
 
 	const computedRenderSelectedValue = useMemo(
@@ -76,32 +75,44 @@ const UnconnectedCustomSelectButton = (
 			size={ size }
 			hasCustomRenderProp={ !! renderSelectedValue }
 			store={ store }
-			// to match legacy behavior where using arrow keys
-			// move selection rather than open the popover
-			showOnKeyDown={ false }
 		>
-			<div>{ computedRenderSelectedValue( currentValue ) }</div>
-			<Icon icon={ chevronDown } size={ 18 } />
+			{ computedRenderSelectedValue( currentValue ) }
 		</Styled.Select>
 	);
 };
 
-const CustomSelectButton = contextConnectWithoutRef(
-	UnconnectedCustomSelectButton,
-	'CustomSelectControlButton'
-);
-
-function _CustomSelect( props: _CustomSelectProps & CustomSelectStore ) {
+function _CustomSelect(
+	props: _CustomSelectInternalProps &
+		_CustomSelectProps &
+		CustomSelectStore &
+		CustomSelectButtonSize
+) {
 	const {
 		children,
 		hideLabelFromVision = false,
 		label,
+		size,
 		store,
+		className,
+		isLegacy = false,
 		...restProps
 	} = props;
 
+	const onSelectPopoverKeyDown: React.KeyboardEventHandler< HTMLDivElement > =
+		useCallback(
+			( e ) => {
+				if ( isLegacy ) {
+					e.stopPropagation();
+				}
+			},
+			[ isLegacy ]
+		);
+
+	const contextValue = useMemo( () => ( { store, size } ), [ store, size ] );
+
 	return (
-		<>
+		// Where should `restProps` be forwarded to?
+		<div className={ className }>
 			{ hideLabelFromVision ? ( // TODO: Replace with BaseControl
 				<VisuallyHidden as="label">{ label }</VisuallyHidden>
 			) : (
@@ -109,13 +120,31 @@ function _CustomSelect( props: _CustomSelectProps & CustomSelectStore ) {
 					{ label }
 				</Styled.SelectLabel>
 			) }
-			<CustomSelectButton { ...restProps } store={ store } />
-			<Styled.SelectPopover gutter={ 12 } store={ store } sameWidth>
-				<CustomSelectContext.Provider value={ { store } }>
-					{ children }
-				</CustomSelectContext.Provider>
-			</Styled.SelectPopover>
-		</>
+			<InputBase
+				__next40pxDefaultSize
+				size={ size }
+				suffix={ <SelectControlChevronDown /> }
+			>
+				<CustomSelectButton
+					{ ...restProps }
+					size={ size }
+					store={ store }
+					// Match legacy behavior (move selection rather than open the popover)
+					showOnKeyDown={ ! isLegacy }
+				/>
+				<Styled.SelectPopover
+					gutter={ 12 }
+					store={ store }
+					sameWidth
+					slide={ false }
+					onKeyDown={ onSelectPopoverKeyDown }
+				>
+					<CustomSelectContext.Provider value={ contextValue }>
+						{ children }
+					</CustomSelectContext.Provider>
+				</Styled.SelectPopover>
+			</InputBase>
+		</div>
 	);
 }
 

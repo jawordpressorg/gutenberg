@@ -1,9 +1,4 @@
 /**
- * WordPress dependencies
- */
-import { __dangerousOptInToUnstableAPIsOnlyForCoreModules } from '@wordpress/private-apis';
-
-/**
  * Internal dependencies
  */
 import {
@@ -14,8 +9,8 @@ import {
 	useCompositeStore as useCompositeStoreV2,
 } from './composite/v2';
 import { default as CustomSelectControl } from './custom-select-control';
+import { default as CustomSelectControlV2Legacy } from './custom-select-control-v2/legacy-component';
 import { positionToPlacement as __experimentalPopoverLegacyPositionToPlacement } from './popover/utils';
-import { default as ProgressBar } from './progress-bar';
 import { createPrivateSlotFill } from './slot-fill';
 import {
 	DropdownMenu as DropdownMenuV2,
@@ -40,11 +35,11 @@ lock( privateApis, {
 	CompositeItemV2,
 	CompositeRowV2,
 	useCompositeStoreV2,
+	CustomSelectControlV2Legacy,
 	CustomSelectControl,
 	__experimentalPopoverLegacyPositionToPlacement,
 	createPrivateSlotFill,
 	ComponentsContext,
-	ProgressBar,
 	Tabs,
 	Theme,
 	DropdownMenuV2,

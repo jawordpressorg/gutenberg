@@ -1885,4 +1885,12 @@ attributes: {
 }
 ```
 
+## splitting
+
+When set to `true`, `Enter` will split the block into two blocks. Note that this
+is only meant for simple text blocks such as paragraphs and headings with a
+single `RichText` field. RichText in the `edit` function _must_ have an
+`identifier` prop that matches the attribute key of the text, so that it updates
+the selection correctly and we know where to split.
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-supports.md)

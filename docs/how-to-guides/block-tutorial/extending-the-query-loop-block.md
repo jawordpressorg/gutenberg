@@ -6,12 +6,12 @@
 <!-- 
 The Query Loop block is a powerful tool that allows users to cycle through a determined list of posts and display a certain set of blocks that will inherit the context of each of the posts in the list. For example, it can be set to cycle through all the posts of a certain category and for each of those posts display their featured image. And much more, of course!
  -->
-クエリーループブロックは強力なツールです。ユーザーが決定した投稿のリストをループし、リスト内の各投稿のコンテキストを継承するブロックの特定セットを表示できます。例えば、あるカテゴリの投稿をすべてループするように設定し、それぞれの投稿のアイキャッチ画像を表示できます。もちろん、それ以外にもさまざまなことが可能です !
+クエリーループブロックは強力なツールです。ユーザーが指定した投稿のリストをループし、リスト内の各投稿のコンテキストを継承した、ブロックの特定セットを表示できます。例えば、あるカテゴリの投稿をすべてループするように設定し、それぞれの投稿のアイキャッチ画像を表示できます。もちろん、それ以外にもさまざまなことが可能です !
 
 <!-- 
 But precisely because the Query Loop block is so powerful and allows for great customization, it can also be daunting. Most users wouldn't want to be presented with the full capabilities of the Query Loop block, as most users wouldn't be familiar with the concept of a “query” and its associated technical terms. Instead, most users will likely appreciate a pre-set version of the block, with fewer settings to adjust and clearer naming. The Post List variation offered by default is a good example of this practice: the user will be using the Query Loop block without being exposed to its technicalities, and will also be more likely to discover and understand the purpose of the block.
  -->
-しかし、クエリーループブロックが非常に強力で自由にカスタマイズ可能な分、面倒な面もあります。ほとんどのユーザーは「クエリー」の概念や関連する専門用語に精通しておらず、クエリループブロックのすべての機能を見せられたくはありません。代わりに、調整する設定が少なく、名前もわかりやすく、あらかじめ設定されたバージョンのブロックの方が遥かに好みです。実際、デフォルトで提供されている、投稿リストのバリエーションはその良い例です。ユーザーは技術的な面に触れることなくクエリーループブロックを使用できるだけでなく、ブロックの目的は見つけやすく、理解しやすくなっています。
+しかし、クエリーループブロックが非常に強力で自由にカスタマイズ可能な分、面倒な面もあります。ほとんどのユーザーは「クエリー」の概念や関連する専門用語に精通しておらず、クエリループブロックのすべての機能を見たくもありません。代わりに、調整する設定が少なく、名前もわかりやすく、あらかじめ設定されたバージョンのブロックの方が遥かに好みです。実際、デフォルトで提供されている投稿リストのバリエーションはその良い例です。ユーザーは技術的な面に触れることなくクエリーループブロックを使用できるだけでなく、ブロックの目的は見つけやすく、理解しやすくなっています。
 
 <!-- 
 In the same manner, a lot of extenders might need a way to present bespoke versions of the block, with their own presets, additional settings and without customization options which are irrelevant to their use-case (often, for example, their custom post type). The Query Loop block offers very powerful ways to create such variations.
@@ -34,14 +34,28 @@ With the block variations API you can provide the default settings that make the
 ブロックバリエーション API を使用すると、ユースケースに最も適切なデフォルト設定を提供できます。
 
 <!-- 
+In order to have a Query Loop variation properly working, we'll need to:
+ -->
+クエリーループのバリエーションが適切に機能するには、以下が必要です。
+
+<!-- 
+- Register the block variation for the `core/query` block with some default values
+- Define a layout for the block variation
+- Use the `namespace` attribute in the `isActive` block variation property
+ -->
+- `core/query` ブロックのブロックバリエーションをデフォルト値で登録する
+- ブロックバリエーションのレイアウトを定義する
+- `isActive` ブロックバリエーションプロパティで `namespace` 属性を使用する
+
+<!-- 
 Let's go on a journey, for example, of setting up a variation for a plugin which registers a `book` [custom post type](https://developer.wordpress.org/plugins/post-types/).
  -->
 さっそくサンプルプログラムを試してみましょう。`book` [カスタム投稿タイプ](https://developer.wordpress.org/plugins/post-types/) を登録するプラグイン用のバリエーションを設定します。
 
 <!-- 
-### Offer sensible defaults
+### 1. Offer sensible defaults
  -->
-### 合理的なデフォルトの提供
+### 1. 合理的なデフォルトの提供
 
 <!-- 
 Your first step would be to create a variation which will be set up in such a way to provide a block variation which will display by default a list of books instead of blog posts. The full variation code will look something like this:
@@ -204,9 +218,14 @@ At this point, your custom variation will be virtually indistinguishable from a 
 これでカスタムバリエーションはスタンドアロンブロックとほとんど区別がつかなくなります。プラグインに完全に溶け込み、発見しやすく、ユーザーはドロップインで直接利用できます。
 
 <!-- 
-### Customize your variation layout
+However, your query loop variation won't work just yet — we still need to define a layout so that it can render properly.
  -->
-### バリエーションのレイアウトのカスタマイズ
+しかし、クエリループのバリエーションはまだ機能しません。適切にレンダーできるように、レイアウトを定義する必要があります。
+
+<!-- 
+### 2. Customize your variation layout
+ -->
+### 2. バリエーションのレイアウトのカスタマイズ
 
 <!-- 
 Please note that the Query Loop block supports `'block'` as a string in the `scope` property. In theory, that's to allow the variation to be picked up after inserting the block itself. Read more about the Block Variation Picker [here](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md).
@@ -271,9 +290,9 @@ For example, if we have a Query Loop variation exposed to the inserter(`scope: [
 例えば、クエリーループのバリエーションをインサーター (`scope: ['inserter']`) に名前 `products` で公開している場合、`namespace` 属性を `['products']` に設定することで、指定した `block` バリエーションを接続できます。ユーザーが「新規」をクリックした後にこのバリエーションを選択すると、namespace 属性はメインのインサーターのバリエーションによって上書きされます。
 
 <!-- 
-### Making Gutenberg recognize your variation
+### 3. Making Gutenberg recognize your variation
  -->
-### Gutenberg のバリエーションの認識
+### 3. Gutenberg のバリエーションの認識
 
 <!-- 
 There is one slight problem you might have realized after implementing this variation: while it is transparent to the user as they are inserting it, Gutenberg will still recognize the variation as a Query Loop block at its core and so, after its insertion, it will show up as a Query Loop block in the tree view of the editor, for instance.

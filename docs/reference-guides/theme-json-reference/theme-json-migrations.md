@@ -162,8 +162,9 @@ v3 に切り替えるとデフォルトで `true` になります。これによ
 <!-- 
 In theme.json v2, the default font sizes were only shown when theme sizes were not defined. A theme providing font sizes with the same slugs as the defaults would always override the default ones.
  -->
+<!-- 
 theme.json v2 では、テーマでサイズが定義されていない場合にのみ、デフォルトのフォントサイズが表示されていました。デフォルトと同じスラッグを持つフォントサイズを提供するテーマは、常にデフォルトのフォントサイズを上書きしていました。
-
+ -->
 <!-- 
 To keep behavior similar to v2 with a v3 theme.json:
 * If you do not have any `fontSizes` defined, `defaultFontSizes` can be left out or set to `true`.
@@ -173,4 +174,52 @@ v3 の theme.json で v2 と同じ動作にするには、
 * もし `fontSizes` が定義されていない場合は、`defaultFontSizes` を省略するか `true` に設定してください。
 * もし `fontSizes` が定義されている場合は、`defaultFontSizes` を `false` に設定してください。
 
+#### `settings.spacing.defaultSpacingSizes`
+
+<!-- 
+In theme.json v2, there are two settings that could be used to set theme level spacing sizes: `settings.spacing.spacingSizes` and `settings.spacing.spacingScale`. Setting both `spacingSizes` _and_ `spacingScale` would only use the values from `spacingSizes`. And setting either of them would always replace the entire set of default spacing sizes provided by WordPress.
+ -->
+theme.json v2には、テーマレベルのスペースサイズの設定に使用可能な2つの設定があります。`settings.spacing.spacingSizes` と `settings.spacing.spacingScale` です。`spacingSizes` と `spacingScale` の _両方_ を設定すると、`spacingSizes` の値のみが使用されます。またこのどちらかを設定すると常に、WordPress が提供するデフォルトのスペースサイズのセット全体が置き換えられます。
+
+<!-- 
+The default `spacingSizes` slugs provided by WordPress are: `20`, `30`, `40`, `50`, `60`, `70`, and `80`.
+ -->
+WordPress が提供するデフォルトの `spacingSizes` スラッグは、`20`, `30`, `40`, `50`, `60`, `70`, `80` です。
+
+<!-- 
+The new `defaultSpacingSizes` option gives control over showing default spacing sizes and preventing those defaults from being overridden.
+ -->
+新しい `defaultSpacingSizes` オプションを使用すると、デフォルトのスペースサイズを表示したり、デフォルトのスペースサイズが上書きされないように制御できます。
+
+<!-- 
+- When set to `true` it will show the default spacing sizes and prevent them from being overridden by the theme.
+- When set to `false` it will hide the default spacing sizes and allow the theme to use the default slugs.
+ -->
+- `true` に設定すると、デフォルトのスペースサイズが表示され、テーマによって上書きされるのを防ぎます。
+- `false` に設定すると、デフォルトのスペースサイズが非表示になり、テーマはデフォルトのスラッグを使用できます。
+
+<!-- 
+`defaultSpacingSizes` is `true` by default when switching to v3. This is to be consistent with how other `default*` options work such as `settings.color.defaultPalette`, but differs from the behavior in v2.
+ -->
+v3 に切り替えると、デフォルトで `defaultSpacingSizes` は `true` です。これは、`settings.color.defaultPalette` のような他の `default*` オプションの動作と一致しますが、v2 の動作とは異なります。
+
+<!-- 
+Additionally, in v3 both `spacingSizes` and `spacingScale` can be set at the same time. Presets defined in `spacingSizes` with slugs matching the generated presets from `spacingSizes` will override the generated ones.
+ -->
+さらに、v3では `spacingSizes` と `spacingScale` の両方を同時に設定できるようになりました。`spacingSizes` から生成されたプリセットとマッチするスラッグを持つ、`spacingSizes` 内で定義されたプリセットは、生成されたプリセットを上書きします。
+
+<!-- 
+To keep behavior similar to v2 with a v3 theme.json:
+* If you do not have any `spacingSizes` presets or `spacingScale` config defined, `defaultSpacingSizes` can be left out or set to `true`.
+* If you disabled default spacing sizes by setting `spacingScale` to `{ "steps": 0 }`, remove the `spacingScale` config and set `defaultSpacingSizes` to `false`.
+* If you defined only one of either `spacingScale` or `spacingSizes` for your presets, set `defaultSpacingSizes` to `false`.
+* If you defined both `spacingScale` and `spacingSizes`, remove the `spacingSizes` config _and_ set `defaultSpacingSizes` to `false`.
+ -->
+v3 の theme.json で v2 と同じ動作にするには、
+* もし `spacingSizes` プリセットを持たず、または `spacingScale` の設定を定義していなければ、`defaultSpacingSizes` を省略するか、`true` に設定してください。
+* もし `spacingScale` を `{ "steps": 0 }` に設定してデフォルトのスペースサイズを無効にしている場合は、 `spacingScale` の設定を削除して `defaultSpacingSizes` を `false` に設定してください。
+* プリセットに `spacingScale` または `spacingSizes` のどちらか一方しか定義していない場合は、 `defaultSpacingSizes` を `false` に設定してください。
+* もし `spacingScale` と `spacingSizes` の両方を定義している場合は、 `spacingSizes` の設定を削除し、_かつ_、`defaultSpacingSizes` を `false` に設定してください。
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/theme-json-reference/theme-json-migrations.md)
+

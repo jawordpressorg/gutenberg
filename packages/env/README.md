@@ -996,7 +996,7 @@ WordPress のインストールや開発環境で使用するプラグインや�
 
 <!--
 | Field          | Type           | Default                                | Description                                                                                                                      |
-| -------------- | -------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+|----------------|----------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | `"core"`       | `string\|null` | `null`                                 | The WordPress installation to use. If `null` is specified, `wp-env` will use the latest production release of WordPress.         |
 | `"phpVersion"` | `string\|null` | `null`                                 | The PHP version to use. If `null` is specified, `wp-env` will use the default version used with production release of WordPress. |
 | `"plugins"`    | `string[]`     | `[]`                                   | A list of plugins to install and activate in the environment.                                                                    |
@@ -1005,6 +1005,7 @@ WordPress のインストールや開発環境で使用するプラグインや�
 | `"testsPort"`  | `integer`      | `8889`                                 | The port number for the test site. You'll access the instance through the port: 'http://localhost:8889'.                         |
 | `"config"`     | `Object`       | See below.                             | Mapping of wp-config.php constants to their desired values.                                                                      |
 | `"mappings"`   | `Object`       | `"{}"`                                 | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                                   |
+| `"mysqlPort"`  | `integer`      | `null` (randomly assigned)             | The MySQL port number to expose. The setting is only available in the `env.development` and `env.tests` objects.                 |
  -->
 | フィールド      | タイプ         | デフォルト                                   | 説明                                                                                                               |
 | ------------- | ------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
@@ -1016,6 +1017,7 @@ WordPress のインストールや開発環境で使用するプラグインや�
 | `"testsPort"`  | `integer`      | `8889`                                 | テストサイトのポート番号。インスタンスにはこのポート、'http://localhost:8889' でアクセスできる                         |
 | `"config"`    | `Object`      | 以下を参照                                    | wp-config.php の定数とその値のマッピング                                                               |
 | `"mappings"`  | `Object`       | `"{}"`                                     | WordPress インスタンス内にマウントされるローカルディレクトリと WordPress ディレクトリのマッピング                                      |
+| `"mysqlPort"`  | `integer`      | `null` (ランダムに割り当て)             | MySQL ポート番号。設定は `env.development` と `env.tests` オブジェクト内でのみ可能                 |
 
 <!--
 _Note: the port number environment variables (`WP_ENV_PORT` and `WP_ENV_TESTS_PORT`) take precedent over the .wp-env.json values._
@@ -1068,7 +1070,8 @@ Additionally, the key `env` is available to override any of the above options on
 			"config": {
 				"KEY_1": false
 			},
-			"port": 3000
+			"port": 3000,
+			"mysqlPort": 13306
 		}
 	}
 }
@@ -1348,7 +1351,13 @@ You can tell `wp-env` to use a custom port number so that your instance does not
 	}
 }
 ```
+<<<<<<< HEAD
 <!--
+=======
+
+These can also be set via the environment variables `WP_ENV_PORT`, `WP_ENV_TESTS_PORT`, `WP_ENV_MYSQL_PORT` and `WP_ENV_TESTS_MYSQL_PORT`.
+
+>>>>>>> upstream/trunk
 ### Specific PHP Version
  -->
 ### PHP バージョンの指定

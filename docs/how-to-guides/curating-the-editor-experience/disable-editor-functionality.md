@@ -149,4 +149,34 @@ This code prevents all users from accessing the Code Editor. You could also add 
  -->
 このコードはすべてのユーザーの、コードエディターへのアクセスを抑止します。必要であれば[権限](https://wordpress.org/documentation/article/roles-and-capabilities/)のチェックを追加して、特定のユーザーのアクセスを抑止できます。
 
+<!-- 
+## Disable formatting options for RichText blocks
+ -->
+## RichText ブロックのフォーマットオプションの無効化
+
+<!-- 
+Blocks that support [RichText](https://developer.wordpress.org/block-editor/reference-guides/richtext/) come with the default formatting options provided by WordPress.
+ -->
+[RichText](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/richtext/) をサポートするブロックには、WordPress がデフォルトで提供するフォーマットオプションが付いていきます。
+
+<!-- 
+Formatting options need to be disabled with JavaScript using `unregisterFormatType`. The code below will globally disable the Inline Image, Language, Keyboard Input, Subscript, and Superscript options.
+ -->
+フォーマットオプションを無効にするには、JavaScriptで `unregisterFormatType` を使用する必要があります。以下のコードはグローバルに、Inline Image、Language、Keyboard Input、Subscript、Superscript オプションを無効にします。
+
+```js
+wp.domReady( () => {
+	wp.richText.unregisterFormatType( 'core/image' );
+	wp.richText.unregisterFormatType( 'core/language' );
+	wp.richText.unregisterFormatType( 'core/keyboard' );
+	wp.richText.unregisterFormatType( 'core/subscript' );
+	wp.richText.unregisterFormatType( 'core/superscript' );
+});
+```
+
+<!-- 
+This JavaScript should be enqueued much like the block variation example above.
+ -->
+この JavaScript は、上のブロックバリエーションの例と同じようにエンキューする必要があります。
+
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/curating-the-editor-experience/disable-editor-functionality.md)

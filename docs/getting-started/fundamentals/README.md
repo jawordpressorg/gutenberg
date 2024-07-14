@@ -16,7 +16,7 @@ This section provides an introduction to the most relevant concepts in block dev
 1. **[The block in the Editor](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-in-the-editor):** How a block, as a React component, is loaded in the Block Editor and an overview of its structure.
 1. **[Markup representation of a block](https://developer.wordpress.org/block-editor/getting-started/fundamentals/markup-representation-block):** How blocks are represented in the database, theme templates, and patterns.
 1. **[Static or Dynamic rendering of a block](https://developer.wordpress.org/block-editor/getting-started/fundamentals/static-dynamic-rendering):** How blocks generate their front-end output either dynamically or statically.
-1. **[Javascript in the Block Editor](https://developer.wordpress.org/block-editor/getting-started/fundamentals/javascript-in-the-block-editor):** How to work with modern Javascript when developing for the Block Editor.
+**[JavaScript in the Block Editor](https://developer.wordpress.org/block-editor/getting-started/fundamentals/javascript-in-the-block-editor):** How to work with modern JavaScript when developing for the Block Editor.
  -->
 1. **[ブロックのファイル構造](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/file-structure-of-a-block):** ブロックのプラグインを構成する各ファイルの目的、ファイル間の関係、ブロックの出力における役割。
 1. **[block.json](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-json):** `block.json` メタデータを使用したブロックの定義方法と、このファイルに関連するいくつかのプロパティ (例: `attributes` や `supports`)。
@@ -28,8 +28,4 @@ This section provides an introduction to the most relevant concepts in block dev
 1. **[ブロックエディタでの JavaScript](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/javascript-in-the-block-editor):** ブロックエディター用の開発に際して、モダンな JavaScript を使用する方法。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/getting-started/fundamentals/README.md)
-
-
-
-
-
+ 

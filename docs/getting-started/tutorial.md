@@ -81,7 +81,7 @@ Copyright Date ブロックを作成する最初のステップは、[`@wordpres
 
 <!-- 
 <div class="callout callout-info">
-	Review the <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/">Get started with create-block</a> documentation for an introduction to using this package.
+	Review the <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with create-block</a> documentation for an introduction to using this package.
 </div>
  -->
 > このパッケージの使用方法については、[create-block 入門](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-create-block/) を参照してください。
@@ -312,7 +312,7 @@ Save the file and select the block in the Editor. You will now see both Color an
 #### 不要なコードの削除
 
 <!-- 
-For simplicity, the styling for the Copyright Date Block will be controlled entirely by the color and typography block supports. This block also does not have any front-end Javascript. Therefore, you don't need to specify stylesheets or a `viewScript` in the `block.json` file.
+For simplicity, the styling for the Copyright Date Block will be controlled entirely by the color and typography block supports. This block also does not have any front-end JavaScript. Therefore, you don't need to specify stylesheets or a `viewScript` in the `block.json` file.
  -->
 簡単のため、Copyright Date ブロックのすべてのスタイルは、ブロックサポートの `color` と `typography` で制御します。またこのブロックは、フロントエンドの JavaScript を持ちません。したがって `block.json` ファイル内で、スタイルシートや `viewScript` を指定する必要はありません。
 
@@ -1328,7 +1328,7 @@ You will see more of these errors as you update the `save()` function in subsequ
 以降のステップで `save()` 関数を更新するたびに、このエラーが繰り返し表示されます。「ブロックのリカバリーを試行」をクリックして、ページを更新してください。
 
 <!-- 
-After preforming block recovery, open the Code editor and you will see the markup now looks like this.
+After performing block recovery, open the Code editor and you will see the markup now looks like this.
  -->
 ブロックのリカバリーを実行した後、コードエディターを開くと、マークアップは以下のようになっています。
 

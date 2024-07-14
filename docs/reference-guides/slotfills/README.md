@@ -59,11 +59,11 @@ registerPlugin( 'post-status-info-test', { render: PluginPostStatusInfoTest } );
 <!--
 SlotFills are created using `createSlotFill`. This creates two components, `Slot` and `Fill` which are then used to create a new component that is exported on the `wp.plugins` global.
 
-**Definition of the `PluginPostStatusInfo` SlotFill** ([see core code](https://github.com/WordPress/gutenberg/blob/HEAD/packages/edit-post/src/components/sidebar/plugin-post-status-info/index.js#L54))
+**Definition of the `PluginPostStatusInfo` SlotFill** ([see core code](https://github.com/WordPress/gutenberg/blob/HEAD/packages/editor/src/components/plugin-post-status-info/index.js#L55))
  -->
 SlotFill は `createSlotFill` を使用して作成されます。`createSlotFill` は2つのコンポーネント `Slot` と `Fill` を作成し、これらを使用して `wp.plugins` グローバルにエクスポートされる新しいコンポーネントが作成されます。
 
-**`PluginPostStatusInfo` SlotFill の定義** ([コアのコード参照](https://github.com/WordPress/gutenberg/blob/HEAD/packages/edit-post/src/components/sidebar/plugin-post-status-info/index.js#L54))
+**`PluginPostStatusInfo` SlotFill の定義** ([コアのコード参照](https://github.com/WordPress/gutenberg/blob/HEAD/packages/editor/src/components/plugin-post-status-info/index.js#L55))
 
 ```js
 /**
@@ -91,41 +91,76 @@ export default PluginPostStatusInfo;
 This new Slot is then exposed in the editor. The example below is from core and represents the Summary panel.
 
 As we can see, the `<PluginPostStatusInfo.Slot>` is wrapping all of the items that will appear in the panel.
-Any items that have been added via the SlotFill ( see the example above ), will be included in the `fills` parameter and be displayed between the `<PostAuthor/>` and `<PostTrash/>` components.
+Any items that have been added via the SlotFill ( see the example above ), will be included in the `fills` parameter and be displayed in the end of the component.
 
-See [core code](https://github.com/WordPress/gutenberg/tree/HEAD/packages/edit-post/src/components/sidebar/post-status/index.js#L26).
+See [core code](https://github.com/WordPress/gutenberg/tree/HEAD/packages/editor/src/components/sidebar/post-summary.js#L39).
  -->
-
 次にこの新しい Slot はエディター内で外部に公開されます。以下の例はコアのもので「Summary (概要)」パネルを表します。
 
-見て分かるように `<PluginPostStatusInfo.Slot>` はパネルに表示されるすべての項目をラップします。SlotFill 経由で追加されたすべての項目 (上の例参照) は、`fills` パラメータに含まれ、`<PostAuthor/>` と `<PostTrash/>` コンポーネントの間に表示されます。
+見て分かるように `<PluginPostStatusInfo.Slot>` はパネルに表示されるすべての項目をラップします。SlotFill 経由で追加されたすべての項目 (上の例参照) は、`fills` パラメータに含まれ、コンポーネントの最後に表示されます。
 
-[コアのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/edit-post/src/components/sidebar/post-status/index.js#L26)を参照してください。
+[コアのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/editor/src/components/sidebar/post-summary.js#L39)を参照してください。
 
 ```js
-const PostStatus = ( { isOpened, onTogglePanel } ) => (
-	<PanelBody
-		className="edit-post-post-status"
-		title={ __( 'Summary' ) }
-		opened={ isOpened }
-		onToggle={ onTogglePanel }
-	>
-		<PluginPostStatusInfo.Slot>
-			{ ( fills ) => (
-				<>
-					<PostVisibility />
-					<PostSchedule />
-					<PostFormat />
-					<PostSticky />
-					<PostPendingStatus />
-					<PostAuthor />
-					{ fills }
-					<PostTrash />
-				</>
-			) }
-		</PluginPostStatusInfo.Slot>
-	</PanelBody>
-);
+export default function PostSummary( { onActionPerformed } ) {
+	const { isRemovedPostStatusPanel } = useSelect( ( select ) => {
+		// We use isEditorPanelRemoved to hide the panel if it was programmatically removed. We do
+		// not use isEditorPanelEnabled since this panel should not be disabled through the UI.
+		const { isEditorPanelRemoved, getCurrentPostType } =
+			select( editorStore );
+		return {
+			isRemovedPostStatusPanel: isEditorPanelRemoved( PANEL_NAME ),
+			postType: getCurrentPostType(),
+		};
+	}, [] );
+
+	return (
+		<PostPanelSection className="editor-post-summary">
+			<PluginPostStatusInfo.Slot>
+				{ ( fills ) => (
+					<>
+						<VStack spacing={ 4 }>
+							<PostCardPanel
+								actions={
+									<PostActions
+										onActionPerformed={ onActionPerformed }
+									/>
+								}
+							/>
+							<PostFeaturedImagePanel withPanelBody={ false } />
+							<PostExcerptPanel />
+							<VStack spacing={ 1 }>
+								<PostContentInformation />
+								<PostLastEditedPanel />
+							</VStack>
+							{ ! isRemovedPostStatusPanel && (
+								<VStack spacing={ 2 }>
+									<VStack spacing={ 1 }>
+										<PostStatusPanel />
+										<PostSchedulePanel />
+										<PostURLPanel />
+										<PostAuthorPanel />
+										<PostTemplatePanel />
+										<PostDiscussionPanel />
+										<PageAttributesPanel />
+										<PostSyncStatus />
+										<BlogTitle />
+										<PostsPerPage />
+										<SiteDiscussion />
+										<PostFormatPanel />
+										<PostStickyPanel />
+									</VStack>
+									<TemplateAreas />
+									{ fills }
+								</VStack>
+							) }
+						</VStack>
+					</>
+				) }
+			</PluginPostStatusInfo.Slot>
+		</PostPanelSection>
+	);
+}
 ```
 <!--
 ## Currently available SlotFills and examples

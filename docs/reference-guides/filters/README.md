@@ -8,18 +8,22 @@
 
 There are two types of hooks: [Actions](https://developer.wordpress.org/plugins/hooks/actions/) and [Filters](https://developer.wordpress.org/plugins/hooks/filters/). In addition to PHP actions and filters, WordPress also provides a mechanism for registering and executing hooks in JavaScript. This functionality is also available on npm as the [@wordpress/hooks](https://www.npmjs.com/package/@wordpress/hooks) package, for general purpose use.
 
-You can also learn more about both APIs: [PHP](https://codex.wordpress.org/Plugin_API/) and [JavaScript](/packages/hooks/README.md).
+You can also learn more about both APIs: [PHP](https://developer.wordpress.org/reference/) and [JavaScript](/packages/hooks/README.md).
  -->
 
 [フック](https://developer.wordpress.org/plugins/hooks/)とは、あるコードが別のコードと通信したり、別のコードを変更する方法です。プラグインやテーマはフックを使用してエディターと通信します。WordPress コア自身も広範囲でフックを利用しています。
 
 フックには、[アクション](https://developer.wordpress.org/plugins/hooks/actions/) と [フィルター](https://developer.wordpress.org/plugins/hooks/filters/) の2種類があります。WordPress ではフックの登録と実行を PHP だけでなく、JavaScript からも実行できる手段を提供します。またこの機能は npm でも [@wordpress/hooks](https://www.npmjs.com/package/@wordpress/hooks) パッケージとして汎用的に利用できます。
 
-両方の API の詳細については [PHP](https://codex.wordpress.org/Plugin_API/) と [JavaScript](https://developer.wordpress.org/block-editor/packages/packages-hooks/) を参照してください。
+両方の API の詳細については [PHP](https://developer.wordpress.org/reference/) と [JavaScript](https://developer.wordpress.org/block-editor/packages/packages-hooks/) を参照してください。
 
 ## 目次
 
 - [Block Filters](https://developer.wordpress.org/block-editor/developers/filters/block-filters/)
-- [Editor Filters (Experimental)](https://developer.wordpress.org/block-editor/developers/filters/editor-filters/)
+- [Editor Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/)
+- [i18n Filters](https://developer.wordpress.org/block-editor/reference-guides/filters/i18n-filters/)
 - [Parser Filters](https://developer.wordpress.org/block-editor/developers/filters/parser-filters/)
 - [Autocomplete](https://developer.wordpress.org/block-editor/developers/filters/autocomplete-filters/)
+- [Global Styles Filters](https://developer.wordpress.org/block-editor/reference-guides/filters/global-styles-filters/)
+
+[原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/README.md)

@@ -251,9 +251,9 @@ When saving your block, you want to save the attributes in the same format speci
 ## 例
 
 <!--
-Here are a couple examples of using attributes, edit, and save all together. For a full working example, see the [Introducing Attributes and Editable Fields](/docs/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields.md) section of the Block Tutorial.
+Here are a couple examples of using attributes, edit, and save all together.
  -->
-属性、`edit`、`save` を一緒に使用する例をいくつか挙げます。完全に動作するサンプルはブロックのチュートリアルの「[属性と編集可能フィールド](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/)」
+属性、`edit`、`save` を一緒に使用する例をいくつか挙げます。
 
 <!--
 ### Saving Attributes to Child Elements

@@ -249,6 +249,7 @@ Settings related to spacing.
 | padding | boolean | false |  |
 | units | array | px,em,rem,vh,vw,% |  |
 | customSpacingSize | boolean | true |  |
+| defaultSpacingSizes | boolean | true |  |
 | spacingSizes | array |  | name, size, slug |
 | spacingScale | object |  |  |
 
@@ -310,6 +311,21 @@ Settings related to behaviors.
 -->
 ## styles
 
+
+### background
+<!-- 
+Background styles.
+ -->
+背景のスタイル。
+
+| Property  | Type   |  Props  |
+| ---       | ---    |---   |
+| backgroundImage | string, object |  |
+| backgroundPosition | string, object |  |
+| backgroundRepeat | string, object |  |
+| backgroundSize | string, object |  |
+
+---
 
 ### border
 
