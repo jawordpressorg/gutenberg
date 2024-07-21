@@ -14,7 +14,6 @@ Performance is a key feature for editor applications and the Block editor is not
 ## 指標
 
 <!--
-To ensure the block editor stays performant across releases and development, we monitor some key metrics using [performance testing](/docs/contributors/code/testing-overview.md#performance-testing).
 To ensure the block editor stays performant across releases and development, we monitor some key metrics using [performance benchmark job](#the-performance-benchmark-job).
  -->
 リリースと開発サイクルの中でブロックエディターのパフォーマンスを維持するため、後述する「パフォーマンスベンチマークジョブ」を実行して、いくつかの重要な指標を監視しています。
@@ -29,7 +28,7 @@ Some of the main important metrics are:
 - **Typing Time:** The time it takes for the browser to respond while typing on the editor.
 - **Block Selection Time:** The time it takes for the browser to respond after a user selects block. (Inserting a block is also equivalent to selecting a block. Monitoring the selection is sufficient to cover both metrics).
  -->
-- **ロード時間:** エディターページの読み込み時間。これにはサーバーが応答するまでの時間、最初の描画までの時間 (FP)、最初の DOM コンテンツの描画 (FCP)、DOM コンテンツのロード完了、ロード完了、最初のブロックレンダリングが含まれます (投稿とサイトの両方)。
+- **ロード時間:** エディターページの読み込み時間。これにはサーバーが応答するまでの時間、最初の描画までの時間 (FP)、最初の DOM コンテンツの描画 (FCP)、DOM コンテンツのロード完了、ロード完了、最初のブロックのレンダーが含まれます (投稿とサイトの両方)。
 - **タイプ時間:** エディター上で文字を入力した際にブラウザが応答するまでの時間
 - **ブロックの選択時間：** ユーザーがブロックを選択してから、ブラウザが反応するまでの時間。ちなみにブロックの挿入はブロックの選択と同等のため、ブロックの選択時間を監視することで両方の指標をカバーできます。
 
@@ -84,7 +83,7 @@ A tool to compare performance across multiple branches/tags/commits is provided.
 <!-- 
 To get the most accurate results, it's is important to use the exact same version of the tests and environment (theme...) when running the tests, the only thing that need to be different between the branches is the Gutenberg plugin version (or branch used to build the plugin).
  -->
-最も正確な結果を得るには、テストを実行する際に、まったく同じバージョンのテストとテーマなどの環境を使用することが重要です。ブランチ間で異なるのは、Gutenberg プラグインのバージョン (または、プラグインのビルドに使用するブランチ) だけであるべきです。
+最も正確な結果を得るには、テストを実行する際に、まったく同じバージョンのテストと環境 (テーマ等) を使用することが重要です。ブラVンチ間で異なるのは、Gutenberg プラグインのバージョン (または、プラグインのビルドに使用するブランチ) だけであるべきです。
 
 <!-- 
 To achieve that the command first prepares the following folder structure:
@@ -145,28 +144,59 @@ Once all the test suites are executed, a summary report is printed.
  -->
 すべてのテストスイートの実行が完了すると、サマリーレポートが出力されます。
 
+<!-- 
 ## Tracking performance using CodeVitals.
+ -->
+## CodeVitals を使用したパフォーマンスの追跡
 
+<!-- 
 The performance results for each commit are pushed to codevitals and can be seen on the [Gutenberg dashboard there](https://www.codevitals.run/project/gutenberg). The graphs allow us to track the evolution of a given metric over time.
+ -->
+各コミットのパフォーマンス結果は codevitals にプッシュされ、[Gutenberg ダッシュボード](https://www.codevitals.run/project/gutenberg)で参照できます。表示されるグラフから、ある指標の時間的な変化を追跡できます。
 
+<!-- 
 It's thus very important to ensure that the metric being computed is stable. Meaning, if you run the same test twice with the same code and environment, you'll get results that are close.
+ -->
+したがって、計算される指標の安定性の確認は非常に重要です。つまり、同じコードと同じ環境で同じテストを2回実行すれば、近い結果が得られる必要があります。
 
+<!-- 
 Our performance job runs GitHub CI which means that we can't trust the consistency of the numbers that we get between two similar job runs. GitHub CI may allocate different CPU and memory resources for us over time for instance. To alleviate this problem, each time we run the performance job on the trunk branch, we compare the current commit's performance to a fixed reference commit hash, which allows us to track the relative difference between the current commit and the reference commit consistently regardless of environment changes.
+ -->
+私たちのパフォーマンスジョブは GitHub CI を実行しているため、同じジョブを2回実行したときに得られる数値の一貫性を信頼できません。GitHub CI は、例えば時間の経過とともに異なる CPU やメモリリソースを割り当てるためです。この問題の軽減のため、trunk ブランチでパフォーマンスジョブを実行するたびに、現在のコミットのパフォーマンスを固定した参照コミットハッシュと比較します。これにより、環境の変化によらず、現在のコミットと参照コミットの相対的な差を一貫して追跡できます。
 
+<!-- 
 ### Update the reference commit
+ -->
+### 参照コミットの更新
 
+<!-- 
 Gutenberg supports only two WP versions, this impacts the performance job in two ways:
+ -->
+Gutenberg は2つの WordPress バージョンしかサポートしていないため、以下の2点でパフォーマンスジョブに影響を与えます。
 
+<!-- 
  - The base WP version used to run the performance job needs to be updated, when the minimum version supported by Gutenberg changes. In order to do that, we rely on the `Tested up to` flag of the plugin's `readme.txt` file. So each time that flag is changed, the version used for the performance job is changed as well.
-
  - Updating the WP version used for performance jobs means that there's a high chance that the reference commit used for performance test stability becomes incompatible with the WP version that is used. So every time, the `Tested up to` flag is updated in the `readme.txt` is changed, we also have to update the reference commit that is used in `.github/workflows/performance.yml`.
+ -->
+- パフォーマンスジョブの実行に使用されるベースの WordPress バージョンは、Gutenberg がサポートする最小バージョンが変更されたときに更新する必要があります。ここではプラグインの `readme.txt` ファイルの `Tested up to` フラグに依存します。このフラグが変更されるたびに、パフォーマンスジョブに使用するバージョンも変更されます。
+ - パフォーマンスジョブに使用される WordPress のバージョンを更新すると、パフォーマンステストの安定性のために使用される参照コミットと WordPress のバージョンとで互換性がなくなる可能性が高くなります。そのため、`readme.txt` の `Tested up to` フラグが更新されるたびに、`.github/workflows/performance.yml` で使用される参照コミットも更新する必要があります。
 
+<!-- 
 The new reference commit hash that is chosen needs to meet the following requirements:
+ -->
+選択する新しい参照コミットハッシュは、以下の要件を満たす必要があります。
 
+<!-- 
  - Be compatible with the new WP version used in the "Tested up to" flag.
  - Is already tracked on "codevitals.run" for all existing metrics.
+ -->
+- "Tested up to" フラグで使用されている新しい WordPress バージョンと互換性があること
+ - 既存のすべてのメ指標について、"codevitals.run" で追跡済みであること
 
+<!-- 
 **A simple way to choose commit is to pick a very recent commit on trunk with a passing performance job.**
+ -->
+**コミットを選択する簡単な方法は、trunk 上の最近のコミットで、パフォーマンスジョブに合格したものを選ぶことです。**
 
 <!--
 ## Going further

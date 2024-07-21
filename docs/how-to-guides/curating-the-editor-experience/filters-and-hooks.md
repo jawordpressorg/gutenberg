@@ -6,19 +6,36 @@
 <!-- 
 The Editor provides numerous filters and hooks that allow you to modify the editing experience. Here are a few.
  -->
-エディターには編集体験を変更するフィルターやフックが多数用意されています。以下にその一部を紹介します。
+エディターには編集体験を変更する、多くのフィルターやフックが用意されています。以下にその一部を紹介します。
 
+<!-- 
 ## Editor settings
+ -->
+## エディターの設定
 
+<!-- 
 One of the most common ways to modify the Editor is through the [`block_editor_settings_all`](https://developer.wordpress.org/reference/hooks/block_editor_settings_all/) PHP filter, which is applied before settings are sent to the initialized Editor. 
+ -->
+エディターを変更する最も一般的な方法の1つが [`block_editor_settings_all`](https://developer.wordpress.org/reference/hooks/block_editor_settings_all/) PHP フィルターです。このフィルターは初期化されたエディターに設定が送られる前に適用されます。
 
+<!-- 
 The `block_editor_settings_all` hook passes two parameters to the callback function:
+ -->
+`block_editor_settings_all` フックはコールバック関数に2つのパラメータを渡します。
 
+<!-- 
 - `$settings` – An array of [configurable settings](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#editor-settings) for the Editor.
 - `$context` – An instance of [`WP_Block_Editor_Context`](https://developer.wordpress.org/reference/classes/wp_block_editor_context/), an object that contains information about the current Editor.
+ -->
+- `$settings` - エディターの [構成可能な設定](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#editor-settings) の配列。
+- `$context` - [`WP_Block_Editor_Context`](https://developer.wordpress.org/reference/classes/wp_block_editor_context/) のインスタンスで、現在のエディターに関する情報を含むオブジェクト。
 
+<!-- 
 The following example disables the Code Editor for users who cannot activate plugins (Administrators). Add this to a plugin or your theme's `functions.php` file to test it.
+ -->
+次の例では、プラグインを有効化できないユーザー (管理者) に対してコードエディターを無効にします。これをプラグインまたはテーマの `functions.php` ファイル内に追加してテストしてください。
 
+<!-- 
 ```php
 add_filter( 'block_editor_settings_all', 'example_restrict_code_editor' );
 
@@ -33,13 +50,37 @@ function example_restrict_code_editor( $settings ) {
 	return $settings;
 }
 ```
+ -->
+```php
+add_filter( 'block_editor_settings_all', 'example_restrict_code_editor' );
 
+function example_restrict_code_editor( $settings ) {
+	$can_active_plugins = current_user_can( 'activate_plugins' );
+
+	// プラグインを有効化できないユーザー (管理者) に対してコードエディターを無効化する
+	if ( ! $can_active_plugins ) {
+		$settings[ 'codeEditingEnabled' ] = false;
+	}
+
+	return $settings;
+}
+```
+
+<!-- 
 For more examples, check out the [Editor Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/) documentation that includes the following use cases: 
+ -->
+その他の例については、以下のユースケースを含む[Editor Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/)ドキュメントをチェックしてください。
 
+<!-- 
 - [Set a default image size](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#set-a-default-image-size)
 - [Disable Openverse](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-openverse)
 - [Disable the Font Library](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-the-font-library)
 - [Disable block inspector tabs](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-block-inspector-tabs)
+ -->
+- [デフォルトの画像サイズを設定する](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#set-a-default-image-size)
+- [Openverse の無効化](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-openverse)
+- [フォントライブラリの無効化](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-the-font-library)
+- [ブロックインスペクタータブの無効化](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-block-inspector-tabs)
 
 <!-- 
 ## Server-side theme.json filters
@@ -257,20 +298,42 @@ addFilter(
 );
 ```
 
+<!-- 
 ## Block Filters
+ -->
+## ブロックフィルター
 
+<!-- 
 Beyond curating the Editor itself, there are many ways that you can modify individual blocks. Perhaps you want to disable particular block supports like background color or define which settings should be displayed by default on specific blocks.
+ -->
+エディターそのもののカスタマイズだけでなく、個々のブロックを変更する方法も数多くあります。例えば、特定のブロックの背景色などのサポートを無効化したり、デフォルトで表示される設定を定義できます。
 
+<!-- 
 One of the most commonly used filters is [`block_type_metadata`](https://developer.wordpress.org/reference/hooks/block_type_metadata/). It allows you to filter the raw metadata loaded from a block's `block.json` file when a block type is registered on the server with PHP. 
+ -->
+最もよく使われるフィルターの1つが [`block_type_metadata`](https://developer.wordpress.org/reference/hooks/block_type_metadata/) です。サーバー上で PHP でブロックタイプを登録する際に、ブロックの `block.json` ファイルから読み込まれた生のメタデータをフィルタリングできます。
 
+<!-- 
 The filter takes one parameter:
+ -->
+フィルターは1つのパラメーターを取ります。
 
+<!-- 
 - `$metadata` (`array`) – metadata loaded from `block.json` for registering a block type.
+ -->
+- `$metadata` (`array`) – 登録するブロックタイプの `block.json` から読み込まれるメタデータ
 
+<!-- 
 The `$metadata` array contains everything you might want to know about a block, from its description and [attributes](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/) to block [supports](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/). 
+ -->
+`metadata` 配列にはブロックの説明や[属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/)からブロックの[サポート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/)まで、ブロックに関するあらゆる情報が含まれています。
 
+<!-- 
 In the following example, background color and gradient support are disabled for Heading blocks.
+ -->
+以下の例では、見出しブロックの背景色とグラデーションのサポートを無効化します。
 
+<!-- 
 ```php
 function example_disable_heading_background_color_and_gradients( $metadata ) {
 
@@ -291,8 +354,32 @@ function example_disable_heading_background_color_and_gradients( $metadata ) {
 }
 add_filter( 'block_type_metadata', 'example_disable_heading_background_color_and_gradients' );
 ```
+ -->
+```php
+function example_disable_heading_background_color_and_gradients( $metadata ) {
 
+    // フィルターは見出しブロックのみに適用
+    if ( ! isset( $metadata['name'] ) || 'core/heading' !== $metadata['name'] ) {
+        return $metadata;
+    }
+
+    // 'supports' キーの存在を確認
+    if ( isset( $metadata['supports'] ) && isset( $metadata['supports']['color'] ) ) {
+
+        // 背景色とグラデーションサポートを削除
+        $metadata['supports']['color']['background'] = false;
+        $metadata['supports']['color']['gradients']  = false;
+    }
+
+    return $metadata;
+}
+add_filter( 'block_type_metadata', 'example_disable_heading_background_color_and_gradients' );
+```
+
+<!-- 
 You can learn more about the available block filters in the [Block Filters](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/) documentation.
+ -->
+利用可能なブロックフィルターの詳細については、[ブロックフィルター](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/) ドキュメントを参照してください。
 
 <!-- 
 ## Additional resources

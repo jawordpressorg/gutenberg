@@ -307,17 +307,27 @@ The `ancestor` property makes a block available inside the specified block types
 
 ### Allowed Blocks
 
+<!-- 
 -   Type: `string[]`
 -   Optional
 -   Localized: No
 -   Property: `allowedBlocks`
+-   Since: `WordPress 6.5.0`
+ -->
+-   型: `string[]`
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `allowedBlocks`
 -   Since: `WordPress 6.5.0`
 
 ```json
 { "allowedBlocks": [ "my-block/product" ] }
 ```
 
+<!-- 
 The `allowedBlocks` specifies which block types can be the direct children of the block. For example, a ‘List’ block can allow only ‘List Item’ blocks as children.
+ -->
+`allowedBlocks` は、あるブロックの直接の子にできるブロックタイプを指定します。例えばリストブロックは、リスト項目ブロックのみを子として許可します。
 
 ### Icon
 
@@ -830,7 +840,7 @@ The key is the name of the block (`string`) to hook into, and the value is the p
 <!--
 Block type editor scripts definition. They will only be enqueued in the context of the editor.
  -->
-ブロックタイプエディタースクリプト定義。エディターのコンテキスト内でのみエンキューされます。
+ブロックタイプのエディタースクリプト定義。エディターのコンテキスト内でのみエンキューされます。
 
 <!-- 
 It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
@@ -911,23 +921,42 @@ _注意: ビュースクリプトの配列を渡すオプションもありま�
 
 ### View script module
 
+<!-- 
 -   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScriptModule`
 -   Since: `WordPress 6.5.0`
+ -->
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `viewScriptModule`
+-   Since: `WordPress 6.5.0`
 
 ```json
 { "viewScriptModule": [ "file:./view.js", "example-shared-script-module-id" ] }
 ```
-
+<!-- 
 Block type frontend script module definition. They will be enqueued only when viewing the content on the front of the site.
+ -->
+ブロックタイプのフロントエンドスクリプトモジュール定義。サイトのフロントでコンテンツを表示するときにのみエンキューされます。
 
+<!-- 
 It's possible to pass a script module ID registered with the [`wp_register_script_module`](https://developer.wordpress.org/reference/functions/wp_register_script_module/) function, a path to a JavaScript module relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_script_module`](https://developer.wordpress.org/reference/functions/wp_register_script_module/) 関数で登録したスクリプトモジュール ID 、`block.json`ファイルからの相対パスによる JavaScript モジュール、またはその両方を合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
 
+<!-- 
 WordPress scripts and WordPress script modules are not compatible at the moment. If frontend view assets depend on WordPress scripts, `viewScript` should be used. If they depend on WordPress script modules —the Interactivity API at this time— `viewScriptModule` should be used. [More functionality](https://core.trac.wordpress.org/ticket/60647) will gradually become available to Script Modules.
+ -->
+現時点では、WordPress スクリプトと WordPress スクリプトモジュールに互換性はありません。もしフロントエンドのビューアセットが WordPress スクリプトに依存しているなら、`viewScript` を使用してください。もし WordPress のスクリプトモジュール (現時点では Inteeractivity API) に依存しているなら、`viewScriptModule` を使用してください。スクリプトモジュールで[より多くの機能](https://core.trac.wordpress.org/ticket/60647) が徐々に利用可能になる予定です。
 
+<!-- 
 _Note: Available since WordPress `6.5.0`._
+ -->
+_注意: WordPress `6.5.0` 以降で利用可能。_
+
 
 ### Editor style
 
@@ -949,12 +978,12 @@ _Note: Available since WordPress `6.5.0`._
 <!--
 Block type editor styles definition. They will only be enqueued in the context of the editor.
  -->
-ブロックタイプエディタースタイル定義。エディターのコンテキスト内でのみエンキューされます。
+ブロックタイプのエディタースタイル定義。エディターのコンテキスト内でのみエンキューされます。
 
 <!-- 
 It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
  -->
-渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録されたスクリプトハンドル、`block.json` ファイルからの JavaScript ファイルへの相対パス、または2つを混ぜ合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
+渡せるものは、[`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) 関数で登録したスクリプトハンドル、`block.json` ファイルからの相対パスによる JavaScript ファイル、またはその両方を合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
 
 <!-- 
 _Note: An option to pass also an array of editor styles exists since WordPress `5.9.0`._
@@ -995,21 +1024,37 @@ _注意: スタイルの配列を渡すオプションもあります。 WordPre
 
 ### View Style
 
+<!-- 
 -   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewStyle`
+-   Since: `WordPress 6.5.0`
+ -->
+-   型: `WPDefinedAsset`|`WPDefinedAsset[]` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))
+-   オプション
+-   ローカライズ: 不可
+-   プロパティ: `viewStyle`
 -   Since: `WordPress 6.5.0`
 
 ```json
 { "viewStyle": [ "file:./view.css", "example-view-style" ] }
 ```
 
+<!-- 
 Block type frontend styles definition. They will be enqueued only when viewing the content on the front of the site.
+ -->
+ブロックタイプのフロントエンドスタイル定義。サイトのフロントでコンテンツを表示するときにのみエンキューされます。
 
+<!-- 
 It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+ -->
+渡せるものは、[`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) 関数で登録したスタイルハンドル、`block.json` ファイルからの相対パスによる CSS ファイル、またはその両方を合わせたリストです ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset))。
 
+<!-- 
 Frontend-only styles are especially useful for interactive blocks, to style parts that will only be visible after a user performs some action and where those styles will never be needed in the editor. You can start with using the `style` property to put all your common styles in one stylesheet. Only when you need editor-specific styling or frontend-specific styling, you can expand to `editorStyle` and `viewStyle`, but still keep the common part of your styling in the main stylesheet.
+ -->
+フロントエンドのみのスタイルは、特に Interactive ブロックに便利です。エディターでスタイルが必要のない、ユーザーが何らかのアクションを実行した後にのみ表示される部分にスタイルを適用できます。これにはまず `style` プロパティを使用して、共通スタイルを1つのスタイルシートにまとめます。そしてエディター固有のスタイル、フロントエンド固有のスタイルが必要になったときのみ、`editorStyle` や `viewStyle` で拡張します。このときスタイルの共通部分は引き続きメインのスタイルシートで保持されます。
 
 ### Render
 <!-- 
