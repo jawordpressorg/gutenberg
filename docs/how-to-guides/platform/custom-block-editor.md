@@ -542,11 +542,11 @@ function Editor( { settings } ) {
 }
 ```
 <!-- 
-In this process, the core of the editor's layout is being scaffolded, along with a few specialized [context providers](https://reactjs.org/docs/context.html#contextprovider) that make specific functionality available throughout the component hierarchy.
+In this process, the core of the editor's layout is being scaffolded, along with a few specialized [context providers](https://react.dev/reference/react/createContext#provider) that make specific functionality available throughout the component hierarchy.
 
 Let's examine these in more detail:
  -->
-このプロセスでは、エディターのレイアウトの核となる部分を自動生成します。同時にいくつかの特殊な[コンテキストプロバイダー](https://reactjs.org/docs/context.html#contextprovider)も出力し、コンポーネントの階層全体で利用可能な特定の機能を作成します。
+このプロセスでは、エディターのレイアウトの核となる部分を自動生成します。同時にいくつかの特殊な[コンテキストプロバイダー](https://react.dev/reference/react/createContext#provider)も出力し、コンポーネントの階層全体で利用可能な特定の機能を作成します。
 
 詳しく見ていきます。
 

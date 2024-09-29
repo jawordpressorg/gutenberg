@@ -295,12 +295,14 @@ The [example block](https://github.com/WordPress/block-development-examples/tree
 <!-- 
 Any markup in the server-side render definition for the block can use the [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) function to generate the string of attributes required to reflect the block settings (see [example](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)).
  -->
+<!-- 
 ブロックのサーバー側レンダー定義にあるマークアップは [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) 関数を使用して、ブロックの設定を反映するために必要な属性の文字列を生成できます。[例](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)を参照してください。
+ -->
 
 <!-- 
-In dynamic blocks, where the font-end markup is rendered server-side, you can utilize the [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) function to output the necessary classes and attributes just like you would use `useBlockProps.save()` in the `save` function. (See [example](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11))
+In dynamic blocks, where the front-end markup is rendered server-side, you can utilize the [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) function to output the necessary classes and attributes just like you would use `useBlockProps.save()` in the `save` function. (See [example](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11))
  -->
-ダイナミックブロックでは、フォントエンドのマークアップはサーバーサイドでレンダーされます。`save` 関数で `useBlockProps.save()` を使用したのと同じように、[`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) 関数を利用して、必要なクラスと属性を出力できます。[例](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)を参照してください。
+ダイナミックブロックでは、フロントエンドのマークアップはサーバーサイドでレンダーされます。`save` 関数で `useBlockProps.save()` を使用したのと同じように、[`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) 関数を利用して、必要なクラスと属性を出力できます。[例](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11)を参照してください。
 
 ```php
 <p <?php echo get_block_wrapper_attributes(); ?>>

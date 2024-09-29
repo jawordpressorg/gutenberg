@@ -517,8 +517,7 @@ The callback passed as the reference receives [the event](https://developer.mozi
 ### `wp-on-async`
 
 <!-- 
-This directive is a more performant approach for `wp-on`. It immediately yields to main to avoid contributing to a long task, allowing other interactions that otherwise would be waiting on the main thread
-to run sooner. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`.
+This directive is a more performant approach for `wp-on`. It immediately yields to main to avoid contributing to a long task, allowing other interactions that otherwise would be waiting on the main thread to run sooner. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`.
  -->
 このディレクティブは `wp-on` よりもパフォーマンスに優れたアプローチです。直ちにメインスレッドに yield して、時間のかかるタスクの待ちを回避し、メインスレッドで待機している他の処理がより早く実行できるようにします。`event` オブジェクトに同期的にアクセスする必要がない場合、特に `event.preventDefault()`、`event.stopPropagation()`、`event.stopImmediatePropagation()` メソッドでは、この非同期バージョンを使用してください。
 
@@ -542,10 +541,9 @@ This directive allows you to attach global window events like `resize`, `copy`, 
 リンク: [サポートするウィンドウイベントのリスト](https://developer.mozilla.org/en-US/docs/Web/API/Window#events)
 
 <!-- 
-The syntax of this directive is `data-wp-on-window--[window-event]` (like `data-wp-on-window--resize`
-or `data-wp-on-window--languagechange`).
+The syntax of this directive is `data-wp-on-window--[window-event]` (like `data-wp-on-window--resize` or `data-wp-on-window--languagechange`).
  -->
-このディレクティブの構文は `data-wp-on-window--[window-event]` です (例: `data-wp-on-window--resize`、`data-wp-on-window--languagechange`)。
+このディレクティブの構文は `data-wp-on-window--[window-event]` です (`data-wp-on-window--resize` or `data-wp-on-window--languagechange`)。
 
 ```php
 <div data-wp-on-window--resize="callbacks.logWidth"></div>
@@ -600,8 +598,7 @@ This directive allows you to attach global document events like `scroll`, `mouse
 リンク: [サポートするドキュメントイベントのリスト](https://developer.mozilla.org/en-US/docs/Web/API/Document#events)
 
 <!-- 
-The syntax of this directive is `data-wp-on-document--[document-event]` (like `data-wp-on-document--keydown`
-or `data-wp-on-document--selectionchange`).
+The syntax of this directive is `data-wp-on-document--[document-event]` (like `data-wp-on-document--keydown` or `data-wp-on-document--selectionchange`).
  -->
 このディレクティブの構文は `data-wp-on-document--[document-event]` です (例: `data-wp-on-document--keydown`、`data-wp-on-document--selectionchange`)
 
@@ -1138,7 +1135,7 @@ Actions are just regular JavaScript functions. Usually triggered by the `data-wp
 // TypeScript
 const { state, actions } = store("myPlugin", {
   actions: {
-    selectItem: (id?: number) => {
+    selectItem: ( id ) => {
       const context = getContext();
       // ここで `id` はオプションです。したがってこのアクションはディレクティブでも使用できます。
       state.selected = id || context.id;
@@ -1237,9 +1234,9 @@ const { state } = store("myPlugin", {
 ```
 
 <!-- 
-As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is reqired whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`. To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. For example:
+As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`. To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. For example:
  -->
-`wp-on`、`wp-on-window`、`wp-on-document` でも触れたように、アクションが `event` オブジェクトへの同期アクセスを必要とするためにこれらのディレクティブの `async` バージョンを使用できない場合は、常に非同期アクションを使用する必要があります。アクションが `event.preventDefault()`、`event.stopPropagation()`、`event.stopImmediatePropagation()` を呼び出す必要がある場合は、常に同期アクセスが必要です。アクションのコードが時間のかかるタスクに寄与しないよう、同期イベント API の呼び出し後に、メインスレッドに手動で yield できます。例えば
+上の `wp-on`、`wp-on-window`、`wp-on-document` でも触れたように、アクションが `event` オブジェクトへの同期アクセスを必要とするためにこれらのディレクティブの `async` バージョンを使用できない場合は、常に非同期アクションを使用する必要があります。アクションが `event.preventDefault()`、`event.stopPropagation()`、`event.stopImmediatePropagation()` を呼び出す必要がある場合は、常に同期アクセスが必要です。アクションのコードが時間のかかるタスクに寄与しないよう、同期イベント API の呼び出し後に、メインスレッドに手動で yield できます。例えば
 
 ```js
 // 注意: WordPress 6.6では、この splitTask 関数は @wordpress/interactivity でエクスポートされます。
@@ -1413,7 +1410,7 @@ This approach enables some functionalities that make directives flexible and pow
 *各ブロックの `view.js` ファイルの中* で、開発者はステートと、ストアの要素の両方を定義できます。ストアの要素はアクション、副作用、派生ステートなどの関数を参照します。
 
 <!-- 
-The `store` method used to set the store in javascript can be imported from `@wordpress/interactivity`.
+The `store` method used to set the store in JavaScript can be imported from `@wordpress/interactivity`.
  -->
 JavaScript でストアを設定する `store` メソッドは、`@wordpress/interactivity` からインポートできます。
 
@@ -1538,9 +1535,17 @@ store 関数以外に、開発者が store 関数のデータにアクセスす�
 #### getContext()
 
 <!-- 
-Retrieves the context inherited by the element evaluating a function from the store. The returned value depends on the element and the namespace where the function calling `getContext()` exists.
+Retrieves the context inherited by the element evaluating a function from the store. The returned value depends on the element and the namespace where the function calling `getContext()` exists. It can also take an optional namespace argument to retrieve the context of a specific interactive region.
  -->
-関数を評価する要素が継承したコンテキストをストアから取得します。戻り値は要素と `getContext()` を呼び出した関数が存在する名前空間に依存します。
+関数を評価する要素が継承したコンテキストをストアから取得します。戻り値は要素と `getContext()` を呼び出した関数が存在する名前空間に依存します。オプションで名前空間を引数に取り、特定の interactive 領域のコンテキストを取得できます。
+
+```js
+const context = getContext('namespace');
+```
+<!-- 
+- `namespace` (optional): A string that matches the namespace of an interactive region. If not provided, it retrieves the context of the current interactive region.
+ -->
+- `namespace` (オプション): interactive 領域の名前空間と合致する文字列。指定がなければ、現行の interactive 領域のコンテキストを取得します。
 
 ```php
 // render.php
@@ -1559,6 +1564,11 @@ store( "myPlugin", {
       const context = getContext();
 			 // "false" をログ
       console.log('context => ', context.isOpen)
+
+      // With namespace argument.
+      const myPluginContext = getContext("myPlugin");
+      // Logs "false"
+      console.log('myPlugin isOpen => ', myPluginContext.isOpen);
     },
   },
 });
@@ -1600,7 +1610,7 @@ store( "myPlugin", {
   actions: {
     log: () => {
       const element = getElement();
-			 // attributes をログ
+			 // Logs attributes
       console.log('element attributes => ', element.attributes)
     },
   },
@@ -1657,7 +1667,13 @@ store('mySliderPlugin', {
 <!-- 
 The Interactivity API comes with handy functions on the PHP part. Apart from [setting the store via server](#on-the-server-side), there is also a function to get and set Interactivity related config variables.
  -->
+<!-- 
 Interactivity API には、便利な PHP の関数が用意されています。上の「サーバー側にて」で見たサーバーでのストアの設定以外に、インタラクティビティ関連の設定変数を取得、設定する関数があります。
+ -->
+<!-- 
+The Interactivity API comes with handy functions that allow you to initialize and reference configuration options on the server. This is necessary to feed the initial data that the Server Directive Processing will use to modify the HTML markup before it's send to the browser. It is also a great way to leverage many of WordPress's APIs, like nonces, AJAX, and translations.
+ -->
+Interactivity API には、サーバー上の構成オプションを初期化、参照するための便利な関数があります。これは Server Directive Processing に初期データを与えるために必要で、この初期データは、Server Directive Processing がブラウザに HTML マークアップを送信する前に、修正するために使用されます。また、nonce、AJAX、翻訳などの WordPress の多くの API を活用する素晴らしい手段が提供されます。
 
 ### wp_interactivity_config
 
@@ -1700,6 +1716,65 @@ This config can be retrieved on the client:
 // view.js
 
 const { showLikeButton } = getConfig();
+```
+
+### wp_interactivity_state
+
+<!-- 
+`wp_interactivity_state` allows the initialization of the global state on the server, which will be used to process the directives on the server and then will be merged with any global state defined in the client.
+ -->
+`wp_interactivity_state` を使用するとサーバー上でグローバルステートを初期化できます。このグローバルステートはサーバー上のディレクティブの処理に使用され、クライアントで定義されたグローバルステートとマージされます。
+
+<!-- 
+Initializing the global state on the server also allows you to use many critical WordPress APIs, including [AJAX](https://developer.wordpress.org/plugins/javascript/ajax/), or [nonces](https://developer.wordpress.org/plugins/javascript/enqueuing/#nonce).
+ -->
+また、サーバー上でグローバルステートを初期化することで、[AJAX](https://developer.wordpress.org/plugins/javascript/ajax/) や [nonces](https://developer.wordpress.org/plugins/javascript/enqueuing/#nonce) など多くの重要な WordPress API を使用できます。
+
+<!-- 
+The `wp_interactivity_state` function receives two arguments, a string with the namespace that will be used as a reference and an associative array containing the values.
+ -->
+関数 `wp_interactivity_state` は2つの引数を取ります。1つは参照として使用される名前空間の文字列で、もう1つは値を含む連想配列です。
+
+<!-- 
+Here is an example of passing the WP Admin AJAX endpoint with a nonce.
+ -->
+以下は、nonce と共に WP Admin AJAX エンドポイントを渡す例です。
+
+```php
+// render.php
+
+wp_interactivity_state(
+	'myPlugin',
+	array(
+		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+		'nonce'   => wp_create_nonce( 'myPlugin_nonce' ),
+	),
+);
+```
+
+```js
+// view.js
+
+const { state } = store( 'myPlugin', {
+	actions: {
+		*doSomething() {
+			try {
+				const formData = new FormData();
+				formData.append( 'action', 'do_something' );
+				formData.append( '_ajax_nonce', state.nonce );
+
+				const data = yield fetch( state.ajaxUrl, {
+					method: 'POST',
+					body: formData,
+				} ).then( ( response ) => response.json() );
+					console.log( 'Server data!', data );
+				} catch ( e ) {
+					// Something went wrong!
+				}
+			},
+		},
+	}
+);
 ```
 
 ### wp_interactivity_process_directives

@@ -44,9 +44,9 @@ We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nv
     **注意**: Windows 10 Home Edition に Docker をインストールするには、[install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/) に従ってください。
 
 <!--
-As an alternative to Docker setup, you can use [Local](https://localwp.com/), [WampServer](http://www.wampserver.com/en/), or [MAMP](https://www.mamp.info/), or even use a remote server.
+As an alternative to Docker setup, you can use [Local](https://localwp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/), or even use a remote server.
 -->
-Docker セットアップの代替としては、[Local](https://localwp.com/)、[WampServer](http://www.wampserver.com/en/)、[MAMP](https://www.mamp.info/)を利用できます。また、リモートサーバーでも構いません。
+Docker セットアップの代替としては、[Local](https://localwp.com/)、[WampServer](https://wampserver.aviatechno.net/)、[MAMP](https://www.mamp.info/)を利用できます。またはリモートサーバーでも構いません。
 
 
 <!-- -   GitHub CLI
@@ -278,9 +278,9 @@ If you run into an issue, check the [troubleshooting section in `wp-env` documen
 ### Local または MAMP の利用
 
 <!--
-As an alternative to Docker and `wp-env`, you can also use [Local](https://localwp.com/), [WampServer](http://www.wampserver.com/en/), or [MAMP](https://www.mamp.info/) to run a local WordPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `wp-content/plugins` directory.
+As an alternative to Docker and `wp-env`, you can also use [Local](https://localwp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/) to run a local WordPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `wp-content/plugins` directory.
 -->
-Docker と `wp-env` の代わりに、[Local](https://localwp.com/)、[WampServer](http://www.wampserver.com/en/)、または [MAMP](https://www.mamp.info/) を使用して、ローカルの WordPress 環境を実行できます。それには、Gutenberg のディレクトリにシンボリックリンクを作成するか、`wp-content/plugins` ディレクトリにコピーして、 通常のプラグインとしてインストールしてください。
+Docker と `wp-env` の代わりに、[Local](https://localwp.com/)、[WampServer](https://wampserver.aviatechno.net/)、または [MAMP](https://www.mamp.info/) を使用して、ローカルの WordPress 環境を実行できます。それには適切な `wp-content/plugins` に Gutenberg ディレクトリのシンボリックリンクを作成するかコピーして、通常のプラグインとしてインストールしてください。
 
 <!--
 You will also need some extra configuration to be able to run the e2e tests.

@@ -8,9 +8,19 @@
  */
 
 /**
-* Register custom fields.
+* Register custom fields and custom block bindings sources.
 */
-function gutenberg_test_block_bindings_register_custom_fields() {
+function gutenberg_test_block_bindings_registration() {
+	// Register custom block bindings sources.
+	register_block_bindings_source(
+		'core/server-source',
+		array(
+			'label'              => 'Server Source',
+			'get_value_callback' => function () {},
+		)
+	);
+
+	// Register custom fields.
 	register_meta(
 		'post',
 		'text_custom_field',
@@ -18,7 +28,7 @@ function gutenberg_test_block_bindings_register_custom_fields() {
 			'show_in_rest' => true,
 			'type'         => 'string',
 			'single'       => true,
-			'default'      => 'Value of the text_custom_field',
+			'default'      => 'Value of the text custom field',
 		)
 	);
 	register_meta(
@@ -29,6 +39,16 @@ function gutenberg_test_block_bindings_register_custom_fields() {
 			'type'         => 'string',
 			'single'       => true,
 			'default'      => '#url-custom-field',
+		)
+	);
+	register_meta(
+		'post',
+		'empty_field',
+		array(
+			'show_in_rest' => true,
+			'type'         => 'string',
+			'single'       => true,
+			'default'      => '',
 		)
 	);
 	register_meta(
@@ -51,4 +71,4 @@ function gutenberg_test_block_bindings_register_custom_fields() {
 		)
 	);
 }
-add_action( 'init', 'gutenberg_test_block_bindings_register_custom_fields' );
+add_action( 'init', 'gutenberg_test_block_bindings_registration' );

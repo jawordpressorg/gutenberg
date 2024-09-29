@@ -747,13 +747,14 @@ See the [Example documentation](/docs/reference-guides/block-api/block-registrat
 ### Variations
 
 <!-- 
--   Type: `object[]`
+-   Type: `object[]|WPDefinedPath` ([learn more](#wpdefinedpath))
 -   Optional
 -   Localized: Yes (`title`, `description`, and `keywords` of each variation only)
 -   Property: `variations`
 -   Since: `WordPress 5.9.0`
  -->
 - 型: `object[]`
+- 型: `object[]|WPDefinedPath` ([詳細](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-metadata/#wpdefinedpath))
 - オプション
 - ローカライズ: 可 (`title`, `description`, `keywords` それぞれのバリエーションのみ)
 - プロパティ: `variations`
@@ -780,13 +781,65 @@ See the [Example documentation](/docs/reference-guides/block-api/block-registrat
 Block Variations is the API that allows a block to have similar versions of it, but all these versions share some common functionality. Each block variation is differentiated from the others by setting some initial attributes or inner blocks. Then at the time when a block is inserted these attributes and/or inner blocks are applied.
 
 _Note: In JavaScript you can provide a function for the `isActive` property, and a React element for the `icon`. In the `block.json` file both only support strings_
-
-See [the variations documentation](/docs/reference-guides/block-api/block-variations.md) for more details.
  -->
 ブロックバリエーションは、あるブロックに類似のバージョンを持たせられる API ですが、これらのバージョンはすべて、共通の機能を共有します。各ブロックバリエーションは、いくつかの初期属性やインナーブロックの設定により、他のブロックと区別されます。ブロックを挿入すると、これらの属性やインナーブロックが適用されます。
 
 _注: JavaScriptでは、`isActive`プロパティに関数を、`icon` に React 要素を指定できます。`block.json` ファイルでは、どちらも文字列のみをサポートします。_
 
+<!-- 
+Starting with version 6.7, it is possible to specify a PHP file in `block.json` that generates the list of block variations on the server side:
+ -->
+Version 6.7からは `block.json` 内で PHP ファイルを指定して、サーバー側でブロックバリエーションのリストを生成できるようになりました。
+
+```json
+{ "variations": "file:./variations.php" }
+```
+
+<!-- 
+That PHP file is expected to `return` an array that contains the block variations. Strings found in the variations returned from the PHP file will not be localized automatically; instead, use the `__()` function as usual.
+ -->
+この PHP ファイルはブロックバリエーションを含む配列を `return` することを期待されています。PHP ファイルから返るバリエーション内の文字列は、自動的にローカライズされません。代わりにいつもの `__()` 関数を使用してください。
+
+<!-- 
+For example:
+ -->
+例:
+
+```php
+<?php
+// Generate variations for a Social Icon kind of block.
+
+return array(
+	array(
+		'isDefault'  => true,
+		'name'       => 'wordpress',
+		'title'      => 'WordPress',
+		'icon'       => 'wordpress',
+		'attributes' => array(
+			'service' => 'wordpress',
+		),
+		'isActive'   => array( 'service' )
+	),
+	array(
+		'name'       => 'mail',
+		'title'      => __( 'Mail' ),
+		'keywords'   => array(
+			__( 'email' ),
+			__( 'e-mail' )
+		),
+		'icon'       => 'mail',
+		'attributes' => array(
+			'service' => 'mail',
+		),
+		'isActive'   => array( 'mail' )
+	),
+);
+
+```
+
+<!--
+See [the variations documentation](/docs/reference-guides/block-api/block-variations.md) for more details.
+ -->
 詳細は[ドキュメントのバリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を参照してください。
 
 ### Block Hooks

@@ -130,6 +130,7 @@ This list is not exhaustive, but here are several additional options to choose f
 完全なリストではありませんが、`wp-env` を使いたくない場合の選択肢をいくつか紹介します。
 
 - [Local](https://localwp.com/)
+- [WP Studio](https://developer.wordpress.com/studio/)
 - [XAMPP](https://www.apachefriends.org/)
 - [MAMP](https://www.mamp.info/en/mamp/mac/)
 - [Varying Vagrant Vagrants](https://varyingvagrantvagrants.org/) (VVV)

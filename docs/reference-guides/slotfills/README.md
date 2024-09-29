@@ -9,7 +9,7 @@ Please see the [SlotFill component docs](/packages/components/src/slot-fill/READ
 
 In order to use them, we must leverage the [@wordpress/plugins](/packages/plugins/README.md) api to register a plugin that will inject our items.
  -->
-Slot と Fill は外部に公開されているコンポーネントです。開発者は Gutenberg 管理画面内の事前定義された場所に項目を注入できます。
+Slot と Fill は外部に公開 (expose) されているコンポーネントです。開発者は Gutenberg 管理画面内の事前定義された場所に項目を注入できます。
 詳細については [SlotFill コンポーネントのドキュメント](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/slot-fill/README.md)を参照してください。
 
 SlotFill を使用するには [@wordpress/plugins](https://github.com/WordPress/gutenberg/tree/trunk/packages/plugins) API を使用して項目を注入するプラグインを登録する必要があります。
@@ -22,9 +22,9 @@ SlotFill を使用するには [@wordpress/plugins](https://github.com/WordPress
 <!--
 In order to access the SlotFills, we need to do four things:
 
-1. Import the `registerPlugin` method from `wp.plugins`.
-2. Import the SlotFill we want from `wp.editor`.
-3. Define a method to render our changes. Our changes/additions will be wrapped in the SlotFill component we imported.
+1. Import the `registerPlugin` method from the `@wordpress/plugins` package.
+2. Import the SlotFill we want from the `@wordpress/editor'` package.
+3. Define a component to render our changes. Our changes/additions will be wrapped in the SlotFill component we imported.
 4. Register the plugin.
 
 Here is an example using the `PluginPostStatusInfo` slotFill:
@@ -51,6 +51,270 @@ const PluginPostStatusInfoTest = () => (
 
 registerPlugin( 'post-status-info-test', { render: PluginPostStatusInfoTest } );
 ```
+<!-- 
+## Conditionally rendering SlotFill content
+ -->
+## SlotFill コンテンツの条件付きレンダリング
+
+<!-- 
+With the exception of [MainDashboardButton](/docs/reference-guides/slotfills/main-dashboard-button.md), every available SlotFill is exposed in both the Post Editor and Site Editor and any Fill that is registered will be rendered in both contexts. There are a number of approaches that can be implemented to conditionally render Fills.
+ -->
+すべての利用可能な SlotFill は、[MainDashboardButton](https://developer.wordpress.org/block-editor/reference-guides/slotfills/main-dashboard-button/) を除き、投稿エディターとサイトエディターの両方に公開され、登録された Fill は両方のコンテキストでレンダーされます。条件付きで Fill をレンダーする、複数の実装アプローチがあります。
+
+<!-- 
+### Restricting fills to the Post Editor
+ -->
+### Fill を投稿エディターに制限する
+
+<!-- 
+A fill can be restricted to the Post Editor by checking to see if the current post type object property `viewable` is set to `true`. Any post type not set to `viewable`, does not have an associated edit post screen and is a good indicator that the user is not in the Post Editor. The example below will render its content on the edit post screen for any registered post type.
+ -->
+Fill を投稿エディターに制限するには、現在の投稿タイプのオブジェクトプロパティ `viewable` が `true` に設定されているかどうかを確認します。`viewable` に設定されていない投稿タイプは、関連する投稿編集画面を持っていません。以下の例では任意の登録された投稿タイプに対して、コンテンツを投稿編集画面に表示します。
+
+```js
+/**
+ * WordPress の依存
+ */
+import { registerPlugin } from '@wordpress/plugins';
+import {
+	PluginDocumentSettingPanel,
+	store as editorStore,
+} from '@wordpress/editor';
+import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
+
+/**
+ * プラグインの一部としてレンダーされるコンポーネント
+ */
+const EditPostDocumentSettingPanel = () => {
+	// 現在の投稿タイプの情報を取得
+	const isViewable = useSelect( ( select ) => {
+		const postTypeName = select( editorStore ).getCurrentPostType();
+		const postTypeObject = select( coreStore ).getPostType( postTypeName );
+		return postTypeObject?.viewable;
+	}, [] );
+
+	// 投稿タイプが viewable でなければ、Fill をレンダーしない
+	if ( ! isViewable ) {
+		return null;
+	}
+
+	return (
+		<PluginDocumentSettingPanel
+			name="custom-panel"
+			title={ __( 'Post Editor Example' ) }
+			className="custom-panel"
+		>
+			<p>{ __( 'Only appears in the Edit Post screen' ) }</p>
+		</PluginDocumentSettingPanel>
+	);
+};
+
+registerPlugin( 'example-post-edit-only', {
+	render: EditPostDocumentSettingPanel,
+} );
+```
+
+<!-- 
+### Restricting fills to certain post types.
+ -->
+### Fill を特定の投稿タイプに制限する
+
+<!-- 
+The following example expands on the example above by creating an allow list of post types where the fill should be rendered. In this case, the fill is only rendered when editing pages.
+ -->
+次の例では、上の例を拡張して、Fill のレンダーを許可する投稿タイプのリストを作成します。ここでは Fill はページの編集時にのみレンダーされます。
+
+```js
+/**
+ * WordPress の依存
+ */
+import { registerPlugin } from '@wordpress/plugins';
+import {
+	PluginDocumentSettingPanel,
+	store as editorStore,
+} from '@wordpress/editor';
+import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@wordpress/i18n';
+
+/**
+ * プラグインの一部としてレンダーされるコンポーネント
+ */
+const RestrictPostTypes = () => {
+	// 現在の投稿タイプの情報を取得
+	const { isViewable, postTypeName } = useSelect( ( select ) => {
+		const postType = select( editorStore ).getCurrentPostType();
+		const postTypeObject = select( coreStore ).getPostType( postType );
+		return {
+			isViewable: postTypeObject?.viewable,
+			postTypeName: postType,
+		};
+	}, [] );
+
+	// プラグインのレンダーを許可された投稿タイプのリスト
+	const allowedPostTypes = [ 'page' ];
+
+	// 投稿タイプが viewable でない、または、許可リストになければ、プラグインをレンダーしない
+	if ( ! isViewable || ! allowedPostTypes.includes( postTypeName ) ) {
+		return null;
+	}
+
+	return (
+		<PluginDocumentSettingPanel
+			name="custom-panel"
+			title={ __( 'Restrict Post Types Example' ) }
+			className="custom-panel"
+		>
+			<p>
+				{ sprintf(
+					__(
+						'Only appears on Post Types that are in the allowed list. %s'
+					),
+					allowedPostTypes.join( ', ' )
+				) }
+			</p>
+		</PluginDocumentSettingPanel>
+	);
+};
+
+registerPlugin( 'example-restrict-post-types', {
+	render: RestrictPostTypes,
+} );
+```
+
+<!-- 
+### Restricting fills to the Side Editor
+ -->
+### Fill をサイトエディターに制限する
+
+<!-- 
+To restrict fills to the Site Editor, the reverse logic is true. If the post type object's `viewable` property is set to `true`, then the fill should not be rendered. The example below will render its content on any Site Editor screen.
+ -->
+Fill をサイトエディターに制限するには、逆の論理が成り立ちます。投稿タイプオブジェクトの `viewable` プロパティが `true` に設定されていれば Fill はレンダーしません。以下の例では、任意のサイトエディターの画面でコンテンツがレンダーされます。
+
+
+```js
+/**
+ * WordPress の依存
+ */
+import { registerPlugin } from '@wordpress/plugins';
+import {
+	PluginDocumentSettingPanel,
+	store as editorStore,
+} from '@wordpress/editor';
+import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
+
+/**
+ * プラグインの一部としてレンダーされるコンポーネント
+ */
+const SiteEditorDocumentSettingPanel = () => {
+	// 現在の投稿タイプの情報を取得
+	const isViewable = useSelect( ( select ) => {
+		const postTypeName = select( editorStore ).getCurrentPostType();
+		const postTypeObject = select( coreStore ).getPostType( postTypeName );
+
+		// viewable な投稿タイプは、WordPress の管理画面で表示可能。内部的なものは viewable に設定されない。
+		return postTypeObject?.viewable;
+	}, [] );
+
+	// 投稿タイプが viewable なら、Fill をレンダーしない
+	if ( isViewable ) {
+		return null;
+	}
+
+	return (
+		<PluginDocumentSettingPanel
+			name="custom-panel"
+			title={ __( 'Site Editor Example' ) }
+			className="custom-panel"
+		>
+			<p>{ __( 'Only appears in the Site Editor' ) }</p>
+		</PluginDocumentSettingPanel>
+	);
+};
+
+registerPlugin( 'example-site-editor', {
+	render: SiteEditorDocumentSettingPanel,
+} );
+```
+
+<!-- 
+### Restricting fills to certain screens in the Site Editor.
+ -->
+### Fill をサイトエディターの特定の画面に制限する
+
+<!-- 
+This example builds on the example above by providing an allow list to control which screens a fill can be rendered within the Site Editor.
+ -->
+次の例は上の例の上に構築され、サイトエディター内で Fill をレンダーできる画面を制御する許可リストを提供しています。
+
+```js
+/**
+ * WordPress の依存
+ */
+import { registerPlugin } from '@wordpress/plugins';
+import {
+	PluginDocumentSettingPanel,
+	store as editorStore,
+} from '@wordpress/editor';
+import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@wordpress/i18n';
+
+/**
+ * プラグインの一部としてレンダーされるコンポーネント
+ */
+const SiteEditorDocumentSettingPanel = () => {
+	// サイトエディター内の許可されるエリア
+	const allowedSiteEditorScreens = [
+		'wp_template', // テンプレート
+		'wp_block', // パターン
+		'wp_template_part', // テンプレートパーツ
+	];
+
+	const { isViewable, postType } = useSelect( ( select ) => {
+		const postTypeName = select( editorStore ).getCurrentPostType();
+		const postTypeObject = select( coreStore ).getPostType( postTypeName );
+
+		return {
+			// viewable な投稿タイプは、WordPress の管理画面で表示可能。内部的なものは viewable に設定されない。
+			isViewable: postTypeObject?.viewable,
+			postType: postTypeName,
+		};
+	}, [] );
+
+	// 投稿タイプが viewable なら、Fill をレンダーしない
+	if ( isViewable || ! allowedSiteEditorScreens.includes( postType ) ) {
+		return null;
+	}
+
+	return (
+		<PluginDocumentSettingPanel
+			name="custom-panel"
+			title={ __( 'Restricted to Site Editor screens' ) }
+			className="custom-panel"
+		>
+			<p>
+				{ sprintf(
+					__(
+						'Only appears on Editor Screens that are in the allowed list. %s'
+					),
+					allowedSiteEditorScreens.join( ', ' )
+				) }
+			</p>
+		</PluginDocumentSettingPanel>
+	);
+};
+
+registerPlugin( 'example-site-editor-only', {
+	render: SiteEditorDocumentSettingPanel,
+} );
+```
+
 <!--
 ## How do they work?
  -->
@@ -106,11 +370,9 @@ export default function PostSummary( { onActionPerformed } ) {
 	const { isRemovedPostStatusPanel } = useSelect( ( select ) => {
 		// We use isEditorPanelRemoved to hide the panel if it was programmatically removed. We do
 		// not use isEditorPanelEnabled since this panel should not be disabled through the UI.
-		const { isEditorPanelRemoved, getCurrentPostType } =
-			select( editorStore );
+		const { isEditorPanelRemoved } = select( editorStore );
 		return {
 			isRemovedPostStatusPanel: isEditorPanelRemoved( PANEL_NAME ),
-			postType: getCurrentPostType(),
 		};
 	}, [] );
 
@@ -121,11 +383,7 @@ export default function PostSummary( { onActionPerformed } ) {
 					<>
 						<VStack spacing={ 4 }>
 							<PostCardPanel
-								actions={
-									<PostActions
-										onActionPerformed={ onActionPerformed }
-									/>
-								}
+								onActionPerformed={ onActionPerformed }
 							/>
 							<PostFeaturedImagePanel withPanelBody={ false } />
 							<PostExcerptPanel />
@@ -168,7 +426,6 @@ export default function PostSummary( { onActionPerformed } ) {
 ## 現在利用可能な SlotFill とサンプル
 
 <!--
-The following SlotFills are available in the `edit-post` package. Please refer to the individual items below for usage and example details:
 The following SlotFills are available in the `edit-post` or `editor` packages. Please refer to the individual items below for usage and example details:
 
 -   [MainDashboardButton](/docs/reference-guides/slotfills/main-dashboard-button.md)
@@ -182,7 +439,7 @@ The following SlotFills are available in the `edit-post` or `editor` packages. P
 -   [PluginSidebarMoreMenuItem](/docs/reference-guides/slotfills/plugin-sidebar-more-menu-item.md)
  -->
 
-`edit-post` パッケージ、または `editor` パッケージでは以下の SlotFill が利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
+`edit-post` パッケージ、または `editor` パッケージ内の以下の SlotFill を利用可能です。詳細な使用方法と例についてはそれぞれの項目を参照してください。
 
 - [MainDashboardButton](https://developer.wordpress.org/block-editor/developers/slotfills/main-dashboard-button/)
 - [PluginBlockSettingsMenuItem](https://developer.wordpress.org/block-editor/developers/slotfills/plugin-block-settings-menu-item/)

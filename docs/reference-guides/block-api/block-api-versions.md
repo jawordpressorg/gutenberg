@@ -11,9 +11,9 @@ This document lists the changes made between the different API versions.
 ## Version 3 (>= WordPress 6.3)
 
 <!-- 
-- The post editor will be iframed if all registered blocks have a Block API version 3 or higher and the editor has no classic meta boxes below the blocks. Adding version 3 support means that the block should work inside an iframe, though the block may still be rendered outside the iframe if not all blocks support version 3.
+- The post editor will be iframed if all registered blocks have a Block API version 3 or higher. Adding version 3 support means that the block should work inside an iframe, though the block may still be rendered outside the iframe if not all blocks support version 3.
  -->
-- 登録されているすべてのブロックがブロック API バージョン3以上を持ち、エディターがブロックの下にクラシックなメタボックスを持たなければ、投稿エディターは iframe 化されます。バージョン3サポートの追加は、ブロックが iframe 内で動作することを意味しますが、すべてのブロックがバージョン3に対応していなければ、ブロックは iframe 外でレンダーされる可能性があります。
+- 登録されているすべてのブロックがブロック API バージョン3以上であれば、投稿エディターは iframe 化されます。バージョン3サポートの追加は、ブロックが iframe 内で動作することを意味しますが、すべてのブロックがバージョン3に対応していなければ、ブロックは iframe 外でレンダーされる可能性があります。
 
 ## Version 2 (>= WordPress 5.6)
 

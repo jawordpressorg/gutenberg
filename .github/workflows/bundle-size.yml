@@ -94,7 +94,7 @@ jobs:
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
 
             - name: Use desired version of Node.js
-              uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+              uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
               with:
                   node-version-file: '.nvmrc'
                   check-latest: true
@@ -103,6 +103,6 @@ jobs:
             - uses: preactjs/compressed-size-action@f780fd104362cfce9e118f9198df2ee37d12946c # v2.6.0
               with:
                   repo-token: '${{ secrets.GITHUB_TOKEN }}'
-                  pattern: '{build/**/*.min.js,build/**/*.css}'
+                  pattern: '{build/**/*.min.js,build/**/*.css,build-module/**/*.min.js}'
                   clean-script: 'distclean'
 >>>>>>> upstream/trunk

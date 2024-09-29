@@ -32,9 +32,13 @@ import {
 } from './screen-block-list';
 import ScreenBlock from './screen-block';
 import ScreenTypography from './screen-typography';
+import ScreenTypeset from './screen-typeset';
 import ScreenTypographyElement from './screen-typography-element';
+import FontSize from './font-sizes/font-size';
+import FontSizes from './font-sizes/font-sizes';
 import ScreenColors from './screen-colors';
 import ScreenColorPalette from './screen-color-palette';
+import ScreenBackground from './screen-background';
 import { ScreenShadows, ScreenShadowsEdit } from './screen-shadows';
 import ScreenLayout from './screen-layout';
 import ScreenStyleVariations from './screen-style-variations';
@@ -313,6 +317,18 @@ function GlobalStylesUI() {
 				<ScreenTypography />
 			</GlobalStylesNavigationScreen>
 
+			<GlobalStylesNavigationScreen path="/typography/font-sizes/">
+				<FontSizes />
+			</GlobalStylesNavigationScreen>
+
+			<GlobalStylesNavigationScreen path="/typography/font-sizes/:origin/:slug">
+				<FontSize />
+			</GlobalStylesNavigationScreen>
+
+			<GlobalStylesNavigationScreen path="/typography/typeset">
+				<ScreenTypeset />
+			</GlobalStylesNavigationScreen>
+
 			<GlobalStylesNavigationScreen path="/typography/text">
 				<ScreenTypographyElement element="text" />
 			</GlobalStylesNavigationScreen>
@@ -355,6 +371,10 @@ function GlobalStylesUI() {
 
 			<GlobalStylesNavigationScreen path="/revisions">
 				<ScreenRevisions />
+			</GlobalStylesNavigationScreen>
+
+			<GlobalStylesNavigationScreen path="/background">
+				<ScreenBackground />
 			</GlobalStylesNavigationScreen>
 
 			{ blocks.map( ( block ) => (

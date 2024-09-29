@@ -1,13 +1,8 @@
 /**
- * External dependencies
- */
-import clsx from 'clsx';
-
-/**
  * WordPress dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useViewportMatch } from '@wordpress/compose';
+import { useMediaQuery, useViewportMatch } from '@wordpress/compose';
 import { __unstableMotion as motion } from '@wordpress/components';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { useState } from '@wordpress/element';
@@ -17,8 +12,8 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import BackButton from './back-button';
-import CollapsableBlockToolbar from '../collapsible-block-toolbar';
+import BackButton, { useHasBackButton } from './back-button';
+import CollapsibleBlockToolbar from '../collapsible-block-toolbar';
 import DocumentBar from '../document-bar';
 import DocumentTools from '../document-tools';
 import MoreMenu from '../more-menu';
@@ -27,6 +22,7 @@ import PostPublishButtonOrToggle from '../post-publish-button/post-publish-butto
 import PostSavedState from '../post-saved-state';
 import PostViewLink from '../post-view-link';
 import PreviewDropdown from '../preview-dropdown';
+import ZoomOutToggle from '../zoom-out-toggle';
 import { store as editorStore } from '../../store';
 
 const toolbarVariations = {
@@ -51,17 +47,17 @@ function Header( {
 	forceDisableBlockTools,
 	setEntitiesSavedStatesCallback,
 	title,
-	icon,
+	isEditorIframed,
 } ) {
 	const isWideViewport = useViewportMatch( 'large' );
 	const isLargeViewport = useViewportMatch( 'medium' );
+	const isTooNarrowForDocumentBar = useMediaQuery( '(max-width: 403px)' );
 	const {
 		isTextEditor,
 		isPublishSidebarOpened,
 		showIconLabels,
 		hasFixedToolbar,
 		isNestedEntity,
-		isZoomedOutView,
 	} = useSelect( ( select ) => {
 		const { get: getPreference } = select( preferencesStore );
 		const {
@@ -82,21 +78,25 @@ function Header( {
 		};
 	}, [] );
 
-	const hasTopToolbar = isLargeViewport && hasFixedToolbar;
-
 	const [ isBlockToolsCollapsed, setIsBlockToolsCollapsed ] =
 		useState( true );
+
+	const hasCenter = isBlockToolsCollapsed && ! isTooNarrowForDocumentBar;
+	const hasBackButton = useHasBackButton();
 
 	// The edit-post-header classname is only kept for backward compatibilty
 	// as some plugins might be relying on its presence.
 	return (
 		<div className="editor-header edit-post-header">
-			<motion.div
-				variants={ backButtonVariations }
-				transition={ { type: 'tween' } }
-			>
-				<BackButton.Slot />
-			</motion.div>
+			{ hasBackButton && (
+				<motion.div
+					className="editor-header__back-button"
+					variants={ backButtonVariations }
+					transition={ { type: 'tween' } }
+				>
+					<BackButton.Slot />
+				</motion.div>
+			) }
 			<motion.div
 				variants={ toolbarVariations }
 				className="editor-header__toolbar"
@@ -105,21 +105,22 @@ function Header( {
 				<DocumentTools
 					disableBlockTools={ forceDisableBlockTools || isTextEditor }
 				/>
-				{ hasTopToolbar && (
-					<CollapsableBlockToolbar
+				{ hasFixedToolbar && isLargeViewport && (
+					<CollapsibleBlockToolbar
 						isCollapsed={ isBlockToolsCollapsed }
 						onToggle={ setIsBlockToolsCollapsed }
 					/>
 				) }
-				<div
-					className={ clsx( 'editor-header__center', {
-						'is-collapsed':
-							! isBlockToolsCollapsed && hasTopToolbar,
-					} ) }
-				>
-					<DocumentBar title={ title } icon={ icon } />
-				</div>
 			</motion.div>
+			{ hasCenter && (
+				<motion.div
+					className="editor-header__center"
+					variants={ toolbarVariations }
+					transition={ { type: 'tween' } }
+				>
+					<DocumentBar title={ title } />
+				</motion.div>
+			) }
 			<motion.div
 				variants={ toolbarVariations }
 				transition={ { type: 'tween' } }
@@ -135,13 +136,20 @@ function Header( {
 				) }
 				<PreviewDropdown
 					forceIsAutosaveable={ forceIsDirty }
-					disabled={ isNestedEntity || isZoomedOutView }
+					disabled={ isNestedEntity }
 				/>
 				<PostPreviewButton
 					className="editor-header__post-preview-button"
 					forceIsAutosaveable={ forceIsDirty }
 				/>
 				<PostViewLink />
+
+				{ isEditorIframed && isWideViewport && <ZoomOutToggle /> }
+
+				{ ( isWideViewport || ! showIconLabels ) && (
+					<PinnedItems.Slot scope="core" />
+				) }
+
 				{ ! customSaveButton && (
 					<PostPublishButtonOrToggle
 						forceIsDirty={ forceIsDirty }
@@ -150,10 +158,8 @@ function Header( {
 						}
 					/>
 				) }
+
 				{ customSaveButton }
-				{ ( isWideViewport || ! showIconLabels ) && (
-					<PinnedItems.Slot scope="core" />
-				) }
 				<MoreMenu />
 			</motion.div>
 		</div>

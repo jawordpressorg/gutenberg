@@ -37,7 +37,7 @@ export const buttonView = ( {
 	appearance: none;
 	background: transparent;
 	border: none;
-	border-radius: ${ CONFIG.controlBorderRadius };
+	border-radius: ${ CONFIG.radiusXSmall };
 	color: ${ COLORS.gray[ 700 ] };
 	fill: currentColor;
 	cursor: pointer;
@@ -64,8 +64,13 @@ export const buttonView = ( {
 		border: 0;
 	}
 
+	&[disabled] {
+		opacity: 0.4;
+		cursor: default;
+	}
+
 	&:active {
-		background: ${ CONFIG.toggleGroupControlBackgroundColor };
+		background: ${ CONFIG.controlBackgroundColor };
 	}
 
 	${ isDeselectable && deselectable }
@@ -117,7 +122,7 @@ const isIconStyles = ( {
 
 export const backdropView = css`
 	background: ${ COLORS.gray[ 900 ] };
-	border-radius: ${ CONFIG.controlBorderRadius };
+	border-radius: ${ CONFIG.radiusXSmall };
 	position: absolute;
 	inset: 0;
 	z-index: 1;

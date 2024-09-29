@@ -14,9 +14,9 @@ This is especially useful in full-site editing where, for example, the contents 
 この機能は特に「フルサイト編集」で有用です。たとえば表示される投稿の種類によってブロックの内容を変える場合があります。ブログ用のテンプレートであれば多くの異なる投稿の抜粋を表示します。ブロックコンテキストを使用すると、単一の「投稿抜粋」ブロックで、継承した投稿 ID を基に投稿のコンテンツを表示できます。
 
 <!--
-If you are familiar with [React Context](https://reactjs.org/docs/context.html), block context adopts many of the same ideas. In fact, the client-side block editor implementation of block context is a very simple application of React Context. Block context is also supported in server-side `render_callback` implementations, demonstrated in the examples below.
+If you are familiar with [React Context](https://react.dev/learn/passing-data-deeply-with-context), block context adopts many of the same ideas. In fact, the client-side block editor implementation of block context is a very simple application of React Context. Block context is also supported in server-side `render_callback` implementations, demonstrated in the examples below.
  -->
-[React コンテキスト](https://reactjs.org/docs/context.html) を知っていれば、ブロックコンテキストは多くで同じアイデアを採用しています。実際、ブロックコンテキストのクライアント側ブロックエディターの実装は非常に簡単な React コンテキストのアプリケーションです。ブロックコンテキストは以下の例で見るようにサーバー側 `render_callback` 実装でもサポートされています。
+[React コンテキスト](https://react.dev/learn/passing-data-deeply-with-context) を知っていれば、ブロックコンテキストは多くで同じアイデアを採用しています。実際、ブロックコンテキストのクライアント側ブロックエディターの実装は非常に簡単な React コンテキストのアプリケーションです。ブロックコンテキストは以下の例で見るようにサーバー側 `render_callback` 実装でもサポートされています。
 
 <!--
 ## Defining block context
@@ -192,7 +192,7 @@ export default function Edit( props ) {
 	return (
 		<div>
 			<TextControl
-				label={ __( 'Record ID:' ) }
+				label={ __( 'Record ID' ) }
 				value={ recordId }
 				onChange={ ( val ) =>
 					setAttributes( { recordId: Number( val ) } )

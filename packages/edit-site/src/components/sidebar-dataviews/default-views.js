@@ -13,7 +13,7 @@ import {
 	notAllowed,
 } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { store as coreStore, useEntityRecords } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
 
 /**
@@ -26,17 +26,31 @@ import {
 	OPERATOR_IS_ANY,
 } from '../../utils/constants';
 
-export const DEFAULT_CONFIG_PER_VIEW_TYPE = {
+export const defaultLayouts = {
 	[ LAYOUT_TABLE ]: {
-		primaryField: 'title',
+		layout: {
+			primaryField: 'title',
+			styles: {
+				'featured-image': {
+					width: '1%',
+				},
+				title: {
+					maxWidth: 300,
+				},
+			},
+		},
 	},
 	[ LAYOUT_GRID ]: {
-		mediaField: 'featured-image',
-		primaryField: 'title',
+		layout: {
+			mediaField: 'featured-image',
+			primaryField: 'title',
+		},
 	},
 	[ LAYOUT_LIST ]: {
-		primaryField: 'title',
-		mediaField: 'featured-image',
+		layout: {
+			primaryField: 'title',
+			mediaField: 'featured-image',
+		},
 	},
 };
 
@@ -51,10 +65,52 @@ const DEFAULT_POST_BASE = {
 		direction: 'desc',
 	},
 	fields: [ 'title', 'author', 'status' ],
-	layout: {
-		...DEFAULT_CONFIG_PER_VIEW_TYPE[ LAYOUT_LIST ],
-	},
+	layout: defaultLayouts[ LAYOUT_LIST ].layout,
 };
+
+export function useDefaultViewsWithItemCounts( { postType } ) {
+	const defaultViews = useDefaultViews( { postType } );
+	const { records, totalItems } = useEntityRecords( 'postType', postType, {
+		per_page: -1,
+		status: [ 'any', 'trash' ],
+	} );
+
+	return useMemo( () => {
+		if ( ! defaultViews ) {
+			return [];
+		}
+
+		// If there are no records, return the default views with no counts.
+		if ( ! records ) {
+			return defaultViews;
+		}
+
+		const counts = {
+			drafts: records.filter( ( record ) => record.status === 'draft' )
+				.length,
+			future: records.filter( ( record ) => record.status === 'future' )
+				.length,
+			pending: records.filter( ( record ) => record.status === 'pending' )
+				.length,
+			private: records.filter( ( record ) => record.status === 'private' )
+				.length,
+			published: records.filter(
+				( record ) => record.status === 'publish'
+			).length,
+			trash: records.filter( ( record ) => record.status === 'trash' )
+				.length,
+		};
+
+		// All items excluding trashed items as per the default "all" status query.
+		counts.all = totalItems ? totalItems - counts.trash : 0;
+
+		// Filter out views with > 0 item counts.
+		return defaultViews.map( ( _view ) => {
+			_view.count = counts[ _view.slug ];
+			return _view;
+		} );
+	}, [ defaultViews, records, totalItems ] );
+}
 
 export function useDefaultViews( { postType } ) {
 	const labels = useSelect(
@@ -65,105 +121,95 @@ export function useDefaultViews( { postType } ) {
 		[ postType ]
 	);
 	return useMemo( () => {
-		return {
-			[ postType ]: [
-				{
-					title: labels?.all_items || __( 'All items' ),
-					slug: 'all',
-					icon: pages,
-					view: DEFAULT_POST_BASE,
-				},
-				{
-					title: __( 'Published' ),
-					slug: 'published',
-					icon: published,
-					view: {
-						...DEFAULT_POST_BASE,
-						filters: [
-							{
-								field: 'status',
-								operator: OPERATOR_IS_ANY,
-								value: 'publish',
-							},
-						],
+		return [
+			{
+				title: labels?.all_items || __( 'All items' ),
+				slug: 'all',
+				icon: pages,
+				view: DEFAULT_POST_BASE,
+			},
+			{
+				title: __( 'Published' ),
+				slug: 'published',
+				icon: published,
+				view: DEFAULT_POST_BASE,
+				filters: [
+					{
+						field: 'status',
+						operator: OPERATOR_IS_ANY,
+						value: 'publish',
 					},
-				},
-				{
-					title: __( 'Scheduled' ),
-					slug: 'future',
-					icon: scheduled,
-					view: {
-						...DEFAULT_POST_BASE,
-						filters: [
-							{
-								field: 'status',
-								operator: OPERATOR_IS_ANY,
-								value: 'future',
-							},
-						],
+				],
+			},
+			{
+				title: __( 'Scheduled' ),
+				slug: 'future',
+				icon: scheduled,
+				view: DEFAULT_POST_BASE,
+				filters: [
+					{
+						field: 'status',
+						operator: OPERATOR_IS_ANY,
+						value: 'future',
 					},
-				},
-				{
-					title: __( 'Drafts' ),
-					slug: 'drafts',
-					icon: drafts,
-					view: {
-						...DEFAULT_POST_BASE,
-						filters: [
-							{
-								field: 'status',
-								operator: OPERATOR_IS_ANY,
-								value: 'draft',
-							},
-						],
+				],
+			},
+			{
+				title: __( 'Drafts' ),
+				slug: 'drafts',
+				icon: drafts,
+				view: DEFAULT_POST_BASE,
+				filters: [
+					{
+						field: 'status',
+						operator: OPERATOR_IS_ANY,
+						value: 'draft',
 					},
-				},
-				{
-					title: __( 'Pending' ),
-					slug: 'pending',
-					icon: pending,
-					view: {
-						...DEFAULT_POST_BASE,
-						filters: [
-							{
-								field: 'status',
-								operator: OPERATOR_IS_ANY,
-								value: 'pending',
-							},
-						],
+				],
+			},
+			{
+				title: __( 'Pending' ),
+				slug: 'pending',
+				icon: pending,
+				view: DEFAULT_POST_BASE,
+				filters: [
+					{
+						field: 'status',
+						operator: OPERATOR_IS_ANY,
+						value: 'pending',
 					},
-				},
-				{
-					title: __( 'Private' ),
-					slug: 'private',
-					icon: notAllowed,
-					view: {
-						...DEFAULT_POST_BASE,
-						filters: [
-							{
-								field: 'status',
-								operator: OPERATOR_IS_ANY,
-								value: 'private',
-							},
-						],
+				],
+			},
+			{
+				title: __( 'Private' ),
+				slug: 'private',
+				icon: notAllowed,
+				view: DEFAULT_POST_BASE,
+				filters: [
+					{
+						field: 'status',
+						operator: OPERATOR_IS_ANY,
+						value: 'private',
 					},
+				],
+			},
+			{
+				title: __( 'Trash' ),
+				slug: 'trash',
+				icon: trash,
+				view: {
+					...DEFAULT_POST_BASE,
+					type: LAYOUT_TABLE,
+					layout: defaultLayouts[ LAYOUT_TABLE ].layout,
 				},
-				{
-					title: __( 'Trash' ),
-					slug: 'trash',
-					icon: trash,
-					view: {
-						...DEFAULT_POST_BASE,
-						filters: [
-							{
-								field: 'status',
-								operator: OPERATOR_IS_ANY,
-								value: 'trash',
-							},
-						],
+				filters: [
+					{
+						field: 'status',
+						operator: OPERATOR_IS_ANY,
+						value: 'trash',
 					},
-				},
-			],
-		};
-	}, [ labels, postType ] );
+				],
+			},
+		];
+	}, [ labels ] );
 }

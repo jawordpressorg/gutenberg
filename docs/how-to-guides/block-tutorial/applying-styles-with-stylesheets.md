@@ -239,9 +239,27 @@ The files will automatically be enqueued when specified in the block.json.
 block.jsonで指定されたファイルは、自動的にエンキューされます。
 
 <!-- 
+<div class="callout callout-info">
+
+If you are using `@wordpress/scripts` you will need to import your stylesheet within your corresponding JavaScript file in order for `@wordpress/scripts` to process the stylesheet.
+
+Example:
+- In `edit.js` you would place `import './editor.scss';`
+- In `index.js` you would place `import './style.scss';`
+- In `view.js` you would place `import './view.scss';` (interactive block template)
+</div>
+ -->
+> `wordpress/scripts` を使用している場合、`@wordpress/scripts` がスタイルシートを処理するために、対応する JavaScript ファイル内にスタイルシートをインポートする必要があります。
+> 
+> 例:
+> - `edit.js` 内には `import './editor.scss';` を起きます。
+> - `index.js` 内には `import './style.scss';` を起きます。
+> - `view.js` 内には `import './view.scss';` を起きます (インタラクティブブロックテンプレート)。
+
+<!-- 
 **Note:** If you have multiple files to include, you can use standard `wp_enqueue_style` functions like any other plugin or theme. You will want to use the following hooks for the block editor:
  -->
-**注意:** インクルードするファイルが複数ある場合は、他のプラグインやテーマと同様に、標準の `wp_enqueue_style` 関数を使用できます。ブロックエディタでは、以下のフックを使用できます。
+**注意:** インクルードするファイルが複数ある場合は、他のプラグインやテーマと同様に、標準の `wp_enqueue_style` 関数を使用できます。ブロックエディターでは、以下のフックを使用できます。
 
 <!-- 
 -   `enqueue_block_editor_assets` - to load only in editor view

@@ -64,10 +64,10 @@ If you don't have one or more of these items, the [Block Development Environment
 
 <!-- 
 <div class="callout callout-info">
-	This tutorial uses <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/"><code>wp-env</code></a> to create a local WordPress development environment. However, feel free to use alternate local development tools if you already have one that you prefer.
+	This tutorial uses <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/"><code>wp-env</code></a> to create a local WordPress development environment. However, feel free to use any development environment that meets the abovementioned prerequisites.
 </div>
  -->
-> このチュートリアルでは、[`wp-env`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/) を使用して WordPress のローカル開発環境を作成します。すでに好みのローカル開発ツールがあれば、自由にそのツールを使用してください。
+> このチュートリアルでは、[`wp-env`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/) を使用して WordPress のローカル開発環境を作成します。ただし、上述の前提条件を満たす任意の開発環境を使用しても構いません。
 
 <!-- 
 ## Scaffolding the block
@@ -463,7 +463,7 @@ At this point, the block's icon and description are correct, and block supports 
 ### edit.js の更新
 
 <!-- 
-The [`edit.js`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#edit-js) file controls how the block functions and appears in the Editor. Right now, the user sees the message " Copyright Date Block – hello from the editor!". Let's change that.
+The [`edit.js`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#edit-js) file controls how the block functions and appears in the Editor. Right now, the user sees the message "Copyright Date Block – hello from the editor!". Let's change that.
  -->
 [`edit.js`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/file-structure-of-a-block/#editjs) ファイルは、このブロックがどのように機能し、どのようにエディターに表示されるかを制御します。現在、ユーザーにはメッセージ「Copyright Date Block - hello from the editor!」が表示されます。これを変更しましょう。
 
@@ -1095,13 +1095,13 @@ Start by adding a variable called `$display_date` and replicate what you did in 
 まず、変数 `$display_date` を追加して、上の `Edit()` 関数での実装を繰り返します。
 
 <!-- 
-This variable should display the value of the `startingYear` attribute and the `$current_year` variable separated by an em dash, or just the `$current_year` is the `showStartingYear` attribute is `false`.
+This variable should display the value of the `startingYear` attribute and the `$current_year` variable separated by an em dash, or just the `$current_year` if the `showStartingYear` attribute is `false`.
  -->
 この変数には `startingYear` 属性の値と `$current_year` 変数を em ダッシュで区切って表示するか、または `showStartingYear` 属性が `false` のとき `$current_year` の値だけを表示します。
 
 <!-- 
 <div class="callout callout-tip">
-	<p>Three variables are exposed in the <code>render.php</code>, which you can use to customize the block's output:</p>
+	<p>Three variables are exposed in <code>render.php</code>, which you can use to customize the block's output:</p>
 	<ul>
 		<li><code>$attributes</code> (array): The block attributes.</li>
 		<li><code>$content</code> (string): The block default content.</li>

@@ -85,7 +85,12 @@ export default function QuickInserter( {
 	// When clicking Browse All select the appropriate block so as
 	// the insertion point can work as expected.
 	const onBrowseAll = () => {
-		setInserterIsOpened( { rootClientId, insertionIndex, filterValue } );
+		setInserterIsOpened( {
+			rootClientId,
+			insertionIndex,
+			filterValue,
+			onSelect,
+		} );
 	};
 
 	let maxBlockPatterns = 0;
@@ -133,6 +138,7 @@ export default function QuickInserter( {
 
 			{ setInserterIsOpened && (
 				<Button
+					__next40pxDefaultSize
 					className="block-editor-inserter__quick-inserter-expand"
 					onClick={ onBrowseAll }
 					aria-label={ __(
