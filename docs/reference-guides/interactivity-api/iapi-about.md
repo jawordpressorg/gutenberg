@@ -259,7 +259,7 @@ API は可能な限りパフォーマンスが高くなるように設計され�
 - **The runtime code needed for the directives is just ~10 KB**, and it only needs to be loaded once for all the blocks.
 - **The scripts will load without blocking the page rendering**.
  -->
-- **ディレクティブに必要なランタイムコードはわずか10KB** で、すべてのブロックに対して一度だけロードします。
+- **ディレクティブに必要なランタイムコードはわずか10KB** で、すべてのブロックに対して一度だけロードされます。
 - **スクリプトはページのレンダリングをブロックせずにロードされます**。
 
 <!-- 
@@ -330,7 +330,7 @@ Interactivity API を使用したブロックと、jQuery のような他のア�
 - **Fewer KBs will be sent to the browser**. If each plugin author uses a different JS framework, more code will be loaded in the front end. If all the blocks use the same one, the code is reused.
 - If all the blocks on a page use this standard, **site-wide features like client-side navigation can be enabled**.
  -->
-- **ブロック同士が簡単に通信できる**。標準では、このコミュニケーションはデフォルトで処理されます。フロントエンドのインタラクティビティに個々のブロックが異なるアプローチを使用すると、ブロック間のコミュニケーションはより複雑になり、異なる開発者がブロックを作成する場合はほとんど不可能になります。
+- **ブロック同士が簡単に通信できる**。標準では、このコミュニケーションはデフォルトで処理されます。フロントエンドのインタラクティビティに個々のブロックが異なるアプローチを使用すれば、ブロック間のコミュニケーションはより複雑になり、異なる開発者がブロックを作成する場合はほとんど不可能になります。
 - **組み合わせ可能性と互換性**: インタラクティブブロックを組み合わせ、定義された振る舞いを持つ構造内に入れ子にできます。同じ標準に従うことで、完全に相互互換性があります。インタラクティブ性に対して個々のブロックが異なるアプローチを取れば、おそらく互換性は壊れるでしょう。
 - **ブラウザに送信されるサイズは少なくなります**。個々のプラグインの作者が異なる JS フレームワークを使用すると、より多くのコードがフロントエンドに読み込まれます。すべてのブロックが同じものを使えば、コードは再利用されます。
 - ページ上のすべてのブロックがこの標準を使用する場合、**クライアントサイドナビゲーションのようなサイト全体の機能を有効にできます**。
