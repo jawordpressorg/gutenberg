@@ -6,7 +6,7 @@
 <!-- 
 This guide is designed to demonstrate the basic principles of block development in WordPress using a hands-on approach. Following the steps below, you will create a custom block plugin that uses modern JavaScript (ESNext and JSX) in a matter of minutes. The example block displays the copyright symbol (©) and the current year, the perfect addition to any website's footer. You can see these steps in action through this short video demonstration.
  -->
-このガイドは WordPress でのブロック開発の基本原則をハンズオン形式で説明します。以下の手順に従うだけで、モダンな JavaScript (ESNext と JSX) を使用したカスタムブロックプラグインを数分で作成できます。ブロックのサンプル例では、著作権シンボル (©) と現在の年を表示します。どのウェブサイトのフッターにも最適でしょう。以下の短いデモ動画で、一連の手順の様子を見ることができます。
+このガイドは WordPress でのブロック開発の基本原則をハンズオン形式で説明します。以下の手順に従うだけで、モダンな JavaScript (ESNext と JSX) を使用したカスタムブロックプラグインを数分で作成できます。このサンプルプログラムはどんなウェブサイトのフッターにも最適な、著作権シンボル (©) と現在の年を表示します。以下の短いデモ動画で一連の手順を確認できます。
 
 <iframe width="960" height="540" src="https://www.youtube.com/embed/nrut8SfXA44?si=YxvmHmAoYx-BDCog" title="WordPress Block Development: Quick Start Guide Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe>
 
@@ -31,7 +31,7 @@ Next, use the [`@wordpress/create-block`](https://developer.wordpress.org/block-
     <p>If you already have your own <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/#local-wordpress-environment">local WordPress development environment</a>, navigate to the <code>plugins/</code> folder using the terminal.</p>
 </div>
  -->
-> 任意の場所で `create-block` を使用してブロックを作成できます。次に、生成されたプラグインフォルダの中から [`wp-env` ](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/)を使用します。WordPress のローカル開発環境が作成され、新しいブロックプラグインがインストール、有効化されます。
+> 任意のディレクトリで `create-block` を使用してブロックを作成できます。次に、生成されたプラグインフォルダの中から [`wp-env`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/get-started-with-wp-env/)を使用します。WordPress のローカル開発環境が作成され、新しいブロックプラグインがインストール、有効化されます。
 > [ローカル WordPress 開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/#%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AE-wordpress-%E7%92%B0%E5%A2%83)がすでにセットアップされている場合は、ターミナルを使用して `plugins/` フォルダに移動してください。
 
 <!-- 

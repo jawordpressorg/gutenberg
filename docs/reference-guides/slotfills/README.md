@@ -59,7 +59,7 @@ registerPlugin( 'post-status-info-test', { render: PluginPostStatusInfoTest } );
 <!-- 
 With the exception of [MainDashboardButton](/docs/reference-guides/slotfills/main-dashboard-button.md), every available SlotFill is exposed in both the Post Editor and Site Editor and any Fill that is registered will be rendered in both contexts. There are a number of approaches that can be implemented to conditionally render Fills.
  -->
-すべての利用可能な SlotFill は、[MainDashboardButton](https://developer.wordpress.org/block-editor/reference-guides/slotfills/main-dashboard-button/) を除き、投稿エディターとサイトエディターの両方に公開され、登録された Fill は両方のコンテキストでレンダーされます。条件付きで Fill をレンダーする、複数の実装アプローチがあります。
+すべての利用可能な SlotFill は、[MainDashboardButton](https://developer.wordpress.org/block-editor/reference-guides/slotfills/main-dashboard-button/) を除き、投稿エディターとサイトエディターの両方に公開され、登録された Fill は両方のコンテキストでレンダーされます。条件付きで Fill をレンダーする複数の実装アプローチがあります。
 
 <!-- 
 ### Restricting fills to the Post Editor
@@ -250,7 +250,7 @@ registerPlugin( 'example-site-editor', {
 <!-- 
 This example builds on the example above by providing an allow list to control which screens a fill can be rendered within the Site Editor.
  -->
-次の例は上の例の上に構築され、サイトエディター内で Fill をレンダーできる画面を制御する許可リストを提供しています。
+次の例は上の例をベースに、サイトエディター内で Fill をレンダーする画面を制御する、許可リストが提供されています。
 
 ```js
 /**
