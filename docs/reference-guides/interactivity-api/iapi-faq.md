@@ -1,7 +1,7 @@
 <!-- 
 # Frequently Asked Questions
  -->
-# FAQ
+# よくある質問
 
 <!-- 
 ## How does the Interactivity API work under the hood?
@@ -51,7 +51,7 @@ Preact には、React や他の JavaScript フレームワーク、たとえば 
 <!-- 
 No. At the moment, there are no plans to make that transition. The requirements and advantages of the editor, as a fully interactive application, are quite different. Preact does have a [`@preact/compat`](https://preactjs.com/guide/v10/switching-to-preact/) package that enables full compatibility with the React ecosystem, and many large web applications use it. However, using Preact in the block editor would not offer advantages like it does on the frontend in the Interactivity API.
  -->
-いいえ。現時点では、移行の予定はありません。完全にインタラクティブなアプリケーションとしてのエディターの要件と利点とは、まったく異なります。Preact には、React エコシステムと完全な互換性を実現する [`@preact/compat`](https://preactjs.com/guide/v10/switching-to-preact/)パッケージがあり、多くの大規模なウェブアプリケーションがこれを使用しています。しかし、ブロックエディターで Preact を使用しても、フロントエンドで Interactivity API を使用するような利点はありません。
+いいえ。現時点では、移行の予定はありません。完全にインタラクティブなアプリケーションとしてのエディターの要件と利点とは完全に異なるためです。Preact には、React エコシステムと完全な互換性を実現する [`@preact/compat`](https://preactjs.com/guide/v10/switching-to-preact/)パッケージがあり、多くの大規模なウェブアプリケーションがこれを使用しています。しかし、ブロックエディターで Preact を使用しても、フロントエンドで Interactivity API を使用するような利点はありません。
 
 <!-- 
 ## What approaches have been considered instead of using directives?
@@ -71,7 +71,7 @@ Many alternative approaches were considered. Here’s a brief summary of some of
 <!-- 
 React was considered first because Gutenberg developers are familiar with it. Other popular JS frameworks like Svelte, Vue.js, or Angular were also considered, but none of them (including React) are PHP-friendly or compatible with WordPress hooks or internationalization.
  -->
-React は Gutenberg の開発者が親しんでいるため最初に検討されました。また、Svelte、Vue.js、Angular などの他の人気のある JS フレームワークも検討されましたが、React を含めどれも PHP との親和性がなく、WordPress のフックや国際化とも互換性がありませんでした。
+React は Gutenberg の開発者が親しんでいるため最初に検討されました。また、Svelte、Vue.js、Angular などの他の人気のある JS フレームワークも検討されました。しかし React を含めどれも PHP との親和性がなく、WordPress のフックや国際化とも互換性がありませんでした。
 
 ### Alpine.js
 
@@ -88,7 +88,7 @@ Alpine.js の代わりに Preact が選ばれたのには多くの理由があ�
 <!-- 
 Furthermore, with Preact operating in the background, the Interactivity API manages "the final layer" so it can be better adapted to WordPress requirements. For example, JavaScript expressions are not allowed inside directives to avoid security risks and ensure compliance with strict security policies, and all WordPress directives are spec-compliant HTML attributes.
  -->
-さらに、Preact がバックグラウンドで動作することで、Interactivity API が「最終レイヤー」を管理し、WordPress の要件によりよく適合できます。例えば、ディレクティブの内部では JavaScript 式は使用できず、セキュリティリスクを回避し、厳格なセキュリティポリシーへの準拠を保証できます。そして WordPress のすべてのディレクティブは仕様に準拠した HTML 属性です。
+さらに、Preact がバックグラウンドで動作することで、Interactivity API は「最終レイヤー」を管理し、WordPress の要件によりよく適合できます。例えば、ディレクティブの内部での JavaScript 式の使用を禁止し、セキュリティリスクを回避し、厳格なセキュリティポリシーへの準拠を保証できます。さらに WordPress のすべてのディレクティブは仕様に準拠した HTML 属性です。
 
 <!-- 
 <div class="callout callout-info">

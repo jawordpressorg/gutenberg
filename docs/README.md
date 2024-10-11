@@ -178,6 +178,12 @@ The Block Editor Handbook is designed for those looking to create and develop fo
 
 ### 主な変更
 
+2024/10/11
+
+- [Interactivity API について](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-about/) - 翻訳
+- [よくある質問](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-faq/) - 翻訳
+- [コアコンセプト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/) - 翻訳
+
 2024/9/29
 - [スタイルとスタイルシートの利用](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/applying-styles-with-stylesheets/) - css/scss のインポートの注記 [#61252](https://github.com/WordPress/gutenberg/pull/61252)
 - [API バージョン](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-api-versions/) - iframe の条件 [#65375](https://github.com/WordPress/gutenberg/pull/65375)

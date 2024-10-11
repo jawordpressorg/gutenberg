@@ -6,7 +6,7 @@
 <!-- 
 The Interactivity API is **a [standard](#why-a-standard) system of [directives](#why-directives), based on declarative code, for [adding frontend interactivity to blocks](#api-goals)**.
  -->
-Interactivity API は、**標準 (standard) のディレクティブシステムで、宣言型コードに基づいて、ブロックにフロントエンドのインタラクティビティ (相互作用、対話性) を追加**します。
+Interactivity API は、**標準 (standard) のディレクティブシステムで、宣言型コードに基づいて、ブロックのフロントエンドにインタラクティビティ (相互作用、対話性) を追加**します。
 
 <!-- 
 **Directives extend HTML with special attributes** that tell the Interactivity API to attach a specified behavior to a DOM element or even to transform it. For those familiar with [Alpine.js](https://alpinejs.dev/), it’s a similar approach but explicitly designed to work seamlessly with WordPress.
@@ -21,7 +21,7 @@ Interactivity API は、**標準 (standard) のディレクティブシステム
 <!-- 
 The main goal of the Interactivity API is to **provide a standard and simple way to handle the frontend interactivity of Gutenberg blocks**.
  -->
-Interactivity API は、**フロントエンドにおける Gutenberg ブロックのインタラクティビティを扱う、標準で、シンプルな方法の提供**を主な目的とします。
+Interactivity API の主要な目的は、**フロントエンドにおける Gutenberg ブロックのインタラクティビティを扱う、標準で、シンプルな方法の提供**です。
 
 <!-- 
 A standard makes it **easier for developers to create rich, interactive user experiences**, from simple cases like counters or popups to more complex features like instant page navigation, instant search, or carts and checkouts.
@@ -60,7 +60,7 @@ To address this challenge the following requirements/goals for the Interactivity
 <!-- 
 Apart from all these requirements, integrating **client-side navigation** on top of any solution should be easy and performant. Client-side navigation is the process of navigating between site pages without reloading the entire page, which is one of the most impressive user experiences demanded by web developers. For that reason, this functionality should be compatible with this new system.
  -->
-これらすべての要件とは別に、任意のソリューション上での**クライアントサイドナビゲーション**との統合は、簡単で、実行可能でなければなりません。クライアントサイドナビゲーションは、ページ全体をリロードすることなくサイトのページ間を移動するプロセスで、ウェブ開発者が欲する、最も印象的なユーザー体験の一つです。そのため、この機能はこの新しいシステムと互換性がなければなりません。
+これらすべての要件とは別に、任意のソリューション上での**クライアントサイドナビゲーション**との統合が、簡単で、実行可能でなければなりません。クライアントサイドナビゲーションは、ページ全体をリロードすることなくサイトのページ間を移動するプロセスで、ウェブ開発者が欲する、最も印象的なユーザー体験の一つです。そのため、この機能はこの新しいシステムと互換性がなければなりません。
 
 <!-- 
 ## Why directives?
@@ -146,14 +146,14 @@ Interactivity API パイプラインは、WordPress の強固な基盤とパタ�
 <!-- 
 For example, blocks with directives can coexist with other (interactive or non-interactive) blocks. This means that if there are other blocks on the page using other frameworks like jQuery, everything will work as expected.
  -->
-例えば、ディレクティブを持つブロックは、他の (インタラクティブ、または非インタラクティブな) ブロックと共存できます。つまり、ページ上に jQuery のような他のフレームワークを使っているブロックがあっても、すべて期待通りに動作します。
+例えばディレクティブを持つブロックは、他のインタラクティブ、または非インタラクティブなブロックと共存できます。つまり、ページ上に jQuery のような他のフレームワークを使っているブロックがあっても、すべて期待通りに動作します。
 
 <!-- 
 <div class="callout callout-warning">
   Full-page client-side navigation with the Interactivity API will be an exception to this compatibility with other libraries rule. See <a href="#client-side-navigation">Client-side navigation</a> for more details.
 </div>
  -->
-> Interactivity API を使用したフルページのクライアントサイドナビゲーションは、この他のライブラリとの互換性ルールの例外です。詳細は後述の「クライアントサイドナビゲーション」を参照してください。
+> 他のライブラリとの互換性ルールの例外が、Interactivity API を使用したフルページのクライアントサイドナビゲーションです。詳細は後述の「クライアントサイドナビゲーション」を参照してください。
 
 <!-- 
 ### Declarative and reactive
@@ -168,7 +168,7 @@ Interactivity API は、他の一般的な JS フレームワークと同様の�
 <!-- 
 Declarative code describes **what** a program should do, while imperative code describes **how** the program should do it. Using a declarative approach, the UI automatically updates in response to changes in the underlying data. With an imperative approach, you must manually update the UI whenever the data changes. Compare the two code examples:
  -->
-宣言型コードはプログラムが**何を**すべきかを記述し、一方、命令型コードはプログラムが**どのように**動くべきかを記述します。宣言型アプローチを使用すると、元となるデータの変更に応じて UI が自動的に更新されます。命令型アプローチでは、データが変更されるたびに手動で UI を更新しなければなりません。つのコード例を見比べてください。
+宣言型コードではプログラムが**何を**すべきかを記述しますが、一方、命令型コードではプログラムが**どのように**動くべきかを記述します。宣言型アプローチを使用すると、元となるデータの変更に応じて UI が自動的に更新されます。命令型アプローチでは、データが変更されるたびに手動で UI を更新しなければなりません。次のコード例を見比べてください。
 
 <!-- 
 _Imperative code_
@@ -300,7 +300,7 @@ The API works out of the box with standard block-building tools like [`wp-script
 <!-- 
 The Interactivity API comes with built-in primitives for adding client-side navigation to your site. This functionality is completely optional, but it opens the possibility to create these user experiences without having to opt out of the WordPress rendering system.
  -->
-Interactivity API には、サイトにクライアントサイドナビゲーションを追加するプリミティブが組み込まれています。この機能は完全にオプションですが、WordPress のレンダリングシステムを外さずにこうしたユーザー体験を作成する可能性が開かれます。
+Interactivity API には、サイトにクライアントサイドナビゲーションを追加するプリミティブが組み込まれています。この機能は完全にオプションですが、WordPress のレンダリングシステムを除外せずに、こうしたユーザー体験を作成する可能性を開きます。
 
 <!-- 
 <div class="callout callout-info">
@@ -338,7 +338,7 @@ Interactivity API を使用したブロックと、jQuery のような他のア�
 <!-- 
 Additionally, with a standard, **WordPress can absorb the maximum amount of complexity from the developer** because it will handle most of what’s needed to create an interactive block.
  -->
-さらに、標準は、インタラクティブブロックの作成に必要なほとんどを処理するため、**WordPress は開発者の複雑さを最大限に吸収できます**。
+さらに、標準がインタラクティブブロックの作成に必要なほとんどを処理するため、**WordPress は開発者の複雑さを最大限に吸収できます**。
 
 <!-- 
 _Complexities absorbed by the standard_
@@ -360,6 +360,6 @@ With this absorption, less knowledge is required to create interactive blocks, a
 <!-- 
 By adopting a standard, learning from other interactive blocks is simpler, and fosters collaboration and code reusability. As a result, the development process is leanier and friendlier to less experienced developers.
  -->
-標準を採用することで、他のインタラクティブブロックからの学習が簡単になり、コラボレーションとコードの再利用が促進されます。結果、開発プロセスはよりスリムになり、経験の浅い開発者にも優しくなります。
+標準を採用することで、他のインタラクティブブロックからの学習が簡単になり、コラボレーションとコードの再利用が促進されます。結果、開発プロセスはよりスリムになり、経験の少ない開発者にも優しくなります。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/interactivity-api/iapi-about.md)
