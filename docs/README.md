@@ -178,6 +178,10 @@ The Block Editor Handbook is designed for those looking to create and develop fo
 
 ### 主な変更
 
+2024/10/18
+
+- [リアクティブと宣言型の考え方](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset/) - 翻訳
+
 2024/10/11
 
 - [Interactivity API について](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-about/) - 翻訳
