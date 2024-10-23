@@ -178,6 +178,10 @@ The Block Editor Handbook is designed for those looking to create and develop fo
 
 ### 主な変更
 
+2024/10/23
+
+- [ブロックの静的レンダリングと動的レンダリング](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/static-dynamic-rendering/) - 翻訳
+
 2024/10/18
 
 - [リアクティブと宣言型の考え方](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset/) - 翻訳

@@ -23,7 +23,7 @@ Although technically, blocks could be registered only in the client, **registeri
 <!-- 
 While it's possible to register blocks solely on the client-side, best practices strongly advise registering them on both the server and client. This dual registration is crucial for enabling server-side features such as Dynamic Rendering, Block Supports, Block Hooks, and Style Variations. Without server-side registration, these functionalities will not operate correctly.
  -->
-ブロックはクライアントサイドのみに登録できますが、ベストプラクティスとして、サーバーとクライアントの両方で登録することを強く推奨します。この2つの登録により、動的レンダリング、ブロックサポート、ブロックフック、スタイルバリエーションなどのサーバーサイドの機能が可能となるtめ、非常に重要です。サーバーサイドに登録がなければ、これらの機能は正しく動作しません。
+ブロックはクライアントサイドのみに登録できますが、ベストプラクティスとして、サーバーとクライアントの両方で登録することを強く推奨します。この2つの登録により、動的レンダリング、ブロックサポート、ブロックフック、スタイルバリエーションなどのサーバーサイドの機能が可能となるため、非常に重要です。サーバーサイドに登録がなければ、これらの機能は正しく動作しません。
 
 <!-- 
 For example, to allow a block [to be styled via `theme.json`](https://developer.wordpress.org/themes/global-settings-and-styles/settings/blocks/), it needs to be registered on the server, otherwise, any styles assigned to it in `theme.json` will be ignored. 
@@ -34,7 +34,7 @@ For example, to allow a block [to be styled via `theme.json`](https://developer.
 <!-- 
 For instance, if you want a block [to be styled via `theme.json`](https://developer.wordpress.org/themes/global-settings-and-styles/settings/blocks/), it must be registered on the server. Otherwise, the block won't recognize or apply any styles assigned to it in `theme.json`.
  -->
-例えば、あるブロックを [`theme.json` を介してスタイルを設定するには](https://developer.wordpress.org/themes/global-settings-and-styles/settings/blocks/)、そのブロックをサーバに登録する必要があります。そうしなければ、ブロックは `theme.json` で割り当てられたスタイルを認識、適用できません。
+例えば、あるブロックを [`theme.json` を介してスタイルを設定するには](https://developer.wordpress.org/themes/global-settings-and-styles/settings/blocks/)、そのブロックをサーバーに登録する必要があります。そうしなければ、ブロックは `theme.json` で割り当てられたスタイルを認識、適用できません。
 
 <!-- 
 The following diagram details the registration process for a block.
