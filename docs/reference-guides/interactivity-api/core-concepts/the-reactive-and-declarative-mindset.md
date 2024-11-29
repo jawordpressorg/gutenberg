@@ -382,7 +382,7 @@ Interactivity API では UI の自動更新に加えて、`data-wp-watch` など
 <!-- 
 Here's an example of how you might use `data-wp-watch`:
  -->
-以下に `data-wp-watch` の使用例です。
+以下は `data-wp-watch` の使用例です。
 
 ```html
 <div

@@ -178,6 +178,10 @@ The Block Editor Handbook is designed for those looking to create and develop fo
 
 ### 主な変更
 
+2024/11/29
+
+- [グローバルステート、ローカルコンテキスト、派生ステートの理解](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state/) - 翻訳
+
 2024/10/23
 
 - [ブロックの静的レンダリングと動的レンダリング](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/static-dynamic-rendering/) - 翻訳
