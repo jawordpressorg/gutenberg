@@ -81,14 +81,14 @@ A transformation of type `block` is an object that takes the following parameter
 -   **transform** _(function)_: a callback that receives the attributes and inner blocks of the block being processed. It should return a block object or an array of block objects.
 -   **isMatch** _(function, optional)_: a callback that receives the block attributes as the first argument and the block object as the second argument and should return a boolean. Returning `false` from this function will prevent the transform from being available and displayed as an option to the user.
 -   **isMultiBlock** _(boolean, optional)_: whether the transformation can be applied when multiple blocks are selected. If true, the `transform` function's first parameter will be an array containing each selected block's attributes, and the second an array of each selected block's inner blocks. False by default.
--   **priority** _(number, optional)_: controls the priority with which a transformation is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
+-   **priority** _(number, optional)_: controls the priority with which a transformation is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://developer.wordpress.org/reference/#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `block`。
 - **blocks** _(array)_: 既知のブロックタイプ。ワイルドカード値 (`"*"`) も指定でき、この場合 _すべての_ ブロックタイプで変換可能であることを意味する (例: すべてのブロックは `core/group` に変換できる)。
 - **transform** _(function)_: 処理されるブロックの属性とインナーブロックを受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
 - **isMatch** _(function、オプション)_: 第1引数にブロックの属性、第2引数にブロックオブジェクトを受け取り、ブール値を返すコールバック。`false` を返すと可能な変換を行わず、ユーザーにオプションを表示する。
 - **isMultiBlock** _(boolean、オプション)_: 複数のブロックを選択している場合に変換を適用可能かどうか。true であれば `transform` 関数の最初のパラメータは選択した各ブロックの属性の配列、2番目のパラメータは選択した各ブロックのインナーブロックの配列になる。デフォルトは false。
-- **priority** _(number、オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
+- **priority** _(number、オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://developer.wordpress.org/reference/#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 
 <!--
 **Example: from Paragraph block to Heading block**
@@ -158,12 +158,12 @@ A transformation of type `enter` is an object that takes the following parameter
 -   **type** _(string)_: the value `enter`.
 -   **regExp** _(RegExp)_: the Regular Expression to use as a matcher. If the value matches, the transformation will be applied.
 -   **transform** _(function)_: a callback that receives an object with a `content` field containing the value that has been entered. It should return a block object or an array of block objects.
--   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
+-   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://developer.wordpress.org/reference/#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `enter`。
 - **regExp** _(RegExp)_: パターンマッチに使用する正規表現。マッチすれば変換が適用される。
 - **transform** _(function)_: 入力された値を含む `content` フィールドを持つオブジェクトを受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
-- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
+- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://developer.wordpress.org/reference/#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 
 <!--
 **Example: from --- to Separator block**
@@ -203,12 +203,12 @@ A transformation of type `files` is an object that takes the following parameter
 -   **type** _(string)_: the value `files`.
 -   **transform** _(function)_: a callback that receives the array of files being processed. It should return a block object or an array of block objects.
 -   **isMatch** _(function, optional)_: a callback that receives the array of files being processed and should return a boolean. Returning `false` from this function will prevent the transform from being applied.
--   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
+-   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://developer.wordpress.org/reference/#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `files`。
 - **transform** _(function)_: 処理するファイルの配列を受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
 - **isMatch** _(function、オプション)_: 処理するファイルの配列を受け取り、ブール値を返すコールバック。`false` を返すと変換を適用しない。
-- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
+- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://developer.wordpress.org/reference/#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 
 <!--
 **Example: from file to File block**
@@ -289,12 +289,12 @@ A transformation of type `prefix` is an object that takes the following paramete
 -   **type** _(string)_: the value `prefix`.
 -   **prefix** _(string)_: the character or sequence of characters that match this transform.
 -   **transform** _(function)_: a callback that receives the content introduced. It should return a block object or an array of block objects.
--   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
+-   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://developer.wordpress.org/reference/#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `prefix`。
 - **prefix** _(string)_: この変換にマッチする文字、または文字列。
 - **transform** _(function)_: 入力したコンテンツを受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
-- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
+- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://developer.wordpress.org/reference/#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 
 <!--
 **Example: from text to custom block**
@@ -340,16 +340,16 @@ A transformation of type `raw` is an object that takes the following parameters:
 -   **schema** _(object|function, optional)_: defines an [HTML content model](https://html.spec.whatwg.org/multipage/dom.html#content-models) used to detect and process pasted contents. See [below](#schemas-and-content-models).
 -   **selector** _(string, optional)_: a CSS selector string to determine whether the element matches according to the [element.matches](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) method. The transform won't be executed if the element doesn't match. This is a shorthand and alternative to using `isMatch`, which, if present, will take precedence.
 -   **isMatch** _(function, optional)_: a callback that receives the node being processed and should return a boolean. Returning `false` from this function will prevent the transform from being applied.
--   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
+-   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://developer.wordpress.org/reference/#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `raw`。
 - **transform** _(function、オプション)_: 処理するノードを受け取るコールバック。ブロックオブジェクトまたはブロックオブジェクトの配列を返さなければならない。
 - **schema** _(object|function、オプション)_: 張り付けられたコンテンツの検出と処理に使用される [HTML content model](https://html.spec.whatwg.org/multipage/dom.html#content-models) を定義する。以下の「スキーマとコンテンツモデル」を参照してください。
 - **selector** _(string、オプション)_: [element.matches](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) メソッドに従って要素が合致するかどうかを決定する CSS セレクター文字列。要素がマッチしない場合、変換は実行されない。`isMatch` の代替、かつ、短縮形。あれば、`isMatch` が優先。
 - **isMatch** _(function、オプション)_: 処理するノードを受け取り、ブール値を返すコールバック。`false` を返すと変換を適用しない。
-- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同じく、値が指定されていない場合のデフォルトのプライオリティは `10`。
-<!--
+- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://developer.wordpress.org/reference/#Hook_to_WordPress) と同じ。フックと同じく、値が指定されていない場合のデフォルトのプライオリティは `10`。
 
+<!--
 **Example: from URLs to Embed block**
  -->
 **例: URL から「埋め込み」ブロックへの変換**
@@ -459,14 +459,14 @@ A transformation of type `shortcode` is an object that takes the following param
 -   **transform** _(function, optional)_: a callback that receives the shortcode attributes as the first argument and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as the second. It should return a block object or an array of block objects. When this parameter is defined, it will take precedence over the `attributes` parameter.
 -   **attributes** _(object, optional)_: object representing where the block attributes should be sourced from, according to the attributes shape defined by the [block configuration object](./block-registration.md). If a particular attribute contains a `shortcode` key, it should be a function that receives the shortcode attributes as the first arguments and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as second, and returns a value for the attribute that will be sourced in the block's comment.
 -   **isMatch** _(function, optional)_: a callback that receives the shortcode attributes per the [Shortcode API](https://codex.wordpress.org/Shortcode_API) and should return a boolean. Returning `false` from this function will prevent the shortcode to be transformed into this block.
--   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
+-   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [WordPress hook](https://developer.wordpress.org/reference/#Hook_to_WordPress). Like hooks, the default priority is `10` when not otherwise set.
  -->
 - **type** _(string)_: 文字列 `shortcode`。
 - **tag** _(string|array)_: この変換が動作可能なショートコードタグ、またはショートコードエイリアスのリスト。
 - **transform** _(function, オプション)_: 第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取るコールバック。ブロックオブジェクト、またはブロックオブジェクトの配列を返さなければならない。このパラメータが定義されると、`attributes` パラメータに優先する。
 - **attributes** _(object, オプション)_: [block 構成オブジェクト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) で定義された属性の形に従い、ブロック属性がどこを source とするかを表したオブジェクト。特定の属性が `shortcode` キーを含む場合には関数であり、第1引数にショートコードの属性、第2引数に [WPShortcodeMatch](https://developer.wordpress.org/block-editor/packages/packages-shortcode/#next) を受け取り、ブロックのコメントを source とする属性の値を返さなければならない。
 - **isMatch** _(function、オプション)_: [Shortcode API](https://codex.wordpress.org/Shortcode_API) ごとにショートコード属性を受け取り、ブール値を返すコールバック。`false` を返すとショートコードのブロックへの変換を適用しない。
-- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://codex.wordpress.org/Plugin_API#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
+- **priority** _(number, オプション)_: 変換を適用するプライオリティ。値の小さな方が優先される。この動きは [WordPress のフック](https://developer.wordpress.org/reference/#Hook_to_WordPress) と同じ。フックと同様に指定されていない場合のデフォルトのプライオリティは `10`。
 
 <!-- 
 **Example: from shortcode to block using `transform`**

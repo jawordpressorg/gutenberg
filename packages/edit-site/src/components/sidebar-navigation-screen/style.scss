@@ -68,7 +68,11 @@
 .edit-site-sidebar-navigation-screen__title {
 	flex-grow: 1;
 	overflow-wrap: break-word;
-	padding: $grid-unit-05 * 0.5 0 0 0;
+
+	&#{&},
+	&#{&} .edit-site-sidebar-navigation-screen__title {
+		line-height: $font-line-height-x-large;
+	}
 }
 
 .edit-site-sidebar-navigation-screen__actions {
@@ -123,9 +127,14 @@
 	bottom: 0;
 	background-color: $gray-900;
 	gap: 0;
-	padding: $grid-unit-20 0;
+	padding: $grid-unit-10 $grid-unit-20;
 	margin: $grid-unit-20 0 0;
 	border-top: 1px solid $gray-800;
+
+	.edit-site-sidebar-navigation-screen-details-footer {
+		margin-left: -$grid-unit-20;
+		margin-right: -$grid-unit-20;
+	}
 }
 
 /* In general style overrides are discouraged.

@@ -23,8 +23,9 @@ import {
 } from '@wordpress/icons';
 
 const meta: Meta< typeof DropdownMenu > = {
-	title: 'Components/DropdownMenu',
+	title: 'Components/Actions/DropdownMenu',
 	component: DropdownMenu,
+	id: 'components-dropdownmenu',
 	parameters: {
 		actions: { argTypesRegex: '^on.*' },
 		controls: { expanded: true },
@@ -96,6 +97,9 @@ export const WithChildren: StoryObj< typeof DropdownMenu > = {
 		icon: more,
 		children: ( { onClose } ) => (
 			<>
+				<MenuItem icon={ arrowUp } onClick={ onClose }>
+					Standalone Item
+				</MenuItem>
 				<MenuGroup>
 					<MenuItem icon={ arrowUp } onClick={ onClose }>
 						Move Up

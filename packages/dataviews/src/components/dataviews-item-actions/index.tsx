@@ -23,7 +23,7 @@ import { useRegistry } from '@wordpress/data';
 import { unlock } from '../../lock-unlock';
 import type { Action, ActionModal as ActionModalType } from '../../types';
 
-const { DropdownMenuV2, kebabCase } = unlock( componentsPrivateApis );
+const { Menu, kebabCase } = unlock( componentsPrivateApis );
 
 export interface ActionTriggerProps< Item > {
 	action: Action< Item >;
@@ -43,7 +43,7 @@ interface ActionWithModalProps< Item > extends ActionModalProps< Item > {
 	isBusy?: boolean;
 }
 
-interface ActionsDropdownMenuGroupProps< Item > {
+interface ActionsMenuGroupProps< Item > {
 	actions: Action< Item >[];
 	item: Item;
 }
@@ -57,6 +57,19 @@ interface ItemActionsProps< Item > {
 interface CompactItemActionsProps< Item > {
 	item: Item;
 	actions: Action< Item >[];
+	isSmall?: boolean;
+}
+
+interface PrimaryActionsProps< Item > {
+	item: Item;
+	actions: Action< Item >[];
+	registry: ReturnType< typeof useRegistry >;
+}
+interface ActionsListProps< Item > {
+	item: Item;
+	actions: Action< Item >[];
+	registry: ReturnType< typeof useRegistry >;
+	ActionTrigger: ( props: ActionTriggerProps< Item > ) => ReactElement;
 }
 
 function ButtonTrigger< Item >( {
@@ -77,7 +90,7 @@ function ButtonTrigger< Item >( {
 	);
 }
 
-function DropdownMenuItemTrigger< Item >( {
+function MenuItemTrigger< Item >( {
 	action,
 	onClick,
 	items,
@@ -85,12 +98,12 @@ function DropdownMenuItemTrigger< Item >( {
 	const label =
 		typeof action.label === 'string' ? action.label : action.label( items );
 	return (
-		<DropdownMenuV2.Item
+		<Menu.Item
 			onClick={ onClick }
 			hideOnClick={ ! ( 'RenderModal' in action ) }
 		>
-			<DropdownMenuV2.ItemLabel>{ label }</DropdownMenuV2.ItemLabel>
-		</DropdownMenuV2.Item>
+			<Menu.ItemLabel>{ label }</Menu.ItemLabel>
+		</Menu.Item>
 	);
 }
 
@@ -107,7 +120,7 @@ export function ActionModal< Item >( {
 			__experimentalHideHeader={ !! action.hideModalHeader }
 			onRequestClose={ closeModal ?? ( () => {} ) }
 			focusOnMount="firstContentElement"
-			size="small"
+			size="medium"
 			overlayClassName={ `dataviews-action-modal dataviews-action-modal__${ kebabCase(
 				action.id
 			) }` }
@@ -146,37 +159,28 @@ export function ActionWithModal< Item >( {
 	);
 }
 
-export function ActionsDropdownMenuGroup< Item >( {
+export function ActionsMenuGroup< Item >( {
 	actions,
 	item,
-}: ActionsDropdownMenuGroupProps< Item > ) {
+}: ActionsMenuGroupProps< Item > ) {
 	const registry = useRegistry();
 	return (
-		<DropdownMenuV2.Group>
-			{ actions.map( ( action ) => {
-				if ( 'RenderModal' in action ) {
-					return (
-						<ActionWithModal
-							key={ action.id }
-							action={ action }
-							items={ [ item ] }
-							ActionTrigger={ DropdownMenuItemTrigger }
-						/>
-					);
-				}
-				return (
-					<DropdownMenuItemTrigger
-						key={ action.id }
-						action={ action }
-						onClick={ () => {
-							action.callback( [ item ], { registry } );
-						} }
-						items={ [ item ] }
-					/>
-				);
-			} ) }
-		</DropdownMenuV2.Group>
+		<Menu.Group>
+			<ActionsList
+				actions={ actions }
+				item={ item }
+				registry={ registry }
+				ActionTrigger={ MenuItemTrigger }
+			/>
+		</Menu.Group>
 	);
+}
+
+function hasOnlyOneActionAndIsPrimary< Item >(
+	primaryActions: Action< Item >[],
+	actions: Action< Item >[]
+) {
+	return primaryActions.length === 1 && actions.length === 1;
 }
 
 export default function ItemActions< Item >( {
@@ -199,9 +203,27 @@ export default function ItemActions< Item >( {
 			eligibleActions: _eligibleActions,
 		};
 	}, [ actions, item ] );
+
 	if ( isCompact ) {
-		return <CompactItemActions item={ item } actions={ eligibleActions } />;
+		return (
+			<CompactItemActions
+				item={ item }
+				actions={ eligibleActions }
+				isSmall
+			/>
+		);
 	}
+
+	if ( hasOnlyOneActionAndIsPrimary( primaryActions, actions ) ) {
+		return (
+			<PrimaryActions
+				item={ item }
+				actions={ primaryActions }
+				registry={ registry }
+			/>
+		);
+	}
+
 	return (
 		<HStack
 			spacing={ 1 }
@@ -212,29 +234,11 @@ export default function ItemActions< Item >( {
 				width: 'auto',
 			} }
 		>
-			{ !! primaryActions.length &&
-				primaryActions.map( ( action ) => {
-					if ( 'RenderModal' in action ) {
-						return (
-							<ActionWithModal
-								key={ action.id }
-								action={ action }
-								items={ [ item ] }
-								ActionTrigger={ ButtonTrigger }
-							/>
-						);
-					}
-					return (
-						<ButtonTrigger
-							key={ action.id }
-							action={ action }
-							onClick={ () => {
-								action.callback( [ item ], { registry } );
-							} }
-							items={ [ item ] }
-						/>
-					);
-				} ) }
+			<PrimaryActions
+				item={ item }
+				actions={ primaryActions }
+				registry={ registry }
+			/>
 			<CompactItemActions item={ item } actions={ eligibleActions } />
 		</HStack>
 	);
@@ -243,12 +247,13 @@ export default function ItemActions< Item >( {
 function CompactItemActions< Item >( {
 	item,
 	actions,
+	isSmall,
 }: CompactItemActionsProps< Item > ) {
 	return (
-		<DropdownMenuV2
+		<Menu
 			trigger={
 				<Button
-					size="compact"
+					size={ isSmall ? 'small' : 'compact' }
 					icon={ moreVertical }
 					label={ __( 'Actions' ) }
 					accessibleWhenDisabled
@@ -258,7 +263,55 @@ function CompactItemActions< Item >( {
 			}
 			placement="bottom-end"
 		>
-			<ActionsDropdownMenuGroup actions={ actions } item={ item } />
-		</DropdownMenuV2>
+			<ActionsMenuGroup actions={ actions } item={ item } />
+		</Menu>
 	);
+}
+
+function PrimaryActions< Item >( {
+	item,
+	actions,
+	registry,
+}: PrimaryActionsProps< Item > ) {
+	if ( ! Array.isArray( actions ) || actions.length === 0 ) {
+		return null;
+	}
+	return (
+		<ActionsList
+			actions={ actions }
+			item={ item }
+			registry={ registry }
+			ActionTrigger={ ButtonTrigger }
+		/>
+	);
+}
+
+function ActionsList< Item >( {
+	item,
+	actions,
+	registry,
+	ActionTrigger,
+}: ActionsListProps< Item > ) {
+	return actions.map( ( action ) => {
+		if ( 'RenderModal' in action ) {
+			return (
+				<ActionWithModal
+					key={ action.id }
+					action={ action }
+					items={ [ item ] }
+					ActionTrigger={ ActionTrigger }
+				/>
+			);
+		}
+		return (
+			<ActionTrigger
+				key={ action.id }
+				action={ action }
+				onClick={ () => {
+					action.callback( [ item ], { registry } );
+				} }
+				items={ [ item ] }
+			/>
+		);
+	} );
 }

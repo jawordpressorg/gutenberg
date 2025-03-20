@@ -30,6 +30,7 @@ import {
 import { Spacer } from '../spacer';
 import { useDeprecated36pxDefaultSizeProp } from '../utils/use-deprecated-props';
 import { withIgnoreIMEEvents } from '../utils/with-ignore-ime-events';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const identity = ( value: string ) => value;
 
@@ -86,6 +87,12 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 		} );
 	}
 
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'FormTokenField',
+		size: undefined,
+		__next40pxDefaultSize,
+	} );
+
 	const instanceId = useInstanceId( FormTokenField );
 
 	// We reset to these initial values again in the onBlur
@@ -124,17 +131,14 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 		}
 
 		// TODO: updateSuggestions() should first be refactored so its actual deps are clearer.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ suggestions, prevSuggestions, value, prevValue ] );
 
 	useEffect( () => {
 		updateSuggestions();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ incompleteTokenValue ] );
 
 	useEffect( () => {
 		updateSuggestions();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ __experimentalAutoSelectFirstMatch ] );
 
 	if ( disabled && isActive ) {

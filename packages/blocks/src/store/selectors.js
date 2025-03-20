@@ -8,11 +8,13 @@ import removeAccents from 'remove-accents';
  */
 import { createSelector } from '@wordpress/data';
 import { RichTextData } from '@wordpress/rich-text';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
  */
 import { getValueFromObjectPath, matchesAttributes } from './utils';
+import { hasContentRoleAttribute as privateHasContentRoleAttribute } from './private-selectors';
 
 /** @typedef {import('../api/registration').WPBlockVariation} WPBlockVariation */
 /** @typedef {import('../api/registration').WPBlockVariationScope} WPBlockVariationScope */
@@ -435,7 +437,7 @@ export function getCollections( state ) {
  * };
  * ```
  *
- * @return {string?} Default block name.
+ * @return {?string} Default block name.
  */
 export function getDefaultBlockName( state ) {
 	return state.defaultBlockName;
@@ -471,7 +473,7 @@ export function getDefaultBlockName( state ) {
  * };
  * ```
  *
- * @return {string?} Name of the block for handling non-block content.
+ * @return {?string} Name of the block for handling non-block content.
  */
 export function getFreeformFallbackBlockName( state ) {
 	return state.freeformFallbackBlockName;
@@ -507,7 +509,7 @@ export function getFreeformFallbackBlockName( state ) {
  * };
  * ```
  *
- * @return {string?} Name of the block for handling unregistered blocks.
+ * @return {?string} Name of the block for handling unregistered blocks.
  */
 export function getUnregisteredFallbackBlockName( state ) {
 	return state.unregisteredFallbackBlockName;
@@ -543,7 +545,7 @@ export function getUnregisteredFallbackBlockName( state ) {
  * };
  * ```
  *
- * @return {string?} Name of the block for handling the grouping of blocks.
+ * @return {?string} Name of the block for handling the grouping of blocks.
  */
 export function getGroupingBlockName( state ) {
 	return state.groupingBlockName;
@@ -822,23 +824,11 @@ export const hasChildBlocksWithInserterSupport = ( state, blockName ) => {
 	} );
 };
 
-/**
- * DO-NOT-USE in production.
- * This selector is created for internal/experimental only usage and may be
- * removed anytime without any warning, causing breakage on any plugin or theme invoking it.
- */
-export const __experimentalHasContentRoleAttribute = createSelector(
-	( state, blockTypeName ) => {
-		const blockType = getBlockType( state, blockTypeName );
-		if ( ! blockType ) {
-			return false;
-		}
-
-		return Object.entries( blockType.attributes ).some(
-			( [ , { __experimentalRole } ] ) => __experimentalRole === 'content'
-		);
-	},
-	( state, blockTypeName ) => [
-		state.blockTypes[ blockTypeName ]?.attributes,
-	]
-);
+export const __experimentalHasContentRoleAttribute = ( ...args ) => {
+	deprecated( '__experimentalHasContentRoleAttribute', {
+		since: '6.7',
+		version: '6.8',
+		hint: 'This is a private selector.',
+	} );
+	return privateHasContentRoleAttribute( ...args );
+};

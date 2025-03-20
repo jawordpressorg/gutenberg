@@ -14,6 +14,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { useState } from '@wordpress/element';
 import { plus } from '@wordpress/icons';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -22,10 +23,11 @@ import SidebarNavigationItem from '../sidebar-navigation-item';
 import { useDefaultViews } from './default-views';
 import { unlock } from '../../lock-unlock';
 
-const { useHistory } = unlock( routerPrivateApis );
+const { useLocation, useHistory } = unlock( routerPrivateApis );
 
 function AddNewItemModalContent( { type, setIsAdding } ) {
 	const history = useHistory();
+	const { path } = useLocation();
 	const { saveEntityRecord } = useDispatch( coreStore );
 	const [ title, setTitle ] = useState( '' );
 	const [ isSaving, setIsSaving ] = useState( false );
@@ -64,14 +66,12 @@ function AddNewItemModalContent( { type, setIsAdding } ) {
 						content: JSON.stringify( defaultViews[ 0 ].view ),
 					}
 				);
-				const {
-					params: { postType },
-				} = history.getLocationWithParams();
-				history.push( {
-					postType,
-					activeView: savedRecord.id,
-					isCustom: 'true',
-				} );
+				history.navigate(
+					addQueryArgs( path, {
+						activeView: savedRecord.id,
+						isCustom: 'true',
+					} )
+				);
 				setIsSaving( false );
 				setIsAdding( false );
 			} }
@@ -88,8 +88,7 @@ function AddNewItemModalContent( { type, setIsAdding } ) {
 				/>
 				<HStack justify="right">
 					<Button
-						// TODO: Switch to `true` (40px size) if possible
-						__next40pxDefaultSize={ false }
+						__next40pxDefaultSize
 						variant="tertiary"
 						onClick={ () => {
 							setIsAdding( false );
@@ -99,8 +98,7 @@ function AddNewItemModalContent( { type, setIsAdding } ) {
 					</Button>
 
 					<Button
-						// TODO: Switch to `true` (40px size) if possible
-						__next40pxDefaultSize={ false }
+						__next40pxDefaultSize
 						variant="primary"
 						type="submit"
 						aria-disabled={ ! title || isSaving }

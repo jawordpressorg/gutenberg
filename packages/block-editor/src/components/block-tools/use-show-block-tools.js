@@ -8,6 +8,7 @@ import { isUnmodifiedDefaultBlock } from '@wordpress/blocks';
  * Internal dependencies
  */
 import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 /**
  * Source of truth for which block tools are showing in the block editor.
@@ -24,7 +25,7 @@ export function useShowBlockTools() {
 			getSettings,
 			__unstableGetEditorMode,
 			isTyping,
-		} = select( blockEditorStore );
+		} = unlock( select( blockEditorStore ) );
 
 		const clientId =
 			getSelectedBlockClientId() || getFirstMultiSelectedBlockClientId();
@@ -39,15 +40,11 @@ export function useShowBlockTools() {
 		const _showEmptyBlockSideInserter =
 			clientId &&
 			! isTyping() &&
-			editorMode === 'edit' &&
+			// Hide the block inserter on the navigation mode.
+			// See https://github.com/WordPress/gutenberg/pull/66636#discussion_r1824728483.
+			editorMode !== 'navigation' &&
 			isEmptyDefaultBlock;
-		const isZoomOut = editorMode === 'zoom-out';
-		const _showZoomOutToolbar =
-			isZoomOut &&
-			block?.attributes?.align === 'full' &&
-			! _showEmptyBlockSideInserter;
 		const _showBlockToolbarPopover =
-			! _showZoomOutToolbar &&
 			! getSettings().hasFixedToolbar &&
 			! _showEmptyBlockSideInserter &&
 			hasSelectedBlock &&
@@ -56,7 +53,6 @@ export function useShowBlockTools() {
 		return {
 			showEmptyBlockSideInserter: _showEmptyBlockSideInserter,
 			showBlockToolbarPopover: _showBlockToolbarPopover,
-			showZoomOutToolbar: _showZoomOutToolbar,
 		};
 	}, [] );
 }

@@ -6,6 +6,7 @@ import {
 	createBlock,
 	createBlocksFromInnerBlocksTemplate,
 	parse,
+	store as blocksStore,
 } from '@wordpress/blocks';
 import { useMemo } from '@wordpress/element';
 
@@ -22,12 +23,10 @@ import { orderInserterBlockItems } from '../utils/order-inserter-block-items';
 const noop = () => {};
 const SHOWN_BLOCK_TYPES = 9;
 
-/** @typedef {import('@wordpress/components').WPCompleter} WPCompleter */
-
 /**
  * Creates a blocks repeater for replacing the current block with a selected block type.
  *
- * @return {WPCompleter} A blocks completer.
+ * @return {Object} A blocks completer.
  */
 function createBlockCompleter() {
 	return {
@@ -36,22 +35,30 @@ function createBlockCompleter() {
 		triggerPrefix: '/',
 
 		useItems( filterValue ) {
-			const { rootClientId, selectedBlockName, prioritizedBlocks } =
+			const { rootClientId, selectedBlockId, prioritizedBlocks } =
 				useSelect( ( select ) => {
 					const {
 						getSelectedBlockClientId,
-						getBlockName,
+						getBlock,
 						getBlockListSettings,
 						getBlockRootClientId,
 					} = select( blockEditorStore );
+					const { getActiveBlockVariation } = select( blocksStore );
 					const selectedBlockClientId = getSelectedBlockClientId();
+					const { name: blockName, attributes } = getBlock(
+						selectedBlockClientId
+					);
+					const activeBlockVariation = getActiveBlockVariation(
+						blockName,
+						attributes
+					);
 					const _rootClientId = getBlockRootClientId(
 						selectedBlockClientId
 					);
 					return {
-						selectedBlockName: selectedBlockClientId
-							? getBlockName( selectedBlockClientId )
-							: null,
+						selectedBlockId: activeBlockVariation
+							? `${ blockName }/${ activeBlockVariation.name }`
+							: blockName,
 						rootClientId: _rootClientId,
 						prioritizedBlocks:
 							getBlockListSettings( _rootClientId )
@@ -78,11 +85,11 @@ function createBlockCompleter() {
 					  );
 
 				return initialFilteredItems
-					.filter( ( item ) => item.name !== selectedBlockName )
+					.filter( ( item ) => item.id !== selectedBlockId )
 					.slice( 0, SHOWN_BLOCK_TYPES );
 			}, [
 				filterValue,
-				selectedBlockName,
+				selectedBlockId,
 				items,
 				categories,
 				collections,
@@ -148,6 +155,6 @@ function createBlockCompleter() {
 /**
  * Creates a blocks repeater for replacing the current block with a selected block type.
  *
- * @return {WPCompleter} A blocks completer.
+ * @return {Object} A blocks completer.
  */
 export default createBlockCompleter();

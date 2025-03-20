@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { useRef } from '@wordpress/element';
 import { create, getTextContent } from '@wordpress/rich-text';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
@@ -102,19 +103,17 @@ const isEmptyHeading = ( heading ) =>
  * Renders a document outline component.
  *
  * @param {Object}   props                         Props.
- * @param {Function} props.onSelect                Function to be called when an outline item is selected.
- * @param {boolean}  props.isTitleSupported        Indicates whether the title is supported.
+ * @param {Function} props.onSelect                Function to be called when an outline item is selected
  * @param {boolean}  props.hasOutlineItemsDisabled Indicates whether the outline items are disabled.
  *
- * @return {Component} The component to be rendered.
+ * @return {React.ReactNode} The rendered component.
  */
 export default function DocumentOutline( {
 	onSelect,
-	isTitleSupported,
 	hasOutlineItemsDisabled,
 } ) {
 	const { selectBlock } = useDispatch( blockEditorStore );
-	const { blocks, title } = useSelect( ( select ) => {
+	const { blocks, title, isTitleSupported } = useSelect( ( select ) => {
 		const { getBlocks } = select( blockEditorStore );
 		const { getEditedPostAttribute } = select( editorStore );
 		const { getPostType } = select( coreStore );
@@ -126,6 +125,8 @@ export default function DocumentOutline( {
 			isTitleSupported: postType?.supports?.title ?? false,
 		};
 	} );
+
+	const prevHeadingLevelRef = useRef( 1 );
 
 	const headings = computeOutlineHeadings( blocks );
 	if ( headings.length < 1 ) {
@@ -140,8 +141,6 @@ export default function DocumentOutline( {
 			</div>
 		);
 	}
-
-	let prevHeadingLevel = 1;
 
 	// Not great but it's the simplest way to locate the title right now.
 	const titleNode = document.querySelector( '.editor-post-title__input' );
@@ -172,7 +171,8 @@ export default function DocumentOutline( {
 				{ headings.map( ( item, index ) => {
 					// Headings remain the same, go up by one, or down by any amount.
 					// Otherwise there are missing levels.
-					const isIncorrectLevel = item.level > prevHeadingLevel + 1;
+					const isIncorrectLevel =
+						item.level > prevHeadingLevelRef.current + 1;
 
 					const isValid =
 						! item.isEmpty &&
@@ -180,7 +180,7 @@ export default function DocumentOutline( {
 						!! item.level &&
 						( item.level !== 1 ||
 							( ! hasMultipleH1 && ! hasTitle ) );
-					prevHeadingLevel = item.level;
+					prevHeadingLevelRef.current = item.level;
 
 					return (
 						<DocumentOutlineItem

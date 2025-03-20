@@ -54,18 +54,6 @@ The `slug` provided (`todo-list` in the example) defines the folder name for the
 
 <!--
 _(requires `node` version `20.10.0` or above, and `npm` version `10.2.3` or above)_
-
-It creates a WordPress plugin that you need to [install manually](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation).
- -->
-<!-- 
-[手動でのインストール](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation)が必要な WordPress プラグインを作成します。
- -->
-<!--
-[Watch a video introduction to create-block on Learn.wordpress.org](https://learn.wordpress.org/tutorial/using-the-create-block-tool/)
- -->
-
-<!-- 
-_(requires `node` version `14.0.0` or above, and `npm` version `6.14.4` or above)_
  -->
 _(`node` version `20.10.0` 以上、`npm` version `10.2.3` 以上が必要です)_
 
@@ -134,9 +122,10 @@ When no `slug` is provided, the script will run in interactive mode and will sta
 The use of `slug` is optional.
 
 When provided it triggers the _quick mode_, where this `slug` is used:
-- as the block slug (required for its identification)
-- as the output location (folder name) for scaffolded files
-- as the name of the WordPress plugin.
+
+-   as the block slug (required for its identification)
+-   as the output location (folder name) for scaffolded files
+-   as the name of the WordPress plugin.
 
 The rest of the configuration is set to all default values unless overridden with some options listed below.
  -->
@@ -158,7 +147,9 @@ The rest of the configuration is set to all default values unless overridden wit
 ```bash
 -V, --version                output the version number
 -t, --template <name>        project template type name; allowed values: "static" (default), "es5", the name of an external npm package, or the path to a local directory
+--variant                    choose a block variant as defined by the template
 --no-plugin                  scaffold block files only
+--target-dir <directory>     the directory where the files will be scaffolded, defaults to the slug
 --namespace <value>          internal namespace for the block name
 --title <value>              display title for the block and the WordPress plugin
 --short-description <value>  short description for the block and the WordPress plugin
@@ -167,13 +158,14 @@ The rest of the configuration is set to all default values unless overridden wit
 --no-wp-scripts              disable integration with `@wordpress/scripts` package
 --wp-env                     enable integration with `@wordpress/env` package
 -h, --help                   output usage information
---variant                    choose a block variant as defined by the template
 ```
  -->
 ```bash
 -V, --version                バージョン番号の出力
 -t, --template <name>        プロジェクトテンプレートタイプ名。指定可能な値: "static" (デフォルト)、"es5"、外部 npm パッケージ名、ローカルディレクトリへのパス
+--variant                    テンプレートで定義されたブロックのバリエーションを選択
 --no-plugin                  ひな形ブロックファイルのみ
+--target-dir <directory>     ひな形ファイルの出力先。デフォルトはスラッグ名
 --namespace <value>          ブロック名の内部名前空間
 --title <value>              ブロックと WordPress プラグインの表示タイトル
 --short-description <value>  ブロックと WordPress プラグインの短い説明
@@ -182,7 +174,6 @@ The rest of the configuration is set to all default values unless overridden wit
 --no-wp-scripts              `@wordpress/scripts` パッケージとの統合を無効化
 --wp-env                     `@wordpress/env` パッケージとの統合を有効化
 -h, --help                   使用方法の出力
---variant                    テンプレートで定義されたブロックのバリエーションを選択
 ```
 
 <!--
@@ -235,18 +226,6 @@ With this argument, `create-block` will generate a [dynamic block](https://devel
 
 ```bash
 $ npx @wordpress/create-block@latest --variant dynamic
-```
-<!-- 
-#### `--help`
- -->
-#### --help
-<!-- 
-With this argument, the `create-block` package outputs usage information.
- -->
-この引数を指定すると、`create-block` パッケージは使用方法の情報を表示します。
-
-```bash
-$ npx @wordpress/create-block@latest --help
 ```
 <!-- 
 #### `--no-plugin`
@@ -336,6 +315,8 @@ Starts the build for development. [Learn more](https://github.com/WordPress/gute
 <!-- 
 開発用のビルドを開始。[詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#start)
 
+## Available commands in the scaffolded project
+
 ```bash
 $ npm run build
 ```
@@ -396,6 +377,19 @@ Updates WordPress packages to the latest version. [Learn more](https://github.co
 <!-- 
 WordPress パッケージを最新版に更新。[詳細](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#packages-update)
  -->
+
+<!-- 
+#### `--help`
+ -->
+#### --help
+<!-- 
+With this argument, the `create-block` package outputs usage information.
+ -->
+この引数を指定すると、`create-block` パッケージは使用方法の情報を表示します。
+
+```bash
+$ npx @wordpress/create-block@latest --help
+```
 
 <!-- 
 ## Available commands in the scaffolded project

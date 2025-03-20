@@ -50,7 +50,7 @@ _Parameters_
 
 -   _dateFormat_ `string`: PHP-style formatting string. See php.net/date.
 -   _dateValue_ `Moment | Date | string | undefined`: Date object or string, parsable by moment.js.
--   _timezone_ `string | number | boolean | undefined`: Timezone to output result in or a UTC offset. Defaults to timezone from site. Notice: `boolean` is effectively deprecated, but still supported for backward compatibility reasons.
+-   _timezone_ `string | number | boolean | undefined=`: Timezone to output result in or a UTC offset. Defaults to timezone from site. Notice: `boolean` is effectively deprecated, but still supported for backward compatibility reasons.
 
 _Returns_
 
@@ -75,7 +75,7 @@ Create and return a JavaScript Date Object from a date string in the WP timezone
 
 _Parameters_
 
--   _dateString_ `string?`: Date formatted in the WP timezone.
+-   _dateString_ `?string`: Date formatted in the WP timezone.
 
 _Returns_
 

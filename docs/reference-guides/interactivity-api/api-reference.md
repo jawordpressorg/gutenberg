@@ -16,8 +16,8 @@ To add interactions to blocks using the Interactivity API, developers can use:
 Interactivity API を使用してブロックにインタラクションを追加するには、開発者は以下を利用します。
 
 <!-- 
-- **Directives:** Added to the markup to add specific behavior to the DOM elements of the block
-- **Store:** Contains the logic and data (state, actions, side effects, etc.) needed for the behavior
+-   **Directives:** Added to the markup to add specific behavior to the DOM elements of the block
+-   **Store:** Contains the logic and data (state, actions, side effects, etc.) needed for the behavior
  -->
 - **ディレクティブ:** マークアップに追加され、ブロックの DOM 要素に特定の動作を追加します。
 - **ストア:** 動作に必要なロジックとデータ (ステート、アクション、副作用など) を格納します。
@@ -49,21 +49,21 @@ Interactivity API ディレクティブは `data-` 接頭辞を使用します�
 
 ```html
 <div
-  data-wp-interactive="myPlugin"
-  data-wp-context='{ "isOpen": false }'
-  data-wp-watch="callbacks.logIsOpen"
+	data-wp-interactive="myPlugin"
+	data-wp-context='{ "isOpen": false }'
+	data-wp-watch="callbacks.logIsOpen"
 >
-  <button
-    data-wp-on--click="actions.toggle"
-    data-wp-bind--aria-expanded="context.isOpen"
-    aria-controls="p-1"
-  >
-    Toggle
-  </button>
+	<button
+		data-wp-on--click="actions.toggle"
+		data-wp-bind--aria-expanded="context.isOpen"
+		aria-controls="p-1"
+	>
+		Toggle
+	</button>
 
-  <p id="p-1" data-wp-bind--hidden="!context.isOpen">
-    This element is now visible!
-  </p>
+	<p id="p-1" data-wp-bind--hidden="!context.isOpen">
+		This element is now visible!
+	</p>
 </div>
 ```
 
@@ -92,24 +92,44 @@ The `wp-interactive` directive "activates" the interactivity for the DOM element
 ```html
 <!-- この要素とその子をインタラクティブにして、名前空間を設定する -->
 <div
-  data-wp-interactive="myPlugin"
-  data-wp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
+	data-wp-interactive="myPlugin"
+	data-wp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
 >
-  <p>I'm interactive now, <span data-wp-style--background-color="context.myBgColor">and I can use directives!</span></p>
-  <div>
-    <p>I'm also interactive, <span data-wp-style--color="context.myColor">and I can also use directives!</span></p>
-  </div>
+	<p>
+		I'm interactive now,
+		<span data-wp-style--background-color="context.myBgColor"
+			>and I can use directives!</span
+		>
+	</p>
+	<div>
+		<p>
+			I'm also interactive,
+			<span data-wp-style--color="context.myColor"
+				>and I can also use directives!</span
+			>
+		</p>
+	</div>
 </div>
 
 <!-- これも有効 -->
 <div
-  data-wp-interactive='{ "namespace": "myPlugin" }'
-  data-wp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
+	data-wp-interactive='{ "namespace": "myPlugin" }'
+	data-wp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
 >
-  <p>I'm interactive now, <span data-wp-style--background-color="context.myBgColor">and I can use directives!</span></p>
-  <div>
-    <p>I'm also interactive, <span data-wp-style--color="context.myColor">and I can also use directives!</span></p>
-  </div>
+	<p>
+		I'm interactive now,
+		<span data-wp-style--background-color="context.myBgColor"
+			>and I can use directives!</span
+		>
+	</p>
+	<div>
+		<p>
+			I'm also interactive,
+			<span data-wp-style--color="context.myColor"
+				>and I can also use directives!</span
+			>
+		</p>
+	</div>
 </div>
 ```
 <!-- 
@@ -147,13 +167,13 @@ The `wp-context` directive accepts a stringified JSON as a value.
 
 ```js
 // view.js
-store( "myPlugin", {
-  actions: {
-    logId: () => {
-      const { post } = getContext();
-      console.log( post.id );
-    },
-  },
+store( 'myPlugin', {
+	actions: {
+		logId: () => {
+			const { post } = getContext();
+			console.log( post.id );
+		},
+	},
 } );
 ```
 <!-- 
@@ -167,16 +187,15 @@ Different contexts can be defined at different levels, and deeper levels will me
 
 ```html
 <div data-wp-context='{ "foo": "bar" }'>
-  <span data-wp-text="context.foo"><!-- 出力: "bar" --></span>
+	<span data-wp-text="context.foo"><!-- 出力: "bar" --></span>
 
-  <div data-wp-context='{ "bar": "baz" }'>
-    <span data-wp-text="context.foo"><!-- 出力: "bar" --></span>
+	<div data-wp-context='{ "bar": "baz" }'>
+		<span data-wp-text="context.foo"><!-- 出力: "bar" --></span>
 
-    <div data-wp-context='{ "foo": "bob" }'>
-      <span data-wp-text="context.foo"><!-- 出力: "bob" --></span>
-    </div>
-
-  </div>
+		<div data-wp-context='{ "foo": "bob" }'>
+			<span data-wp-text="context.foo"><!-- 出力: "bob" --></span>
+		</div>
+	</div>
 </div>
 ```
 
@@ -189,18 +208,18 @@ This directive allows setting HTML attributes on elements based on a boolean or 
 
 ```html
 <li data-wp-context='{ "isMenuOpen": false }'>
-  <button
-    data-wp-on--click="actions.toggleMenu"
-    data-wp-bind--aria-expanded="context.isMenuOpen"
-  >
-    Toggle
-  </button>
-  <div data-wp-bind--hidden="!context.isMenuOpen">
-    <span>Title</span>
-    <ul>
-      SUBMENU ITEMS
-    </ul>
-  </div>
+	<button
+		data-wp-on--click="actions.toggleMenu"
+		data-wp-bind--aria-expanded="context.isMenuOpen"
+	>
+		Toggle
+	</button>
+	<div data-wp-bind--hidden="!context.isMenuOpen">
+		<span>Title</span>
+		<ul>
+			SUBMENU ITEMS
+		</ul>
+	</div>
 </li>
 ```
 
@@ -210,13 +229,13 @@ This directive allows setting HTML attributes on elements based on a boolean or 
  -->
 ```js
 // view.js
-store( "myPlugin", {
-  actions: {
-    toggleMenu: () => {
-      const context = getContext();
-      context.isMenuOpen = !context.isMenuOpen;
-    },
-  },
+store( 'myPlugin', {
+	actions: {
+		toggleMenu: () => {
+			const context = getContext();
+			context.isMenuOpen = ! context.isMenuOpen;
+		},
+	},
 } );
 ```
 <!-- 
@@ -229,8 +248,8 @@ The `wp-bind` directive is executed:
 `wp-bind` ディレクティブは以下のタイミングで実行されます。
 
 <!-- 
-- When the element is created
-- Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
+-   When the element is created
+-   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
  -->
 - 要素が作成されたとき
 - ディレクティブの最終的な値を取得するために関係する、`state` または `context` のプロパティに変更があるたび (参照として渡されるコールバックまたは式の内部で)
@@ -241,8 +260,8 @@ When `wp-bind` directive references a callback to get its final value:
 `wp-bind` ディレクティブが最終的な値を得るためにコールバックを参照するとき、
 
 <!-- 
-- The `wp-bind` directive will be executed each time there's a change on any of the properties of the `state` or `context` used inside this callback.
-- The returned value in the callback function is used to change the value of the associated attribute.
+-   The `wp-bind` directive will be executed each time there's a change on any of the properties of the `state` or `context` used inside this callback.
+-   The returned value in the callback function is used to change the value of the associated attribute.
  -->
 - このコールバック内で使用される `state` または `context` のプロパティが変更されるたびに、`wp-bind` ディレクティブが実行されます。
 - コールバック関数の戻り値は、関連付けられた属性の値を変更するために使用されます。
@@ -253,10 +272,10 @@ The `wp-bind` will do different things when the DOM element is applied, dependin
 `wp-bind` は DOM 要素が適用されたとき、その値によって異なる動作をします。
 
 <!-- 
-  - If the value is `true`, the attribute is added: `<div attribute>`
-  - If the value is `false`, the attribute is removed: `<div>`
-  - If the value is a string, the attribute is added with its value assigned: `<div attribute="value"`
-  - If the attribute name starts with `aria-` or `data-` and the value is boolean (either `true` or `false`), the attribute is added to the DOM with the boolean value assigned as a string: `<div aria-attribute="true">`
+-   If the value is `true`, the attribute is added: `<div attribute>`
+-   If the value is `false`, the attribute is removed: `<div>`
+-   If the value is a string, the attribute is added with its value assigned: `<div attribute="value"`
+-   If the attribute name starts with `aria-` or `data-` and the value is boolean (either `true` or `false`), the attribute is added to the DOM with the boolean value assigned as a string: `<div aria-attribute="true">`
  -->
 - 値が `true` なら、属性が追加されます: `<div attribute>`
 - 値が `false` なら、属性は削除されます: `<div>`
@@ -272,20 +291,20 @@ This directive adds or removes a class to an HTML element, depending on a boolea
 
 ```html
 <div>
-  <li
-    data-wp-context='{ "isSelected": false }'
-    data-wp-on--click="actions.toggleSelection"
-    data-wp-class--selected="context.isSelected"
-  >
-    Option 1
-  </li>
-  <li
-    data-wp-context='{ "isSelected": false }'
-    data-wp-on--click="actions.toggleSelection"
-    data-wp-class--selected="context.isSelected"
-  >
-    Option 2
-  </li>
+	<li
+		data-wp-context='{ "isSelected": false }'
+		data-wp-on--click="actions.toggleSelection"
+		data-wp-class--selected="context.isSelected"
+	>
+		Option 1
+	</li>
+	<li
+		data-wp-context='{ "isSelected": false }'
+		data-wp-on--click="actions.toggleSelection"
+		data-wp-class--selected="context.isSelected"
+	>
+		Option 2
+	</li>
 </div>
 ```
 <!-- 
@@ -294,13 +313,13 @@ This directive adds or removes a class to an HTML element, depending on a boolea
  -->
 ```js
 // view.js
-store( "myPlugin", {
-  actions: {
-    toggleSelection: () => {
-      const context = getContext();
-      context.isSelected = !context.isSelected
-    }
-  }
+store( 'myPlugin', {
+	actions: {
+		toggleSelection: () => {
+			const context = getContext();
+			context.isSelected = ! context.isSelected;
+		},
+	},
 } );
 ```
 <!-- 
@@ -313,8 +332,8 @@ The `wp-class` directive is executed:
 `wp-class` ディレクティブは以下のタイミングで実行されます。
 
 <!-- 
-- When the element is created
-- Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
+-   When the element is created
+-   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
  -->
 - 要素が作成されたとき
 - ディレクティブの最終的な値を取得するために関係する、`state` または `context` のプロパティに変更があるたび (参照として渡されるコールバックまたは式の内部で)
@@ -337,24 +356,24 @@ So, for example, use the class name `is-dark` instead of `isDark` and `data-wp-c
 ```html
 <!-- 推奨 -->
 <div data-wp-class--is-dark="context.isDarkMode">
-  <!-- ... -->
+	<!-- ... -->
 </div>
 
 <!-- 非推奨 -->
 <div data-wp-class--isDark="context.isDarkMode">
-  <!-- ... -->
+	<!-- ... -->
 </div>
 ```
 
 ```css
 /* 推奨 */
 .is-dark {
-  /* ... */
+	/* ... */
 }
 
 /* 非推奨 */
 .isDark {
-  /* ... */
+	/* ... */
 }
 ```
 
@@ -366,9 +385,11 @@ This directive adds or removes inline style to an HTML element, depending on its
 このディレクティブは、その値によって、HTML 要素に インラインスタイルを追加または削除します。構文は `data-wp-style--css-property` です。
 
 ```html
-<div data-wp-context='{ "color": "red" }' >
-  <button data-wp-on--click="actions.toggleContextColor">Toggle Color Text</button>
-  <p data-wp-style--color="context.color">Hello World!</p>
+<div data-wp-context='{ "color": "red" }'>
+	<button data-wp-on--click="actions.toggleContextColor">
+		Toggle Color Text
+	</button>
+	<p data-wp-style--color="context.color">Hello World!</p>
 </div>
 >
 ```
@@ -377,14 +398,14 @@ This directive adds or removes inline style to an HTML element, depending on its
   <summary><em>See store used with the directive above</em></summary>
  -->
 ```js
-store( "myPlugin", {
-// view.js  
-  actions: {
-    toggleContextColor: () => {
-      const context = getContext();
-      context.color = context.color === 'red' ? 'blue' : 'red';
-    },
-  },
+// view.js
+store( 'myPlugin', {
+	actions: {
+		toggleContextColor: () => {
+			const context = getContext();
+			context.color = context.color === 'red' ? 'blue' : 'red';
+		},
+	},
 } );
 ```
 <!-- 
@@ -397,8 +418,8 @@ The `wp-style` directive is executed:
 `wp-style` ディレクティブは以下のタイミングで実行されます。
 
 <!-- 
-- When the element is created
-- Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
+-   When the element is created
+-   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
  -->
 - 要素が作成されたとき
 - ディレクティブの最終的な値を取得するために関係する、`state` または `context` のプロパティに変更があるたび (参照として渡されるコールバックまたは式の内部で)
@@ -409,8 +430,8 @@ The value received by the directive is used to add or remove the style attribute
 ディレクティブが受け取った値は、関連する CSS プロパティで style 属性の追加、または削除に使われます。
 
 <!-- 
-- If the value is `false`, the style attribute is removed: `<div>`
-- If the value is a string, the attribute is added with its value assigned: `<div style="css-property: value;">`
+-   If the value is `false`, the style attribute is removed: `<div>`
+-   If the value is a string, the attribute is added with its value assigned: `<div style="css-property: value;">`
  -->
 - 値が `false` なら、style 属性は削除されます： `<div>`
 - 値が文字列なら、属性が追加され、その値が割り当てられます: `<div style="css-property: value;">`
@@ -424,10 +445,10 @@ HTML 要素の内部テキストを設定します。
 
 ```html
 <div data-wp-context='{ "text": "Text 1" }'>
-  <span data-wp-text="context.text"></span>
-  <button data-wp-on--click="actions.toggleContextText">
-    Toggle Context Text
-  </button>
+	<span data-wp-text="context.text"></span>
+	<button data-wp-on--click="actions.toggleContextText">
+		Toggle Context Text
+	</button>
 </div>
 ```
 
@@ -437,13 +458,13 @@ HTML 要素の内部テキストを設定します。
  -->
 ```js
 // view.js
-store( "myPlugin", {
-  actions: {
-    toggleContextText: () => {
-      const context = getContext();
-      context.text = context.text === 'Text 1' ? 'Text 2' : 'Text 1';
-    },
-  },
+store( 'myPlugin', {
+	actions: {
+		toggleContextText: () => {
+			const context = getContext();
+			context.text = context.text === 'Text 1' ? 'Text 2' : 'Text 1';
+		},
+	},
 } );
 ```
 <!-- 
@@ -456,8 +477,8 @@ The `wp-text` directive is executed:
 `wp-text` ディレクティブは以下のタイミングで実行されます。
 
 <!-- 
-- When the element is created
-- Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
+-   When the element is created
+-   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
  -->
 - 要素が作成されたとき
 - ディレクティブの最終的な値を取得するために関係する、`state` または `context` のプロパティに変更があるたび (参照として渡されるコールバックまたは式の内部で)
@@ -492,12 +513,12 @@ This directive runs code on dispatched DOM events like `click` or `keyup`. The s
  -->
 ```js
 // view.js
-store( "myPlugin", {
-  actions: {
-    logTime: ( event ) => {
-      console.log( new Date() )
-    },
-  },
+store( 'myPlugin', {
+	actions: {
+		logTime: ( event ) => {
+			console.log( new Date() );
+		},
+	},
 } );
 ```
 <!-- 
@@ -554,7 +575,7 @@ The syntax of this directive is `data-wp-on-window--[window-event]` (like `data-
  -->
 ```js
 // view.js
-store( "myPlugin", {
+store( 'myPlugin', {
 	callbacks: {
 		logWidth() {
 			console.log( 'Window width: ', window.innerWidth );
@@ -612,12 +633,12 @@ The syntax of this directive is `data-wp-on-document--[document-event]` (like `d
  -->
 ```js
 // view.js
-store( "myPlugin", {
+store( 'myPlugin', {
 	callbacks: {
-		logKeydown(event) {
+		logKeydown( event ) {
 			console.log( 'Key pressed: ', event.key );
 		},
-  },
+	},
 } );
 ```
 <!-- 
@@ -654,13 +675,10 @@ The `unique-id` doesn't need to be unique globally. It just needs to be differen
 `unique-id` がグローバルに一意である必要はありません。その DOM 要素の他の `wp-watch` ディレクティブの ID と異なりさえすれば十分です。
 
 ```html
-<div
-  data-wp-context='{ "counter": 0 }'
-  data-wp-watch="callbacks.logCounter"
->
-  <p>Counter: <span data-wp-text="context.counter"></span></p>
-  <button data-wp-on--click="actions.increaseCounter">+</button>
-  <button data-wp-on--click="actions.decreaseCounter">-</button>
+<div data-wp-context='{ "counter": 0 }' data-wp-watch="callbacks.logCounter">
+	<p>Counter: <span data-wp-text="context.counter"></span></p>
+	<button data-wp-on--click="actions.increaseCounter">+</button>
+	<button data-wp-on--click="actions.decreaseCounter">-</button>
 </div>
 ```
 
@@ -670,23 +688,23 @@ The `unique-id` doesn't need to be unique globally. It just needs to be differen
  -->
 ```js
 // view.js
-store( "myPlugin", {
-  actions: {
-    increaseCounter: () => {
-      const context = getContext();
-      context.counter++;
-    },
-    decreaseCounter: () => {
-      const context = getContext();
-      context.counter--;
-    },
-  },
-  callbacks: {
-    logCounter: () => {
-      const { counter } = getContext();
-      console.log("Counter is " + counter + " at " + new Date() );
-    },
-  },
+store( 'myPlugin', {
+	actions: {
+		increaseCounter: () => {
+			const context = getContext();
+			context.counter++;
+		},
+		decreaseCounter: () => {
+			const context = getContext();
+			context.counter--;
+		},
+	},
+	callbacks: {
+		logCounter: () => {
+			const { counter } = getContext();
+			console.log( 'Counter is ' + counter + ' at ' + new Date() );
+		},
+	},
 } );
 ```
 <!-- 
@@ -699,8 +717,8 @@ The `wp-watch` directive is executed:
 `wp-watch` ディレクティブは以下のタイミングで実行されます。
 
 <!-- 
-- When the element is created
-- Each time that any of the properties of the `state` or `context` used inside the callback changes
+-   When the element is created
+-   Each time that any of the properties of the `state` or `context` used inside the callback changes
  -->
 - 要素が作成されたとき
 - コールバックの内部で使用されている `state` または `context` の任意のプロパティのいずれかが変更されるたび
@@ -716,10 +734,10 @@ As a reference, some use cases for this directive may be:
 参考として、このディレクティブの使用例をいくつか挙げます。
 
 <!-- 
-- Logging
-- Changing the title of the page
-- Setting the focus on an element with `.focus()`.
-- Changing the state or context when certain conditions are met
+-   Logging
+-   Changing the title of the page
+-   Setting the focus on an element with `.focus()`.
+-   Changing the state or context when certain conditions are met
  -->
 - ロギング
 - ページのタイトルの変更
@@ -745,7 +763,7 @@ The `unique-id` doesn't need to be unique globally. It just needs to be differen
 
 ```html
 <div data-wp-init="callbacks.logTimeInit">
-  <p>Hi!</p>
+	<p>Hi!</p>
 </div>
 ```
 
@@ -756,10 +774,10 @@ Here's another example with several `wp-init` directives on the same DOM element
 
 ```html
 <form
-  data-wp-init--log="callbacks.logTimeInit"
-  data-wp-init--focus="callbacks.focusFirstElement"
+	data-wp-init--log="callbacks.logTimeInit"
+	data-wp-init--focus="callbacks.focusFirstElement"
 >
-  <input type="text">
+	<input type="text" />
 </form>
 ```
 <!-- 
@@ -813,7 +831,7 @@ The `unique-id` doesn't need to be unique globally. It just needs to be differen
 
 ```html
 <div data-wp-run="callbacks.logInView">
-  <p>Hi!</p>
+	<p>Hi!</p>
 </div>
 ```
 
@@ -823,36 +841,41 @@ The `unique-id` doesn't need to be unique globally. It just needs to be differen
  -->
 ```js
 // view.js
-import { getElement, store, useState, useEffect } from '@wordpress/interactivity';
+import {
+	getElement,
+	store,
+	useState,
+	useEffect,
+} from '@wordpress/interactivity';
 
 // `data-wp-init` や `data-wp-watch` と異なり、`data-wp-run` コールバック内では、
 // 任意のフックを使用できます。
 const useInView = () => {
-  const [ inView, setInView ] = useState( false );
-  useEffect( () => {
-    const { ref } = getElement();
-    const observer = new IntersectionObserver( ( [ entry ] ) => {
-      setInView( entry.isIntersecting );
-    } );
-    observer.observe( ref );
-    return () => ref && observer.unobserve( ref );
-  }, []);
-  return inView;
+	const [ inView, setInView ] = useState( false );
+	useEffect( () => {
+		const { ref } = getElement();
+		const observer = new IntersectionObserver( ( [ entry ] ) => {
+			setInView( entry.isIntersecting );
+		} );
+		observer.observe( ref );
+		return () => ref && observer.unobserve( ref );
+	}, [] );
+	return inView;
 };
 
 store( 'myPlugin', {
-  callbacks: {
-    logInView: () => {
-      const isInView = useInView();
-      useEffect( () => {
-        if ( isInView ) {
-          console.log( 'Inside' );
-        } else {
-          console.log( 'Outside' );
-        }
-      });
-    }
-  },
+	callbacks: {
+		logInView: () => {
+			const isInView = useInView();
+			useEffect( () => {
+				if ( isInView ) {
+					console.log( 'Inside' );
+				} else {
+					console.log( 'Outside' );
+				}
+			} );
+		},
+	},
 } );
 ```
 <!-- 
@@ -878,8 +901,8 @@ The key should be a string that uniquely identifies the element among its siblin
 
 ```html
 <ul>
-  <li data-wp-key="unique-id-1">Item 1</li>
-  <li data-wp-key="unique-id-2">Item 2</li>
+	<li data-wp-key="unique-id-1">Item 1</li>
+	<li data-wp-key="unique-id-2">Item 2</li>
 </ul>
 ```
 <!-- 
@@ -889,8 +912,8 @@ But it can also be used on other elements:
 
 ```html
 <div>
-  <a data-wp-key="previous-page" ...>Previous page</a>
-  <a data-wp-key="next-page" ...>Next page</a>
+	<a data-wp-key="previous-page" ...>Previous page</a>
+	<a data-wp-key="next-page" ...>Next page</a>
 </div>
 ```
 
@@ -918,9 +941,9 @@ For example, let's consider the following HTML.
 
 ```html
 <ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-  <template data-wp-each="context.list" >
-    <li data-wp-text="context.item"></li>
-  </template>
+	<template data-wp-each="context.list">
+		<li data-wp-text="context.item"></li>
+	</template>
 </ul>
 ```
 
@@ -931,9 +954,9 @@ It would generate the following output:
 
 ```html
 <ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-  <li data-wp-text="context.item">hello</li>
-  <li data-wp-text="context.item">hola</li>
-  <li data-wp-text="context.item">olá</li>
+	<li data-wp-text="context.item">hello</li>
+	<li data-wp-text="context.item">hola</li>
+	<li data-wp-text="context.item">olá</li>
 </ul>
 ```
 
@@ -944,9 +967,9 @@ The prop that holds the item in the context can be changed by passing a suffix t
 
 ```html
 <ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-  <template data-wp-each--greeting="context.list" >
-    <li data-wp-text="context.greeting"></li>
-  </template>
+	<template data-wp-each--greeting="context.list">
+		<li data-wp-text="context.greeting"></li>
+	</template>
 </ul>
 ```
 
@@ -961,19 +984,21 @@ For that, you must use `data-wp-each-key` in the `<template>` tag and not `data-
 そのためには、`<template>` タグの中、テンプレートのコンテンツの中で、`data-wp-key` ではなく、`data-wp-each-key` を使う必要があります。なぜなら、`data-wp-each` はレンダーされる各アイテムの周りにコンテキストプロバイダのラッパーを作成し、そのラッパーが `key` プロパティを必要とするためです。
 
 ```html
-<ul data-wp-context='{
+<ul
+	data-wp-context='{
   "list": [
     { "id": "en", "value": "hello" },
     { "id": "es", "value": "hola" },
     { "id": "pt", "value": "olá" }
   ]
-}'>
-  <template
-    data-wp-each--greeting="context.list"
-    data-wp-each-key="context.greeting.id"
-  >
-    <li data-wp-text="context.greeting.value"></li>
-  </template>
+}'
+>
+	<template
+		data-wp-each--greeting="context.list"
+		data-wp-each-key="context.greeting.id"
+	>
+		<li data-wp-text="context.greeting.value"></li>
+	</template>
 </ul>
 ```
 
@@ -986,12 +1011,12 @@ For server-side rendered lists, another directive called `data-wp-each-child` en
 
 ```html
 <ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-  <template data-wp-each--greeting="context.list" >
-    <li data-wp-text="context.greeting"></li>
-  </template>
-  <li data-wp-each-child>hello</li>
-  <li data-wp-each-child>hola</li>
-  <li data-wp-each-child>olá</li>
+	<template data-wp-each--greeting="context.list">
+		<li data-wp-text="context.greeting"></li>
+	</template>
+	<li data-wp-each-child>hello</li>
+	<li data-wp-each-child>hola</li>
+	<li data-wp-each-child>olá</li>
 </ul>
 ```
 
@@ -1012,13 +1037,13 @@ In the following example, a getter is used to define the `state.isPlaying` deriv
 
 ```js
 // view.js
-const { state } = store( "myPlugin", {
-  state: {
-    currentVideo: '',
-    get isPlaying() {
-      return state.currentVideo !== '';
-    }
-  },
+const { state } = store( 'myPlugin', {
+	state: {
+		currentVideo: '',
+		get isPlaying() {
+			return state.currentVideo !== '';
+		},
+	},
 } );
 ```
 
@@ -1028,8 +1053,8 @@ And then, the string value `"state.isPlaying"` is used to assign the result of t
 そして、文字列値 `"state.isPlaying"` を使用して、このセレクタの結果を `data-wp-bind--hidden` に割り当てます。
 
 ```html
-<div data-wp-bind--hidden="!state.isPlaying" ... >
-  <iframe ...></iframe>
+<div data-wp-bind--hidden="!state.isPlaying" ...>
+	<iframe ...></iframe>
 </div>
 ```
 
@@ -1050,7 +1075,7 @@ The example below is getting `state.isPlaying` from `otherPlugin` instead of `my
 
 ```html
 <div data-wp-interactive="myPlugin">
-  <div data-wp-bind--hidden="otherPlugin::!state.isPlaying" ... >
+	<div data-wp-bind--hidden="otherPlugin::!state.isPlaying" ...>
 		<iframe ...></iframe>
 	</div>
 </div>
@@ -1087,38 +1112,36 @@ It defines data available to the HTML nodes of the page. It is important to diff
 ページの HTML ノードが利用できるデータを定義します。データを定義する2つの方法を区別することが重要です。
 
 <!-- 
-- **Global state**:  It is defined using the `store()` function with the `state` property, and the data is available to all the HTML nodes of the page.
-- **Context/Local State**: It is defined using the `data-wp-context` directive in an HTML node, and the data is available to that HTML node and its children. It can be accessed using the `getContext` function inside of an action, derived state or side effect.
+-   **Global state**: It is defined using the `store()` function with the `state` property, and the data is available to all the HTML nodes of the page.
+-   **Context/Local State**: It is defined using the `data-wp-context` directive in an HTML node, and the data is available to that HTML node and its children. It can be accessed using the `getContext` function inside of an action, derived state or side effect.
  -->
 - **グローバルステート**： `store()` 関数で `state` プロパティを指定して定義され、データはページのすべての HTML ノードで利用できます。
 - **コンテキスト / ローカル状態**： HTML ノードで `data-wp-context` ディレクティブを使用して定義され、その HTML ノードと子ノードで利用できます。アクション、派生ステート、副作用の内部で `getContext` 関数を使用してアクセスできます。
 
 ```html
 <div data-wp-context='{ "someText": "Hello World!" }'>
+	<!-- グローバルステートへアクセス -->
+	<span data-wp-text="state.someText"></span>
 
-  <!-- グローバルステートへアクセス -->
-  <span data-wp-text="state.someText"></span>
-
-  <!-- ローカルステート (コンテキスト) へアクセス -->
-  <span data-wp-text="context.someText"></span>
-
+	<!-- ローカルステート (コンテキスト) へアクセス -->
+	<span data-wp-text="context.someText"></span>
 </div>
 ```
 
 ```js
-const { state } = store( "myPlugin", {
-  state: {
-    someText: "Hello Universe!"
-  },
-  actions: {
-    someAction: () => {
-      state.someText // アクセス、変更先はグローバルステート - "Hello Universe!"
+const { state } = store( 'myPlugin', {
+	state: {
+		someText: 'Hello Universe!',
+	},
+	actions: {
+		someAction: () => {
+			state.someText; // // アクセス、変更先はグローバルステート - "Hello Universe!"
 
-      const context = getContext();
-      context.someText // アクセス、変更先はローカルステート (コンテキスト) - "Hello World!"
-    },
-  },
-} )
+			const context = getContext();
+			context.someText; // アクセス、変更先はローカルステート (コンテキスト) - "Hello World!"
+		},
+	},
+} );
 ```
 
 <!-- 
@@ -1133,19 +1156,19 @@ Actions are just regular JavaScript functions. Usually triggered by the `data-wp
 
 ```ts
 // TypeScript
-const { state, actions } = store("myPlugin", {
-  actions: {
-    selectItem: ( id ) => {
-      const context = getContext();
-      // ここで `id` はオプションです。したがってこのアクションはディレクティブでも使用できます。
-      state.selected = id || context.id;
-    },
-    otherAction: () => {
-      // しかし、他のアクションからも呼び出せます。
-      actions.selectItem(123); // これは動作し、型も正しい
-    }
-  }
-});
+const { state, actions } = store( 'myPlugin', {
+	actions: {
+		selectItem: ( id ) => {
+			const context = getContext();
+			// ここで `id` はオプションです。したがってこのアクションはディレクティブでも使用できます。
+			state.selected = id || context.id;
+		},
+		otherAction: () => {
+			// しかし、他のアクションからも呼び出せます。
+			actions.selectItem( 123 ); //これは動作し、型も正しい
+		},
+	},
+} );
 ```
 
 <!-- 
@@ -1170,11 +1193,11 @@ Imagine a block that has two buttons. One lives inside a context that has `isOpe
 
 ```html
 <div data-wp-context='{ "isOpen": true }'>
-  <button data-wp-on--click="actions.someAction">Click</button>
+	<button data-wp-on--click="actions.someAction">Click</button>
 </div>
 
 <div data-wp-context='{ "isOpen": false }'>
-  <button data-wp-on--click="actions.someAction">Click</button>
+	<button data-wp-on--click="actions.someAction">Click</button>
 </div>
 ```
 
@@ -1184,16 +1207,16 @@ If the action is async and needs to await a long delay.
 アクションが async で、長い遅延を await するとします。このとき
 
 <!-- 
-- The user clicks the first button.
-- The scope points to the first context, where `isOpen: true`.
-- The first access to `state.isOpen` is correct because `getContext` returns the current scope.
-- The action starts awaiting a long delay.
-- Before the action resumes, the user clicks the second button.
-- The scope is changed to the second context, where `isOpen: false`.
-- The first access to `state.isOpen` is correct because `getContext` returns the current scope.
-- The second action starts awaiting a long delay.
-- The first action finishes awaiting and resumes its execution.
-- The second access to `state.isOpen` of the first action is incorrect, because `getContext` now returns the wrong scope.
+-   The user clicks the first button.
+-   The scope points to the first context, where `isOpen: true`.
+-   The first access to `state.isOpen` is correct because `getContext` returns the current scope.
+-   The action starts awaiting a long delay.
+-   Before the action resumes, the user clicks the second button.
+-   The scope is changed to the second context, where `isOpen: false`.
+-   The first access to `state.isOpen` is correct because `getContext` returns the current scope.
+-   The second action starts awaiting a long delay.
+-   The first action finishes awaiting and resumes its execution.
+-   The second access to `state.isOpen` of the first action is incorrect, because `getContext` now returns the wrong scope.
  -->
 - ユーザーが最初のボタンをクリックする。
 - スコープは最初のコンテキストを指し、`isOpen: true` となる。
@@ -1217,20 +1240,20 @@ The store will work fine if it is written like this:
 以下のように書けば、ストアは正しく動作します。
 
 ```js
-const { state } = store("myPlugin", {
-  state: {
-    get isOpen() {
-      return getContext().isOpen;
-    },
-  },
-  actions: {
-    someAction: function* () {
-      state.isOpen; // このコンテキストは正しい。なぜなら同期のため。
-      yield longDelay(); // ジェネレーターを利用して、呼び出し側はこの関数にいつ戻ったかを制御する。
-      state.isOpen; // このコンテキストは正しい。なぜなら関数を再開する前に適切なスコープを復元したため。
-    },
-  },
-});
+const { state } = store( 'myPlugin', {
+	state: {
+		get isOpen() {
+			return getContext().isOpen;
+		},
+	},
+	actions: {
+		someAction: function* () {
+			state.isOpen; // このコンテキストは正しい。なぜなら同期のため。
+			yield longDelay(); // ジェネレーターを利用して、呼び出し側はこの関数にいつ戻ったかを制御する。
+			state.isOpen; // このコンテキストは正しい。なぜなら関数を再開する前に適切なスコープを復元したため。
+		},
+	},
+} );
 ```
 
 <!-- 
@@ -1241,20 +1264,20 @@ As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and 
 ```js
 // 注意: WordPress 6.6では、この splitTask 関数は @wordpress/interactivity でエクスポートされます。
 function splitTask() {
-  return new Promise(resolve => {
-    setTimeout(resolve, 0);
-  });
+	return new Promise( ( resolve ) => {
+		setTimeout( resolve, 0 );
+	} );
 }
 
-store("myPlugin", {
-  actions: {
-    handleClick: function* (event) {
-      event.preventDefault();
-      yield splitTask();
-      doTheWork();
-    },
-  },
-});
+store( 'myPlugin', {
+	actions: {
+		handleClick: function* ( event ) {
+			event.preventDefault();
+			yield splitTask();
+			doTheWork();
+		},
+	},
+} );
 ```
 
 <!-- 
@@ -1284,21 +1307,21 @@ They return a computed version of the state. They can access both `state` and `c
 
 ```js
 // view.js
-const { state } = store( "myPlugin", {
-  state: {
-    amount: 34,
-    defaultCurrency: 'EUR',
-    currencyExchange: {
-      USD: 1.1,
-      GBP: 0.85,
-    },
-    get amountInUSD() {
-      return state.currencyExchange[ 'USD' ] * state.amount;
-    },
-    get amountInGBP() {
-      return state.currencyExchange[ 'GBP' ] * state.amount;
-    },
-  },
+const { state } = store( 'myPlugin', {
+	state: {
+		amount: 34,
+		defaultCurrency: 'EUR',
+		currencyExchange: {
+			USD: 1.1,
+			GBP: 0.85,
+		},
+		get amountInUSD() {
+			return state.currencyExchange[ 'USD' ] * state.amount;
+		},
+		get amountInGBP() {
+			return state.currencyExchange[ 'GBP' ] * state.amount;
+		},
+	},
 } );
 ```
 
@@ -1313,8 +1336,8 @@ The **`store`** contains all the store properties, like `state`, `actions` or `c
 **`store`** には `state`、`action`、`callbacks` などのストアのすべてのプロパティが含まれています。`store()` をコールするとこれらが返るため、分割することでアクセスできます。
 
 ```js
-const { state, actions } = store( "myPlugin", {
-  // ...
+const { state, actions } = store( 'myPlugin', {
+	// ...
 } );
 ```
 <!-- 
@@ -1323,18 +1346,18 @@ The `store()` function can be called multiple times and all the store parts will
 `store()` 関数は複数回呼び出すことができ、すべての store 部分がマージされます。
 
 ```js
-store( "myPlugin", {
-  state: {
-    someValue: 1,
-  }
+store( 'myPlugin', {
+	state: {
+		someValue: 1,
+	},
 } );
 
-const { state } = store( "myPlugin", {
-  actions: {
-    someAction() {
-      state.someValue // = 1
-    }
-  }
+const { state } = store( 'myPlugin', {
+	actions: {
+		someAction() {
+			state.someValue; // = 1
+		},
+	},
 } );
 ```
 
@@ -1346,35 +1369,35 @@ const { state } = store( "myPlugin", {
 > 同じ名前空間を持つすべての `store()` 呼び出しは、同じ参照、つまり、同じ `state`、`actions` 等、渡されたすべてのストア部分のマージした結果を返します。
 
 <!-- 
-- To access the context inside an action, derived state, or side effect, you can use the `getContext` function.
-- To access the reference, you can use the `getElement` function.
+-   To access the context inside an action, derived state, or side effect, you can use the `getContext` function.
+-   To access the reference, you can use the `getElement` function.
  -->
 - アクション、派生ステート、副作用の中でコンテキストにアクセスするには、 `getContext` 関数を使用します。
 - 参照にアクセスするには、 `getElement` 関数を使用します。
 
 ```js
-const { state } = store( "myPlugin", {
-  state: {
-    get someDerivedValue() {
-      const context = getContext();
-      const { ref } = getElement();
-      // ...
-    }
-  },
-  actions: {
-    someAction() {
-      const context = getContext();
-      const { ref } = getElement();
-      // ...
-    }
-  },
-  callbacks: {
-    someEffect() {
-      const context = getContext();
-      const { ref } = getElement();
-      // ...
-    }
-  }
+const { state } = store( 'myPlugin', {
+	state: {
+		get someDerivedValue() {
+			const context = getContext();
+			const { ref } = getElement();
+			// ...
+		},
+	},
+	actions: {
+		someAction() {
+			const context = getContext();
+			const { ref } = getElement();
+			// ...
+		},
+	},
+	callbacks: {
+		someEffect() {
+			const context = getContext();
+			const { ref } = getElement();
+			// ...
+		},
+	},
 } );
 ```
 
@@ -1384,10 +1407,10 @@ This approach enables some functionalities that make directives flexible and pow
 このアプローチは、ディレクティブを柔軟で強力なものにする、以下のような機能を可能にします。
 
 <!-- 
-- Actions and side effects can read and modify the state and the context.
-- Actions and state in blocks can be accessed by other blocks.
-- Actions and side effects can do anything a regular JavaScript function can do, like access the DOM or make API requests.
-- Side effects automatically react to state changes.
+-   Actions and side effects can read and modify the state and the context.
+-   Actions and state in blocks can be accessed by other blocks.
+-   Actions and side effects can do anything a regular JavaScript function can do, like access the DOM or make API requests.
+-   Side effects automatically react to state changes.
  -->
 - アクションと副作用は、ステートとコンテキストを読み取り、変更できる。
 - ブロック内のアクションとステートは、他のブロックからアクセスできる。
@@ -1405,9 +1428,9 @@ This approach enables some functionalities that make directives flexible and pow
 #### クライアント側にて
 
 <!-- 
-*In the `view.js` file of each block* the developer can define both the state and the elements of the store referencing functions like actions, side effects or derived state.
+_In the `view.js` file of each block_ the developer can define both the state and the elements of the store referencing functions like actions, side effects or derived state.
  -->
-*各ブロックの `view.js` ファイルの中* で、開発者はステートと、ストアの要素の両方を定義できます。ストアの要素はアクション、副作用、派生ステートなどの関数を参照します。
+_各ブロックの `view.js` ファイルの中_ で、開発者はステートと、ストアの要素の両方を定義できます。ストアの要素はアクション、副作用、派生ステートなどの関数を参照します。
 
 <!-- 
 The `store` method used to set the store in JavaScript can be imported from `@wordpress/interactivity`.
@@ -1418,21 +1441,21 @@ JavaScript でストアを設定する `store` メソッドは、`@wordpress/int
 // store
 import { store, getContext } from '@wordpress/interactivity';
 
-store( "myPlugin", {
-  actions: {
-    toggle: () => {
-      const context = getContext();
-      context.isOpen = !context.isOpen;
-    },
-  },
-  callbacks: {
-    logIsOpen: () => {
-      const { isOpen } = getContext();
-      // `isOpen` が変更されるたびに、その値をログする。
-      console.log( `Is open: ${ isOpen }` );
-    }
-  },
-});
+store( 'myPlugin', {
+	actions: {
+		toggle: () => {
+			const context = getContext();
+			context.isOpen = ! context.isOpen;
+		},
+	},
+	callbacks: {
+		logIsOpen: () => {
+			const { isOpen } = getContext();
+			// `isOpen` が変更されるたびに、その値をログする。
+			console.log( `Is open: ${ isOpen }` );
+		},
+	},
+} );
 ```
 
 <!-- 
@@ -1494,13 +1517,15 @@ A given store namespace can be marked as private, thus preventing its content to
 
 ```js
 const { state } = store(
-	"myPlugin/private",
-	{ state: { messages: [ "private message" ] } },
+	'myPlugin/private',
+	{ state: { messages: [ 'private message' ] } },
 	{ lock: true }
 );
 
 // 以下の呼び出しではエラーが発生する
-store( "myPlugin/private", { /* ストア部分 */ } );
+store( 'myPlugin/private', {
+	/* ストア部分 */
+} );
 ```
 
 <!-- 
@@ -1510,13 +1535,19 @@ There is also a way to unlock private stores: instead of passing a boolean, you 
 
 ```js
 const { state } = store(
-	"myPlugin/private",
-	{ state: { messages: [ "private message" ] } },
+	'myPlugin/private',
+	{ state: { messages: [ 'private message' ] } },
 	{ lock: PRIVATE_LOCK }
 );
 
 // 以下の呼び出しは期待どおりに動く
-store( "myPlugin/private", { /* ストア部分 */ }, { lock: PRIVATE_LOCK } );
+store(
+	'myPlugin/private',
+	{
+		/* ストア部分 */
+	},
+	{ lock: PRIVATE_LOCK }
+);
 ```
 
 <!-- 
@@ -1529,23 +1560,26 @@ Apart from the store function, there are also some methods that allows the devel
  -->
 store 関数以外に、開発者が store 関数のデータにアクセスするためのメソッドもあります。
 
-  - getContext()
-  - getElement()
+-   getContext()
+    -   getServerContext()
+    -   getServerState()
+-   getElement()
 
 #### getContext()
 
 <!-- 
 Retrieves the context inherited by the element evaluating a function from the store. The returned value depends on the element and the namespace where the function calling `getContext()` exists. It can also take an optional namespace argument to retrieve the context of a specific interactive region.
  -->
-関数を評価する要素が継承したコンテキストをストアから取得します。戻り値は要素と `getContext()` を呼び出した関数が存在する名前空間に依存します。オプションで名前空間を引数に取り、特定の interactive 領域のコンテキストを取得できます。
+関数を評価する要素によって継承されたコンテキストを、ストアから取得します。戻り値は要素と、`getContext()` を呼び出した関数が存在する名前空間に依存します。オプションで名前空間を引数に取り、特定の interactive 領域のコンテキストを取得できます。
 
 ```js
-const context = getContext('namespace');
+const context = getContext( 'namespace' );
 ```
 <!-- 
-- `namespace` (optional): A string that matches the namespace of an interactive region. If not provided, it retrieves the context of the current interactive region.
+-   `namespace` (optional): A string that matches the namespace of an interactive region. If not provided, it retrieves the context of the current interactive region.
  -->
 - `namespace` (オプション): interactive 領域の名前空間と合致する文字列。指定がなければ、現行の interactive 領域のコンテキストを取得します。
+
 
 ```php
 // render.php
@@ -1558,20 +1592,109 @@ const context = getContext('namespace');
 // store
 import { store, getContext } from '@wordpress/interactivity';
 
-store( "myPlugin", {
-  actions: {
-    log: () => {
-      const context = getContext();
-			 // "false" をログ
-      console.log('context => ', context.isOpen)
+store( 'myPlugin', {
+	actions: {
+		log: () => {
+			const context = getContext();
+			// "false" をログ
+			console.log( 'context => ', context.isOpen );
 
-      // With namespace argument.
-      const myPluginContext = getContext("myPlugin");
-      // Logs "false"
-      console.log('myPlugin isOpen => ', myPluginContext.isOpen);
-    },
-  },
-});
+			// 引数に名前空間
+			const myPluginContext = getContext( 'myPlugin' );
+			// "false" をログ
+			console.log( 'myPlugin isOpen => ', myPluginContext.isOpen );
+		},
+	},
+} );
+```
+
+#### getServerContext()
+
+<!-- 
+This function is analogous to `getContext()`, but with 2 key differences:
+ -->
+この関数は `getContext()` と似ていますが、2つの重要な違いがあります。
+
+<!-- 
+1. Whenever [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@wordpress/interactivity-router`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/) is called, the object returned by `getServerContext()` is updated. This is useful when you want to update the context of a block based on **new** context coming from the page loaded via `actions.navigate()`. This new context is embedded in the HTML of the page loaded via `actions.navigate()`.
+2. The object returned by `getServerContext()` is read-only.
+ -->
+1. [`@wordpress/interactivity-router`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/) の [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) が呼ばれると、常に`getServerContext()` が返すオブジェクトは更新されます。これは、`actions.navigate()`によってロードされたページの **新しい** コンテキストに基づいてブロックのコンテキストを更新したい場合に便利です。この新しいコンテキストは `actions.navigate()` によって読み込まれたページの HTML 内に埋め込まれます。
+2. `getServerContext()` が返すオブジェクトは読み取り専用です。
+
+<!-- 
+The server context cannot be directly used in directives, but you can use callbacks to subscribe to its changes.
+ -->
+サーバーコンテキストは直接ディレクティブ内で使えませんが、 コールバックを使用して、その変更を受け取れます。
+
+```js
+const serverContext = getServerContext( 'namespace' );
+```
+<!-- 
+-   `namespace` (optional): A string that matches the namespace of an interactive region. If not provided, it retrieves the server context of the current interactive region.
+ -->
+- `namespace` (オプション): interactive 領域の名前空間と合致する文字列。指定がなければ、現行の interactive 領域のコンテキストを取得します。
+
+<!-- 
+Example usage:
+ -->
+使用例:
+
+```js
+store( 'myPlugin', {
+	callbacks: {
+		updateServerContext() {
+			const context = getContext();
+			const serverContext = getServerContext();
+			// プロパティをサーバーから来た新しい値で上書きする。
+			context.overridableProp = serverContext.overridableProp;
+		},
+	},
+} );
+```
+
+#### getServerState()
+
+<!-- 
+Retrieves the server state an interactive region.
+ -->
+interactive 領域のサーバーのステートを取得します。
+
+<!-- 
+This function is serves the same purpose as `getServerContext()`, but it returns the **state** instead of the **context**.
+ -->
+この関数は `getServerContext()` と同じ目的を果たしますが、**コンテキスト** の代わりに **ステート** を返します。
+
+
+<!-- 
+The object returned is read-only, and includes the state defined in PHP with `wp_interactivity_state()`. When using [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@wordpress/interactivity-router`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/), the object returned by `getServerState()` is updated to reflect the changes in its properties, without affecting the state returned by `store()`. Directives can subscribe to those changes to update the state if needed.
+ -->
+返されるオブジェクトは読み取り専用で、PHP 内の `wp_interactivity_state()` で定義されたステートを含みます。[`@wordpress/interactivity-router`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/) の [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) を使用する場合、`getServerState()` が返すオブジェクトは、`store()` が返すステートに影響を与えることなく、プロパティの変更を反映して更新されます。ディレクティブはこれらの変更をサブスクライブして、必要に応じて状態を更新できます。
+
+```js
+const serverState = getServerState( 'namespace' );
+```
+
+<!-- 
+-   `namespace` (optional): A string that matches the namespace of an interactive region. If not provided, it retrieves the server state of the current interactive region.
+ -->
+- `namespace` (オプション): interactive 領域の名前空間と合致する文字列。指定がなければ、現行の interactive 領域のコンテキストを取得します。
+
+<!-- 
+Example usage:
+ -->
+使用例:
+
+```js
+const { state } = store( 'myStore', {
+	callbacks: {
+		updateServerState() {
+			const serverState = getServerState();
+			// プロパティをサーバーから来た新しい値で上書きする。
+			state.overridableProp = serverState.overridableProp;
+		},
+	},
+} );
 ```
 
 #### getElement()
@@ -1580,7 +1703,7 @@ store( "myPlugin", {
 Retrieves a representation of the element that the action is bound to or called from. Such representation is read-only, and contains a reference to the DOM element, its props and a local reactive state.
 It returns an object with two keys:
  -->
-アクションがバインドされた要素、または呼び出された要素の表現を取得します。この表現は読み込み専用で、DOM 要素への参照、その prop、ローカルのリアクティブなステートを含みます。
+アクションがバインドされた要素、または呼び出された要素の表現を取得します。この表現は読み取り専用で、DOM 要素への参照、その prop、ローカルのリアクティブなステートを含みます。
 2つのキーを持つオブジェクトを返します。
 
 ##### ref
@@ -1606,15 +1729,15 @@ Those attributes will contain the directives of that element. In the button exam
 // store
 import { store, getElement } from '@wordpress/interactivity';
 
-store( "myPlugin", {
-  actions: {
-    log: () => {
-      const element = getElement();
-			 // Logs attributes
-      console.log('element attributes => ', element.attributes)
-    },
-  },
-});
+store( 'myPlugin', {
+	actions: {
+		log: () => {
+			const element = getElement();
+			// Logs attributes
+			console.log( 'element attributes => ', element.attributes );
+		},
+	},
+} );
 ```
 
 コードはログに以下を出力します。
@@ -1645,7 +1768,7 @@ An example, where `actions.nextImage` would trigger an undefined error without t
 以下の例でラッパーがなければ、`actions.nextImage` は未定義エラーを引き起こします。
 
 ```js
-store('mySliderPlugin', {
+store( 'mySliderPlugin', {
 	callbacks: {
 		initSlideShow: () => {
 			setInterval(
@@ -1655,8 +1778,8 @@ store('mySliderPlugin', {
 				3_000
 			);
 		},
-  },
-})
+	},
+} );
 ```
 
 <!-- 
@@ -1767,14 +1890,13 @@ const { state } = store( 'myPlugin', {
 					method: 'POST',
 					body: formData,
 				} ).then( ( response ) => response.json() );
-					console.log( 'Server data!', data );
-				} catch ( e ) {
-					// Something went wrong!
-				}
-			},
+				console.log( 'Server data!', data );
+			} catch ( e ) {
+				// Something went wrong!
+			}
 		},
-	}
-);
+	},
+} );
 ```
 
 ### wp_interactivity_process_directives
@@ -1835,7 +1957,7 @@ $my_context = array(
 以下を出力します。
 
 ```html
-<div data-wp-context='{"counter":0,"isOpen":true}'>
+<div data-wp-context='{"counter":0,"isOpen":true}'></div>
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/interactivity-api/api-reference.md)

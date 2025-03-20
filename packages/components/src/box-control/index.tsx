@@ -33,6 +33,7 @@ import type {
 	BoxControlProps,
 	BoxControlValue,
 } from './types';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const defaultInputProps = {
 	min: 0,
@@ -51,23 +52,24 @@ function useUniqueId( idProp?: string ) {
  * used as an input control for values like `padding` or `margin`.
  *
  * ```jsx
+ * import { useState } from 'react';
  * import { BoxControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
  *
  * function Example() {
- * 	const [ values, setValues ] = useState( {
- * 		top: '50px',
- * 		left: '10%',
- * 		right: '10%',
- * 		bottom: '50px',
- * 	} );
+ *   const [ values, setValues ] = useState( {
+ *     top: '50px',
+ *     left: '10%',
+ *     right: '10%',
+ *     bottom: '50px',
+ *   } );
  *
- * 	return (
- * 		<BoxControl
- * 			values={ values }
- * 			onChange={ ( nextValues ) => setValues( nextValues ) }
- * 		/>
- * 	);
+ *   return (
+ *     <BoxControl
+ *       __next40pxDefaultSize
+ *       values={ values }
+ *       onChange={ setValues }
+ *     />
+ *   );
  * };
  * ```
  */
@@ -141,6 +143,8 @@ function BoxControl( {
 	};
 
 	const inputControlProps = {
+		onMouseOver,
+		onMouseOut,
 		...inputProps,
 		onChange: handleOnChange,
 		onFocus: handleOnFocus,
@@ -150,10 +154,14 @@ function BoxControl( {
 		setSelectedUnits,
 		sides,
 		values: inputValues,
-		onMouseOver,
-		onMouseOut,
 		__next40pxDefaultSize,
 	};
+
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'BoxControl',
+		__next40pxDefaultSize,
+		size: undefined,
+	} );
 
 	return (
 		<Grid

@@ -13,17 +13,18 @@ import {
 	normalizeString,
 } from './components/inserter/search-items';
 import { PrivateListView } from './components/list-view';
-import BlockInfo from './components/block-info-slot-fill';
 import { useHasBlockToolbar } from './components/block-toolbar/use-has-block-toolbar';
 import { cleanEmptyObject } from './hooks/utils';
 import BlockQuickNavigation from './components/block-quick-navigation';
 import { LayoutStyle } from './components/block-list/layout';
+import BlockManager from './components/block-manager';
 import { BlockRemovalWarningModal } from './components/block-removal-warning-modal';
 import {
 	setBackgroundStyleDefaults,
 	useLayoutClasses,
 	useLayoutStyles,
 	__unstableBlockStyleVariationOverridesWithConfig,
+	useZoomOut,
 } from './hooks';
 import DimensionsTool from './components/dimensions-tool';
 import ResolutionTool from './components/resolution-tool';
@@ -47,8 +48,8 @@ import { PrivatePublishDateTimePicker } from './components/publish-date-time-pic
 import useSpacingSizes from './components/spacing-sizes-control/hooks/use-spacing-sizes';
 import useBlockDisplayTitle from './components/block-title/use-block-display-title';
 import TabbedSidebar from './components/tabbed-sidebar';
-import { useBlockBindingsUtils } from './utils/block-bindings';
-
+import CommentIconSlotFill from './components/collab/block-comment-icon-slot';
+import CommentIconToolbarSlotFill from './components/collab/block-comment-icon-toolbar-slot';
 /**
  * Private @wordpress/block-editor APIs.
  */
@@ -65,11 +66,11 @@ lock( privateApis, {
 	normalizeString,
 	PrivateListView,
 	ResizableBoxPopover,
-	BlockInfo,
 	useHasBlockToolbar,
 	cleanEmptyObject,
 	BlockQuickNavigation,
 	LayoutStyle,
+	BlockManager,
 	BlockRemovalWarningModal,
 	useLayoutClasses,
 	useLayoutStyles,
@@ -79,6 +80,7 @@ lock( privateApis, {
 	TextAlignmentControl,
 	usesContextKey,
 	useFlashEditableBlocks,
+	useZoomOut,
 	globalStylesDataKey,
 	globalStylesLinksDataKey,
 	selectBlockPatternsKey,
@@ -92,6 +94,7 @@ lock( privateApis, {
 	useBlockDisplayTitle,
 	__unstableBlockStyleVariationOverridesWithConfig,
 	setBackgroundStyleDefaults,
-	useBlockBindingsUtils,
 	sectionRootClientIdKey,
+	CommentIconSlotFill,
+	CommentIconToolbarSlotFill,
 } );

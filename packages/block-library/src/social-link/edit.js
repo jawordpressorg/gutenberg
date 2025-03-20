@@ -6,24 +6,29 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { DELETE, BACKSPACE } from '@wordpress/keycodes';
+import { DELETE, BACKSPACE, ENTER } from '@wordpress/keycodes';
 import { useDispatch } from '@wordpress/data';
 
 import {
+	BlockControls,
 	InspectorControls,
 	URLPopover,
 	URLInput,
+	useBlockEditingMode,
 	useBlockProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
+import { useState, useRef } from '@wordpress/element';
 import {
 	Button,
+	Dropdown,
 	PanelBody,
 	PanelRow,
 	TextControl,
+	ToolbarButton,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 } from '@wordpress/components';
+import { useMergeRefs } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { keyboardReturn } from '@wordpress/icons';
 
@@ -112,16 +117,24 @@ const SocialLinkEdit = ( {
 		iconBackgroundColorValue,
 	} = context;
 	const [ showURLPopover, setPopover ] = useState( false );
-	const classes = clsx( 'wp-social-link', 'wp-social-link-' + service, {
-		'wp-social-link__is-incomplete': ! url,
-		[ `has-${ iconColor }-color` ]: iconColor,
-		[ `has-${ iconBackgroundColor }-background-color` ]:
-			iconBackgroundColor,
-	} );
+	const wrapperClasses = clsx(
+		'wp-social-link',
+		// Manually adding this class for backwards compatibility of CSS when moving the
+		// blockProps from the li to the button: https://github.com/WordPress/gutenberg/pull/64883
+		'wp-block-social-link',
+		'wp-social-link-' + service,
+		{
+			'wp-social-link__is-incomplete': ! url,
+			[ `has-${ iconColor }-color` ]: iconColor,
+			[ `has-${ iconBackgroundColor }-background-color` ]:
+				iconBackgroundColor,
+		}
+	);
 
 	// Use internal state instead of a ref to make sure that the component
 	// re-renders when the popover's anchor updates.
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
+	const isContentOnlyMode = useBlockEditingMode() === 'contentOnly';
 
 	const IconComponent = getIconBySite( service );
 	const socialLinkName = getNameBySite( service );
@@ -131,16 +144,56 @@ const SocialLinkEdit = ( {
 	// spaces. The PHP render callback fallbacks to the social name as well.
 	const socialLinkText = label.trim() === '' ? socialLinkName : label;
 
+	const ref = useRef();
 	const blockProps = useBlockProps( {
-		className: classes,
-		style: {
-			color: iconColorValue,
-			backgroundColor: iconBackgroundColorValue,
+		className: 'wp-block-social-link-anchor',
+		ref: useMergeRefs( [ setPopoverAnchor, ref ] ),
+		onClick: () => setPopover( true ),
+		onKeyDown: ( event ) => {
+			if ( event.keyCode === ENTER ) {
+				event.preventDefault();
+				setPopover( true );
+			}
 		},
 	} );
 
 	return (
 		<>
+			{ isContentOnlyMode && showLabels && (
+				// Add an extra control to modify the label attribute when content only mode is active.
+				// With content only mode active, the inspector is hidden, so users need another way
+				// to edit this attribute.
+				<BlockControls group="other">
+					<Dropdown
+						popoverProps={ { position: 'bottom right' } }
+						renderToggle={ ( { isOpen, onToggle } ) => (
+							<ToolbarButton
+								onClick={ onToggle }
+								aria-haspopup="true"
+								aria-expanded={ isOpen }
+							>
+								{ __( 'Text' ) }
+							</ToolbarButton>
+						) }
+						renderContent={ () => (
+							<TextControl
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+								className="wp-block-social-link__toolbar_content_text"
+								label={ __( 'Text' ) }
+								help={ __(
+									'Provide a text label or use the default.'
+								) }
+								value={ label }
+								onChange={ ( value ) =>
+									setAttributes( { label: value } )
+								}
+								placeholder={ socialLinkName }
+							/>
+						) }
+					/>
+				</BlockControls>
+			) }
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings' ) }>
 					<PanelRow>
@@ -169,13 +222,27 @@ const SocialLinkEdit = ( {
 					onChange={ ( value ) => setAttributes( { rel: value } ) }
 				/>
 			</InspectorControls>
-			<li { ...blockProps }>
-				<button
-					className="wp-block-social-link-anchor"
-					ref={ setPopoverAnchor }
-					onClick={ () => setPopover( true ) }
-					aria-haspopup="dialog"
-				>
+			{ /*
+			 * Because the `<ul>` element has a role=document, the `<li>` is
+			 * not semantically correct, so adding role=presentation is cleaner.
+			 * https://github.com/WordPress/gutenberg/pull/64883#issuecomment-2472874551
+			 */ }
+			<li
+				role="presentation"
+				className={ wrapperClasses }
+				style={ {
+					color: iconColorValue,
+					backgroundColor: iconBackgroundColorValue,
+				} }
+			>
+				{ /*
+				 * Disable reason: The `button` ARIA role is redundant but
+				 * blockProps has a role of `document` automatically applied
+				 * which breaks the semantics of this button since it removes
+				 * the information about the popover.
+				 */
+				/* eslint-disable jsx-a11y/no-redundant-roles */ }
+				<button aria-haspopup="dialog" { ...blockProps } role="button">
 					<IconComponent />
 					<span
 						className={ clsx( 'wp-block-social-link-label', {
@@ -185,6 +252,7 @@ const SocialLinkEdit = ( {
 						{ socialLinkText }
 					</span>
 				</button>
+				{ /* eslint-enable jsx-a11y/no-redundant-roles */ }
 				{ isSelected && showURLPopover && (
 					<SocialLinkURLPopover
 						url={ url }

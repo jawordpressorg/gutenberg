@@ -277,6 +277,8 @@ edit: ( { attributes, setAttributes } ) => {
 	return (
 		<div { ...blockProps }>
 			<TextControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 				label='My Text Field'
 				value={ attributes.content }
 				onChange={ updateFieldValue }
@@ -319,6 +321,8 @@ edit: ( { attributes, setAttributes } ) => {
 	return (
 		<div { ...blockProps }>
 			<TextControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 				label='Number Posts to Show'
 				value={ attributes.postsToShow }
 				onChange={ ( val ) => {

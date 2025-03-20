@@ -7,23 +7,28 @@
 		"checkJs": false
 	},
 	"references": [
+		{ "path": "../api-fetch" },
+		{ "path": "../blob" },
 		{ "path": "../components" },
 		{ "path": "../compose" },
+		{ "path": "../core-data" },
+		{ "path": "../block-editor" },
 		{ "path": "../data" },
+		{ "path": "../dataviews" },
+		{ "path": "../date" },
 		{ "path": "../element" },
+		{ "path": "../hooks" },
+		{ "path": "../html-entities" },
 		{ "path": "../i18n" },
 		{ "path": "../icons" },
+		{ "path": "../media-utils" },
+		{ "path": "../notices" },
 		{ "path": "../primitives" },
 		{ "path": "../private-apis" },
-		{ "path": "../warning" },
+		{ "path": "../router" },
 		{ "path": "../url" },
-		{ "path": "../notices" },
-		{ "path": "../dataviews" },
-		{ "path": "../blob" },
-		{ "path": "../core-data" },
-		{ "path": "../hooks" },
-		{ "path": "../html-entities" }
+		{ "path": "../block-editor" },
+		{ "path": "../warning" }
 	],
-	"include": [ "src" ],
-	"exclude": [ "@wordpress/editor" ]
+	"include": [ "src" ]
 }

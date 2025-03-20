@@ -2,6 +2,7 @@
  * External dependencies
  */
 const path = require( 'path' );
+const DefinePlugin = require( 'webpack' ).DefinePlugin;
 
 /**
  * WordPress dependencies
@@ -41,6 +42,7 @@ module.exports = {
 		disableTelemetry: true,
 	},
 	stories,
+	staticDirs: [ './static' ],
 	addons: [
 		{
 			name: '@storybook/addon-docs',
@@ -57,11 +59,6 @@ module.exports = {
 	framework: {
 		name: '@storybook/react-webpack5',
 		options: {},
-	},
-	features: {
-		babelModeV7: true,
-		emotionAlias: false,
-		storyStoreV7: true,
 	},
 	docs: {
 		autodocs: true,
@@ -106,6 +103,15 @@ module.exports = {
 					},
 				],
 			},
+			plugins: [
+				...config.plugins,
+				new DefinePlugin( {
+					// Ensures that `@wordpress/warning` can properly detect dev mode.
+					'globalThis.SCRIPT_DEBUG': JSON.stringify(
+						process.env.NODE_ENV === 'development'
+					),
+				} ),
+			],
 		};
 	},
 };

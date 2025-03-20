@@ -14,14 +14,14 @@ Gutenberg プロジェクトにコードでコントリビュートする方法�
 ## ディスカッション
 
 <!--
-The [Make WordPress Core blog](https://make.wordpress.org/core/) is the primary spot for the latest information around WordPress development: including announcements, product goals, meeting notes, meeting agendas, and more.
+The [Make WordPress Core blog](https://make.wordpress.org/core/) is the primary spot for the latest information around WordPress development, including announcements, product goals, meeting notes, meeting agendas, and more.
 -->
 [Make WordPress Core ブログ](https://make.wordpress.org/core/)は、WordPress 開発に関する最新の情報を得られるメインの場所です。アナウンス、製品のゴール、議事録、アジェンダなどがあります。
 
 <!--
-Real-time discussions for development take place in `#core-editor` and `#core-js` channels in [Make WordPress Slack](https://make.wordpress.org/chat) (registration required). Weekly meetings for the editor component are on Wednesdays at 14:00UTC, and for the JavaScript component on Tuesday at 15:00UTC, in their respective Slack channels.
+Development discussions take place in real-time in the `#core-editor` and `#core-js` channels in [Make WordPress Slack](https://make.wordpress.org/chat) (registration required).
 -->
-開発に関するリアルタイムの議論は、[Make WordPress Slack](https://make.wordpress.org/chat)の `#core-editor` と `#core-js` チャンネルで行われます (要登録)。エディターコンポーネントの週次会は水曜日の14:00 UTC、JavaScript コンポーネントの週次会は火曜日の15:00 UTC に、それぞれのSlackチャンネルで行われています。
+開発に関する議論は、[Make WordPress Slack](https://make.wordpress.org/chat)の `#core-editor` と `#core-js` チャンネルでリアルタイムで行われています (要登録)。
 
 <!--
 ## Development Hub
@@ -29,7 +29,7 @@ Real-time discussions for development take place in `#core-editor` and `#core-js
 ## 開発のハブ
 
 <!--
-The Gutenberg project uses GitHub for managing code and tracking issues. The main repository is at: [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg).
+The Gutenberg project uses GitHub to manage code and track issues. The main repository is at: [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg).
 -->
 Gutenberg プロジェクトでは、コードの管理や問題の追跡に GitHub を使用しています。メインのリポジトリは [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg) です。
 

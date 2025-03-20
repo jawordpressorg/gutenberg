@@ -13,7 +13,8 @@ import MenuItem from '../../menu-item';
 import { DropdownContentWrapper } from '../dropdown-content-wrapper';
 
 const meta: Meta< typeof Dropdown > = {
-	title: 'Components/Dropdown',
+	title: 'Components/Overlays/Dropdown',
+	id: 'components-dropdown',
 	component: Dropdown,
 	// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
 	subcomponents: { DropdownContentWrapper },
@@ -99,6 +100,7 @@ export const WithMenuItems: StoryObj< typeof Dropdown > = {
 		...Default.args,
 		renderContent: () => (
 			<>
+				<MenuItem>Standalone Item</MenuItem>
 				<MenuGroup label="Group 1">
 					<MenuItem>Item 1</MenuItem>
 					<MenuItem>Item 2</MenuItem>

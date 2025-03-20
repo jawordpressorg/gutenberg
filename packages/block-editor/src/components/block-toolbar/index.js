@@ -35,6 +35,9 @@ import { store as blockEditorStore } from '../../store';
 import __unstableBlockNameContext from './block-name-context';
 import NavigableToolbar from '../navigable-toolbar';
 import { useHasBlockToolbar } from './use-has-block-toolbar';
+import ChangeDesign from './change-design';
+import SwitchSectionStyle from './switch-section-style';
+import { unlock } from '../../lock-unlock';
 
 /**
  * Renders the block toolbar.
@@ -58,7 +61,6 @@ export function PrivateBlockToolbar( {
 	const {
 		blockClientId,
 		blockClientIds,
-		isContentOnlyEditingMode,
 		isDefaultEditingMode,
 		blockType,
 		toolbarKey,
@@ -67,6 +69,13 @@ export function PrivateBlockToolbar( {
 		isUsingBindings,
 		hasParentPattern,
 		hasContentOnlyLocking,
+		showShuffleButton,
+		showSlots,
+		showGroupButtons,
+		showLockButtons,
+		showSwitchSectionStyleButton,
+		hasFixedToolbar,
+		isNavigationMode,
 	} = useSelect( ( select ) => {
 		const {
 			getBlockName,
@@ -78,12 +87,17 @@ export function PrivateBlockToolbar( {
 			getBlockAttributes,
 			getBlockParentsByBlockName,
 			getTemplateLock,
-		} = select( blockEditorStore );
+			getSettings,
+			getParentSectionBlock,
+			isZoomOut,
+			isNavigationMode: _isNavigationMode,
+		} = unlock( select( blockEditorStore ) );
 		const selectedBlockClientIds = getSelectedBlockClientIds();
 		const selectedBlockClientId = selectedBlockClientIds[ 0 ];
 		const parents = getBlockParents( selectedBlockClientId );
-		const firstParentClientId = parents[ parents.length - 1 ];
-		const parentBlockName = getBlockName( firstParentClientId );
+		const parentSection = getParentSectionBlock( selectedBlockClientId );
+		const parentClientId = parentSection ?? parents[ parents.length - 1 ];
+		const parentBlockName = getBlockName( parentClientId );
 		const parentBlockType = getBlockType( parentBlockName );
 		const editingMode = getBlockEditingMode( selectedBlockClientId );
 		const _isDefaultEditingMode = editingMode === 'default';
@@ -109,27 +123,36 @@ export function PrivateBlockToolbar( {
 		const _hasTemplateLock = selectedBlockClientIds.some(
 			( id ) => getTemplateLock( id ) === 'contentOnly'
 		);
+
+		const _isZoomOut = isZoomOut();
+
 		return {
 			blockClientId: selectedBlockClientId,
 			blockClientIds: selectedBlockClientIds,
-			isContentOnlyEditingMode: editingMode === 'contentOnly',
 			isDefaultEditingMode: _isDefaultEditingMode,
 			blockType: selectedBlockClientId && getBlockType( _blockName ),
 			shouldShowVisualToolbar: isValid && isVisual,
-			toolbarKey: `${ selectedBlockClientId }${ firstParentClientId }`,
+			toolbarKey: `${ selectedBlockClientId }${ parentClientId }`,
 			showParentSelector:
+				! _isZoomOut &&
 				parentBlockType &&
-				getBlockEditingMode( firstParentClientId ) === 'default' &&
+				getBlockEditingMode( parentClientId ) !== 'disabled' &&
 				hasBlockSupport(
 					parentBlockType,
 					'__experimentalParentSelector',
 					true
 				) &&
-				selectedBlockClientIds.length === 1 &&
-				_isDefaultEditingMode,
+				selectedBlockClientIds.length === 1,
 			isUsingBindings: _isUsingBindings,
 			hasParentPattern: _hasParentPattern,
 			hasContentOnlyLocking: _hasTemplateLock,
+			showShuffleButton: _isZoomOut,
+			showSlots: ! _isZoomOut,
+			showGroupButtons: ! _isZoomOut,
+			showLockButtons: ! _isZoomOut,
+			showSwitchSectionStyleButton: _isZoomOut,
+			hasFixedToolbar: getSettings().hasFixedToolbar,
+			isNavigationMode: _isNavigationMode(),
 		};
 	}, [] );
 
@@ -156,6 +179,7 @@ export function PrivateBlockToolbar( {
 	// Shifts the toolbar to make room for the parent block selector.
 	const classes = clsx( 'block-editor-block-contextual-toolbar', {
 		'has-parent': showParentSelector,
+		'is-inverted-toolbar': isNavigationMode && ! hasFixedToolbar,
 	} );
 
 	const innerClasses = clsx( 'block-editor-block-toolbar', {
@@ -179,43 +203,42 @@ export function PrivateBlockToolbar( {
 			key={ toolbarKey }
 		>
 			<div ref={ toolbarWrapperRef } className={ innerClasses }>
-				{ ! isMultiToolbar &&
-					isLargeViewport &&
-					isDefaultEditingMode && <BlockParentSelector /> }
+				{ showParentSelector && ! isMultiToolbar && isLargeViewport && (
+					<BlockParentSelector />
+				) }
 				{ ( shouldShowVisualToolbar || isMultiToolbar ) &&
-					( isDefaultEditingMode ||
-						( isContentOnlyEditingMode && ! hasParentPattern ) ||
-						isSynced ) && (
+					! hasParentPattern && (
 						<div
 							ref={ nodeRef }
 							{ ...showHoveredOrFocusedGestures }
 						>
 							<ToolbarGroup className="block-editor-block-toolbar__block-controls">
-								<BlockSwitcher
-									clientIds={ blockClientIds }
-									disabled={ ! isDefaultEditingMode }
-									isUsingBindings={ isUsingBindings }
-								/>
-								{ isDefaultEditingMode && (
-									<>
-										{ ! isMultiToolbar && (
-											<BlockLockToolbar
-												clientId={ blockClientId }
-											/>
-										) }
-										<BlockMover
-											clientIds={ blockClientIds }
-											hideDragHandle={ hideDragHandle }
+								<BlockSwitcher clientIds={ blockClientIds } />
+								{ ! isMultiToolbar &&
+									isDefaultEditingMode &&
+									showLockButtons && (
+										<BlockLockToolbar
+											clientId={ blockClientId }
 										/>
-									</>
-								) }
+									) }
+								<BlockMover
+									clientIds={ blockClientIds }
+									hideDragHandle={ hideDragHandle }
+								/>
 							</ToolbarGroup>
 						</div>
 					) }
 				{ ! hasContentOnlyLocking &&
 					shouldShowVisualToolbar &&
-					isMultiToolbar && <BlockGroupToolbar /> }
-				{ shouldShowVisualToolbar && (
+					isMultiToolbar &&
+					showGroupButtons && <BlockGroupToolbar /> }
+				{ showShuffleButton && (
+					<ChangeDesign clientId={ blockClientIds[ 0 ] } />
+				) }
+				{ showSwitchSectionStyleButton && (
+					<SwitchSectionStyle clientId={ blockClientIds[ 0 ] } />
+				) }
+				{ shouldShowVisualToolbar && showSlots && (
 					<>
 						<BlockControls.Slot
 							group="parent"
@@ -242,9 +265,7 @@ export function PrivateBlockToolbar( {
 					</>
 				) }
 				<BlockEditVisuallyButton clientIds={ blockClientIds } />
-				{ isDefaultEditingMode && (
-					<BlockSettingsMenu clientIds={ blockClientIds } />
-				) }
+				<BlockSettingsMenu clientIds={ blockClientIds } />
 			</div>
 		</NavigableToolbar>
 	);

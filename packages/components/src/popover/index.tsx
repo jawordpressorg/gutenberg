@@ -39,6 +39,7 @@ import {
 import { close } from '@wordpress/icons';
 import deprecated from '@wordpress/deprecated';
 import { Path, SVG } from '@wordpress/primitives';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -419,8 +420,10 @@ const UnforwardedPopover = (
 					</span>
 					<Button
 						className="components-popover__close"
+						size="small"
 						icon={ close }
 						onClick={ onClose }
+						label={ __( 'Close' ) }
 					/>
 				</div>
 			) }

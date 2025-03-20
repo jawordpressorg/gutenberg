@@ -172,7 +172,7 @@ Our performance job runs GitHub CI which means that we can't trust the consisten
 <!-- 
 Gutenberg supports only two WP versions, this impacts the performance job in two ways:
  -->
-Gutenberg は2つの WordPress バージョンしかサポートしていないため、以下の2点でパフォーマンスジョブに影響を与えます。
+Gutenberg は2つの WordPress バージョンしかサポートしないため、以下の2点でパフォーマンスジョブに影響を与えます。
 
 <!-- 
  - The base WP version used to run the performance job needs to be updated, when the minimum version supported by Gutenberg changes. In order to do that, we rely on the `Tested up to` flag of the plugin's `readme.txt` file. So each time that flag is changed, the version used for the performance job is changed as well.
@@ -191,9 +191,24 @@ The new reference commit hash that is chosen needs to meet the following require
  - Is already tracked on "codevitals.run" for all existing metrics.
  -->
 - "Tested up to" フラグで使用されている新しい WordPress バージョンと互換性があること
- - 既存のすべてのメ指標について、"codevitals.run" で追跡済みであること
+ - 既存のすべての指標について、"codevitals.run" で追跡済みであること
 
 <!-- 
+When releasing a plugin update with changes to the minimum WordPress version requirements, the end-to-end test GitHub Action workflow in Core SVN will need to be updated for any branch losing support. Otherwise the first run of that workflow on that branch following the release will fail.
+ -->
+WordPress の最小バージョン要件を変更してプラグインのアップデートをリリースする場合、Core SVN の end-to-end テスト GitHub Action ワークフローを、サポートを無くしたブランチ用に更新する必要があります。更新しなければ、リリース後にそのブランチでワークフローを最初に実行したときに失敗します。
+
+<!-- 
+The version of the plugin used in the workflow can be pinned by adding the `gutenberg-version` input to the test matrix. [Core-59221](https://core.trac.wordpress.org/changeset/59221) is an example of this change for the 6.4 branch.
+ -->
+ワークフローで使用するプラグインのバージョンを固定するには、テストマトリックスに `gutenberg-version` 入力を追加してください。[Core-59221](https://core.trac.wordpress.org/changeset/59221) は、6.4ブランチでのこの変更の例です。
+
+<!-- 
+**Note:** Always use the final release including bug fixes (ie. `x.y.2` or `x.y.3`). If the final release is not yet known, create a [Trac ticket](https://core.trac.wordpress.org/ticket/62488) so it's not forgotten.
+ -->
+**注意:** 常にバグフィックスを含む最終リリースを使用してください (例えば `x.y.2` や `x.y.3`)。最終リリースがまだわからなければ、[Trac チケット](https://core.trac.wordpress.org/ticket/62488) を作成して、忘れないようにしてください。
+
+<!--
 **A simple way to choose commit is to pick a very recent commit on trunk with a passing performance job.**
  -->
 **コミットを選択する簡単な方法は、trunk 上の最近のコミットで、パフォーマンスジョブに合格したものを選ぶことです。**

@@ -2,6 +2,16 @@
 
 翻訳の進捗や、最新の英語版で同期した際に気づいた箇所をメモしています。
 
+2024/12/5
+
+- [エディター内のブロック](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/block-in-the-editor/)など多数 - __nextHasNoMarginBottom, __next40pxDefaultSize [#66745](https://github.com/WordPress/gutenberg/pull/66745)
+- [クエリーループブロックの拡張](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/) - format、parents の追加 [#67529](https://github.com/WordPress/gutenberg/pull/67529)
+- [エディター機能の無効化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/disable-editor-functionality/) - 見出しレベルの管理 [#66076](https://github.com/WordPress/gutenberg/pull/66076)
+- [Bindings](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-bindings/) - 新規
+- [API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/) - getServerContext、getServerState [#66104](https://github.com/WordPress/gutenberg/pull/66104)
+- [グローバルステート、ローカルコンテキスト、派生ステートの理解](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state/) - getServerContext、getServerState [#66104](https://github.com/WordPress/gutenberg/pull/66104)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - カバー sizeSlug [#62926](https://github.com/WordPress/gutenberg/pull/62926)、コンテンツ margin [#66366](https://github.com/WordPress/gutenberg/pull/66366)、詳細 anchor [#66734](https://github.com/WordPress/gutenberg/pull/66734)、固定ページリスト spacing [#66385](https://github.com/WordPress/gutenberg/pull/66385)、区切り tagName [#67530](https://github.com/WordPress/gutenberg/pull/67530)
+
 2024/11/29
 
 - [グローバルステート、ローカルコンテキスト、派生ステートの理解](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state/) - 翻訳

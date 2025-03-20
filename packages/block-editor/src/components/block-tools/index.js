@@ -8,7 +8,7 @@ import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@wordp
 import { useRef } from '@wordpress/element';
 import { switchToBlockType, store as blocksStore } from '@wordpress/blocks';
 import { speak } from '@wordpress/a11y';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf, _n } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -19,33 +19,31 @@ import {
 	default as InsertionPoint,
 } from './insertion-point';
 import BlockToolbarPopover from './block-toolbar-popover';
-import ZoomOutPopover from './zoom-out-popover';
 import { store as blockEditorStore } from '../../store';
 import usePopoverScroll from '../block-popover/use-popover-scroll';
 import ZoomOutModeInserters from './zoom-out-mode-inserters';
 import { useShowBlockTools } from './use-show-block-tools';
 import { unlock } from '../../lock-unlock';
-import getEditorRegion from '../../utils/get-editor-region';
 
 function selector( select ) {
 	const {
 		getSelectedBlockClientId,
 		getFirstMultiSelectedBlockClientId,
 		getSettings,
-		__unstableGetEditorMode,
 		isTyping,
-	} = select( blockEditorStore );
+		isDragging,
+		isZoomOut,
+	} = unlock( select( blockEditorStore ) );
 
 	const clientId =
 		getSelectedBlockClientId() || getFirstMultiSelectedBlockClientId();
-
-	const editorMode = __unstableGetEditorMode();
 
 	return {
 		clientId,
 		hasFixedToolbar: getSettings().hasFixedToolbar,
 		isTyping: isTyping(),
-		isZoomOutMode: editorMode === 'zoom-out',
+		isZoomOutMode: isZoomOut(),
+		isDragging: isDragging(),
 	};
 }
 
@@ -63,10 +61,9 @@ export default function BlockTools( {
 	__unstableContentRef,
 	...props
 } ) {
-	const { clientId, hasFixedToolbar, isTyping, isZoomOutMode } = useSelect(
-		selector,
-		[]
-	);
+	const { clientId, hasFixedToolbar, isTyping, isZoomOutMode, isDragging } =
+		useSelect( selector, [] );
+
 	const isMatch = useShortcutEventMatch();
 	const {
 		getBlocksByClientId,
@@ -75,14 +72,10 @@ export default function BlockTools( {
 		isGroupable,
 	} = useSelect( blockEditorStore );
 	const { getGroupingBlockName } = useSelect( blocksStore );
-	const {
-		showEmptyBlockSideInserter,
-		showBlockToolbarPopover,
-		showZoomOutToolbar,
-	} = useShowBlockTools();
+	const { showEmptyBlockSideInserter, showBlockToolbarPopover } =
+		useShowBlockTools();
 
 	const {
-		clearSelectedBlock,
 		duplicateBlocks,
 		removeBlocks,
 		replaceBlocks,
@@ -94,26 +87,40 @@ export default function BlockTools( {
 		expandBlock,
 	} = unlock( useDispatch( blockEditorStore ) );
 
-	const blockSelectionButtonRef = useRef();
-
 	function onKeyDown( event ) {
 		if ( event.defaultPrevented ) {
 			return;
 		}
 
-		if ( isMatch( 'core/block-editor/move-up', event ) ) {
+		if (
+			isMatch( 'core/block-editor/move-up', event ) ||
+			isMatch( 'core/block-editor/move-down', event )
+		) {
 			const clientIds = getSelectedBlockClientIds();
 			if ( clientIds.length ) {
 				event.preventDefault();
 				const rootClientId = getBlockRootClientId( clientIds[ 0 ] );
-				moveBlocksUp( clientIds, rootClientId );
-			}
-		} else if ( isMatch( 'core/block-editor/move-down', event ) ) {
-			const clientIds = getSelectedBlockClientIds();
-			if ( clientIds.length ) {
-				event.preventDefault();
-				const rootClientId = getBlockRootClientId( clientIds[ 0 ] );
-				moveBlocksDown( clientIds, rootClientId );
+				const direction = isMatch( 'core/block-editor/move-up', event )
+					? 'up'
+					: 'down';
+				if ( direction === 'up' ) {
+					moveBlocksUp( clientIds, rootClientId );
+				} else {
+					moveBlocksDown( clientIds, rootClientId );
+				}
+				const blockLength = Array.isArray( clientIds )
+					? clientIds.length
+					: 1;
+				const message = sprintf(
+					// translators: %d: the name of the block that has been moved
+					_n(
+						'%d block moved.',
+						'%d blocks moved.',
+						clientIds.length
+					),
+					blockLength
+				);
+				speak( message );
 			}
 		} else if ( isMatch( 'core/block-editor/duplicate', event ) ) {
 			const clientIds = getSelectedBlockClientIds();
@@ -156,13 +163,6 @@ export default function BlockTools( {
 				// block so that focus is directed back to the beginning of the selection.
 				// In effect, to the user this feels like deselecting the multi-selection.
 				selectBlock( clientIds[ 0 ] );
-			} else if (
-				clientIds.length === 1 &&
-				event.target === blockSelectionButtonRef?.current
-			) {
-				event.preventDefault();
-				clearSelectedBlock();
-				getEditorRegion( __unstableContentRef.current )?.focus();
 			}
 		} else if ( isMatch( 'core/block-editor/collapse-list-view', event ) ) {
 			// If focus is currently within a text field, such as a rich text block or other editable field,
@@ -221,13 +221,6 @@ export default function BlockTools( {
 					/>
 				) }
 
-				{ showZoomOutToolbar && (
-					<ZoomOutPopover
-						__unstableContentRef={ __unstableContentRef }
-						clientId={ clientId }
-					/>
-				) }
-
 				{ /* Used for the inline rich text toolbar. Until this toolbar is combined into BlockToolbar, someone implementing their own BlockToolbar will also need to use this to see the image caption toolbar. */ }
 				{ ! isZoomOutMode && ! hasFixedToolbar && (
 					<Popover.Slot
@@ -241,7 +234,7 @@ export default function BlockTools( {
 					name="__unstable-block-tools-after"
 					ref={ blockToolbarAfterRef }
 				/>
-				{ isZoomOutMode && (
+				{ isZoomOutMode && ! isDragging && (
 					<ZoomOutModeInserters
 						__unstableContentRef={ __unstableContentRef }
 					/>

@@ -125,6 +125,7 @@ export function DatePicker( {
 							)
 						);
 					} }
+					size="compact"
 				/>
 				<NavigatorHeading level={ 3 }>
 					<strong>
@@ -150,6 +151,7 @@ export function DatePicker( {
 							)
 						);
 					} }
+					size="compact"
 				/>
 			</Navigator>
 			<Calendar
@@ -300,7 +302,6 @@ function Day( {
 		}
 		// isFocusAllowed is not a dep as there is no point calling focus() on
 		// an already focused element.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ isFocusable ] );
 
 	return (

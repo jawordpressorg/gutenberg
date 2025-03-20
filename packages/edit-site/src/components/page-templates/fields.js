@@ -16,17 +16,16 @@ import {
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
 import { EditorProvider } from '@wordpress/editor';
+import { privateApis as routerPrivateApis } from '@wordpress/router';
 
 /**
  * Internal dependencies
  */
-import { Async } from '../async';
-import { default as Link, useLink } from '../routes/link';
 import { useAddedBy } from './hooks';
-
 import usePatternSettings from '../page-patterns/use-pattern-settings';
 import { unlock } from '../../lock-unlock';
 
+const { useLink } = unlock( routerPrivateApis );
 const { useGlobalStyle } = unlock( blockEditorPrivateApis );
 
 function PreviewField( { item } ) {
@@ -35,11 +34,7 @@ function PreviewField( { item } ) {
 	const blocks = useMemo( () => {
 		return parse( item.content.raw );
 	}, [ item.content.raw ] );
-	const { onClick } = useLink( {
-		postId: item.id,
-		postType: item.type,
-		canvas: 'edit',
-	} );
+	const { onClick } = useLink( `/${ item.type }/${ item.id }?canvas=edit` );
 
 	const isEmpty = ! blocks?.length;
 	// Wrap everything in a block editor provider to ensure 'styles' that are needed
@@ -63,9 +58,9 @@ function PreviewField( { item } ) {
 				>
 					{ isEmpty && __( 'Empty template' ) }
 					{ ! isEmpty && (
-						<Async>
+						<BlockPreview.Async>
 							<BlockPreview blocks={ blocks } />
-						</Async>
+						</BlockPreview.Async>
 					) }
 				</button>
 			</div>
@@ -78,30 +73,6 @@ export const previewField = {
 	id: 'preview',
 	render: PreviewField,
 	enableSorting: false,
-};
-
-function TitleField( { item } ) {
-	const linkProps = {
-		params: {
-			postId: item.id,
-			postType: item.type,
-			canvas: 'edit',
-		},
-	};
-	return (
-		<Link { ...linkProps }>
-			{ decodeEntities( item.title?.rendered ) || __( '(no title)' ) }
-		</Link>
-	);
-}
-
-export const titleField = {
-	label: __( 'Template' ),
-	id: 'title',
-	getValue: ( { item } ) => item.title?.rendered,
-	render: TitleField,
-	enableHiding: false,
-	enableGlobalSearch: true,
 };
 
 export const descriptionField = {

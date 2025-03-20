@@ -41,10 +41,6 @@
 	flex-shrink: 0;
 }
 
-.edit-site-patterns__pattern-lock-icon {
-	min-width: min-content;
-}
-
 .edit-site-patterns__section-header {
 	border-bottom: 1px solid #f0f0f0;
 	padding: $grid-unit-20 $grid-unit-60;
@@ -72,35 +68,6 @@
 
 	.screen-reader-shortcut:focus {
 		top: 0;
-	}
-}
-
-.edit-site-patterns__pattern-title {
-	display: block;
-	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	color: inherit;
-
-	.is-link {
-		text-decoration: none;
-		color: $gray-200;
-
-		&:hover,
-		&:focus {
-			color: $white;
-		}
-	}
-
-	.edit-site-patterns__pattern-icon {
-		border-radius: $grid-unit-05;
-		background: var(--wp-block-synced-color);
-		fill: $white;
-	}
-
-	.edit-site-patterns__pattern-lock-icon {
-		fill: currentcolor;
 	}
 }
 

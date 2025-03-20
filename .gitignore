@@ -3,6 +3,7 @@ build
 build-module
 build-style
 build-types
+build-wp
 node_modules
 gutenberg.zip
 coverage
@@ -13,6 +14,7 @@ coverage
 # Directories/files that may appear in your environment
 *.log
 yarn.lock
+results
 /artifacts
 /test/e2e/artifacts
 /perf-envs

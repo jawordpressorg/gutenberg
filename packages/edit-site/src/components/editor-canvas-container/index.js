@@ -125,7 +125,7 @@ function EditorCanvasContainer( {
 					>
 						{ shouldShowCloseButton && (
 							<Button
-								__next40pxDefaultSize
+								size="compact"
 								className="edit-site-editor-canvas-container__close-button"
 								icon={ closeSmall }
 								label={ closeButtonLabel || __( 'Close' ) }
@@ -141,7 +141,7 @@ function EditorCanvasContainer( {
 }
 
 function useHasEditorCanvasContainer() {
-	const fills = useSlotFills( EditorContentSlotFill.privateKey );
+	const fills = useSlotFills( EditorContentSlotFill.name );
 	return !! fills?.length;
 }
 

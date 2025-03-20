@@ -19,16 +19,27 @@ export default function useTabNav() {
 	const focusCaptureBeforeRef = useRef();
 	const focusCaptureAfterRef = useRef();
 
-	const { hasMultiSelection, getSelectedBlockClientId, getBlockCount } =
-		useSelect( blockEditorStore );
+	const {
+		hasMultiSelection,
+		getSelectedBlockClientId,
+		getBlockCount,
+		getBlockOrder,
+		getLastFocus,
+		getSectionRootClientId,
+		isZoomOut,
+	} = unlock( useSelect( blockEditorStore ) );
 	const { setLastFocus } = unlock( useDispatch( blockEditorStore ) );
-	const { getLastFocus } = unlock( useSelect( blockEditorStore ) );
 
 	// Reference that holds the a flag for enabling or disabling
 	// capturing on the focus capture elements.
 	const noCaptureRef = useRef();
 
 	function onFocusCapture( event ) {
+		const canvasElement =
+			container.current.ownerDocument === event.target.ownerDocument
+				? container.current
+				: container.current.ownerDocument.defaultView.frameElement;
+
 		// Do not capture incoming focus if set by us in WritingFlow.
 		if ( noCaptureRef.current ) {
 			noCaptureRef.current = null;
@@ -45,12 +56,28 @@ export default function useTabNav() {
 					)
 					.focus();
 			}
-		} else {
-			const canvasElement =
-				container.current.ownerDocument === event.target.ownerDocument
-					? container.current
-					: container.current.ownerDocument.defaultView.frameElement;
+		}
+		// In "compose" mode without a selected ID, we want to place focus on the section root when tabbing to the canvas.
+		else if ( isZoomOut() ) {
+			const sectionRootClientId = getSectionRootClientId();
+			const sectionBlocks = getBlockOrder( sectionRootClientId );
 
+			// If we have section within the section root, focus the first one.
+			if ( sectionBlocks.length ) {
+				container.current
+					.querySelector( `[data-block="${ sectionBlocks[ 0 ] }"]` )
+					.focus();
+			}
+			// If we don't have any section blocks, focus the section root.
+			else if ( sectionRootClientId ) {
+				container.current
+					.querySelector( `[data-block="${ sectionRootClientId }"]` )
+					.focus();
+			} else {
+				// If we don't have any section root, focus the canvas.
+				canvasElement.focus();
+			}
+		} else {
 			const isBefore =
 				// eslint-disable-next-line no-bitwise
 				event.target.compareDocumentPosition( canvasElement ) &
@@ -61,7 +88,6 @@ export default function useTabNav() {
 				const next = isBefore
 					? tabbables[ 0 ]
 					: tabbables[ tabbables.length - 1 ];
-
 				next.focus();
 			}
 		}

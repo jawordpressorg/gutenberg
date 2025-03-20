@@ -38,31 +38,31 @@ export default function Pagination( {
 						className="block-editor-patterns__grid-pagination-previous"
 					>
 						<Button
-							// TODO: Switch to `true` (40px size) if possible
-							__next40pxDefaultSize={ false }
 							variant="tertiary"
 							onClick={ () => changePage( 1 ) }
 							disabled={ currentPage === 1 }
 							aria-label={ __( 'First page' ) }
+							size="compact"
 							accessibleWhenDisabled
+							className="block-editor-patterns__grid-pagination-button"
 						>
 							<span>«</span>
 						</Button>
 						<Button
-							// TODO: Switch to `true` (40px size) if possible
-							__next40pxDefaultSize={ false }
 							variant="tertiary"
 							onClick={ () => changePage( currentPage - 1 ) }
 							disabled={ currentPage === 1 }
 							aria-label={ __( 'Previous page' ) }
+							size="compact"
 							accessibleWhenDisabled
+							className="block-editor-patterns__grid-pagination-button"
 						>
 							<span>‹</span>
 						</Button>
 					</HStack>
 					<Text variant="muted">
 						{ sprintf(
-							// translators: %1$s: Current page number, %2$s: Total number of pages.
+							// translators: 1: Current page number. 2: Total number of pages.
 							_x( '%1$s of %2$s', 'paging' ),
 							currentPage,
 							numPages
@@ -74,13 +74,13 @@ export default function Pagination( {
 						className="block-editor-patterns__grid-pagination-next"
 					>
 						<Button
-							// TODO: Switch to `true` (40px size) if possible
-							__next40pxDefaultSize={ false }
 							variant="tertiary"
 							onClick={ () => changePage( currentPage + 1 ) }
 							disabled={ currentPage === numPages }
 							aria-label={ __( 'Next page' ) }
+							size="compact"
 							accessibleWhenDisabled
+							className="block-editor-patterns__grid-pagination-button"
 						>
 							<span>›</span>
 						</Button>
@@ -89,8 +89,9 @@ export default function Pagination( {
 							onClick={ () => changePage( numPages ) }
 							disabled={ currentPage === numPages }
 							aria-label={ __( 'Last page' ) }
-							size="default"
+							size="compact"
 							accessibleWhenDisabled
+							className="block-editor-patterns__grid-pagination-button"
 						>
 							<span>»</span>
 						</Button>

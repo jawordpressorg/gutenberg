@@ -19,7 +19,7 @@
 	position: sticky;
 	left: 0;
 	transition: padding ease-out 0.1s;
-	@include reduce-motion("transition");
+	@include reduce-motion( "transition" );
 }
 
 .dataviews-view-list__primary-field,
@@ -60,6 +60,23 @@
 			color: var(--wp-admin-theme-color);
 		}
 	}
+
+	&.dataviews-view-grid__primary-field--clickable span,
+	> .dataviews-view-table__cell-content--clickable span {
+		color: $gray-900;
+
+		&:hover {
+			color: var(--wp-admin-theme-color);
+		}
+		@include link-reset();
+	}
+}
+
+.dataviews-view-list__primary-field--clickable,
+.dataviews-view-grid__primary-field--clickable,
+.dataviews-view-grid__media--clickable,
+.dataviews-view-table__primary-field > .dataviews-view-table__cell-content--clickable {
+	cursor: pointer;
 }
 
 .dataviews-no-results,
@@ -70,7 +87,7 @@
 	align-items: center;
 	justify-content: center;
 	transition: padding ease-out 0.1s;
-	@include reduce-motion("transition");
+	@include reduce-motion( "transition" );
 }
 
 /* stylelint-disable-next-line scss/at-rule-no-unknown -- '@container' not globally permitted */
@@ -86,4 +103,3 @@
 		padding-right: $grid-unit-30;
 	}
 }
-

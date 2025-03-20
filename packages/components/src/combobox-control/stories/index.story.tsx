@@ -34,7 +34,8 @@ const countries = [
 ];
 
 const meta: Meta< typeof ComboboxControl > = {
-	title: 'Components/ComboboxControl',
+	title: 'Components/Selection & Input/Common/ComboboxControl',
+	id: 'components-comboboxcontrol',
 	component: ComboboxControl,
 	argTypes: {
 		value: { control: { type: null } },
@@ -76,6 +77,7 @@ const Template: StoryFn< typeof ComboboxControl > = ( {
 };
 export const Default = Template.bind( {} );
 Default.args = {
+	__next40pxDefaultSize: true,
 	__nextHasNoMarginBottom: true,
 	allowReset: false,
 	label: 'Select a country',

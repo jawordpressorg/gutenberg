@@ -35,7 +35,6 @@ import { useInstanceId } from '@wordpress/compose';
  */
 import {
 	SORTING_DIRECTIONS,
-	LAYOUT_GRID,
 	LAYOUT_TABLE,
 	sortIcons,
 	sortLabels,
@@ -49,9 +48,8 @@ import {
 import type { SupportedLayouts, View, Field } from '../../types';
 import DataViewsContext from '../dataviews-context';
 import { unlock } from '../../lock-unlock';
-import DensityPicker from '../../dataviews-layouts/grid/density-picker';
 
-const { DropdownMenuV2 } = unlock( componentsPrivateApis );
+const { Menu } = unlock( componentsPrivateApis );
 
 interface ViewTypeMenuProps {
 	defaultLayouts?: SupportedLayouts;
@@ -69,7 +67,7 @@ function ViewTypeMenu( {
 	}
 	const activeView = VIEW_LAYOUTS.find( ( v ) => view.type === v.type );
 	return (
-		<DropdownMenuV2
+		<Menu
 			trigger={
 				<Button
 					size="compact"
@@ -84,7 +82,7 @@ function ViewTypeMenu( {
 					return null;
 				}
 				return (
-					<DropdownMenuV2.RadioItem
+					<Menu.RadioItem
 						key={ layout }
 						value={ layout }
 						name="view-actions-available-view"
@@ -104,13 +102,11 @@ function ViewTypeMenu( {
 							warning( 'Invalid dataview' );
 						} }
 					>
-						<DropdownMenuV2.ItemLabel>
-							{ config.label }
-						</DropdownMenuV2.ItemLabel>
-					</DropdownMenuV2.RadioItem>
+						<Menu.ItemLabel>{ config.label }</Menu.ItemLabel>
+					</Menu.RadioItem>
 				);
 			} ) }
-		</DropdownMenuV2>
+		</Menu>
 	);
 }
 
@@ -358,17 +354,17 @@ function FieldItem( {
 								}
 							}, 50 );
 						} }
-						icon={ isVisible ? seen : unseen }
+						icon={ isVisible ? unseen : seen }
 						label={
 							isVisible
 								? sprintf(
 										/* translators: %s: field label */
-										__( 'Hide %s' ),
+										_x( 'Hide %s', 'field' ),
 										label
 								  )
 								: sprintf(
 										/* translators: %s: field label */
-										__( 'Show %s' ),
+										_x( 'Show %s', 'field' ),
 										label
 								  )
 						}
@@ -514,19 +510,15 @@ function SettingsSection( {
 	);
 }
 
-function DataviewsViewConfigDropdown( {
-	density,
-	setDensity,
-}: {
-	density: number;
-	setDensity: React.Dispatch< React.SetStateAction< number > >;
-} ) {
+function DataviewsViewConfigDropdown() {
 	const { view } = useContext( DataViewsContext );
 	const popoverId = useInstanceId(
 		_DataViewsViewConfig,
 		'dataviews-view-config-dropdown'
 	);
-
+	const activeLayout = VIEW_LAYOUTS.find(
+		( layout ) => layout.type === view.type
+	);
 	return (
 		<Dropdown
 			popoverProps={ {
@@ -553,11 +545,8 @@ function DataviewsViewConfigDropdown( {
 								<SortFieldControl />
 								<SortDirectionControl />
 							</HStack>
-							{ view.type === LAYOUT_GRID && (
-								<DensityPicker
-									density={ density }
-									setDensity={ setDensity }
-								/>
+							{ !! activeLayout?.viewConfigOptions && (
+								<activeLayout.viewConfigOptions />
 							) }
 							<ItemsPerPageControl />
 						</SettingsSection>
@@ -572,21 +561,14 @@ function DataviewsViewConfigDropdown( {
 }
 
 function _DataViewsViewConfig( {
-	density,
-	setDensity,
 	defaultLayouts = { list: {}, grid: {}, table: {} },
 }: {
-	density: number;
-	setDensity: React.Dispatch< React.SetStateAction< number > >;
 	defaultLayouts?: SupportedLayouts;
 } ) {
 	return (
 		<>
 			<ViewTypeMenu defaultLayouts={ defaultLayouts } />
-			<DataviewsViewConfigDropdown
-				density={ density }
-				setDensity={ setDensity }
-			/>
+			<DataviewsViewConfigDropdown />
 		</>
 	);
 }

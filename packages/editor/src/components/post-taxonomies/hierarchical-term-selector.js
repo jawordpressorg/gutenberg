@@ -310,7 +310,7 @@ export function HierarchicalTermSelector( { slug } ) {
 		const defaultName =
 			slug === 'category' ? __( 'Category' ) : __( 'Term' );
 		const termAddedMessage = sprintf(
-			/* translators: %s: taxonomy name */
+			/* translators: %s: term name. */
 			_x( '%s added', 'term' ),
 			taxonomy?.labels?.singular_name ?? defaultName
 		);
@@ -341,7 +341,7 @@ export function HierarchicalTermSelector( { slug } ) {
 
 		const resultCount = getResultCount( newFilteredTermsTree );
 		const resultsFoundMessage = sprintf(
-			/* translators: %d: number of results */
+			/* translators: %d: number of results. */
 			_n( '%d result found.', '%d results found.', resultCount ),
 			resultCount
 		);
@@ -411,6 +411,7 @@ export function HierarchicalTermSelector( { slug } ) {
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					label={ filterLabel }
+					placeholder={ filterLabel }
 					value={ filterValue }
 					onChange={ setFilter }
 				/>

@@ -1,8 +1,4 @@
 /**
- * External dependencies
- */
-import clsx from 'clsx';
-/**
  * WordPress dependencies
  */
 import {
@@ -22,61 +18,54 @@ import { store as editorStore } from '../../store';
 import {
 	TEMPLATE_POST_TYPE,
 	TEMPLATE_PART_POST_TYPE,
-	PATTERN_POST_TYPE,
-	GLOBAL_POST_TYPES,
 } from '../../store/constants';
 import { unlock } from '../../lock-unlock';
 import PostActions from '../post-actions';
+import usePageTypeBadge from '../../utils/pageTypeBadge';
+import { getTemplateInfo } from '../../utils/get-template-info';
 
 export default function PostCardPanel( {
 	postType,
 	postId,
 	onActionPerformed,
 } ) {
-	const { isFrontPage, isPostsPage, title, icon, isSync } = useSelect(
+	const { title, icon } = useSelect(
 		( select ) => {
-			const { __experimentalGetTemplateInfo } = select( editorStore );
-			const { canUser, getEditedEntityRecord } = select( coreStore );
-			const siteSettings = canUser( 'read', {
-				kind: 'root',
-				name: 'site',
-			} )
-				? getEditedEntityRecord( 'root', 'site' )
-				: undefined;
+			const { getEditedEntityRecord } = select( coreStore );
 			const _record = getEditedEntityRecord(
 				'postType',
 				postType,
 				postId
 			);
-			const _templateInfo =
-				[ TEMPLATE_POST_TYPE, TEMPLATE_PART_POST_TYPE ].includes(
-					postType
-				) && __experimentalGetTemplateInfo( _record );
-			let _isSync = false;
-			if ( GLOBAL_POST_TYPES.includes( postType ) ) {
-				if ( PATTERN_POST_TYPE === postType ) {
-					// When the post is first created, the top level wp_pattern_sync_status is not set so get meta value instead.
-					const currentSyncStatus =
-						_record?.meta?.wp_pattern_sync_status === 'unsynced'
-							? 'unsynced'
-							: _record?.wp_pattern_sync_status;
-					_isSync = currentSyncStatus !== 'unsynced';
-				} else {
-					_isSync = true;
-				}
-			}
+
+			const { default_template_types: templateTypes = [] } =
+				select( coreStore ).getEntityRecord(
+					'root',
+					'__unstableBase'
+				) ?? {};
+
+			const _templateInfo = [
+				TEMPLATE_POST_TYPE,
+				TEMPLATE_PART_POST_TYPE,
+			].includes( postType )
+				? getTemplateInfo( {
+						template: _record,
+						templateTypes,
+				  } )
+				: {};
+
 			return {
 				title: _templateInfo?.title || _record?.title,
 				icon: unlock( select( editorStore ) ).getPostIcon( postType, {
 					area: _record?.area,
 				} ),
-				isSync: _isSync,
-				isFrontPage: siteSettings?.page_on_front === postId,
-				isPostsPage: siteSettings?.page_for_posts === postId,
 			};
 		},
 		[ postId, postType ]
 	);
+
+	const pageTypeBadge = usePageTypeBadge();
+
 	return (
 		<div className="editor-post-card-panel">
 			<HStack
@@ -84,12 +73,7 @@ export default function PostCardPanel( {
 				className="editor-post-card-panel__header"
 				align="flex-start"
 			>
-				<Icon
-					className={ clsx( 'editor-post-card-panel__icon', {
-						'is-sync': isSync,
-					} ) }
-					icon={ icon }
-				/>
+				<Icon className="editor-post-card-panel__icon" icon={ icon } />
 				<Text
 					numberOfLines={ 2 }
 					truncate
@@ -99,14 +83,9 @@ export default function PostCardPanel( {
 					lineHeight="20px"
 				>
 					{ title ? decodeEntities( title ) : __( 'No title' ) }
-					{ isFrontPage && (
+					{ pageTypeBadge && (
 						<span className="editor-post-card-panel__title-badge">
-							{ __( 'Homepage' ) }
-						</span>
-					) }
-					{ isPostsPage && (
-						<span className="editor-post-card-panel__title-badge">
-							{ __( 'Posts Page' ) }
+							{ pageTypeBadge }
 						</span>
 					) }
 				</Text>

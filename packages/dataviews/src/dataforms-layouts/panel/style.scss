@@ -45,15 +45,6 @@
 	margin-bottom: $grid-unit-20;
 }
 
-[class].dataforms-layouts-panel__dropdown-header-action {
-	height: $icon-size;
-
-	&.has-icon {
-		min-width: $icon-size;
-		padding: 0;
-	}
-
-	&:not(.has-icon) {
-		text-decoration: underline;
-	}
+.components-popover.components-dropdown__content.dataforms-layouts-panel__field-dropdown {
+	z-index: z-index(".components-popover.components-dropdown__content.dataforms-layouts-panel__field-dropdown");
 }

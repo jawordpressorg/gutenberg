@@ -9,11 +9,11 @@ import clsx from 'clsx';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { __experimentalHStack as HStack } from '@wordpress/components';
 import { VIEW_LAYOUTS } from '@wordpress/dataviews';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
  */
-import { useLink } from '../routes/link';
 import SidebarNavigationItem from '../sidebar-navigation-item';
 import { unlock } from '../../lock-unlock';
 const { useLocation } = unlock( routerPrivateApis );
@@ -27,11 +27,8 @@ export default function DataViewItem( {
 	isActive,
 	isCustom,
 	suffix,
-	navigationItemSuffix,
 } ) {
-	const {
-		params: { postType },
-	} = useLocation();
+	const { path } = useLocation();
 
 	const iconToUse =
 		icon || VIEW_LAYOUTS.find( ( v ) => v.type === type ).icon;
@@ -40,12 +37,11 @@ export default function DataViewItem( {
 	if ( activeView === 'all' ) {
 		activeView = undefined;
 	}
-	const linkInfo = useLink( {
-		postType,
+	const query = {
 		layout: type,
 		activeView,
 		isCustom: isCustom ? 'true' : undefined,
-	} );
+	};
 	return (
 		<HStack
 			justify="flex-start"
@@ -55,8 +51,7 @@ export default function DataViewItem( {
 		>
 			<SidebarNavigationItem
 				icon={ iconToUse }
-				{ ...linkInfo }
-				suffix={ navigationItemSuffix }
+				to={ addQueryArgs( path, query ) }
 				aria-current={ isActive ? 'true' : undefined }
 			>
 				{ title }

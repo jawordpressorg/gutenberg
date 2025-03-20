@@ -31,6 +31,7 @@ function createProps( customProps ) {
 			props.value = newValue;
 		} ),
 		value: defaultBorder,
+		__next40pxDefaultSize: true,
 		...customProps,
 	};
 	return props;
@@ -146,19 +147,6 @@ describe( 'BorderControl', () => {
 			expect( dashedButton ).toBeInTheDocument();
 			expect( dottedButton ).toBeInTheDocument();
 			expect( resetButton ).toBeInTheDocument();
-		} );
-
-		it( 'should render color and style popover header', async () => {
-			const user = userEvent.setup();
-			const props = createProps( { showDropdownHeader: true } );
-			render( <BorderControl { ...props } /> );
-			await openPopover( user );
-
-			const headerLabel = screen.getByText( 'Border color' );
-			const closeButton = getButton( 'Close border color' );
-
-			expect( headerLabel ).toBeInTheDocument();
-			expect( closeButton ).toBeInTheDocument();
 		} );
 
 		it( 'should not render style options when opted out of', async () => {
@@ -346,10 +334,10 @@ describe( 'BorderControl', () => {
 
 		it( 'should take no action when color and style popover is closed', async () => {
 			const user = userEvent.setup();
-			const props = createProps( { showDropdownHeader: true } );
+			const props = createProps();
 			render( <BorderControl { ...props } /> );
 			await openPopover( user );
-			await user.click( getButton( 'Close border color' ) );
+			await user.keyboard( 'Escape' );
 
 			expect( props.onChange ).not.toHaveBeenCalled();
 		} );

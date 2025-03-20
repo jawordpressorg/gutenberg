@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## 4.56.0 (2024-11-27)
+
+## 4.55.0 (2024-11-16)
+
+## 4.54.0 (2024-10-30)
+
+### Enhancement
+
+-   Add `--target-dir` flag to allow indicating where resulting files will be scaffolded ([#53781](https://github.com/WordPress/gutenberg/pull/53781))
+
+## 4.53.0 (2024-10-16)
+
+## 4.52.0 (2024-10-03)
+
 ## 4.51.0 (2024-09-19)
 
 ## 4.50.0 (2024-09-05)

@@ -7,6 +7,8 @@ import { privateApis as corePrivateApis } from '@wordpress/core-data';
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { templateTitleField } from '@wordpress/fields';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -22,12 +24,7 @@ import {
 } from '../../utils/constants';
 import { unlock } from '../../lock-unlock';
 import { useEditPostAction } from '../dataviews-actions';
-import {
-	authorField,
-	descriptionField,
-	previewField,
-	titleField,
-} from './fields';
+import { authorField, descriptionField, previewField } from './fields';
 
 const { usePostActions } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
@@ -74,7 +71,6 @@ const defaultLayouts = {
 		fields: [ 'title', 'description', 'author' ],
 		layout: {
 			primaryField: 'title',
-			mediaField: 'preview',
 		},
 	},
 };
@@ -94,8 +90,8 @@ const DEFAULT_VIEW = {
 };
 
 export default function PageTemplates() {
-	const { params } = useLocation();
-	const { activeView = 'all', layout, postId } = params;
+	const { path, query } = useLocation();
+	const { activeView = 'all', layout, postId } = query;
 	const [ selection, setSelection ] = useState( [ postId ] );
 
 	const defaultView = useMemo( () => {
@@ -119,8 +115,10 @@ export default function PageTemplates() {
 	}, [ layout, activeView ] );
 	const [ view, setView ] = useState( defaultView );
 	useEffect( () => {
+		const usedType = layout ?? DEFAULT_VIEW.type;
 		setView( ( currentView ) => ( {
 			...currentView,
+			type: usedType,
 			filters:
 				activeView !== 'all'
 					? [
@@ -132,7 +130,7 @@ export default function PageTemplates() {
 					  ]
 					: [],
 		} ) );
-	}, [ activeView ] );
+	}, [ activeView, layout ] );
 
 	const { records, isResolving: isLoadingData } =
 		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
@@ -143,13 +141,14 @@ export default function PageTemplates() {
 		( items ) => {
 			setSelection( items );
 			if ( view?.type === LAYOUT_LIST ) {
-				history.push( {
-					...params,
-					postId: items.length === 1 ? items[ 0 ] : undefined,
-				} );
+				history.navigate(
+					addQueryArgs( path, {
+						postId: items.length === 1 ? items[ 0 ] : undefined,
+					} )
+				);
 			}
 		},
-		[ history, params, view?.type ]
+		[ history, path, view?.type ]
 	);
 
 	const authors = useMemo( () => {
@@ -169,7 +168,7 @@ export default function PageTemplates() {
 	const fields = useMemo(
 		() => [
 			previewField,
-			titleField,
+			templateTitleField,
 			descriptionField,
 			{
 				...authorField,
@@ -196,15 +195,16 @@ export default function PageTemplates() {
 	const onChangeView = useCallback(
 		( newView ) => {
 			if ( newView.type !== view.type ) {
-				history.push( {
-					...params,
-					layout: newView.type,
-				} );
+				history.navigate(
+					addQueryArgs( path, {
+						layout: newView.type,
+					} )
+				);
 			}
 
 			setView( newView );
 		},
-		[ view.type, setView, history, params ]
+		[ view.type, setView, history, path ]
 	);
 
 	return (
@@ -223,6 +223,10 @@ export default function PageTemplates() {
 				view={ view }
 				onChangeView={ onChangeView }
 				onChangeSelection={ onChangeSelection }
+				isItemClickable={ () => true }
+				onClickItem={ ( { id } ) => {
+					history.navigate( `/wp_template/${ id }?canvas=edit` );
+				} }
 				selection={ selection }
 				defaultLayouts={ defaultLayouts }
 			/>

@@ -287,7 +287,7 @@ function isInsertionPoint( targetToCheck, ownerDocument ) {
 	return !! (
 		defaultView &&
 		targetToCheck instanceof defaultView.HTMLElement &&
-		targetToCheck.dataset.isInsertionPoint
+		targetToCheck.closest( '[data-is-insertion-point]' )
 	);
 }
 
@@ -330,8 +330,9 @@ export default function useBlockDropZone( {
 		getAllowedBlocks,
 		isDragging,
 		isGroupable,
-		isZoomOutMode,
+		isZoomOut,
 		getSectionRootClientId,
+		getBlockParents,
 	} = unlock( useSelect( blockEditorStore ) );
 	const {
 		showInsertionPoint,
@@ -358,13 +359,29 @@ export default function useBlockDropZone( {
 					// So, ensure that the drag state is set when the user drags over a drop zone.
 					startDragging();
 				}
+
+				const draggedBlockClientIds = getDraggedBlockClientIds();
+				const targetParents = [
+					targetRootClientId,
+					...getBlockParents( targetRootClientId, true ),
+				];
+
+				// Check if the target is within any of the dragged blocks.
+				const isTargetWithinDraggedBlocks = draggedBlockClientIds.some(
+					( clientId ) => targetParents.includes( clientId )
+				);
+
+				if ( isTargetWithinDraggedBlocks ) {
+					return;
+				}
+
 				const allowedBlocks = getAllowedBlocks( targetRootClientId );
 				const targetBlockName = getBlockNamesByClientId( [
 					targetRootClientId,
 				] )[ 0 ];
 
 				const draggedBlockNames = getBlockNamesByClientId(
-					getDraggedBlockClientIds()
+					draggedBlockClientIds
 				);
 				const isBlockDroppingAllowed = isDropTargetValid(
 					getBlockType,
@@ -383,7 +400,7 @@ export default function useBlockDropZone( {
 				// do not allow dropping as the drop target is not within the root (that which is
 				// treated as "the content" by Zoom Out Mode).
 				if (
-					isZoomOutMode() &&
+					isZoomOut() &&
 					sectionRootClientId !== targetRootClientId
 				) {
 					return;
@@ -439,7 +456,7 @@ export default function useBlockDropZone( {
 				const [ targetIndex, operation, nearestSide ] =
 					dropTargetPosition;
 
-				if ( isZoomOutMode() && operation !== 'insert' ) {
+				if ( isZoomOut() && operation !== 'insert' ) {
 					return;
 				}
 
@@ -514,7 +531,7 @@ export default function useBlockDropZone( {
 				getDraggedBlockClientIds,
 				getBlockType,
 				getSectionRootClientId,
-				isZoomOutMode,
+				isZoomOut,
 				getBlocks,
 				getBlockListSettings,
 				dropZoneElement,

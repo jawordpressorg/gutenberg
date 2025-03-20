@@ -21,11 +21,7 @@ export {
 	default as Animate,
 	getAnimateClassName as __unstableGetAnimateClassName,
 } from './animate';
-export {
-	__unstableMotion,
-	__unstableAnimatePresence,
-	__unstableMotionContext,
-} from './animation';
+export { __unstableMotion, __unstableAnimatePresence } from './animation';
 export { default as AnglePickerControl } from './angle-picker-control';
 export {
 	default as Autocomplete,
@@ -33,12 +29,18 @@ export {
 } from './autocomplete';
 export { default as BaseControl, useBaseControlProps } from './base-control';
 export {
+	/** @deprecated Import `BorderBoxControl` instead. */
 	BorderBoxControl as __experimentalBorderBoxControl,
+	BorderBoxControl,
 	hasSplitBorders as __experimentalHasSplitBorders,
 	isDefinedBorder as __experimentalIsDefinedBorder,
 	isEmptyBorder as __experimentalIsEmptyBorder,
 } from './border-box-control';
-export { BorderControl as __experimentalBorderControl } from './border-control';
+export {
+	/** @deprecated Import `BorderControl` instead. */
+	BorderControl as __experimentalBorderControl,
+	BorderControl,
+} from './border-control';
 export {
 	/** @deprecated Import `BoxControl` instead. */
 	default as __experimentalBoxControl,
@@ -123,11 +125,21 @@ export { default as __experimentalNavigationGroup } from './navigation/group';
 export { default as __experimentalNavigationItem } from './navigation/item';
 export { default as __experimentalNavigationMenu } from './navigation/menu';
 export {
+	/** @deprecated Import `Navigator` instead. */
 	NavigatorProvider as __experimentalNavigatorProvider,
+	/** @deprecated Import `Navigator` and use `Navigator.Screen` instead. */
 	NavigatorScreen as __experimentalNavigatorScreen,
+	/** @deprecated Import `Navigator` and use `Navigator.Button` instead. */
 	NavigatorButton as __experimentalNavigatorButton,
+	/** @deprecated Import `Navigator` and use `Navigator.BackButton` instead. */
 	NavigatorBackButton as __experimentalNavigatorBackButton,
+	/** @deprecated Import `Navigator` and use `Navigator.BackButton` instead. */
 	NavigatorToParentButton as __experimentalNavigatorToParentButton,
+} from './navigator/legacy';
+export {
+	Navigator,
+	useNavigator,
+	/** @deprecated Import `useNavigator` instead. */
 	useNavigator as __experimentalUseNavigator,
 } from './navigator';
 export { default as Notice } from './notice';

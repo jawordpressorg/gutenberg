@@ -18,6 +18,7 @@ import {
 } from '@wordpress/blocks';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { copy } from '@wordpress/icons';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
  * Internal dependencies
@@ -35,36 +36,40 @@ function BlockSwitcherDropdownMenuContents( {
 	clientIds,
 	hasBlockStyles,
 	canRemove,
-	isUsingBindings,
 } ) {
 	const { replaceBlocks, multiSelect, updateBlockAttributes } =
 		useDispatch( blockEditorStore );
-	const { possibleBlockTransformations, patterns, blocks } = useSelect(
-		( select ) => {
-			const {
-				getBlocksByClientId,
-				getBlockRootClientId,
-				getBlockTransformItems,
-				__experimentalGetPatternTransformItems,
-			} = select( blockEditorStore );
-			const rootClientId = getBlockRootClientId(
-				Array.isArray( clientIds ) ? clientIds[ 0 ] : clientIds
-			);
-			const _blocks = getBlocksByClientId( clientIds );
-			return {
-				blocks: _blocks,
-				possibleBlockTransformations: getBlockTransformItems(
-					_blocks,
-					rootClientId
-				),
-				patterns: __experimentalGetPatternTransformItems(
-					_blocks,
-					rootClientId
-				),
-			};
-		},
-		[ clientIds ]
-	);
+	const { possibleBlockTransformations, patterns, blocks, isUsingBindings } =
+		useSelect(
+			( select ) => {
+				const {
+					getBlockAttributes,
+					getBlocksByClientId,
+					getBlockRootClientId,
+					getBlockTransformItems,
+					__experimentalGetPatternTransformItems,
+				} = select( blockEditorStore );
+				const rootClientId = getBlockRootClientId( clientIds[ 0 ] );
+				const _blocks = getBlocksByClientId( clientIds );
+				return {
+					blocks: _blocks,
+					possibleBlockTransformations: getBlockTransformItems(
+						_blocks,
+						rootClientId
+					),
+					patterns: __experimentalGetPatternTransformItems(
+						_blocks,
+						rootClientId
+					),
+					isUsingBindings: clientIds.every(
+						( clientId ) =>
+							!! getBlockAttributes( clientId )?.metadata
+								?.bindings
+					),
+				};
+			},
+			[ clientIds ]
+		);
 	const blockVariationTransformations = useBlockVariationTransforms( {
 		clientIds,
 		blocks,
@@ -181,22 +186,7 @@ function BlockSwitcherDropdownMenuContents( {
 	);
 }
 
-const BlockIndicator = ( { icon, showTitle, blockTitle } ) => (
-	<>
-		<BlockIcon
-			className="block-editor-block-switcher__toggle"
-			icon={ icon }
-			showColors
-		/>
-		{ showTitle && blockTitle && (
-			<span className="block-editor-block-switcher__toggle-text">
-				{ blockTitle }
-			</span>
-		) }
-	</>
-);
-
-export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
+export const BlockSwitcher = ( { clientIds } ) => {
 	const {
 		hasContentOnlyLocking,
 		canRemove,
@@ -205,6 +195,7 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 		invalidBlocks,
 		isReusable,
 		isTemplate,
+		isDisabled,
 	} = useSelect(
 		( select ) => {
 			const {
@@ -212,6 +203,7 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 				getBlocksByClientId,
 				getBlockAttributes,
 				canRemoveBlocks,
+				getBlockEditingMode,
 			} = select( blockEditorStore );
 			const { getBlockStyles, getBlockType, getActiveBlockVariation } =
 				select( blocksStore );
@@ -222,6 +214,7 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 			const [ { name: firstBlockName } ] = _blocks;
 			const _isSingleBlockSelected = _blocks.length === 1;
 			const blockType = getBlockType( firstBlockName );
+			const editingMode = getBlockEditingMode( clientIds[ 0 ] );
 
 			let _icon;
 			let _hasTemplateLock;
@@ -256,6 +249,7 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 				isTemplate:
 					_isSingleBlockSelected && isTemplatePart( _blocks[ 0 ] ),
 				hasContentOnlyLocking: _hasTemplateLock,
+				isDisabled: editingMode !== 'default',
 			};
 		},
 		[ clientIds ]
@@ -264,6 +258,11 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 		clientId: clientIds?.[ 0 ],
 		maximumLength: 35,
 	} );
+	const showIconLabels = useSelect(
+		( select ) =>
+			select( preferencesStore ).get( 'core', 'showIconLabels' ),
+		[]
+	);
 
 	if ( invalidBlocks ) {
 		return null;
@@ -274,8 +273,13 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 		? blockTitle
 		: __( 'Multiple blocks selected' );
 
+	const blockIndicatorText =
+		( isReusable || isTemplate ) && ! showIconLabels && blockTitle
+			? blockTitle
+			: undefined;
+
 	const hideDropdown =
-		disabled ||
+		isDisabled ||
 		( ! hasBlockStyles && ! canRemove ) ||
 		hasContentOnlyLocking;
 
@@ -287,12 +291,13 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 					className="block-editor-block-switcher__no-switcher-icon"
 					title={ blockSwitcherLabel }
 					icon={
-						<BlockIndicator
+						<BlockIcon
+							className="block-editor-block-switcher__toggle"
 							icon={ icon }
-							showTitle={ isReusable || isTemplate }
-							blockTitle={ blockTitle }
+							showColors
 						/>
 					}
+					text={ blockIndicatorText }
 				/>
 			</ToolbarGroup>
 		);
@@ -321,12 +326,13 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 							className: 'block-editor-block-switcher__popover',
 						} }
 						icon={
-							<BlockIndicator
+							<BlockIcon
+								className="block-editor-block-switcher__toggle"
 								icon={ icon }
-								showTitle={ isReusable || isTemplate }
-								blockTitle={ blockTitle }
+								showColors
 							/>
 						}
+						text={ blockIndicatorText }
 						toggleProps={ {
 							description: blockSwitcherDescription,
 							...toggleProps,
@@ -339,7 +345,6 @@ export const BlockSwitcher = ( { clientIds, disabled, isUsingBindings } ) => {
 								clientIds={ clientIds }
 								hasBlockStyles={ hasBlockStyles }
 								canRemove={ canRemove }
-								isUsingBindings={ isUsingBindings }
 							/>
 						) }
 					</DropdownMenu>

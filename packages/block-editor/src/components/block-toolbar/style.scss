@@ -37,6 +37,13 @@
 		border-right: $border-width solid $gray-300;
 	}
 
+	&.is-connected {
+		.block-editor-block-switcher .components-button::before {
+			background: color-mix(in srgb, var(--wp-block-synced-color) 10%, transparent);
+			border-radius: $radius-small;
+		}
+	}
+
 	&.is-synced,
 	&.is-connected {
 		.block-editor-block-switcher .components-button .block-editor-block-icon {
@@ -52,8 +59,17 @@
 
 	> :last-child,
 	> :last-child .components-toolbar-group,
-	> :last-child .components-toolbar {
+	> :last-child .components-toolbar,
+	// If the last toolbar group is empty,
+	// we need to remove the double border from the penultimate one.
+	&:has(> :last-child:empty) > :nth-last-child(2),
+	&:has(> :last-child:empty) > :nth-last-child(2) .components-toolbar-group,
+	&:has(> :last-child:empty) > :nth-last-child(2) .components-toolbar {
 		border-right: none;
+	}
+
+	.components-toolbar-group:empty {
+		display: none;
 	}
 }
 
@@ -266,6 +282,22 @@
 	.block-editor-rich-text__inline-format-toolbar-group {
 		.components-button + .components-button {
 			margin-left: 6px;
+		}
+	}
+}
+
+.block-editor-block-toolbar-change-design-content-wrapper {
+	padding: $grid-unit-15;
+	width: 320px;
+	.block-editor-block-patterns-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: $grid-unit-15;
+		.block-editor-block-patterns-list__list-item {
+			margin-bottom: 0;
+		}
+		.block-editor-inserter__media-list__list-item {
+			min-height: 100px;
 		}
 	}
 }

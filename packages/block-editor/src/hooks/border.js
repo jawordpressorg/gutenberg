@@ -31,7 +31,7 @@ import {
 import { store as blockEditorStore } from '../store';
 import { __ } from '@wordpress/i18n';
 
-export const BORDER_SUPPORT_KEY = '__experimentalBorder';
+export const BORDER_SUPPORT_KEY = 'border';
 export const SHADOW_SUPPORT_KEY = 'shadow';
 
 const getColorByProperty = ( colors, property, value ) => {
@@ -161,14 +161,8 @@ export function BorderPanel( { clientId, name, setAttributes, settings } ) {
 	}
 
 	const defaultControls = {
-		...getBlockSupport( name, [
-			BORDER_SUPPORT_KEY,
-			'__experimentalDefaultControls',
-		] ),
-		...getBlockSupport( name, [
-			SHADOW_SUPPORT_KEY,
-			'__experimentalDefaultControls',
-		] ),
+		...getBlockSupport( name, [ BORDER_SUPPORT_KEY, 'defaultControls' ] ),
+		...getBlockSupport( name, [ SHADOW_SUPPORT_KEY, 'defaultControls' ] ),
 	};
 
 	return (

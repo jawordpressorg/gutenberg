@@ -11,13 +11,14 @@ import {
 	FormFileUpload,
 	Placeholder,
 	DropZone,
+	__experimentalInputControl as InputControl,
+	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 	withFilters,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { keyboardReturn } from '@wordpress/icons';
-import { pasteHandler } from '@wordpress/blocks';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -27,6 +28,7 @@ import MediaUpload from '../media-upload';
 import MediaUploadCheck from '../media-upload/check';
 import URLPopover from '../url-popover';
 import { store as blockEditorStore } from '../../store';
+import { parseDropEvent } from '../use-on-block-drop';
 
 const noop = () => {};
 
@@ -42,21 +44,23 @@ const InsertFromURLPopover = ( {
 			className="block-editor-media-placeholder__url-input-form"
 			onSubmit={ onSubmit }
 		>
-			<input
-				className="block-editor-media-placeholder__url-input-field"
-				type="text"
-				aria-label={ __( 'URL' ) }
+			<InputControl
+				__next40pxDefaultSize
+				label={ __( 'URL' ) }
+				hideLabelFromVision
 				placeholder={ __( 'Paste or type URL' ) }
 				onChange={ onChange }
 				value={ src }
-			/>
-			<Button
-				// TODO: Switch to `true` (40px size) if possible
-				__next40pxDefaultSize={ false }
-				className="block-editor-media-placeholder__url-input-submit-button"
-				icon={ keyboardReturn }
-				label={ __( 'Apply' ) }
-				type="submit"
+				suffix={
+					<InputControlSuffixWrapper variant="control">
+						<Button
+							size="small"
+							icon={ keyboardReturn }
+							label={ __( 'Apply' ) }
+							type="submit"
+						/>
+					</InputControlSuffixWrapper>
+				}
 			/>
 		</form>
 	</URLPopover>
@@ -87,8 +91,7 @@ const URLSelectionUI = ( { src, onChangeSrc, onSelectURL } ) => {
 	return (
 		<div className="block-editor-media-placeholder__url-input-container">
 			<Button
-				// TODO: Switch to `true` (40px size) if possible
-				__next40pxDefaultSize={ false }
+				__next40pxDefaultSize
 				className="block-editor-media-placeholder__button"
 				onClick={ openURLInput }
 				isPressed={ isURLInputVisible }
@@ -167,10 +170,6 @@ export function MediaPlaceholder( {
 		);
 	};
 
-	const onChangeSrc = ( event ) => {
-		setSrc( event.target.value );
-	};
-
 	const onFilesUpload = ( files ) => {
 		if (
 			! handleUpload ||
@@ -230,56 +229,45 @@ export function MediaPlaceholder( {
 		} );
 	};
 
-	async function handleBlocksDrop( blocks ) {
-		if ( ! blocks || ! Array.isArray( blocks ) ) {
-			return;
-		}
+	async function handleBlocksDrop( event ) {
+		const { blocks } = parseDropEvent( event );
 
-		function recursivelyFindMediaFromBlocks( _blocks ) {
-			return _blocks.flatMap( ( block ) =>
-				( block.name === 'core/image' ||
-					block.name === 'core/audio' ||
-					block.name === 'core/video' ) &&
-				block.attributes.url
-					? [ block ]
-					: recursivelyFindMediaFromBlocks( block.innerBlocks )
-			);
-		}
-
-		const mediaBlocks = recursivelyFindMediaFromBlocks( blocks );
-
-		if ( ! mediaBlocks.length ) {
+		if ( ! blocks?.length ) {
 			return;
 		}
 
 		const uploadedMediaList = await Promise.all(
-			mediaBlocks.map( ( block ) =>
-				block.attributes.id
-					? block.attributes
-					: new Promise( ( resolve, reject ) => {
-							window
-								.fetch( block.attributes.url )
-								.then( ( response ) => response.blob() )
-								.then( ( blob ) =>
-									mediaUpload( {
-										filesList: [ blob ],
-										additionalData: {
-											title: block.attributes.title,
-											alt_text: block.attributes.alt,
-											caption: block.attributes.caption,
-										},
-										onFileChange: ( [ media ] ) => {
-											if ( media.id ) {
-												resolve( media );
-											}
-										},
-										allowedTypes,
-										onError: reject,
-									} )
-								)
-								.catch( () => resolve( block.attributes.url ) );
-					  } )
-			)
+			blocks.map( ( block ) => {
+				const blockType = block.name.split( '/' )[ 1 ];
+				if ( block.attributes.id ) {
+					block.attributes.type = blockType;
+					return block.attributes;
+				}
+				return new Promise( ( resolve, reject ) => {
+					window
+						.fetch( block.attributes.url )
+						.then( ( response ) => response.blob() )
+						.then( ( blob ) =>
+							mediaUpload( {
+								filesList: [ blob ],
+								additionalData: {
+									title: block.attributes.title,
+									alt_text: block.attributes.alt,
+									caption: block.attributes.caption,
+									type: blockType,
+								},
+								onFileChange: ( [ media ] ) => {
+									if ( media.id ) {
+										resolve( media );
+									}
+								},
+								allowedTypes,
+								onError: reject,
+							} )
+						)
+						.catch( () => resolve( block.attributes.url ) );
+				} );
+			} )
 		).catch( ( err ) => onError( err ) );
 
 		if ( multiple ) {
@@ -287,11 +275,6 @@ export function MediaPlaceholder( {
 		} else {
 			onSelect( uploadedMediaList[ 0 ] );
 		}
-	}
-
-	async function onHTMLDrop( HTML ) {
-		const blocks = pasteHandler( { HTML } );
-		return await handleBlocksDrop( blocks );
 	}
 
 	const onUpload = ( event ) => {
@@ -318,20 +301,20 @@ export function MediaPlaceholder( {
 
 			if ( instructions === undefined && mediaUpload ) {
 				instructions = __(
-					'Upload a media file or pick one from your media library.'
+					'Drag and drop an image or video, upload, or choose from your library.'
 				);
 
 				if ( isAudio ) {
 					instructions = __(
-						'Upload or drag an audio file here, or pick one from your library.'
+						'Drag and drop an audio file, upload, or choose from your library.'
 					);
 				} else if ( isImage ) {
 					instructions = __(
-						'Upload or drag an image file here, or pick one from your library.'
+						'Drag and drop an image, upload, or choose from your library.'
 					);
 				} else if ( isVideo ) {
 					instructions = __(
-						'Upload or drag a video file here, or pick one from your library.'
+						'Drag and drop a video, upload, or choose from your library.'
 					);
 				}
 			}
@@ -381,7 +364,24 @@ export function MediaPlaceholder( {
 		}
 
 		return (
-			<DropZone onFilesDrop={ onFilesUpload } onHTMLDrop={ onHTMLDrop } />
+			<DropZone
+				onFilesDrop={ onFilesUpload }
+				onDrop={ handleBlocksDrop }
+				isEligible={ ( dataTransfer ) => {
+					const prefix = 'wp-block:core/';
+					const types = [];
+					for ( const type of dataTransfer.types ) {
+						if ( type.startsWith( prefix ) ) {
+							types.push( type.slice( prefix.length ) );
+						}
+					}
+					return (
+						types.every( ( type ) =>
+							allowedTypes.includes( type )
+						) && ( multiple ? true : types.length === 1 )
+					);
+				} }
+			/>
 		);
 	};
 
@@ -389,8 +389,7 @@ export function MediaPlaceholder( {
 		return (
 			onCancel && (
 				<Button
-					// TODO: Switch to `true` (40px size) if possible
-					__next40pxDefaultSize={ false }
+					__next40pxDefaultSize
 					className="block-editor-media-placeholder__cancel-button"
 					title={ __( 'Cancel' ) }
 					variant="link"
@@ -407,7 +406,7 @@ export function MediaPlaceholder( {
 			onSelectURL && (
 				<URLSelectionUI
 					src={ src }
-					onChangeSrc={ onChangeSrc }
+					onChangeSrc={ setSrc }
 					onSelectURL={ onSelectURL }
 				/>
 			)
@@ -419,8 +418,7 @@ export function MediaPlaceholder( {
 			onToggleFeaturedImage && (
 				<div className="block-editor-media-placeholder__url-input-container">
 					<Button
-						// TODO: Switch to `true` (40px size) if possible
-						__next40pxDefaultSize={ false }
+						__next40pxDefaultSize
 						className="block-editor-media-placeholder__button"
 						onClick={ onToggleFeaturedImage }
 						variant="secondary"
@@ -436,8 +434,7 @@ export function MediaPlaceholder( {
 		const defaultButton = ( { open } ) => {
 			return (
 				<Button
-					// TODO: Switch to `true` (40px size) if possible
-					__next40pxDefaultSize={ false }
+					__next40pxDefaultSize
 					variant="secondary"
 					onClick={ () => {
 						open();
@@ -477,8 +474,7 @@ export function MediaPlaceholder( {
 							const content = (
 								<>
 									<Button
-										// TODO: Switch to `true` (40px size) if possible
-										__next40pxDefaultSize={ false }
+										__next40pxDefaultSize
 										variant="primary"
 										className={ clsx(
 											'block-editor-media-placeholder__button',
@@ -508,8 +504,7 @@ export function MediaPlaceholder( {
 					<FormFileUpload
 						render={ ( { openFileDialog } ) => (
 							<Button
-								// TODO: Switch to `true` (40px size) if possible
-								__next40pxDefaultSize={ false }
+								__next40pxDefaultSize
 								onClick={ openFileDialog }
 								variant="primary"
 								className={ clsx(

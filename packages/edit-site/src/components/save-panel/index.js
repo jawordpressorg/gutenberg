@@ -15,6 +15,8 @@ import {
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
+import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -27,8 +29,9 @@ import { isPreviewingTheme } from '../../utils/is-previewing-theme';
 
 const { EntitiesSavedStatesExtensible, NavigableRegion } =
 	unlock( privateApis );
+const { useLocation } = unlock( routerPrivateApis );
 
-const EntitiesSavedStatesForPreview = ( { onClose } ) => {
+const EntitiesSavedStatesForPreview = ( { onClose, renderDialog } ) => {
 	const isDirtyProps = useEntitiesSavedStatesIsDirty();
 	let activateSaveLabel;
 	if ( isDirtyProps.isDirty ) {
@@ -47,7 +50,7 @@ const EntitiesSavedStatesForPreview = ( { onClose } ) => {
 	const additionalPrompt = (
 		<p>
 			{ sprintf(
-				/* translators: %1$s: The name of active theme, %2$s: The name of theme to be activated. */
+				/* translators: 1: The name of active theme, 2: The name of theme to be activated. */
 				__(
 					'Saving your changes will change your active theme from %1$s to %2$s.'
 				),
@@ -72,14 +75,20 @@ const EntitiesSavedStatesForPreview = ( { onClose } ) => {
 				onSave,
 				saveEnabled: true,
 				saveLabel: activateSaveLabel,
+				renderDialog,
 			} }
 		/>
 	);
 };
 
-const _EntitiesSavedStates = ( { onClose, renderDialog = undefined } ) => {
+const _EntitiesSavedStates = ( { onClose, renderDialog } ) => {
 	if ( isPreviewingTheme() ) {
-		return <EntitiesSavedStatesForPreview onClose={ onClose } />;
+		return (
+			<EntitiesSavedStatesForPreview
+				onClose={ onClose }
+				renderDialog={ renderDialog }
+			/>
+		);
 	}
 	return (
 		<EntitiesSavedStates close={ onClose } renderDialog={ renderDialog } />
@@ -87,41 +96,36 @@ const _EntitiesSavedStates = ( { onClose, renderDialog = undefined } ) => {
 };
 
 export default function SavePanel() {
-	const { isSaveViewOpen, canvasMode, isDirty, isSaving } = useSelect(
-		( select ) => {
-			const {
-				__experimentalGetDirtyEntityRecords,
-				isSavingEntityRecord,
-				isResolving,
-			} = select( coreStore );
-			const dirtyEntityRecords = __experimentalGetDirtyEntityRecords();
-			const isActivatingTheme = isResolving( 'activateTheme' );
-			const { isSaveViewOpened, getCanvasMode } = unlock(
-				select( editSiteStore )
-			);
+	const { query } = useLocation();
+	const { canvas = 'view' } = query;
+	const { isSaveViewOpen, isDirty, isSaving } = useSelect( ( select ) => {
+		const {
+			__experimentalGetDirtyEntityRecords,
+			isSavingEntityRecord,
+			isResolving,
+		} = select( coreStore );
+		const dirtyEntityRecords = __experimentalGetDirtyEntityRecords();
+		const isActivatingTheme = isResolving( 'activateTheme' );
+		const { isSaveViewOpened } = unlock( select( editSiteStore ) );
 
-			// The currently selected entity to display.
-			// Typically template or template part in the site editor.
-			return {
-				isSaveViewOpen: isSaveViewOpened(),
-				canvasMode: getCanvasMode(),
-				isDirty: dirtyEntityRecords.length > 0,
-				isSaving:
-					dirtyEntityRecords.some( ( record ) =>
-						isSavingEntityRecord(
-							record.kind,
-							record.name,
-							record.key
-						)
-					) || isActivatingTheme,
-			};
-		},
-		[]
-	);
+		// The currently selected entity to display.
+		// Typically template or template part in the site editor.
+		return {
+			isSaveViewOpen: isSaveViewOpened(),
+			isDirty: dirtyEntityRecords.length > 0,
+			isSaving:
+				dirtyEntityRecords.some( ( record ) =>
+					isSavingEntityRecord( record.kind, record.name, record.key )
+				) || isActivatingTheme,
+		};
+	}, [] );
 	const { setIsSaveViewOpened } = useDispatch( editSiteStore );
 	const onClose = () => setIsSaveViewOpened( false );
+	useEffect( () => {
+		setIsSaveViewOpened( false );
+	}, [ canvas, setIsSaveViewOpened ] );
 
-	if ( canvasMode === 'view' ) {
+	if ( canvas === 'view' ) {
 		return isSaveViewOpen ? (
 			<Modal
 				className="edit-site-save-panel__modal"
@@ -150,8 +154,7 @@ export default function SavePanel() {
 				} ) }
 			>
 				<Button
-					// TODO: Switch to `true` (40px size) if possible
-					__next40pxDefaultSize={ false }
+					__next40pxDefaultSize
 					variant="secondary"
 					className="edit-site-editor__toggle-save-panel-button"
 					onClick={ () => setIsSaveViewOpened( true ) }

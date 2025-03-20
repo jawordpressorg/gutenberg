@@ -1,6 +1,5 @@
 .edit-site-editor-canvas-container {
 	height: 100%;
-	background-color: $gray-300;
 
 	// Controls height of editor and editor canvas container (style book, global styles revisions previews etc.)
 	iframe {
@@ -29,7 +28,7 @@
 .edit-site-editor-canvas-container__close-button {
 	position: absolute;
 	right: $grid-unit-10;
-	top: math.div($grid-unit-60 - $button-size, 2); // ( tab height - button size ) / 2
-	z-index: 1;
+	top: $grid-unit-10;
+	z-index: 2;
 	background: $white;
 }

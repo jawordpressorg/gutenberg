@@ -385,7 +385,7 @@ Even with all of this, your custom post type might have unique requirements: it 
 <!-- 
 Let's say you don't use at all the `sticky` attribute in your books, so that would be totally irrelevant to the customization of your block. In order to not confuse the users as to what a setting might do, and only exposing a clear UX to them, we want this control to be unavailable. Furthermore, let's say that you don't use the `author` field at all, which generally indicates the person who has added that post to the database, instead you use a custom `bookAuthor` field. As such, not only keeping the `author` filter would be confusing, it would outright “break” your query.
  -->
-カスタム投稿タイプ `book` では、`sticky` 属性をまったく使わず、したがってブロックのカスタマイズにはまったく関係ないとします。ユーザーに何を設定すれば良いかと悩ませず、明確な UX を提供するため、このコントロールを使用できないようにしたいところです。さらに、一般には投稿をデータベースに追加したユーザーを示す `author` フィールドをまったく使わず、代わりにカスタムフィールド `bookAuthor` を使うとします。このとき `author`フィルタを保持することは混乱を招くだけでなく、クエリを完全に「破壊する」ことになります。
+カスタム投稿タイプ `book` では、`sticky` 属性をまったく使わず、したがってブロックのカスタマイズにはまったく関係ないとします。ユーザーに何を設定すれば良いかと悩ませず、明確な UX を提供するため、このコントロールを使用できないようにしたいところです。さらに、一般には投稿をデータベースに追加したユーザーを示す `author` フィールドをまったく使わず、代わりにカスタムフィールド `bookAuthor` を使うとします。このとき `author`フィルターを保持することは混乱を招くだけでなく、クエリを完全に「破壊する」ことになります。
 
 <!-- 
 For this reason, the Query Loop block variations support a property called `allowedControls`, which accepts an array of keys of the controls we want to display on the inspector sidebar. By default, we accept all the controls, but as soon as we provide an array to this property, we want to specify only the controls which are going to be relevant for us!
@@ -405,15 +405,19 @@ Gutenberg バージョン14.2では、以下のコントロールを利用でき
 -   `taxQuery` - Shows available taxonomies filters for the currently selected post type.
 -   `author` - Shows an input field to filter the query by author.
 -   `search` - Shows an input field to filter the query by keywords.
+-   `format` - Shows an input field to filter the query by array/collection of [formats](https://developer.wordpress.org/advanced-administration/wordpress/post-formats/#supported-formats).
+-   `parents` - Shows an input field to filter the query using parent(s) entity.
  -->
 
 - `inherit` - テンプレートから直接クエリを継承するためのトグルスイッチを表示する。
 - `postType` - 利用可能な投稿タイプのドロップダウンを表示する。
 - `order` - クエリの順番を選択するドロップダウンリストを表示する。
 - `sticky` - 先頭固定投稿の処理方法を選択するドロップダウンを表示する。
-- `taxQuery` - 現在選択されている投稿タイプで利用可能なタクソノミフィルタを表示する。
+- `taxQuery` - 現在選択されている投稿タイプで利用可能なタクソノミフィルターを表示する。
 - `author` - 作成者でクエリをフィルタリングするための入力フィールドを表示する。
 - `search` - キーワードでクエリをフィルタリングするための入力フィールドを表示する。
+- `format` - [フォーマット](https://developer.wordpress.org/advanced-administration/wordpress/post-formats/#supported-formats)の配列やコレクションでクエリをフィルタリングするための入力フィールドを表示する。
+- `parents` - 親エンティティを使用してクエリをフィルタリングするための入力フィールドを表示する。
 
 <!-- 
 In our case, the property would look like this:
@@ -547,7 +551,7 @@ The Query Loop block functions mainly through the Post Template block which rece
 <!-- 
 You can hook into that filter and modify your query accordingly. Just make sure you don't cause side-effects to other Query Loop blocks by at least checking that you apply the filter only to your variation!
  -->
-そのフィルターにフックして、それに応じてクエリを変更できます。ただし他のクエリーループブロックに副作用を引き起こさないようにしてください。少なくとも自分のバリエーションにのみフィルタを適用することを確認してください。
+そのフィルターにフックして、それに応じてクエリを変更できます。ただし他のクエリーループブロックに副作用を引き起こさないようにしてください。少なくとも自分のバリエーションにのみフィルターを適用することを確認してください。
 
 <!-- 
 ```php

@@ -1,8 +1,9 @@
 /**
  * WordPress dependencies
  */
-import { useMergeRefs } from '@wordpress/compose';
+import { useMergeRefs, useViewportMatch } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -15,6 +16,8 @@ import WritingFlow from '../writing-flow';
 import { useMouseMoveTypingReset } from '../observe-typing';
 import { useBlockSelectionClearer } from '../block-selection-clearer';
 import { useBlockCommands } from '../use-block-commands';
+import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 // EditorStyles is a memoized component, so avoid passing a new
 // object reference on each render.
@@ -32,16 +35,29 @@ export function ExperimentalBlockCanvas( {
 	iframeProps,
 } ) {
 	useBlockCommands();
+	const isTabletViewport = useViewportMatch( 'medium', '<' );
 	const resetTypingRef = useMouseMoveTypingReset();
 	const clearerRef = useBlockSelectionClearer();
 	const localRef = useRef();
 	const contentRef = useMergeRefs( [ contentRefProp, clearerRef, localRef ] );
+	const zoomLevel = useSelect(
+		( select ) => unlock( select( blockEditorStore ) ).getZoomLevel(),
+		[]
+	);
+	const zoomOutIframeProps =
+		zoomLevel !== 100 && ! isTabletViewport
+			? {
+					scale: zoomLevel,
+					frameSize: '40px',
+			  }
+			: {};
 
 	if ( ! shouldIframe ) {
 		return (
 			<BlockTools
 				__unstableContentRef={ localRef }
-				style={ { height, display: 'flex' } }
+				className="block-editor-block-canvas"
+				style={ { height } }
 			>
 				<EditorStyles
 					styles={ styles }
@@ -52,10 +68,6 @@ export function ExperimentalBlockCanvas( {
 					ref={ contentRef }
 					className="editor-styles-wrapper"
 					tabIndex={ -1 }
-					style={ {
-						height: '100%',
-						width: '100%',
-					} }
 				>
 					{ children }
 				</WritingFlow>
@@ -66,10 +78,12 @@ export function ExperimentalBlockCanvas( {
 	return (
 		<BlockTools
 			__unstableContentRef={ localRef }
+			className="block-editor-block-canvas"
 			style={ { height, display: 'flex' } }
 		>
 			<Iframe
 				{ ...iframeProps }
+				{ ...zoomOutIframeProps }
 				ref={ resetTypingRef }
 				contentRef={ contentRef }
 				style={ {

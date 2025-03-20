@@ -6,7 +6,7 @@ import { effect } from '@preact/signals';
 /**
  * Internal dependencies
  */
-import { proxifyContext, proxifyState } from '../';
+import { proxifyContext, proxifyState, deepMerge } from '../';
 
 describe( 'Interactivity API', () => {
 	describe( 'context proxy', () => {
@@ -136,6 +136,24 @@ describe( 'Interactivity API', () => {
 
 				expect( context.a ).toBe( 2 );
 				expect( state.a ).toBe( 2 );
+			} );
+
+			it( "should modify props inherited from fallback's ancestors", () => {
+				const ancestor: any = proxifyContext(
+					{ ancestorProp: 'ancestor' },
+					{}
+				);
+				const fallback: any = proxifyContext(
+					{ fallbackProp: 'fallback' },
+					ancestor
+				);
+				const context: any = proxifyContext( {}, fallback );
+
+				context.ancestorProp = 'modified';
+
+				expect( context.ancestorProp ).toBe( 'modified' );
+				expect( fallback.ancestorProp ).toBe( 'modified' );
+				expect( ancestor.ancestorProp ).toBe( 'modified' );
 			} );
 		} );
 
@@ -276,6 +294,66 @@ describe( 'Interactivity API', () => {
 					'fromContext',
 					'fromFallback',
 				] );
+			} );
+
+			it( 'should handle deeply nested properties that are initially undefined', () => {
+				const fallback: any = proxifyContext(
+					proxifyState( 'test', {} ),
+					{}
+				);
+				const context: any = proxifyContext(
+					proxifyState( 'test', {} ),
+					fallback
+				);
+
+				let deepValue: any;
+				const spy = jest.fn( () => {
+					deepValue = context.a?.b?.c?.d;
+				} );
+				effect( spy );
+
+				// Initial call, the deep value is undefined
+				expect( spy ).toHaveBeenCalledTimes( 1 );
+				expect( deepValue ).toBeUndefined();
+
+				// Add a deeply nested object to the context
+				context.a = { b: { c: { d: 'test value' } } };
+
+				// The effect should be called again
+				expect( spy ).toHaveBeenCalledTimes( 2 );
+				expect( deepValue ).toBe( 'test value' );
+
+				// Reading the value directly should also work
+				expect( context.a.b.c.d ).toBe( 'test value' );
+			} );
+
+			it( 'should handle deeply nested properties that are initially undefined and merged with deepMerge', () => {
+				const fallbackState = proxifyState( 'test', {} );
+				const fallback: any = proxifyContext( fallbackState, {} );
+				const contextState = proxifyState( 'test', {} );
+				const context: any = proxifyContext( contextState, fallback );
+
+				let deepValue: any;
+				const spy = jest.fn( () => {
+					deepValue = context.a?.b?.c?.d;
+				} );
+				effect( spy );
+
+				// Initial call, the deep value is undefined
+				expect( spy ).toHaveBeenCalledTimes( 1 );
+				expect( deepValue ).toBeUndefined();
+
+				// Use deepMerge to add a deeply nested object to the context
+				deepMerge( contextState, {
+					a: { b: { c: { d: 'test value' } } },
+				} );
+
+				// The effect should be called again
+				expect( spy ).toHaveBeenCalledTimes( 2 );
+				expect( deepValue ).toBe( 'test value' );
+
+				// Reading the value directly should also work
+				expect( context.a.b.c.d ).toBe( 'test value' );
 			} );
 		} );
 

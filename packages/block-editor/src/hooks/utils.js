@@ -124,7 +124,7 @@ export function shouldSkipSerialization(
 	feature
 ) {
 	const support = getBlockSupport( blockNameOrType, featureSet );
-	const skipSerialization = support?.__experimentalSkipSerialization;
+	const skipSerialization = support?.skipSerialization;
 
 	if ( Array.isArray( skipSerialization ) ) {
 		return skipSerialization.includes( feature );
@@ -562,8 +562,13 @@ export function createBlockEditFilter( features ) {
 	addFilter( 'editor.BlockEdit', 'core/editor/hooks', withBlockEditHooks );
 }
 
-function BlockProps( { index, useBlockProps, setAllWrapperProps, ...props } ) {
-	const wrapperProps = useBlockProps( props );
+function BlockProps( {
+	index,
+	useBlockProps: hook,
+	setAllWrapperProps,
+	...props
+} ) {
+	const wrapperProps = hook( props );
 	const setWrapperProps = ( next ) =>
 		setAllWrapperProps( ( prev ) => {
 			const nextAll = [ ...prev ];

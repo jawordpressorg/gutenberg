@@ -26,14 +26,14 @@ The `props` object received by the block's `Edit` React component includes:
 WordPress provides many built-in standard components that can be used to define the block interface in the Editor. These built-in components are available via packages such as [`@wordpress/components`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-components/) and [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/).
 
  -->
-WordPress にはエディター内のブロックのインターフェイスを定義する、多くの組み込み標準コンポーネントがあります。これらの組み込みコンポーネントは、[`@wordpress/components`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-components/) や [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/) などのパッケージから利用できます。
+WordPress にはエディター内のブロックのインターフェースを定義する、多くの組み込み標準コンポーネントがあります。これらの組み込みコンポーネントは、[`@wordpress/components`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-components/) や [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/) などのパッケージから利用できます。
 
 <!-- 
 <div class="callout">
 	The WordPress Gutenberg project uses <a href="https://wordpress.github.io/gutenberg/?path=/docs/docs-introduction--page">Storybook</a> to document the user interface components that are available in WordPress packages.
 </div>
  -->
-> WordPress Gutenberg プロジェクトでは、WordPress パッケージで利用可能なユーザーインターフェイスコンポーネントのドキュメントに、<a href="https://wordpress.github.io/gutenberg/?path=/docs/docs-introduction--page">Storybook</a> を使用しています。
+> WordPress Gutenberg プロジェクトでは、WordPress パッケージで利用可能なユーザーインターフェースコンポーネントのドキュメントに、<a href="https://wordpress.github.io/gutenberg/?path=/docs/docs-introduction--page">Storybook</a> を使用しています。
 
 <!-- 
 Custom settings controls for the block in the Block Toolbar or the Settings Sidebar can also be defined through this `Edit` React component via built-in components such as:
@@ -235,6 +235,8 @@ export default function Edit( { attributes, setAttributes } ) {
 				</div>
 			</InspectorControls>
 			<TextControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 				value={ attributes.message }
 				onChange={ ( val ) => setAttributes( { message: val } ) }
 				style={ {

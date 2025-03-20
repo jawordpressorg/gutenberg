@@ -6,13 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import {
-	memo,
-	useCallback,
-	RawHTML,
-	useContext,
-	useMemo,
-} from '@wordpress/element';
+import { memo, RawHTML, useContext, useMemo } from '@wordpress/element';
 import {
 	getBlockType,
 	getSaveContent,
@@ -24,10 +18,11 @@ import {
 	isReusableBlock,
 	getBlockDefaultClassName,
 	hasBlockSupport,
+	createBlock,
 	store as blocksStore,
 } from '@wordpress/blocks';
 import { withFilters } from '@wordpress/components';
-import { withDispatch, useDispatch, useSelect } from '@wordpress/data';
+import { withDispatch, useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { safeHTML } from '@wordpress/dom';
 
@@ -102,6 +97,7 @@ function BlockListBlock( {
 	wrapperProps,
 	setAttributes,
 	onReplace,
+	onRemove,
 	onInsertBlocksAfter,
 	onMerge,
 	toggleSelection,
@@ -112,11 +108,6 @@ function BlockListBlock( {
 		themeSupportsLayout,
 		...context
 	} = useContext( PrivateBlockContext );
-	const { removeBlock } = useDispatch( blockEditorStore );
-	const onRemove = useCallback(
-		() => removeBlock( clientId ),
-		[ clientId, removeBlock ]
-	);
 
 	const parentLayout = useLayout() || {};
 
@@ -310,6 +301,7 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 			function switchToDefaultOrRemove() {
 				const block = getBlock( clientId );
 				const defaultBlockName = getDefaultBlockName();
+				const defaultBlockType = getBlockType( defaultBlockName );
 				if ( getBlockName( clientId ) !== defaultBlockName ) {
 					const replacement = switchToBlockType(
 						block,
@@ -326,6 +318,15 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 							selectBlock( nextBlockClientId );
 						} );
 					}
+				} else if ( defaultBlockType.merge ) {
+					const attributes = defaultBlockType.merge(
+						{},
+						block.attributes
+					);
+					replaceBlocks(
+						[ clientId ],
+						[ createBlock( defaultBlockName, attributes ) ]
+					);
 				}
 			}
 
@@ -339,6 +340,9 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 			 *                                  to the moved block.
 			 */
 			function moveFirstItemUp( _clientId, changeSelection = true ) {
+				const wrapperBlockName = getBlockName( _clientId );
+				const wrapperBlockType = getBlockType( wrapperBlockName );
+				const isTextualWrapper = wrapperBlockType.category === 'text';
 				const targetRootClientId = getBlockRootClientId( _clientId );
 				const blockOrder = getBlockOrder( _clientId );
 				const [ firstClientId ] = blockOrder;
@@ -348,7 +352,7 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 					isUnmodifiedBlock( getBlock( firstClientId ) )
 				) {
 					removeBlock( _clientId );
-				} else {
+				} else if ( isTextualWrapper ) {
 					registry.batch( () => {
 						if (
 							canInsertBlockType(
@@ -397,6 +401,8 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 							removeBlock( _clientId, false );
 						}
 					} );
+				} else {
+					switchToDefaultOrRemove();
 				}
 			}
 
@@ -521,6 +527,9 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps, registry ) => {
 				initialPosition
 			);
 		},
+		onRemove() {
+			removeBlock( ownProps.clientId );
+		},
 		toggleSelection( selectionEnabled ) {
 			toggleSelection( selectionEnabled );
 		},
@@ -573,7 +582,6 @@ function BlockListBlockProvider( props ) {
 				isBlockBeingDragged,
 				isDragging,
 				__unstableHasActiveBlockOverlayActive,
-				__unstableGetEditorMode,
 				getSelectedBlocksInitialCaretPosition,
 			} = unlock( select( blockEditorStore ) );
 			const blockWithoutAttributes =
@@ -594,8 +602,7 @@ function BlockListBlockProvider( props ) {
 			const attributes = getBlockAttributes( clientId );
 			const { name: blockName, isValid } = blockWithoutAttributes;
 			const blockType = getBlockType( blockName );
-			const { supportsLayout, __unstableIsPreviewMode: isPreviewMode } =
-				getSettings();
+			const { supportsLayout, isPreviewMode } = getSettings();
 			const hasLightBlockWrapper = blockType?.apiVersion > 1;
 			const previewContext = {
 				isPreviewMode,
@@ -644,8 +651,6 @@ function BlockListBlockProvider( props ) {
 				blocksWithSameName.length &&
 				blocksWithSameName[ 0 ] !== clientId;
 
-			const editorMode = __unstableGetEditorMode();
-
 			return {
 				...previewContext,
 				mode: getBlockMode( clientId ),
@@ -672,7 +677,6 @@ function BlockListBlockProvider( props ) {
 					) && hasSelectedInnerBlock( clientId ),
 				blockApiVersion: blockType?.apiVersion || 1,
 				blockTitle: match?.title || blockType?.title,
-				editorMode,
 				isSubtreeDisabled:
 					blockEditingMode === 'disabled' &&
 					isBlockSubtreeDisabled( clientId ),
@@ -719,7 +723,6 @@ function BlockListBlockProvider( props ) {
 		themeSupportsLayout,
 		isTemporarilyEditingAsBlocks,
 		blockEditingMode,
-		editorMode,
 		mayDisplayControls,
 		mayDisplayParentControls,
 		index,
@@ -772,7 +775,6 @@ function BlockListBlockProvider( props ) {
 		hasOverlay,
 		initialPosition,
 		blockEditingMode,
-		editorMode,
 		isHighlighted,
 		isMultiSelected,
 		isPartiallySelected,
@@ -788,6 +790,7 @@ function BlockListBlockProvider( props ) {
 		mayDisplayParentControls,
 		originalBlockClientId,
 		themeSupportsLayout,
+		canMove,
 	};
 
 	// Here we separate between the props passed to BlockListBlock and any other

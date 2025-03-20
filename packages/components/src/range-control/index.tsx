@@ -38,6 +38,7 @@ import {
 import type { RangeControlProps } from './types';
 import type { WordPressComponentProps } from '../context';
 import { space } from '../utils/space';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const noop = () => {};
 
@@ -96,6 +97,7 @@ function UnforwardedRangeControl(
 		trackColor,
 		value: valueProp,
 		withInputField = true,
+		__shouldNotWarnDeprecated36pxSize,
 		...otherProps
 	} = props;
 
@@ -229,6 +231,14 @@ function UnforwardedRangeControl(
 		[ isRTL() ? 'right' : 'left' ]: fillValueOffset,
 	};
 
+	// Add default size deprecation warning.
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'RangeControl',
+		__next40pxDefaultSize,
+		size: undefined,
+		__shouldNotWarnDeprecated36pxSize,
+	} );
+
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
@@ -340,6 +350,7 @@ function UnforwardedRangeControl(
 						step={ step }
 						// @ts-expect-error TODO: Investigate if the `null` value is necessary
 						value={ inputSliderValue }
+						__shouldNotWarnDeprecated36pxSize
 					/>
 				) }
 				{ allowReset && (
@@ -384,6 +395,7 @@ function UnforwardedRangeControl(
  *   return (
  *     <RangeControl
  *       __nextHasNoMarginBottom
+ *       __next40pxDefaultSize
  *       help="Please select how transparent you would like this."
  *       initialPosition={50}
  *       label="Opacity"

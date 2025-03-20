@@ -25,8 +25,10 @@ function PostAuthorToggle( { isOpen, onClick } ) {
 			className="editor-post-author__panel-toggle"
 			variant="tertiary"
 			aria-expanded={ isOpen }
-			// translators: %s: Current post link.
-			aria-label={ sprintf( __( 'Change author: %s' ), authorName ) }
+			aria-label={
+				// translators: %s: Author name.
+				sprintf( __( 'Change author: %s' ), authorName )
+			}
 			onClick={ onClick }
 		>
 			{ authorName }
@@ -37,7 +39,7 @@ function PostAuthorToggle( { isOpen, onClick } ) {
 /**
  * Renders the Post Author Panel component.
  *
- * @return {Component} The component to be rendered.
+ * @return {React.ReactNode} The rendered component.
  */
 export function PostAuthor() {
 	// Use internal state instead of a ref to make sure that the component

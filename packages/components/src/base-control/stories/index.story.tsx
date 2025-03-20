@@ -10,8 +10,13 @@ import BaseControl, { useBaseControlProps } from '..';
 import Button from '../../button';
 
 const meta: Meta< typeof BaseControl > = {
-	title: 'Components/BaseControl',
+	title: 'Components/Selection & Input/Common/BaseControl',
+	id: 'components-basecontrol',
 	component: BaseControl,
+	subcomponents: {
+		// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
+		'BaseControl.VisualLabel': BaseControl.VisualLabel,
+	},
 	argTypes: {
 		children: { control: { type: null } },
 		help: { control: { type: 'text' } },

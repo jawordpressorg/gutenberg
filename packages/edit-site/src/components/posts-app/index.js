@@ -1,37 +1,27 @@
 /**
  * WordPress dependencies
  */
-import {
-	UnsavedChangesWarning,
-	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import useInitEditedEntityFromURL from '../sync-state-with-url/use-init-edited-entity-from-url';
 import Layout from '../layout';
-import useLayoutAreas from './router';
+import { useRegisterPostsAppRoutes } from '../posts-app-routes';
 import { unlock } from '../../lock-unlock';
+import { store as editSiteStore } from '../../store';
 
 const { RouterProvider } = unlock( routerPrivateApis );
-const { GlobalStylesProvider } = unlock( editorPrivateApis );
-
-function PostsLayout() {
-	// This ensures the edited entity id and type are initialized properly.
-	useInitEditedEntityFromURL();
-	const route = useLayoutAreas();
-	return <Layout route={ route } />;
-}
 
 export default function PostsApp() {
+	useRegisterPostsAppRoutes();
+	const routes = useSelect( ( select ) => {
+		return unlock( select( editSiteStore ) ).getRoutes();
+	}, [] );
 	return (
-		<GlobalStylesProvider>
-			<UnsavedChangesWarning />
-			<RouterProvider>
-				<PostsLayout />
-			</RouterProvider>
-		</GlobalStylesProvider>
+		<RouterProvider routes={ routes } pathArg="p">
+			<Layout />
+		</RouterProvider>
 	);
 }

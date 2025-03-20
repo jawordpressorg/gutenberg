@@ -56,7 +56,7 @@ export const getItemPriority = ( name, searchValue ) => {
  * Renders the Page Attributes Parent component. A dropdown menu in an editor interface
  * for selecting the parent page of a given page.
  *
- * @return {Component|null} The component to be rendered. Return null if post type is not hierarchical.
+ * @return {React.ReactNode} The component to be rendered. Return null if post type is not hierarchical.
  */
 export function PageAttributesParent() {
 	const { editPost } = useDispatch( editorStore );
@@ -212,8 +212,10 @@ function PostParentToggle( { isOpen, onClick } ) {
 			className="editor-post-parent__panel-toggle"
 			variant="tertiary"
 			aria-expanded={ isOpen }
-			// translators: %s: Current post parent.
-			aria-label={ sprintf( __( 'Change parent: %s' ), parentTitle ) }
+			aria-label={
+				// translators: %s: Current post parent.
+				sprintf( __( 'Change parent: %s' ), parentTitle )
+			}
 			onClick={ onClick }
 		>
 			{ parentTitle }
@@ -261,9 +263,9 @@ export function ParentRow() {
 						<div>
 							{ createInterpolateElement(
 								sprintf(
-									/* translators: %1$s The home URL of the WordPress installation without the scheme. */
+									/* translators: %s: The home URL of the WordPress installation without the scheme. */
 									__(
-										'Child pages inherit characteristics from their parent, such as URL structure. For instance, if "Pricing" is a child of "Services", its URL would be %1$s<wbr />/services<wbr />/pricing.'
+										'Child pages inherit characteristics from their parent, such as URL structure. For instance, if "Pricing" is a child of "Services", its URL would be %s<wbr />/services<wbr />/pricing.'
 									),
 									filterURLForDisplay( homeUrl ).replace(
 										/([/.])/g,

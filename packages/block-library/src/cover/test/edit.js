@@ -119,9 +119,7 @@ describe( 'Cover block', () => {
 				'min-height: 100vh;'
 			);
 
-			await userEvent.click(
-				screen.getByLabelText( 'Toggle full height' )
-			);
+			await userEvent.click( screen.getByLabelText( 'Full height' ) );
 
 			expect( screen.getByLabelText( 'Block: Cover' ) ).toHaveStyle(
 				'min-height: 100vh;'
@@ -190,7 +188,7 @@ describe( 'Cover block', () => {
 			test( 'does not display media settings panel if url is not set', async () => {
 				await setup();
 				expect(
-					screen.queryByRole( 'button', {
+					screen.queryByRole( 'heading', {
 						name: 'Settings',
 					} )
 				).not.toBeInTheDocument();
@@ -202,7 +200,7 @@ describe( 'Cover block', () => {
 
 				await selectBlock( 'Block: Cover' );
 				expect(
-					screen.getByRole( 'button', {
+					screen.getByRole( 'heading', {
 						name: 'Settings',
 					} )
 				).toBeInTheDocument();
@@ -339,7 +337,7 @@ describe( 'Cover block', () => {
 			describe( 'when colors are disabled', () => {
 				test( 'does not render overlay control', async () => {
 					await setup( undefined, true, disabledColorSettings );
-					await createAndSelectBlock();
+					await selectBlock( 'Block: Cover' );
 					await userEvent.click(
 						screen.getByRole( 'tab', { name: 'Styles' } )
 					);
@@ -352,7 +350,7 @@ describe( 'Cover block', () => {
 				} );
 				test( 'does not render opacity control', async () => {
 					await setup( undefined, true, disabledColorSettings );
-					await createAndSelectBlock();
+					await selectBlock( 'Block: Cover' );
 					await userEvent.click(
 						screen.getByRole( 'tab', { name: 'Styles' } )
 					);

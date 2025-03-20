@@ -10,9 +10,9 @@ import { parse as grammarParse } from '@wordpress/block-serialization-default-pa
 import { selectBlockPatternsKey } from './private-keys';
 import { unlock } from '../lock-unlock';
 import { STORE_NAME } from './constants';
+import { getSectionRootClientId } from './private-selectors';
 
-export const withRootClientIdOptionKey = Symbol( 'withRootClientId' );
-
+export const isFiltered = Symbol( 'isFiltered' );
 const parsedPatternCache = new WeakMap();
 const grammarMapCache = new WeakMap();
 
@@ -110,13 +110,15 @@ export const getAllPatternsDependants = ( select ) => ( state ) => {
 	];
 };
 
-export function getInsertBlockTypeDependants( state, rootClientId ) {
-	return [
-		state.blockListSettings[ rootClientId ],
-		state.blocks.byClientId.get( rootClientId ),
-		state.settings.allowedBlockTypes,
-		state.settings.templateLock,
-		state.blockEditingModes,
-		state.editorMode,
-	];
-}
+export const getInsertBlockTypeDependants =
+	( select ) => ( state, rootClientId ) => {
+		return [
+			state.blockListSettings[ rootClientId ],
+			state.blocks.byClientId.get( rootClientId ),
+			state.settings.allowedBlockTypes,
+			state.settings.templateLock,
+			state.blockEditingModes,
+			select( STORE_NAME ).__unstableGetEditorMode( state ),
+			getSectionRootClientId( state ),
+		];
+	};

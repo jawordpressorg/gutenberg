@@ -75,6 +75,8 @@ const UnconnectedBorderControl = (
 			/>
 			<HStack spacing={ 4 } className={ innerWrapperClassName }>
 				<UnitControl
+					__next40pxDefaultSize={ __next40pxDefaultSize }
+					__shouldNotWarnDeprecated36pxSize
 					prefix={
 						<Spacer marginRight={ 1 } marginBottom={ 0 }>
 							<BorderControlDropdown
@@ -91,7 +93,6 @@ const UnconnectedBorderControl = (
 								previousStyleSelection={
 									previousStyleSelection
 								}
-								showDropdownHeader={ showDropdownHeader }
 								__experimentalIsRenderedInSidebar={
 									__experimentalIsRenderedInSidebar
 								}
@@ -123,6 +124,7 @@ const UnconnectedBorderControl = (
 						value={ widthValue || undefined }
 						withInputField={ false }
 						__next40pxDefaultSize={ __next40pxDefaultSize }
+						__shouldNotWarnDeprecated36pxSize
 					/>
 				) }
 			</HStack>
@@ -141,7 +143,7 @@ const UnconnectedBorderControl = (
  * a "shape" abstraction.
  *
  * ```jsx
- * import { __experimentalBorderControl as BorderControl } from '@wordpress/components';
+ * import { BorderControl } from '@wordpress/components';
  * import { __ } from '@wordpress/i18n';
  *
  * const colors = [
@@ -155,6 +157,7 @@ const UnconnectedBorderControl = (
  *
  * 	return (
  * 		<BorderControl
+ * 			__next40pxDefaultSize
  * 			colors={ colors }
  * 			label={ __( 'Border' ) }
  * 			onChange={ onChange }

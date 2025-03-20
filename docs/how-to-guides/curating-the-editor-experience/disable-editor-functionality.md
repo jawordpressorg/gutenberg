@@ -6,7 +6,7 @@
 <!-- 
 This page is dedicated to the many ways you can disable specific functionality in the Post Editor and Site Editor that are not covered in other areas of the curation documentation.
  -->
-このページでは、このセクションの他のドキュメントではカバーされない、投稿エディターとサイトエディターで特定の機能を無効にするさまざまな方法について説明します。
+このページでは、このセクションの他のページではカバーされていない、投稿エディターとサイトエディターで特定の機能を無効にするさまざまな方法について説明します。
 
 <!-- 
 ## Restrict block options
@@ -19,6 +19,51 @@ There might be times when you don’t want access to a block at all to be availa
 特定のブロックをユーザーにまったく利用させたくない場合があります。インサーターで利用可能なブロックを制御するアプローチには2種類の方法があります。[許可リスト](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#using-an-allow-list)は、リストにあるブロック以外のすべてのブロックを無効にします。[拒否リスト](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#using-a-deny-list)は、特定のブロックの登録を解除します。
 
 <!-- 
+## Curate heading levels
+ -->
+## 見出しレベルの管理
+
+<!-- 
+Core WordPress blocks with a heading level dropdown include support for the `levelOptions` attribute. This applies to the Heading, Site Title, Site Tagline, Query Title, Post Title, and Comments Title blocks. The `levelOptions` attribute accepts an array of numbers corresponding to heading levels, where `1` represents H1, `2` represents H2, and so on.
+ -->
+見出しレベルのドロップダウンを持つ WordPress コアブロックは `levelOptions` 属性をサポートします。該当のブロックは、見出し、サイトタイトル、サイトのキャッチフレーズ、クエリータイトル、投稿タイトル、コメントタイトルです。`levelOptions` 属性は見出しレベルに対応する数値の配列を取ります。たとえば `1` は H1、`2` は H2を表します。
+
+<!-- 
+This attribute allows you to specify which heading levels should appear in the dropdown UI, providing a lightweight curation method that does not require block deprecations. Any existing heading levels are preserved in the markup, while `levelOptions` only affects the UI display.
+ -->
+この属性を使用すると、ドロップダウン UI に表示される見出しレベルを指定できます。これによりブロックの非推奨プロセスを必要としない軽量の管理方法が提供されます。マークアップ内では既存の見出しレベルは維持される一方で、`levelOptions` は UI 表示にのみ影響します。
+
+<!-- 
+You can apply this attribute directly in the block markup, a technique that will be commonly used in block templates, template parts, and patterns. For example, the following markup disables H1, H2, and H6 in the Heading block by setting `"levelOptions":[3,4,5]`.
+ -->
+この属性はブロックマークアップで直接、適用でき、これはブロックテンプレート、テンプレートパーツ、パターンでよく使われるテクニックです。例えば、次のマークアップは `"levelOptions":[3,4,5]` を設定することで、見出しブロックの H1, H2, H6を無効化します。
+
+```html
+<!-- wp:heading {"level":3,"levelOptions":[3,4,5],"className":"wp-block-heading"} -->
+<h3 class="wp-block-heading">Markup example</h3>
+<!-- /wp:heading -->
+```
+<!-- 
+You can also use [block filters](/docs/reference-guides/filters/block-filters.md) to set the default value of this attribute globally or for specific blocks. The example below disables H1, H2, and H6 for all Heading blocks. You can further customize this by restricting certain heading levels based on conditions like user capabilities.
+ -->
+また、[ブロックフィルター](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/)を使用して、この属性のデフォルト値をグローバルに、または特定のブロックに対して設定できます。以下の例では、すべての見出しブロックの H1, H2, H6を無効化しています。ユーザーの権限などの条件に基づいて特定の見出しレベルを制限することで、これをさらにカスタマイズできます。
+
+```php
+function example_modify_heading_levels_globally( $args, $block_type ) {
+	
+	if ( 'core/heading' !== $block_type ) {
+		return $args;
+	}
+
+	// H1、H2、H6 を削除
+	$args['attributes']['levelOptions']['default'] = [ 3, 4, 5 ];
+	
+	return $args;
+}
+add_filter( 'register_block_type_args', 'example_modify_heading_levels_globally', 10, 2 );
+```
+
+<!--
 ## Disable the Pattern Directory
  -->
 ## パターンディレクトリの無効化

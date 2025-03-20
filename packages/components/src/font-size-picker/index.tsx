@@ -35,6 +35,7 @@ import { Spacer } from '../spacer';
 import FontSizePickerSelect from './font-size-picker-select';
 import FontSizePickerToggleGroup from './font-size-picker-toggle-group';
 import { T_SHIRT_NAMES } from './constants';
+import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const DEFAULT_UNITS = [ 'px', 'em', 'rem', 'vw', 'vh' ];
 
@@ -123,6 +124,12 @@ const UnforwardedFontSizePicker = (
 		!! valueUnit && [ 'em', 'rem', 'vw', 'vh' ].includes( valueUnit );
 	const isDisabled = value === undefined;
 
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'FontSizePicker',
+		__next40pxDefaultSize,
+		size,
+	} );
+
 	return (
 		<Container ref={ ref } className="components-font-size-picker">
 			<VisuallyHidden as="legend">{ __( 'Font size' ) }</VisuallyHidden>
@@ -205,6 +212,7 @@ const UnforwardedFontSizePicker = (
 						<FlexItem isBlock>
 							<UnitControl
 								__next40pxDefaultSize={ __next40pxDefaultSize }
+								__shouldNotWarnDeprecated36pxSize
 								label={ __( 'Custom' ) }
 								labelPosition="top"
 								hideLabelFromVision
@@ -235,6 +243,7 @@ const UnforwardedFontSizePicker = (
 										__next40pxDefaultSize={
 											__next40pxDefaultSize
 										}
+										__shouldNotWarnDeprecated36pxSize
 										className="components-font-size-picker__custom-input"
 										label={ __( 'Custom Size' ) }
 										hideLabelFromVision

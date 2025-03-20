@@ -27,7 +27,8 @@ const meta: Meta< typeof ToggleGroupControl > = {
 	component: ToggleGroupControl,
 	// @ts-expect-error - See https://github.com/storybookjs/storybook/issues/23170
 	subcomponents: { ToggleGroupControlOption, ToggleGroupControlOptionIcon },
-	title: 'Components (Experimental)/ToggleGroupControl',
+	title: 'Components (Experimental)/Selection & Input/ToggleGroupControl',
+	id: 'components-experimental-togglegroupcontrol',
 	argTypes: {
 		help: { control: { type: 'text' } },
 		onChange: { action: 'onChange' },
@@ -50,6 +51,7 @@ const Template: StoryFn< typeof ToggleGroupControl > = ( {
 	return (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 			{ ...props }
 			onChange={ ( ...changeArgs ) => {
 				setValue( ...changeArgs );

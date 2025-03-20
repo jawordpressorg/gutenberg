@@ -302,20 +302,23 @@ function useDuotoneStyles( {
 			// `inline-block` is used instead of `none` to ensure that scroll
 			// position is not affected, as `none` results in the editor
 			// scrolling to the top of the block.
-			blockElement.style.display = 'inline-block';
+			blockElement.style.setProperty( 'display', 'inline-block' );
 			// Simply accessing el.offsetHeight flushes layout and style changes
 			// in WebKit without having to wait for setTimeout.
 			// eslint-disable-next-line no-unused-expressions
 			blockElement.offsetHeight;
-			blockElement.style.display = display;
+			blockElement.style.setProperty( 'display', display );
 		}
 		// `colors` must be a dependency so this effect runs when the colors
 		// change in Safari.
 	}, [ isValidFilter, blockElement, colors ] );
 }
 
+// Used for generating the instance ID
+const DUOTONE_BLOCK_PROPS_REFERENCE = {};
+
 function useBlockProps( { clientId, name, style } ) {
-	const id = useInstanceId( useBlockProps );
+	const id = useInstanceId( DUOTONE_BLOCK_PROPS_REFERENCE );
 	const selector = useMemo( () => {
 		const blockType = getBlockType( name );
 

@@ -24,11 +24,15 @@ import SingleSelectionCheckbox from '../../components/dataviews-selection-checkb
 import { useHasAPossibleBulkAction } from '../../components/dataviews-bulk-actions';
 import type { Action, NormalizedField, ViewGridProps } from '../../types';
 import type { SetSelection } from '../../private-types';
+import getClickableItemProps from '../utils/get-clickable-item-props';
+import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
 
 interface GridItemProps< Item > {
 	selection: string[];
 	onChangeSelection: SetSelection;
 	getItemId: ( item: Item ) => string;
+	onClickItem?: ( item: Item ) => void;
+	isItemClickable: ( item: Item ) => boolean;
 	item: Item;
 	actions: Action< Item >[];
 	mediaField?: NormalizedField< Item >;
@@ -41,6 +45,8 @@ interface GridItemProps< Item > {
 function GridItem< Item >( {
 	selection,
 	onChangeSelection,
+	onClickItem,
+	isItemClickable,
 	getItemId,
 	item,
 	actions,
@@ -59,6 +65,21 @@ function GridItem< Item >( {
 	const renderedPrimaryField = primaryField?.render ? (
 		<primaryField.render item={ item } />
 	) : null;
+
+	const clickableMediaItemProps = getClickableItemProps( {
+		item,
+		isItemClickable,
+		onClickItem,
+		className: 'dataviews-view-grid__media',
+	} );
+
+	const clickablePrimaryItemProps = getClickableItemProps( {
+		item,
+		isItemClickable,
+		onClickItem,
+		className: 'dataviews-view-grid__primary-field',
+	} );
+
 	return (
 		<VStack
 			spacing={ 0 }
@@ -81,9 +102,7 @@ function GridItem< Item >( {
 				}
 			} }
 		>
-			<div className="dataviews-view-grid__media">
-				{ renderedMediaField }
-			</div>
+			<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
 			<SingleSelectionCheckbox
 				item={ item }
 				selection={ selection }
@@ -96,9 +115,9 @@ function GridItem< Item >( {
 				justify="space-between"
 				className="dataviews-view-grid__title-actions"
 			>
-				<HStack className="dataviews-view-grid__primary-field">
+				<div { ...clickablePrimaryItemProps }>
 					{ renderedPrimaryField }
-				</HStack>
+				</div>
 				<ItemActions item={ item } actions={ actions } isCompact />
 			</HStack>
 			{ !! badgeFields?.length && (
@@ -170,9 +189,10 @@ export default function ViewGrid< Item >( {
 	getItemId,
 	isLoading,
 	onChangeSelection,
+	onClickItem,
+	isItemClickable,
 	selection,
 	view,
-	density,
 }: ViewGridProps< Item > ) {
 	const mediaField = fields.find(
 		( field ) => field.id === view.layout?.mediaField
@@ -203,8 +223,12 @@ export default function ViewGrid< Item >( {
 		{ visibleFields: [], badgeFields: [] }
 	);
 	const hasData = !! data?.length;
-	const gridStyle = density
-		? { gridTemplateColumns: `repeat(${ density }, minmax(0, 1fr))` }
+	const updatedPreviewSize = useUpdatedPreviewSizeOnViewportChange();
+	const usedPreviewSize = updatedPreviewSize || view.layout?.previewSize;
+	const gridStyle = usedPreviewSize
+		? {
+				gridTemplateColumns: `repeat(${ usedPreviewSize }, minmax(0, 1fr))`,
+		  }
 		: {};
 	return (
 		<>
@@ -223,6 +247,8 @@ export default function ViewGrid< Item >( {
 								key={ getItemId( item ) }
 								selection={ selection }
 								onChangeSelection={ onChangeSelection }
+								onClickItem={ onClickItem }
+								isItemClickable={ isItemClickable }
 								getItemId={ getItemId }
 								item={ item }
 								actions={ actions }

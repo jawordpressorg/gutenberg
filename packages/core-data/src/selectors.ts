@@ -310,7 +310,7 @@ export interface GetEntityRecord {
 		state: State,
 		kind: string,
 		name: string,
-		key: EntityRecordKey,
+		key?: EntityRecordKey,
 		query?: GetRecordsHttpQuery
 	): EntityRecord | undefined;
 
@@ -321,7 +321,7 @@ export interface GetEntityRecord {
 	>(
 		kind: string,
 		name: string,
-		key: EntityRecordKey,
+		key?: EntityRecordKey,
 		query?: GetRecordsHttpQuery
 	) => EntityRecord | undefined;
 	__unstableNormalizeArgs?: ( args: EntityRecordArgs ) => EntityRecordArgs;
@@ -335,7 +335,7 @@ export interface GetEntityRecord {
  * @param state State tree
  * @param kind  Entity kind.
  * @param name  Entity name.
- * @param key   Record's key
+ * @param key   Optional record's key. If requesting a global record (e.g. site settings), the key can be omitted. If requesting a specific item, the key must always be included.
  * @param query Optional query. If requesting specific
  *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
  *
@@ -350,7 +350,7 @@ export const getEntityRecord = createSelector(
 		state: State,
 		kind: string,
 		name: string,
-		key: EntityRecordKey,
+		key?: EntityRecordKey,
 		query?: GetRecordsHttpQuery
 	): EntityRecord | undefined => {
 		const queriedState =
@@ -1282,38 +1282,6 @@ export const hasFetchedAutosaves = createRegistrySelector(
  */
 export function getReferenceByDistinctEdits( state ) {
 	return state.editsReference;
-}
-
-/**
- * Retrieve the frontend template used for a given link.
- *
- * @param state Editor state.
- * @param link  Link.
- *
- * @return The template record.
- */
-export function __experimentalGetTemplateForLink(
-	state: State,
-	link: string
-): Optional< ET.Updatable< ET.WpTemplate > > | null | false {
-	const records = getEntityRecords< ET.WpTemplate >(
-		state,
-		'postType',
-		'wp_template',
-		{
-			'find-template': link,
-		}
-	);
-
-	if ( records?.length ) {
-		return getEditedEntityRecord< ET.WpTemplate >(
-			state,
-			'postType',
-			'wp_template',
-			records[ 0 ].id
-		);
-	}
-	return null;
 }
 
 /**

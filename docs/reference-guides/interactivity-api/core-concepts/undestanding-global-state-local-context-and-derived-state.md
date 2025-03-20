@@ -1013,7 +1013,7 @@ In this example, the derived state `state.double` reads from the local context p
 ### 例: 派生ステートをローカルコンテキストとグローバルステートの両方と使用する
 
 <!-- 
-Let's now consider a scenario where there are a global tax rate and local product prices and calculate the final price, including tax.
+Let's now consider a scenario where there is a global tax rate and local product prices and calculate the final price, including tax.
  -->
 次に、グローバルの税率とローカルの商品価格があるときに、税込みの最終価格を計算する例を考えます。
 
@@ -1065,13 +1065,159 @@ By using derived state, you create a more maintainable and less error-prone code
 派生ステートを使用することでコードベースは、より保守性が高く、エラーが起こりにくくなります。関連するステートの値は常に同期していることが保証され、アクションの複雑さは減り、コードはより宣言的で推測しやすくなります。
 
 <!-- 
+## Subscribing to Server State and Context
+ -->
+## サーバーのステートやコンテキストのサブスクライブ
+
+<!-- 
+Interactivity API offers a region-based navigation feature that dynamically replaces a part of the page without a full page reload. The [Query block](/docs/reference-guides/core-blocks.md#query-loop) natively supports this feature when the `Force page reload` toggle is disabled. Developers can use the same functionality in custom blocks by calling [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from the [`@wordpress/interactivity-router`](https://github.com/WordPress/gutenberg/tree/trunk/packages/interactivity-router) script module.
+ -->
+Interactivity API は、ページ全体をリロードすることなくページの一部を動的に置き換えられる、領域ベースのナビゲーション機能を提供します。[クエリーブロック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/#query-loop)は、`Force page reload` (ページの強制リロード) トグルが無効のとき、この機能をネイティブにサポートします。開発者がカスタムブロックで同じ機能を使用するには、[`@wordpress/interactivity-router`](https://github.com/WordPress/gutenberg/tree/trunk/packages/interactivity-router) スクリプトモジュールの [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions)を呼び出します。
+
+<!-- 
+When using region-based navigation, it's crucial to ensure that your interactive blocks stay in sync with the server-provided global state and local context. By default, the Interactivity API will never overwrite the global state or local context with the server-provided values. The Interactivity API provides two functions to help manage this synchronization: [`getServerState()`](/docs/reference-guides/interactivity-api/api-reference.md#getserverstate) and [`getServerContext()`](/docs/reference-guides/interactivity-api/api-reference.md#getservercontext).
+ -->
+領域ベースのナビゲーションを使用する場合、重要なポイントとして、インタラクティブブロックはサーバー側が提供するグローバルステートやローカルコンテキストと確実に同期してください。デフォルトでは、Interactivity API は、グローバルステートとローカルコンテキストをサーバーが提供する値で上書きしません。Interactivity API にはこの同期を管理する2つの関数があります。[`getServerState()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#getserverstate) と [`getServerContext()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#getservercontext) です。
+
+<!-- 
+### `getServerState()`
+ -->
+### getServerState()
+<!-- 
+`getServerState()` allows you to subscribe to changes in the **global state** that occur during client-side navigation. This function is analogous to `getServerContext()`, but it works with the global state instead of the local context.
+ -->
+`getServerState()` を使用するとクライアントサイドナビゲーション中に発生する **グローバルステート** の変更をサブスクライブできます。この関数は `getServerContext()` と似ていますが、ローカルコンテキストではなく、グローバルステートを扱います。
+
+<!-- 
+The `getServerState()` function returns a read-only reactive object. This means that any [callbacks](/docs/reference-guides/interactivity-api/api-reference.md#accessing-data-in-callbacks) you have defined that watch the returned object will only trigger when the value returned by the function changes. If the value remains the same, the callback will not re-trigger.
+ -->
+`getServerState()` 関数は読み取り専用のリアクティブオブジェクトを返します。すなわち、返されたオブジェクトの監視用に定義した[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#accessing-data-in-callbacks)は、関数によって返された値が変更されたときにのみトリガーされます。値が同じままであれば、コールバックは再トリガーされません。
+
+<!-- 
+Let's consider a quiz that has multiple questions. Each question is a separate page. When the user navigates to a new question, the server provides the new question and the time left to answer all the questions.
+ -->
+ここで複数の問題を含むクイズを考えます。それぞれの問題は別々のページにあります。ユーザーが新しい問題に移動すると、サーバーは新しい問題と、クイズの残り時間を返します。
+
+```php
+<div <?php echo wp_interactivity_state( 'myPlugin', array(
+	'question' => get_question_for_page( get_the_ID() ),
+	'timeLeft' => 5 * 60, // すべての問題に答えるための時間。
+) ); ?>>
+```
+
+```javascript
+import { store, getServerState } from '@wordpress/interactivity';
+
+store( 'myPlugin', {
+	actions: {
+		// このアクションはディレクティブでトリガーされる。例:
+		// <button data-wp-on-click="actions.nextQuestion">Next Question</button>
+		*nextQuestion() {
+			event.preventDefault( event );
+			const { actions } = yield import(
+				'@wordpress/interactivity-router'
+			);
+			actions.navigate( '/question-2' );
+		},
+	},
+	callbacks: {
+		// このコールバックはディレクティブでトリガーされる。例:
+		// <div data-wp-watch="callbacks.updateQuestion"></div>
+		updateQuestion() {
+			const serverState = getServerState();
+
+      // サーバーから来る新しい値で更新する。
+      // `timeLeft` は *更新しない*。なぜならこれは、クイズに含まれる *すべて* の問題を回答するための残り時間だから。
+			state.question = serverState.question;
+		},
+	},
+} );
+```
+<!-- 
+### `getServerContext()`
+ -->
+### getServerContext()
+<!-- 
+`getServerContext()` allows you to subscribe to changes in the **local context** that occur during client-side navigation. This function is analogous to `getServerState()`, but it works with the local context instead of the global state.
+ -->
+`getServerContext()` を使用すると、クライアントサイドナビゲーション中に発生した **ローカルコンテキスト** の変更をサブスクライブできます。この関数は `getServerState()` と似ていますが、グローバルステートではなく、ローカルコンテキストを扱います。
+
+<!-- 
+The `getServerContext()` function returns a read-only reactive object. This means that any [callbacks](/docs/reference-guides/interactivity-api/api-reference.md#accessing-data-in-callbacks) you have defined that watch the returned object will only trigger when the value returned by the function changes. If the value remains the same, the callback will not re-trigger.
+ -->
+`getServerContext()` 関数は読み取り専用のリアクティブオブジェクトを返します。すなわち、返されたオブジェクトの監視用に定義した[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#accessing-data-in-callbacks)は、関数によって返された値が変更されたときにのみトリガーされます。値が同じままであれば、コールバックは再トリガーされません。
+
+
+<!-- 
+Consider a quiz that has multiple questions. Each question is a separate page. When the user navigates to a new question, the server provides the new question and the time left to answer all the questions.
+ -->
+ここで複数の問題を含むクイズを考えます。それぞれの問題は別々のページにあります。ユーザーが新しい問題に移動すると、サーバーは新しい問題と、クイズの残り時間を返します。
+
+```php
+<div <?php echo wp_interactivity_data_wp_context( array(
+	'currentQuestion' => get_question_for_page( get_the_ID() ),
+), ); ?>>
+```
+
+```javascript
+import { store, getServerContext } from '@wordpress/interactivity';
+
+store( 'myPlugin', {
+	actions: {
+		// このアクションはディレクティブでトリガーされる。例:
+		// <button data-wp-on-click="actions.nextQuestion">Next Question</button>
+		*nextQuestion() {
+			event.preventDefault( event );
+			const { actions } = yield import(
+				'@wordpress/interactivity-router'
+			);
+			actions.navigate( '/question-2' );
+		},
+	},
+	callbacks: {
+		// このコールバックはディレクティブでトリガーされる。例:
+		// <div data-wp-watch="callbacks.updateQuestion"></div>
+		updateQuestion() {
+			const serverContext = getServerContext();
+			const context = getContext();
+
+			// サーバーから来る新しい値で更新する。
+			context.currentQuestion = serverContext.currentQuestion;
+		},
+	},
+} );
+```
+
+<!-- 
+### When to Use
+ -->
+### いつ使うのか
+
+<!-- 
+Whenever you have interactive blocks that rely on global state or local context that may change due to navigation events, ensuring consistency across different parts of your application.
+ -->
+ナビゲーションイベントによって変更され得るグローバルステートやローカルなコンテキストに依存するインタラクティブブロックに対して、常にアプリケーションのさまざまな部分における一貫性を確保できます。
+
+<!-- 
+### Best Practices for using `getServerState()` and `getServerContext()`
+ -->
+### `getServerState()` や `getServerContext()` 使用のベストプラクティス
+
+<!-- 
+-   **Read-Only References:** Both `getServerState()` and `getServerContext()` return read-only objects. You can use those objects to update the global state or local context.
+-   **Callback Integration:** Incorporate these functions within your store [callbacks](/docs/reference-guides/interactivity-api/api-reference.md#accessing-data-in-callbacks) to react to state and context changes. Both `getServerState()` and `getServerContext()` return reactive objects. This means that their watch callbacks will only trigger when the value of a property changes. If the value remains the same, the callback will not re-trigger.
+ -->
+-   **読み出し専用の参照:** `getServerState()` と `getServerContext()` はどちらも読み取り専用のオブジェクトを返します。これらのオブジェクトを使用して、グローバルステートやローカルコンテキストを更新できます。
+-   **コールバックとの統合:** これらの関数をストアの[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#accessing-data-in-callbacks)に組み込むと、ステートやコンテキストの変更に反応できます。`getServerState()` と `getServerContext()` はどちらもリアクティブオブジェクトを返します。すなわち、それらの監視コールバックは、プロパティの値が変更されたときのみ、トリガーされます。値が変わらなければ、コールバックは再トリガーされません。
+
+<!-- 
 ## Conclusion
  -->
 ## まとめ
 
 <!-- 
-Remember, the key to effective state management is to keep your state minimal and avoid redundancy. Use derived state to compute values dynamically, and choose between global state and local context based on the scope and requirements of your data. This will lead to a cleaner, more robust architecture that is easier to debug and maintain.
+Remember, the key to effective state management is to keep your state minimal and avoid redundancy. Use derived state to compute values dynamically, and choose between global state and local context based on the scope and requirements of your data. This will lead to a cleaner, more robust architecture that is easier to debug and maintain. Finally, if you need to synchronize the state or context with the server, you can use `getServerState()` and `getServerContext()` to achieve this.
  -->
-効率的なステート管理のポイントは、ステートを最小限に保ち、冗長性を避けることです。派生ステートを使用して動的に値を計算し、データのスコープと要件に基づいてグローバルステートとローカルコンテキストを選択してください。この結果、デバッグや保守がしやすく、よりクリーンで堅牢なアーキテクチャが導かれます。
+効率的なステート管理のポイントは、ステートを最小限に保ち、冗長性を避けることです。派生ステートを使用して動的に値を計算し、データのスコープと要件に基づいてグローバルステートとローカルコンテキストを選択してください。この結果、デバッグや保守がしやすく、よりクリーンで堅牢なアーキテクチャが導かれます。また、ステートやコンテキストをサーバー側と動悸する必要がある場合は、`getServerState()` や `getServerContext()` を利用できます。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md)

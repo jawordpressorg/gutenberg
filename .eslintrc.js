@@ -156,6 +156,7 @@ module.exports = {
 		'plugin:eslint-comments/recommended',
 		'plugin:storybook/recommended',
 	],
+	plugins: [ 'react-compiler' ],
 	globals: {
 		wp: 'off',
 		globalThis: 'readonly',
@@ -222,6 +223,15 @@ module.exports = {
 				definedTags: [ 'jest-environment' ],
 			},
 		],
+		'react-compiler/react-compiler': [
+			'error',
+			{
+				environment: {
+					enableTreatRefLikeIdentifiersAsRefs: true,
+					validateRefAccessDuringRender: false,
+				},
+			},
+		],
 	},
 	overrides: [
 		{
@@ -236,6 +246,7 @@ module.exports = {
 				'import/no-unresolved': 'off',
 				'import/named': 'off',
 				'@wordpress/data-no-store-string-literals': 'off',
+				'react-compiler/react-compiler': 'off',
 			},
 		},
 		{
@@ -322,6 +333,7 @@ module.exports = {
 						'BorderBoxControl',
 						'BorderControl',
 						'BoxControl',
+						'Button',
 						'ComboboxControl',
 						'CustomSelectControl',
 						'DimensionControl',
@@ -343,7 +355,7 @@ module.exports = {
 						selector: `JSXOpeningElement[name.name="${ componentName }"]:not(:has(JSXAttribute[name.name="__next40pxDefaultSize"][value.expression.value!=false])):not(:has(JSXAttribute[name.name="size"][value.value!="default"]))`,
 						message:
 							componentName +
-							' should have the `__next40pxDefaultSize` prop to opt-in to the new default size.',
+							' should have the `__next40pxDefaultSize` prop when using the default size.',
 					} ) ),
 					{
 						// Falsy `__next40pxDefaultSize` without a `render` prop.
@@ -352,27 +364,7 @@ module.exports = {
 						message:
 							'FormFileUpload should have the `__next40pxDefaultSize` prop to opt-in to the new default size.',
 					},
-					// Temporary rules until all existing components have the `__next40pxDefaultSize` prop.
-					...[ 'Button' ].map( ( componentName ) => ( {
-						// Not strict. Allows pre-existing __next40pxDefaultSize={ false } usage until they are all manually updated.
-						selector: `JSXOpeningElement[name.name="${ componentName }"]:not(:has(JSXAttribute[name.name="__next40pxDefaultSize"])):not(:has(JSXAttribute[name.name="size"]))`,
-						message:
-							componentName +
-							' should have the `__next40pxDefaultSize` prop to opt-in to the new default size.',
-					} ) ),
 				],
-			},
-		},
-		{
-			files: [
-				// Components package.
-				'packages/components/src/**/*.[tj]s?(x)',
-				// Navigation block.
-				'packages/block-library/src/navigation/**/*.[tj]s?(x)',
-			],
-			excludedFiles: [ ...developmentFiles ],
-			rules: {
-				'react-hooks/exhaustive-deps': 'error',
 			},
 		},
 		{
@@ -570,6 +562,7 @@ module.exports = {
 		{
 			files: [ 'packages/interactivity*/src/**' ],
 			rules: {
+				'react-compiler/react-compiler': 'off',
 				'react/react-in-jsx-scope': 'error',
 			},
 		},

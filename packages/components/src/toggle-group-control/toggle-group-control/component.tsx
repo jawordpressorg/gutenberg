@@ -2,13 +2,11 @@
  * External dependencies
  */
 import type { ForwardedRef } from 'react';
-import { LayoutGroup } from 'framer-motion';
 
 /**
  * WordPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useMemo } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -22,6 +20,10 @@ import { VisualLabelWrapper } from './styles';
 import * as styles from './styles';
 import { ToggleGroupControlAsRadioGroup } from './as-radio-group';
 import { ToggleGroupControlAsButtonGroup } from './as-button-group';
+import { useTrackElementOffsetRect } from '../../utils/element-rect';
+import { useMergeRefs } from '@wordpress/compose';
+import { useAnimatedOffsetRect } from '../../utils/hooks/use-animated-offset-rect';
+import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
 function UnconnectedToggleGroupControl(
 	props: WordPressComponentProps< ToggleGroupControlProps, 'div', false >,
@@ -30,6 +32,7 @@ function UnconnectedToggleGroupControl(
 	const {
 		__nextHasNoMarginBottom = false,
 		__next40pxDefaultSize = false,
+		__shouldNotWarnDeprecated36pxSize,
 		className,
 		isAdaptiveWidth = false,
 		isBlock = false,
@@ -44,9 +47,21 @@ function UnconnectedToggleGroupControl(
 		...otherProps
 	} = useContextSystem( props, 'ToggleGroupControl' );
 
-	const baseId = useInstanceId( ToggleGroupControl, 'toggle-group-control' );
 	const normalizedSize =
 		__next40pxDefaultSize && size === 'default' ? '__unstable-large' : size;
+
+	const [ selectedElement, setSelectedElement ] = useState< HTMLElement >();
+	const [ controlElement, setControlElement ] = useState< HTMLElement >();
+	const refs = useMergeRefs( [ setControlElement, forwardedRef ] );
+	const selectedRect = useTrackElementOffsetRect(
+		value || value === 0 ? selectedElement : undefined
+	);
+	useAnimatedOffsetRect( controlElement, selectedRect, {
+		prefix: 'selected',
+		dataAttribute: 'indicator-animated',
+		transitionEndFilter: ( event ) => event.pseudoElement === '::before',
+		roundRect: true,
+	} );
 
 	const cx = useCx();
 
@@ -68,6 +83,13 @@ function UnconnectedToggleGroupControl(
 		? ToggleGroupControlAsButtonGroup
 		: ToggleGroupControlAsRadioGroup;
 
+	maybeWarnDeprecated36pxSize( {
+		componentName: 'ToggleGroupControl',
+		size,
+		__next40pxDefaultSize,
+		__shouldNotWarnDeprecated36pxSize,
+	} );
+
 	return (
 		<BaseControl
 			help={ help }
@@ -81,15 +103,16 @@ function UnconnectedToggleGroupControl(
 			) }
 			<MainControl
 				{ ...otherProps }
+				setSelectedElement={ setSelectedElement }
 				className={ classes }
 				isAdaptiveWidth={ isAdaptiveWidth }
 				label={ label }
 				onChange={ onChange }
-				ref={ forwardedRef }
+				ref={ refs }
 				size={ normalizedSize }
 				value={ value }
 			>
-				<LayoutGroup id={ baseId }>{ children }</LayoutGroup>
+				{ children }
 			</MainControl>
 		</BaseControl>
 	);
@@ -121,6 +144,7 @@ function UnconnectedToggleGroupControl(
  *       value="vertical"
  *       isBlock
  *       __nextHasNoMarginBottom
+ *       __next40pxDefaultSize
  *     >
  *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
  *       <ToggleGroupControlOption value="vertical" label="Vertical" />

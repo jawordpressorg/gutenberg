@@ -1,5 +1,5 @@
 <!-- 
-# Part 4: Building a Create page form
+# Building a Create page form
  -->
 # ページ作成フォームの構築
 
@@ -114,6 +114,8 @@ function PageForm( { title, onChangeTitle, hasEdits, lastError, isSaving, onCanc
 	return (
 		<div className="my-gutenberg-form">
 			<TextControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 				label="Page title:"
 				value={ title }
 				onChange={ onChangeTitle }
@@ -428,6 +430,8 @@ function PageForm( { title, onChangeTitle, hasEdits, lastError, isSaving, onCanc
 	return (
 		<div className="my-gutenberg-form">
 			<TextControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 				label="Page title:"
 				value={ title }
 				onChange={ onChangeTitle }

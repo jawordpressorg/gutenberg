@@ -15,7 +15,6 @@ import {
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import { debounce } from '@wordpress/compose';
 import { useEffect, useState, useCallback } from '@wordpress/element';
 
@@ -28,11 +27,9 @@ import ParentControl from './parent-control';
 import { TaxonomyControls } from './taxonomy-controls';
 import FormatControls from './format-controls';
 import StickyControl from './sticky-control';
-import CreateNewPostLink from './create-new-post-link';
 import PerPageControl from './per-page-control';
 import OffsetControl from './offset-controls';
 import PagesControl from './pages-control';
-import { unlock } from '../../../lock-unlock';
 import {
 	usePostTypes,
 	useIsPostTypeHierarchical,
@@ -42,10 +39,8 @@ import {
 } from '../../utils';
 import { useToolsPanelDropdownMenuProps } from '../../../utils/hooks';
 
-const { BlockInfo } = unlock( blockEditorPrivateApis );
-
 export default function QueryInspectorControls( props ) {
-	const { attributes, setQuery, setDisplayLayout, isTemplate } = props;
+	const { attributes, setQuery, setDisplayLayout, isSingular } = props;
 	const { query, displayLayout } = attributes;
 	const {
 		order,
@@ -62,7 +57,7 @@ export default function QueryInspectorControls( props ) {
 		format,
 	} = query;
 	const allowedControls = useAllowedControls( attributes );
-	const [ showSticky, setShowSticky ] = useState( postType === 'post' );
+	const showSticky = postType === 'post';
 	const {
 		postTypesTaxonomiesMap,
 		postTypesSelectOptions,
@@ -70,9 +65,6 @@ export default function QueryInspectorControls( props ) {
 	} = usePostTypes();
 	const taxonomies = useTaxonomies( postType );
 	const isPostTypeHierarchical = useIsPostTypeHierarchical( postType );
-	useEffect( () => {
-		setShowSticky( postType === 'post' );
-	}, [ postType ] );
 	const onPostTypeChange = ( newValue ) => {
 		const updateQuery = { postType: newValue };
 		// We need to dynamically update the `taxQuery` property,
@@ -121,23 +113,20 @@ export default function QueryInspectorControls( props ) {
 	}, [ querySearch, onChangeDebounced ] );
 
 	const showInheritControl =
-		isTemplate && isControlAllowed( allowedControls, 'inherit' );
+		! isSingular && isControlAllowed( allowedControls, 'inherit' );
 	const showPostTypeControl =
-		( ! inherit && isControlAllowed( allowedControls, 'postType' ) ) ||
-		! isTemplate;
+		! inherit && isControlAllowed( allowedControls, 'postType' );
 	const postTypeControlLabel = __( 'Post type' );
 	const postTypeControlHelp = __(
 		'Select the type of content to display: posts, pages, or custom post types.'
 	);
 	const showColumnsControl = false;
 	const showOrderControl =
-		( ! inherit && isControlAllowed( allowedControls, 'order' ) ) ||
-		! isTemplate;
+		! inherit && isControlAllowed( allowedControls, 'order' );
 	const showStickyControl =
-		( ! inherit &&
-			showSticky &&
-			isControlAllowed( allowedControls, 'sticky' ) ) ||
-		( showSticky && ! isTemplate );
+		! inherit &&
+		showSticky &&
+		isControlAllowed( allowedControls, 'sticky' );
 	const showSettingsPanel =
 		showInheritControl ||
 		showPostTypeControl ||
@@ -197,11 +186,6 @@ export default function QueryInspectorControls( props ) {
 
 	return (
 		<>
-			{ !! postType && (
-				<BlockInfo>
-					<CreateNewPostLink postType={ postType } />
-				</BlockInfo>
-			) }
 			{ showSettingsPanel && (
 				<PanelBody title={ __( 'Settings' ) }>
 					{ showInheritControl && (
@@ -211,7 +195,7 @@ export default function QueryInspectorControls( props ) {
 							label={ __( 'Query type' ) }
 							isBlock
 							onChange={ ( value ) => {
-								setQuery( { inherit: !! value } );
+								setQuery( { inherit: value === 'default' } );
 							} }
 							help={
 								inherit
@@ -222,14 +206,14 @@ export default function QueryInspectorControls( props ) {
 											'Display a list of posts or custom post types based on specific criteria.'
 									  )
 							}
-							value={ !! inherit }
+							value={ !! inherit ? 'default' : 'custom' }
 						>
 							<ToggleGroupControlOption
-								value
+								value="default"
 								label={ __( 'Default' ) }
 							/>
 							<ToggleGroupControlOption
-								value={ false }
+								value="custom"
 								label={ __( 'Custom' ) }
 							/>
 						</ToggleGroupControl>
@@ -321,7 +305,7 @@ export default function QueryInspectorControls( props ) {
 					dropdownMenuProps={ dropdownMenuProps }
 				>
 					<ToolsPanelItem
-						label={ __( 'Items' ) }
+						label={ __( 'Items per page' ) }
 						hasValue={ () => perPage > 0 }
 					>
 						<PerPageControl
@@ -341,7 +325,7 @@ export default function QueryInspectorControls( props ) {
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Max Pages to Show' ) }
+						label={ __( 'Max pages to show' ) }
 						hasValue={ () => pages > 0 }
 						onDeselect={ () => setQuery( { pages: 0 } ) }
 					>

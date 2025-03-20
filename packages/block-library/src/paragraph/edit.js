@@ -66,26 +66,28 @@ function DropCapControl( { clientId, attributes, setAttributes } ) {
 	} else if ( dropCap ) {
 		helpText = __( 'Showing large initial letter.' );
 	} else {
-		helpText = __( 'Toggle to show a large initial letter.' );
+		helpText = __( 'Show a large initial letter.' );
 	}
 
 	return (
-		<ToolsPanelItem
-			hasValue={ () => !! dropCap }
-			label={ __( 'Drop cap' ) }
-			onDeselect={ () => setAttributes( { dropCap: undefined } ) }
-			resetAllFilter={ () => ( { dropCap: undefined } ) }
-			panelId={ clientId }
-		>
-			<ToggleControl
-				__nextHasNoMarginBottom
+		<InspectorControls group="typography">
+			<ToolsPanelItem
+				hasValue={ () => !! dropCap }
 				label={ __( 'Drop cap' ) }
-				checked={ !! dropCap }
-				onChange={ () => setAttributes( { dropCap: ! dropCap } ) }
-				help={ helpText }
-				disabled={ hasDropCapDisabled( align ) ? true : false }
-			/>
-		</ToolsPanelItem>
+				onDeselect={ () => setAttributes( { dropCap: undefined } ) }
+				resetAllFilter={ () => ( { dropCap: undefined } ) }
+				panelId={ clientId }
+			>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Drop cap' ) }
+					checked={ !! dropCap }
+					onChange={ () => setAttributes( { dropCap: ! dropCap } ) }
+					help={ helpText }
+					disabled={ hasDropCapDisabled( align ) }
+				/>
+			</ToolsPanelItem>
+		</InspectorControls>
 	);
 }
 
@@ -96,6 +98,7 @@ function ParagraphBlock( {
 	onRemove,
 	setAttributes,
 	clientId,
+	isSelected: isSingleSelected,
 } ) {
 	const { align, content, direction, dropCap, placeholder } = attributes;
 	const blockProps = useBlockProps( {
@@ -131,13 +134,13 @@ function ParagraphBlock( {
 					/>
 				</BlockControls>
 			) }
-			<InspectorControls group="typography">
+			{ isSingleSelected && (
 				<DropCapControl
 					clientId={ clientId }
 					attributes={ attributes }
 					setAttributes={ setAttributes }
 				/>
-			</InspectorControls>
+			) }
 			<RichText
 				identifier="content"
 				tagName="p"
