@@ -175,8 +175,21 @@ The Block Editor Handbook is designed for those looking to create and develop fo
 | @tecking | @tecking |
 | @s56bouya | @s56bouya |
 | @qoorus | @qoorus |
+| @fumikito | @takahashi_fumiki |
 
 ### 主な変更
+
+2025/3/29
+
+- [Styles in the Editor](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles/) - __experimentalSkipSerialization に戻す [#68163](https://github.com/WordPress/gutenberg/pull/68163)
+[プラグイン用サイドバー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/plugin-sidebar-0/) - PluginSidebar を @wordpress/editor に移動 [#60815](https://github.com/WordPress/gutenberg/pull/60815)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/themes/global-settings-and-styles/)  - 要素疑似セレクタに:focus-visibleを追加 [#68521](https://github.com/WordPress/gutenberg/pull/68521)
+- [登録](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) - ブロックフックは静的テーマ要素のみをサポートという注釈を削除 [#65455](https://github.com/WordPress/gutenberg/pull/65455)
+- [バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) - PHP でのバリエーション登録 [#63182](https://github.com/WordPress/gutenberg/issues/63182)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - 結果なし Ancestor [#48348](https://github.com/WordPress/gutenberg/pull/48348)、投稿テンプレート Ancestor [#67657](https://github.com/WordPress/gutenberg/pull/67657)、margin と spacing [#64425](https://github.com/WordPress/gutenberg/pull/64425)、クエリー総数 追加 [#67629](https://github.com/WordPress/gutenberg/pull/67629)、interactivity [#69661](https://github.com/WordPress/gutenberg/pull/69661)、詳細 allowedBlocks [#68489](https://github.com/WordPress/gutenberg/pull/68489)、name [#56971](https://github.com/WordPress/gutenberg/pull/56971)、placeholder [#68917](https://github.com/WordPress/gutenberg/pull/68917)、RSS color [#66419](https://github.com/WordPress/gutenberg/pull/66419https://github.com/WordPress/gutenberg/pull/66419)、spacing [#66411](https://github.com/WordPress/gutenberg/pull/66411)、openInNewTab [#69641](https://github.com/WordPress/gutenberg/pull/69641)、固定ページリスト color [#66430](https://github.com/WordPress/gutenberg/pull/66430)、コンテンツ color.heading [#67783](https://github.com/WordPress/gutenberg/pull/67783)、カテゴリー color [#68686](https://github.com/WordPress/gutenberg/pull/68686)、アーカイブ color [#68685](https://github.com/WordPress/gutenberg/pull/68685)、ソーシャルアイコン html 削除 [#69374](https://github.com/WordPress/gutenberg/pull/69374)、アバターなど filter.duotone [#58241](https://github.com/WordPress/gutenberg/pull/58241)、目次 maxLevel [#69063](https://github.com/WordPress/gutenberg/pull/69063)
+- [API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/) - withSyncEvent [#68097](https://github.com/WordPress/gutenberg/pull/68097)、splitTask [#69602](https://github.com/WordPress/gutenberg/pull/69602)
+- [外部プロジェクトテンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/packages-create-block-external-template/) - プラグインヘッダーと readme の追加 [#68193](https://github.com/WordPress/gutenberg/pull/68193)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - phpMyAdmin サポート [#67588](https://github.com/WordPress/gutenberg/pull/67588)、[#68125](https://github.com/WordPress/gutenberg/pull/68125)、マルチサイトサポート [#68792](https://github.com/WordPress/gutenberg/pull/68792)、lifecycleScripts [#68724](https://github.com/WordPress/gutenberg/pull/68724)
 
 2024/12/5
 
