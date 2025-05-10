@@ -128,9 +128,9 @@ Debugging in a Chrome browser can be replaced with `vscode`'s debugger by adding
 ```
 
 <!--
-This will run jest, targetting the spec file currently open in the editor. `vscode`'s debugger can now be used to add breakpoints and inspect tests as you would in Chrome DevTools.
+This will run jest, targeting the spec file currently open in the editor. `vscode`'s debugger can now be used to add breakpoints and inspect tests as you would in Chrome DevTools.
  -->
-これにより、エディタで現在開いている spec ファイルをターゲットにして、jest が実行されます。`vscode` デバッガーを使用して、Chrome DevTools のようにブレークポイントを追加したり、テストをチェックできます。
+これにより、エディターで現在開いている spec ファイルをターゲットにして、jest が実行されます。`vscode` デバッガーを使用して、Chrome DevTools のようにブレークポイントを追加したり、テストをチェックできます。
 
 <!--
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.

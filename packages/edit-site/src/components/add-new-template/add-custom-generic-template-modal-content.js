@@ -29,8 +29,8 @@ function AddCustomGenericTemplateModalContent( { onClose, createTemplate } ) {
 			await createTemplate(
 				{
 					slug:
-						'wp-custom-template-' +
-						kebabCase( title || defaultTitle ),
+						kebabCase( title || defaultTitle ) ||
+						'wp-custom-template',
 					title: title || defaultTitle,
 				},
 				false
@@ -51,6 +51,7 @@ function AddCustomGenericTemplateModalContent( { onClose, createTemplate } ) {
 					placeholder={ defaultTitle }
 					disabled={ isBusy }
 					help={ __(
+						// eslint-disable-next-line no-restricted-syntax -- 'sidebar' is a common web design term for layouts
 						'Describe the template, e.g. "Post with sidebar". A custom template can be manually applied to any post or page.'
 					) }
 				/>

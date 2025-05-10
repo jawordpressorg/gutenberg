@@ -142,24 +142,32 @@ function ColorTools( {
 						label: __( 'Text' ),
 						onColorChange: setTextColor,
 						resetAllFilter: () => setTextColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: backgroundColor.color,
 						label: __( 'Background' ),
 						onColorChange: setBackgroundColor,
 						resetAllFilter: () => setBackgroundColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: overlayTextColor.color,
 						label: __( 'Submenu & overlay text' ),
 						onColorChange: setOverlayTextColor,
 						resetAllFilter: () => setOverlayTextColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 					{
 						colorValue: overlayBackgroundColor.color,
 						label: __( 'Submenu & overlay background' ),
 						onColorChange: setOverlayBackgroundColor,
 						resetAllFilter: () => setOverlayBackgroundColor(),
+						clearable: true,
+						enableAlpha: true,
 					},
 				] }
 				panelId={ clientId }

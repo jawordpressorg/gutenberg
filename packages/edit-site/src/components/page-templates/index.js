@@ -7,7 +7,6 @@ import { privateApis as corePrivateApis } from '@wordpress/core-data';
 import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { templateTitleField } from '@wordpress/fields';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
@@ -25,8 +24,9 @@ import {
 import { unlock } from '../../lock-unlock';
 import { useEditPostAction } from '../dataviews-actions';
 import { authorField, descriptionField, previewField } from './fields';
+import { useEvent } from '@wordpress/compose';
 
-const { usePostActions } = unlock( editorPrivateApis );
+const { usePostActions, templateTitleField } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
 const { useEntityRecordsWithPermissions } = unlock( corePrivateApis );
 
@@ -34,25 +34,9 @@ const EMPTY_ARRAY = [];
 
 const defaultLayouts = {
 	[ LAYOUT_TABLE ]: {
-		fields: [ 'template', 'author' ],
+		showMedia: false,
 		layout: {
-			primaryField: 'title',
-			combinedFields: [
-				{
-					id: 'template',
-					label: __( 'Template' ),
-					children: [ 'title', 'description' ],
-					direction: 'vertical',
-				},
-			],
 			styles: {
-				template: {
-					maxWidth: 400,
-					minWidth: 320,
-				},
-				preview: {
-					width: '1%',
-				},
 				author: {
 					width: '1%',
 				},
@@ -60,18 +44,10 @@ const defaultLayouts = {
 		},
 	},
 	[ LAYOUT_GRID ]: {
-		fields: [ 'title', 'description', 'author' ],
-		layout: {
-			mediaField: 'preview',
-			primaryField: 'title',
-			columnFields: [ 'description' ],
-		},
+		showMedia: true,
 	},
 	[ LAYOUT_LIST ]: {
-		fields: [ 'title', 'description', 'author' ],
-		layout: {
-			primaryField: 'title',
-		},
+		showMedia: false,
 	},
 };
 
@@ -84,9 +60,12 @@ const DEFAULT_VIEW = {
 		field: 'title',
 		direction: 'asc',
 	},
-	fields: defaultLayouts[ LAYOUT_GRID ].fields,
-	layout: defaultLayouts[ LAYOUT_GRID ].layout,
+	titleField: 'title',
+	descriptionField: 'description',
+	mediaField: 'preview',
+	fields: [ 'author' ],
 	filters: [],
+	...defaultLayouts[ LAYOUT_GRID ],
 };
 
 export default function PageTemplates() {
@@ -99,8 +78,6 @@ export default function PageTemplates() {
 		return {
 			...DEFAULT_VIEW,
 			type: usedType,
-			layout: defaultLayouts[ usedType ].layout,
-			fields: defaultLayouts[ usedType ].fields,
 			filters:
 				activeView !== 'all'
 					? [
@@ -111,14 +88,23 @@ export default function PageTemplates() {
 							},
 					  ]
 					: [],
+			...defaultLayouts[ usedType ],
 		};
 	}, [ layout, activeView ] );
 	const [ view, setView ] = useState( defaultView );
+
+	// Sync the layout from the URL to the view state.
 	useEffect( () => {
-		const usedType = layout ?? DEFAULT_VIEW.type;
 		setView( ( currentView ) => ( {
 			...currentView,
-			type: usedType,
+			type: layout ?? DEFAULT_VIEW.type,
+		} ) );
+	}, [ setView, layout ] );
+
+	// Sync the active view from the URL to the view state.
+	useEffect( () => {
+		setView( ( currentView ) => ( {
+			...currentView,
 			filters:
 				activeView !== 'all'
 					? [
@@ -130,7 +116,7 @@ export default function PageTemplates() {
 					  ]
 					: [],
 		} ) );
-	}, [ activeView, layout ] );
+	}, [ setView, activeView ] );
 
 	const { records, isResolving: isLoadingData } =
 		useEntityRecordsWithPermissions( 'postType', TEMPLATE_POST_TYPE, {
@@ -192,20 +178,16 @@ export default function PageTemplates() {
 		[ postTypeActions, editAction ]
 	);
 
-	const onChangeView = useCallback(
-		( newView ) => {
-			if ( newView.type !== view.type ) {
-				history.navigate(
-					addQueryArgs( path, {
-						layout: newView.type,
-					} )
-				);
-			}
-
-			setView( newView );
-		},
-		[ view.type, setView, history, path ]
-	);
+	const onChangeView = useEvent( ( newView ) => {
+		setView( newView );
+		if ( newView.type !== layout ) {
+			history.navigate(
+				addQueryArgs( path, {
+					layout: newView.type,
+				} )
+			);
+		}
+	} );
 
 	return (
 		<Page

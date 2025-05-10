@@ -13,7 +13,7 @@ import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 import { drawerRight } from '@wordpress/icons';
-import { usePrevious } from '@wordpress/compose';
+import { useEvent, usePrevious } from '@wordpress/compose';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
@@ -55,7 +55,7 @@ const getCustomView = ( editedEntityRecord ) => {
 
 	return {
 		...content,
-		layout: defaultLayouts[ content.type ]?.layout,
+		...defaultLayouts[ content.type ],
 	};
 };
 
@@ -109,56 +109,56 @@ function useView( postType ) {
 		return {
 			...initialView,
 			type,
+			...defaultLayouts[ type ],
 		};
 	} );
 
-	const setViewWithUrlUpdate = useCallback(
-		( newView ) => {
-			if ( newView.type === LAYOUT_LIST && ! layout ) {
-				// Skip updating the layout URL param if
-				// it is not present and the newView.type is LAYOUT_LIST.
-			} else if ( newView.type !== layout ) {
-				history.navigate(
-					addQueryArgs( path, {
-						layout: newView.type,
-					} )
-				);
-			}
+	const setViewWithUrlUpdate = useEvent( ( newView ) => {
+		setView( newView );
 
-			setView( newView );
+		if ( isCustom === 'true' && editedEntityRecord?.id ) {
+			editEntityRecord(
+				'postType',
+				'wp_dataviews',
+				editedEntityRecord?.id,
+				{
+					content: JSON.stringify( newView ),
+				}
+			);
+		}
 
-			if ( isCustom === 'true' && editedEntityRecord?.id ) {
-				editEntityRecord(
-					'postType',
-					'wp_dataviews',
-					editedEntityRecord?.id,
-					{
-						content: JSON.stringify( newView ),
-					}
-				);
-			}
-		},
-		[
-			history,
-			isCustom,
-			editEntityRecord,
-			editedEntityRecord?.id,
-			layout,
-			path,
-		]
-	);
+		const currentUrlLayout = layout ?? LAYOUT_LIST;
+		if ( newView.type !== currentUrlLayout ) {
+			history.navigate(
+				addQueryArgs( path, {
+					layout: newView.type,
+				} )
+			);
+		}
+	} );
 
 	// When layout URL param changes, update the view type
 	// without affecting any other config.
+	const onUrlLayoutChange = useEvent( () => {
+		setView( ( prevView ) => {
+			const newType = layout ?? LAYOUT_LIST;
+			if ( newType === prevView.type ) {
+				return prevView;
+			}
+
+			return {
+				...prevView,
+				type: newType,
+				...defaultLayouts[ newType ],
+			};
+		} );
+	} );
 	useEffect( () => {
-		setView( ( prevView ) => ( {
-			...prevView,
-			type: layout ?? LAYOUT_LIST,
-		} ) );
-	}, [ layout ] );
+		onUrlLayoutChange();
+	}, [ onUrlLayoutChange, layout ] );
 
 	// When activeView or isCustom URL parameters change, reset the view.
-	useEffect( () => {
+	const onUrlActiveViewChange = useEvent( () => {
 		let newView;
 		if ( isCustom === 'true' ) {
 			newView = getCustomView( editedEntityRecord );
@@ -171,17 +171,31 @@ function useView( postType ) {
 			setView( {
 				...newView,
 				type,
+				...defaultLayouts[ type ],
 			} );
 		}
-	}, [ activeView, isCustom, layout, defaultViews, editedEntityRecord ] );
+	} );
+	useEffect( () => {
+		onUrlActiveViewChange();
+	}, [
+		onUrlActiveViewChange,
+		activeView,
+		isCustom,
+		defaultViews,
+		editedEntityRecord,
+	] );
 
-	return [ view, setViewWithUrlUpdate, setViewWithUrlUpdate ];
+	return [ view, setViewWithUrlUpdate ];
 }
 
 const DEFAULT_STATUSES = 'draft,future,pending,private,publish'; // All but 'trash'.
 
 function getItemId( item ) {
 	return item.id.toString();
+}
+
+function getItemLevel( item ) {
+	return item.level;
 }
 
 export default function PostList( { postType } ) {
@@ -209,7 +223,6 @@ export default function PostList( { postType } ) {
 		},
 		[ location.path, location.query.isCustom, history ]
 	);
-
 	const getActiveViewFilters = ( views, match ) => {
 		const found = views.find( ( { slug } ) => slug === match );
 		return found?.filters ?? [];
@@ -290,6 +303,7 @@ export default function PostList( { postType } ) {
 			_embed: 'author',
 			order: view.sort?.direction,
 			orderby: view.sort?.field,
+			orderby_hierarchy: !! view.showLevels,
 			search: view.search,
 			...filters,
 		};
@@ -411,6 +425,7 @@ export default function PostList( { postType } ) {
 					history.navigate( `/${ postType }/${ id }?canvas=edit` );
 				} }
 				getItemId={ getItemId }
+				getItemLevel={ getItemLevel }
 				defaultLayouts={ defaultLayouts }
 				header={
 					window.__experimentalQuickEditDataViews &&

@@ -76,9 +76,9 @@ Add the following code to a JavaScript file called `plugin-sidebar.js` and save 
 ```
 
 <!--
-For this code to work, those utilities need to be available in the browser, so you must specify `wp-plugins`, `wp-edit-post`, and `react` as dependencies of your script.
+For this code to work, those utilities need to be available in the browser, so you must specify `wp-plugins`, `wp-editor`, and `react` as dependencies of your script.
 -->
-このコードが動作するにはブラウザ内でユーティリティが利用可能でなければなりません。スクリプトで、`wp-plugins`、`wp-edit-post`、`react` を依存として指定します。
+このコードが動作するにはブラウザ内でユーティリティが利用可能でなければなりません。これにはスクリプトで依存として、`wp-plugins`、`wp-editor`、`react` を指定します。
 
 <!--
 Here is the PHP code to register your script and specify the dependencies:

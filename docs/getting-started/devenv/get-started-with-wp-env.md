@@ -98,10 +98,10 @@ Once the script completes, you can access the local environment at: <code>http:/
 
 <!-- 
 <div class="callout callout-tip">
-    Some projects, like Gutenberg, include their own specific <code>wp-env</code> configurations, and the documentation might prompt you to run <code>npm run start wp-env</code> instead.
+    Some projects, like Gutenberg, include their own specific <code>wp-env</code> configurations, and the documentation might prompt you to run <code>npm run wp-env start</code> instead.
 </div>
  -->
-> Gutenberg を含むいくつかのプロジェクトには、独自の `wp-env` 設定が含まれています。ドキュメントを参照すると、代わりに `npm run start wp-env` を実行するよう指示しているかもしれません。
+> Gutenberg を含むいくつかのプロジェクトには、独自の `wp-env` 設定が含まれています。ドキュメントを参照すると、代わりに `npm run wp-env start` を実行するよう指示しているかもしれません。
 
 <!-- 
 For more information on controlling the Docker environment, see the [@wordpress/env package](/packages/env/README.md) readme.

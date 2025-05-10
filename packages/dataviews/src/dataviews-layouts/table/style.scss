@@ -24,6 +24,7 @@
 
 		&.dataviews-view-table__checkbox-column {
 			padding-right: 0;
+			width: 1%;
 		}
 	}
 	tr {
@@ -37,8 +38,7 @@
 		th:first-child {
 			padding-left: $grid-unit-60;
 
-			.dataviews-view-table-header-button,
-			.dataviews-view-table-header {
+			.dataviews-view-table-header-button {
 				margin-left: - #{$grid-unit-10};
 			}
 		}
@@ -203,7 +203,6 @@
 	}
 }
 
-/* stylelint-disable-next-line scss/at-rule-no-unknown -- '@container' not globally permitted */
 @container (max-width: 430px) {
 	.dataviews-view-table tr td:first-child,
 	.dataviews-view-table tr th:first-child {
@@ -221,4 +220,8 @@
 	@include break-small() {
 		--checkbox-input-size: 16px;
 	}
+}
+
+.dataviews-column-primary__media {
+	max-width: 60px;
 }

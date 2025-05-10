@@ -9,10 +9,10 @@ const browserslist = require( 'browserslist' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const { basename, dirname, relative, resolve, sep } = require( 'path' );
 const ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin' );
-const RtlCssPlugin = require( 'rtlcss-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const { realpathSync } = require( 'fs' );
 const { sync: glob } = require( 'fast-glob' );
+const { exec } = require( 'child_process' );
 
 /**
  * WordPress dependencies
@@ -23,19 +23,21 @@ const postcssPlugins = require( '@wordpress/postcss-plugins-preset' );
 /**
  * Internal dependencies
  */
+const PhpFilePathsPlugin = require( '../plugins/php-file-paths-plugin' );
+const RtlCssPlugin = require( '../plugins/rtlcss-webpack-plugin' );
 const {
 	fromConfigRoot,
 	hasBabelConfig,
 	hasArgInCLI,
 	hasCssnanoConfig,
 	hasPostCSSConfig,
-	getWordPressSrcDirectory,
+	getProjectSourcePath,
 	getWebpackEntryPoints,
 	getAsBooleanFromENV,
 	getBlockJsonModuleFields,
 	getBlockJsonScriptFields,
 	fromProjectRoot,
-	PhpFilePathsPlugin,
+	fromScriptsRoot,
 } = require( '../utils' );
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -45,6 +47,7 @@ if ( ! browserslist.findConfig( '.' ) ) {
 	target += ':' + fromConfigRoot( '.browserslistrc' );
 }
 const hasReactFastRefresh = hasArgInCLI( '--hot' ) && ! isProduction;
+const hasBlocksManifest = getAsBooleanFromENV( 'WP_BLOCKS_MANIFEST' );
 const hasExperimentalModulesFlag = getAsBooleanFromENV(
 	'WP_EXPERIMENTAL_MODULES'
 );
@@ -103,7 +106,7 @@ const baseConfig = {
 	target,
 	output: {
 		filename: '[name].js',
-		chunkFilename: '[name].js?v=[chunkhash]',
+		chunkFilename: '[name].js?ver=[chunkhash]',
 		path: resolve( process.cwd(), 'build' ),
 	},
 	resolve: {
@@ -260,6 +263,26 @@ if ( baseConfig.devtool ) {
 	} );
 }
 
+/**
+ * Build blocks manifest.
+ */
+class BlocksManifestPlugin {
+	/**
+	 * Apply the plugin.
+	 *
+	 * @param {webpack.Compiler} compiler The compiler instance.
+	 */
+	apply( compiler ) {
+		compiler.hooks.afterEmit.tap( 'BlocksManifest', () => {
+			exec(
+				`node ${ fromScriptsRoot(
+					'build-blocks-manifest'
+				) } --input="${ compiler.options.output.path }"`
+			);
+		} );
+	}
+}
+
 /** @type {webpack.Configuration} */
 const scriptConfig = {
 	...baseConfig,
@@ -302,14 +325,14 @@ const scriptConfig = {
 			} ),
 
 		new PhpFilePathsPlugin( {
-			context: getWordPressSrcDirectory(),
+			context: getProjectSourcePath(),
 			props: [ 'render', 'variations' ],
 		} ),
 		new CopyWebpackPlugin( {
 			patterns: [
 				{
 					from: '**/block.json',
-					context: getWordPressSrcDirectory(),
+					context: getProjectSourcePath(),
 					noErrorOnMissing: true,
 					transform( content, absoluteFrom ) {
 						const convertExtension = ( path ) => {
@@ -346,7 +369,7 @@ const scriptConfig = {
 								const runtimePath = relative(
 									dirname( absoluteFrom ),
 									fromProjectRoot(
-										getWordPressSrcDirectory() +
+										getProjectSourcePath() +
 											sep +
 											'runtime.js'
 									)
@@ -375,7 +398,7 @@ const scriptConfig = {
 				},
 				{
 					from: '**/*.php',
-					context: getWordPressSrcDirectory(),
+					context: getProjectSourcePath(),
 					noErrorOnMissing: true,
 					filter: ( filepath ) => {
 						return (
@@ -392,11 +415,13 @@ const scriptConfig = {
 		// bundle content as a convenient interactive zoomable treemap.
 		process.env.WP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
-		new MiniCSSExtractPlugin( { filename: '[name].css' } ),
-		// RtlCssPlugin to generate RTL CSS files.
-		new RtlCssPlugin( {
-			filename: `[name]-rtl.css`,
+		new MiniCSSExtractPlugin( {
+			filename: '[name].css',
 		} ),
+		// RtlCssPlugin to generate RTL CSS files.
+		new RtlCssPlugin(),
+		// Generate blocks manifest after changes.
+		hasBlocksManifest && new BlocksManifestPlugin(),
 		// React Fast Refresh.
 		hasReactFastRefresh && new ReactRefreshWebpackPlugin(),
 		// WP_NO_EXTERNALS global variable controls whether scripts' assets get
@@ -415,7 +440,7 @@ if ( hasExperimentalModulesFlag ) {
 			/** @type {ReadonlyArray<string>} */
 			this.blockJsonFiles = glob( '**/block.json', {
 				absolute: true,
-				cwd: fromProjectRoot( getWordPressSrcDirectory() ),
+				cwd: fromProjectRoot( getProjectSourcePath() ),
 			} );
 		}
 

@@ -92,7 +92,7 @@ By default, the `Popover` component will render within an extra element appended
 デフォルトで `Popover`コンポーネントは、ドキュメントの body に追加された、余分な要素の中にレンダーします。
 
 <!-- 
-If you want to precisely contol where the popovers render, you will need to use the `Popover.Slot` component.
+If you want to precisely control where the popovers render, you will need to use the `Popover.Slot` component.
  -->
 ポップオーバーがレンダーする場所を正確にコントロールしたければ、`Popover.Slot`コンポーネントを使用する必要があります。
 

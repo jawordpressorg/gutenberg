@@ -94,7 +94,7 @@ With the [proper `package.json` scripts](https://developer.wordpress.org/block-e
 - **Development Mode (`npm run start`):** This mode is tailored for active development. It skips minification for easier debugging, generates source maps for better error tracking, and watches your source files for changes. When a change is detected, it automatically rebuilds the affected files, allowing you to see updates in real-time.
  -->
 - **本番モード (`npm run build`):** このモードでは、`wp-scripts` は JavaScript をコンパイルし、出力をミニファイしてファイルサイズを縮小し、ブラウザでの読み込み時間を改善します。このモードは、本番サイトにコードをデプロイする際に理想的です。
-- **開発モード (`npm run start`):** このモードはアクティブな開発用に作成されています。デバッグを容易にするために最小化をスキップし、エラー追跡のためにソースマップを生成し、ソースファイルの変更を監視します。変更を検出すると、自動的に影響を受けるファイルをリビルドするため、リアルタイムで更新を確認できます。
+- **開発モード (`npm start`):** このモードはアクティブな開発用に作成されています。デバッグを容易にするためにミニファイをスキップし、エラー追跡のためにソースマップを生成し、ソースファイルの変更を監視します。変更を検出すると、自動的に影響を受けるファイルをリビルドするため、リアルタイムで更新を確認できます。
 
 <!-- 
 The `wp-scripts` package also facilitates the use of JavaScript modules, allowing code distribution across multiple files and resulting in a streamlined bundle after the build process. The [block-development-example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) GitHub repository provides some good examples.
@@ -119,33 +119,15 @@ Integrating JavaScript into your WordPress projects without a build process can 
 特定のシナリオにおいては、JavaScript と WordPress プロジェクトの統合にビルドプロセスを使用しない方法が最もシンプルな方法になります。これは特に、コンパイルが必要な JSX や高度な JavaScript 機能を利用しないプロジェクトに当てはまります。
 
 <!-- 
-Using Javascript without a build process may be another good option for code developments with few requirements (especially those not requiring JSX). 
- -->
-<!-- 
-ビルドプロセスなしでの JavaScript の使用は、要件の少ないコード開発 (特に JSX を必要としないコード開発) では、もう一つの良い選択肢かもしれません。
- -->
-
-<!-- 
-Without a build process, you access the methods directly from the `wp` global object and must enqueue the script manually. [WordPress Javascript packages](https://developer.wordpress.org/block-editor/reference-guides/packages/) can be accessed through the `wp` [global variable](https://developer.mozilla.org/en-US/docs/Glossary/Global_variable) but every script that wants to use them through this `wp` object is responsible for adding [the handle of that package](https://developer.wordpress.org/block-editor/contributors/code/scripts/) to the dependency array when registered.
- -->
-<!-- 
-ビルドプロセスなしの場合、`wp` グローバルオブジェクトから直接メソッドにアクセスし、手動でスクリプトをエンキューしなければなりません。[WordPress JavaScript パッケージ](https://developer.wordpress.org/block-editor/reference-guides/packages/) には `wp` [グローバル変数](https://developer.mozilla.org/en-US/docs/Glossary/Global_variable) を通してアクセスできますが、この `wp` オブジェクトを通して使用したいすべてのスクリプトには、登録時、[パッケージのハンドル](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/)を依存配列に追加する責任があります。
- -->
-<!-- 
-When you opt out of a build process, you interact directly with WordPress's [JavaScript APIs](/docs/reference-guides/packages/) through the global `wp` object. This means that all the methods and packages provided by WordPress are readily available, but with one caveat: you must manually manage script dependencies. This is done by adding [the handle](/docs/contributors/code/scripts.md) of each corresponding package to the dependency array of your enqueued JavaScript file.
+When you opt out of a build process, you interact directly with WordPress's [JavaScript APIs](/docs/reference-guides/packages.md) through the global `wp` object. This means that all the methods and packages provided by WordPress are readily available, but with one caveat: you must manually manage script dependencies. This is done by adding [the handle](/docs/contributors/code/scripts.md) of each corresponding package to the dependency array of your enqueued JavaScript file.
  -->
 ビルドプロセスを使用しない場合は、グローバルな `wp` オブジェクトを通して WordPress の [JavaScript API](https://developer.wordpress.org/block-editor/reference-guides/packages/) と直接やりとりします。WordPress が提供するすべてのメソッドとパッケージをすぐに利用できます。ただし、1つ注意点があり、スクリプトの依存関係を手動で管理しなければなりません。これには、対応する各パッケージの[ハンドル](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/scripts/)を、エンキューする JavaScript ファイルの依存配列に追加します。
 
 <!-- 
-So, for example if a script wants to register a block variation using the `registerBlockVariation` method out of the ["blocks" package](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/), the `wp-blocks` handle would need to get added to the dependency array to ensure that `wp.blocks.registerBlockVariation` is defined when the script tries to access it (see [example](https://github.com/wptrainingteam/block-theme-examples/blob/master/example-block-variation/functions.php)). 
- -->
-<!--  
-そのため、例えばスクリプトがブロックバリエーションの登録に ["blocks" パッケージ](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/)の `registerBlockVariation` メソッドを使用したい場合、`wp-blocks` ハンドルを依存配列に追加して、スクリプトがアクセスしようとしたときに `wp.blocks.registerBlockVariation` が定義されていることを保証する必要があります ([例](https://github.com/wptrainingteam/block-theme-examples/blob/master/example-block-variation/functions.php)を参照)。
- -->
-<!-- 
-For example, suppose you're creating a script that registers a new block [variation](/docs/reference-guides/block-api/block-variations.md) using the `registerBlockVariation` function from the [`blocks`](/docs/reference-guides/packages/packages-blocks.md) package. You must include `wp-blocks` in your script's dependency array. This guarantees that the `wp.blocks.registerBlockVariation` method is available and defined by the time your script executes.
+For example, suppose you're creating a script that registers a new block [variation](/docs/reference-guides/block-api/block-variations.md) using the `registerBlockVariation` function from the [`blocks`](/packages/blocks/README.md) package. You must include `wp-blocks` in your script's dependency array. This guarantees that the `wp.blocks.registerBlockVariation` method is available and defined by the time your script executes.
  -->
 例えば、[`blocks`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/) パッケージの `registerBlockVariation` 関数を使用して、新しいブロック[バリエーション](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-variations/) を登録するスクリプトを作成するとします。このときスクリプトの依存関係の配列に `wp-blocks` を含める必要があります。これにより、スクリプトが実行される時点で `wp.blocks.registerBlockVariation` メソッドが利用可能で、定義されていることが保証されます。
+
 
 <!-- 
 In the following example, the `wp-blocks` dependency is defined when enqueuing the `variations.js` file.
@@ -190,8 +172,11 @@ For scripts that need to run in the Block Editor, make sure you use the [`enqueu
 
 <!-- 
 Refer to [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) for more information. You can also visit the [block-development-example](https://github.com/wptrainingteam/block-theme-examples/blob/master/example-block-variation/functions.php) GitHub repository for more practical examples.
- -->
 詳細は[エディター内でのアセットのエンキュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/)を参照してください。また実践的なサンプルについては、[block-development-example](https://github.com/wptrainingteam/block-theme-examples/blob/master/example-block-variation/functions.php) GitHub リポジトリにアクセスしてください。
+
+Refer to [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) for more information.
+ -->
+詳細は[エディター内でのアセットのエンキュー](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/enqueueing-assets-in-the-editor/)を参照してください。
 
 <!-- 
 <div class="callout callout-tip">

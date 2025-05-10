@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
 import { CheckboxControl } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ interface DataViewsSelectionCheckboxProps< Item > {
 	onChangeSelection: SetSelection;
 	item: Item;
 	getItemId: ( item: Item ) => string;
-	primaryField?: Field< Item >;
+	titleField?: Field< Item >;
 	disabled: boolean;
 }
 
@@ -24,25 +24,16 @@ export default function DataViewsSelectionCheckbox< Item >( {
 	onChangeSelection,
 	item,
 	getItemId,
-	primaryField,
+	titleField,
 	disabled,
 }: DataViewsSelectionCheckboxProps< Item > ) {
 	const id = getItemId( item );
 	const checked = ! disabled && selection.includes( id );
-	let selectionLabel;
-	if ( primaryField?.getValue && item ) {
-		// eslint-disable-next-line @wordpress/valid-sprintf
-		selectionLabel = sprintf(
-			checked
-				? /* translators: %s: item title. */ __( 'Deselect item: %s' )
-				: /* translators: %s: item title. */ __( 'Select item: %s' ),
-			primaryField.getValue( { item } )
-		);
-	} else {
-		selectionLabel = checked
-			? __( 'Select a new item' )
-			: __( 'Deselect item' );
-	}
+
+	// Fallback label to ensure accessibility
+	const selectionLabel =
+		titleField?.getValue?.( { item } ) || __( '(no title)' );
+
 	return (
 		<CheckboxControl
 			className="dataviews-selection-checkbox"

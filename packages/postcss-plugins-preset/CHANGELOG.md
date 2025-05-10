@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## 5.21.0 (2025-03-27)
+
+## 5.20.0 (2025-03-13)
+
+## 5.19.0 (2025-02-28)
+
+## 5.18.0 (2025-02-12)
+
+## 5.17.0 (2025-01-29)
+
+## 5.16.0 (2025-01-15)
+
+## 5.15.0 (2025-01-02)
+
+### Enhancements
+
+-   The bundled `autoprefixer` dependency has been updated from requiring `^10.2.5` to requiring `^10.4.20` (see [#68237](https://github.com/WordPress/gutenberg/pull/68237)).
+
+## 5.14.0 (2024-12-11)
+
 ## 5.13.0 (2024-11-27)
 
 ## 5.12.0 (2024-11-16)

@@ -14,6 +14,7 @@ import {
 	RangeControl,
 	ToggleControl,
 	ToolbarGroup,
+	TextControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
@@ -37,6 +38,8 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		excerptLength,
 		feedURL,
 		itemsToShow,
+		openInNewTab,
+		rel,
 	} = attributes;
 
 	function toggleAttribute( propName ) {
@@ -77,6 +80,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 						<InputControl
 							__next40pxDefaultSize
 							label={ label }
+							type="url"
 							hideLabelFromVision
 							placeholder={ __( 'Enter URL here…' ) }
 							value={ feedURL }
@@ -118,6 +122,19 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 		},
 	];
 
+	/*
+	 * This function merges the existing attributes with additional style properties.
+	 * The `border` and `spacing` properties are set to `undefined` to ensure that
+	 * these styles are reset and not applied on the server side.
+	 */
+	const serverSideAttributes = {
+		...attributes,
+		style: {
+			...attributes?.style,
+			border: undefined,
+			spacing: undefined,
+		},
+	};
 	return (
 		<>
 			<BlockControls>
@@ -183,13 +200,31 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							required
 						/>
 					) }
+
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Open links in new tab' ) }
+						checked={ openInNewTab }
+						onChange={ ( value ) =>
+							setAttributes( { openInNewTab: value } )
+						}
+					/>
 				</PanelBody>
+			</InspectorControls>
+			<InspectorControls group="advanced">
+				<TextControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Link rel' ) }
+					value={ rel || '' }
+					onChange={ ( value ) => setAttributes( { rel: value } ) }
+				/>
 			</InspectorControls>
 			<div { ...blockProps }>
 				<Disabled>
 					<ServerSideRender
 						block="core/rss"
-						attributes={ attributes }
+						attributes={ serverSideAttributes }
 					/>
 				</Disabled>
 			</div>

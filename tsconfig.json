@@ -21,6 +21,7 @@
 		{ "path": "packages/dom" },
 		{ "path": "packages/dom-ready" },
 		{ "path": "packages/e2e-test-utils-playwright" },
+		{ "path": "packages/edit-site" },
 		{ "path": "packages/editor" },
 		{ "path": "packages/element" },
 		{ "path": "packages/escape-html" },
@@ -55,10 +56,13 @@
 		{ "path": "packages/sync" },
 		{ "path": "packages/token-list" },
 		{ "path": "packages/undo-manager" },
+		{ "path": "packages/upload-media" },
 		{ "path": "packages/url" },
 		{ "path": "packages/vips" },
 		{ "path": "packages/warning" },
-		{ "path": "packages/wordcount" }
+		{ "path": "packages/wordcount" },
+		{ "path": "test/e2e" },
+		{ "path": "test/performance" }
 	],
 	"files": []
 }

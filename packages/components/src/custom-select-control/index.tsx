@@ -149,7 +149,7 @@ function CustomSelectControl< T extends CustomSelectOption >(
 			);
 		} );
 
-	const { value: currentValue } = store.getState();
+	const currentValue = Ariakit.useStoreState( store, 'value' );
 
 	const renderSelectedValueHint = () => {
 		const selectedOptionHint = options

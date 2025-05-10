@@ -32,8 +32,8 @@ const meta: Meta< typeof CircularOptionPicker > = {
 			CircularOptionPicker.DropdownLinkAction,
 	},
 	argTypes: {
-		actions: { control: { type: null } },
-		options: { control: { type: null } },
+		actions: { control: false },
+		options: { control: false },
 		children: { control: { type: 'text' } },
 	},
 	parameters: {
@@ -87,7 +87,6 @@ const DefaultOptions = () => {
 						onClick={ () => {
 							setCurrentColor?.( color );
 						} }
-						aria-label={ name }
 					/>
 				);
 			} ) }
@@ -132,7 +131,7 @@ WithLoopingDisabled.parameters = {
 	docs: {
 		source: {
 			code: `<CircularOptionPicker
-  aria-label="${ WithLoopingDisabled.args[ 'aria-label' ] }"
+  'aria-label': 'Circular Option Picker',
   loop={false}
   options={<DefaultOptions />}
 />`,

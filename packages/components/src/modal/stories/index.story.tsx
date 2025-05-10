@@ -23,10 +23,10 @@ const meta: Meta< typeof Modal > = {
 	id: 'components-modal',
 	argTypes: {
 		children: {
-			control: { type: null },
+			control: false,
 		},
 		onKeyDown: {
-			control: { type: null },
+			control: false,
 		},
 		focusOnMount: {
 			options: [ true, false, 'firstElement', 'firstContentElement' ],
@@ -75,7 +75,10 @@ const Template: StoryFn< typeof Modal > = ( { onRequestClose, ...args } ) => {
 						anim id est laborum.
 					</p>
 
-					<InputControl style={ { marginBottom: '20px' } } />
+					<InputControl
+						__next40pxDefaultSize
+						style={ { marginBottom: '20px' } }
+					/>
 
 					<Button variant="secondary" onClick={ closeModal }>
 						Close Modal

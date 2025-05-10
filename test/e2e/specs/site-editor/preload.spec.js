@@ -6,6 +6,7 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 test.describe( 'Preload', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
+		await requestUtils.resetPreferences();
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
@@ -43,11 +44,11 @@ test.describe( 'Preload', () => {
 
 		// To do: these should all be removed or preloaded.
 		expect( requests ).toEqual( [
+			// Seems to be coming from `enableComplementaryArea`.
+			'/wp/v2/users/me',
 			// There are two separate settings OPTIONS requests. We should fix
 			// so the one for canUser and getEntityRecord are reused.
 			'/wp/v2/settings',
-			// Seems to be coming from `enableComplementaryArea`.
-			'/wp/v2/users/me',
 		] );
 	} );
 } );

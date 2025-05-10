@@ -24,7 +24,7 @@ What follows is a set of questions that have come up from the last few years of 
 「Gutenberg」は、WordPress で新しい編集エクスペリエンスを作り出すプロジェクトの名称です。2017年1月にコントリビューションが始まり、この数年の WordPress でもっとも大きな変化の1つとなりました。Gutenberg は投稿やページの執筆やデザインに「ブロック」を使用するというアイデアに基づいて構築されています。これは投稿やページだけでなく、Web サイト全体のデザインにブロックを使用するという WordPress の未来の改良の基礎となります。最終的なゴールは WordPress の最初のユーザーエクスペリエンス、たとえば執筆、編集、発行、Web ページのデザイン等の簡素化です。編集エクスペリエンスではユーザーに対して、実際の投稿やページの表示と同じように見えるビジュアルな表現を与えることを目的とします。以下は、最初のキックオフ時のゴールです。
 
 <!--
-> The editor will endeavour to create a new page and post building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery.
+> The editor will endeavor to create a new page and post building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery.
  -->
 > このエディターは、投稿や固定ページの編集における新しい体験の創造に努めます。ユーザーはリッチな投稿を楽に書くことができ、現在、ショートコードやカスタム HTML、「謎に包まれた」埋め込みの検知が担っている部分を「ブロック」で実現します。
 

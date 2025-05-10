@@ -16,7 +16,7 @@ test.describe( 'Block Locking', () => {
 
 		await editor.clickBlockOptionsMenuItem( 'Lock' );
 
-		await page.click( 'role=checkbox[name="Prevent removal"]' );
+		await page.click( 'role=checkbox[name="Lock removal"]' );
 		await page.click( 'role=button[name="Apply"]' );
 
 		await expect(
@@ -35,7 +35,7 @@ test.describe( 'Block Locking', () => {
 
 		await editor.clickBlockOptionsMenuItem( 'Lock' );
 
-		await page.click( 'role=checkbox[name="Disable movement"]' );
+		await page.click( 'role=checkbox[name="Lock movement"]' );
 		await page.click( 'role=button[name="Apply"]' );
 
 		// Hide options.
@@ -133,7 +133,7 @@ test.describe( 'Block Locking', () => {
 		).toBeVisible();
 
 		await paragraph.click();
-		await pageUtils.pressKeys( 'access+z' );
+		await pageUtils.pressKeys( 'primaryShift+Backspace' );
 
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{

@@ -267,6 +267,17 @@ export function getDefault( attributeSchema ) {
 }
 
 /**
+ * Check if a block is registered.
+ *
+ * @param {string} name The block's name.
+ *
+ * @return {boolean} Whether the block is registered.
+ */
+export function isBlockRegistered( name ) {
+	return getBlockType( name ) !== undefined;
+}
+
+/**
  * Ensure attributes contains only values defined by block type, and merge
  * default values for missing attributes.
  *
@@ -370,8 +381,20 @@ export const __experimentalGetBlockAttributesNamesByRole = ( ...args ) => {
 	return getBlockAttributesNamesByRole( ...args );
 };
 
+/**
+ * Checks if a block is a content block by examining its attributes.
+ * A block is considered a content block if it has at least one attribute
+ * with a role of 'content'.
+ *
+ * @param {string} name The name of the block to check.
+ * @return {boolean}    Whether the block is a content block.
+ */
 export function isContentBlock( name ) {
 	const attributes = getBlockType( name )?.attributes;
+
+	if ( ! attributes ) {
+		return false;
+	}
 
 	return !! Object.keys( attributes )?.some( ( attributeKey ) => {
 		const attribute = attributes[ attributeKey ];

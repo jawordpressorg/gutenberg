@@ -35,7 +35,7 @@ import {
 	reset,
 	moreVertical,
 } from '@wordpress/icons';
-import { useState, useMemo, useEffect } from '@wordpress/element';
+import { useState, useMemo, useEffect, useRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -163,33 +163,38 @@ export default function ShadowsEditPanel() {
 				<ScreenHeader title={ selectedShadow.name } />
 				<FlexItem>
 					<Spacer marginTop={ 2 } marginBottom={ 0 } paddingX={ 4 }>
-						<Menu
-							trigger={
-								<Button
-									size="small"
-									icon={ moreVertical }
-									label={ __( 'Menu' ) }
-								/>
-							}
-						>
-							{ ( category === 'custom'
-								? customShadowMenuItems
-								: presetShadowMenuItems
-							).map( ( item ) => (
-								<Menu.Item
-									key={ item.action }
-									onClick={ () => onMenuClick( item.action ) }
-									disabled={
-										item.action === 'reset' &&
-										selectedShadow.shadow ===
-											baseSelectedShadow.shadow
-									}
-								>
-									<Menu.ItemLabel>
-										{ item.label }
-									</Menu.ItemLabel>
-								</Menu.Item>
-							) ) }
+						<Menu>
+							<Menu.TriggerButton
+								render={
+									<Button
+										size="small"
+										icon={ moreVertical }
+										label={ __( 'Menu' ) }
+									/>
+								}
+							/>
+							<Menu.Popover>
+								{ ( category === 'custom'
+									? customShadowMenuItems
+									: presetShadowMenuItems
+								).map( ( item ) => (
+									<Menu.Item
+										key={ item.action }
+										onClick={ () =>
+											onMenuClick( item.action )
+										}
+										disabled={
+											item.action === 'reset' &&
+											selectedShadow.shadow ===
+												baseSelectedShadow.shadow
+										}
+									>
+										<Menu.ItemLabel>
+											{ item.label }
+										</Menu.ItemLabel>
+									</Menu.Item>
+								) ) }
+							</Menu.Popover>
 						</Menu>
 					</Spacer>
 				</FlexItem>
@@ -300,6 +305,7 @@ function ShadowsPreview( { shadow } ) {
 }
 
 function ShadowEditor( { shadow, onChange } ) {
+	const addShadowButtonRef = useRef();
 	const shadowParts = useMemo( () => getShadowParts( shadow ), [ shadow ] );
 
 	const onChangeShadowPart = ( index, part ) => {
@@ -314,6 +320,7 @@ function ShadowEditor( { shadow, onChange } ) {
 
 	const onRemoveShadowPart = ( index ) => {
 		onChange( shadowParts.filter( ( p, i ) => i !== index ).join( ', ' ) );
+		addShadowButtonRef.current.focus();
 	};
 
 	return (
@@ -334,6 +341,7 @@ function ShadowEditor( { shadow, onChange } ) {
 							onClick={ () => {
 								onAddShadowPart();
 							} }
+							ref={ addShadowButtonRef }
 						/>
 					</FlexItem>
 				</HStack>
@@ -384,7 +392,12 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 					'aria-expanded': isOpen,
 				};
 				const removeButtonProps = {
-					onClick: onRemove,
+					onClick: () => {
+						if ( isOpen ) {
+							onToggle();
+						}
+						onRemove();
+					},
 					className: clsx(
 						'edit-site-global-styles__shadow-editor__remove-button',
 						{ 'is-open': isOpen }
@@ -393,28 +406,24 @@ function ShadowItem( { shadow, onChange, canRemove, onRemove } ) {
 				};
 
 				return (
-					<HStack align="center" justify="flex-start" spacing={ 0 }>
-						<FlexItem style={ { flexGrow: 1 } }>
-							<Button
-								__next40pxDefaultSize
-								icon={ shadowIcon }
-								{ ...toggleProps }
-							>
-								{ shadowObj.inset
-									? __( 'Inner shadow' )
-									: __( 'Drop shadow' ) }
-							</Button>
-						</FlexItem>
+					<>
+						<Button
+							__next40pxDefaultSize
+							icon={ shadowIcon }
+							{ ...toggleProps }
+						>
+							{ shadowObj.inset
+								? __( 'Inner shadow' )
+								: __( 'Drop shadow' ) }
+						</Button>
 						{ canRemove && (
-							<FlexItem>
-								<Button
-									__next40pxDefaultSize
-									icon={ reset }
-									{ ...removeButtonProps }
-								/>
-							</FlexItem>
+							<Button
+								size="small"
+								icon={ reset }
+								{ ...removeButtonProps }
+							/>
 						) }
-					</HStack>
+					</>
 				);
 			} }
 			renderContent={ () => (

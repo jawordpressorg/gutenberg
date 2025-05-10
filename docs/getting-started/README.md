@@ -71,9 +71,9 @@ WordPress プロジェクト、特に Gutenberg は、急速に開発フェー�
 ## その他の情報
 
 <!-- 
-For more resources on block development and extending the Block Editor, review the additional sections here in the Block Editor Handbook. Further practical examples are also available in the [block-development-examples](https://github.com/wptrainingteam/block-development-examples) GitHub repository.
+For more resources on block development and extending the Block Editor, review the additional sections here in the Block Editor Handbook. Further practical examples are also available in the [block-development-examples](https://github.com/WordPress/block-development-examples) GitHub repository.
  -->
-ブロック開発とブロックエディターの拡張に関するその他の情報は、このブロックエディターハンドブックの追加セクションを参照してください。さらに実用的なサンプルが [block-development-examples](https://github.com/wptrainingteam/block-development-examples) GitHub リポジトリにもあります。
+ブロック開発とブロックエディターの拡張に関するその他の情報は、このブロックエディターハンドブックの追加セクションを参照してください。さらに実用的なサンプルが [block-development-examples](https://github.com/WordPress/block-development-examples) GitHub リポジトリにもあります。
 
 <!-- 
 If you are looking for more educational content, check out [Learn WordPress](https://learn.wordpress.org/), where you can find [tutorials](https://learn.wordpress.org/tutorials/), [courses](https://learn.wordpress.org/courses/), and [online workshops](https://learn.wordpress.org/online-workshops/). Here is a selection of current offerings:

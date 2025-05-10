@@ -20,6 +20,7 @@
 
 .block-editor-grid-visualizer__grid {
 	display: grid;
+	position: absolute;
 }
 
 .block-editor-grid-visualizer__cell {
@@ -125,10 +126,11 @@
 			right: $grid-unit-10;
 			z-index: -1;
 
-			// Animate in.
-			animation: components-button__appear-animation 0.1s ease;
-			animation-fill-mode: forwards;
-			@include reduce-motion("animation");
+			@media not ( prefers-reduced-motion ) {
+				// Animate in.
+				animation: components-button__appear-animation 0.1s ease;
+				animation-fill-mode: forwards;
+			}
 		}
 
 		// Don't show the focus inherited by the Button component.

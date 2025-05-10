@@ -15,6 +15,16 @@ add_filter(
 	}
 );
 
+/**
+ * Maps old site editor urls to the new updated ones.
+ *
+ * @since 6.8.0
+ * @access private
+ *
+ * @global string $pagenow The filename of the current screen.
+ *
+ * @return string|false The new URL to redirect to, or false if no redirection is needed.
+ */
 function gutenberg_get_site_editor_redirection() {
 	global $pagenow;
 	if ( 'site-editor.php' !== $pagenow || isset( $_REQUEST['p'] ) || ! $_SERVER['QUERY_STRING'] ) {
@@ -96,10 +106,13 @@ function gutenberg_get_site_editor_redirection() {
 	return add_query_arg( array( 'p' => '/' ) );
 }
 
+/**
+ * Redirect old site editor urls to the new updated ones.
+ */
 function gutenberg_redirect_site_editor_deprecated_urls() {
 	$redirection = gutenberg_get_site_editor_redirection();
 	if ( false !== $redirection ) {
-		wp_redirect( $redirection, 301 );
+		wp_safe_redirect( $redirection );
 		exit;
 	}
 }
@@ -116,9 +129,33 @@ add_action( 'admin_init', 'gutenberg_redirect_site_editor_deprecated_urls' );
  * @return callable The default handler or a custom handler.
  */
 function gutenberg_styles_wp_die_handler( $default_handler ) {
-	if ( ! wp_is_block_theme() && str_contains( $_SERVER['REQUEST_URI'], 'site-editor.php' ) && isset( $_GET['p'] ) ) {
+	if ( ! wp_is_block_theme() && str_contains( $_SERVER['REQUEST_URI'], 'site-editor.php' ) && current_user_can( 'edit_theme_options' ) ) {
 		return '__return_false';
 	}
 	return $default_handler;
 }
 add_filter( 'wp_die_handler', 'gutenberg_styles_wp_die_handler' );
+
+/**
+ * Add a Styles submenu under the Appearance menu
+ * for Classic themes.
+ *
+ * @global array $submenu
+ */
+function gutenberg_add_styles_submenu_item() {
+	if ( ! wp_is_block_theme() && ( current_theme_supports( 'editor-styles' ) || wp_theme_has_theme_json() ) ) {
+		global $submenu;
+
+		$styles_menu_item = array(
+			__( 'Design', 'gutenberg' ),
+			'edit_theme_options',
+			'site-editor.php',
+		);
+		// If $submenu exists, insert the Styles submenu item at position 2.
+		if ( $submenu && isset( $submenu['themes.php'] ) ) {
+			// This might not work as expected if the submenu has already been modified.
+			array_splice( $submenu['themes.php'], 1, 1, array( $styles_menu_item ) );
+		}
+	}
+}
+add_action( 'admin_menu', 'gutenberg_add_styles_submenu_item' );

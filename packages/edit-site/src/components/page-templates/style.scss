@@ -1,27 +1,11 @@
 .page-templates-preview-field {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
 	border-radius: $radius-medium;
-
-	.page-templates-preview-field__button {
-		box-shadow: none;
-		border: none;
-		padding: 0;
-		background-color: unset;
-		box-sizing: border-box;
-		cursor: pointer;
-		overflow: hidden;
-		height: 100%;
-		border-radius: $radius-medium;
-
-		&:focus-visible {
-			box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
-			// Windows High Contrast mode will show this outline, but not the box-shadow.
-			outline: 2px solid transparent;
-		}
-	}
 
 	.dataviews-view-list & {
 		.block-editor-block-preview__container {
@@ -39,6 +23,8 @@
 		position: relative;
 		width: 120px;
 		max-height: 160px;
+		text-wrap: balance; // Fallback for Safari.
+		text-wrap: pretty;
 
 		&::after {
 			content: "";
@@ -85,9 +71,11 @@
 		height: $grid-unit-20;
 		object-fit: cover;
 		opacity: 0;
-		transition: opacity 0.1s linear;
-		@include reduce-motion("transition");
 		border-radius: 100%;
+
+		@media not (prefers-reduced-motion) {
+			transition: opacity 0.1s linear;
+		}
 	}
 
 	&.is-loaded {

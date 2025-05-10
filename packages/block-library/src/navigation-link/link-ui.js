@@ -10,7 +10,7 @@ import {
 } from '@wordpress/components';
 import { __, sprintf, isRTL } from '@wordpress/i18n';
 import {
-	__experimentalLinkControl as LinkControl,
+	LinkControl,
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
@@ -78,7 +78,7 @@ export function getSuggestionsQuery( type, kind ) {
 	}
 }
 
-function LinkUIBlockInserter( { clientId, onBack, onSelectBlock } ) {
+function LinkUIBlockInserter( { clientId, onBack } ) {
 	const { rootBlockClientId } = useSelect(
 		( select ) => {
 			const { getBlockRootClientId } = select( blockEditorStore );
@@ -96,7 +96,7 @@ function LinkUIBlockInserter( { clientId, onBack, onSelectBlock } ) {
 		LinkControl,
 		`link-ui-block-inserter__title`
 	);
-	const dialogDescritionId = useInstanceId(
+	const dialogDescriptionId = useInstanceId(
 		LinkControl,
 		`link-ui-block-inserter__description`
 	);
@@ -110,13 +110,13 @@ function LinkUIBlockInserter( { clientId, onBack, onSelectBlock } ) {
 			className="link-ui-block-inserter"
 			role="dialog"
 			aria-labelledby={ dialogTitleId }
-			aria-describedby={ dialogDescritionId }
+			aria-describedby={ dialogDescriptionId }
 			ref={ focusOnMountRef }
 		>
 			<VisuallyHidden>
 				<h2 id={ dialogTitleId }>{ __( 'Add block' ) }</h2>
 
-				<p id={ dialogDescritionId }>
+				<p id={ dialogDescriptionId }>
 					{ __( 'Choose a block to add to your Navigation.' ) }
 				</p>
 			</VisuallyHidden>
@@ -140,7 +140,6 @@ function LinkUIBlockInserter( { clientId, onBack, onSelectBlock } ) {
 				prioritizePatterns={ false }
 				selectBlockOnInsert
 				hasSearch={ false }
-				onSelect={ onSelectBlock }
 			/>
 		</div>
 	);
@@ -198,14 +197,10 @@ function UnforwardedLinkUI( props, ref ) {
 		LinkUI,
 		`link-ui-link-control__title`
 	);
-	const dialogDescritionId = useInstanceId(
+	const dialogDescriptionId = useInstanceId(
 		LinkUI,
 		`link-ui-link-control__description`
 	);
-
-	// Selecting a block should close the popover and also remove the (previously) automatically inserted
-	// link block so that the newly selected block can be inserted in its place.
-	const { onClose: onSelectBlock } = props;
 
 	return (
 		<Popover
@@ -219,12 +214,12 @@ function UnforwardedLinkUI( props, ref ) {
 				<div
 					role="dialog"
 					aria-labelledby={ dialogTitleId }
-					aria-describedby={ dialogDescritionId }
+					aria-describedby={ dialogDescriptionId }
 				>
 					<VisuallyHidden>
 						<h2 id={ dialogTitleId }>{ __( 'Add link' ) }</h2>
 
-						<p id={ dialogDescritionId }>
+						<p id={ dialogDescriptionId }>
 							{ __(
 								'Search for and add a link to your Navigation.'
 							) }
@@ -287,7 +282,6 @@ function UnforwardedLinkUI( props, ref ) {
 						setAddingBlock( false );
 						setFocusAddBlockButton( true );
 					} }
-					onSelectBlock={ onSelectBlock }
 				/>
 			) }
 		</Popover>

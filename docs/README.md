@@ -127,9 +127,9 @@ This handbook should be considered the canonical resource for all things related
 ## 正しいハンドブックを見ていますか ?
 
 <!-- 
-The Block Editor Handbook is designed for those looking to create and develop for the Block Editor. However, it's important to note that there are multiple other handbooks available within the [Developer Resources](http://developer.wordpress.org/) that you may find beneficial:
+The Block Editor Handbook is designed for those looking to create and develop for the Block Editor. However, it's important to note that there are multiple other handbooks available within the [Developer Resources](https://developer.wordpress.org/) that you may find beneficial:
  -->
-ブロックエディターハンドブックは、ブロックエディター用の作成、開発を目指しているしかし、[Developer Resources](http://developer.wordpress.org/)には、他にも複数の有益なハンドブックが用意されていることに留意してください：
+ブロックエディターハンドブックは、ブロックエディター用の作成、開発をしている方向けにデザインされています。しかし、[Developer Resources](https://developer.wordpress.org/)には、他にも複数の有益なハンドブックが用意されていることに留意してください：
 
 - [Theme Handbook](https://developer.wordpress.org/themes)
 - [Plugin Handbook](https://developer.wordpress.org/plugins)

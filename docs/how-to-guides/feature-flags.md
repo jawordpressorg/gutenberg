@@ -165,20 +165,12 @@ When building the codebase for the plugin the variable will be replaced with the
  -->
 – 変数 `globalThis.IS_GUTENBERG_PLUGIN` は、プラグインのビルドでのみ、ブール値 `true` で置き換えられます。
 
-<!-- 
 ```js
 if ( true ) {
-	// Wepack has replaced `globalThis.IS_GUTENBERG_PLUGIN` with `true`
+	// Webpack が `globalThis.IS_GUTENBERG_PLUGIN` を `true` に置換した
 	pluginOnlyFeature();
 }
 ```
- -->
-```js
-if ( true ) { // wepack が globalThis.IS_GUTENBERG_PLUGIN を true に置換した
-	pluginOnlyFeature();
-}
-```
-
 
 <!--
 Any code within the body of the if statement will be executed within the gutenberg plugin since `2 === 2` evaluates to `true`.

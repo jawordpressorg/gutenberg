@@ -7,18 +7,26 @@ import { forwardRef, useContext } from '@wordpress/element';
  * Internal dependencies
  */
 import type { WordPressComponentProps } from '../context';
-import type { MenuItemProps } from './types';
+import type { ItemProps } from './types';
 import * as Styled from './styles';
-import { MenuContext } from './context';
+import { Context } from './context';
 
-export const MenuItem = forwardRef<
+export const Item = forwardRef<
 	HTMLDivElement,
-	WordPressComponentProps< MenuItemProps, 'div', false >
->( function MenuItem(
-	{ prefix, suffix, children, hideOnClick = true, ...props },
+	WordPressComponentProps< ItemProps, 'div', false >
+>( function Item(
+	{
+		prefix,
+		suffix,
+		children,
+		disabled = false,
+		hideOnClick = true,
+		store,
+		...props
+	},
 	ref
 ) {
-	const menuContext = useContext( MenuContext );
+	const menuContext = useContext( Context );
 
 	if ( ! menuContext?.store ) {
 		throw new Error(
@@ -26,27 +34,34 @@ export const MenuItem = forwardRef<
 		);
 	}
 
+	// In most cases, the menu store will be retrieved from context (ie. the store
+	// created by the top-level menu component). But in rare cases (ie.
+	// `Menu.SubmenuTriggerItem`), the context store wouldn't be correct. This is
+	// why the component accepts a `store` prop to override the context store.
+	const computedStore = store ?? menuContext.store;
+
 	return (
-		<Styled.MenuItem
+		<Styled.Item
 			ref={ ref }
 			{ ...props }
 			accessibleWhenDisabled
+			disabled={ disabled }
 			hideOnClick={ hideOnClick }
-			store={ menuContext.store }
+			store={ computedStore }
 		>
 			<Styled.ItemPrefixWrapper>{ prefix }</Styled.ItemPrefixWrapper>
 
-			<Styled.MenuItemContentWrapper>
-				<Styled.MenuItemChildrenWrapper>
+			<Styled.ItemContentWrapper>
+				<Styled.ItemChildrenWrapper>
 					{ children }
-				</Styled.MenuItemChildrenWrapper>
+				</Styled.ItemChildrenWrapper>
 
 				{ suffix && (
 					<Styled.ItemSuffixWrapper>
 						{ suffix }
 					</Styled.ItemSuffixWrapper>
 				) }
-			</Styled.MenuItemContentWrapper>
-		</Styled.MenuItem>
+			</Styled.ItemContentWrapper>
+		</Styled.Item>
 	);
 } );

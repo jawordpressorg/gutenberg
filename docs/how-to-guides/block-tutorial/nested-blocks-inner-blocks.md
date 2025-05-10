@@ -112,11 +112,10 @@ By default this behavior is disabled until the `directInsert` prop is set to `tr
 <!--
 ## Template
 
-Use the template property to define a set of blocks that prefill the InnerBlocks component when inserted. You can set attributes on the blocks to define their use. The example below shows a book review template using InnerBlocks component and setting placeholders values to show the block usage.
+Use the template property to define a set of blocks that prefill the InnerBlocks component when it has no existing content.. You can set attributes on the blocks to define their use. The example below shows a book review template using InnerBlocks component and setting placeholders values to show the block usage.
  -->
 ## テンプレート
-
-template プロパティを使用して、InnerBlocks コンポーネントが挿入された際にデフォルトで含まれるブロックの集合を定義できます。ブロックの属性を設定して使用例を定義できます。次の例は InnerBlocks コンポーネントを使用した本のレビューのテンプレートです。placeholder 値を設定してブロックの使用例を示しています。
+template プロパティを使用すると、InnerBlocks コンポーネントに既存のコンテンツがないとき、デフォルトで含まれるブロックの集合を定義できます。またブロックの属性を設定して、使用例を定義できます。次の例は InnerBlocks コンポーネントを使用した本のレビューのテンプレートです。placeholder 値を設定してブロックの使用例を示しています。
 
 ```js
 const MY_TEMPLATE = [

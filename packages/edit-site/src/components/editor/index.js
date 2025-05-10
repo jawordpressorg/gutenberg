@@ -20,10 +20,10 @@ import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library
 import { useCallback, useMemo } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { store as preferencesStore } from '@wordpress/preferences';
 import { decodeEntities } from '@wordpress/html-entities';
 import { Icon, arrowUpLeft } from '@wordpress/icons';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ import {
 	useResolveEditedEntity,
 	useSyncDeprecatedEntityIntoState,
 } from './use-resolve-edited-entity';
-import { addQueryArgs } from '@wordpress/url';
+import SitePreview from './site-preview';
 
 const { Editor, BackButton } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );
@@ -118,7 +118,10 @@ function getNavigationPath( location, postType ) {
 	return addQueryArgs( path, { canvas: undefined } );
 }
 
-export default function EditSiteEditor( { isPostsList = false } ) {
+export default function EditSiteEditor( {
+	isHomeRoute = false,
+	isPostsList = false,
+} ) {
 	const disableMotion = useReducedMotion();
 	const location = useLocation();
 	const { canvas = 'view' } = location.query;
@@ -129,8 +132,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 	useSyncDeprecatedEntityIntoState( entity );
 	const { postType, postId, context } = entity;
 	const {
-		supportsGlobalStyles,
-		showIconLabels,
+		isBlockBasedTheme,
 		editorCanvasView,
 		currentPostIsTrashed,
 		hasSiteIcon,
@@ -138,13 +140,11 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 		const { getEditorCanvasContainerView } = unlock(
 			select( editSiteStore )
 		);
-		const { get } = select( preferencesStore );
 		const { getCurrentTheme, getEntityRecord } = select( coreDataStore );
 		const siteData = getEntityRecord( 'root', '__unstableBase', undefined );
 
 		return {
-			supportsGlobalStyles: getCurrentTheme()?.is_block_theme,
-			showIconLabels: get( 'core', 'showIconLabels' ),
+			isBlockBasedTheme: getCurrentTheme()?.is_block_theme,
 			editorCanvasView: getEditorCanvasContainerView(),
 			currentPostIsTrashed:
 				select( editorStore ).getCurrentPostAttribute( 'status' ) ===
@@ -248,7 +248,9 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 		duration: disableMotion ? 0 : 0.2,
 	};
 
-	return (
+	return ! isBlockBasedTheme && isHomeRoute ? (
+		<SitePreview />
+	) : (
 		<>
 			<GlobalStylesRenderer
 				disableRootPadding={ postType !== TEMPLATE_POST_TYPE }
@@ -267,9 +269,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 					postId={ postWithTemplate ? context.postId : postId }
 					templateId={ postWithTemplate ? postId : undefined }
 					settings={ settings }
-					className={ clsx( 'edit-site-editor__editor-interface', {
-						'show-icon-labels': showIconLabels,
-					} ) }
+					className="edit-site-editor__editor-interface"
 					styles={ styles }
 					customSaveButton={
 						_isPreviewingTheme && <SaveButton size="compact" />
@@ -355,7 +355,7 @@ export default function EditSiteEditor( { isPostsList = false } ) {
 						</BackButton>
 					) }
 					<SiteEditorMoreMenu />
-					{ supportsGlobalStyles && <GlobalStylesSidebar /> }
+					{ isBlockBasedTheme && <GlobalStylesSidebar /> }
 				</Editor>
 			) }
 		</>

@@ -20,12 +20,13 @@ import {
 import { __ } from '@wordpress/i18n';
 import {
 	Button,
-	PanelBody,
 	Placeholder,
 	TextControl,
 	ToggleControl,
 	ToolbarDropdownMenu,
 	__experimentalHasSplitBorders as hasSplitBorders,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import {
 	alignLeft,
@@ -56,6 +57,7 @@ import {
 	isEmptyTableSection,
 } from './state';
 import { Caption } from '../utils/caption';
+import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 
 const ALIGNMENT_CONTROLS = [
 	{
@@ -107,6 +109,8 @@ function TableEdit( {
 
 	const tableRef = useRef();
 	const [ hasTableCreated, setHasTableCreated ] = useState( false );
+
+	const dropdownMenuProps = useToolsPanelDropdownMenuProps();
 
 	/**
 	 * Updates the initial column count used for table creation.
@@ -473,33 +477,67 @@ function TableEdit( {
 				</>
 			) }
 			<InspectorControls>
-				<PanelBody
-					title={ __( 'Settings' ) }
-					className="blocks-table-settings"
+				<ToolsPanel
+					label={ __( 'Settings' ) }
+					resetAll={ () => {
+						setAttributes( {
+							hasFixedLayout: true,
+							head: [],
+							foot: [],
+						} );
+					} }
+					dropdownMenuProps={ dropdownMenuProps }
 				>
-					<ToggleControl
-						__nextHasNoMarginBottom
+					<ToolsPanelItem
+						hasValue={ () => hasFixedLayout !== true }
 						label={ __( 'Fixed width table cells' ) }
-						checked={ !! hasFixedLayout }
-						onChange={ onChangeFixedLayout }
-					/>
+						onDeselect={ () =>
+							setAttributes( { hasFixedLayout: true } )
+						}
+						isShownByDefault
+					>
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ __( 'Fixed width table cells' ) }
+							checked={ !! hasFixedLayout }
+							onChange={ onChangeFixedLayout }
+						/>
+					</ToolsPanelItem>
 					{ ! isEmpty && (
 						<>
-							<ToggleControl
-								__nextHasNoMarginBottom
+							<ToolsPanelItem
+								hasValue={ () => head && head.length }
 								label={ __( 'Header section' ) }
-								checked={ !! ( head && head.length ) }
-								onChange={ onToggleHeaderSection }
-							/>
-							<ToggleControl
-								__nextHasNoMarginBottom
+								onDeselect={ () =>
+									setAttributes( { head: [] } )
+								}
+								isShownByDefault
+							>
+								<ToggleControl
+									__nextHasNoMarginBottom
+									label={ __( 'Header section' ) }
+									checked={ !! ( head && head.length ) }
+									onChange={ onToggleHeaderSection }
+								/>
+							</ToolsPanelItem>
+							<ToolsPanelItem
+								hasValue={ () => foot && foot.length }
 								label={ __( 'Footer section' ) }
-								checked={ !! ( foot && foot.length ) }
-								onChange={ onToggleFooterSection }
-							/>
+								onDeselect={ () =>
+									setAttributes( { foot: [] } )
+								}
+								isShownByDefault
+							>
+								<ToggleControl
+									__nextHasNoMarginBottom
+									label={ __( 'Footer section' ) }
+									checked={ !! ( foot && foot.length ) }
+									onChange={ onToggleFooterSection }
+								/>
+							</ToolsPanelItem>
 						</>
 					) }
-				</PanelBody>
+				</ToolsPanel>
 			</InspectorControls>
 			{ ! isEmpty && (
 				<table

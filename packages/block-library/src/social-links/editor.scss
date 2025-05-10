@@ -89,7 +89,6 @@
 // Unconfigured placeholder links are semitransparent.
 .wp-social-link.wp-social-link__is-incomplete {
 	opacity: 0.5;
-	@include reduce-motion("transition");
 }
 
 .wp-block-social-links .is-selected .wp-social-link__is-incomplete,
@@ -100,6 +99,10 @@
 
 .wp-block-social-links .block-list-appender {
 	position: static; // display inline.
+
+	.block-editor-inserter {
+		font-size: inherit;
+	}
 
 	.block-editor-button-block-appender {
 		height: 1.5em;

@@ -13,21 +13,34 @@ import {
 	Spinner,
 	Flex,
 	FlexItem,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Internal dependencies
  */
+import { unlock } from '../../lock-unlock';
 import ItemActions from '../../components/dataviews-item-actions';
-import SingleSelectionCheckbox from '../../components/dataviews-selection-checkbox';
-import { useHasAPossibleBulkAction } from '../../components/dataviews-bulk-actions';
-import type { Action, NormalizedField, ViewGridProps } from '../../types';
+import DataViewsSelectionCheckbox from '../../components/dataviews-selection-checkbox';
+import {
+	useHasAPossibleBulkAction,
+	useSomeItemHasAPossibleBulkAction,
+} from '../../components/dataviews-bulk-actions';
+import type {
+	Action,
+	NormalizedField,
+	ViewGrid as ViewGridType,
+	ViewGridProps,
+} from '../../types';
 import type { SetSelection } from '../../private-types';
 import getClickableItemProps from '../utils/get-clickable-item-props';
 import { useUpdatedPreviewSizeOnViewportChange } from './preview-size-picker';
+const { Badge } = unlock( componentsPrivateApis );
 
 interface GridItemProps< Item > {
+	view: ViewGridType;
 	selection: string[];
 	onChangeSelection: SetSelection;
 	getItemId: ( item: Item ) => string;
@@ -35,14 +48,16 @@ interface GridItemProps< Item > {
 	isItemClickable: ( item: Item ) => boolean;
 	item: Item;
 	actions: Action< Item >[];
+	titleField?: NormalizedField< Item >;
 	mediaField?: NormalizedField< Item >;
-	primaryField?: NormalizedField< Item >;
-	visibleFields: NormalizedField< Item >[];
+	descriptionField?: NormalizedField< Item >;
+	regularFields: NormalizedField< Item >[];
 	badgeFields: NormalizedField< Item >[];
-	columnFields?: string[];
+	hasBulkActions: boolean;
 }
 
 function GridItem< Item >( {
+	view,
 	selection,
 	onChangeSelection,
 	onClickItem,
@@ -51,20 +66,24 @@ function GridItem< Item >( {
 	item,
 	actions,
 	mediaField,
-	primaryField,
-	visibleFields,
+	titleField,
+	descriptionField,
+	regularFields,
 	badgeFields,
-	columnFields,
+	hasBulkActions,
 }: GridItemProps< Item > ) {
+	const { showTitle = true, showMedia = true, showDescription = true } = view;
 	const hasBulkAction = useHasAPossibleBulkAction( actions, item );
 	const id = getItemId( item );
+	const instanceId = useInstanceId( GridItem );
 	const isSelected = selection.includes( id );
 	const renderedMediaField = mediaField?.render ? (
 		<mediaField.render item={ item } />
 	) : null;
-	const renderedPrimaryField = primaryField?.render ? (
-		<primaryField.render item={ item } />
-	) : null;
+	const renderedTitleField =
+		showTitle && titleField?.render ? (
+			<titleField.render item={ item } />
+		) : null;
 
 	const clickableMediaItemProps = getClickableItemProps( {
 		item,
@@ -73,12 +92,29 @@ function GridItem< Item >( {
 		className: 'dataviews-view-grid__media',
 	} );
 
-	const clickablePrimaryItemProps = getClickableItemProps( {
+	const clickableTitleItemProps = getClickableItemProps( {
 		item,
 		isItemClickable,
 		onClickItem,
-		className: 'dataviews-view-grid__primary-field',
+		className: 'dataviews-view-grid__title-field dataviews-title-field',
 	} );
+
+	let mediaA11yProps;
+	let titleA11yProps;
+	if ( isItemClickable( item ) && onClickItem ) {
+		if ( renderedTitleField ) {
+			mediaA11yProps = {
+				'aria-labelledby': `dataviews-view-grid__title-field-${ instanceId }`,
+			};
+			titleA11yProps = {
+				id: `dataviews-view-grid__title-field-${ instanceId }`,
+			};
+		} else {
+			mediaA11yProps = {
+				'aria-label': __( 'Navigate to item' ),
+			};
+		}
+	}
 
 	return (
 		<VStack
@@ -102,82 +138,89 @@ function GridItem< Item >( {
 				}
 			} }
 		>
-			<div { ...clickableMediaItemProps }>{ renderedMediaField }</div>
-			<SingleSelectionCheckbox
-				item={ item }
-				selection={ selection }
-				onChangeSelection={ onChangeSelection }
-				getItemId={ getItemId }
-				primaryField={ primaryField }
-				disabled={ ! hasBulkAction }
-			/>
+			{ showMedia && renderedMediaField && (
+				<div { ...clickableMediaItemProps } { ...mediaA11yProps }>
+					{ renderedMediaField }
+				</div>
+			) }
+			{ hasBulkActions && showMedia && renderedMediaField && (
+				<DataViewsSelectionCheckbox
+					item={ item }
+					selection={ selection }
+					onChangeSelection={ onChangeSelection }
+					getItemId={ getItemId }
+					titleField={ titleField }
+					disabled={ ! hasBulkAction }
+				/>
+			) }
 			<HStack
 				justify="space-between"
 				className="dataviews-view-grid__title-actions"
 			>
-				<div { ...clickablePrimaryItemProps }>
-					{ renderedPrimaryField }
+				<div { ...clickableTitleItemProps } { ...titleA11yProps }>
+					{ renderedTitleField }
 				</div>
-				<ItemActions item={ item } actions={ actions } isCompact />
+				{ !! actions?.length && (
+					<ItemActions item={ item } actions={ actions } isCompact />
+				) }
 			</HStack>
-			{ !! badgeFields?.length && (
-				<HStack
-					className="dataviews-view-grid__badge-fields"
-					spacing={ 2 }
-					wrap
-					alignment="top"
-					justify="flex-start"
-				>
-					{ badgeFields.map( ( field ) => {
-						return (
-							<FlexItem
-								key={ field.id }
-								className="dataviews-view-grid__field-value"
-							>
-								<field.render item={ item } />
-							</FlexItem>
-						);
-					} ) }
-				</HStack>
-			) }
-			{ !! visibleFields?.length && (
-				<VStack className="dataviews-view-grid__fields" spacing={ 1 }>
-					{ visibleFields.map( ( field ) => {
-						return (
-							<Flex
-								className={ clsx(
-									'dataviews-view-grid__field',
-									columnFields?.includes( field.id )
-										? 'is-column'
-										: 'is-row'
-								) }
-								key={ field.id }
-								gap={ 1 }
-								justify="flex-start"
-								expanded
-								style={ { height: 'auto' } }
-								direction={
-									columnFields?.includes( field.id )
-										? 'column'
-										: 'row'
-								}
-							>
-								<>
-									<FlexItem className="dataviews-view-grid__field-name">
-										{ field.header }
-									</FlexItem>
-									<FlexItem
-										className="dataviews-view-grid__field-value"
-										style={ { maxHeight: 'none' } }
-									>
-										<field.render item={ item } />
-									</FlexItem>
-								</>
-							</Flex>
-						);
-					} ) }
-				</VStack>
-			) }
+			<VStack spacing={ 1 }>
+				{ showDescription && descriptionField?.render && (
+					<descriptionField.render item={ item } />
+				) }
+				{ !! badgeFields?.length && (
+					<HStack
+						className="dataviews-view-grid__badge-fields"
+						spacing={ 2 }
+						wrap
+						alignment="top"
+						justify="flex-start"
+					>
+						{ badgeFields.map( ( field ) => {
+							return (
+								<Badge
+									key={ field.id }
+									className="dataviews-view-grid__field-value"
+								>
+									<field.render item={ item } />
+								</Badge>
+							);
+						} ) }
+					</HStack>
+				) }
+				{ !! regularFields?.length && (
+					<VStack
+						className="dataviews-view-grid__fields"
+						spacing={ 1 }
+					>
+						{ regularFields.map( ( field ) => {
+							return (
+								<Flex
+									className="dataviews-view-grid__field"
+									key={ field.id }
+									gap={ 1 }
+									justify="flex-start"
+									expanded
+									style={ { height: 'auto' } }
+									direction="row"
+								>
+									<>
+										<FlexItem className="dataviews-view-grid__field-name">
+											{ field.header }
+										</FlexItem>
+										<FlexItem
+											className="dataviews-view-grid__field-value"
+											style={ { maxHeight: 'none' } }
+										>
+											<field.render item={ item } />
+										</FlexItem>
+									</>
+								</Flex>
+							);
+						} ) }
+					</VStack>
+				) }
+			</VStack>
 		</VStack>
 	);
 }
@@ -194,36 +237,38 @@ export default function ViewGrid< Item >( {
 	selection,
 	view,
 }: ViewGridProps< Item > ) {
+	const titleField = fields.find(
+		( field ) => field.id === view?.titleField
+	);
 	const mediaField = fields.find(
-		( field ) => field.id === view.layout?.mediaField
+		( field ) => field.id === view?.mediaField
 	);
-	const primaryField = fields.find(
-		( field ) => field.id === view.layout?.primaryField
+	const descriptionField = fields.find(
+		( field ) => field.id === view?.descriptionField
 	);
-	const viewFields = view.fields || fields.map( ( field ) => field.id );
-	const { visibleFields, badgeFields } = fields.reduce(
-		( accumulator: Record< string, NormalizedField< Item >[] >, field ) => {
-			if (
-				! viewFields.includes( field.id ) ||
-				[
-					view.layout?.mediaField,
-					view?.layout?.primaryField,
-				].includes( field.id )
-			) {
+	const otherFields = view.fields ?? [];
+	const { regularFields, badgeFields } = otherFields.reduce(
+		(
+			accumulator: Record< string, NormalizedField< Item >[] >,
+			fieldId
+		) => {
+			const field = fields.find( ( f ) => f.id === fieldId );
+			if ( ! field ) {
 				return accumulator;
 			}
 			// If the field is a badge field, add it to the badgeFields array
 			// otherwise add it to the rest visibleFields array.
-			const key = view.layout?.badgeFields?.includes( field.id )
+			const key = view.layout?.badgeFields?.includes( fieldId )
 				? 'badgeFields'
-				: 'visibleFields';
+				: 'regularFields';
 			accumulator[ key ].push( field );
 			return accumulator;
 		},
-		{ visibleFields: [], badgeFields: [] }
+		{ regularFields: [], badgeFields: [] }
 	);
 	const hasData = !! data?.length;
 	const updatedPreviewSize = useUpdatedPreviewSizeOnViewportChange();
+	const hasBulkActions = useSomeItemHasAPossibleBulkAction( actions, data );
 	const usedPreviewSize = updatedPreviewSize || view.layout?.previewSize;
 	const gridStyle = usedPreviewSize
 		? {
@@ -245,6 +290,7 @@ export default function ViewGrid< Item >( {
 						return (
 							<GridItem
 								key={ getItemId( item ) }
+								view={ view }
 								selection={ selection }
 								onChangeSelection={ onChangeSelection }
 								onClickItem={ onClickItem }
@@ -253,10 +299,11 @@ export default function ViewGrid< Item >( {
 								item={ item }
 								actions={ actions }
 								mediaField={ mediaField }
-								primaryField={ primaryField }
-								visibleFields={ visibleFields }
+								titleField={ titleField }
+								descriptionField={ descriptionField }
+								regularFields={ regularFields }
 								badgeFields={ badgeFields }
-								columnFields={ view.layout?.columnFields }
+								hasBulkActions={ hasBulkActions }
 							/>
 						);
 					} ) }

@@ -1257,38 +1257,43 @@ const { state } = store( 'myPlugin', {
 ```
 
 <!-- 
-As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`. To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. For example:
- -->
-上の `wp-on`、`wp-on-window`、`wp-on-document` でも触れたように、アクションが `event` オブジェクトへの同期アクセスを必要とするためにこれらのディレクティブの `async` バージョンを使用できない場合は、常に非同期アクションを使用する必要があります。アクションが `event.preventDefault()`、`event.stopPropagation()`、`event.stopImmediatePropagation()` を呼び出す必要がある場合は、常に同期アクセスが必要です。アクションのコードが時間のかかるタスクに寄与しないよう、同期イベント API の呼び出し後に、メインスレッドに手動で yield できます。例えば
-
-```js
-// 注意: WordPress 6.6では、この splitTask 関数は @wordpress/interactivity でエクスポートされます。
-function splitTask() {
-	return new Promise( ( resolve ) => {
-		setTimeout( resolve, 0 );
-	} );
-}
-
-store( 'myPlugin', {
-	actions: {
-		handleClick: function* ( event ) {
-			event.preventDefault();
-			yield splitTask();
-			doTheWork();
-		},
-	},
-} );
-```
-
-<!-- 
 You may want to add multiple such `yield` points in your action if it is doing a lot of work.
  -->
 多数のタスクの実行が必要であれば、アクション内にこのような `yield` ポイントを複数追加できます。
 
 <!-- 
+As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`.
+ -->
+上の `wp-on`、`wp-on-window`、`wp-on-document` でも触れたように、アクションが `event` オブジェクトへの同期アクセスを必要とするためにこれらのディレクティブの `async` バージョンを使用できない場合は、常に非同期アクションを使用する必要があります。アクションが `event.preventDefault()`、`event.stopPropagation()`、`event.stopImmediatePropagation()` を呼び出す必要がある場合は、常に同期アクセスが必要です。
+
+<!-- 
+To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. The Interactivity API provides the `splitTask()` function for that purpose, which implements yielding in a cross-browser compatible way. Here is an example:
+ -->
+アクションコードが長いタスクにならないように、同期イベント API の呼び出し後に、メインスレッドに手動で yield できます。Interactivity API はこの目的のために `splitTask()` 関数を提供します。この関数はクロスブラウザ互換の方法で yield を実装しています。以下に例を挙げます。
+
+```js
+import { splitTask } from '@wordpress/interactivity';
+
+store( 'myPlugin', {
+	actions: {
+		handleClick: withSyncEvent( function* ( event ) {
+			event.preventDefault();
+			yield splitTask();
+			doTheWork();
+		} ),
+	},
+} );
+```
+
+<!-- 
+You may notice the use of the [`withSyncEvent()`](#withsyncevent) utility function in this example. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access (which this example does due to the call to `event.preventDefault()`). Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
+ -->
+[`withSyncEvent()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#withsyncevent) ユーティリティ関数を使用していることに気づいたかもしれません。これは同期イベントアクセスを必要としない限り、ストアアクションはデフォルトでは非同期で処理するための継続的な取り組みによるものです (この例では 同期イベントアクセスが必要な `event.preventDefault()`呼び出しのために、`withSyncEvent()` を使用しています)。関数を使用しなければ非推奨の警告が表示され、将来のリリースではそれに応じて動作が変更されます。
+
+<!-- 
 #### Side Effects
  -->
-#### 副作業
+#### 副作用
 
 <!-- 
 Automatically react to state changes. Usually triggered by `data-wp-watch` or `data-wp-init` directives.
@@ -1777,6 +1782,51 @@ store( 'mySliderPlugin', {
 				} ),
 				3_000
 			);
+		},
+	},
+} );
+```
+
+### withSyncEvent()
+<!-- 
+Actions that require synchronous access to the `event` object need to use the `withSyncEvent()` function to annotate their handler callback. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access. Therefore, as of Gutenberg 20.4 / WordPress 6.8 all actions that require synchronous event access need to use the `withSyncEvent()` function. Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
+ -->
+`event` オブジェクトへの同期アクセスを必要とするアクションは、`withSyncEvent()` 関数を使用して、ハンドラのコールバックにアノテーションを付ける必要があります。これは同期イベントアクセスを必要としない限り、ストアアクションはデフォルトでは非同期で処理するための継続的な取り組みによるものです。したがって、Gutenberg 20.4 / WordPress 6.8以降で同期イベントアクセスが必要なアクションはすべて `withSyncEvent()` 関数を使用する必要があります。使用しなければ非推奨の警告が表示され、将来のリリースではそれに応じて動作が変更されます。
+
+<!-- 
+Only very specific event methods and properties require synchronous access, so it is advised to only use `withSyncEvent()` when necessary. The following event methods and properties require synchronous access:
+ -->
+非常に特殊なイベントメソッドとプロパティのみが同期アクセスを必要とするため、必要な場合にのみ `withSyncEvent()` を使うことを推奨します。以下のイベントメソッドとプロパティは同期アクセスを必要とします。
+
+* `event.currentTarget`
+* `event.preventDefault()`
+* `event.stopImmediatePropagation()`
+* `event.stopPropagation()`
+
+<!-- 
+Here is an example, where one action requires synchronous event access while the other actions do not:
+ -->
+次の例では、同期イベントアクセスが必要なアクションと、必要でないアクションを示します。
+
+```js
+// store
+import { store, withSyncEvent } from '@wordpress/interactivity';
+
+store( 'myPlugin', {
+	actions: {
+		// `event.preventDefault()` は同期イベントアクセスが必要。
+		preventNavigation: withSyncEvent( ( event ) => {
+			event.preventDefault();
+		} ),
+
+		// `event.target` は同期イベントアクセスが必要でない。
+		logTarget: ( event ) => {
+			console.log( 'event target => ', event.target );
+		},
+
+		// `event` をまったく使用していなければ、同期イベントアクセスは必要でない。
+		logSomething: () => {
+			console.log( 'something' );
 		},
 	},
 } );

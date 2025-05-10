@@ -6,13 +6,13 @@ const { v2: dockerCompose } = require( 'docker-compose' );
 const util = require( 'util' );
 const path = require( 'path' );
 const fs = require( 'fs' ).promises;
-const inquirer = require( 'inquirer' );
+const { confirm } = require( '@inquirer/prompts' );
 
 /**
  * Promisified dependencies
  */
 const sleep = util.promisify( setTimeout );
-const rimraf = util.promisify( require( 'rimraf' ) );
+const { rimraf } = require( 'rimraf' );
 const exec = util.promisify( require( 'child_process' ).exec );
 
 /**
@@ -180,6 +180,24 @@ module.exports = async function start( {
 		}
 	);
 
+	if ( config.env.development.phpmyadminPort ) {
+		await dockerCompose.upOne( 'phpmyadmin', {
+			...dockerComposeConfig,
+			commandOptions: shouldConfigureWp
+				? [ '--build', '--force-recreate' ]
+				: [],
+		} );
+	}
+
+	if ( config.env.tests.phpmyadminPort ) {
+		await dockerCompose.upOne( 'tests-phpmyadmin', {
+			...dockerComposeConfig,
+			commandOptions: shouldConfigureWp
+				? [ '--build', '--force-recreate' ]
+				: [],
+		} );
+	}
+
 	// Make sure we've consumed the custom CLI dockerfile.
 	if ( shouldConfigureWp ) {
 		await dockerCompose.buildOne( [ 'cli' ], { ...dockerComposeConfig } );
@@ -225,34 +243,60 @@ module.exports = async function start( {
 	const siteUrl = config.env.development.config.WP_SITEURL;
 	const testsSiteUrl = config.env.tests.config.WP_SITEURL;
 
-	const { out: mySQLAddress } = await dockerCompose.port(
+	const mySQLPort = await getPublicDockerPort(
 		'mysql',
 		3306,
 		dockerComposeConfig
 	);
-	const mySQLPort = mySQLAddress.split( ':' ).pop();
 
-	const { out: testsMySQLAddress } = await dockerCompose.port(
+	const testsMySQLPort = await getPublicDockerPort(
 		'tests-mysql',
 		3306,
 		dockerComposeConfig
 	);
-	const testsMySQLPort = testsMySQLAddress.split( ':' ).pop();
 
-	spinner.prefixText = 'WordPress development site started'
-		.concat( siteUrl ? ` at ${ siteUrl }` : '.' )
-		.concat( '\n' )
-		.concat( 'WordPress test site started' )
-		.concat( testsSiteUrl ? ` at ${ testsSiteUrl }` : '.' )
-		.concat( '\n' )
-		.concat( `MySQL is listening on port ${ mySQLPort }` )
-		.concat(
-			`MySQL for automated testing is listening on port ${ testsMySQLPort }`
-		)
-		.concat( '\n' );
+	const phpmyadminPort = config.env.development.phpmyadminPort
+		? await getPublicDockerPort( 'phpmyadmin', 80, dockerComposeConfig )
+		: null;
 
+	const testsPhpmyadminPort = config.env.tests.phpmyadminPort
+		? await getPublicDockerPort(
+				'tests-phpmyadmin',
+				80,
+				dockerComposeConfig
+		  )
+		: null;
+
+	spinner.prefixText = [
+		'WordPress development site started' +
+			( siteUrl ? ` at ${ siteUrl }` : '.' ),
+		'WordPress test site started' +
+			( testsSiteUrl ? ` at ${ testsSiteUrl }` : '.' ),
+		`MySQL is listening on port ${ mySQLPort }`,
+		`MySQL for automated testing is listening on port ${ testsMySQLPort }`,
+		phpmyadminPort &&
+			`phpMyAdmin started at http://localhost:${ phpmyadminPort }`,
+		testsPhpmyadminPort &&
+			`phpMyAdmin for automated testing started at http://localhost:${ testsPhpmyadminPort }`,
+	]
+		.filter( Boolean )
+		.join( '\n' );
+	spinner.prefixText += '\n\n';
 	spinner.text = 'Done!';
 };
+
+async function getPublicDockerPort(
+	service,
+	containerPort,
+	dockerComposeConfig
+) {
+	const { out: address } = await dockerCompose.port(
+		service,
+		containerPort,
+		dockerComposeConfig
+	);
+	return address.split( ':' ).pop().trim();
+}
 
 /**
  * Checks for legacy installs and provides
@@ -284,15 +328,21 @@ async function checkForLegacyInstall( spinner ) {
 			' and '
 		) }. Installs are now in your home folder.\n`
 	);
-	const { yesDelete } = await inquirer.prompt( [
-		{
-			type: 'confirm',
-			name: 'yesDelete',
+	let yesDelete = false;
+	try {
+		yesDelete = confirm( {
 			message:
 				'Do you wish to delete these old installs to reclaim disk space?',
 			default: true,
-		},
-	] );
+		} );
+	} catch ( error ) {
+		if ( error.name === 'ExitPromptError' ) {
+			console.log( 'Cancelled.' );
+			process.exit( 1 );
+		}
+		throw error;
+	}
+
 	if ( yesDelete ) {
 		await Promise.all( installs.map( ( install ) => rimraf( install ) ) );
 		spinner.info( 'Old installs deleted successfully.' );

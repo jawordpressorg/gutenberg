@@ -22,6 +22,7 @@ import { store as commandsStore } from '@wordpress/commands';
 import { useRef, useEffect } from '@wordpress/element';
 import { useReducedMotion } from '@wordpress/compose';
 import { decodeEntities } from '@wordpress/html-entities';
+import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 
 /**
  * Internal dependencies
@@ -54,6 +55,7 @@ const MotionButton = motion( Button );
  */
 export default function DocumentBar( props ) {
 	const {
+		postId,
 		postType,
 		postTypeLabel,
 		documentTitle,
@@ -72,6 +74,7 @@ export default function DocumentBar( props ) {
 		const {
 			getEditedEntityRecord,
 			getPostType,
+			getCurrentTheme,
 			isResolving: isResolvingSelector,
 		} = select( coreStore );
 		const _postType = getCurrentPostType();
@@ -83,8 +86,7 @@ export default function DocumentBar( props ) {
 		);
 
 		const { default_template_types: templateTypes = [] } =
-			select( coreStore ).getEntityRecord( 'root', '__unstableBase' ) ??
-			{};
+			getCurrentTheme() ?? {};
 
 		const _templateInfo = getTemplateInfo( {
 			templateTypes,
@@ -93,6 +95,7 @@ export default function DocumentBar( props ) {
 		const _postTypeLabel = getPostType( _postType )?.labels?.singular_name;
 
 		return {
+			postId: _postId,
 			postType: _postType,
 			postTypeLabel: _postTypeLabel,
 			documentTitle: _document.title,
@@ -120,7 +123,7 @@ export default function DocumentBar( props ) {
 	const title = props.title || entityTitle;
 	const icon = props.icon;
 
-	const pageTypeBadge = usePageTypeBadge();
+	const pageTypeBadge = usePageTypeBadge( postId );
 
 	const mountedRef = useRef( false );
 	useEffect( () => {
@@ -198,7 +201,7 @@ export default function DocumentBar( props ) {
 						<Text size="body" as="h1">
 							<span className="editor-document-bar__post-title">
 								{ title
-									? decodeEntities( title )
+									? stripHTML( title )
 									: __( 'No title' ) }
 							</span>
 							{ pageTypeBadge && (

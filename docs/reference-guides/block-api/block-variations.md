@@ -104,6 +104,66 @@ wp.blocks.registerBlockVariation( 'core/embed', {
 	attributes: { providerNameSlug: 'custom' },
 } );
 ```
+
+<!-- 
+## Registering block variations in PHP
+ -->
+## PHP でのブロックバリエーションの登録
+
+<!-- 
+Block variations can also be registered from PHP using the `get_block_type_variations` filter hook. This approach is particularly useful when you need to dynamically generate variations based on registered post types, taxonomies, or other WordPress data.
+ -->
+ブロックバリエーションは `get_block_type_variations` フィルターフックを使用して PHP からでも登録できます。この方法は特に、登録された投稿タイプやタクソノミ、その他の WordPress データに基づいて動的にバリエーションを生成する必要がある場合に便利です。
+
+<!-- 
+Here's an example of how to register a custom variation for the `core/image` block:
+ -->
+以下は `core/image` ブロックにカスタムバリエーションを登録する方法の例です。
+
+```php
+function my_custom_image_variation( $variations, $block_type ) {
+	// 画像ブロックのバリエーションのみを変更する
+    if ( 'core/image' !== $block_type->name ) {
+        return $variations;
+    }
+
+    // カスタムバリエーションを追加する
+    $variations[] = array(
+		'name'        => 'wide-image',
+		'title'       => __( 'Wide image', 'textdomain' ),
+		'description' => __( 'A wide image', 'textdomain' ),
+		'scope'       => array( 'inserter' ),
+		'isDefault'   => false,
+		'attributes'  => array(
+			'align' => 'wide', // リンクタイプをカスタムとして識別する
+		),
+    );
+
+    return $variations;
+}
+add_filter( 'get_block_type_variations', 'my_custom_image_variation', 10, 2 );
+```
+
+<!-- 
+The `get_block_type_variations` filter is called when variations are requested for a block type. It receives two parameters:
+ -->
+`get_block_type_variations` フィルターは、ブロックタイプのバリエーションが要求されたときに呼び出されます。このフィルターは2つのパラメータを受け取ります。
+<!-- 
+- `$variations`: An array of currently registered variations for the block type
+- `$block_type`: The full block type object
+ -->
+- `$variations`: 現在ブロックタイプに登録されているバリエーションの配列
+- `$block_type`: 完全なブロックタイプのオブジェクト
+
+<!-- 
+Note that variations registered through PHP will be merged with any variations registered through JavaScript using `registerBlockVariation()`.
+ -->
+注意: PHP で登録されたバリエーションは、JavaScript で `registerBlockVariation()` を使用して登録されたバリエーションとマージされます。
+<!-- 
+<div class="callout callout-info">Check the <a href="https://developer.wordpress.org/news/2024/03/how-to-register-block-variations-with-php/">How to register block variations with PHP</a> blog post for more info about this</div>
+ -->
+この詳細についてはブログ記事「<a href="https://developer.wordpress.org/news/2024/03/how-to-register-block-variations-with-php/">PHP でブロックのバリエーションを登録する方法</a>」をチェックしてください。
+
 <!-- 
 ## Removing a block variation
  -->

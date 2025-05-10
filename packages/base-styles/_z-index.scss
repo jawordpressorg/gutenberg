@@ -25,7 +25,6 @@ $z-layers: (
 	".components-popover__close": 5,
 	".block-editor-block-list__insertion-point": 6,
 	".block-editor-warning": 5,
-	".block-library-gallery-item__inline-menu": 20,
 	".block-editor-url-input__suggestions": 30,
 	".edit-post-layout__footer": 30,
 	".interface-interface-skeleton__header": 30,
@@ -131,6 +130,7 @@ $z-layers: (
 	".dataviews-action-modal": 1000001,
 	".editor-action-modal": 1000001,
 	".editor-post-template__swap-template-modal": 1000001,
+	".editor-post-template__create-template-modal": 1000001,
 	".edit-site-template-panel__replace-template-modal": 1000001,
 	".fields-controls__template-modal": 1000001,
 
@@ -200,6 +200,7 @@ $z-layers: (
 
 	// Ensure modal footer actions appear above modal contents
 	".editor-start-template-options__modal__actions": 1,
+	".editor-start-page-options__modal__actions": 1,
 
 	// Ensure checkbox + actions don't overlap table header
 	".dataviews-view-table thead": 1,

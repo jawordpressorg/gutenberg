@@ -34,6 +34,7 @@ import useCreatePage from './use-create-page';
 import useInternalValue from './use-internal-value';
 import { ViewerFill } from './viewer-slot';
 import { DEFAULT_LINK_SETTINGS } from './constants';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Default properties associated with a link control value.
@@ -264,7 +265,7 @@ function LinkControl( {
 
 	const handleSelectSuggestion = ( updatedValue ) => {
 		// Suggestions may contains "settings" values (e.g. `opensInNewTab`)
-		// which should not overide any existing settings values set by the
+		// which should not override any existing settings values set by the
 		// user. This filters out any settings values from the suggestion.
 		const nonSettingsChanges = Object.keys( updatedValue ).reduce(
 			( acc, key ) => {
@@ -499,5 +500,14 @@ function LinkControl( {
 
 LinkControl.ViewerFill = ViewerFill;
 LinkControl.DEFAULT_LINK_SETTINGS = DEFAULT_LINK_SETTINGS;
+
+export const DeprecatedExperimentalLinkControl = ( props ) => {
+	deprecated( 'wp.blockEditor.__experimentalLinkControl', {
+		since: '6.8',
+		alternative: 'wp.blockEditor.LinkControl',
+	} );
+
+	return <LinkControl { ...props } />;
+};
 
 export default LinkControl;

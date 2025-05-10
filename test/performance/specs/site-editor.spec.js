@@ -62,12 +62,14 @@ test.describe( 'Site Editor Performance', () => {
 	test.describe( 'Loading', () => {
 		let draftId = null;
 
-		test( 'Setup the test page', async ( { admin, perfUtils } ) => {
-			await admin.createNewPost( { postType: 'page' } );
-			await perfUtils.setRenderingMode( 'post-only' );
-			await perfUtils.loadBlocksForLargePost();
+		test( 'Setup the test page', async ( { requestUtils, perfUtils } ) => {
+			const content = await perfUtils.loadContentForLargePost();
+			const page = await requestUtils.createPage( {
+				content,
+				status: 'draft',
+			} );
 
-			draftId = await perfUtils.saveDraft();
+			draftId = page.id;
 		} );
 
 		const samples = 10;
@@ -121,13 +123,15 @@ test.describe( 'Site Editor Performance', () => {
 	test.describe( 'Typing', () => {
 		let draftId = null;
 
-		test( 'Setup the test post', async ( { admin, editor, perfUtils } ) => {
-			await admin.createNewPost( { postType: 'page' } );
-			await perfUtils.setRenderingMode( 'post-only' );
-			await perfUtils.loadBlocksForLargePost();
-			await editor.insertBlock( { name: 'core/paragraph' } );
+		test( 'Setup the test post', async ( { requestUtils, perfUtils } ) => {
+			const content = await perfUtils.loadContentForLargePost();
+			const page = await requestUtils.createPage( {
+				content:
+					content + `<!-- wp:paragraph --><!-- /wp:paragraph -->`,
+				status: 'draft',
+			} );
 
-			draftId = await perfUtils.saveDraft();
+			draftId = page.id;
 		} );
 
 		test( 'Run the test', async ( { admin, perfUtils, metrics, page } ) => {
@@ -155,10 +159,6 @@ test.describe( 'Site Editor Performance', () => {
 			if ( ! isClosed ) {
 				await toggleSidebarButton.click();
 			}
-
-			await canvas
-				.getByRole( 'document', { name: /Block:( Post)? Content/ } )
-				.click();
 
 			const paragraph = canvas.getByRole( 'document', {
 				name: /Empty block/i,
@@ -395,7 +395,7 @@ test.describe( 'Site Editor Performance', () => {
 			await requestUtils.activateTheme( 'twentytwentyfour' );
 		} );
 
-		const perPage = 20;
+		const perPage = 9;
 
 		test( 'Run the test', async ( { page, admin, requestUtils } ) => {
 			await Promise.all(

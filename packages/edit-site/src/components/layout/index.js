@@ -25,25 +25,26 @@ import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 import {
 	EditorSnackbars,
 	UnsavedChangesWarning,
+	ErrorBoundary,
 	privateApis as editorPrivateApis,
 } from '@wordpress/editor';
 import { privateApis as coreCommandsPrivateApis } from '@wordpress/core-commands';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { PluginArea } from '@wordpress/plugins';
 import { store as noticesStore } from '@wordpress/notices';
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 /**
  * Internal dependencies
  */
-import ErrorBoundary from '../error-boundary';
 import { default as SiteHub, SiteHubMobile } from '../site-hub';
 import ResizableFrame from '../resizable-frame';
 import { unlock } from '../../lock-unlock';
 import SaveKeyboardShortcut from '../save-keyboard-shortcut';
 import { useIsSiteEditorLoading } from './hooks';
 import useMovingAnimation from './animation';
-import SidebarContent from '../sidebar';
+import { SidebarContent, SidebarNavigationProvider } from '../sidebar';
 import SaveHub from '../save-hub';
 import SavePanel from '../save-panel';
 
@@ -70,6 +71,15 @@ function Layout() {
 		triggerAnimationOnChange: routeKey + '-' + canvas,
 	} );
 
+	const { showIconLabels } = useSelect( ( select ) => {
+		return {
+			showIconLabels: select( preferencesStore ).get(
+				'core',
+				'showIconLabels'
+			),
+		};
+	} );
+
 	const [ backgroundColor ] = useGlobalStyle( 'color.background' );
 	const [ gradientValue ] = useGlobalStyle( 'color.gradient' );
 	const previousCanvaMode = usePrevious( canvas );
@@ -93,6 +103,7 @@ function Layout() {
 					navigateRegionsProps.className,
 					{
 						'is-full-canvas': canvas === 'edit',
+						'show-icon-labels': showIconLabels,
 					}
 				) }
 			>
@@ -130,14 +141,18 @@ function Layout() {
 												isResizableFrameOversized
 											}
 										/>
-										<SidebarContent
-											shouldAnimate={
-												routeKey !== 'styles-view'
-											}
-											routeKey={ routeKey }
-										>
-											{ areas.sidebar }
-										</SidebarContent>
+										<SidebarNavigationProvider>
+											<SidebarContent
+												shouldAnimate={
+													routeKey !== 'styles'
+												}
+												routeKey={ routeKey }
+											>
+												<ErrorBoundary>
+													{ areas.sidebar }
+												</ErrorBoundary>
+											</SidebarContent>
+										</SidebarNavigationProvider>
 										<SaveHub />
 										<SavePanel />
 									</motion.div>
@@ -150,17 +165,29 @@ function Layout() {
 
 					{ isMobileViewport && areas.mobile && (
 						<div className="edit-site-layout__mobile">
-							{ canvas !== 'edit' && (
-								<SidebarContent routeKey={ routeKey }>
-									<SiteHubMobile
-										ref={ toggleRef }
-										isTransparent={
-											isResizableFrameOversized
-										}
-									/>
-								</SidebarContent>
-							) }
-							{ areas.mobile }
+							<SidebarNavigationProvider>
+								{ canvas !== 'edit' ? (
+									<>
+										<SiteHubMobile
+											ref={ toggleRef }
+											isTransparent={
+												isResizableFrameOversized
+											}
+										/>
+										<SidebarContent routeKey={ routeKey }>
+											<ErrorBoundary>
+												{ areas.mobile }
+											</ErrorBoundary>
+										</SidebarContent>
+										<SaveHub />
+										<SavePanel />
+									</>
+								) : (
+									<ErrorBoundary>
+										{ areas.mobile }
+									</ErrorBoundary>
+								) }
+							</SidebarNavigationProvider>
 						</div>
 					) }
 
@@ -173,7 +200,7 @@ function Layout() {
 									maxWidth: widths?.content,
 								} }
 							>
-								{ areas.content }
+								<ErrorBoundary>{ areas.content }</ErrorBoundary>
 							</div>
 						) }
 
@@ -184,7 +211,7 @@ function Layout() {
 								maxWidth: widths?.edit,
 							} }
 						>
-							{ areas.edit }
+							<ErrorBoundary>{ areas.edit }</ErrorBoundary>
 						</div>
 					) }
 

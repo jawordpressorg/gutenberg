@@ -17,12 +17,13 @@ The package is intended to be imported dynamically in the `view.js` files of int
 ```js
 /* view.js */
 
-import { store } from '@wordpress/interactivity';
+import { store, withSyncEvent } from '@wordpress/interactivity';
 
 // This is how you would typically use the navigate() action in your block.
 store( 'my-namespace/myblock', {
 	actions: {
-		*goToPage( e ) {
+		// The withSyncEvent() utility needs to be used because preventDefault() requires synchronous event access.
+		goToPage: withSyncEvent( function* ( e ) {
 			e.preventDefault();
 
 			// We import the package dynamically to reduce the initial JS bundle size.
@@ -31,7 +32,7 @@ store( 'my-namespace/myblock', {
 				'@wordpress/interactivity-router'
 			);
 			yield actions.navigate( e.target.href );
-		},
+		} ),
 	},
 } );
 ```
@@ -80,7 +81,7 @@ Example:
      <li><a href="/post-2">Post 2</a></li>
      <li><a href="/post-3">Post 3</a></li>
   </ul>
-  <a data-wp-on--click="actions.navigate" href="/page/2">
+  <a data-wp-on--click="actions.navigate" href="/page/2">Page 2</a>
 </div>
 ```
 

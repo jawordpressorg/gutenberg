@@ -138,13 +138,16 @@ The following configurable variables are used with the template files. Template 
 -   `customPackageJSON` (デフォルトなし) - 生成されたパッケージの追加プロパティを定義できます。json ファイル。
 
 <!-- 
-**Plugin header fields** ([learn more](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/)):
+**Plugin header and readme fields** (learn more about [header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) and [readmes](https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/)):
  -->
-**プラグインヘッダーフィールド** ([詳細](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/)):
+**プラグインヘッダーと readme フィールド** (詳細については、[ヘッダーの要件](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/)と [readme](https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/) を参照してください)。
 
 <!-- 
 -   `pluginURI` (no default) – the home page of the plugin.
 -   `version` (default: `'0.1.0'`) – the current version number of the plugin.
+-   `requiresAtLeast` (default: `'6.7'`) – the lowest WordPress version that the plugin will work on.
+-   `requiresPHP` (default: `'7.4'`) – the minimum required PHP version for use with this plugin.
+-   `testedUpTo` (default: `'6.7'`) – the highest WordPress version that the plugin has been tested against.
 -   `author` (default: `'The WordPress Contributors'`) – the name of the plugin author(s).
 -   `license` (default: `'GPL-2.0-or-later'`) – the short name of the plugin’s license.
 -   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`) – a link to the full text of the license.
@@ -153,6 +156,9 @@ The following configurable variables are used with the template files. Template 
  -->
 -   `pluginURI` (デフォルトなし) – プラグインのホームページ
 -   `version` (デフォルト: `'0.1.0'`) – プラグインの現行のバージョン番号
+-   `requiresAtLeast` (デフォルト: `'6.7'`) – プラグインが動作する WordPress の最小バージョン
+-   `requiresPHP` (デフォルト: `'7.4'`) – プラグインの利用に必要な PHP の最小バージョン
+-   `testedUpTo` (デフォルト: `'6.7'`) – プラグインがテストされた WordPress の最大バージョン
 -   `author` (デフォルト: `'The WordPress Contributors'`) – プラグイン作者の名前
 -   `license` (デフォルト: `'GPL-2.0-or-later'`) – プラグインのライセンスの短い名前
 -   `licenseURI` (デフォルト: `'https://www.gnu.org/licenses/gpl-2.0.html'`) – ライセンスの完全なテキストへのリンク
@@ -174,6 +180,7 @@ The following configurable variables are used with the template files. Template 
 -   `description` (no default) – a short description for your block.
 -   `dashicon` (no default) – an icon property thats makes it easier to identify a block ([available values](https://developer.wordpress.org/resource/dashicons/)).
 -   `category` (default: `'widgets'`) – blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, `theme`, and `embed`.
+-   `textdomain` (defaults to the `slug` value) – the text domain used to make strings translatable ([more info](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains)).
 -   `attributes` (no default) – block attributes ([more details](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)).
 -   `supports` (no default) – optional block extended support features ([more details](https://developer.wordpress.org/block-editor/developers/block-api/block-supports/).
 -   `editorScript` (default: `'file:./index.js'`) – an editor script definition.
@@ -190,14 +197,15 @@ The following configurable variables are used with the template files. Template 
 -   `namespace` (デフォルト: `'create-block'`) – ブロック名の内部名前空間
 -   `title` (デフォルトなし) – ブロックの表示タイトル
 -   `description` (デフォルトなし) - ブロックの短い説明
--   `dashicon` (デフォルトなし) - ブロックの識別を助けるアイコンプロパティ。([利用可能な値](https://developer.wordpress.org/resource/dashicons/))
+-   `dashicon` (デフォルトなし) - ブロックの識別を助けるアイコンプロパティ ([利用可能な値](https://developer.wordpress.org/resource/dashicons/))
 -   `category` (デフォルト: `'widgets'`) - ユーザーの参照と検索のため、ブロックはカテゴリーにグループ分けされる。コアで提供されるカテゴリーは、`text`、`media`、`design`、`widgets`、`theme`、`embed`
--   `attributes` (デフォルトなし) – ブロック属性。([詳細](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)).
--   `supports` (デフォルトなし) – オプションのブロック拡張サポート機能。([詳細](https://developer.wordpress.org/block-editor/developers/block-api/block-supports/).
+-   `textdomain` (デフォルトは `slug` 値) – 文字列を翻訳可能にするためのテキストドメイン ([詳細](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains))
+-   `attributes` (デフォルトなし) – ブロック属性 ([詳細](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/))
+-   `supports` (デフォルトなし) – オプションのブロック拡張サポート機能 ([詳細](https://developer.wordpress.org/block-editor/developers/block-api/block-supports/))
 -   `editorScript` (デフォルト: `'file:./index.js'`) – エディタースクリプト定義
 -   `editorStyle` (デフォルト: `'file:./index.css'`) – エディタースタイル定義
 -   `style` (デフォルト: `'file:./style-index.css'`) – フロントエンドとエディターのスタイル定義
--   `render` (デフォルトなし) – フロントエンドで表示する前に、サーバー上でブロックタイプをレンダリングする際に使用される PHP ファイルへのパス。
+-   `render` (デフォルトなし) – フロントエンドで表示する前に、サーバー上でブロックタイプをレンダリングする際に使用される PHP ファイルへのパス
 -   `customBlockJSON` (デフォルトなし) - 生成された block.json ファイルに対する、追加のプロパティを定義できる
 -   `transformer` (デフォルト: `( view ) => view` ) - create-block ツールによって生成されたすべての変数を受け取り、値のオブジェクトを返す関数。既存の値を修正したり、新しい変数を追加する機能を提供する
 
