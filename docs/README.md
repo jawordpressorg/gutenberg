@@ -179,6 +179,26 @@ The Block Editor Handbook is designed for those looking to create and develop fo
 
 ### 主な変更
 
+2025/9/10
+
+- [ブロック開発環境](https://ja.wordpress.org/team/handbook/block-editor/getting-started/devenv/) - wp-now -> @wp-playground/cli [#71071](https://github.com/WordPress/gutenberg/pull/71071)
+- [Gutenberg plugin releases](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/plugin-release/) - 新規
+- [Packages releases to NPM and WordPress Core updates](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/package-release-and-core-updates/) - 新規
+- [Cherry-picking automation](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/release/auto-cherry-picking/) - 新規
+- [エディター機能の無効化](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/curating-the-editor-experience/disable-editor-functionality/) - 「テンプレートエディターへのアクセスの無効化」削除 [#70262](https://github.com/WordPress/gutenberg/pull/70262)
+- [通知](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/notices/) - wp_admin_notice() 使用 [#70231](https://github.com/WordPress/gutenberg/pull/70231)
+- [属性](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) - role [#70361](https://github.com/WordPress/gutenberg/pull/70361)
+- [edit と save](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-edit-save/) - innerBlocks [#66689](https://github.com/WordPress/gutenberg/pull/66689)、更新関数を引数に取る setAttributes [#69709](https://github.com/WordPress/gutenberg/pull/69709)、
+- [登録](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-registration/) - 名前空間に対する注意 [#71040](https://github.com/WordPress/gutenberg/pull/71040)
+- [スタイル](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-styles/) - style_data [#69920](https://github.com/WordPress/gutenberg/pull/69920)
+- [コアブロックリファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/) - ソーシャルアイコン html 無効 [#69374](https://github.com/WordPress/gutenberg/pull/69374)、アバター等 filter (duotone) [#58241](https://github.com/WordPress/gutenberg/pull/58241)、クエリー総数 interactivity (clientNavigation) [#69661](https://github.com/WordPress/gutenberg/pull/69661)、RSS openInNewTab [#69641](https://github.com/WordPress/gutenberg/pull/69641)、目次 maxLevel [#69063](https://github.com/WordPress/gutenberg/pull/69063)、コメント数、コメントリンク Experimental 削除 [#69832](https://github.com/WordPress/gutenberg/pull/69832)、カレンダー html 無効 [#69961](https://github.com/WordPress/gutenberg/pull/69961)、サイトのキャッチフレーズ 説明 [#34473](https://github.com/WordPress/gutenberg/pull/34473)、コンテンツ tagName [#70698](https://github.com/WordPress/gutenberg/pull/70698)、カバー poster [#70816](https://github.com/WordPress/gutenberg/pull/70816)、日付 displayType 削除、datetime [#70585](https://github.com/WordPress/gutenberg/pull/70585)、アコーディオンブロック追加 [#64119](https://github.com/WordPress/gutenberg/pull/64119)、[#71222](https://github.com/WordPress/gutenberg/pull/71222)、[#71441](https://github.com/WordPress/gutenberg/pull/71441)、[#71461](https://github.com/WordPress/gutenberg/pull/71461)、フォーム className 無効を削除 [#55755](https://github.com/WordPress/gutenberg/pull/55755)、
+- [クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-quick-start-guide/) - wp-now -> @wp-playground/cli [#71071](https://github.com/WordPress/gutenberg/pull/71071)
+- [theme.json](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/theme-json-reference/theme-json-living/) - border radiusSizes [#67544](https://github.com/WordPress/gutenberg/pull/67544) 
+- [@wordpress/create-block](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/) - textdomain [#69927](https://github.com/WordPress/gutenberg/pull/69927)、namespace の説明 [#70215](https://github.com/WordPress/gutenberg/pull/70215)
+- [外部プロジェクトテンプレート](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-create-block/packages-create-block-external-template/) - variants 自身のファイルの指定 [#70855](https://github.com/WordPress/gutenberg/pull/70855)
+- [@wordpress/env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) - SPX [#70693](https://github.com/WordPress/gutenberg/pull/70693)
+- [@wordpress/i18n](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-i18n/) - @tannin/sprintf  利用 [#70434](https://github.com/WordPress/gutenberg/pull/70434)、TypeScript [#70843](https://github.com/WordPress/gutenberg/pull/70843)
+
 2025/3/29
 
 - [Styles in the Editor](https://ja.wordpress.org/team/handbook/block-editor/explanations/architecture/styles/) - __experimentalSkipSerialization に戻す [#68163](https://github.com/WordPress/gutenberg/pull/68163)

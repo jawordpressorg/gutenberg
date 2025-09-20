@@ -8,6 +8,7 @@ import clsx from 'clsx';
  */
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
+	CheckboxControl,
 	TextControl,
 	TextareaControl,
 	ToolbarButton,
@@ -123,7 +124,6 @@ const useIsDraggingWithin = ( elementRef ) => {
  * @property {number}               [id]            A post or term id.
  * @property {boolean}              [opensInNewTab] Sets link target to _blank when true.
  * @property {string}               [url]           Link href.
- * @property {string}               [title]         Link title attribute.
  */
 
 export default function NavigationSubmenuEdit( {
@@ -135,7 +135,7 @@ export default function NavigationSubmenuEdit( {
 	context,
 	clientId,
 } ) {
-	const { label, url, description, rel, title } = attributes;
+	const { label, url, description, rel, opensInNewTab } = attributes;
 
 	const { showSubmenuIcon, maxNestingLevel, openSubmenusOnClick } = context;
 
@@ -392,8 +392,8 @@ export default function NavigationSubmenuEdit( {
 							label: '',
 							url: '',
 							description: '',
-							title: '',
 							rel: '',
+							opensInNewTab: false,
 						} );
 					} }
 					dropdownMenuProps={ dropdownMenuProps }
@@ -436,6 +436,24 @@ export default function NavigationSubmenuEdit( {
 					</ToolsPanelItem>
 
 					<ToolsPanelItem
+						hasValue={ () => !! opensInNewTab }
+						label={ __( 'Open in new tab' ) }
+						onDeselect={ () =>
+							setAttributes( { opensInNewTab: false } )
+						}
+						isShownByDefault
+					>
+						<CheckboxControl
+							__nextHasNoMarginBottom
+							label={ __( 'Open in new tab' ) }
+							checked={ opensInNewTab }
+							onChange={ ( value ) =>
+								setAttributes( { opensInNewTab: value } )
+							}
+						/>
+					</ToolsPanelItem>
+
+					<ToolsPanelItem
 						label={ __( 'Description' ) }
 						isShownByDefault
 						hasValue={ () => !! description }
@@ -454,27 +472,6 @@ export default function NavigationSubmenuEdit( {
 							label={ __( 'Description' ) }
 							help={ __(
 								'The description will be displayed in the menu if the current theme supports it.'
-							) }
-						/>
-					</ToolsPanelItem>
-
-					<ToolsPanelItem
-						label={ __( 'Title attribute' ) }
-						isShownByDefault
-						hasValue={ () => !! title }
-						onDeselect={ () => setAttributes( { title: '' } ) }
-					>
-						<TextControl
-							__nextHasNoMarginBottom
-							__next40pxDefaultSize
-							value={ title || '' }
-							onChange={ ( titleValue ) => {
-								setAttributes( { title: titleValue } );
-							} }
-							label={ __( 'Title attribute' ) }
-							autoComplete="off"
-							help={ __(
-								'Additional information to help clarify the purpose of the link.'
 							) }
 						/>
 					</ToolsPanelItem>

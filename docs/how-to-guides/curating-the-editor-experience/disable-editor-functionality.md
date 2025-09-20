@@ -50,14 +50,14 @@ You can also use [block filters](/docs/reference-guides/filters/block-filters.md
 
 ```php
 function example_modify_heading_levels_globally( $args, $block_type ) {
-	
+
 	if ( 'core/heading' !== $block_type ) {
 		return $args;
 	}
 
 	// H1、H2、H6 を削除
 	$args['attributes']['levelOptions']['default'] = [ 3, 4, 5 ];
-	
+
 	return $args;
 }
 add_filter( 'register_block_type_args', 'example_modify_heading_levels_globally', 10, 2 );
@@ -152,12 +152,11 @@ This JavaScript should be enqueued much like the block variation example above. 
 
 <!-- 
 ## Disable access to the Template Editor
- -->
 ## テンプレートエディターへのアクセスの無効化
+ -->
 
 <!-- 
 Whether you’re using theme.json in a Classic or Block theme, you can add the following to your `functions.php` file to remove access to the Template Editor that is available when editing posts or pages:
- -->
 クラシックテーマでもブロックテーマでも、theme.json を使用している場合は、`functions.php` ファイルに以下を追加することで、投稿やページの編集時に利用できるテンプレートエディタへのアクセスを抑止できます。
 
 ```php
@@ -166,10 +165,11 @@ function example_theme_support() {
 }
 add_action( 'after_setup_theme', 'example_theme_support' );
 ```
+ -->
 <!-- 
 This prevents both the ability to create new block templates or edit them from within the Post Editor.
- -->
 このコードにより、投稿エディターからの新規ブロックテンプレートの作成と編集の両方が抑止されます。
+ -->
 
 <!-- 
 ## Disable access to the Code Editor

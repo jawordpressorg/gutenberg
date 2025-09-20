@@ -168,7 +168,35 @@ Why do this? In JavaScript, arrays and objects are passed by reference, so this 
  -->
 コピーやクローンが必要なのはなぜでしょうか ? JavaScript では配列やオブジェクトは参照渡しされるため、コピーやクローンを行うことで変更が同じデータへの参照を持つ他のコードに影響を与えないことが保証されます。さらに Gutenberg プロジェクトは Redux ライブラリの哲学、[state は不変でなければならない ](https://redux.js.org/faq/immutable-data#what-are-the-benefits-of-immutability)に従っています。データは直接変更せず、変更を含む新しいバージョンのデータを作る必要があります。
 
+<!-- 
+The `setAttribute` also supports an updater function as an argument. It must be a pure function, which takes current attributes as its only argument and returns updated attributes. This method is helpful when you want to update an value based on a previous state or when working with objects and arrays.
+ -->
+また `setAttribute` は引数として更新関数もサポートします。関数は純粋関数でなければならず、唯一の引数として現在の属性を受け取り、更新後の属性を返します。この方法は、以前の状態に基づいて値を更新したい場合や、オブジェクトや配列を扱う場合に便利です。
+
+<!-- 
+_**Note:** Since WordPress 6.9._
+ -->
+_**注意:** WordPress 6.9 以降_
+
+```js
+// ユーザーがボタンをクリックした時に設定をトグルする例
+const toggleSetting = () =>
+	setAttributes( ( currentAttr ) => ( {
+		mySetting: ! currentAttr.mySetting,
+	} ) );
+
+// リストに項目を追加する例
+const addListItem = ( newListItem ) =>
+	setAttributes( ( currentAttr ) => ( {
+		list: [ ...currentAttr.list, newListItem ],
+	} ) );
+```
+
+<!-- 
+## Save
+ -->
 ## save
+
 <!--
 The `save` function defines the way in which the different attributes should be combined into the final markup, which is then serialized into `post_content`.
  -->
@@ -193,15 +221,17 @@ _Note:_ While it is possible to return a string value from `save`, it _will be e
 _注意:_ `save` から文字列値を返すことができますが、この値は _エスケープされます_。文字列が HTML マークアップを含む場合、サイトのフロントエンドには、同等の HTML ノードコンテンツではなくマークアップがそのまま表示されます。`save` から生の HTML を返す必要がある場合は `wp.element.RawHTML` を使用してください。名前が示すとおり、これは [クロスサイトスクリプティング](https://en.wikipedia.org/wiki/Cross-site_scripting) が発生しやすいため、可能な場合は WordPress Element 階層の使用を推奨します。
 
 <!--
-_Note:_ The save function should be a pure function that depends only on the attributes used to invoke it.
-It can not have any side effect or retrieve information from another source, e.g. it is not possible to use the data module inside it `select( store ).selector( ... )`.
+_Note:_ The save function should be a pure and stateless function that depends only on the attributes used to invoke it. It shouldn't use any APIs such as `useState` or `useEffect`, nor retrieve information from another source; for example, it is not possible to use the data module inside - `select( store ).selector( ... )`.
 This is because if the external information changes, the block may be flagged as invalid when the post is later edited ([read more about Validation](#validation)).
+ -->
+_注意:_  `save` 関数は、呼び出しに使用された属性のみに依存する純粋、かつ、状態を持たない関数でなければなりません。`useState` や `useEffect` などの API は使用できず、他のソースからの情報の取得もできません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することはできません。
+これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「バリデーション」を参照してください。
+
+<!--
 If there is a need to have other information as part of the save, developers can consider one of these two alternatives:
 -   Use [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md) and dynamically retrieve the required information on the server.
 -   Store the external value as an attribute which is dynamically updated in the block's `edit` function as changes occur.
  -->
-_注意:_ `save` 関数は、呼び出し時に使用された属性にのみ依存する純粋関数でなければなりません。どのようなサイドイフェクトも与えられず、別のソースからの情報も取得できません。たとえば 内部でデータモジュール `select( store ).selector( ... )` を使用することはできません。
-これは外部の情報が変更されると、あとで投稿を編集する際にブロックが不正 (invalid) としてマーク付けされる可能性があるためです。詳細には以下の「バリデーション」を参照してください。
 保存の流れで他の情報が必要になった場合、開発者には2つの選択肢があります。
  - [ダイナミックブロック](https://ja.wordpress.org/team/handbook/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) を使用してサーバー上で動的に必要な情報を取得する。
  - 外部の値を属性として保存し、変更があった場合にはブロックの `edit` 関数内で動的に更新する。
@@ -240,32 +270,30 @@ save: ( { attributes } ) => {
 	return <div { ...blockProps }>{ attributes.content }</div>;
 };
 ```
-<<<<<<< HEAD
+
 <!--
-=======
-
-
->>>>>>> upstream/trunk
 When saving your block, you want to save the attributes in the same format specified by the attribute source definition. If no attribute source is specified, the attribute will be saved to the block's comment delimiter. See the [Block Attributes documentation](/docs/reference-guides/block-api/block-attributes.md) for more details.
  -->
 ブロックを保存する際、属性は、属性ソース定義で指定した形式で保存されます。属性ソースが指定されていない場合、属性はブロックのコメントデリミッターに保存されます。詳細は [ブロック属性のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-attributes/) を参照してください。
 
-<<<<<<< HEAD
-<!--
-=======
 ### innerBlocks
 
+<!-- 
 There is a second property in the props passed to the `save` function, `innerBlocks`. This property is typically used for internal operations, and there are very few scenarios where you would need to use it.
+ -->
+`save` 関数に渡される props には2番目のプロパティ `innerBlocks` があります。このプロパティは通常、内部処理で使用されますが、必要性が生じるシナリオはごくわずかです。
 
+<!-- 
 `innerBlocks`, when initialized, is an array containing object representations of nested blocks. In those rare cases where you might use this property,
 it can help you adjust how a block is rendered. For example, you could render a block differently based on the number of nested blocks or if a specific block type is present..
-
+ -->
+初期化時の `innerBlocks` はネストしたブロックのオブジェクト表現を含む配列です。このプロパティを使用する稀なケースとして、ブロックのレンダリング方法を調整する際に使用できます。例えば、ネストしたブロックの数や、特定のブロックタイプの存在の有無に応じて、ブロックを異なる方法でレンダリングできます。
 
 ```jsx
 save: ( { attributes, innerBlocks } ) => {
 	const { className, ...rest } = useBlockProps.save();
 
-	// innerBlocks could also be an object - react element during initialization
+	// innerBlocks  はまたオブジェクトにもなり得る - 初期化時に React 要素として
 	const numberOfInnerBlocks = innerBlocks?.length;
 	if ( numberOfInnerBlocks > 1 ) {
 		className = className + ( className ? ' ' : '' ) + 'more-than-one';
@@ -276,10 +304,12 @@ save: ( { attributes, innerBlocks } ) => {
 };
 ```
 
-
+<!-- 
 Here, an additional class is added to the block if number of inner blocks is greater than one, allowing for different styling of the block.
+ -->
+この例では内部ブロックの数が1より多ければ、ブロックにクラスを追加し、異なるスタイル設定を可能にします。
 
->>>>>>> upstream/trunk
+<!--
 ## Examples
  -->
 ## 例

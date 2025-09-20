@@ -29,7 +29,7 @@ The example above registers a block style named `fancy-quote` to the `core/quote
 <!--
 By adding `isDefault: true` you can mark the registered block style as the one that is recognized as active when no custom class name is provided. It also means that there will be no custom class name added to the HTML output for the style that is marked as default.
  -->
-`isDefault: true` を追加すると、カスタムクラス名が提供されていない場合に、アクティブと認識される対象として登録したブロックスタイルをマークできます。この結果、デフォルトとしてマークされたスタイルの HTML 出力には、カスタムクラス名は追加されません。
+登録するブロックスタイルに `isDefault: true` を追加すると、カスタムクラス名が指定されていない場合にアクティブと認識される対象としてマークできます。この結果、デフォルトとしてマークされたスタイルの HTML 出力には、カスタムクラス名は追加されません。
 
 <!--
 To remove a block style use `wp.blocks.unregisterBlockStyle()`.
@@ -121,21 +121,24 @@ The properties of the style array must include `name` and `label`:
 -   `label`: スタイルの人間が読めるラベルです。
 
 <!--
-Besides the two mandatory properties, the styles properties array should also include an `inline_style` or a `style_handle` property:
+Besides the two mandatory properties, the styles properties array should also include an `inline_style` or a `style_handle` or a `style_data`property:
  -->
-2つの必須プロパティの他に、スタイルプロパティの配列には、`inline_style`または`style_handle`のプロパティも含める必要があります。
+2つの必須プロパティの他に、スタイルプロパティの配列には、`inline_style` または `style_handle` または `style_data` プロパティも含める必要があります。
+
 
 <!--
 -   `inline_style`: Contains inline CSS code that registers the CSS class required for the style.
 -   `style_handle`: Contains the handle to an already registered style that should be enqueued in places where block styles are needed.
+-   `style_data`: Contains a theme.json-like notation in an array of style properties.
  -->
 -   `inline_style`: スタイルに必要なCSSクラスを登録するインラインCSSコードを含みます。
 -   `style_handle`: ブロックスタイルが必要な場所でエンキューされる、既に登録済みのスタイルのハンドルを含みます。
+-   `style_data`: スタイルプロパティの配列内に、theme.json 形式の表記を含みます。
 
 <!--
 It is also possible to set the `is_default` property to `true` to mark one of the block styles as the default one.
  -->
-また、`is_default` プロパティを `true` に設定して、いずれかのブロックスタイルをデフォルトとしてマークできます。
+また、ブロックスタイルのいずれかが欠けている場合に備え、`is_default` プロパティを`true`に設定して、デフォルトのスタイルとしてマークできます。
 
 <!--
 The following code sample registers a style for the quote block named "Blue Quote", and provides an inline style that makes quote blocks with the "Blue Quote" style have blue color:
@@ -177,6 +180,38 @@ register_block_style(
     )
 );
 ```
+<!-- 
+Another way is using the `style_data`property, as in below code example. It adds a block style to the image block with an orange border and slightly rounded corners.
+ -->
+別の方法は `style_data` プロパティを使用する方法です。以下のコード例は画像ブロックに、オレンジ色の枠線とわずかに角が丸くなったブロックスタイルを追加します。
+
+```php
+register_block_style(
+       array( 'core/image' ),
+       array(
+           'name'         => 'orange-border',
+           'label'        => __( 'Orange Border', 'pauli' ),
+           'style_data'=> array(
+                           'border' => array(
+                           'color' => '#f5bc42',
+                           'style' => 'solid',
+                           'width' => '4px',
+                           'radius' => '15px'
+            )
+        )
+    )
+);
+```
+<!-- 
+Using the `style_data` property empowers the user to change it with the Global Styles UI via the **Editor > Styles**. The `style_data`property was added in WordPress 6.6.
+ -->
+`style_data` プロパティを使用すると、ユーザーは **エディター > スタイル** 経由のグローバルスタイル UI で変更できます。`style_data`プロパティは WordPress 6.6で追加されました。
+
+<!-- 
+More information via WordPress 6.6 Dev Note: [Section Styles](https://make.wordpress.org/core/2024/06/24/section-styles/).
+Also on the WordPress Developer Blog: [Styling sections, nested elements, and more with Block Style Variations in WordPress 6.6](https://developer.wordpress.org/news/2024/06/styling-sections-nested-elements-and-more-with-block-style-variations-in-wordpress-6-6/)
+ -->
+詳細については WordPress 6.6 Dev Notes 「[セクションスタイル](https://make.wordpress.org/core/2024/06/24/section-styles/)」や WordPress Developer Blog 「[WordPress 6.6のブロックスタイルバリエーションでセクションやネストされた要素などをスタイリング](https://developer.wordpress.org/news/2024/06/styling-sections-nested-elements-and-more-with-block-style-variations-in-wordpress-6-6/)」を参照してください。
 
 <!--
 ### unregister_block_style

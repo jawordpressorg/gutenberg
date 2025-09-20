@@ -6,7 +6,7 @@
 <!--
 We will build the application as a WordPress plugin, which means you need to have WordPress itself installed. One way to do this is by following the instructions on the [Getting Started](/docs/contributors/code/getting-started-with-code-contribution.md) page. Once your setup is complete, you can follow along with the rest of this tutorial.
 -->
-WordPress のプラグインとしてアプリケーションを構築します。このため、WordPress 本体のインストールが必要です。方法はさまざまですが、1つの方法として、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution) の指示に従ってください。セットアップの完了後は、このチュートリアルの残りの部分を進められます。
+ここではアプリケーションを WordPress のプラグインとして構築します。それには WordPress 本体のインストールが必要です。方法はさまざまですが、1つの方法として、[コードによるコントリビューション入門](https://ja.wordpress.org/team/handbook/block-editor/contributors/code/getting-started-with-code-contribution) の指示に従ってください。セットアップの完了後は、このチュートリアルの残りの部分を進められます。
 
 <!--
 Also, this tutorial will lean heavily on Redux concepts such as state, actions, and selectors. If you are not familiar with them, you may want to start by reviewing [Getting Started With Redux](https://redux.js.org/introduction/getting-started).
@@ -43,6 +43,7 @@ Go ahead and create these files using the following snippets:
 
 ```js
 import { createRoot } from 'react-dom';
+import './style.css';
 
 function MyFirstApp() {
 	return <span>Hello from JavaScript!</span>;

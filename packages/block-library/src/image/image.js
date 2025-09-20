@@ -53,12 +53,13 @@ import { unlock } from '../lock-unlock';
 import { createUpgradedEmbedBlock } from '../embed/util';
 import { isExternalImage } from './edit';
 import { Caption } from '../utils/caption';
-
-/**
- * Module constants
- */
 import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
-import { MIN_SIZE, ALLOWED_MEDIA_TYPES, SIZED_LAYOUTS } from './constants';
+import {
+	MIN_SIZE,
+	ALLOWED_MEDIA_TYPES,
+	SIZED_LAYOUTS,
+	DEFAULT_MEDIA_SIZE_SLUG,
+} from './constants';
 import { evalAspectRatio } from './utils';
 
 const { DimensionsTool, ResolutionTool } = unlock( blockEditorPrivateApis );
@@ -305,7 +306,12 @@ export default function Image( {
 	const image = useSelect(
 		( select ) =>
 			id && isSingleSelected
-				? select( coreStore ).getMedia( id, { context: 'view' } )
+				? select( coreStore ).getEntityRecord(
+						'postType',
+						'attachment',
+						id,
+						{ context: 'view' }
+				  )
 				: null,
 		[ id, isSingleSelected ]
 	);
@@ -594,6 +600,7 @@ export default function Image( {
 			aspectRatio: undefined,
 			lightbox: undefined,
 		} );
+		updateImage( DEFAULT_MEDIA_SIZE_SLUG );
 	};
 
 	const sizeControls = (
@@ -699,7 +706,8 @@ export default function Image( {
 		! lockHrefControls &&
 		! lockUrlControls;
 
-	const showCoverControls = isSingleSelected && canInsertCover;
+	const showCoverControls =
+		isSingleSelected && canInsertCover && ! isContentOnlyMode;
 
 	const showBlockControls = showUrlInput || allowCrop || showCoverControls;
 
@@ -836,6 +844,7 @@ export default function Image( {
 					{ !! imageSizeOptions.length && (
 						<ResolutionTool
 							value={ sizeSlug }
+							defaultValue={ DEFAULT_MEDIA_SIZE_SLUG }
 							onChange={ updateImage }
 							options={ imageSizeOptions }
 						/>

@@ -71,6 +71,47 @@ _注意:_ ブロック名には英小文字、数字、ダッシュのみを使�
 
 _注意:_ ブロック名はコメントデリミッタとして `<!-- wp:my-plugin/book -->` のように使用されます。コアで提供されるブロックはシリアライズの際に名前空間が削除されます。
 
+<!-- 
+#### Important: Choose Your Namespace Carefully
+ -->
+#### 重要: 名前空間は慎重に選ぶこと
+
+<!-- 
+Block names cannot be changed later without consequences. The block name is stored in the post content of every post using that block, so changing it requires editing all affected posts or running database scripts.
+ -->
+ブロック名は後から変更すると影響が生じます。ブロック名は、そのブロックを使用しているすべての投稿の投稿コンテンツ内に保存されるため、変更するには影響を受けるすべての投稿を編集するか、データベーススクリプトを実行する必要があります。
+
+<!-- 
+#### Namespace Best Practices
+ -->
+#### 名前空間のベストプラクティス
+
+<!-- 
+-   Use your actual plugin/theme name: `my-awesome-plugin/block-name`
+-   Avoid generic names like `editorial/`, `block/`, or `create-block/`
+-   Use the same namespace for all blocks in your plugin/theme
+-   Make it unique to prevent conflicts with other plugins
+ -->
+-   実際のプラグイン名やテーマ名を使用してください: `my-awesome-plugin/block-name`
+-   `editorial/`、`block/`、`create-block/` などの汎用的な名前は避けてください
+-   プラグインやテーマ内のすべてのブロックで同じ名前空間を使用してください
+-   他のプラグインとの競合を防ぐため、一意にしてください
+
+```js
+// 良い例
+registerBlockType( 'my-company-blocks/hero', {} );
+registerBlockType( 'awesome-gallery-plugin/slideshow', {} );
+
+// 悪い例
+registerBlockType( 'create-block/example', {} ); // 一般的過ぎる
+registerBlockType( 'block/content', {} ); // 一般的過ぎる
+```
+
+<!-- 
+_Note:_ `registerBlockCollection()` only works with blocks from a single namespace.
+ -->
+_注意:_ `registerBlockCollection()` は単一の名前空間のブロックでのみ動作します。
+
 <!--
 ### Block configuration
  -->
@@ -578,21 +619,20 @@ The key is the name of the block (`string`) to hook into, and the value is the p
 	}
 }
 ```
-<<<<<<< HEAD
 <!-- 
 It’s crucial to emphasize that the Block Hooks feature is only designed to work with _static_ block-based templates, template parts, and patterns. For patterns, this includes those provided by the theme, from [Block Pattern Directory](https://wordpress.org/patterns/), or from calls to [`register_block_pattern`](https://developer.wordpress.org/reference/functions/register_block_pattern/).
  -->
+<!-- 
 重要な点のため強調しますが、ブロックフック機能は、_静的な_ ブロックベースのテンプレート、テンプレートパーツ、パターンにのみ対応するように設計されています。このパターンに含まれるものは、テーマや、[ブロックパターンディレクトリ](https://wordpress.org/patterns/)、そして [`register_block_pattern`](https://developer.wordpress.org/reference/functions/register_block_pattern/) 呼び出しから提供されたものです。
-
+ -->
 <!-- 
 Block Hooks will not work with post content or patterns crafted by the user, such as synced patterns, or theme templates and template parts that have been modified by the user.
  -->
+<!-- 
 ブロックフックは、投稿コンテンツや、ユーザーが作成したパターン (同期パターンなど)、ユーザーが変更したテーマのテンプレートやテンプレートパーツでは機能しません。
-
+ -->
+ 
 <!--
-=======
-
->>>>>>> upstream/trunk
 ## Block collections
  -->
 ## ブロックコレクション

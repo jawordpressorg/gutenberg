@@ -882,7 +882,7 @@ export const blocks = pipe(
 				const newState = new Map( state );
 				for ( const clientId of action.clientIds ) {
 					const updatedAttributeEntries = Object.entries(
-						action.uniqueByBlock
+						!! action.options?.uniqueByBlock
 							? action.attributes[ clientId ]
 							: action.attributes ?? {}
 					);
@@ -1833,7 +1833,7 @@ export function lastBlockAttributesChange( state = null, action ) {
 			return action.clientIds.reduce(
 				( accumulator, id ) => ( {
 					...accumulator,
-					[ id ]: action.uniqueByBlock
+					[ id ]: !! action.options?.uniqueByBlock
 						? action.attributes[ id ]
 						: action.attributes,
 				} ),
@@ -2056,23 +2056,6 @@ export function lastFocus( state = false, action ) {
 }
 
 /**
- * Reducer setting currently hovered block.
- *
- * @param {boolean} state  Current state.
- * @param {Object}  action Dispatched action.
- *
- * @return {boolean} Updated state.
- */
-export function hoveredBlockClientId( state = false, action ) {
-	switch ( action.type ) {
-		case 'HOVER_BLOCK':
-			return action.clientId;
-	}
-
-	return state;
-}
-
-/**
  * Reducer setting zoom out state.
  *
  * @param {boolean} state  Current state.
@@ -2141,7 +2124,6 @@ const combinedReducers = combineReducers( {
 	blockRemovalRules,
 	openedBlockSettingsMenu,
 	registeredInserterMediaCategories,
-	hoveredBlockClientId,
 	zoomLevel,
 } );
 
@@ -2285,6 +2267,12 @@ function getDerivedBlockEditingModesForTree(
 			syncedPatternClientIds.push( clientId );
 		}
 	} );
+	const contentOnlyTemplateLockedClientIds = Object.keys(
+		state.blockListSettings
+	).filter(
+		( clientId ) =>
+			state.blockListSettings[ clientId ]?.templateLock === 'contentOnly'
+	);
 
 	traverseBlockTree( state, treeClientId, ( block ) => {
 		const { clientId, name: blockName } = block;
@@ -2475,6 +2463,23 @@ function getDerivedBlockEditingModesForTree(
 				derivedBlockEditingModes.set( clientId, 'disabled' );
 			}
 		}
+
+		// `templateLock: 'contentOnly'` derived modes.
+		if ( contentOnlyTemplateLockedClientIds.length ) {
+			const hasContentOnlyTemplateLockedParent =
+				!! findParentInClientIdsList(
+					state,
+					clientId,
+					contentOnlyTemplateLockedClientIds
+				);
+			if ( hasContentOnlyTemplateLockedParent ) {
+				if ( isContentBlock( blockName ) ) {
+					derivedBlockEditingModes.set( clientId, 'contentOnly' );
+				} else {
+					derivedBlockEditingModes.set( clientId, 'disabled' );
+				}
+			}
+		}
 	} );
 
 	return derivedBlockEditingModes;
@@ -2627,6 +2632,75 @@ export function withDerivedBlockEditingModes( reducer ) {
 						prevState: state,
 						nextState,
 						addedBlocks: action.blocks,
+						isNavMode: true,
+					} );
+
+				if (
+					nextDerivedBlockEditingModes ||
+					nextDerivedNavModeBlockEditingModes
+				) {
+					return {
+						...nextState,
+						derivedBlockEditingModes:
+							nextDerivedBlockEditingModes ??
+							state.derivedBlockEditingModes,
+						derivedNavModeBlockEditingModes:
+							nextDerivedNavModeBlockEditingModes ??
+							state.derivedNavModeBlockEditingModes,
+					};
+				}
+				break;
+			}
+			case 'UPDATE_BLOCK_LIST_SETTINGS': {
+				// Handle the addition and removal of contentOnly template locked blocks.
+				const addedBlocks = [];
+				const removedClientIds = [];
+
+				const updates =
+					typeof action.clientId === 'string'
+						? { [ action.clientId ]: action.settings }
+						: action.clientId;
+
+				for ( const clientId in updates ) {
+					const isNewContentOnlyBlock =
+						state.blockListSettings[ clientId ]?.templateLock !==
+							'contentOnly' &&
+						nextState.blockListSettings[ clientId ]
+							?.templateLock === 'contentOnly';
+
+					const wasContentOnlyBlock =
+						state.blockListSettings[ clientId ]?.templateLock ===
+							'contentOnly' &&
+						nextState.blockListSettings[ clientId ]
+							?.templateLock !== 'contentOnly';
+
+					if ( isNewContentOnlyBlock ) {
+						addedBlocks.push(
+							nextState.blocks.tree.get( clientId )
+						);
+					} else if ( wasContentOnlyBlock ) {
+						removedClientIds.push( clientId );
+					}
+				}
+
+				if ( ! addedBlocks.length && ! removedClientIds.length ) {
+					break;
+				}
+
+				const nextDerivedBlockEditingModes =
+					getDerivedBlockEditingModesUpdates( {
+						prevState: state,
+						nextState,
+						addedBlocks,
+						removedClientIds,
+						isNavMode: false,
+					} );
+				const nextDerivedNavModeBlockEditingModes =
+					getDerivedBlockEditingModesUpdates( {
+						prevState: state,
+						nextState,
+						addedBlocks,
+						removedClientIds,
 						isNavMode: true,
 					} );
 

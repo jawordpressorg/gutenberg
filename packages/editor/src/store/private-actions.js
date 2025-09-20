@@ -216,6 +216,7 @@ export const saveDirtyEntities =
 								{
 									label: __( 'View site' ),
 									url: homeUrl,
+									openInNewTab: true,
 								},
 							],
 						} );
@@ -405,7 +406,7 @@ export const removeTemplates =
 				}
 				successMessage = isResetting
 					? sprintf(
-							/* translators: The template/part's name. */
+							/* translators: %s: The template/part's name. */
 							__( '"%s" reset.' ),
 							decodeEntities( title )
 					  )

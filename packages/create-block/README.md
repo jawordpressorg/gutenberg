@@ -114,6 +114,31 @@ When no `slug` is provided, the script will run in interactive mode and will sta
 `slug`を指定しなければスクリプトは対話モードで実行され、ひな形プロジェクトに必要な入力 (`slug`、title、namespace...）を求めるプロンプトが表示されます。
 
 <!-- 
+### `namespace`
+ -->
+### namespace
+
+<!-- 
+By default, blocks are created with the `create-block` namespace. You should specify your own unique namespace:
+ -->
+ブロックはデフォルトで名前空間 `create-block` で作成されます。固有の名前空間を指定してください。
+
+```bash
+$ npx @wordpress/create-block@latest my-block --namespace=my-namespace
+```
+<!-- 
+This creates `my-namespace/my-block` instead of `create-block/my-block`.
+ -->
+この例では、`create-block/my-block` ではなく `my-namespace/my-block` が作成されます。.
+
+<!-- 
+If you've already created a block, update the namespace in:
+ -->
+すでにブロックを作成している場合は、以下を更新してください。
+
+- `block.json` - `name` プロパティ
+
+<!-- 
 ### `slug`
  -->
 ### slug
@@ -157,6 +182,7 @@ The rest of the configuration is set to all default values unless overridden wit
 --wp-scripts                 enable integration with `@wordpress/scripts` package
 --no-wp-scripts              disable integration with `@wordpress/scripts` package
 --wp-env                     enable integration with `@wordpress/env` package
+--textdomain <value>         text domain for internationalization
 -h, --help                   output usage information
 ```
  -->
@@ -173,6 +199,7 @@ The rest of the configuration is set to all default values unless overridden wit
 --wp-scripts                 `@wordpress/scripts` パッケージとの統合を有効化
 --no-wp-scripts              `@wordpress/scripts` パッケージとの統合を無効化
 --wp-env                     `@wordpress/env` パッケージとの統合を有効化
+--textdomain <value>         国際化のためのテキストドメイン
 -h, --help                   使用方法の出力
 ```
 
@@ -253,6 +280,8 @@ $ npx @wordpress/create-block --template my-template-package
 ```
 
 3. ローカルテンプレートディレクトリ - また、テンプレートとしてローカルディレクトリを取ることもできます。
+
+#### `--help`
 
 ```bash
 $ npx @wordpress/create-block --template ./path/to/template-directory
@@ -379,6 +408,20 @@ WordPress パッケージを最新版に更新。[詳細](https://github.com/Wor
  -->
 
 <!-- 
+#### `--textdomain`
+ -->
+#### --textdomain
+
+<!-- 
+With this argument, the `create-block` package will a generate a block with the provided text domain. If not specified, the block’s slug is used as the default text domain.
+ -->
+この引数を指定すると、`create-block` パッケージは指定されたテキストドメインを持つブロックを生成します。指定がない場合、ブロックのスラッグがデフォルトのテキストドメインとして使用されます。
+
+```bash
+$ npx @wordpress/create-block@latest --textdomain my-custom-domain
+```
+
+<!-- 
 #### `--help`
  -->
 #### --help
@@ -401,7 +444,7 @@ The plugin folder created when executing this command, is a node package with a 
 
 A set of scripts is available from inside that folder (provided by the `scripts` package) to make your work easier. [Click here](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#available-scripts) for a full description of these commands.
  -->
-このコマンドを実行して作成される plugin フォルダは、モダンなビルド環境が設定された node パッケージです。追加の構成を必要ありません。
+このコマンドを実行して作成される plugin フォルダは、モダンなビルド環境が設定された node パッケージです。追加の構成は必要ありません。
 
 このフォルダの中には作業を助ける複数のスクリプトが準備されています (`scripts` パッケージで提供されます)。コマンドの詳細については、[ここをクリック](https://github.com/WordPress/gutenberg/tree/HEAD/packages/scripts#available-scripts)してください。
 

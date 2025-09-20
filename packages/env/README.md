@@ -559,6 +559,11 @@ Options:
              them in a comma-separated list: `--xdebug=develop,coverage`. See
              https://xdebug.org/docs/all_settings#mode for information about
              Xdebug modes.                                              [string]
+  --spx      Enables SPX profiling. If not passed, SPX is turned off. If no
+             mode is set, uses "enabled". SPX is a simple profiling extension
+             with a built-in web UI. See
+             https://github.com/NoiseByNorthwest/php-spx for more information.
+                                                                        [string]
   --scripts  Execute any configured lifecycle scripts. [boolean] [default: true]
 ```
  -->
@@ -580,6 +585,9 @@ WordPress 開発環境をポート 8888 (​http://localhost:8888​) で (ポ�
              "debug" を使用する。複数の Xdebug モードを設定でき、コンマで区切る。
 			 `--xdebug=develop,coverage`. Xdebug モードの情報については、
              https://xdebug.org/docs/all_settings#mode 参照        [string]
+  --spx      SPX プロファイリングを有効化する。指定しなければ SPX はオフ。モードがセットされていなければ、
+             "enabled" を使用する。SPX はビルトイン Web UI を備えたシンプルなプロファイリング拡張。
+             詳細については https://github.com/NoiseByNorthwest/php-spx を参照  [string]
   --scripts  構成済みのライフサイクルスクリプトを実行        [boolean] [デフォルト: true]
 ```
 
@@ -1460,6 +1468,54 @@ php_value memory_limit 2G
 This is useful if there are options you'd like to add to `php.ini`, which is difficult to access in this environment.
  -->
 これは、この環境ではアクセスが難しい `php.ini` に追加したいオプションがある場合に便利です。
+
+<!-- 
+### Using SPX Profiling
+ -->
+### SPX プロファイリングの使用
+
+<!-- 
+SPX is a simple profiling extension for PHP that provides low-overhead profiling with a built-in web UI. When enabled with `--spx`, you can access the SPX profiling interface to analyze your application's performance.
+ -->
+SPX は PHP 用のシンプルなプロファイリング拡張機能で、組み込みの Web UI を備えた低オーバーヘッドのプロファイリングを提供します。`--spx` オプションで有効化し、SPX プロファイリングインターフェースにアクセスすると、アプリケーションのパフォーマンスを分析できます。
+<!-- 
+To enable SPX profiling:
+ -->
+SPX プロファイリングを有効化するには、
+
+```sh
+wp-env start --spx
+```
+
+<!-- 
+Once enabled, you can access the SPX web UI by visiting any page in your WordPress environment with the query parameters `?SPX_KEY=dev&SPX_UI_URI=/`. For example:
+ -->
+いったん有効化すると、WordPress 環境内の任意のページにクエリパラメータ `?SPX_KEY=dev&SPX_UI_URI=/` を付加してアクセスすることで、SPX Web UI を利用できます。例えば、
+
+<!-- 
+- Development site: `http://localhost:8888/?SPX_KEY=dev&SPX_UI_URI=/`
+- Test site: `http://localhost:8889/?SPX_KEY=dev&SPX_UI_URI=/`
+ -->
+- 開発サイト: `http://localhost:8888/?SPX_KEY=dev&SPX_UI_URI=/`
+- テストサイト: `http://localhost:8889/?SPX_KEY=dev&SPX_UI_URI=/`
+
+<!-- 
+From the SPX interface, you can:
+- Enable profiling for subsequent requests
+- View flame graphs and performance metrics
+- Analyze function call timelines
+- Examine memory usage and other performance data
+ -->
+SPX インターフェースから以下が可能です。
+- 後続のリクエストのプロファイリングの有効化
+- フレームグラフとパフォーマンス指標の表示
+- 関数呼び出しタイムラインの分析
+- メモリ使用量やその他のパフォーマンスデータの調査
+
+<!-- 
+SPX provides a more lightweight alternative to Xdebug for profiling, with minimal performance overhead and an intuitive web-based interface.
+ -->
+SPXは、Xdebug よりも軽量な代替プロファイリング手段を提供し、最小限のパフォーマンスオーバーヘッドと直感的なウェブベースインターフェースを備えます。
 
 <!-- 
 ## Contributing to this package

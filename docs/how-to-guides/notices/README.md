@@ -29,44 +29,25 @@ Producing an equivalent "Post draft updated" notice would require code like this
 
 同等の通知を実装したとすると、次のようなコードになります。
 
-<!-- 
-```php
-/**
- * Hook into the 'admin_notices' action to render
- * a generic HTML notice.
- */
-function myguten_admin_notice() {
-	$screen = get_current_screen();
-	// Only render this notice in the post editor.
-	if ( ! $screen || 'post' !== $screen->base ) {
-		return;
-	}
-	// Render the notice's HTML.
-	// Each notice should be wrapped in a <div>
-	// with a 'notice' class.
-	echo '<div class="notice notice-success is-dismissible"><p>';
-	echo sprintf( __( 'Post draft updated. <a href="%s" target="_blank">Preview post</a>' ), get_preview_post_link() );
-	echo '</p></div>';
-};
-add_action( 'admin_notices', 'myguten_admin_notice' );
-```
- -->
 ```php
 /**
  * 'admin_notices' アクションにフックして、
- * 一般的な HTML 通知をレンダリングする
+ * 一般的な HTML 通知をレンダーする。
  */
 function myguten_admin_notice() {
 	$screen = get_current_screen();
-	// この通知は投稿エディターでのみレンダリングする。
+	// この通知は投稿エディターでのみレンダーする。
 	if ( ! $screen || 'post' !== $screen->base ) {
 		return;
 	}
-	// 通知の HTML をレンダリングする
-	// 通知は 'notice' クラスの <div> で囲む
-	echo '<div class="notice notice-success is-dismissible"><p>';
-	echo sprintf( __( 'Post draft updated. <a href="%s" target="_blank">Preview post</a>' ), get_preview_post_link() );
-	echo '</p></div>';
+	// 通知の HTML をレンダーする。
+	wp_admin_notice(
+		sprintf( __( 'Post draft updated. <a href="%s" target="_blank">Preview post</a>' ), get_preview_post_link() ),
+		array(
+			'type'        => 'success',
+			'dismissible' => true,
+		)
+	);
 };
 add_action( 'admin_notices', 'myguten_admin_notice' );
 ```

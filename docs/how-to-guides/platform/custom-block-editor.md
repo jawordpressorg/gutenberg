@@ -14,9 +14,9 @@ This package can also be used to create custom block editors for virtually any o
 このパッケージは事実上あらゆるウェブアプリケーション用の独自ブロックエディター作成にも使用できます。つまり WordPress の外でも同じ、ブロックとブロック編集体験を利用できます。
 
 <!-- 
-![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
+![WordPress block editor showing content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
  -->
-![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'スタンドアロンエディターインスタンス。カスタム WordPress 管理ページ内にサンプルのブロックがある。')
+![WordPress ブロックエディターがコンテンツのブロックと編集オプションを表示している](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'スタンドアロンエディターインスタンス。カスタム WordPress 管理ページ内にサンプルのブロックがある。')
 
 <!-- 
 This flexibility and interoperability makes blocks a powerful tool for building and managing content across multiple applications. It also makes it simpler for developers to create content editors that work best for their users.
@@ -112,9 +112,9 @@ The plugin file structure will look like this:
 プラグインのファイル構造は以下のようになります。
 
 <!-- 
-![alt text](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
+![Project directory listing with configuration and source files](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
  -->
-![alt text](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'プラグイン https://github.com/getdave/standalone-block-editor のファイル構造を示すスクリーンショット。')
+![構成とソースファイルをリストしたプロジェクトディレクトリ](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'https://github.com/getdave/standalone-block-editor のプラグインのファイル構造を示すスクリーンショット。')
 
 <!-- 
 Here is a brief summary of what's going on:
@@ -918,9 +918,9 @@ blocks saved and available _between_ page refreshes.
 ここまでカスタムブロックエディターを作成する長い旅を続けてきました。しかし、まだ触れなければならない大きなエリアが1つ残っています。ブロックの永続性です。言い換えれば、ブロックの保存と、ページの更新の _間_ での利用を実現します。
 
 <!-- 
-![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
+![WordPress custom block editor interface with various content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
  -->
-![alt text](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'ベージ更新の間でリストアされるブロックを示すスクリーンキャプチャ。')
+![WordPress カスタムブロックエディターインターフェース。さまざまなコンテンツブロックや編集オプションと共に](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'ベージ更新の間でリストアされるブロックを示すスクリーンキャプチャ。')
 
 <!-- 
 As this is only an _experiment_, this guide has opted to utilize the browser's `localStorage` API to handle saving block data. In a real-world scenario, you would likely choose a more reliable and robust system (e.g. a database).

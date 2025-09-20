@@ -6,7 +6,7 @@
 <!-- 
 Are you looking for a way to share your project configuration? Creating an external project template hosted on npm or located in a local directory is possible. These npm packages can provide custom `.mustache` files that replace default files included in the tool for the WordPress plugin or/and the block. It's also possible to override default configuration values used during the scaffolding process.
  -->
-プロジェクトの設定の共有方法をお探しですか ? npm でホストされる外部プロジェクトテンプレートを作成できます。または、ローカルディレクトリ内にも作成できます。これらの npm パッケージは、カスタム `.mustache` ファイルを提供でき、WordPress プラグイン または、ブロックのためのツールに含まれるデフォルトのファイルを置き換えられます。また、ひな形生成プロセス中に使用されるデフォルトの構成値を上書きできます。
+プロジェクト構成の共有方法をお探しですか ? 外部プロジェクトテンプレートを作成できます。これは npm でホストするか、または、ローカルディレクトリ内にも作成できます。これらの npm パッケージは、カスタム `.mustache` ファイルを提供し、WordPress プラグインやブロック用ツールに含まれるデフォルトのファイルを置き換えられます。また、ひな形生成プロセス中に使用されるデフォルトの構成値を上書きできます。
 
 <!-- 
 ## Project Template Configuration
@@ -247,7 +247,7 @@ transformer: ( view ) => {
 <!-- 
 Variants are used to create variations for a template. Variants can override any `defaultValues` by providing their own.
  -->
-variants はテンプレートのバリエーションの作成に使用されます。variants は自身の値を提供することで、任意の `defaultValues` を上書きできます。
+variants を使用すると、テンプレートのバリエーションを作成できます。variants は自身の値を提供することで、任意の `defaultValues` を上書きできます。
 
 ```js
 module.exports = {
@@ -273,12 +273,12 @@ variants には `--variant` フラグを使用してアクセスできます (�
 <!-- 
 If no variant is provided, the first variant is used if any are defined.
  -->
-variant が提供されなければ、もし variant が定義されていれば、最初の variant が使用されます。
+variant フラグが指定されなければ、複数の variant が定義されている場合、最初の variant が使用されます。
 
 <!-- 
 Mustache variables are created for variants that can be used to conditionally output content in files. The format is `{{isVARIANT_NAMEVariant}}`.
  -->
-Mustache 変数は、ファイル内の内容を条件付きで出力するために使用できる variants のために作成されます。書式は `{isVARIANT_NAMEVariant}}` です。
+ファイル内の内容を条件付きで出力するために使用できる variants のために Mustache 変数が作成されます。書式は `{isVARIANT_NAMEVariant}}` です。
 
 ```mustache
 {{#isPrimaryVariant}}
@@ -289,6 +289,33 @@ This content is only rendered if `--variant primary` is passed.
 This content is only rendered if `--variant secondary` is passed.
 {{/isSecondaryVariant}}
 
+```
+<!-- 
+Variants can also define their own files by defining `pluginTemplatesPath`, `blockTemplatesPath`, or `assetsPath`. If these are defined, they will override the paths defined by the project template. In the case that a variant doesn't need some of the files defined by the template, `null` can be passed to the appropriate variable to skip scaffolding those files.
+ -->
+また variants は、`pluginTemplatesPath`、`blockTemplatesPath`、`assetsPath` を定義することで、自身のファイルも定義できます。これらを定義すると、プロジェクトテンプレートで定義されたパスを上書きします。variant がテンプレートで定義されたファイルの一部を必要としない場合、該当する変数に `null` を渡すことで、それらのファイルのひな形生成をスキップできます。
+
+```js
+module.exports = {
+	defaultValues: {
+		slug: 'my-fantastic-block',
+		title: 'My fantastic block',
+		dashicon: 'palmtree',
+		version: '1.2.3',
+	},
+	variants: {
+		primary: {},
+		secondary: {
+			title: 'My fantastic block - secondary variant',
+			blockTemplatesPath: join(
+				__dirname,
+				'custom-path',
+				'block-templates'
+			),
+			assetsPath: null, // Will not scaffold any assets files even if defined by the main template.
+		},
+	},
+};
 ```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/packages/create-block/docs/external-template.md)

@@ -8,7 +8,7 @@ In this part, we will build a filterable list of all WordPress pages. This is wh
 -->
 このパートでは、WordPress のすべての固定ページの、フィルタリング可能なリストを構築します。このセクションを終えると、以下のようなアプリが完成します。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
+![Searchable WordPress pages list](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
 
 <!--
 Let’s see how we can get there step by step.
@@ -49,7 +49,7 @@ Note that this component does not fetch any data yet, only presents the hardcode
 -->
 注意: このコンポーネントはまだデータを取得しておらず、ハードコードされたページのリストを表示します。ページを更新すると、以下のように表示されます。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/simple-list.jpg)
+![WordPress pages list showing Sample page](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/simple-list.jpg)
 
 <!--
 ## Step 2: Fetch the data
@@ -67,7 +67,7 @@ Before we start, let’s confirm we actually have some pages to fetch. Within WP
 その前に、実際に取得するページがあることを確認しましょう。管理画面のサイドバーメニューから「ページ」に移動します。
 少なくとも4～5ページはあることを確認します。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
+![WordPress admin Pages list](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
 
 <!--
 If it doesn’t, go ahead and create a few pages – you can use the same titles as on the screenshot above. Be sure to _publish_ and not just _save_ them.
@@ -178,7 +178,7 @@ Refreshing the page should display a list similar to this one:
 -->
 ページをリフレッシュすると、以下のようにリストが表示されます。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/fetch-the-data.jpg)
+![List of website pages](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/fetch-the-data.jpg)
 
 <!--
 ## Step 3: Turn it into a table
@@ -206,7 +206,7 @@ function PagesList( { pages } ) {
 }
 ```
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/make-a-table.jpg)
+![Table listing website page titles](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/make-a-table.jpg)
 
 <!--
 ## Step 4: Add a search box
@@ -247,7 +247,7 @@ Note that instead of using an `input` tag, we took advantage of the [SearchContr
 -->
 注意: `input`タグを使用する代わりに、[SearchControl](https://developer.wordpress.org/block-editor/reference-guides/components/search-control/) コンポーネントを利用します。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter-field.jpg)
+![Searchable list of WordPress pages](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter-field.jpg)
 
 <!--
 The field starts empty, and the contents are stored in the `searchTerm` state value. If you aren’t familiar with the [useState](https://react.dev/reference/react/useState) hook, you can learn more in [React’s documentation](https://react.dev/reference/react/useState).
@@ -342,7 +342,7 @@ Voila! We can now filter the results:
 -->
 これで結果をフィルタリングできるようになりました。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter.jpg)
+![Filtered WordPress pages list showing About us](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter.jpg)
 
 <!--
 ### Using core-data instead vs calling the API directly
@@ -408,7 +408,7 @@ There is one problem with our search feature. We can’t be quite sure whether i
 -->
 この検索機能には1つ問題があります。まだ検索中なのか、検索結果が表示されていないのかが、はっきりしないのです。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/unclear-status.jpg)
+![No matching WordPress pages found for search query](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/unclear-status.jpg)
 
 <!--
 A few messages like  _Loading…_ or _No results_ would clear it up. Let’s implement them! First,  `PagesList` has to be aware of the current status:
@@ -521,6 +521,7 @@ import { SearchControl, Spinner } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { decodeEntities } from '@wordpress/html-entities';
+import './style.css';
 
 function MyFirstApp() {
 	const [ searchTerm, setSearchTerm ] = useState( '' );
@@ -597,8 +598,8 @@ All that’s left is to refresh the page and enjoy the brand new status indicato
 -->
 あとは、ページを更新して、生まれたてのステータス表示を見て楽しんでください。
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/indicator.jpg)
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/no-results.jpg)
+![Loading indicator shown while searching WordPress pages](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/indicator.jpg)
+![No results found for page search query in WordPress](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/no-results.jpg)
 
 <!--
 ## What's next?

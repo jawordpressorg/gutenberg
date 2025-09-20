@@ -158,7 +158,7 @@ TinyMCE エディターをブロックとして埋め込むブロック。TinyMC
 ## Dynamic block / ダイナミックブロック
 
 <!-- 
-A type of block where the content of which may change and cannot be determined at the time of saving a post, instead calculated any time the post is shown on the front of a site. These blocks may save fallback content or no content at all in their JavaScript implementation, instead deferring to a PHP block implementation for runtime rendering.
+A type of block in which the content may change and cannot be determined at the time of saving a post, instead calculated any time the post is shown on the front of a site. These blocks may save fallback content or no content at all in their JavaScript implementation, instead deferring to a PHP block implementation for runtime rendering.
  -->
 ブロックのコンテンツが変わる可能性があり、投稿の保存時にはコンテンツを決定できないタイプのブロック。代わりにサイトのフロントで投稿が表示されるたびに計算されます。これらのブロックの JavaScript の実装はフォールバックのコンテンツを保存するか、まったくコンテンツを保存せず、実行時のレンダリングは、ブロックの PHP 実装に委ねられます。
 

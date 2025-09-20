@@ -34,11 +34,7 @@ import {
 import { chevronDown, chevronUp } from '@wordpress/icons';
 import { store as noticesStore } from '@wordpress/notices';
 import { store as preferencesStore } from '@wordpress/preferences';
-import {
-	CommandMenu,
-	privateApis as commandsPrivateApis,
-} from '@wordpress/commands';
-import { privateApis as coreCommandsPrivateApis } from '@wordpress/core-commands';
+import { privateApis as commandsPrivateApis } from '@wordpress/commands';
 import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
 import { addQueryArgs } from '@wordpress/url';
 import { decodeEntities } from '@wordpress/html-entities';
@@ -77,7 +73,6 @@ import useNavigateToEntityRecord from '../../hooks/use-navigate-to-entity-record
 import { useMetaBoxInitialization } from '../meta-boxes/use-meta-box-initialization';
 
 const { getLayoutStyles } = unlock( blockEditorPrivateApis );
-const { useCommands } = unlock( coreCommandsPrivateApis );
 const { useCommandContext } = unlock( commandsPrivateApis );
 const { Editor, FullscreenMode, NavigableRegion } = unlock( editorPrivateApis );
 const { BlockKeyboardShortcuts } = unlock( blockLibraryPrivateApis );
@@ -149,7 +144,11 @@ function useEditorStyles( ...additionalStyles ) {
 	] );
 }
 
-function MetaBoxesMain() {
+/**
+ * @param {Object}  props
+ * @param {boolean} props.isLegacy True when the editor canvas is not in an iframe.
+ */
+function MetaBoxesMain( { isLegacy } ) {
 	const [ isOpen, openHeight, hasAnyVisible ] = useSelect( ( select ) => {
 		const { get } = select( preferencesStore );
 		const { isMetaBoxLocationVisible } = select( editPostStore );
@@ -173,6 +172,9 @@ function MetaBoxesMain() {
 		const container = node.closest(
 			'.interface-interface-skeleton__content'
 		);
+		if ( ! container ) {
+			return;
+		}
 		const noticeLists = container.querySelectorAll(
 			':scope > .components-notice-list'
 		);
@@ -229,14 +231,21 @@ function MetaBoxesMain() {
 
 	const contents = (
 		<div
-			// The class name 'edit-post-layout__metaboxes' is retained because some plugins use it.
-			className="edit-post-layout__metaboxes edit-post-meta-boxes-main__liner"
-			hidden={ isShort && ! isOpen }
+			className={ clsx(
+				// The class name 'edit-post-layout__metaboxes' is retained because some plugins use it.
+				'edit-post-layout__metaboxes',
+				! isLegacy && 'edit-post-meta-boxes-main__liner'
+			) }
+			hidden={ ! isLegacy && isShort && ! isOpen }
 		>
 			<MetaBoxes location="normal" />
 			<MetaBoxes location="advanced" />
 		</div>
 	);
+
+	if ( isLegacy ) {
+		return contents;
+	}
 
 	const isAutoHeight = openHeight === undefined;
 	let usedMax = '50%'; // Approximation before max has a value.
@@ -362,7 +371,6 @@ function Layout( {
 	settings,
 	initialEdits,
 } ) {
-	useCommands();
 	useEditPostCommands();
 	const shouldIframe = useShouldIframe();
 	const { createErrorNotice } = useDispatch( noticesStore );
@@ -388,6 +396,7 @@ function Layout( {
 		isWelcomeGuideVisible,
 		templateId,
 		enablePaddingAppender,
+		isDevicePreview,
 	} = useSelect(
 		( select ) => {
 			const { get } = select( preferencesStore );
@@ -406,8 +415,12 @@ function Layout( {
 			const { getBlockSelectionStart, isZoomOut } = unlock(
 				select( blockEditorStore )
 			);
-			const { getEditorMode, getRenderingMode, getDefaultRenderingMode } =
-				unlock( select( editorStore ) );
+			const {
+				getEditorMode,
+				getRenderingMode,
+				getDefaultRenderingMode,
+				getDeviceType,
+			} = unlock( select( editorStore ) );
 			const isRenderingPostOnly = getRenderingMode() === 'post-only';
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
@@ -441,6 +454,7 @@ function Layout( {
 						: null,
 				enablePaddingAppender:
 					! isZoomOut() && isRenderingPostOnly && isNotDesignPostType,
+				isDevicePreview: getDeviceType() !== 'Desktop',
 			};
 		},
 		[
@@ -566,7 +580,6 @@ function Layout( {
 	return (
 		<SlotFillProvider>
 			<ErrorBoundary canCopyContent>
-				<CommandMenu />
 				<WelcomeGuide postType={ currentPostType } />
 				<div
 					className={ navigateRegionsProps.className }
@@ -593,7 +606,13 @@ function Layout( {
 						}
 						extraContent={
 							! isDistractionFree &&
-							showMetaBoxes && <MetaBoxesMain />
+							showMetaBoxes && (
+								<MetaBoxesMain
+									isLegacy={
+										! shouldIframe || isDevicePreview
+									}
+								/>
+							)
 						}
 					>
 						<PostLockedModal />

@@ -348,13 +348,13 @@ Reference documentation used in this guide:
 
 <!-- 
 -   RichText: [`registerFormatType`](/packages/rich-text/README.md#registerformattype)
--   Components: [`RichTextToolbarButton`](/packages/block-editor/src/components/rich-text#richtexttoolbarbutton)
+-   Components: [`RichTextToolbarButton`](/packages/block-editor/README.md#richtexttoolbarbutton)
 -   RichText: [`applyFormat`](/packages/rich-text/README.md#applyformat)
 -   RichText: [`removeFormat`](/packages/rich-text/README.md#removeformat)
 -   RichText: [`toggleFormat`](/packages/rich-text/README.md#toggleformat)
  -->
 -   RichText: [`registerFormatType`](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text/README.md#registerformattype)
--   Components: [`RichTextToolbarButton`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/rich-text#richtexttoolbarbutton)
+-   Components: [`RichTextToolbarButton`](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/README.md#richtexttoolbarbutton)
 -   RichText: [`applyFormat`](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text/README.md#applyformat)
 -   RichText: [`removeFormat`](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text/README.md#removeformat)
 -   RichText: [`toggleFormat`](https://github.com/WordPress/gutenberg/tree/trunk/packages/rich-text/README.md#toggleformat)

@@ -865,5 +865,55 @@ _例_: `default` 値の例
 	}
 }
 ```
+<!-- 
+## Role
+ -->
+## role
+
+<!-- 
+The `role` property designates an attribute as being of a particular conceptual type. This property can be applied to any attribute to provide semantic meaning about how the attribute should be handled.
+ -->
+`role` プロパティは、属性に特定の概念タイプを指定します。このプロパティは任意の属性に適用でき、属性の処理についてセマンティックな意味を付与します。
+
+<!-- 
+Use `content` to designate the attribute as user-editable content. Blocks with attributes marked as `content` may be enabled for privileged editing in special circumstances such as content only locking.
+ -->
+`content` は、属性をユーザーが編集可能なコンテンツとして指定します。`content` とマークした属性を持つブロックは、コンテンツのみがロックされた場合などの特別な状況において、特権的な編集を有効化される可能性があります。
+
+<!-- 
+Use `local` to mark the attribute as temporary and non-persistable. Attributes marked as `local` are ignored by the Block Serializer and never saved to post content.
+ -->
+`local` は、属性を一時的で永続化不可としてマークします。`local` とマークした属性は、ブロックシリアライザーによって無視され、投稿コンテンツには保存されません。
+
+<!-- 
+_Example_: `content` role used by the paragraph block
+ -->
+_例_: 段落ブロックに使用した `content` ロール
+
+```js
+{
+    content: {
+        type: 'string',
+        source: 'html',
+        selector: 'p',
+        role: 'content',
+    }
+}
+```
+<!-- 
+_Example_: `local` role used for temporary data.
+ -->
+_例_: 一時的なデータに使用した `local` ロール。
+
+```js
+{
+    blob: {
+        type: 'string',
+        role: 'local',
+    }
+}
+```
+
+詳細については [WordPress 6.7 dev note](https://make.wordpress.org/core/2024/10/20/miscellaneous-block-editor-changes-in-wordpress-6-7/#stabilized-role-property-for-block-attributes) を参照してください。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-attributes.md)

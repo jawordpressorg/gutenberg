@@ -53,25 +53,25 @@ Create an i18n instance
 
 _Parameters_
 
--   _initialData_ `[LocaleData]`: Locale data configuration.
--   _initialDomain_ `[string]`: Domain for which configuration applies.
+-   _initialData_ `[LocaleData< TextDomain >]`: Locale data configuration.
+-   _initialDomain_ `[TextDomain]`: Domain for which configuration applies.
 -   _hooks_ `[Hooks]`: Hooks implementation.
 
 _Returns_
 
--   `I18n`: I18n instance.
+-   `I18n< TextDomain >`: I18n instance.
  -->
 i18n インスタンスを作成する。
 
 _パラメータ_
 
--   _initialData_ `[LocaleData]`: ロケールデータ構成
--   _initialDomain_ `[string]`: 構成を適用するドメイン
+-   _initialData_ `[LocaleData< TextDomain >]`: ロケールデータ構成
+-   _initialDomain_ `[TextDomain]`: 構成を適用するドメイン
 -   _hooks_ `[Hooks]`: フックの実装
 
 _戻り値_
 
--   `I18n`: I18n インスタンス
+-   `I18n< TextDomain >`: I18n インスタンス
 
 ### defaultI18n
 
@@ -91,7 +91,7 @@ _Related_
 
 _Parameters_
 
--   _domain_ `[string]`: Domain for which to get the data.
+-   _domain_ `[ string | undefined ]`: Domain for which to get the data.
 
 _戻り値_
 
@@ -105,7 +105,7 @@ _関連_
 
 _パラメータ_
 
--   _domain_ `[string]`: データを取得するドメイン。
+-   _domain_ `[ string | undefined ]`: データを取得するドメイン。
 
 _戻り値_
 
@@ -119,8 +119,8 @@ Check if there is a translation for a given string (in singular form).
 _Parameters_
 
 -   _single_ `string`: Singular form of the string to look up.
--   _context_ `[string]`: Context information for the translators.
--   _domain_ `[string]`: Domain to retrieve the translated text.
+-   _context_ `string`: Context information for the translators.
+-   _domain_ `string`: Domain to retrieve the translated text.
 
 _Returns_
 
@@ -131,8 +131,8 @@ _Returns_
 _パラメータ_
 
 -   _single_ `string`: 検索する文字列の単数形。
--   _context_ `[string]`: 翻訳のコンテキスト情報。
--   _domain_ `[string]`: 翻訳テキストを取得するドメイン。
+-   _context_ `string`: 翻訳のコンテキスト情報。
+-   _domain_ `string`: 翻訳テキストを取得するドメイン。
 
 _戻り値_
 
@@ -172,7 +172,7 @@ _Related_
 _Parameters_
 
 -   _data_ `[LocaleData]`: Locale data configuration.
--   _domain_ `[string]`: Domain for which configuration applies.
+-   _domain_ `[string | undefined]`: Domain for which configuration applies.
  -->
 すべての現行の Tannin インスタンスのロケールデータをリセットし、ドメイン用に指定したロケールデータを設定する。Jed 形式 JSON オブジェクトのデータを受け付けます。
 
@@ -183,7 +183,7 @@ _関連_
 _パラメータ_
 
 -   _data_ `[LocaleData]`: ロケールデータ構成
--   _domain_ `[string]`: 構成を適用するドメイン
+-   _domain_ `[string | undefined]`: 構成を適用するドメイン
 
 ### setLocaleData
 
@@ -196,8 +196,8 @@ _Related_
 
 _Parameters_
 
--   _data_ `[LocaleData]`: Locale data configuration.
--   _domain_ `[string]`: Domain for which configuration applies.
+-   _data_ `[LocaleData ]`: Locale data configuration.
+-   _domain_ `[string | undefined]`: Domain for which configuration applies.
  -->
 ロケールデータをドメインで Tannin インスタンスにマージする。Jed 形式 JSON オブジェクトのデータを受け付けます。
 
@@ -207,28 +207,28 @@ _関連_
 
 _パラメータ_
 
--   _data_ `[LocaleData]`: ロケールデータ構成
--   _domain_ `[string]`: 構成を適用するドメイン
+-   _data_ `[LocaleData ]`: ロケールデータ構成
+-   _domain_ `[string | undefined]`: 構成を適用するドメイン
 
 ### sprintf
 
 <!--
-Returns a formatted string. If an error occurs in applying the format, the original format string is returned.
+Returns a formatted string.
 
 _Related_
 
--   <https://www.npmjs.com/package/sprintf-js>
+-   <https://www.npmjs.com/package/@tannin/sprintf>
 
 _Parameters_
 
--   _format_ `string`: The format of the string to generate.
--   _args_ `...*`: Arguments to apply to the format.
+-   _format_ `T | TranslatableText< T >`: The format of the string to generate.
+-   _args_ `DistributeSprintfArgs< T >`: Arguments to apply to the format.
 
 _Returns_
 
 -   `string`: The formatted string.
  -->
-フォーマットされた文字列を返す。フォーマットの適用時にエラーが発生すると、オリジナルのフォーマット文字列が返されます。
+フォーマットされた文字列を返す。
 
 _関連_
 
@@ -236,8 +236,8 @@ _関連_
 
 _パラメータ_
 
--   _format_ `string`: 生成する文字列のフォーマット
--   _args_ `...*`: フォーマットに適用する引数
+-   _format_ `T | TranslatableText< T >`: 生成する文字列のフォーマット
+-   _args_ `DistributeSprintfArgs< T >`: フォーマットに適用する引数
 
 _戻り値_
 
@@ -277,14 +277,14 @@ _Related_
 
 _Parameters_
 
--   _single_ `string`: The text to be used if the number is singular.
--   _plural_ `string`: The text to be used if the number is plural.
+-   _single_ `Single`: The text to be used if the number is singular.
+-   _plural_ `Plural`: The text to be used if the number is plural.
 -   _number_ `number`: The number to compare against to use either the singular or plural form.
--   _domain_ `[string]`: Domain to retrieve the translated text.
+-   _domain_ `string | undefined`: Domain to retrieve the translated text.
 
 _Returns_
 
--   `string`: The translated singular or plural form.
+-   `TranslatableText<Single | Plural>`: The translated singular or plural form.
  -->
 与えられた数字に基づいて単数形、または複数形のフォームを翻訳して取得する。
 
@@ -294,14 +294,14 @@ _関連_
 
 _パラメータ_
 
--   _single_ `string`: 数値が1の場合に使用されるテキスト
--   _plural_ `string`: 数値が2以上の場合に使用されるテキスト
+-   _single_ `Single`: 数値が1の場合に使用されるテキスト
+-   _plural_ `Plural`: 数値が2以上の場合に使用されるテキスト
 -   _number_ `number`: 単数形、複数形どちらのフォームを使うかを比較する数値
--   _domain_ `[string]`: 翻訳テキストを取得するドメイン
+-   _domain_ `string | 翻訳テキストを取得するドメイン
 
 _戻り値_
 
--   `string`: 翻訳された単数形、または複数形のフォーム
+-   `TranslatableText<Single | Plural>`: 翻訳された単数形、または複数形のフォーム
 
 ### \_nx
 
@@ -314,15 +314,16 @@ _Related_
 
 _Parameters_
 
--   _single_ `string`: The text to be used if the number is singular.
--   _plural_ `string`: The text to be used if the number is plural.
+-   _single_ `Single`: The text to be used if the number is singular.
+-   _single_ `Single`: The text to be used if the number is singular.
+-   _plural_ `Plural`: The text to be used if the number is plural.
 -   _number_ `number`: The number to compare against to use either the singular or plural form.
 -   _context_ `string`: Context information for the translators.
--   _domain_ `[string]`: Domain to retrieve the translated text.
+-   _domain_ `[string | undefined]`: Domain to retrieve the translated text.
 
 _Returns_
 
--   `string`: The translated singular or plural form.
+-   `TranslatableText<Single | Plural>`: The translated singular or plural form.
  -->
 gettext コンテキストに応じて、与えられた数字に基づいて単数形、または複数形のフォームを翻訳して取得する。
 
@@ -332,15 +333,16 @@ _関連_
 
 _パラメータ_
 
--   _single_ `string`: 数値が1の場合に使用されるテキスト
--   _plural_ `string`: 数値が2以上の場合に使用されるテキスト
+-   _single_ `Single`: 数値が1の場合に使用されるテキスト
+-   _single_ `Single`: 数値が2以上の場合に使用されるテキスト
+-   _plural_ `Plural`: 数値が2以上の場合に使用されるテキスト
 -   _number_ `number`: 単数形、複数形どちらのフォームを使うかを比較する数値
 -   _context_ `string`: コンテキスト情報
--   _domain_ `[string]`: 翻訳テキストを取得するドメイン
+-   _domain_ `[string | undefined]`: 翻訳テキストを取得するドメイン
 
 _戻り値_
 
--   `string`: 翻訳された単数形、または複数形のフォーム
+-   `TranslatableText<Single | Plural>`: 翻訳された単数形、または複数形のフォーム
 
 ### \_x
 
@@ -353,13 +355,13 @@ _Related_
 
 _Parameters_
 
--   _text_ `string`: Text to translate.
+-   _text_ `Text`: Text to translate.
 -   _context_ `string`: Context information for the translators.
--   _domain_ `[string]`: Domain to retrieve the translated text.
+-   _domain_ `string | undefined`: Domain to retrieve the translated text.
 
 _Returns_
 
--   `string`: Translated context string without pipe.
+-   `TranslatableText<Text>`: Translated context string without pipe.
  -->
 gettext コンテキストに応じて翻訳された文字列を取得する。
 
@@ -369,13 +371,13 @@ _関連_
 
 _パラメータ_
 
--   _text_ `string`: 翻訳するテキスト
+-   _text_ `Text`: 翻訳するテキスト
 -   _context_ `string`: コンテキスト情報
--   _domain_ `[string]`: 翻訳テキストを取得するドメイン
+-   _domain_ `string | undefined`: 翻訳テキストを取得するドメイン
 
 _戻り値_
 
--   `string`: コンテキストに応じて翻訳された文字列
+-   `TranslatableText<Text>`: コンテキストに応じて翻訳された文字列
 
 ### \_\_
 
@@ -388,12 +390,12 @@ _Related_
 
 _Parameters_
 
--   _text_ `string`: Text to translate.
--   _domain_ `[string]`: Domain to retrieve the translated text.
+-   _text_ `Text`: Text to translate.
+-   _domain_ `string | undefined`: Domain to retrieve the translated text.
 
 _Returns_
 
--   `string`: Translated text.
+-   `TranslatableText<Text>`: Translated text.
  -->
 テキストの翻訳を取得する。
 
@@ -403,12 +405,12 @@ _関連_
 
 _パラメータ_
 
--   _text_ `string`: 翻訳するテキスト
--   _domain_ `[string]`: 翻訳テキストを取得するドメイン
+-   _text_ `Text`: 翻訳するテキスト
+-   _domain_ `string | undefined`: 翻訳テキストを取得するドメイン
 
 _戻り値_
 
--   `string`: 翻訳されたテキスト
+-   `TranslatableText<Text>`: 翻訳されたテキスト
 
 <!-- END TOKEN(Autogenerated API docs) -->
 

@@ -14,13 +14,15 @@ A block development environment includes the tools you need on your computer to 
 ブロック開発環境には、ブロックエディター開発の成功に必要なツールが含まれます。3つの主要な要素があります。
 
 <!-- 
-1.  [Code editor](#code-editor)
-2.  [Node.js development tools](#node-js-development-tools)
-3.  [Local WordPress environment (site)](#local-wordpress-environment)
+- [Block Development Environment](#block-development-environment)
+  - [Code editor](#code-editor)
+  - [Node.js development tools](#nodejs-development-tools)
+  - [Local WordPress environment](#local-wordpress-environment)
  -->
-1.  コードエディター
-2.  Node.js 開発ツール
-3.  ローカルのWordPress 環境 (サイト)
+- ブロック開発環境
+  - コードエディター
+  - Node.js 開発ツール
+  - ローカルの WordPress 環境
 
 <!-- 
 <div class="callout callout-info">
@@ -63,13 +65,13 @@ Node.js とそれに付随する開発ツールを使用することで、以下
 
 <!-- 
 -   Install and run WordPress packages needed for Block Editor development, such as `wp-scripts`
--   Setup local WordPress environments with `wp-env` and `wp-now`
+-   Set up local WordPress environments with `wp-env` and `@wp-playground/cli`
 -   Use the latest ECMAScript features and write code in ESNext
 -   Lint, format, and test JavaScript code
 -   Scaffold custom blocks with the `create-block` package
  -->
 - ブロックエディターの開発に必要な WordPress パッケージのインストールと実行 (`wp-scripts` など)
-- WordPress 環境のセットアップ。`wp-env` や `wp-now` を使用
+- WordPress 環境のセットアップ。`wp-env` や `@wp-playground/cli` を使用
 - 最新の ECMAScript の機能を使用して、ESNext でコードを書く。
 - JavaScript コードの Lint、フォーマット、テスト
 - `create-block` パッケージを使用したカスタムブロックのひな形作成
@@ -118,19 +120,19 @@ Refer to the [Get started with `wp-env`](/docs/getting-started/devenv/get-starte
 
 <!-- 
 <div class="callout callout-info">
-    Throughout the Handbook, you may also see references to <code><a href="https://github.com/WordPress/playground-tools/tree/trunk/packages/wp-now">wp-now</a></code>. This is a lightweight tool powered by <a hre="https://developer.wordpress.org/playground/">WordPress Playground</a> that streamlines setting up a simple local WordPress environment. While still experimental, this tool is great for quickly testing WordPress releases, plugins, and themes. 
+    Throughout the Handbook, you may also see references to <code><a href="https://github.com/WordPress/wordpress-playground/tree/trunk/packages/playground/cli">@wp-playground/cli</a></code>. This is a lightweight tool powered by <a href="https://developer.wordpress.org/playground/">WordPress Playground</a> that streamlines setting up a simple local WordPress environment. While still experimental, this tool is great for quickly testing WordPress releases, plugins, and themes. 
 </div>
  -->
 
-> またハンドブック全体を通して、<code><a href="https://github.com/WordPress/playground-tools/tree/trunk/packages/wp-now">wp-now</a></code> への言及を目にすることがあるかもしれません。これは <a hre="https://developer.wordpress.org/playground/">WordPress Playground</a> を利用した軽量なツールで、シンプルなローカル WordPress 環境のセットアップを効率化します。まだ実験段階ですが、WordPress のリリース、プラグイン、テーマを素早くテストするのに適しています。
+> またハンドブック全体を通して、<code><a href="https://github.com/WordPress/wordpress-playground/tree/trunk/packages/playground/cli">@wp-playground/cli</a></code> への言及を目にすることがあるかもしれません。これは <a href="https://developer.wordpress.org/playground/">WordPress Playground</a> を利用した軽量なツールで、シンプルなローカル WordPress 環境のセットアップを効率化します。まだ実験段階ですが、WordPress のリリース、プラグイン、テーマを素早くテストするのに適しています。
 
 <!-- 
 This list is not exhaustive, but here are several additional options to choose from if you prefer not to use `wp-env`:
  -->
 完全なリストではありませんが、`wp-env` を使いたくない場合の選択肢をいくつか紹介します。
 
+- [WordPress Studio](https://developer.wordpress.com/studio/)
 - [Local](https://localwp.com/)
-- [WP Studio](https://developer.wordpress.com/studio/)
 - [XAMPP](https://www.apachefriends.org/)
 - [MAMP](https://www.mamp.info/en/mamp/mac/)
 - [Varying Vagrant Vagrants](https://varyingvagrantvagrants.org/) (VVV)

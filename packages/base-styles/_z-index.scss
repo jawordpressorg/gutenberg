@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Stores a list of z-index values in a central location.  For clarity, when a
 // specific value is needed, add a comment explaining why (what other rules the
 // value is designed to work with).
@@ -14,6 +16,7 @@ $z-layers: (
 	// These next three share a stacking context
 	".block-library-template-part__selection-search": 2, // higher sticky element
 	".block-library-query-pattern__selection-search": 2, // higher sticky element
+	".editor-post-template__swap-template-search": 2, // higher sticky element
 
 	// These next two share a stacking context
 	".interface-complementary-area .components-panel" : 0, // lower scrolling content
@@ -216,8 +219,8 @@ $z-layers: (
 );
 
 @function z-index( $key ) {
-	@if map-has-key( $z-layers, $key ) {
-		@return map-get( $z-layers, $key );
+	@if map.has-key( $z-layers, $key ) {
+		@return map.get( $z-layers, $key );
 	}
 
 	@error "Error: Specified z-index `#{$key}` does not exist in the mapping";

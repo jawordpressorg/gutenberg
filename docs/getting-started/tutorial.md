@@ -297,9 +297,9 @@ Note that when you enable text color support with `"text": true`, the background
 `"text": true` でテキスト色のサポートを有効にすると、デフォルトで背景色も有効になることに注意してください。そのままでも構いませんが、このチュートリアルでは必要ないため、`"background": false` を設定しています。
 
 <!-- 
-Save the file and select the block in the Editor. You will now see both Color and Typography panels in the Settings Sidebar. Try modifying the settings and see what happens.
+Save the file and select the block in the Editor. You will now see both Color and Typography panels in the Settings Panel. Try modifying the settings and see what happens.
  -->
-ファイルを保存し、エディターでブロックを選択します。これで、設定サイドバーに色とタイポグラフィの両方のパネルが表示されます。設定を変更して、変化の様子を見てみましょう。
+ファイルを保存し、エディターでブロックを選択します。これで、設定パネルに色とタイポグラフィの両方のパネルが表示されます。設定を変更して、変化の様子を見てみましょう。
 
 <!-- 
 ![The block in the Editor with block supports](https://developer.wordpress.org/files/2023/12/block-tutorial-5.png)

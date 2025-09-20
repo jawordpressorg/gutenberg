@@ -149,6 +149,7 @@ Settings related to borders.
 | radius | カスタムボーダー角丸半径の設定 | `boolean` | `false` |
 | style | カスタムボーダースタイルの設定 | `boolean` | `false` |
 | width | カスタムボーダー幅の設定 | `boolean` | `false` |
+| radiusSizes | ボーダー角丸半径セレクタの、ボーダー角丸半径サイズのプリセット | `[ { name, slug, size } ]` |  |
 
 ---
 

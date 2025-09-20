@@ -287,11 +287,15 @@ You can use a react hook called `useInnerBlocksProps` instead of the `InnerBlock
 
 The `useInnerBlocksProps` is exported from the `@wordpress/block-editor` package same as the `InnerBlocks` component itself and supports everything the component does. It also works like the `useBlockProps` hook.
 
+It is important to note that `useBlockProps` hook must be called *before* `useInnerBlocksProps`, otherwise `useBlockProps` will return empty object. 
+
 Here is the basic `useInnerBlocksProps` hook usage.
  -->
 React フック `useInnerBlocksProps` を、`InnerBlocks` コンポーネントの代わりに使用できます。このフックを使用すると、インナーブロック領域のマークアップをより詳細に制御できます。
 
 `useInnerBlocksProps` は `InnerBlocks` コンポーネント自身と同様に `@wordpress/block-editor` パッケージからエクスポートされ、`InnerBlocks` コンポーネントのすべてをサポートします。また、`useInnerBlocksProps` は `useBlockProps` フックと同様に機能します。
+
+重要な注意として、`useBlockProps` フックは `useInnerBlocksProps` の*前に*呼び出してください。そうしなければ `useBlockProps` は空のオブジェクトを返します。
 
 基本的な `useInnerBlocksProps` フックの使用方法です。
 
