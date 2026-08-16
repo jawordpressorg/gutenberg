@@ -101,13 +101,18 @@ By default `InnerBlocks` opens a list of permitted blocks via `allowedBlocks` wh
 デフォルトでは `InnerBlocks` はブロックアペンダがクリックされると `allowedBlocks` によって許可された、ブロックのリストを開きます。`defaultBlock` プロパティを使用すると、最初のブロックアペンダがクリックされたときに挿入されるデフォルトのブロックとその属性を変更できます。例えば
 
 ```js
-<InnerBlocks defaultBlock={['core/paragraph', {placeholder: "Lorem ipsum..."}]} directInsert />
+<InnerBlocks
+	defaultBlock={
+		{ name: 'core/paragraph', attributes: { content: 'Lorem ipsum...' } }
+	}
+	directInsert
+/>
 ```
 
 <!-- 
-By default this behavior is disabled until the `directInsert` prop is set to `true`. This allows you to specify conditions for when the default block should or should not be inserted.
+This behavior is disabled until the `directInsert` prop is set to `true`. This allows you to specify conditions for when the default block should or should not be inserted.
  -->
-デフォルトでこの動作は `directInsert` プロップが `true` に設定されるまで無効です。これにより、デフォルトのブロックを挿入すべきかそうでないかの条件を指定できます。
+この動作は `directInsert` プロップが `true` に設定されるまで無効です。これにより、デフォルトのブロックを挿入すべきかそうでないかの条件を指定できます。
 
 <!--
 ## Template
@@ -230,7 +235,7 @@ An example of this is the Comment Author Name block, which is assigned the `ance
 この例として「コメントの投稿者名」ブロックがあり、`ancestor` ブロック設定が割り当てられています。これにより、コメントの投稿者名ブロックは、その祖先であるコメントテンプレートブロックのネストされた子孫としてのみ利用できます。コメントテンプレートブロック以外では、コメントの投稿者名ブロックはブロックインサータのオプションとして利用できません。[コメントの投稿者名ブロックのコード](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name)を参照してください。
 
 <!-- 
-The `ancestor` relationship allows the Comment Author Name block to be anywhere in the hierarchical tree, and not _just_ a direct child of the parent Comment Template block, while still limiting its availability within the block inserter to only be visible an an option to insert if the Comment Template block is available.
+The `ancestor` relationship allows the Comment Author Name block to be anywhere in the hierarchical tree, and not _just_ a direct child of the parent Comment Template block, while still limiting its availability within the block inserter to only be visible as an option to insert if the Comment Template block is available.
  -->
 `ancestor` 関係により、コメントの投稿者名ブロックは階層ツリーのどこにでも置けます。親のコメントテンプレートブロックの直接の子のみには縛られません。ただしコメントテンプレートブロックがある場合にのみ、ブロックインサーター内で挿入可能なオプションとして表示されます。
 
@@ -287,7 +292,7 @@ You can use a react hook called `useInnerBlocksProps` instead of the `InnerBlock
 
 The `useInnerBlocksProps` is exported from the `@wordpress/block-editor` package same as the `InnerBlocks` component itself and supports everything the component does. It also works like the `useBlockProps` hook.
 
-It is important to note that `useBlockProps` hook must be called *before* `useInnerBlocksProps`, otherwise `useBlockProps` will return empty object. 
+It is important to note that `useBlockProps` hook must be called *before* `useInnerBlocksProps`, otherwise `useBlockProps` will return empty object.
 
 Here is the basic `useInnerBlocksProps` hook usage.
  -->

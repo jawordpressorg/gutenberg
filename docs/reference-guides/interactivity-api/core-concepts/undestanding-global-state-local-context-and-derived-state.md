@@ -85,35 +85,35 @@ wp_interactivity_state( 'myPlugin', array(
  -->
 -   開発者が PHP ファイル内に記述した HTML マークアップ:
 
-```html
-<div
-  data-wp-interactive="myPlugin"
-  data-wp-class--is-dark-theme="state.isDarkTheme"
-  class="my-plugin"
->
-  <div data-wp-bind--hidden="!state.show">
-    Hello <span data-wp-text="state.helloText"></span>
-  </div>
-  <button data-wp-on-async--click="actions.toggle">Toggle</button>
-</div>
-```
-<!-- 
+        ```html
+        <div
+        	data-wp-interactive="myPlugin"
+        	data-wp-class--is-dark-theme="state.isDarkTheme"
+        	class="my-plugin"
+        >
+        	<div data-wp-bind--hidden="!state.show">
+        		Hello <span data-wp-text="state.helloText"></span>
+        	</div>
+        	<button data-wp-on--click="actions.toggle">Toggle</button>
+        </div>
+        ```
+
     -   HTML markup after the directives have been processed and it is ready to be sent to the browser:
  -->
 -   ディレクティブが処理され、ブラウザに送る準備ができた後の HTML マークアップ:
 
-```html
-<div
-  data-wp-interactive="myPlugin"
-  data-wp-class--is-dark-theme="state.isDarkTheme"
-  class="my-plugin is-dark-theme"
->
-  <div hidden data-wp-bind--hidden="!state.show">
-    Hello <span data-wp-text="state.helloText">world</span>
-  </div>
-  <button data-wp-on-async--click="actions.toggle">Toggle</button>
-</div>
-```
+        ```html
+        <div
+        	data-wp-interactive="myPlugin"
+        	data-wp-class--is-dark-theme="state.isDarkTheme"
+        	class="my-plugin is-dark-theme"
+        >
+        	<div hidden data-wp-bind--hidden="!state.show">
+        		Hello <span data-wp-text="state.helloText">world</span>
+        	</div>
+        	<button data-wp-on--click="actions.toggle">Toggle</button>
+        </div>
+        ```
 
 <!-- 
     _Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about how directives are processed on the server._
@@ -312,16 +312,16 @@ wp_interactivity_state( 'myCounterPlugin', array(
  -->
 #### インクリメントブロック
 
-```php
-<div
-  data-wp-interactive="myCounterPlugin"
-  <?php echo get_block_wrapper_attributes(); ?>
->
-  <button data-wp-on-async--click="actions.increment">
-    Increment
-  </button>
-</div>
-```
+    ```php
+    <div
+      data-wp-interactive="myCounterPlugin"
+      <?php echo get_block_wrapper_attributes(); ?>
+    >
+      <button data-wp-on--click="actions.increment">
+        Increment
+      </button>
+    </div>
+    ```
 
 ```js
 const { state } = store( 'myCounterPlugin', {
@@ -341,12 +341,12 @@ In this example:
 <!-- 
 1. The global state is initialized on the server using `wp_interactivity_state`, setting an initial `counter` of 0.
 2. The Counter Block displays the current counter using `data-wp-text="state.counter"`, which reads from the global state.
-3. The Increment Block contains a button that triggers the `increment` action when clicked, using `data-wp-on-async--click="actions.increment"`.
+3. The Increment Block contains a button that triggers the `increment` action when clicked, using `data-wp-on--click="actions.increment"`.
 4. In JavaScript, the `increment` action directly modifies the global state by incrementing `state.counter`.
  -->
 1. グローバルステートは `wp_interactivity_state` を使用してサーバー上で初期化され、初期値として `counter` を 0 に設定します。
 2. カウンターブロックは、`data-wp-text="state.counter"` を使用して現在のカウンターを、グローバルステートから読み取り、表示します。
-3. インクリメントブロックにはクリックすると `increment` アクションをトリガーするボタンがあり、これには `data-wp-on-async--click="actions.increment"` を使用します。
+3. インクリメントブロックにはクリックすると `increment` アクションをトリガーするボタンがあり、これには `data-wp-on--click="actions.increment"` を使用します。
 4. JavaScript 内で `increment` アクションは `state.counter` を増分することで、グローバルステートを直接変更します。
 
 <!-- 
@@ -538,7 +538,7 @@ In this example, there is a single interactive block that shows a counter and ca
   data-wp-context='{ "counter": 0 }'
 >
   <p>Counter: <span data-wp-text="context.counter"></span></p>
-  <button data-wp-on-async--click="actions.increment">Increment</button>
+  <button data-wp-on--click="actions.increment">Increment</button>
 </div>
 ```
 
@@ -560,12 +560,12 @@ In this example:
 <!-- 
 1. A local context with an initial `counter` value of `0` is defined using the `data-wp-context` directive.
 2. The counter is displayed using `data-wp-text="context.counter"`, which reads from the local context.
-3. The increment button uses `data-wp-on-async--click="actions.increment"` to trigger the increment action.
+3. The increment button uses `data-wp-on--click="actions.increment"` to trigger the increment action.
 4. In JavaScript, the `getContext` function is used to access and modify the local context for each block instance.
  -->
 1. 初期値 `0` の ローカルコンテキスト `counter` を `data-wp-context` ディレクティブを使用して定義する。
 2. カウンタは `data-wp-text="context.counter"` を使用して表示され、ローカルコンテキストから値を読み込む。
-3. インクリメントボタンは `data-wp-on-async--click="actions.increment"` を使用して increment アクションをトリガーする。
+3. インクリメントボタンは `data-wp-on--click="actions.increment"` を使用して increment アクションをトリガーする。
 4. JavaScript では、`getContext` 関数を使用して、各ブロックインスタンスのローカルコンテキストにアクセスして変更する。 
 
 <!-- 
@@ -989,7 +989,7 @@ store( 'myCounterPlugin', {
 		Double: <span data-wp-text="state.double"></span>
 
 		<!-- このボタンはローカルカウンターを増分する -->
-		<button data-wp-on-async--click="actions.increment">Increment</button>
+		<button data-wp-on--click="actions.increment">Increment</button>
 	</div>
 
 	<!-- "Double: 4" をレンダーする -->
@@ -997,7 +997,7 @@ store( 'myCounterPlugin', {
 		Double: <span data-wp-text="state.double"></span>
 
 		<!-- このボタンはローカルカウンターを増分する -->
-		<button data-wp-on-async--click="actions.increment">Increment</button>
+		<button data-wp-on--click="actions.increment">Increment</button>
 	</div>
 </div>
 ```
@@ -1037,7 +1037,7 @@ const { state } = store( 'myProductPlugin', {
 		},
 		get priceWithTax() {
 			const { priceWithoutTax } = getContext();
-			return price * ( 1 + state.taxRate );
+			return priceWithoutTax * ( 1 + state.taxRate );
 		},
 	},
 	actions: {
@@ -1075,9 +1075,9 @@ Interactivity API offers a region-based navigation feature that dynamically repl
 Interactivity API は、ページ全体をリロードすることなくページの一部を動的に置き換えられる、領域ベースのナビゲーション機能を提供します。[クエリーブロック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/core-blocks/#query-loop)は、`Force page reload` (ページの強制リロード) トグルが無効のとき、この機能をネイティブにサポートします。開発者がカスタムブロックで同じ機能を使用するには、[`@wordpress/interactivity-router`](https://github.com/WordPress/gutenberg/tree/trunk/packages/interactivity-router) スクリプトモジュールの [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions)を呼び出します。
 
 <!-- 
-When using region-based navigation, it's crucial to ensure that your interactive blocks stay in sync with the server-provided global state and local context. By default, the Interactivity API will never overwrite the global state or local context with the server-provided values. The Interactivity API provides two functions to help manage this synchronization: [`getServerState()`](/docs/reference-guides/interactivity-api/api-reference.md#getserverstate) and [`getServerContext()`](/docs/reference-guides/interactivity-api/api-reference.md#getservercontext).
+When using region-based navigation, it's crucial to ensure that your interactive blocks stay in sync with the server-provided global state and local context. By default, the Interactivity API will never overwrite the global state or local context with the server-provided values. The Interactivity API provides two functions to help manage this synchronization: [`getServerState()`](/docs/reference-guides/interactivity-api/directives-and-store.md#getserverstate) and [`getServerContext()`](/docs/reference-guides/interactivity-api/directives-and-store.md#getservercontext).
  -->
-領域ベースのナビゲーションを使用する場合、重要なポイントとして、インタラクティブブロックはサーバー側が提供するグローバルステートやローカルコンテキストと確実に同期してください。デフォルトでは、Interactivity API は、グローバルステートとローカルコンテキストをサーバーが提供する値で上書きしません。Interactivity API にはこの同期を管理する2つの関数があります。[`getServerState()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#getserverstate) と [`getServerContext()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#getservercontext) です。
+領域ベースのナビゲーションを使用する場合、重要なポイントとして、インタラクティブブロックはサーバー側が提供するグローバルステートやローカルコンテキストと確実に同期してください。デフォルトでは、Interactivity API は、グローバルステートとローカルコンテキストをサーバーが提供する値で上書きしません。Interactivity API にはこの同期を管理する2つの関数があります。[`getServerState()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#getserverstate) と [`getServerContext()`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#getservercontext) です。
 
 <!-- 
 ### `getServerState()`
@@ -1089,9 +1089,9 @@ When using region-based navigation, it's crucial to ensure that your interactive
 `getServerState()` を使用するとクライアントサイドナビゲーション中に発生する **グローバルステート** の変更をサブスクライブできます。この関数は `getServerContext()` と似ていますが、ローカルコンテキストではなく、グローバルステートを扱います。
 
 <!-- 
-The `getServerState()` function returns a read-only reactive object. This means that any [callbacks](/docs/reference-guides/interactivity-api/api-reference.md#accessing-data-in-callbacks) you have defined that watch the returned object will only trigger when the value returned by the function changes. If the value remains the same, the callback will not re-trigger.
+The `getServerState()` function returns a read-only reactive object. This means that any [callbacks](/docs/reference-guides/interactivity-api/directives-and-store.md#accessing-data-in-callbacks) you have defined that watch the returned object will only trigger when the value returned by the function changes. If the value remains the same, the callback will not re-trigger.
  -->
-`getServerState()` 関数は読み取り専用のリアクティブオブジェクトを返します。すなわち、返されたオブジェクトの監視用に定義した[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#accessing-data-in-callbacks)は、関数によって返された値が変更されたときにのみトリガーされます。値が同じままであれば、コールバックは再トリガーされません。
+`getServerState()` 関数は読み取り専用のリアクティブオブジェクトを返します。すなわち、返されたオブジェクトの監視用に定義した[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#accessing-data-in-callbacks)は、関数によって返された値が変更されたときにのみトリガーされます。値が同じままであれば、コールバックは再トリガーされません。
 
 <!-- 
 Let's consider a quiz that has multiple questions. Each question is a separate page. When the user navigates to a new question, the server provides the new question and the time left to answer all the questions.
@@ -1106,19 +1106,19 @@ Let's consider a quiz that has multiple questions. Each question is a separate p
 ```
 
 ```javascript
-import { store, getServerState } from '@wordpress/interactivity';
+import { store, getServerState, withSyncEvent } from '@wordpress/interactivity';
 
-store( 'myPlugin', {
+const { state } = store( 'myPlugin', {
 	actions: {
 		// このアクションはディレクティブでトリガーされる。例:
-		// <button data-wp-on-click="actions.nextQuestion">Next Question</button>
-		*nextQuestion() {
-			event.preventDefault( event );
+		// <button data-wp-on--click="actions.nextQuestion">Next Question</button>
+		nextQuestion: withSyncEvent( function* ( event ) {
+			event.preventDefault();
 			const { actions } = yield import(
 				'@wordpress/interactivity-router'
 			);
 			actions.navigate( '/question-2' );
-		},
+		} ),
 	},
 	callbacks: {
 		// このコールバックはディレクティブでトリガーされる。例:
@@ -1133,7 +1133,13 @@ store( 'myPlugin', {
 	},
 } );
 ```
+
 <!-- 
+_Note: Actions that need to call synchronous event methods like `event.preventDefault()` must wrap the handler with `withSyncEvent()`. See the [withSyncEvent() documentation](/docs/reference-guides/interactivity-api/directives-and-store.md#withsyncevent) for details._
+ -->
+_注意: `event.preventDefault()` のような同期的なイベントメソッドを呼び出す必要があるアクションでは、ハンドラを `withSyncEvent()` でラップする必要があります。詳細については、[`withSyncEvent()` のドキュメント]([/docs/reference-guides/interactivity](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/)#withsyncevent) を参照してください。_
+
+<!--
 ### `getServerContext()`
  -->
 ### getServerContext()
@@ -1143,10 +1149,9 @@ store( 'myPlugin', {
 `getServerContext()` を使用すると、クライアントサイドナビゲーション中に発生した **ローカルコンテキスト** の変更をサブスクライブできます。この関数は `getServerState()` と似ていますが、グローバルステートではなく、ローカルコンテキストを扱います。
 
 <!-- 
-The `getServerContext()` function returns a read-only reactive object. This means that any [callbacks](/docs/reference-guides/interactivity-api/api-reference.md#accessing-data-in-callbacks) you have defined that watch the returned object will only trigger when the value returned by the function changes. If the value remains the same, the callback will not re-trigger.
+The `getServerContext()` function returns a read-only reactive object. This means that any [callbacks](/docs/reference-guides/interactivity-api/directives-and-store.md#accessing-data-in-callbacks) you have defined that watch the returned object will only trigger when the value returned by the function changes. If the value remains the same, the callback will not re-trigger.
  -->
-`getServerContext()` 関数は読み取り専用のリアクティブオブジェクトを返します。すなわち、返されたオブジェクトの監視用に定義した[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#accessing-data-in-callbacks)は、関数によって返された値が変更されたときにのみトリガーされます。値が同じままであれば、コールバックは再トリガーされません。
-
+`getServerContext()` 関数は読み取り専用のリアクティブオブジェクトを返します。すなわち、返されたオブジェクトの監視用に定義した[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#accessing-data-in-callbacks)は、関数によって返された値が変更されたときにのみトリガーされます。値が同じままであれば、コールバックは再トリガーされません。
 
 <!-- 
 Consider a quiz that has multiple questions. Each question is a separate page. When the user navigates to a new question, the server provides the new question and the time left to answer all the questions.
@@ -1160,19 +1165,19 @@ Consider a quiz that has multiple questions. Each question is a separate page. W
 ```
 
 ```javascript
-import { store, getServerContext } from '@wordpress/interactivity';
+import { store, getContext, getServerContext, withSyncEvent } from '@wordpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
 		// このアクションはディレクティブでトリガーされる。例:
-		// <button data-wp-on-click="actions.nextQuestion">Next Question</button>
-		*nextQuestion() {
-			event.preventDefault( event );
+		// <button data-wp-on--click="actions.nextQuestion">Next Question</button>
+		nextQuestion: withSyncEvent( function* ( event ) {
+			event.preventDefault();
 			const { actions } = yield import(
 				'@wordpress/interactivity-router'
 			);
 			actions.navigate( '/question-2' );
-		},
+		} ),
 	},
 	callbacks: {
 		// このコールバックはディレクティブでトリガーされる。例:
@@ -1210,14 +1215,102 @@ Whenever you have interactive blocks that rely on global state or local context 
 -   **読み出し専用の参照:** `getServerState()` と `getServerContext()` はどちらも読み取り専用のオブジェクトを返します。これらのオブジェクトを使用して、グローバルステートやローカルコンテキストを更新できます。
 -   **コールバックとの統合:** これらの関数をストアの[コールバック](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#accessing-data-in-callbacks)に組み込むと、ステートやコンテキストの変更に反応できます。`getServerState()` と `getServerContext()` はどちらもリアクティブオブジェクトを返します。すなわち、それらの監視コールバックは、プロパティの値が変更されたときのみ、トリガーされます。値が変わらなければ、コールバックは再トリガーされません。
 
+-   **Callback Integration:** Incorporate these functions within your store [callbacks](/docs/reference-guides/interactivity-api/directives-and-store.md#accessing-data-in-callbacks) to react to state and context changes. Both `getServerState()` and `getServerContext()` return reactive objects. This means that their watch callbacks will only trigger when the value of a property changes. If the value remains the same, the callback will not re-trigger.
+
+
+## Config
+
+<!-- 
+**Config** in the Interactivity API refers to static configuration data that is serialized from the server to the client. Unlike global state or local context, config values are **not reactive** - they don't trigger UI updates and remain constant throughout the client-side lifecycle.
+ -->
+Interactivity API における **Config** は、サーバーからクライアントへシリアライズされる静的な構成データを指します。グローバルステートやローカルコンテキストとは異なり、Config の値は**リアクティブではありません**。つまり、UI の更新をトリガーせず、クライアントサイドのライフサイクル全体を通じて一定のままです。
+
+<!-- 
+Config is ideal for sending non-reactive data from PHP to JavaScript, such as API endpoints, nonces, feature flags, or translations that won't change during user interaction.
+ -->
+Config は、PHP から JavaScript に非リアクティブなデータを渡す場合に適しています。たとえば、API エンドポイント、nonce、機能フラグ、翻訳などのユーザー操作中に変更されないデータです。
+
+<!-- 
+You should use config when:
+ -->
+次のような場合は Config を使用してください。
+
+<!-- 
+-   You need to pass static configuration data from the server to the client
+-   The data doesn't need to be reactive (won't change during user interactions)
+-   You want to send API URLs, authentication tokens, or feature toggles
+-   You need to provide translations or other static content
+ -->
+-   サーバーからクライアントへ静的な構成データを渡す必要がある場合
+-   データをリアクティブにする必要がない場合（ユーザー操作中に変更されない場合）
+-   API の URL、認証トークン、または機能のトグルを渡したい場合
+-   翻訳やその他の静的なコンテンツを提供する必要がある場合
+
+<!-- 
+### Working with config
+ -->
+### Config の操作
+
+<!-- 
+-   **Setting config on the server**
+ -->
+-   **サーバー側での Config の設定**
+<!-- 
+    Use the `wp_interactivity_config()` function in PHP to define configuration values:
+ -->
+    PHP で `wp_interactivity_config()` 関数を使用して設定値を定義します。
+
+    ```php
+    // Setting config values
+    wp_interactivity_config( 'myPlugin', array(
+        'restApiUrl'     => get_rest_url( null, 'my-plugin/v1/' ),
+        'nonce'          => wp_create_nonce( 'my_plugin_action' ),
+        'isUserLoggedIn' => is_user_logged_in(),
+        'translations'   => array(
+            'loading'    => __( 'Loading...', 'my-plugin' ),
+            'error'      => __( 'An error occurred', 'my-plugin' ),
+        ),
+    ) );
+    ```
+
+-   **クライアント側での Config へのアクセス**
+
+    JavaScript で `getConfig()` 関数を使用して、構成値を取得します。
+
+    ```js
+    import { store, getConfig } from '@wordpress/interactivity';
+
+    const { state } = store( 'myPlugin', {
+    	actions: {
+    		*fetchData() {
+    			const { restApiUrl, nonce } = getConfig();
+
+    			try {
+    				const response = yield fetch( `${ restApiUrl }data`, {
+    					method: 'POST',
+    					headers: {
+    						'X-WP-Nonce': nonce,
+    					},
+    				} );
+    				const data = yield response.json();
+    				state.data = data;
+    			} catch ( error ) {
+    				const { translations } = getConfig();
+    				state.errorMessage = translations.error;
+    			}
+    		},
+    	},
+    } );
+    ```
+
 <!-- 
 ## Conclusion
  -->
 ## まとめ
 
 <!-- 
-Remember, the key to effective state management is to keep your state minimal and avoid redundancy. Use derived state to compute values dynamically, and choose between global state and local context based on the scope and requirements of your data. This will lead to a cleaner, more robust architecture that is easier to debug and maintain. Finally, if you need to synchronize the state or context with the server, you can use `getServerState()` and `getServerContext()` to achieve this.
+Remember, the key to effective state management is to keep your state minimal and avoid redundancy. Use derived state to compute values dynamically, choose between global state and local context based on the scope and requirements of your data, and use config for static server-to-client data. This will lead to a cleaner, more robust architecture that is easier to debug and maintain. Finally, if you need to synchronize the state or context with the server, you can use `getServerState()` and `getServerContext()` to achieve this.
  -->
-効率的なステート管理のポイントは、ステートを最小限に保ち、冗長性を避けることです。派生ステートを使用して動的に値を計算し、データのスコープと要件に基づいてグローバルステートとローカルコンテキストを選択してください。この結果、デバッグや保守がしやすく、よりクリーンで堅牢なアーキテクチャが導かれます。また、ステートやコンテキストをサーバー側と動悸する必要がある場合は、`getServerState()` や `getServerContext()` を利用できます。
+効率的なステート管理のポイントは、ステートを最小限に保ち、冗長性を避けることです。派生ステートを使用して動的に値を計算し、データのスコープと要件に基づいてグローバルステートとローカルコンテキストを選択し、静的なサーバーからクライアントへのデータには Config を使用してください。この結果、デバッグや保守がしやすく、よりクリーンで堅牢なアーキテクチャが導かれます。また、ステートやコンテキストをサーバー側と動悸する必要がある場合は、`getServerState()` や `getServerContext()` を利用できます。
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md)

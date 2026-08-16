@@ -861,7 +861,6 @@ export default function Edit( { attributes, setAttributes } ) {
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings', 'copyright-date-block' ) }>
 					<TextControl
-					    __nextHasNoMarginBottom
 						__next40pxDefaultSize
 						label={ __(
 							'Starting year',
@@ -948,7 +947,6 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 					{ showStartingYear && (
 						<TextControl
-							__nextHasNoMarginBottom
 							__next40pxDefaultSize
 							label={ __(
 								'Starting year',
@@ -1543,7 +1541,7 @@ The `save()` function now uses the new `fallbackCurrentYear`, so it needs to be 
 `save()` 関数は新しい `fallbackCurrentYear` を使用するため、どこかで設定する必要があります。`Edit()` 関数を使いましょう。
 
 <!-- 
-Open the `edit.js` file and start by defining the `fallbackCurrentYear` variable at the top of the `Edit()` functional alongside the other attributes. Next, review what's happening in the function.
+Open the `edit.js` file and start by defining the `fallbackCurrentYear` variable at the top of the `Edit()` function alongside the other attributes. Next, review what's happening in the function.
  -->
 `edit.js` ファイルを開き、まず `fallbackCurrentYear` 変数を `Edit()` 関数の先頭で、他の属性と一緒に定義します。次に、関数内での動きを確認します。
 

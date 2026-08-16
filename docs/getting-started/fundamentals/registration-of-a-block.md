@@ -162,7 +162,34 @@ _See the [full block example](https://github.com/WordPress/block-development-exa
  -->
 _[完全なブロックの例](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda)の中の[上のコード](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/plugin.php)を参照してください。_
 
+<!-- 
+### PHP-only blocks with auto-registration
+ -->
+### PHP のみのブロックと自動登録
 
+<!-- 
+For blocks that only need server-side rendering, you can register them exclusively in PHP using the [`auto_register`](/docs/reference-guides/block-api/block-supports.md#auto_register) flag and a `render_callback`. These blocks automatically appear in the editor without requiring any JavaScript registration or client-side code and use [dynamic rendering](/docs/getting-started/fundamentals/static-dynamic-rendering.md).
+ -->
+サーバーサイドレンダリングのみを必要とするブロックは、[`auto_register`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-supports/) フラグと `render_callback` を使用して、PHP のみで登録できます。これらのブロックは、JavaScript による登録やクライアントサイドコードを必要とせず、[動的レンダリング](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/static-dynamic-rendering/) を使用して自動的にエディターに表示されます。
+
+```php
+register_block_type( 'my-plugin/server-block', array(
+	'render_callback' => function( $attributes ) {
+		$wrapper_attributes = get_block_wrapper_attributes();
+
+		return sprintf(
+			'<div %1$s>Server content</div>',
+			$wrapper_attributes
+		);
+	},
+	'supports' => array(
+		'auto_register' => true,
+		'color' => array(
+			'background' => true,
+		),
+	),
+) );
+```
 <!-- 
 ## Registering a block with JavaScript (client-side)
  -->
@@ -176,16 +203,10 @@ When the block is registered on the server, you only need to register the client
  -->
 
 <!-- 
-When the block has already been registered on the server, you only need to register the client-side settings in JavaScript using the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype) method from the `@wordpress/blocks` package. You just need to make sure you use the same block name as defined in the block's `block.json` file. Here's an example:
- -->
-ブロックがすでにサーバーに登録されている場合は、`@wordpress/blocks` パッケージの [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype) メソッドを使用して、JavaScript でクライアントサイドの設定を登録するだけで済みます。一点、ブロックの `block.json` ファイルで定義されたブロック名と同じ名前を使用することに注意してください。以下はその例です。
+When the block has already been registered on the server and unless using [PHP-only auto-registered blocks](#php-only-blocks-with-auto-registration), you only need to register the client-side settings in JavaScript using the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype) method from the `@wordpress/blocks` package. You just need to make sure you use the same block name as defined in the block's `block.json` file. Here's an example:
 
-<!-- 
-**Example:**
  -->
-<!-- 
-**例:**
- -->
+ブロックがすでにサーバーに登録されていて、かつ、PHP のみの自動登録ブロックでなければ、`@wordpress/blocks` パッケージの [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype) メソッドを使用して、JavaScript でクライアントサイドの設定を登録するだけです。ただし、ブロックの `block.json` ファイルで定義されたブロック名と同じ名前を使用することに注意してください。以下はその例です。
 
 <!-- 
 ```js

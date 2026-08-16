@@ -80,7 +80,7 @@ For example, using the above attributes definition you would need to ensure that
 例えば、上の属性定義を使用する場合、`save` 関数で、`url` 属性に対応する img タグがあることを確認する必要があります。一方、`title` と `size` 属性は、コメントデリミタに保存されます。
 
 <!--
-_Example_: Example `save` function that contains the `url` attribute
+_Example_: Example `save` function that contains the `url` attribute.
  -->
 _例_: `url` 属性を含む、サンプルの `save` 関数
 
@@ -886,7 +886,7 @@ Use `local` to mark the attribute as temporary and non-persistable. Attributes m
 `local` は、属性を一時的で永続化不可としてマークします。`local` とマークした属性は、ブロックシリアライザーによって無視され、投稿コンテンツには保存されません。
 
 <!-- 
-_Example_: `content` role used by the paragraph block
+_Example_: `content` role used by the paragraph block.
  -->
 _例_: 段落ブロックに使用した `content` ロール
 

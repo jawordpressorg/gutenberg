@@ -75,20 +75,8 @@ Private exports:
 - `ColorPanel`
 - `DimensionsPanel`
 - `FiltersPanel`
-- `GlobalStylesContext`
 - `ImageSettingsPanel`
 - `TypographyPanel`
-- `areGlobalStyleConfigsEqual`
-- `getBlockCSSSelector`
-- `getBlockSelectors`
-- `getGlobalStylesChanges`
-- `getLayoutStyles`
-- `toStyles`
-- `useGlobalSetting`
-- `useGlobalStyle`
-- `useGlobalStylesOutput`
-- `useGlobalStylesOutputWithConfig`
-- `useGlobalStylesReset`
 - `useHasBackgroundPanel`
 - `useHasBorderPanel`
 - `useHasBorderPanelControls`
@@ -225,7 +213,6 @@ Private exports:
 - `CreatePatternModalContents`
 - `DuplicatePatternModal`
 - `isOverridableBlock`
-- `hasOverridableBlocks`
 - `useDuplicatePatternProps`
 - `RenamePatternModal`
 - `PatternsMenuItems`
@@ -239,7 +226,6 @@ Private exports:
 - `PATTERN_USER_CATEGORY`
 - `EXCLUDED_PATTERN_SOURCES`
 - `PATTERN_SYNC_TYPES`
-- `PARTIAL_SYNCING_SUPPORTED_BLOCKS`
 
 ### `core/patterns` store
 
@@ -276,9 +262,6 @@ Private exports:
 - `BackButton`
 - `EntitiesSavedStatesExtensible`
 - `Editor`
-- `EditorContentSlotFill`
-- `GlobalStylesProvider`
-- `mergeBaseAndUserConfigs`
 - `PluginPostExcerpt`
 - `PostCardPanel`
 - `PreferencesModal`
@@ -293,7 +276,6 @@ Private exports:
 - `ComplementaryAreaMoreMenuItem`
 - `FullscreenMode`
 - `InterfaceSkeleton`
-- `NavigableRegion`
 - `PinnedItems`
 
 ### `core/editor` store

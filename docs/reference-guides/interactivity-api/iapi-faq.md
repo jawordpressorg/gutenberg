@@ -257,9 +257,9 @@ The API has been designed with performance in mind, so it shouldn’t be a probl
 ## コアの翻訳 API と動作しますか ?
 
 <!-- 
-As the Interactivity API works perfectly with server-side rendering, you can use all the WordPress APIs including [`__()`](https://developer.wordpress.org/reference/functions/__/) and [`_e()`](https://developer.wordpress.org/reference/functions/_e/). You can use it to translate the text in the HTML (as you normally would) and even use it inside the store when [using `wp_interactivity_state()` on the server side](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#setting-the-store). It might look something like this:
+As the Interactivity API works perfectly with server-side rendering, you can use all the WordPress APIs including [`__()`](https://developer.wordpress.org/reference/functions/__/) and [`_e()`](https://developer.wordpress.org/reference/functions/_e/). You can use it to translate the text in the HTML (as you normally would) and even use it inside the store when [using `wp_interactivity_state()` on the server side](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#setting-the-store). It might look something like this:
  -->
-Interactivity API はサーバーサイドレンダリングと完璧にに動作するため、[`__()`](https://developer.wordpress.org/reference/functions/__/) や [`_e()`](https://developer.wordpress.org/reference/functions/_e/) を含むすべてのWordPress API を使用できます。通常のように HTML 内のテキストを翻訳したり、[サーバーサイドで `wp_interactivity_state()` を使用する](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#setting-the-store)ときにストア内で使用できます。以下のようになります。
+Interactivity API はサーバーサイドレンダリングと完璧にに動作するため、[`__()`](https://developer.wordpress.org/reference/functions/__/) や [`_e()`](https://developer.wordpress.org/reference/functions/_e/) を含むすべてのWordPress API を使用できます。通常のように HTML 内のテキストを翻訳したり、[サーバーサイドで `wp_interactivity_state()` を使用する](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#setting-the-store)ときにストア内で使用できます。以下のようになります。
 
 ```php
 // render.php
@@ -282,9 +282,9 @@ A translation API compatible with script modules (needed for the Interactivity A
 ## XSS が心配です。JavaScript をディレクティブに注入できますか ?
 
 <!-- 
-No. The Interactivity API only allows for [References](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#values-of-directives-are-references-to-store-properties) to be passed as values to the directives. This way, there is no need to eval() full JavaScript expressions, so it’s not possible to perform XSS attacks.
+No. The Interactivity API only allows for [References](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#values-of-directives-are-references-to-store-properties) to be passed as values to the directives. This way, there is no need to eval() full JavaScript expressions, so it's not possible to perform XSS attacks.
  -->
-いいえ。Interactivity API では、ディレクティブの値として[参照](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#values-of-directives-are-references-to-store-properties)を渡すことしかできません。この方法では、JavaScript の完全な式を eval() する必要がないので、XSS 攻撃は実行できません。
+いいえ。Interactivity API では、ディレクティブの値として[参照](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#values-of-directives-are-references-to-store-properties)を渡すことしかできません。この方法では、JavaScript の完全な式を eval() する必要がないので、XSS 攻撃は実行できません。
 
 <!-- 
 ## Does this work with Custom Security Policies?

@@ -45,14 +45,14 @@ Use the following links to locate the topic you're interested in. If you have ne
 -   **[Quick Start Guide](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/iapi-quick-start-guide/):** Get a custom block using the Interactivity API up and running in less than one minute.
 -   **[Tutorial: A first look at the Interactivity API](https://developer.wordpress.org/news/2024/04/11/a-first-look-at-the-interactivity-api/)** This article from the [WordPress Developer Blog](https://developer.wordpress.org/news/) is a great way to get introduced to the Interactivity API.
 -   **[Core Concepts](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/core-concepts/)** Gain a better understanding of concepts and mental models related to Interactivity API development from this section.
--   **[API Reference](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/):** To take a deep dive into how the API works internally, the list of Directives, and how the Store works.
+-   **[Directives and Store](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/):** To take a deep dive into how the API works internally, the list of Directives, and how the Store works.
 -   **[Docs and Examples](#docs-examples):** Additional resources to learn/read more about the Interactivity API.
  -->
 - **要件:** Interactivity API を使用してインタラクティブなブロックの作成を始める前に、このセクションを確認してください (後述)。
 - **[クイックスタートガイド](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/iapi-quick-start-guide/):** Interactivity API を使用するカスタムブロックを1分で作成し、実行します。
 - **[チュートリアル: はじめての Interactivity API](https://developer.wordpress.org/news/2024/04/11/a-first-look-at-the-interactivity-api/):** [WordPress Developer Blog](https://developer.wordpress.org/news/)のこの記事は、Interactivity API の素晴らしい紹介記事です。
 - **[コアコンセプト](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/core-concepts/)** このセクションでは Interactive API 開発に関するコンセプトとメンタルモデルについて理解を深められます。
-- **[API リファレンス](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/):** API が内部的にどのように動作するのか、ディレクティブのリスト、ストアがどのように動作するのかを深く掘り下げます。
+- **[ディレクティブとストア](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/):** API が内部的にどのように動作するのか、ディレクティブのリスト、ストアがどのように動作するのかを深く掘り下げます。
 - **ドキュメントとサンプルプログラム:** Interactivity API についてもっと学習するための追加の情報 (後述)。
 
 <!-- 
@@ -115,9 +115,9 @@ Install the Interactivity API to your project with the following command:
 npm install @wordpress/interactivity --save
 ```
 <!-- 
-Import the store into your `view.js`. Refer to the [store documentation](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#the-store) for more information.
+Import the store into your `view.js`. Refer to the [store documentation](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#the-store) for more information.
  -->
-ストアを `view.js` 内にインポートします。詳細については[ストアのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#the-store)を参照してください。
+ストアを `view.js` 内にインポートします。詳細については[ストアのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#the-store)を参照してください。
 
 ```js
 import { store } from '@wordpress/interactivity';
@@ -194,9 +194,9 @@ DOM 要素 (およびその子要素) で Interactivity API を「有効化」�
 ```
 
 <!-- 
-Refer to the [`wp-interactive` documentation](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#wp-interactive) for a more detailed description of this directive.
+Refer to the [`wp-interactive` documentation](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-interactive) for a more detailed description of this directive.
  -->
-このディレクティブの詳細については、[`wp-interactive` のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#wp-interactive) を参照してください。
+このディレクティブの詳細については、[`wp-interactive` のドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-interactive) を参照してください。
 
 <!-- 
 ## Docs & Examples

@@ -114,7 +114,7 @@ test.describe( 'Buttons', () => {
 		).toBeVisible();
 	} );
 
-	test( 'appends http protocol to links added which are missing a protocol', async ( {
+	test( 'appends https protocol to links added which are missing a protocol', async ( {
 		editor,
 		page,
 		pageUtils,
@@ -138,8 +138,8 @@ test.describe( 'Buttons', () => {
 		await pageUtils.pressKeys( 'Tab' );
 		await page.keyboard.press( 'Enter' );
 
-		// Check the value of the URL input has had http:// prepended.
-		await expect( urlInput ).toHaveValue( 'http://example.com' );
+		// Check the value of the URL input has had https:// prepended.
+		await expect( urlInput ).toHaveValue( 'https://example.com' );
 	} );
 
 	test( 'can jump to the link editor using the keyboard shortcut', async ( {
@@ -210,7 +210,7 @@ test.describe( 'Buttons', () => {
 		await page
 			//TODO: change to a better selector when https://github.com/WordPress/gutenberg/issues/51060 is resolved.
 			.locator( '.block-editor-link-control' )
-			.getByRole( 'button', { name: 'Save' } )
+			.getByRole( 'button', { name: 'Apply' } )
 			.click();
 
 		// The link should have been inserted.
@@ -244,7 +244,7 @@ test.describe( 'Buttons', () => {
 		await page
 			//TODO: change to a better selector when https://github.com/WordPress/gutenberg/issues/51060 is resolved.
 			.locator( '.block-editor-link-control' )
-			.getByRole( 'button', { name: 'Save' } )
+			.getByRole( 'button', { name: 'Apply' } )
 			.click();
 
 		// Check the content again.

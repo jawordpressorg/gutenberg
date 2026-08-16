@@ -7,6 +7,25 @@ WordPress exposes a list of JavaScript packages and tools for WordPress developm
 
 WordPress は開発用に JavaScript のパッケージとツールをエクスポーズします。
 
+<!-- 
+For information on creating and managing packages in Gutenberg, see the [packages README](../../packages/README.md). For details on the build system and package configuration, see the [@wordpress/build README](../../packages/wp-build/README.md).
+ -->
+Gutenberg におけるパッケージの作成、管理に関する情報については、[packages README](https://github.com/WordPress/gutenberg/blob/trunk/packages/README.md) を参照してください。ビルドシステムとパッケージ校正については[@wordpress/build README](https://github.com/WordPress/gutenberg/blob/trunk/packages/wp-build/README.md) を参照してください。
+<!-- 
+## Package Guidelines
+ -->
+## パッケージガイドライン
+
+<!-- 
+Packages are the first layer of architecture in Gutenberg. Each package should have a single, clear purpose, include a README, document prerequisites and public APIs, and avoid utility/kitchen-sink patterns. Default to bundled packages unless globals or modules are necessary.
+ -->
+パッケージは Gutenberg のアーキテクチャにおける最初のレイヤーです。各パッケージは単一で明確な目的を持ち、README を含み、前提条件と公開 API を文書化し、ユーティリティ集やキッチンシンクのような設計パターンを避ける必要があります。グローバル変数やモジュールが必要な場合を除き、バンドルされたパッケージをデフォルトとしてください。
+
+<!-- 
+For complete guidelines, see the [package guidelines](../../packages/README.md#package-guidelines) in the packages README.
+ -->
+完全なガイドラインについては、packages README の[パッケージガイドライン](https://github.com/WordPress/gutenberg/blob/trunk/packages/README.md#package-guidelines)を参照してください。
+
 <!--
 ## Using the packages via WordPress global
 

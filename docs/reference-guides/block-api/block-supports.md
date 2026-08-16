@@ -71,6 +71,44 @@ function render_block() {
 }
 ```
 
+## allowedBlocks
+
+<!-- 
+_**Note:** Since WordPress 6.9._
+ -->
+_**注意:** WordPress 6.9以降_
+
+<!-- 
+-   Type: `boolean`
+-   Default value: `false`
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `false`
+
+<!-- 
+This property adds UI controls which enable the user to select allowed child blocks for a block container. To use this feature, pass `attributes.allowedBlocks` as the `allowedBlocks` property in the options object of `useInnerBlocksProps`.
+ -->
+このプロパティは、ブロックコンテナ内で許可する子ブロックをユーザーが選択できる UI コントロールを追加します。この機能を使用するには、`useInnerBlocksProps` のオプションオブジェクト内で `attributes.allowedBlocks` を `allowedBlocks` プロパティとして渡します。
+
+```js
+supports: {
+	allowedBlocks: true
+}
+```
+
+```jsx
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+
+function Edit( { attributes } ) {
+	const { allowedBlocks } = attributes;
+	const blockProps = useBlockProps();
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		allowedBlocks
+	} );
+	return <div { ...innerBlocksProps } />;
+}
+```
+
 ## anchor
 <!--
 -   Type: `boolean`
@@ -80,8 +118,11 @@ function render_block() {
 - デフォルト値: `false`
 
 <!--
-Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link. _Important: It doesn't work with dynamic blocks yet._
+Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link.
+ -->
+anchor を使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。
 
+<!-- 
 ```js
 // Declare support for anchor links.
 supports: {
@@ -89,13 +130,41 @@ supports: {
 }
 ```
  -->
-anchor を使用するとページ上の特定のブロックに直接リンクできます。このプロパティはブロックの ID を定義するフィールドと、ダイレクトリンクをコピーするボタンをを追加します。_重要: ダイナミックブロックでは、まだ動作しません。_
-
 ```js
 // anchor リンクのサポートを宣言
 supports: {
     anchor: true
 }
+```
+
+## auto_register
+
+<!-- 
+-   Type: `boolean`
+-   Default value: `false`
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `false`
+
+<!-- 
+Enables [PHP-only blocks](/docs/getting-started/fundamentals/registration-of-a-block.md#php-only-blocks-with-auto-registration) to automatically appear in the block editor without requiring JavaScript registration. When set to `true`, blocks registered on the server with a `render_callback` will automatically be registered in the editor and use `ServerSideRender`. These blocks default to block API version 3 and are automatically upgraded if they're using an older version.
+ -->
+[PHP のみのブロック](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/#php-%e3%81%ae%e3%81%bf%e3%81%ae%e3%83%96%e3%83%ad%e3%83%83%e3%82%af%e3%81%a8%e8%87%aa%e5%8b%95%e7%99%bb%e9%8c%b2) を、JavaScript での登録を必要とせずに、ブロックエディターへ自動的に表示できるようにします。`true` に設定すると、`render_callback` を使用してサーバー側で登録されたブロックは、エディター内でも自動的に登録され、`ServerSideRender` を使用します。これらのブロックは、デフォルトでブロック API バージョン 3 を使用し、古いバージョンを使用している場合は自動的にアップグレードされます。
+
+```php
+register_block_type( 'my-plugin/server-block', array(
+	'render_callback' => function( $attributes ) {
+		$wrapper_attributes = get_block_wrapper_attributes();
+
+		return sprintf(
+			'<div %1$s>Server content</div>',
+			$wrapper_attributes
+		);
+	},
+	'supports' => array(
+		'auto_register' => true,
+	),
+) );
 ```
 
 ## align
@@ -1113,12 +1182,16 @@ _**注意:** WordPress 6.2以降_
 -   Type: `Object`
 -   Default value: null
 -   Subproperties:
+    -   `height`: type `boolean`, default value `false`
     -   `minHeight`: type `boolean`, default value `false`
+    -   `width`: type `boolean`, default value `false`
  -->
 -   タイプ: `Object`
 -   デフォルト値: null
 -   サブプロパティ:
+    -   `height`: タイプ `boolean`, デフォルト値 `false`
     -   `minHeight`: タイプ `boolean`, デフォルト値 `false`
+    -   `width`: タイプ `boolean`, デフォルト値 `false`
 
 <!-- 
 This value signals that a block supports some of the CSS style properties related to dimensions. When it does, the block editor will show UI controls for the user to set their values if [the theme declares support](/docs/how-to-guides/themes/global-settings-and-styles.md#opt-in-into-ui-controls).
@@ -1130,7 +1203,9 @@ This value signals that a block supports some of the CSS style properties relate
 supports: {
 	dimensions: {
 		aspectRatio: true // Enable aspect ratio control.
+		height: true // Enable height control.
 		minHeight: true // Enable min height control.
+		width: true // Enable width control.
 	}
 }
 ```
@@ -1138,25 +1213,31 @@ supports: {
 ```js
 supports: {
     dimensions: {
+		aspectRatio: true // アスペクト比コントロールを有効化
+		height: true // 高さコントロールを有効化
         minHeight: true // 最小高コントロールを有効化
+		width: true // 幅コントロールを有効化
     }
 }
 ```
 <!-- 
 When a block declares support for a specific dimensions property, its attributes definition is extended to include the `style` attribute.
 
--   `style`: an attribute of `object` type with no default assigned. This is added when `aspectRatio` or `minHeight` support is declared. It stores the custom values set by the user. For example:
+-   `style`: an attribute of `object` type with no default assigned. This is added when `aspectRatio`, `height`, `minHeight`, or `width` support is declared. It stores the custom values set by the user. For example:
  -->
 ブロックが特定の dimensions プロパティのサポートを宣言すると、その attributes 定義は `style` 属性を含むように拡張されます。
 
--   `style`: デフォルトの割り当てのない `object` タイプの属性。`aspectRatio` または `minHeight` のサポートが宣言されると追加され、ユーザーが設定したカスタム値を保存します。例えば
+-   `style`: `object` タイプの属性。デフォルトの割り当てはない。`aspectRatio`、`height`、`minHeight` または `width` のサポートが宣言されると追加されます。ユーザーが設定したカスタム値を保存します。例えば
+
 
 ```js
 attributes: {
     style: {
         dimensions: {
             aspectRatio: "16/9",
-            minHeight: "50vh"
+            height: "40vh",
+            minHeight: "50vh",
+            width: "400px",
         }
     }
 }
@@ -1341,6 +1422,11 @@ The `interactive` sub-property indicates whether the block is using the Interact
  -->
 `interactive` サブプロパティは、ブロックが Interactivity API ディレクティブを使用しているかどうかを示します。
 
+<!-- 
+If you set `supports.interactivity` to `true`, it is equivalent to setting both `supports.interactivity.clientNavigation` and `supports.interactivity.interactive` to `true` as well.
+ -->
+`supports.interactivity` を `true` に設定することは、`supports.interactivity.clientNavigation` と `supports.interactivity.interactive` の両方を `true` に設定することと同じです。
+
 ## layout
 
 <!-- 
@@ -1355,6 +1441,7 @@ The `interactive` sub-property indicates whether the block is using the Interact
     -   `allowVerticalAlignment`: type `boolean`, default value `true`
     -   `allowJustification`: type `boolean`, default value `true`
     -   `allowOrientation`: type `boolean`, default value `true`
+    -   `allowWrap`: type `boolean`, default value `true`
     -   `allowCustomContentAndWideSize`: type `boolean`, default value `true`
 
 This value only applies to blocks that are containers for inner blocks. If set to `true` the layout type will be `flow`. For other layout types it's necessary to set the `type` explicitly inside the `default` object.
@@ -1370,9 +1457,15 @@ This value only applies to blocks that are containers for inner blocks. If set t
     -   `allowVerticalAlignment`: タイプ `boolean`, デフォルト値 `true`
     -   `allowJustification`: タイプ `boolean`, デフォルト値 `true`
     -   `allowOrientation`: タイプ `boolean`, デフォルト値 `true`
+    -   `allowWrap`: タイプ `boolean`, デフォルト値 `true`
     -   `allowCustomContentAndWideSize`: タイプ `boolean`, デフォルト値 `true`
 
 この値は内部ブロックのコンテナとなるブロックにのみ適用されます。`true` に設定するとレイアウトタイプは `flow` になります。その他のレイアウトタイプでは、`default` オブジェクト内で明示的に `type` を設定する必要があります。
+
+<!-- 
+Note that for layout to work correctly, the block it applies to should have a classname as its selector. That classname will be concatenated with a layout type string to form the layout selector.
+ -->
+注意: レイアウトが正しく機能するには、この設定を適用するブロックのセレクタとしてクラス名の設定が必要です。そのクラス名はレイアウトタイプを表す文字列と連結され、レイアウトセレクタの形成に使用されます。
 
 ### layout.default
 <!-- 
@@ -1469,6 +1562,19 @@ For the `flex` layout type only, determines display of the orientation control i
 -   デフォルト値: `true`
 
 `flex` レイアウトタイプのみ。ブロックツールバーの方向コントロールの表示を決定します。
+
+### layout.allowWrap
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+<!-- 
+For the `flex` layout type only, determines display of the "Allow to wrap to multiple lines" toggle in the block sidebar. When set to `false`, the wrap behavior is controlled by the `flexWrap` value in `layout.default`.
+ -->
+`flex` レイアウトタイプのみ。`flex` レイアウトタイプにのみ適用され、ブロックサイドバーに「複数行に折り返す」トグルを表示するかどうかを決定します。`false` に設定すると、折り返しの動作は `layout.default` の `flexWrap` の値によって制御されます。
 
 ### layout.allowCustomContentAndWideSize
 <!-- 
@@ -2080,5 +2186,30 @@ single `RichText` field. RichText in the `edit` function _must_ have an
 the selection correctly and we know where to split.
  -->
 `true` に設定すると、`Enter` はブロックを2つのブロックに分割します。注意: これは単一の `RichText`フィールドを持つ、段落や見出しのような単純なテキストブロックにのみ有効です。`edit` 関数内の RichText は `identifier` prop を持ち、テキストの attribute キーとマッチしなければなりません。この結果、正しく選択を更新し、どこを分割すべきかがわかります。
+
+## visibility
+
+<!-- 
+_**Note:** Since WordPress 6.9._
+ -->
+_**注意:** WordPress 6.9以降_
+
+<!-- 
+-   Type: `boolean`
+-   Default value: `true`
+ -->
+-   タイプ: `boolean`
+-   デフォルト値: `true`
+
+<!-- 
+By default, a block can be hidden by a user from the block 'Options' dropdown. To disable this behavior, set visibility to false.
+ -->
+デフォルトでは、ブロックはブロックの「オプション」ドロップダウンからユーザーが非表示にできます。この動作を無効にするには、`visibility` を `false` に設定します。
+
+```js
+supports: {
+	visibility: false,
+}
+```
 
 [原文](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-supports.md)

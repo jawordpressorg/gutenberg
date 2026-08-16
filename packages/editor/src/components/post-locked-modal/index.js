@@ -26,6 +26,7 @@ function PostLockedModal() {
 	const hookName = 'core/editor/post-locked-modal-' + instanceId;
 	const { autosave, updatePostLock } = useDispatch( editorStore );
 	const {
+		isCollaborationEnabled,
 		isLocked,
 		isTakeover,
 		user,
@@ -36,6 +37,7 @@ function PostLockedModal() {
 		previewLink,
 	} = useSelect( ( select ) => {
 		const {
+			isCollaborationEnabledForCurrentPost,
 			isPostLocked,
 			isPostLockTakeover,
 			getPostLockUser,
@@ -47,6 +49,7 @@ function PostLockedModal() {
 		} = select( editorStore );
 		const { getPostType } = select( coreStore );
 		return {
+			isCollaborationEnabled: isCollaborationEnabledForCurrentPost(),
 			isLocked: isPostLocked(),
 			isTakeover: isPostLockTakeover(),
 			user: getPostLockUser(),
@@ -146,6 +149,13 @@ function PostLockedModal() {
 
 	if ( ! isLocked ) {
 		return null;
+	}
+
+	// Avoid sending the modal if sync is supported, but retain functionality around locks etc.
+	if ( globalThis.IS_GUTENBERG_PLUGIN ) {
+		if ( isCollaborationEnabled ) {
+			return null;
+		}
 	}
 
 	const userDisplayName = user.name;

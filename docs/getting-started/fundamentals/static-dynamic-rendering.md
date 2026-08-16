@@ -170,7 +170,7 @@ There are some common use cases for dynamic blocks:
 <!-- 
 ### How to define dynamic rendering for a block
  -->
-### ブロックで動的レンダリングを使用する方法
+### ブロックで動的レンダリングを定義する方法
 
 <!-- 
 A block can define dynamic rendering in two main ways:
@@ -178,9 +178,9 @@ A block can define dynamic rendering in two main ways:
 ブロックは主に2つの方法で動的レンダリングを定義できます。
 
 <!-- 
-1. Using the `render_callback` argument that can be passed to the [`register_block_type()`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/registration-of-a-block/#registration-of-the-block-with-php-server-side) function.
+1. Using the `render_callback` argument that can be passed to the [`register_block_type()`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/registration-of-a-block/#registration-of-the-block-with-php-server-side) function. This is needed for [PHP-only blocks](/docs/getting-started/fundamentals/registration-of-a-block.md#php-only-blocks-with-auto-registration).
  -->
-1. [`register_block_type()`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/#registration-of-the-block-with-php-server-side) 関数に渡す `render_callback` 引数を使用する。
+1. [`register_block_type()`](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/#registration-of-the-block-with-php-server-side) 関数に渡す `render_callback` 引数を使用する。これは [PHP のみのブロック](https://ja.wordpress.org/team/handbook/block-editor/getting-started/fundamentals/registration-of-a-block/#php-%e3%81%ae%e3%81%bf%e3%81%ae%e3%83%96%e3%83%ad%e3%83%83%e3%82%af%e3%81%a8%e8%87%aa%e5%8b%95%e7%99%bb%e9%8c%b2) で必要とされます。
 <!-- 
 2. Using a separate PHP file usually named `render.php`. This file's path should be defined using the [`render`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#files-for-the-blocks-behavior-output-or-style) property in the `block.json` file.
  -->

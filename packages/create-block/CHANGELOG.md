@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+## 4.82.0 (2026-01-29)
+
+## 4.81.0 (2026-01-16)
+
+### Bug Fixes
+
+-   Fixed scaffolded `package.json` dependencies to include WordPress packages used in default templates. ([#72978](https://github.com/WordPress/gutenberg/pull/72978))
+
+## 4.79.0 (2025-11-26)
+
+## 4.78.0 (2025-11-12)
+
+## 4.77.0 (2025-10-29)
+
+## 4.76.0 (2025-10-17)
+
+## Enhancement
+
+-   Enable `alias` package installation ([#72079](https://github.com/WordPress/gutenberg/pull/72079)).
+
+## 4.75.0 (2025-10-01)
+
+## 4.74.0 (2025-09-17)
+
 ## 4.73.0 (2025-09-03)
 
 ### Enhancement

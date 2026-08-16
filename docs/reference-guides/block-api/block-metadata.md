@@ -159,7 +159,7 @@ The version of the Block API used by the block. The most recent version is `3` a
 ブロックが使用する Block API のバージョン。最新のバージョンは `3` で、WordPress 6.3 で導入されました。
 
 <!--
-See the [the API versions documentation](/docs/reference-guides/block-api/block-api-versions.md) for more details.
+See [the API versions documentation](/docs/reference-guides/block-api/block-api-versions/README.md) for more details.
  -->
 詳細については [API バージョンのドキュメント](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/block-api/block-api-versions/) を参照してください。
 

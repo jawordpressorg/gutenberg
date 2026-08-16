@@ -23,16 +23,17 @@ import { createBlock } from '@wordpress/blocks';
  */
 import withRegistryProvider from './with-registry-provider';
 import { store as editorStore } from '../../store';
+import { ATTACHMENT_POST_TYPE } from '../../store/constants';
 import useBlockEditorSettings from './use-block-editor-settings';
 import { unlock } from '../../lock-unlock';
 import DisableNonPageContentBlocks from './disable-non-page-content-blocks';
 import NavigationBlockEditingMode from './navigation-block-editing-mode';
 import { useHideBlocksFromInserter } from './use-hide-blocks-from-inserter';
 import useCommands from '../commands';
+import useUploadSaveLock from './use-upload-save-lock';
 import BlockRemovalWarnings from '../block-removal-warnings';
 import StartPageOptions from '../start-page-options';
 import KeyboardShortcutHelpModal from '../keyboard-shortcut-help-modal';
-import ContentOnlySettingsMenu from '../block-settings-menu/content-only-settings-menu';
 import StartTemplateOptions from '../start-template-options';
 import EditorKeyboardShortcuts from '../global-keyboard-shortcuts';
 import PatternRenameModal from '../pattern-rename-modal';
@@ -282,7 +283,8 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 			setEditedPost,
 			setRenderingMode,
 		} = unlock( useDispatch( editorStore ) );
-		const { createWarningNotice } = useDispatch( noticesStore );
+		const { createWarningNotice, removeNotice } =
+			useDispatch( noticesStore );
 
 		// Ideally this should be synced on each change and not just something you do once.
 		useLayoutEffect( () => {
@@ -318,7 +320,16 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		// Synchronizes the active post with the state
 		useEffect( () => {
 			setEditedPost( post.type, post.id );
-		}, [ post.type, post.id, setEditedPost ] );
+			if (
+				typeof window !== 'undefined' &&
+				window.__experimentalTemplateActivate
+			) {
+				// Clear any notices dependent on the post context.
+				removeNotice( 'template-activate-notice' );
+			}
+
+			return () => setEditedPost( null, null );
+		}, [ post.type, post.id, setEditedPost, removeNotice ] );
 
 		// Synchronize the editor settings as they change.
 		useEffect( () => {
@@ -342,8 +353,36 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		// Register the editor commands.
 		useCommands();
 
+		// Lock post saving when media uploads are in progress (experimental feature).
+		useUploadSaveLock();
+
 		if ( ! isReady || ! mode ) {
 			return null;
+		}
+
+		const isAttachment =
+			post.type === ATTACHMENT_POST_TYPE &&
+			window?.__experimentalMediaEditor;
+
+		// Early return for attachments - no block editor needed
+		if ( isAttachment ) {
+			return (
+				<EntityProvider kind="root" type="site">
+					<EntityProvider
+						kind="postType"
+						type={ post.type }
+						id={ post.id }
+					>
+						{ children }
+						{ ! settings.isPreviewMode && (
+							<>
+								<EditorKeyboardShortcuts />
+								<KeyboardShortcutHelpModal />
+							</>
+						) }
+					</EntityProvider>
+				</EntityProvider>
+			);
 		}
 
 		return (
@@ -367,7 +406,6 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 								<>
 									<PatternsMenuItems />
 									<TemplatePartMenuItems />
-									<ContentOnlySettingsMenu />
 									{ mode === 'template-locked' && (
 										<DisableNonPageContentBlocks />
 									) }

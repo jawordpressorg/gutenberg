@@ -14,12 +14,15 @@ import {
 	useRef,
 	useCallback,
 	useMemo,
+	isValidElement,
+	Component,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	Modal,
 	TextHighlight,
 	__experimentalHStack as HStack,
+	privateApis as componentsPrivateApis,
 } from '@wordpress/components';
 import {
 	store as keyboardShortcutsStore,
@@ -31,8 +34,31 @@ import { Icon, search as inputIcon } from '@wordpress/icons';
  * Internal dependencies
  */
 import { store as commandsStore } from '../store';
+import { unlock } from '../lock-unlock';
+
+const { withIgnoreIMEEvents } = unlock( componentsPrivateApis );
 
 const inputLabel = __( 'Search commands and settings' );
+
+/**
+ * Function that checks if the parameter is a valid icon.
+ * Taken from @wordpress/blocks/src/api/utils.js and copied
+ * in case requirements diverge and to avoid a dependency on @wordpress/blocks.
+ *
+ * @param {*} icon Parameter to be checked.
+ *
+ * @return {boolean} True if the parameter is a valid icon and false otherwise.
+ */
+
+export function isValidIcon( icon ) {
+	return (
+		!! icon &&
+		( typeof icon === 'string' ||
+			isValidElement( icon ) ||
+			typeof icon === 'function' ||
+			icon instanceof Component )
+	);
+}
 
 function CommandMenuLoader( { name, search, hook, setLoader, close } ) {
 	const { isLoading, commands = [] } = hook( { search } ) ?? {};
@@ -60,7 +86,9 @@ function CommandMenuLoader( { name, search, hook, setLoader, close } ) {
 							'has-icon': command.icon,
 						} ) }
 					>
-						{ command.icon && <Icon icon={ command.icon } /> }
+						{ isValidIcon( command.icon ) ? (
+							<Icon icon={ command.icon } />
+						) : null }
 						<span>
 							<TextHighlight
 								text={ command.label }
@@ -177,7 +205,6 @@ function CommandInput( { isOpen, search, setSearch } ) {
 			onValueChange={ setSearch }
 			placeholder={ inputLabel }
 			aria-activedescendant={ selectedItemId }
-			icon={ search }
 		/>
 	);
 }
@@ -209,8 +236,8 @@ export function CommandMenu() {
 
 	useShortcut(
 		'core/commands',
-		/** @type {import('react').KeyboardEventHandler} */
-		( event ) => {
+		/** @type {React.KeyboardEventHandler} */
+		withIgnoreIMEEvents( ( event ) => {
 			// Bails to avoid obscuring the effect of the preceding handler(s).
 			if ( event.defaultPrevented ) {
 				return;
@@ -222,7 +249,7 @@ export function CommandMenu() {
 			} else {
 				open();
 			}
-		},
+		} ),
 		{
 			bindGlobal: true,
 		}
@@ -245,19 +272,6 @@ export function CommandMenu() {
 		return false;
 	}
 
-	const onKeyDown = ( event ) => {
-		if (
-			// Ignore keydowns from IMEs
-			event.nativeEvent.isComposing ||
-			// Workaround for Mac Safari where the final Enter/Backspace of an IME composition
-			// is `isComposing=false`, even though it's technically still part of the composition.
-			// These can only be detected by keyCode.
-			event.keyCode === 229
-		) {
-			event.preventDefault();
-		}
-	};
-
 	const isLoading = Object.values( loaders ).some( Boolean );
 
 	return (
@@ -269,14 +283,17 @@ export function CommandMenu() {
 			contentLabel={ __( 'Command palette' ) }
 		>
 			<div className="commands-command-menu__container">
-				<Command label={ inputLabel } onKeyDown={ onKeyDown }>
+				<Command label={ inputLabel }>
 					<div className="commands-command-menu__header">
+						<Icon
+							className="commands-command-menu__header-search-icon"
+							icon={ inputIcon }
+						/>
 						<CommandInput
 							search={ search }
 							setSearch={ setSearch }
 							isOpen={ isOpen }
 						/>
-						<Icon icon={ inputIcon } />
 					</div>
 					<Command.List label={ __( 'Command suggestions' ) }>
 						{ search && ! isLoading && (

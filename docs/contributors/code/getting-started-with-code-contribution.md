@@ -166,7 +166,6 @@ If everything went well, you should see the following message in your terminal:
 
 ```bash
 WordPress development site started at http://localhost:8888/
-WordPress test site started at http://localhost:8889/
 MySQL is listening on port 51220
 
  ✔ Done! (in 261s 898ms)
@@ -480,7 +479,7 @@ We recommend configuring your editor to automatically check for syntax and lint 
 <!--
 With the extension installed, ESLint will use the [.eslintrc.js](https://github.com/WordPress/gutenberg/blob/HEAD/.eslintrc.js) file in the root of the Gutenberg repository for formatting rules. It will highlight issues as you develop, you can also set the following preference to fix lint rules on save.
 -->
-この拡張機能をインストールすると、ESLint はGutenberg リポジトリのルートにある [.eslintrc.js](https://github.com/WordPress/gutenberg/blob/HEAD/.eslintrc.js) ファイルを整形ルールとして使用し、開発中に問題点をハイライトしてくれます。また、以下を設定すると、保存時に lint エラーを修正できます。
+この拡張機能をインストールすると、ESLint は Gutenberg リポジトリのルートにある [.eslintrc.js](https://github.com/WordPress/gutenberg/blob/HEAD/.eslintrc.js) ファイルを整形ルールとして使用し、開発中に問題点をハイライトしてくれます。また、以下を設定すると、保存時に lint エラーを修正できます。
 
 
 ```json

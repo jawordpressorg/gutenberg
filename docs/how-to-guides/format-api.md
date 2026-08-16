@@ -148,7 +148,7 @@ Click the button and check the console.log for the "toggle format" message.
 ボタンをクリックし、console.log のメッセージ「toggle format」をチェックしてください。
 
 <!-- 
-If you do not see the button or message, double check you are building and loading the JavScript properly; and check the console.log for any errors.
+If you do not see the button or message, double check you are building and loading the JavaScript properly; and check the console.log for any errors.
  -->
 ボタンやメッセージが見つからない場合、正しく JavaScript をビルドし、ロードしていることを再度確認してください。また console.log に他のエラーがないか確認してください。
 

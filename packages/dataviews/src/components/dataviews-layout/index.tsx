@@ -13,7 +13,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import DataViewsContext from '../dataviews-context';
-import { VIEW_LAYOUTS } from '../../dataviews-layouts';
+import { VIEW_LAYOUTS } from '../dataviews-layouts';
 import type { ViewBaseProps } from '../../types';
 
 type DataViewsLayoutProps = {
@@ -37,7 +37,7 @@ export default function DataViewsLayout( { className }: DataViewsLayoutProps ) {
 		isItemClickable,
 		renderItemLink,
 		defaultLayouts,
-		empty = __( 'No results' ),
+		empty = <p>{ __( 'No results' ) }</p>,
 	} = useContext( DataViewsContext );
 
 	const ViewComponent = VIEW_LAYOUTS.find(

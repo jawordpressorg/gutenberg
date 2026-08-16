@@ -1422,7 +1422,9 @@ test.describe( 'List (@firefox)', () => {
 		);
 
 		await page.getByRole( 'button', { name: 'List', exact: true } ).click();
-		await page.getByRole( 'menuitem', { name: 'Paragraph' } ).click();
+		await page
+			.getByRole( 'menuitem', { name: 'Paragraph', exact: true } )
+			.click();
 
 		expect( await editor.getEditedPostContent() )
 			.toBe( `<!-- wp:paragraph -->
@@ -1608,5 +1610,85 @@ test.describe( 'List (@firefox)', () => {
 				],
 			},
 		] );
+	} );
+
+	test( 'should outdent list items when deleting an empty parent at the top', async ( {
+		editor,
+		page,
+	} ) => {
+		await editor.insertBlock( {
+			name: 'core/list',
+			innerBlocks: [
+				{
+					name: 'core/list-item',
+					attributes: { content: '' },
+					innerBlocks: [
+						{
+							name: 'core/list',
+							innerBlocks: [
+								{
+									name: 'core/list-item',
+									attributes: { content: 'a' },
+								},
+								{
+									name: 'core/list-item',
+									attributes: { content: 'b' },
+								},
+							],
+						},
+					],
+				},
+			],
+		} );
+
+		await page.keyboard.press( 'ArrowDown' );
+		await page.keyboard.press( 'ArrowDown' );
+		await page.keyboard.press( 'Backspace' );
+
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{
+				name: 'core/list',
+				innerBlocks: [
+					{ name: 'core/list-item', attributes: { content: 'a' } },
+					{ name: 'core/list-item', attributes: { content: 'b' } },
+				],
+			},
+		] );
+	} );
+
+	test( 'should select the list wrapper with select all in empty list item', async ( {
+		editor,
+		page,
+		pageUtils,
+	} ) => {
+		await editor.insertBlock( { name: 'core/list' } );
+
+		// Verify the list item is selected after insertion.
+		await expect
+			.poll( () =>
+				page.evaluate(
+					() =>
+						window.wp.data
+							.select( 'core/block-editor' )
+							.getSelectedBlock()?.name
+				)
+			)
+			.toBe( 'core/list-item' );
+
+		// The list item is empty. Press cmd+a to select all, then again to select the list block.
+		await pageUtils.pressKeys( 'primary+a' );
+		await pageUtils.pressKeys( 'primary+a' );
+
+		// Verify the list block is selected using the block-editor store.
+		await expect
+			.poll( () =>
+				page.evaluate(
+					() =>
+						window.wp.data
+							.select( 'core/block-editor' )
+							.getSelectedBlock()?.name
+				)
+			)
+			.toBe( 'core/list' );
 	} );
 } );

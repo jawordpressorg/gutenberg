@@ -6,7 +6,7 @@
 <!-- 
 > This is the living specification for  **version 3** of `theme.json`. This version works with WordPress 6.6 or later, and the latest Gutenberg plugin.
 >
-> There are some related documents that you may be interested in: 
+> There are some related documents that you may be interested in:
 > - the [theme.json v1](/docs/reference-guides/theme-json-reference/theme-json-v1.md) specification,
 > - the [theme.json v2](/docs/reference-guides/theme-json-reference/theme-json-v2.md) specification, and
 > - the [reference to migrate from older theme.json versions](/docs/reference-guides/theme-json-reference/theme-json-migrations.md).
@@ -59,7 +59,7 @@ The latest schema for version 3, including all the latest changes from the Guten
 Gutenberg プラグインの最新の変更を含むバージョン3の最新のスキーマは、<code>https://schemas.wp.org/trunk/theme.json</code> にあります。
 
 <!-- 
-Theme.json schemas for each WordPress version are available at <code>https://schemas.wp.org/wp/{{version}}/theme.json</code>.  
+Theme.json schemas for each WordPress version are available at <code>https://schemas.wp.org/wp/{{version}}/theme.json</code>.
 For example, a schema for WordPress 5.8 is available at <code>https://schemas.wp.org/wp/5.8/theme.json</code>.
  -->
 各 WordPress バージョンの theme.json スキーマは、`https://schemas.wp.org/wp/{{version}}/theme.json` から利用できます。例えば、WordPress 5.8用のスキーマは `https://schemas.wp.org/wp/5.8/theme.json` にあります。
@@ -115,7 +115,7 @@ Setting that enables the following UI tools:
 - background: backgroundImage, backgroundSize
 - border: color, radius, style, width
 - color: link, heading, button, caption
-- dimensions: aspectRatio, minHeight
+- dimensions: aspectRatio, height, minHeight, width
 - position: sticky
 - spacing: blockGap, margin, padding
 - typography: lineHeight
@@ -191,7 +191,10 @@ Settings related to dimensions.
 | aspectRatio | アスペクト比の設定 | `boolean` | `false` |
 | defaultAspectRatios | アスペクト比のデフォルトセットからアスペクト比を選択 | `boolean` | `true` |
 | aspectRatios | いくつかのブロックでアスペクト比を定義 | `[ { name, slug, ratio } ]` |  |
+| height | カスタム高の設定 | `boolean` | `false` |
 | minHeight | カスタム最小高を設定 | `boolean` | `false` |
+| width | カスタム幅の設定 | `boolean` | `false` |
+| dimensionSizes | 寸法ブロックサポートのための寸法サイズプリセット | `[ { name, slug, size } ]` |  |
 
 ---
 
@@ -288,6 +291,7 @@ Settings related to typography.
 | fluid | フルードタイポグラフィの有効化とグローバルフルードタイポグラフィパラメータの設定 | `boolean`, `{ minFontSize, maxViewportWidth, minViewportWidth }` | `false` |
 | letterSpacing | カスタム文字スペースの設定 | `boolean` | `true` |
 | lineHeight | カスタム行高の設定 | `boolean` | `false` |
+| textIndent | カスタム行インデントの設定 | `boolean`, `string` | `"subsequent"` |
 | textAlign | テキスト配置の設定 | `boolean` | `true` |
 | textColumns | テキストカラム数の設定 | `boolean` | `false` |
 | textDecoration | カスタムテキスト装飾の設定 | `boolean` | `true` |
@@ -384,7 +388,9 @@ Dimensions styles.
 | Property | Description | Type |
 | -------- | ----------- | ---- |
 | aspectRatio | `aspect-ratio` CSS プロパティの設定 | `string`, `{ ref }` |
+| height | `height` CSS プロパティの設定 | `string`, `{ ref }` |
 | minHeight | `min-height` CSS プロパティの設定 | `string`, `{ ref }` |
+| width | `width` CSS プロパティの設定 | `string`, `{ ref }` |
 
 ---
 
@@ -457,6 +463,7 @@ Typography styles.
 | fontWeight | `font-weight` CSS プロパティの設定 | `string`, `{ ref }` |
 | letterSpacing | `letter-spacing` CSS プロパティの設定 | `string`, `{ ref }` |
 | lineHeight | `line-height` CSS プロパティの設定 | `string`, `{ ref }` |
+| textIndent | `text-indent` CSS プロパティの設定 | `string`, `{ ref }` |
 | textAlign | `text-align` CSS プロパティの設定 | `string`, `{ ref }` |
 | textColumns | `column-count` CSS プロパティの設定 | `string`, `{ ref }` |
 | textDecoration | `text-decoration` CSS プロパティの設定 | `string`, `{ ref }` |

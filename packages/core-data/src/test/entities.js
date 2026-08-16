@@ -1,10 +1,18 @@
 /**
+ * WordPress dependencies
+ */
+import apiFetch from '@wordpress/api-fetch';
+
+jest.mock( '@wordpress/api-fetch' );
+
+/**
  * Internal dependencies
  */
 import {
 	getMethodName,
 	rootEntitiesConfig,
 	prePersistPostType,
+	additionalEntityConfigLoaders,
 } from '../entities';
 
 describe( 'getMethodName', () => {
@@ -42,29 +50,70 @@ describe( 'prePersistPostType', () => {
 			status: 'auto-draft',
 		};
 		const edits = {};
-		expect( prePersistPostType( record, edits ) ).toEqual( {
+		expect( prePersistPostType( record, edits, 'post', false ) ).toEqual( {
 			status: 'draft',
 			title: '',
+			meta: {},
 		} );
 
 		record = {
 			status: 'publish',
 		};
-		expect( prePersistPostType( record, edits ) ).toEqual( {} );
+		expect( prePersistPostType( record, edits, 'post', false ) ).toEqual( {
+			meta: {},
+		} );
 
 		record = {
 			status: 'auto-draft',
 			title: 'Auto Draft',
 		};
-		expect( prePersistPostType( record, edits ) ).toEqual( {
+		expect( prePersistPostType( record, edits, 'post', false ) ).toEqual( {
 			status: 'draft',
 			title: '',
+			meta: {},
 		} );
 
 		record = {
 			status: 'publish',
 			title: 'My Title',
 		};
-		expect( prePersistPostType( record, edits ) ).toEqual( {} );
+		expect( prePersistPostType( record, edits, 'post', false ) ).toEqual( {
+			meta: {},
+		} );
+	} );
+
+	it( 'does not set the status to draft and empty the title when saving templates', () => {
+		const record = {
+			status: 'auto-draft',
+			title: 'Auto Draft',
+		};
+		const edits = {};
+		expect( prePersistPostType( record, edits, 'post', true ) ).toEqual( {
+			meta: {},
+		} );
+	} );
+} );
+
+describe( 'loadTaxonomyEntities', () => {
+	beforeEach( () => {
+		apiFetch.mockReset();
+	} );
+
+	it( 'should add supportsPagination: true to taxonomy entities', async () => {
+		const mockTaxonomies = {
+			category: {
+				name: 'Categories',
+				rest_base: 'categories',
+			},
+		};
+
+		apiFetch.mockResolvedValueOnce( mockTaxonomies );
+
+		const taxonomyLoader = additionalEntityConfigLoaders.find(
+			( loader ) => loader.kind === 'taxonomy'
+		);
+		const entities = await taxonomyLoader.loadEntities();
+
+		expect( entities[ 0 ].supportsPagination ).toBe( true );
 	} );
 } );

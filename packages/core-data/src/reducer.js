@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import fastDeepEqual from 'fast-deep-equal/es6';
+import fastDeepEqual from 'fast-deep-equal/es6/index.js';
 
 /**
  * WordPress dependencies
@@ -628,6 +628,54 @@ export function registeredPostMeta( state = {}, action ) {
 	return state;
 }
 
+/**
+ * Reducer managing editor settings.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Action object.
+ *
+ * @return {Object} Updated state.
+ */
+export function editorSettings( state = null, action ) {
+	switch ( action.type ) {
+		case 'RECEIVE_EDITOR_SETTINGS':
+			return action.settings;
+	}
+	return state;
+}
+
+/**
+ * Reducer managing editor assets.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Action object.
+ *
+ * @return {Object} Updated state.
+ */
+export function editorAssets( state = null, action ) {
+	switch ( action.type ) {
+		case 'RECEIVE_EDITOR_ASSETS':
+			return action.assets;
+	}
+	return state;
+}
+
+/**
+ * Reducer managing icons.
+ *
+ * @param {Array}  state  Current state.
+ * @param {Object} action Action object.
+ *
+ * @return {Array} Updated state.
+ */
+export function icons( state = [], action ) {
+	switch ( action.type ) {
+		case 'RECEIVE_ICONS':
+			return action.icons;
+	}
+	return state;
+}
+
 export default combineReducers( {
 	users,
 	currentTheme,
@@ -648,4 +696,7 @@ export default combineReducers( {
 	navigationFallbackId,
 	defaultTemplates,
 	registeredPostMeta,
+	editorSettings,
+	editorAssets,
+	icons,
 } );

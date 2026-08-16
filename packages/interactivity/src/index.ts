@@ -1,20 +1,28 @@
+if ( globalThis.SCRIPT_DEBUG ) {
+	await import( 'preact/debug' );
+}
+
 /**
  * External dependencies
  */
 import { h, cloneElement, render } from 'preact';
-import { batch } from '@preact/signals';
+import { batch, effect } from '@preact/signals';
 
 /**
  * Internal dependencies
  */
-import registerDirectives from './directives';
-import { init, getRegionRootFragment, initialVdom } from './init';
-import { directivePrefix } from './constants';
+import registerDirectives, { routerRegions } from './directives';
+import {
+	initialVdom,
+	hydrateRegions,
+	getRegionRootFragment,
+} from './hydration';
 import { toVdom } from './vdom';
 import { directive } from './hooks';
 import { getNamespace } from './namespaces';
 import { parseServerData, populateServerData } from './store';
 import { proxifyState } from './proxies';
+import { deepReadOnly, navigationSignal, onDOMReady, warn } from './utils';
 
 export {
 	store,
@@ -38,13 +46,31 @@ export {
 
 export { useState, useRef } from 'preact/hooks';
 
+/**
+ * Subscribes to changes in any signal accessed inside the callback, re-running
+ * the callback whenever those signals change. Returns a cleanup function to
+ * stop watching.
+ *
+ * @example
+ * ```js
+ * const unwatch = watch( () => {
+ *   console.log( state.counter );
+ * } );
+ *
+ * // Later, to stop watching:
+ * unwatch();
+ * ```
+ */
+export const watch = effect;
+
 const requiredConsent =
 	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.';
 
-export const privateApis = ( lock ): any => {
+export const privateApis = (
+	lock: 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.'
+): any => {
 	if ( lock === requiredConsent ) {
 		return {
-			directivePrefix,
 			getRegionRootFragment,
 			initialVdom,
 			toVdom,
@@ -57,11 +83,25 @@ export const privateApis = ( lock ): any => {
 			parseServerData,
 			populateServerData,
 			batch,
+			routerRegions,
+			deepReadOnly,
+			navigationSignal,
+			warn,
 		};
 	}
 
 	throw new Error( 'Forbidden access.' );
 };
 
+// Parses and populates the initial state and config. All the core directives
+// are registered at this point as well.
+populateServerData( parseServerData() );
 registerDirectives();
-init();
+
+// Hydrates all interactive regions when `DOMContentLoaded` is dispatched, or as
+// soon as the `@wordpress/interactivity` module is evaluated in the case that
+// the event was already dispatched. This ensures synchronous modules had the
+// opportunity to register their stores before hydration takes place. For
+// asynchronous modules, or modules importing this module asynchronously, this
+// cannot be guaranteed.
+onDOMReady( hydrateRegions );

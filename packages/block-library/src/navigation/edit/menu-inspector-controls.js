@@ -8,12 +8,13 @@ import {
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
+	Spinner,
 	__experimentalHStack as HStack,
 	__experimentalHeading as Heading,
-	Spinner,
 } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
+import { useContext } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -23,8 +24,11 @@ import { unlock } from '../../lock-unlock';
 import DeletedNavigationWarning from './deleted-navigation-warning';
 import useNavigationMenu from '../use-navigation-menu';
 import LeafMoreMenu from './leaf-more-menu';
-import { updateAttributes } from '../../navigation-link/update-attributes';
-import { LinkUI } from '../../navigation-link/link-ui';
+import {
+	LinkUI,
+	updateAttributes,
+	useEntityBinding,
+} from '../../navigation-link/shared';
 
 const actionLabel =
 	/* translators: %s: The name of a menu. */ __( "Switch to '%s'" );
@@ -32,7 +36,12 @@ const BLOCKS_WITH_LINK_UI_SUPPORT = [
 	'core/navigation-link',
 	'core/navigation-submenu',
 ];
-const { PrivateListView } = unlock( blockEditorPrivateApis );
+const {
+	PrivateListView,
+	useBlockDisplayTitle,
+	PrivateBlockContext,
+	useListViewPanelState,
+} = unlock( blockEditorPrivateApis );
 
 function AdditionalBlockContent( { block, insertedBlock, setInsertedBlock } ) {
 	const { updateBlockAttributes, removeBlock } =
@@ -43,6 +52,12 @@ function AdditionalBlockContent( { block, insertedBlock, setInsertedBlock } ) {
 	);
 	const blockWasJustInserted = insertedBlock?.clientId === block.clientId;
 	const showLinkControls = supportsLinkControls && blockWasJustInserted;
+
+	// Get binding utilities for the inserted block
+	const { createBinding, clearBinding } = useEntityBinding( {
+		clientId: insertedBlock?.clientId,
+		attributes: insertedBlock?.attributes || {},
+	} );
 
 	if ( ! showLinkControls ) {
 		return null;
@@ -101,11 +116,23 @@ function AdditionalBlockContent( { block, insertedBlock, setInsertedBlock } ) {
 				cleanupInsertedBlock();
 			} }
 			onChange={ ( updatedValue ) => {
-				updateAttributes(
-					updatedValue,
-					setInsertedBlockAttributes( insertedBlock?.clientId ),
-					insertedBlock?.attributes
-				);
+				// updateAttributes determines the final state and returns metadata
+				const { isEntityLink, attributes: updatedAttributes } =
+					updateAttributes(
+						updatedValue,
+						setInsertedBlockAttributes( insertedBlock?.clientId ),
+						insertedBlock?.attributes
+					);
+
+				// Handle URL binding based on the final computed state
+				// Only create bindings for entity links (posts, pages, taxonomies)
+				// Never create bindings for custom links (manual URLs)
+				if ( isEntityLink ) {
+					createBinding( updatedAttributes );
+				} else {
+					clearBinding();
+				}
+
 				setInsertedBlock( null );
 			} }
 		/>
@@ -118,12 +145,17 @@ const MainContent = ( {
 	isLoading,
 	isNavigationMenuMissing,
 	onCreateNew,
+	expandRevision,
 } ) => {
 	const hasChildren = useSelect(
 		( select ) => {
 			return !! select( blockEditorStore ).getBlockCount( clientId );
 		},
 		[ clientId ]
+	);
+
+	const { openListViewContentPanel } = unlock(
+		useDispatch( blockEditorStore )
 	);
 
 	const { navigationMenu } = useNavigationMenu( currentMenuId );
@@ -156,12 +188,14 @@ const MainContent = ( {
 				</p>
 			) }
 			<PrivateListView
+				key={ `${ clientId }-${ expandRevision }` }
 				rootClientId={ clientId }
 				isExpanded
 				description={ description }
 				showAppender
 				blockSettingsMenu={ LeafMoreMenu }
 				additionalBlockContent={ AdditionalBlockContent }
+				onSelect={ openListViewContentPanel }
 			/>
 		</div>
 	);
@@ -169,6 +203,7 @@ const MainContent = ( {
 
 const MenuInspectorControls = ( props ) => {
 	const {
+		clientId,
 		createNavigationMenuIsSuccess,
 		createNavigationMenuIsError,
 		currentMenuId = null,
@@ -179,36 +214,88 @@ const MenuInspectorControls = ( props ) => {
 		blockEditingMode,
 	} = props;
 
+	const { isSelectionWithinCurrentSection } =
+		useContext( PrivateBlockContext );
+
+	const blockTitle = useBlockDisplayTitle( {
+		clientId,
+		context: 'list-view',
+	} );
+
+	// Only make panel collapsible in contentOnly mode
+	const showBlockTitle = isSelectionWithinCurrentSection;
+
+	const { isOpened, expandRevision, handleToggle } =
+		useListViewPanelState( clientId );
+
+	if ( ! showBlockTitle ) {
+		return (
+			<InspectorControls group="list">
+				<PanelBody title={ null }>
+					<HStack className="wp-block-navigation-off-canvas-editor__header">
+						<Heading
+							className="wp-block-navigation-off-canvas-editor__title"
+							level={ 2 }
+						>
+							{ blockTitle }
+						</Heading>
+						{ blockEditingMode === 'default' && (
+							<NavigationMenuSelector
+								currentMenuId={ currentMenuId }
+								onSelectClassicMenu={ onSelectClassicMenu }
+								onSelectNavigationMenu={
+									onSelectNavigationMenu
+								}
+								onCreateNew={ onCreateNew }
+								createNavigationMenuIsSuccess={
+									createNavigationMenuIsSuccess
+								}
+								createNavigationMenuIsError={
+									createNavigationMenuIsError
+								}
+								actionLabel={ actionLabel }
+								isManageMenusButtonDisabled={
+									isManageMenusButtonDisabled
+								}
+							/>
+						) }
+					</HStack>
+					<MainContent
+						{ ...props }
+						expandRevision={ expandRevision }
+					/>
+				</PanelBody>
+			</InspectorControls>
+		);
+	}
+
+	// ContentOnly mode: use collapsible PanelBody
 	return (
 		<InspectorControls group="list">
-			<PanelBody title={ null }>
-				<HStack className="wp-block-navigation-off-canvas-editor__header">
-					<Heading
-						className="wp-block-navigation-off-canvas-editor__title"
-						level={ 2 }
-					>
-						{ __( 'Menu' ) }
-					</Heading>
-					{ blockEditingMode === 'default' && (
-						<NavigationMenuSelector
-							currentMenuId={ currentMenuId }
-							onSelectClassicMenu={ onSelectClassicMenu }
-							onSelectNavigationMenu={ onSelectNavigationMenu }
-							onCreateNew={ onCreateNew }
-							createNavigationMenuIsSuccess={
-								createNavigationMenuIsSuccess
-							}
-							createNavigationMenuIsError={
-								createNavigationMenuIsError
-							}
-							actionLabel={ actionLabel }
-							isManageMenusButtonDisabled={
-								isManageMenusButtonDisabled
-							}
-						/>
-					) }
-				</HStack>
-				<MainContent { ...props } />
+			<PanelBody
+				title={ __( 'Navigation' ) }
+				opened={ isOpened }
+				onToggle={ handleToggle }
+			>
+				{ blockEditingMode === 'default' && (
+					<NavigationMenuSelector
+						currentMenuId={ currentMenuId }
+						onSelectClassicMenu={ onSelectClassicMenu }
+						onSelectNavigationMenu={ onSelectNavigationMenu }
+						onCreateNew={ onCreateNew }
+						createNavigationMenuIsSuccess={
+							createNavigationMenuIsSuccess
+						}
+						createNavigationMenuIsError={
+							createNavigationMenuIsError
+						}
+						actionLabel={ actionLabel }
+						isManageMenusButtonDisabled={
+							isManageMenusButtonDisabled
+						}
+					/>
+				) }
+				<MainContent { ...props } expandRevision={ expandRevision } />
 			</PanelBody>
 		</InspectorControls>
 	);

@@ -52,15 +52,6 @@ test.describe( 'Unsynced pattern', () => {
 
 		await page.keyboard.press( 'Enter' );
 
-		// Check that the block content is still the same. If the pattern was added as synced
-		// the content would be wrapped by a pattern block.
-		await expect
-			.poll(
-				editor.getBlocks,
-				'The block content should be the same after converting to an unsynced pattern'
-			)
-			.toEqual( before );
-
 		// Check that the new pattern is available in the inserter and that it gets inserted as
 		// a plain paragraph block.
 		await page.getByLabel( 'Block Inserter' ).click();
@@ -74,28 +65,389 @@ test.describe( 'Unsynced pattern', () => {
 				name: newCategory,
 			} )
 			.click();
+
 		const pattern = page.getByLabel( 'My unsynced pattern' ).first();
 
 		const insertedPatternId = await pattern.evaluate(
 			( element ) => element.id
 		);
 
-		await pattern.click();
-
-		await expect.poll( editor.getBlocks ).toEqual( [
-			...before,
-			{
-				...before[ 0 ],
-				attributes: {
-					...before[ 0 ].attributes,
-					metadata: {
-						categories: [ 'contact-details' ],
-						name: 'My unsynced pattern',
-						patternName: insertedPatternId,
-					},
+		// Check that the block content is still the same. If the pattern was added as synced
+		// the content would be wrapped by a pattern block.
+		const expectedUnsyncedPattern = {
+			...before[ 0 ],
+			attributes: {
+				...before[ 0 ].attributes,
+				metadata: {
+					name: 'My unsynced pattern',
+					patternName: insertedPatternId,
+					// When a pattern is created for the first time the `categories` are missing.
+					// This is a known issue that needs to be fixed.
 				},
 			},
+		};
+
+		await expect
+			.poll( editor.getBlocks )
+			.toEqual( [ expectedUnsyncedPattern ] );
+
+		const expectedInserterUnsyncedPattern = {
+			...before[ 0 ],
+			attributes: {
+				...before[ 0 ].attributes,
+				metadata: {
+					name: 'My unsynced pattern',
+					patternName: insertedPatternId,
+					categories: [ 'contact-details' ],
+				},
+			},
+		};
+
+		// Insert and check that there are two identical unsynced patterns.
+		await pattern.click();
+		await expect
+			.poll( editor.getBlocks )
+			.toEqual( [
+				expectedUnsyncedPattern,
+				expectedInserterUnsyncedPattern,
+			] );
+	} );
+
+	test( 'inserts unsynced patterns in content only mode', async ( {
+		editor,
+		page,
+		pageUtils,
+	} ) => {
+		await editor.setContent( `<!-- wp:group {"metadata":{"patternName":"core/block/123","name":"My pattern"},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading -->
+<h2 class="wp-block-heading">Test heading</h2>
+<!-- /wp:heading -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p>Test paragraph</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image -->
+<figure class="wp-block-image"><img alt=""/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->` );
+
+		// Open List View.
+		await pageUtils.pressKeys( 'access+o' );
+		const listView = page.getByRole( 'treegrid', {
+			name: 'Block navigation structure',
+		} );
+
+		// Expand the pattern to see its inner blocks in content-only mode.
+		await listView
+			.getByRole( 'gridcell', { name: 'My pattern' } )
+			.getByTestId( 'list-view-expander' )
+			.click( { force: true } );
+
+		// Assert that structural blocks (separator and group) are not present in List View.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).not.toBeAttached();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Group',
+				exact: true,
+			} )
+		).not.toBeAttached();
+
+		// Assert that content blocks are present in List View.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Test heading',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Paragraph',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Image',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		// Test that content blocks can be edited.
+		await editor.canvas
+			.getByRole( 'document', { name: 'Block: Paragraph' } )
+			.click();
+		await page.keyboard.type( ' additional text' );
+
+		// Verify the text was added.
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{
+				name: 'core/group',
+				innerBlocks: [
+					{
+						name: 'core/group',
+						innerBlocks: [
+							{
+								name: 'core/heading',
+								attributes: { content: 'Test heading' },
+							},
+							{ name: 'core/separator' },
+							{
+								name: 'core/paragraph',
+								attributes: {
+									content: 'Test paragraph additional text',
+								},
+							},
+							{ name: 'core/image' },
+						],
+					},
+				],
+			},
 		] );
+	} );
+
+	test( 'supports double-clicking the pattern to edit it', async ( {
+		editor,
+		page,
+		pageUtils,
+	} ) => {
+		// Insert the same pattern structure with an outside paragraph.
+		await editor.setContent( `<!-- wp:group {"metadata":{"patternName":"core/block/123","name":"My pattern"},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading -->
+<h2 class="wp-block-heading">Test heading</h2>
+<!-- /wp:heading -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p>Test paragraph</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image -->
+<figure class="wp-block-image"><img alt=""/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph -->
+<p>Outside paragraph</p>
+<!-- /wp:paragraph -->` );
+
+		// Open List View and verify initial content-only state.
+		await pageUtils.pressKeys( 'access+o' );
+		const listView = page.getByRole( 'treegrid', {
+			name: 'Block navigation structure',
+		} );
+
+		// Expand the pattern to see its inner blocks in content-only mode.
+		await listView
+			.getByRole( 'gridcell', { name: 'My pattern' } )
+			.getByTestId( 'list-view-expander' )
+			.click( { force: true } );
+
+		// Verify separator is initially hidden in content-only mode.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).not.toBeAttached();
+
+		// Double-click the separator to enter edit mode.
+		const separator = editor.canvas.getByRole( 'document', {
+			name: 'Block: Separator',
+		} );
+		await separator.dblclick( { force: true } );
+
+		// Expand the inner Group to see all blocks including separator.
+		await listView
+			.getByRole( 'gridcell', { name: 'Group' } )
+			.getByTestId( 'list-view-expander' )
+			.click( { force: true } );
+
+		// Assert all blocks are now visible in List View.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Group',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		// Exit pattern editing by clicking outside the pattern.
+		await editor.canvas
+			.getByRole( 'document', { name: 'Block: Paragraph' } )
+			.filter( { hasText: 'Outside paragraph' } )
+			.click( { force: true } );
+
+		// Verify pattern is back to content-only mode (separator hidden again).
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).not.toBeAttached();
+
+		// Verify content blocks inside pattern are still visible.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Test heading',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Image',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		// Verify both paragraphs are visible (one inside pattern, one outside).
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Paragraph',
+				exact: true,
+			} )
+		).toHaveCount( 2 );
+	} );
+
+	test( 'supports editing pattern via Edit section button', async ( {
+		editor,
+		page,
+		pageUtils,
+	} ) => {
+		// Insert the pattern structure.
+		await editor.setContent( `<!-- wp:group {"metadata":{"patternName":"core/block/123","name":"My pattern"},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading -->
+<h2 class="wp-block-heading">Test heading</h2>
+<!-- /wp:heading -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p>Test paragraph</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image -->
+<figure class="wp-block-image"><img alt=""/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->` );
+
+		// Open List View.
+		await pageUtils.pressKeys( 'access+o' );
+		const listView = page.getByRole( 'treegrid', {
+			name: 'Block navigation structure',
+		} );
+
+		// Expand the pattern to see its inner blocks in content-only mode.
+		await listView
+			.getByRole( 'gridcell', { name: 'My pattern' } )
+			.getByTestId( 'list-view-expander' )
+			.click( { force: true } );
+
+		// Verify separator is initially hidden in content-only mode.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).not.toBeAttached();
+
+		// Click on the pattern in List View to select it.
+		await listView.getByRole( 'gridcell', { name: 'My pattern' } ).click();
+
+		// Open settings sidebar and click "Edit section" button.
+		await editor.openDocumentSettingsSidebar();
+
+		await page
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'button', { name: 'Edit section' } )
+			.click();
+
+		// Expand the inner Group to see all blocks including separator.
+		await listView
+			.getByRole( 'gridcell', { name: 'Group' } )
+			.getByTestId( 'list-view-expander' )
+			.click( { force: true } );
+
+		// Assert all blocks are now visible in List View.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Group',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		// Exit pattern editing by clicking the "Exit section" button.
+		await page
+			.getByRole( 'region', { name: 'Editor settings' } )
+			.getByRole( 'button', { name: 'Exit section' } )
+			.click();
+
+		// Verify pattern is back to content-only mode (separator hidden again).
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Separator',
+				exact: true,
+			} )
+		).not.toBeAttached();
+
+		// Verify content blocks are still visible.
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Test heading',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Paragraph',
+				exact: true,
+			} )
+		).toBeVisible();
+
+		await expect(
+			listView.getByRole( 'gridcell', {
+				name: 'Image',
+				exact: true,
+			} )
+		).toBeVisible();
 	} );
 } );
 
@@ -319,7 +671,7 @@ test.describe( 'Synced pattern', () => {
 		await editor.selectBlocks(
 			editor.canvas.getByRole( 'document', { name: 'Block: Pattern' } )
 		);
-		await editor.clickBlockOptionsMenuItem( 'Detach' );
+		await editor.clickBlockOptionsMenuItem( 'Disconnect pattern' );
 
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
@@ -354,7 +706,7 @@ test.describe( 'Synced pattern', () => {
 		await editor.selectBlocks(
 			editor.canvas.getByRole( 'document', { name: 'Block: Pattern' } )
 		);
-		await editor.clickBlockOptionsMenuItem( 'Detach' );
+		await editor.clickBlockOptionsMenuItem( 'Disconnect pattern' );
 
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
@@ -455,7 +807,7 @@ test.describe( 'Synced pattern', () => {
 		await editor.selectBlocks(
 			editor.canvas.getByRole( 'document', { name: 'Block: Pattern' } )
 		);
-		await editor.clickBlockOptionsMenuItem( 'Detach' );
+		await editor.clickBlockOptionsMenuItem( 'Disconnect pattern' );
 
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
@@ -581,10 +933,7 @@ test.describe( 'Synced pattern', () => {
 
 		await expect(
 			editor.canvas
-				.getByRole( 'document', {
-					name: 'Block: Paragraph',
-					includeHidden: true,
-				} )
+				.getByRole( 'document', { name: 'Block: Paragraph' } )
 				.filter( { hasText: 'Awesome Paragraph modified' } )
 		).toHaveCount( 2 );
 	} );
@@ -607,7 +956,7 @@ test.describe( 'Synced pattern', () => {
 		await expect(
 			page
 				.getByRole( 'region', { name: 'Editor settings' } )
-				.getByRole( 'button', { name: 'Styles', exact: true } )
+				.getByRole( 'heading', { name: 'Styles', exact: true } )
 		).toBeVisible();
 
 		await editor.clickBlockOptionsMenuItem( 'Create pattern' );

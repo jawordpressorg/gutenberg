@@ -112,9 +112,10 @@ _ダイナミックブロックの例_
 ```
 
 <!-- 
-As you can see, directives like [`data-wp-on--click`](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#wp-on) or [`data-wp-bind--hidden`](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference/#wp-bind) are added as custom HTML attributes. WordPress can process this HTML on the server, handling the directives’ logic and creating the appropriate markup.
+As you can see, directives like [`data-wp-on--click`](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-on) or [`data-wp-bind--hidden`](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-bind) are added as custom HTML attributes. WordPress can process this HTML on the server, handling the directives' logic and creating the appropriate markup.
  -->
-上で見るように、[`data-wp-on--click`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#wp-on) や [`data-wp-bind--hidden`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/api-reference/#wp-bind) などのディレクティブは、カスタム HTML 属性として追加されます。WordPress はこの HTML をサーバー上で処理でき、ディレクティブのロジックを処理し、適切なマークアップを作成します。
+上で見るように、[`data-wp-on--click`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-on) や [`data-wp-bind--hidden`](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-bind) などのディレクティブは、カスタム HTML 属性として追加されます。WordPress はこの HTML をサーバー上で処理でき、ディレクティブのロジックを処理し、適切なマークアップを作成します。
+
 
 <!-- 
 ### Backward compatible

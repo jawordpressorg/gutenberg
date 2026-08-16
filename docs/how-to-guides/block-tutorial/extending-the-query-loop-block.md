@@ -402,7 +402,7 @@ Gutenberg バージョン14.2では、以下のコントロールを利用でき
 -   `postType` - Shows a dropdown of available post types.
 -   `order` - Shows a dropdown to select the order of the query.
 -   `sticky` - Shows a dropdown to select how to handle sticky posts.
--   `taxQuery` - Shows available taxonomies filters for the currently selected post type.
+-   `taxQuery` - Shows available taxonomies filters for the currently selected post type, including both inclusion and exclusion controls for each taxonomy.
 -   `author` - Shows an input field to filter the query by author.
 -   `search` - Shows an input field to filter the query by keywords.
 -   `format` - Shows an input field to filter the query by array/collection of [formats](https://developer.wordpress.org/advanced-administration/wordpress/post-formats/#supported-formats).
@@ -413,7 +413,7 @@ Gutenberg バージョン14.2では、以下のコントロールを利用でき
 - `postType` - 利用可能な投稿タイプのドロップダウンを表示する。
 - `order` - クエリの順番を選択するドロップダウンリストを表示する。
 - `sticky` - 先頭固定投稿の処理方法を選択するドロップダウンを表示する。
-- `taxQuery` - 現在選択されている投稿タイプで利用可能なタクソノミフィルターを表示する。
+- `taxQuery` - 現在選択されている投稿タイプで利用可能なタクソノミフィルターを表示する。各タクソノミーごとに含めるもの、含めないものの両方を指定できます。
 - `author` - 作成者でクエリをフィルタリングするための入力フィールドを表示する。
 - `search` - キーワードでクエリをフィルタリングするための入力フィールドを表示する。
 - `format` - [フォーマット](https://developer.wordpress.org/advanced-administration/wordpress/post-formats/#supported-formats)の配列やコレクションでクエリをフィルタリングするための入力フィールドを表示する。
@@ -440,6 +440,37 @@ If you want to hide all the above available controls, you can set an empty array
 Notice that we have also disabled the `postType` control. When the user selects our variation, why show them a confusing dropdown to change the post type? On top of that it might break the block as we can implement custom controls, as we'll see shortly.
  -->
 `postType` コントロールも無効にしていることに注意してください。ユーザーがバリエーションを選択した際、紛らわしい投稿タイプ変更のドロップダウンを表示する理由はありません。その上、カスタムコントロールを実装できるため、ブロックを壊す可能性があります。これについてはすぐ後で見ます。
+
+<!-- 
+### Understanding the `taxQuery` structure
+ -->
+### taxQuery 構造の理解
+
+<!-- 
+The `taxQuery` attribute supports both inclusion and exclusion of taxonomy terms. The structure looks like this:
+ -->
+`taxQuery` 属性は、タクソノミータームの含めるもの、含めないものの両方をサポートします。構造は以下のようになります。
+
+```js
+{
+	query: {
+		taxQuery: {
+			include: {
+				category: [1, 2, 3], // Include posts with these category IDs.
+				post_tag: [10, 20] // Include posts with these tag IDs.
+			},
+			exclude: {
+				category: [5, 6], // Exclude posts with these category IDs.
+				post_tag: [15] // Exclude posts with these tag IDs.
+			}
+		}
+	}
+}
+```
+<!-- 
+When you use the `taxQuery` control in your variation, users will see both "[Taxonomy]" (inclusion) and "Exclude: [Taxonomy]" controls for each applicable taxonomy. The inclusion and exclusion are mutually exclusive in the UI - terms selected in one won't appear as suggestions in the other.
+ -->
+`taxQuery` コントロールをバリエーションで使用するとユーザーには各該当タクソノミーに対して、"[Taxonomy]" (含める) と "Exclude: [Taxonomy]" の両方のコントロールが表示されます。UI では、含める、含めないは相互に排他的です。一方で選択されたタームは、もう一方では候補として表示されません。
 
 <!-- 
 ### Adding additional controls

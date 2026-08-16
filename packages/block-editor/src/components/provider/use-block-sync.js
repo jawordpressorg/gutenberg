@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { useEffect, useRef } from '@wordpress/element';
-import { useRegistry, useSelect } from '@wordpress/data';
+import { useRegistry } from '@wordpress/data';
 import { cloneBlock } from '@wordpress/blocks';
 
 /**
@@ -11,6 +11,87 @@ import { cloneBlock } from '@wordpress/blocks';
 import { store as blockEditorStore } from '../../store';
 
 const noop = () => {};
+
+/**
+ * Clones a block and its inner blocks, building a bidirectional mapping
+ * between external (original) and internal (cloned) client IDs.
+ *
+ * This allows the block editor to use unique internal IDs while preserving
+ * stable external IDs for features like real-time collaboration.
+ *
+ * @param {Object} block   The block to clone.
+ * @param {Object} mapping The mapping object with externalToInternal and internalToExternal Maps.
+ * @return {Object} The cloned block with a new clientId.
+ */
+function cloneBlockWithMapping( block, mapping ) {
+	const clonedBlock = cloneBlock( block );
+
+	// Build bidirectional mapping
+	mapping.externalToInternal.set( block.clientId, clonedBlock.clientId );
+	mapping.internalToExternal.set( clonedBlock.clientId, block.clientId );
+
+	// Recursively map inner blocks
+	if ( block.innerBlocks?.length ) {
+		clonedBlock.innerBlocks = block.innerBlocks.map( ( innerBlock ) => {
+			const clonedInner = cloneBlockWithMapping( innerBlock, mapping );
+			// The clonedBlock already has cloned inner blocks from cloneBlock(),
+			// but we need to use our mapped versions to maintain the mapping.
+			return clonedInner;
+		} );
+	}
+
+	return clonedBlock;
+}
+
+/**
+ * Restores external (original) client IDs on blocks before passing them
+ * to onChange/onInput callbacks.
+ *
+ * @param {Object[]} blocks  The blocks with internal client IDs.
+ * @param {Object}   mapping The mapping object with internalToExternal Map.
+ * @return {Object[]} Blocks with external client IDs restored.
+ */
+function restoreExternalIds( blocks, mapping ) {
+	return blocks.map( ( block ) => {
+		const externalId = mapping.internalToExternal.get( block.clientId );
+		return {
+			...block,
+			// Use external ID if available, otherwise keep internal ID (for new blocks)
+			clientId: externalId ?? block.clientId,
+			innerBlocks: restoreExternalIds( block.innerBlocks, mapping ),
+		};
+	} );
+}
+
+/**
+ * Restores external client IDs in selection state.
+ *
+ * @param {Object} selection The selection state with internal client IDs.
+ * @param {Object} mapping   The mapping object with internalToExternal Map.
+ * @return {Object} Selection state with external client IDs.
+ */
+function restoreSelectionIds( selection, mapping ) {
+	const { selectionStart, selectionEnd, initialPosition } = selection;
+
+	const restoreClientId = ( selectionState ) => {
+		if ( ! selectionState?.clientId ) {
+			return selectionState;
+		}
+		const externalId = mapping.internalToExternal.get(
+			selectionState.clientId
+		);
+		return {
+			...selectionState,
+			clientId: externalId ?? selectionState.clientId,
+		};
+	};
+
+	return {
+		selectionStart: restoreClientId( selectionStart ),
+		selectionEnd: restoreClientId( selectionEnd ),
+		initialPosition,
+	};
+}
 
 /**
  * A function to call when the block value has been updated in the block-editor
@@ -81,18 +162,16 @@ export default function useBlockSync( {
 	} = registry.dispatch( blockEditorStore );
 	const { getBlockName, getBlocks, getSelectionStart, getSelectionEnd } =
 		registry.select( blockEditorStore );
-	const isControlled = useSelect(
-		( select ) => {
-			return (
-				! clientId ||
-				select( blockEditorStore ).areInnerBlocksControlled( clientId )
-			);
-		},
-		[ clientId ]
-	);
 
 	const pendingChangesRef = useRef( { incoming: null, outgoing: [] } );
 	const subscribedRef = useRef( false );
+
+	// Mapping between external (original) and internal (cloned) client IDs.
+	// This allows stable external IDs while using unique internal IDs.
+	const idMappingRef = useRef( {
+		externalToInternal: new Map(),
+		internalToExternal: new Map(),
+	} );
 
 	const setControlledBlocks = () => {
 		if ( ! controlledBlocks ) {
@@ -110,8 +189,14 @@ export default function useBlockSync( {
 			// before the actual blocks get set properly in state.
 			registry.batch( () => {
 				setHasControlledInnerBlocks( clientId, true );
+
+				// Clear previous mappings and build new ones during cloning.
+				// This ensures the mapping stays in sync with the current blocks.
+				idMappingRef.current.externalToInternal.clear();
+				idMappingRef.current.internalToExternal.clear();
+
 				const storeBlocks = controlledBlocks.map( ( block ) =>
-					cloneBlock( block )
+					cloneBlockWithMapping( block, idMappingRef.current )
 				);
 				if ( subscribedRef.current ) {
 					pendingChangesRef.current.incoming = storeBlocks;
@@ -185,29 +270,11 @@ export default function useBlockSync( {
 		}
 	}, [ controlledBlocks, clientId ] );
 
-	const isMountedRef = useRef( false );
-
-	useEffect( () => {
-		// On mount, controlled blocks are already set in the effect above.
-		if ( ! isMountedRef.current ) {
-			isMountedRef.current = true;
-			return;
-		}
-
-		// When the block becomes uncontrolled, it means its inner state has been reset
-		// we need to take the blocks again from the external value property.
-		if ( ! isControlled ) {
-			pendingChangesRef.current.outgoing = [];
-			setControlledBlocks();
-		}
-	}, [ isControlled ] );
-
 	useEffect( () => {
 		const {
 			getSelectedBlocksInitialCaretPosition,
 			isLastBlockChangePersistent,
 			__unstableIsLastBlockChangeIgnored,
-			areInnerBlocksControlled,
 		} = registry.select( blockEditorStore );
 
 		let blocks = getBlocks( clientId );
@@ -224,16 +291,6 @@ export default function useBlockSync( {
 			// and its block name can't be found because it's not on the list.
 			// (`getBlockName( clientId ) === null`).
 			if ( clientId !== null && getBlockName( clientId ) === null ) {
-				return;
-			}
-
-			// When RESET_BLOCKS on parent blocks get called, the controlled blocks
-			// can reset to uncontrolled, in these situations, it means we need to populate
-			// the blocks again from the external blocks (the value property here)
-			// and we should stop triggering onChange
-			const isStillControlled =
-				! clientId || areInnerBlocksControlled( clientId );
-			if ( ! isStillControlled ) {
 				return;
 			}
 
@@ -262,24 +319,39 @@ export default function useBlockSync( {
 
 			if ( areBlocksDifferent || didPersistenceChange ) {
 				isPersistent = newIsPersistent;
+
+				// For inner block controllers (clientId is set), restore external IDs
+				// before passing blocks to the parent. This maintains stable external
+				// IDs for features like real-time collaboration while using unique
+				// internal IDs in the block-editor store.
+				const blocksForParent = clientId
+					? restoreExternalIds( blocks, idMappingRef.current )
+					: blocks;
+
+				const selection = {
+					selectionStart: getSelectionStart(),
+					selectionEnd: getSelectionEnd(),
+					initialPosition: getSelectedBlocksInitialCaretPosition(),
+				};
+
+				// Also restore external IDs in selection state for inner block controllers.
+				const selectionForParent = clientId
+					? restoreSelectionIds( selection, idMappingRef.current )
+					: selection;
+
 				// We know that onChange/onInput will update controlledBlocks.
 				// We need to be aware that it was caused by an outgoing change
 				// so that we do not treat it as an incoming change later on,
 				// which would cause a block reset.
-				pendingChangesRef.current.outgoing.push( blocks );
+				pendingChangesRef.current.outgoing.push( blocksForParent );
 
 				// Inform the controlling entity that changes have been made to
 				// the block-editor store they should be aware about.
 				const updateParent = isPersistent
 					? onChangeRef.current
 					: onInputRef.current;
-				updateParent( blocks, {
-					selection: {
-						selectionStart: getSelectionStart(),
-						selectionEnd: getSelectionEnd(),
-						initialPosition:
-							getSelectedBlocksInitialCaretPosition(),
-					},
+				updateParent( blocksForParent, {
+					selection: selectionForParent,
 				} );
 			}
 			previousAreBlocksDifferent = areBlocksDifferent;

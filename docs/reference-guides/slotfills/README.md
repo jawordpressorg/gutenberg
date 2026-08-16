@@ -95,7 +95,7 @@ const EditPostDocumentSettingPanel = () => {
 		return postTypeObject?.viewable;
 	}, [] );
 
-	// 投稿タイプが viewable でなければ、Fill をレンダーしない
+	// 投稿タイプが viewable でなければ、プラグインをレンダーしない
 	if ( ! isViewable ) {
 		return null;
 	}

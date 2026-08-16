@@ -838,6 +838,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( '1' );
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( '/image' );
+		await expect(
+			page.getByRole( 'option', { name: 'Image', selected: true } )
+		).toBeVisible();
 		await page.keyboard.press( 'Enter' );
 		await editor.clickBlockToolbarButton( 'Align' );
 
@@ -915,6 +918,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 	} ) => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( '/table' );
+		await expect(
+			page.getByRole( 'option', { name: 'Table', selected: true } )
+		).toBeVisible();
 		await page.keyboard.press( 'Enter' );
 		// Tab to the "Create table" button.
 		await pageUtils.pressKeys( 'Tab' );
@@ -1126,6 +1132,28 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await expect(
 			editor.canvas.locator( '[data-type="core/block"]' )
 		).toBeFocused();
+	} );
+
+	test( 'should select non-contenteditable block via click after partial selection', async ( {
+		editor,
+		pageUtils,
+	} ) => {
+		await editor.insertBlock( { name: 'core/paragraph' } );
+		await editor.insertBlock( { name: 'core/spacer' } );
+		await editor.canvas
+			.getByRole( 'document', { name: 'Empty block' } )
+			.fill( 'A partial selection' );
+		await pageUtils.pressKeys( 'shiftAlt+ArrowLeft' );
+
+		const spacer = editor.canvas.getByRole( 'document', {
+			name: 'Block: Spacer',
+		} );
+		await spacer.click();
+
+		await expect( spacer ).toBeFocused();
+		await expect(
+			editor.canvas.getByRole( 'document', { name: 'Block: Paragraph' } )
+		).not.toBeFocused();
 	} );
 } );
 

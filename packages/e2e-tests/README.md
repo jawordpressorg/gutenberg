@@ -1,39 +1,52 @@
 <!--
 # E2E Tests
  -->
+<!-- 
 # @wordpress/e2e-tests
+ -->
+<!-- 
+# E2E Test Plugins and MU-Plugins
+ -->
+# E2E テストプラグインと MU プラグイン
 
 <!--
 End-To-End (E2E) tests for WordPress.
  -->
+<!-- 
 WordPress の End-To-End (E2E) テスト
-
+ -->
 <!-- 
 **Note that there's currently an ongoing [project](https://github.com/WordPress/gutenberg/issues/38851) to migrate E2E tests to Playwright instead. This package is deprecated and will only accept bug fixes until fully migrated.**
  -->
+<!-- 
 **注意: 現在進行中の [プロジェクト](https://github.com/WordPress/gutenberg/issues/38851) により、E2E テストは Playwright に移行します。このパッケージは非推奨で、完全に Playwright に移行するまで、バグフィックスのみを受け付けます。**
-
+ -->
 <!--
 ## Installation
  -->
+<!-- 
 ## インストール
-
+ -->
 <!--
 Install the module
  -->
+<!-- 
 モジュールのインストール
 
 ```bash
 npm install @wordpress/e2e-tests --save-dev
 ```
+ -->
 <!--
 ## Running tests
  -->
-## テストの実行
 
+<!-- ## テストの実行
+ -->
 <!--
 The following commands are available on the Gutenberg repo:
  -->
+<!-- 
 Gutenberg リポジトリでは、以下のコマンドを実行できます。
 
 ```json
@@ -43,28 +56,34 @@ Gutenberg リポジトリでは、以下のコマンドを実行できます。
 	"test:e2e:watch": "npm run test:e2e -- --watch"
 }
 ```
+ -->
 <!--
 ### Run all available tests
  -->
+<!-- 
 ### すべての実行可能なテストを実行
 
 ```bash
 npm run test:e2e
 ```
+ -->
 <!--
 ### Run all available tests and listen for changes.
  -->
+<!-- 
 ### すべての実行可能なテストを実行し、変更を監視
-
-
+ -->
+<!-- 
 ```bash
 npm run test:e2e:watch
 ```
+ -->
 <!--
 ### Run a specific test file
  -->
+<!-- 
 ### 特定のテストファイルを実行
-
+ -->
 <!--
 ```bash
 npm run test:e2e -- packages/e2e-test/<path_to_test_file>
@@ -72,39 +91,45 @@ npm run test:e2e -- packages/e2e-test/<path_to_test_file>
 npm run test:e2e:watch -- packages/e2e-test/<path_to_test_file>
 ```
  -->
+<!-- 
 ```bash
 npm run test-e2e -- packages/e2e-test/<path_to_test_file>
 # または、変更を監視するには
 npm run test-e2e:watch -- packages/e2e-test/<path_to_test_file>
 ```
-
+ -->
 <!--
 ### Debugging
  -->
+<!-- 
 ### デバッグ
-
+ -->
 <!--
 Makes e2e tests available to debug in a Chrome Browser.
  -->
+<!-- 
 e2e テストを Chrome ブラウザでデバッグできるようにします。
 
 ```bash
 npm run test:e2e:debug
 ```
-
+ -->
 <!--
 After running the command, tests will be available for debugging in Chrome by going to chrome://inspect/#devices and clicking `inspect` under the path to `/test-e2e.js`.
  -->
+<!-- 
 コマンドの実行後、chrome://inspect/#devices にアクセスし、パス `/test-e2e.js` の下にある `inspect` をクリックすると、テストがChromeでデバッグできるようになります。
-
+ -->
 <!--
 #### Debugging in `vscode`
  -->
+<!-- 
 #### vscode でのデバッグ
-
+ -->
 <!--
 Debugging in a Chrome browser can be replaced with `vscode`'s debugger by adding the following configuration to `.vscode/launch.json`:
  -->
+<!-- 
 以下の設定を`.vscode/launch.json` に追加することで、Chrome ブラウザでのデバッグを、`vscode` のデバッガに置き換えられます。
 
 ```json
@@ -126,16 +151,58 @@ Debugging in a Chrome browser can be replaced with `vscode`'s debugger by adding
 	"trace": "all"
 }
 ```
-
+ -->
 <!--
 This will run jest, targeting the spec file currently open in the editor. `vscode`'s debugger can now be used to add breakpoints and inspect tests as you would in Chrome DevTools.
  -->
+<!-- 
 これにより、エディターで現在開いている spec ファイルをターゲットにして、jest が実行されます。`vscode` デバッガーを使用して、Chrome DevTools のようにブレークポイントを追加したり、テストをチェックできます。
-
+ -->
 <!--
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
  -->
+<!-- 
 **注意**：このパッケージは、Node.js の LTS (long-term support 長期サポート) バージョンが必要です ([Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases) を確認してください)。古いバージョンとの互換性はありません。
+ -->
+
+<!-- 
+This package contains test plugins and mu-plugins used by E2E tests in WordPress.
+ -->
+このパッケージには、WordPress の E2E テストで使用されるプラグインと MU プラグインが含まれます。
+
+<!-- 
+**Note**: The E2E tests themselves have been migrated to Playwright and are now located in `/test/e2e/`.
+ -->
+**注意**: ESE テスト自身は Playwright に移行され、現在、`/test/e2e/` にあります。
+
+<!-- 
+## Contents
+ -->
+## 内容
+
+<!-- 
+- `/plugins/` - Test plugins used by E2E tests
+- `/mu-plugins/` - Must-use plugins for test environment configuration
+- `/assets/` - Test assets (images, etc.)
+ -->
+- `/plugins/` - E2E テストで使用されるテストプラグイン
+- `/mu-plugins/` - テスト環境構成のための MU (Must-use) プラグイン
+- `/assets/` - テストアセット (画像など)
+
+<!-- 
+## Usage
+ -->
+## 使用方法
+
+<!-- 
+These plugins and mu-plugins are automatically loaded in the test environment via `wp-env`. They provide test fixtures and functionality needed for various E2E test scenarios.
+ -->
+E2E テスト環境では、これらのプラグインおよび MU プラグインは `wp-env` によって自動的に読み込まれます。これらは、さまざまな E2E テストシナリオで必要となるテストフィクスチャ (テスト用データ) および機能を提供します。
+
+<!-- 
+For information about writing E2E tests, see the [E2E testing guide](https://github.com/WordPress/gutenberg/tree/HEAD/docs/contributors/code/e2e/README.md).
+ -->
+E2E テストの作成方法については、[E2E テストガイド](https://github.com/WordPress/gutenberg/tree/HEAD/docs/contributors/code/e2e/README.md) を参照してください。
 
 <!-- 
 ## Contributing to this package

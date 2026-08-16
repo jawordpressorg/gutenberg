@@ -460,7 +460,7 @@ test.describe( 'Image', () => {
 			.getByRole( 'listbox', { name: 'Media List' } )
 			.getByRole( 'option' )
 			.first()
-			.dragTo( imageBlock );
+			.dragTo( imageBlock, { steps: 3 } );
 
 		await expect( async () => {
 			const blocks = await editor.getBlocks();
@@ -493,7 +493,7 @@ test.describe( 'Image', () => {
 			.getByRole( 'listbox', { name: 'Media List' } )
 			.getByRole( 'option' )
 			.nth( 1 )
-			.dragTo( imageBlock );
+			.dragTo( imageBlock, { steps: 3 } );
 
 		await expect( async () => {
 			const blocks = await editor.getBlocks();
@@ -514,69 +514,6 @@ test.describe( 'Image', () => {
 				'should be updated to the media library'
 			).toBe( new URL( page.url() ).host );
 		}, 'should replace the original image with the second image' ).toPass();
-	} );
-
-	test( 'should allow dragging and dropping HTML to media placeholder', async ( {
-		page,
-		editor,
-	} ) => {
-		await editor.insertBlock( { name: 'core/image' } );
-		const imageBlock = editor.canvas.getByRole( 'document', {
-			name: 'Block: Image',
-		} );
-
-		await page.evaluate( () => {
-			const { createBlock } = window.wp.blocks;
-			const block = createBlock( 'core/image', {
-				url: 'https://live.staticflickr.com/3894/14962688165_04759a8b03_b.jpg',
-				alt: 'Cat',
-				caption: `"Cat" by tomhouslay is licensed under <a href="https://creativecommons.org/licenses/by-nc/2.0/?ref=openverse">CC BY-NC 2.0</a>.`,
-			} );
-			const dummy = document.createElement( 'div' );
-			dummy.style.width = '10px';
-			dummy.style.height = '10px';
-			dummy.style.zIndex = 99999;
-			dummy.style.position = 'fixed';
-			dummy.style.top = 0;
-			dummy.style.left = 0;
-			dummy.draggable = 'true';
-			dummy.addEventListener( 'dragstart', ( event ) => {
-				event.dataTransfer.setData(
-					'wp-blocks',
-					JSON.stringify( { blocks: [ block ] } )
-				);
-				event.dataTransfer.setData( 'wp-block:core/image', '' );
-				setTimeout( () => {
-					dummy.remove();
-				}, 0 );
-			} );
-			document.body.appendChild( dummy );
-		} );
-
-		await page.mouse.move( 0, 0 );
-		await page.mouse.down();
-		await imageBlock.hover();
-		await page.mouse.up();
-
-		const host = new URL( page.url() ).host;
-
-		await expect.poll( editor.getBlocks ).toMatchObject( [
-			{
-				name: 'core/image',
-				attributes: {
-					link: expect.stringContaining( host ),
-					url: expect.stringContaining( host ),
-					id: expect.any( Number ),
-					alt: 'Cat',
-					caption: `"Cat" by tomhouslay is licensed under <a href="https://creativecommons.org/licenses/by-nc/2.0/?ref=openverse">CC BY-NC 2.0</a>.`,
-				},
-			},
-		] );
-		const url = ( await editor.getBlocks() )[ 0 ].attributes.url;
-		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
-			'src',
-			url
-		);
 	} );
 
 	test( 'image inserted via upload should appear in the frontend published post content', async ( {
@@ -659,6 +596,48 @@ test.describe( 'Image', () => {
 		await expect( imageDom ).toHaveAttribute( 'src', imgUrl );
 	} );
 
+	test( 'Insert from URL prepends https when URL has no protocol', async ( {
+		editor,
+		page,
+	} ) => {
+		await editor.insertBlock( { name: 'core/image' } );
+		const imageBlock = editor.canvas.locator(
+			'role=document[name="Block: Image"i]'
+		);
+		await expect( imageBlock ).toBeVisible();
+
+		await imageBlock
+			.getByRole( 'button' )
+			.filter( { hasText: 'Insert from URL' } )
+			.click();
+
+		const form = page.locator(
+			'form.block-editor-media-placeholder__url-input-form'
+		);
+
+		const imgUrlWithoutProtocol =
+			'wp20.wordpress.net/wp-content/themes/twentyseventeen-wp20/images/wp20-logo-white.svg';
+		const imgUrlWithHttps =
+			'https://wp20.wordpress.net/wp-content/themes/twentyseventeen-wp20/images/wp20-logo-white.svg';
+
+		await form.getByLabel( 'URL' ).fill( imgUrlWithoutProtocol );
+		await form.getByRole( 'button', { name: 'Apply' } ).click();
+
+		const imageInEditor = imageBlock.locator( 'role=img' );
+		await expect( imageInEditor ).toBeVisible();
+		await expect( imageInEditor ).toHaveAttribute( 'src', imgUrlWithHttps );
+
+		const postId = await editor.publishPost();
+		await page.goto( `/?p=${ postId }` );
+
+		const figureDom = page.getByRole( 'figure' );
+		await expect( figureDom ).toBeVisible();
+
+		const imageDom = figureDom.locator( 'img' );
+		await expect( imageDom ).toBeVisible();
+		await expect( imageDom ).toHaveAttribute( 'src', imgUrlWithHttps );
+	} );
+
 	test( 'adding a link should reflect configuration in published post content', async ( {
 		editor,
 		page,
@@ -697,7 +676,7 @@ test.describe( 'Image', () => {
 		await expect( linkDom ).toHaveAttribute( 'href', url );
 	} );
 
-	test( 'appends http protocol to links added which are missing a protocol', async ( {
+	test( 'appends https protocol to links added which are missing a protocol', async ( {
 		editor,
 		page,
 		imageBlockUtils,
@@ -726,8 +705,8 @@ test.describe( 'Image', () => {
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Enter' );
 
-		// Check the value of the URL input has had http:// prepended.
-		await expect( urlInput ).toHaveValue( 'http://example.com' );
+		// Check the value of the URL input has had https:// prepended.
+		await expect( urlInput ).toHaveValue( 'https://example.com' );
 	} );
 
 	test( 'should upload external image to media library', async ( {

@@ -194,7 +194,7 @@ In this declarative example, the UI automatically updates based on the current s
 ### ところでバグに気がつきましたか ?
 
 <!-- 
-In the imperative example, a bug has been intentionally introduced for didactical purposes. Can you find it? It's not easy!
+In the imperative example, a bug has been intentionally introduced for didactic purposes. Can you find it? It's not easy!
  -->
 上の命令型アプローチの例には、教訓のため意図的にバグが仕込まれています。見つけられますか ? 簡単ではありませんよ !
 (答えは末尾に)

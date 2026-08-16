@@ -401,7 +401,9 @@ settings セクションは以下の構造を持ちます。
 		"custom": {},
 		"dimensions": {
 			"aspectRatio": false,
+			"height": false,
 			"minHeight": false,
+			"width": false,
 		},
 		"layout": {
 			"contentSize": "800px",
@@ -435,6 +437,7 @@ settings セクションは以下の構造を持ちます。
 			"textAlign": true,
 			"textColumns": false,
 			"textDecoration": true,
+			"textIndent": true,
 			"textTransform": true
 		},
 		"blocks": {
@@ -479,7 +482,7 @@ There's one special setting property, `appearanceTools`, which is a boolean and 
 - background: backgroundImage, backgroundSize
 - border: color, radius, style, width
 - color: link
-- dimensions: aspectRatio, minHeight
+- dimensions: aspectRatio, height, minHeight, width
 - position: sticky
 - spacing: blockGap, margin, padding
 - typography: lineHeight
@@ -1091,7 +1094,9 @@ Each block declares which style properties it exposes via the [block supports me
 		},
 		"dimensions": {
 			"aspectRatio": "value",
+			"height": "value"
 			"minHeight": "value"
+			"width": "value"
 		},
 		"filter": {
 			"duotone": "value"
@@ -1297,7 +1302,7 @@ If you register a background color for the root using styles.color.background:
 	}
 ```
 <!-- 
-You can use `ref: "styles.color.background"`  to re-use the style for a block:
+You can use `ref: "styles.color.background"`  to reuse the style for a block:
  -->
 `ref: "styles.color.background"` を使用して、ブロックにスタイルを再利用できます。
 
@@ -1502,15 +1507,10 @@ For example, this is how to provide styles for the existing `plain` variation fo
 	}
 }
 ```
-<<<<<<< HEAD
 <!-- 
-The resulting CSS output is this:
+The resulting CSS output is:
  -->
 結果の CSS 出力は以下です。
-=======
-
-The resulting CSS output is:
->>>>>>> upstream/trunk
 
 ```css
 .wp-block-quote.is-style-plain {
@@ -1780,7 +1780,7 @@ One thing you may have noticed is the naming schema used for the CSS Custom Prop
 
 <!--
 - `--wp`: prefix to namespace the CSS variable.
-- `preset `: indicates is a CSS variable that belongs to the presets.
+- `preset `: indicates that this is a CSS variable that belongs to the presets.
 - `color`: indicates which preset category the variable belongs to. It can be `color`, `font-size`, `gradients`.
 - `black`: the `slug` of the particular preset value.
  -->
@@ -1796,7 +1796,7 @@ One thing you may have noticed is the naming schema used for the CSS Custom Prop
 
 <!--
 - `--wp`: prefix to namespace the CSS variable.
-- `custom`: indicates is a "free-form" CSS variable created by the theme.
+- `custom`: indicates that this is a "free-form" CSS variable created by the theme.
 - `line-height--body`: the result of converting the "custom" object keys into a string.
  -->
 - `--wp`: CSS 変数の名前空間の接頭辞。
